@@ -1,0 +1,21 @@
+#summary A rough list of what we need to do. Eventually this will be done in the issue tracker or using some sort of standardized (by us) wiki format.
+
+= To-do List =
+
+ # Make sure everyone is on the same page/is familiar with the tools we will be using!
+  * C++
+   # Coding-style
+   # Code reviews before submits?
+   # Code::Blocks+GCC or VS2003 or VS2005?
+   # Documentation style (compatible with DOxygen?)
+    * CPP and H templates (LGPL header on top, guards, etc)
+ # Figure out what libraries we would like to use for what (if we use wxPython we could use [http://boa-constructor.sourceforge.net this] ?)
+ # Start listing useful websites (like [http://www.parashift.com/c++-faq-lite/ this one])
+ # Outline some example applications to use as drivers for our toolkit
+ # Decide how/what the security component will do
+ # Decide how/what the database component will do
+ # Decide how/what the UI component will do
+ # Decide what our team structure will be
+ # Decide who will work on what
+
+
