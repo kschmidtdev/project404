@@ -11,8 +11,13 @@ Post your ideas below following the format outlined.
   * *Security Component:* Briefly describe what the security component would do
   * *Description:* Give a brief overview of what the project is. Include information like resource requirements (ie: art, sound, design) and potential library requirements (OpenGL, SDL, etc)
 
+Simply copy and paste the markup above to use as a template for your contributions. 
 
+= Actual Ideas List: =
 
-
-
-
+== 2D Tile-based Game Creation Kit ==
+  * *Type:* Game toolkit
+  * *UI Component:* A 2D renderer for the actual game, and a tile-based map editor combined with a database-like property editor
+  * *Database Component:* A database that stores game data like text (names of things, text that is displayed), game data (hit points of things, speed of things, map layout, etc), texture data (sprites, tiles, etc), possibly audio data, and game state data (current state of all entities)
+  * *Security Component:* Not 100% sure what this could be, but it could be to ensure the integrity of the database, and also fully encrypt and decrypt it, could also contain a secure game profile system (password protected game profiles to store save information, etc)
+  * *Description:* Basically a toolkit that comes with libraries we will write, and a map/property editor GUI tool that can all be used to quickly build simple->complex 2D tile-based games with. 
