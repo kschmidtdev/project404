@@ -1,0 +1,18 @@
+#summary A page of ideas for our project, including game ideas.
+
+== Introduction ==
+
+Post your ideas below following the format outlined. 
+
+== Example Project Idea Name ==
+  * *Type:* Game, business application, etc
+  * *UI Component:* Briefly describe what the UI component would do
+  * *Database Component:* Briefly describe what the DB component would do
+  * *Security Component:* Briefly describe what the security component would do
+  * *Description:* Give a brief overview of what the project is. Include information like resource requirements (ie: art, sound, design) and potential library requirements (OpenGL, SDL, etc)
+
+
+
+
+
+
