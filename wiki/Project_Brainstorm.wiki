@@ -10,19 +10,19 @@ Below are the 3 components set out by the project's specifications that must be 
 
 == UI ==
 
-- in-game and game frontend widgets and layouts
-- in-engine map editor?
+ * in-game and game frontend widgets and layouts
+ * in-engine map editor?
 
 == Database ==
 
-- templates for characters, items, enemies
-- instantiations of templates, ie: a particular enemy that has it's own amount of HP/MP left
-- could function as hub of all game data, allowing use as a game save/load system
+ * templates for characters, items, enemies
+ * instantiations of templates, ie: a particular enemy that has it's own amount of HP/MP left
+ * could function as hub of all game data, allowing use as a game save/load system
 
 == Security ==
 
-- password-protected + encrypted user profiles (where their own savegames could live)
-- encryption/decryption services for game data, in particular the game database
+ * password-protected + encrypted user profiles (where their own savegames could live)
+ * encryption/decryption services for game data, in particular the game database
 
 = Technical Issues =
 
