@@ -13,11 +13,19 @@ Below are the 3 components set out by the project's specifications that must be 
  * in-game and game frontend widgets and layouts
  * in-engine map editor?
 
+_Unsure whether the map editor will be incl with the product (if we make it good I don't see why not) but we definitely will need one once we get past the single stage point, and need to design multiple. Likely will need to include the setting of variables associated with that square.
+
+_In addition we need to decide what feel we want for the tiles. Should they have height, should it be represented, from what perspective etc. --Mike
 == Database ==
 
  * templates for characters, items, enemies
  * instantiations of templates, ie: a particular enemy that has it's own amount of HP/MP left
  * could function as hub of all game data, allowing use as a game save/load system
+
+_Just to elaborate on the DB idea. The templates will most likely hold the range of values where an item can be given (think diablo2 style where weapons had a set max and min but were generated within those frames). Additionally templates will allow us to segregate content so that level 20 weapons aren't given to level 1 characters etc.
+
+_The instantiation portion would be like a separate part of the database dealing solely with items/characters/whatever that is actually in the game environment at any given time.
+-- Mike
 
 == Security ==
 
@@ -32,6 +40,15 @@ Mike and I talked about this earlier on today and we both feel that we should fo
 
 We are supposed to make 3 versions of our project, so if we stick with 2D only for the first version we will have a better idea how feasible 3D is, and then add that in during V2 or V3. 
 
+Mike: Agrees. I think we definitely want this off the ground first. If designed properly, the gui 2D 3D world should be making calls to the main game, which will do all the real work behind the scenes. This would be the ideal situation, but I say first we make sure we have something working as v1 is important to have.
+
 == Libraries ==
 Karl:
 I think for our 2D renderer and input system we should use [http://www.libsdl.org SDL]. It's cross-platform and pretty easy to use. 
+
+
+
+
+
+
+
