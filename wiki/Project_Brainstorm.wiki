@@ -1,0 +1,37 @@
+#summary We've basically decided what we are going to do, but now let's work out the details
+
+= A Game =
+
+Since Toby stressed that we should just make a single game instead of a toolkit, we are now making a game. He is also concerned with using a database (ie: making that a significant portion) so we must do a good job of justifying and explaining our use of that component (and the others for good measure).
+
+= Main Components =
+
+Below are the 3 components set out by the project's specifications that must be central to our project. Right now they well contain point-form notes regarding our ideas for each of them. 
+
+== UI ==
+
+- in-game and game frontend widgets and layouts
+- in-engine map editor?
+
+== Database ==
+
+- templates for characters, items, enemies
+- instantiations of templates, ie: a particular enemy that has it's own amount of HP/MP left
+- could function as hub of all game data, allowing use as a game save/load system
+
+== Security ==
+
+- password-protected + encrypted user profiles (where their own savegames could live)
+- encryption/decryption services for game data, in particular the game database
+
+= Technical Issues =
+
+== 2D or 3D? ==
+Karl: 
+Mike and I talked about this earlier on today and we both feel that we should focus on 2D first, since all the gameplay and UI should operate in a 2D space, but keep the design open to allow for another (OGRE) rendering method where we could view the world in 3D. 
+
+We are supposed to make 3 versions of our project, so if we stick with 2D only for the first version we will have a better idea how feasible 3D is, and then add that in during V2 or V3. 
+
+== Libraries ==
+Karl:
+I think for our 2D renderer and input system we should use [http://www.libsdl.org SDL]. It's cross-platform and pretty easy to use. 
