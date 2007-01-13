@@ -1,0 +1,39 @@
+#summary One-sentence summary of this page.
+
+Current assignment todo list
+
+= Introduction =
+
+Outline and Action plan for assignment
+
+
+= Details =
+
+Assignment 1: Project Plan and Website
+
+_.... so we haven't 'finished' a lot...._
+
+    1. Design your project website. Include the following information:
+          * Team name. _done_
+          * Full name, student #, and email address of each team member.
+          * A list of three 1-hour time slots during the week when your entire team is able to meet on the Surrey campus. We may use these times to schedule meetings with instructors/TAs.
+          * The project manager (PM) for this assignment. The PM is responsible for organizing meetings, recording and distributing meeting minutes, and any other administrative tasks that need to be taken care of (such as submitting assignments!). Your team will need to decide who the PM will be for each assignment.
+          * A clear indication for which assignment this is being submitted, i.e. put "Assignment #1: Project Plan and Website" in big letters at the top of the page. For future assignments, replace this with the name of that assignment.
+          * A table of contents linking to the 5 assignments. You don't need any content yet, but you should provide templates and "stubs" for all the content.
+          * Write a project description. Describe your project in a way that a non-CS SFU student would understand. Briefly mention the main features you plan to implement. Pretend you are trying to get users interested in using your system. 
+
+      The website must be easy to read and navigate.
+   
+   2. Make a team schedule. Create a detailed schedule over the semester that shows all the times when your team will meet, when it can and meet, and when it can't meet. Take into account known absences of team members, holidays, etc. Be sure to note all the due dates of all assignments and exams for the course.
+
+   3. Version control. Provide the URL for your team's SVN repository. Also provide instructions for how someone can checkout your project. 
+
+   4. Create a risk table. In a table like the one shown, state each risk clearly, including its likelihood (e.g. low, medium, high chance) and severity (e.g. low, medium, high, catastrophic). For each risk, describe what you will do to prevent it, and what you will do if it actually happens. Think hard about these and choose relevant risks --- thinking about potential problems ahead of time can be can save you a lot of pain later!
+
+
+
+
+
+
+
+
