@@ -1,13 +1,8 @@
-#summary One-sentence summary of this page.
+
 
 Current assignment todo list
 
-= Introduction =
 
-Outline and Action plan for assignment
-
-
-= Details =
 
 Assignment 1: Project Plan and Website
 
@@ -29,7 +24,6 @@ _.... so we haven't 'finished' a lot...._
    3. Version control. Provide the URL for your team's SVN repository. Also provide instructions for how someone can checkout your project. 
 
    4. Create a risk table. In a table like the one shown, state each risk clearly, including its likelihood (e.g. low, medium, high chance) and severity (e.g. low, medium, high, catastrophic). For each risk, describe what you will do to prevent it, and what you will do if it actually happens. Think hard about these and choose relevant risks --- thinking about potential problems ahead of time can be can save you a lot of pain later!
-
 
 
 
