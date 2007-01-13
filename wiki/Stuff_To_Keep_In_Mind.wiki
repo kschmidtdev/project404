@@ -1,0 +1,10 @@
+#summary Stuff to keep in mind while developing this project!
+
+= General Stuff =
+ * Keep backups!
+ * Version 1 has to be completely working, but features can be missing
+
+= Presentation-Specific =
+ * Bring files on a USB stick as a backup
+ * Be prepared to present without a demo and powerpoint slides
+ * Be prepared to present when not everyone comes
