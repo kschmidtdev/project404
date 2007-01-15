@@ -1,10 +1,8 @@
-
-
 Current assignment todo list
 
 
 
-Assignment 1: Project Plan and Website
+=Assignment 1: Project Plan and Website=
 
 _.... so we haven't 'finished' a lot...._
 
@@ -24,6 +22,12 @@ _.... so we haven't 'finished' a lot...._
    3. Version control. Provide the URL for your team's SVN repository. Also provide instructions for how someone can checkout your project. 
 
    4. Create a risk table. In a table like the one shown, state each risk clearly, including its likelihood (e.g. low, medium, high chance) and severity (e.g. low, medium, high, catastrophic). For each risk, describe what you will do to prevent it, and what you will do if it actually happens. Think hard about these and choose relevant risks --- thinking about potential problems ahead of time can be can save you a lot of pain later!
+
+
+==Comments==
+
+_Well this isn't necessarily a difficult assignment but we really need to have a meeting when all team members are on site. I know there is a lot of grumbling about getting up and meeting before class, but until we have a meeting and can figure out times that are good for everyone, I might suggest we do the only thing we can and get it over with. Likely we could finish this off in a short period of time after we get an initial face to face meeting. Just my thought -- Mike
+
 
 
 
