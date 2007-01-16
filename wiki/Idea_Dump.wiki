@@ -1,0 +1,34 @@
+#summary A rough dump of ideas written down on a white board
+#labels ideas
+
+= Screens =
+== Overmap ==
+ * Shop
+  * Menu
+== Battle ==
+ * Menus
+ * Units
+== Menu system (main menu) ==
+ * sliders
+ * text labels
+ * text input (alphabet visible for joystick input)
+
+= Input =
+ * keyboard (primary)
+ * joystick (PC gamepad + GP2x)
+
+= Resolutions supported =
+ * 640x480
+ * 320x240 (GP2x native res)
+ * potentially higher resolutions by scaling
+ * no fullscreen
+
+= Database =
+== Data types it can hold ==
+ * text (string)
+ * integer
+ * floating point
+ * blob (binary)
+ * game objects should serialize to a special type of blob or to individual text+int+whateverisneeded
+
+_More to be added soon_
