@@ -31,4 +31,8 @@
  * blob (binary)
  * game objects should serialize to a special type of blob or to individual text+int+whateverisneeded
 
+= Renderer =
+ * 2D (SDL)
+ * 3D (OGRE)
+
 _More to be added soon_
