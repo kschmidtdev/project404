@@ -31,8 +31,11 @@ _Well this isn't necessarily a difficult assignment but we really need to have a
 
 =Risk Table=
 pg 106-110
+
 Values for Likelyhood are: Very Low (< 10%), Low (10-25%), Moderate (25-50%), High (50-75%) or Very High (>75%)
+
 Values for Impact are: Catastrophic, Serious, Tolerable or Insignificant
+
 || *Risk* || *Likelyhood* || *Impact* || *Preventative Measures* || *If it happens* ||
 || A member becomes ill or is unable to fulfill their duties || Low || Serious || Not much can be done about someone becoming sick, best to keep members posted on your condition and work || The remaining members of the team should come together to divvy up the sick/missing teammates work ||
 || Project gets behind schedule || Moderate || Tolerable || Keep calendars of events, set milestones, make sure all members know when their work is due || Make a plan to get the team back on track. Set incentives and ensure all members are utilizing their time wisely. ||
