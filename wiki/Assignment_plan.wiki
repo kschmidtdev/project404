@@ -1,6 +1,13 @@
 Current assignment todo list
 
+=Presentation=
 
+So we will need to figure out who wants to talk about what for our short presentation on friday. Here is a list of things that need to be talked about:
+
+ * Show the website
+ * Show the risk table
+ * Talk about our database component and how it would work
+ * Talk about our project description
 
 =Assignment 1: Project Plan and Website=
 
