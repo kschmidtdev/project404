@@ -20,7 +20,7 @@ Team Members:
 ||Schmidt, Karl||karls@sfu.ca||
 ||Malyuk, Mike||mmalyuk@sfu.ca||
 ||Osborne, Andrew||aco1@sfu.ca||
-||Han, Seung Woo Ryan||_Need Han's SFU email_||
+||Han, Seung Woo Ryan||rhan@sfu.ca||
 
 Regular meeting times and dates: 8:30AM - 9:30AM on Mondays, Wednesdays and Friday at the SFU Surrey Campus. 
 
@@ -37,6 +37,5 @@ _<Insert Project Description Here>_
 SVN Repository Information -> http://code.google.com/p/project404/source
 
 _<Insert Risk Table Here (see [Assignment_plan])>_
-
 
 
