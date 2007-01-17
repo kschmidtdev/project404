@@ -7,7 +7,7 @@ Team Members:
 <tr><td class="cellstyle">Schmidt, Karl</td><td class="cellstyle">karls@sfu.ca</td></tr>
 <tr><td class="cellstyle">Malyuk, Mike</td><td class="cellstyle">mmalyuk@sfu.ca</td></tr>
 <tr><td class="cellstyle">Osborne, Andrew</td><td class="cellstyle">aco1@sfu.ca</td></tr>
-<tr><td class="cellstyle">Han, Seung Woo Ryan</td><td class="cellstyle">Need Han's SFU email</td></tr>
+<tr><td class="cellstyle">Han, Seung Woo Ryan</td><td class="cellstyle">rhan@sfu.ca</td></tr>
 </table>
 
 Regular meeting times and dates: 8:30AM - 9:30AM on Mondays, Wednesdays and Friday at the SFU Surrey Campus.
