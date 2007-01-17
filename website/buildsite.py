@@ -48,3 +48,5 @@ for sectionLine in sections:
     thisSectionPage.writelines( footTxt )
             
     thisSectionPage.close()
+
+shutil.copy( OUTPUT_DIR + "team.html", OUTPUT_DIR + "index.html" )
