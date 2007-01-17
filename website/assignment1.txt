@@ -1,0 +1,9 @@
+Project Manager for this assignment: <b>Karl Schmidt</b>.
+
+Project description:
+
+ <i>Insert Project Description Here</i>
+
+SVN Repository Information can be found <a href="http://code.google.com/p/project404/source">here</a>. 
+
+ <i>&lt;Insert Risk Table Here (see <a href="http://code.google.com/p/project404/wiki/Assignment_plan">Assignment_plan</a>)&gt;</i>

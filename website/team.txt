@@ -1,0 +1,15 @@
+Team Name: Team 404
+
+Team Members:
+
+<table class="tablestyle">
+<tr><td class="cellstyle">Name</td><td class="cellstyle">Email</td></tr>
+<tr><td class="cellstyle">Schmidt, Karl</td><td class="cellstyle">karls@sfu.ca</td></tr>
+<tr><td class="cellstyle">Malyuk, Mike</td><td class="cellstyle">mmalyuk@sfu.ca</td></tr>
+<tr><td class="cellstyle">Osborne, Andrew</td><td class="cellstyle">aco1@sfu.ca</td></tr>
+<tr><td class="cellstyle">Han, Seung Woo Ryan</td><td class="cellstyle">Need Han's SFU email</td></tr>
+</table>
+
+Regular meeting times and dates: 8:30AM - 9:30AM on Mondays, Wednesdays and Friday at the SFU Surrey Campus.
+
+<Insert Team Schedule here: Create a detailed schedule over the semester that shows all the times when your team will meet, when it can and meet, and when it can't meet. Take into account known absences of team members, holidays, etc. Be sure to note all the due dates of all assignments and exams for the course.> 
