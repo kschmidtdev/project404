@@ -6,4 +6,22 @@ Project description:
 
 SVN Repository Information can be found <a href="http://code.google.com/p/project404/source">here</a>. 
 
- <i>&lt;Insert Risk Table Here (see <a href="http://code.google.com/p/project404/wiki/Assignment_plan">Assignment_plan</a>)&gt;</i>
+ <h1>Risk Table</h1>
+pg 106-110
+
+Values for Likelyhood are: Very Low (< 10%), Low (10-25%), Moderate (25-50%), High (50-75%) or Very High (>75%)
+
+Values for Impact are: Catastrophic, Serious, Tolerable or Insignificant
+
+<table class="tablestyle">
+<tr><td class="cellstyle">Risk</td><td class="cellstyle">Likelyhood</td><td class="cellstyle">Impact</td><td class="cellstyle">Preventative Measures</td><td class="cellstyle">If it happens</td></tr>
+<tr><td class="cellstyle">A member becomes ill or is unable to fulfill their duties</td><td class="cellstyle">Low</td><td class="cellstyle">Serious</td><td class="cellstyle">Not much can be done about someone becoming sick, best to keep members posted on your condition and work</td><td class="cellstyle">The remaining members of the team should come together to divvy up the sick/missing teammates work</td></tr>
+<tr><td class="cellstyle">Project gets behind schedule</td><td class="cellstyle">Moderate</td><td class="cellstyle">Tolerable</td><td class="cellstyle">Keep calendars of events, set milestones, make sure all members know when their work is due</td><td class="cellstyle">Make a plan to get the team back on track. Set incentives and ensure all members are utilizing their time wisely.</td></tr>
+<tr><td class="cellstyle">Project is "refactored" by Teacher or TA</td><td class="cellstyle">Low</td><td class="cellstyle">Serious</td><td class="cellstyle">Keep in touch with TA and Teacher about their thoughts on the current project. Make sure to not try anything too drastic and time consuming before ensuring they believe it necessary or contributes towards the end goal of the project.</td><td class="cellstyle">Quickly fix the issue at hand, and ensure that the correct information or plan is acted upon immediately with Teacher or TA's comments guiding this plan.</td></tr>
+<tr><td class="cellstyle">Teammate is constantly missing, shows no interest in work</td><td class="cellstyle">Very Low</td><td class="cellstyle">Serious</td><td class="cellstyle">Make sure to keep in touch with team at regular intervals. Try to keep track of each team member's progress.</td><td class="cellstyle">Try to push the team mate back to work. See if there are any issues outstanding that may be causing them to become lax on the project work. Try to work towards a solution with them. If to no avail, consult the Teacher or TA about the matter</td></tr>
+<tr><td class="cellstyle">Project hardware/software requirements outpace the computers at school</td><td class="cellstyle">Low</td><td class="cellstyle">Serious</td><td class="cellstyle">Try to keep code relatively optimized. Additionally, make sure to consistently test the product so these problems can be caught relatively early</td><td class="cellstyle">Try and debug the code, cutting out pieces until the culprit can be found. Maybe assign one member to find the slowdown</td></tr>
+
+<tr><td class="cellstyle">Project Goals are too ambitious for project</td><td class="cellstyle">Moderate</td><td class="cellstyle">Serious</td><td class="cellstyle">Communicate with team members and teacher/TA regularly</td><td class="cellstyle">Cut non-essential features when required, refactor essential features if required</td></tr>
+</table>
+
+<br/>
