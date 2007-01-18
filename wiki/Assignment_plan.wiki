@@ -41,19 +41,15 @@ _Well this isn't necessarily a difficult assignment but we really need to have a
 
 Team 404’s Project will be a 2D turn-based (grid-based) strategic game. Our goal is to create a strategy game derived from the style of games that came before it such as Final Fantasy Tactics, Fire Emblem, Super Robot Wars and Advance Wars. The main objective of our game is to have the user utilize unique units and weapons to defeat an enemy composed of similar units during instanced combat. These loose instances of combat will be tied into the overarching storyline through a world map, where players will choose which conflicts they wish to participate in. The technical aspects of our game will be designed with modularity in mind. The 3 main aspects of our game will revolve around the user interface, the database and the security. 
 
-The user interface will be defined mostly through menus, with the primary input being keyboard, and possibly game pad. Additionally the UI will display information regarding the various important information regarding the battlefield and battle-related information (units, land etc.). We hope by providing a modular design between UI and the rest of the product, that given extra time, we can create additional modes of replay, including possible 3D integration, or porting to portable systems.
-*What do yo mean my modular design?  Modular design of what? (the terrain, the battles??)
-* or do you mean template design of levels and units??
+The user interface will be defined mostly through menus, with the primary input being keyboard, and possibly game pad. Additionally the UI will display information regarding the various important information regarding the battlefield and battle-related information (units, land etc.). We hope by providing a modular design between the UI and the security and database components of the product, that given extra time, we can create additional modes of replay, including possible 3D integration, or porting to portable systems.
 
-The database driving the production of this game will be largely involved in tracking and distributing information pertaining to units, weapons, and text. The database will utilize templates of weaponry to generate instances of all game objects during play.  This database will support item and text look up because the game will need to randomly generate items (so we cannot point to a direct item in the database for templates). Additionally it will control instances of existing objects in the game for tracking and access purposes.
-
-****perhaps if we emphasize the use the database will have with the TEXT in the game.  Personally I think that somehow more justifies the database then just saying we use it for units and weapons... or perhaps we should approximate how many instances of the weaponary we have (~100???) to signify the importance of having databases with the items ****  We can also talk about using images in databases for various purposes (our terrain, units in 2D; textures in 3D)
+The database driving the production of this game will be largely involved in tracking and distributing information pertaining to units, weapons, and text. The database will utilize templates of weaponry to generate instances of all game objects during play.  This database will support item and text look up because the game will need to randomly generate items (so we cannot point to a direct item in the database for templates). Additionally it will control instances of existing objects in the game for tracking and access purposes. The database will be effective because of the large amount of content (generally many weapons, characters, in game text, and/or images and media) being stored, and the need to have an organized and accessible central information store.
 
 Lastly the security of our game will be supported both through profiles, which will be locked user profiles that maintain integrity of player’s games and through basic encryption of files and game data. This will be used to prevent players from circumventing the systems in play, and force these players to “play fair”. 
 
 Overall, our goal is to create an engaging and thought provoking game that will force users to play an active mental role in the action on screen. Our game will be a strong display of proper programming practices in modularity, and display key understandings in the underlying aspects of good software design.
 
-
+_Added changes based on Andrew's suggestions, may want to add further info after our meeting.
 
 =Risk Table=
 pg 106-110
