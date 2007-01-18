@@ -74,5 +74,5 @@ Values for Impact are: Catastrophic, Serious, Tolerable or Insignificant
 
 Security:
 
-|| Users and permission management || User profiles, only  have access to 'their' savegames (pwd protected) ||
-|| 'Integrity' check/security || Encryption + Decryption of game data + save games ||
+|| Users and permission management || User profiles, only  have access to 'their' savegames (pwd protected) || System for verifying a 'secur' password? i.e. check user pwd against dictionary ||
+|| 'Integrity' check/security || Encryption + Decryption of game data + save games || pwd can be a keyboard-entered word/text or recorded joystick buttons/directions ||
