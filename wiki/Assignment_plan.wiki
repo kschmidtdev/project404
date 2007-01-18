@@ -36,6 +36,21 @@ _.... so we haven't 'finished' a lot...._
 _Well this isn't necessarily a difficult assignment but we really need to have a meeting when all team members are on site. I know there is a lot of grumbling about getting up and meeting before class, but until we have a meeting and can figure out times that are good for everyone, I might suggest we do the only thing we can and get it over with. Likely we could finish this off in a short period of time after we get an initial face to face meeting. Just my thought -- Mike
 
 
+
+=Project Description=
+
+Team 404’s Project will be a 2D turn-based strategic game. Our goal is to create a strategy game derived from the style of games that came before it such as Final Fantasy Tactics, Fire Emblem, Super Robot Wars and Advance Wars. The main objective of our game is to have the user utilize unique units and weapons to defeat an enemy during instanced combat. These loose instances of combat will be tied into the overarching storyline through a world map, where players will choose which conflicts they wish to participate in. The technical aspects of our game will be designed with modularity in mind. The 3 main aspects of our game will revolve around the user interface, the database and the security. 
+
+The user interface will be defined mostly through menu, with the primary input being keyboard, and possibly game pad. Additionally the UI will help display various aspects of the battlefield and information pertaining to those aspects (units, land etc.). We hope by providing a modular design between UI and the rest of the product, that given extra time, we can create additional modes of replay, including possible 3D integration, or porting to portable systems.
+
+The database driving the production of this game will be largely involved in tracking and distributing information pertaining to units, weapons, and text. The database will utilize templates of weaponry to generate instances of all game objects during play.  This database will support item and text look up because the game will need to randomly generate items (so we cannot point to a direct item in the database for templates). Additionally it will control instances of existing objects in the game for tracking and access purposes.
+
+Lastly the security of our game will be supported both through profiles, which will be locked user profiles that maintain integrity of player’s games and through basic encryption of files and game data. This will be used to prevent players from circumventing the systems in play, and force these players to “play fair”. 
+
+Overall, our goal is to create an engaging and thought provoking game that will force users to play an active mental role in the action on screen. Our game will be a strong display of proper programming practices in modularity, and display key understandings in the underlying aspects of good software design.
+
+
+
 =Risk Table=
 pg 106-110
 
@@ -50,3 +65,4 @@ Values for Impact are: Catastrophic, Serious, Tolerable or Insignificant
 || Teammate is constantly missing, shows no interest in work || Very Low || Serious || Make sure to keep in touch with team at regular intervals. Try to keep track of each team member's progress. || Try to push the team mate back to work. See if there are any issues outstanding that may be causing them to become lax on the project work. Try to work towards a solution with them. If to no avail, consult the Teacher or TA about the matter ||
 || Project hardware/software requirements outpace the computers at school || Low || Serious || Try to keep code relatively optimized. Additionally, make sure to consistently test the product so these problems can be caught relatively early || Try and debug the code, cutting out pieces until the culprit can be found. Maybe assign one member to find the slowdown || 
 || Project Goals are too ambitious for project || Moderate || Serious || Communicate with team members and teacher/TA regularly || Cut non-essential features when required, refactor essential features if required || 
+
