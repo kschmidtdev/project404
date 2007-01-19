@@ -2,16 +2,25 @@ Project Manager for this assignment: <b>Karl Schmidt</b>.
 
 Project description:
 
- <i>Insert Project Description Here</i>
+ <span style="font-size: 80%">Team 404’s Project will be a 2D turn-based (grid-based) strategic game. Our goal is to create a strategy game derived from the style of games that came before it such as Final Fantasy Tactics, Fire Emblem, Super Robot Wars and Advance Wars. The main objective of our game is to have the user utilize unique units and weapons to defeat an enemy composed of similar units during instanced combat. These loose instances of combat will be tied into the overarching storyline through a world map, where players will choose which conflicts they wish to participate in. The technical aspects of our game will be designed with modularity in mind. The 3 main aspects of our game will revolve around the user interface, the database and the security.
 
-SVN Repository Information can be found <a href="http://code.google.com/p/project404/source">here</a>. 
+The user interface will be defined mostly through menus, with the primary input being keyboard, and possibly game pad. Additionally the UI will display information regarding the various important information regarding the battlefield and battle-related information (units, land etc.). We hope by providing a modular design between the UI and the security and database components of the product, that given extra time, we can create additional modes of replay, including possible 3D integration, or porting to portable systems.
 
- <h1>Risk Table</h1>
-pg 106-110
+The database driving the production of this game will be largely involved in tracking and distributing information pertaining to units, weapons, and text. The database will utilize templates of weaponry to generate instances of all game objects during play. This database will support item and text look up because the game will need to randomly generate items (so we cannot point to a direct item in the database for templates). Additionally it will control instances of existing objects in the game for tracking and access purposes. The database will be effective because of the large amount of content (generally many weapons, characters, in game text, and/or images and media) being stored, and the need to have an organized and accessible central information store.
 
+Lastly the security of our game will be supported both through profiles (a method of user permission management), which will be locked user profiles that maintain integrity of player’s games and through basic encryption of files and game data to maintain integrity of file state. This will be used to prevent players from circumventing the systems in play, and force these players to “play fair”.
+
+Overall, our goal is to create an engaging and thought provoking game that will force users to play an active mental role in the action on screen. Our game will be a strong display of proper programming practices in modularity, and display key understandings in the underlying aspects of good software design. </span>
+
+SVN Repository Information can be found</b> <a href="http://code.google.com/p/project404/source">here</a>.
+
+Risk Table:
+
+<span style="font-size: 80%">
 Values for Likelyhood are: Very Low (< 10%), Low (10-25%), Moderate (25-50%), High (50-75%) or Very High (>75%)
 
 Values for Impact are: Catastrophic, Serious, Tolerable or Insignificant
+</span>
 
 <table class="tablestyle">
 <tr><td class="cellstyle">Risk</td><td class="cellstyle">Likelyhood</td><td class="cellstyle">Impact</td><td class="cellstyle">Preventative Measures</td><td class="cellstyle">If it happens</td></tr>
@@ -20,8 +29,11 @@ Values for Impact are: Catastrophic, Serious, Tolerable or Insignificant
 <tr><td class="cellstyle">Project is "refactored" by Teacher or TA</td><td class="cellstyle">Low</td><td class="cellstyle">Serious</td><td class="cellstyle">Keep in touch with TA and Teacher about their thoughts on the current project. Make sure to not try anything too drastic and time consuming before ensuring they believe it necessary or contributes towards the end goal of the project.</td><td class="cellstyle">Quickly fix the issue at hand, and ensure that the correct information or plan is acted upon immediately with Teacher or TA's comments guiding this plan.</td></tr>
 <tr><td class="cellstyle">Teammate is constantly missing, shows no interest in work</td><td class="cellstyle">Very Low</td><td class="cellstyle">Serious</td><td class="cellstyle">Make sure to keep in touch with team at regular intervals. Try to keep track of each team member's progress.</td><td class="cellstyle">Try to push the team mate back to work. See if there are any issues outstanding that may be causing them to become lax on the project work. Try to work towards a solution with them. If to no avail, consult the Teacher or TA about the matter</td></tr>
 <tr><td class="cellstyle">Project hardware/software requirements outpace the computers at school</td><td class="cellstyle">Low</td><td class="cellstyle">Serious</td><td class="cellstyle">Try to keep code relatively optimized. Additionally, make sure to consistently test the product so these problems can be caught relatively early</td><td class="cellstyle">Try and debug the code, cutting out pieces until the culprit can be found. Maybe assign one member to find the slowdown</td></tr>
-
 <tr><td class="cellstyle">Project Goals are too ambitious for project</td><td class="cellstyle">Moderate</td><td class="cellstyle">Serious</td><td class="cellstyle">Communicate with team members and teacher/TA regularly</td><td class="cellstyle">Cut non-essential features when required, refactor essential features if required</td></tr>
+<tr><td class="cellstyle">There is a personal conflict among project members</td><td class="cellstyle">Low</td><td class="cellstyle">Serious</td><td class="cellstyle">Decent communication with other team members within/without the the project. No extreme self opinion.</td><td class="cellstyle">Talk to the member with mutual understanding to each other's opinion.</td></tr>
+<tr><td class="cellstyle">There is a discrepency between compiler configurations and errors occur upon collaboration</td><td class="cellstyle">Low</td><td class="cellstyle">Serious</td><td class="cellstyle">Run preliminary tests on all four home machines to ensure that all the necessary components required for our software compile properly</td><td class="cellstyle">Find the home computer(s) that are missing compiler options, correct them and adjust any code as required</td></tr>
+<tr><td class="cellstyle">There is a discrepency between perceived objectives/assigned-tasks and those that were completed</td><td class="cellstyle">Moderate</td><td class="cellstyle">Serious</td><td class="cellstyle">Before conclusion of a meeting in which tasks are assigned, each group member must explain what his task is and what task the code he will write should perform</td><td class="cellstyle">The task is re-assigned (possibly to the same person) to correct the code (or assignment) so that it performs the originally desired function.</td></tr>
+<tr><td class="cellstyle">One does more works than others.</td><td class="cellstyle">High</td><td class="cellstyle">Tolerable</td><td class="cellstyle">We should know the exact capability of each team member previous to the actual assignment</td><td class="cellstyle">Rediscuss and redistribute the amount of work to each team member in a more reasonable way.</td></tr>
 </table>
 
 <br/>
