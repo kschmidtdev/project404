@@ -1,6 +1,7 @@
-Project Manager for this assignment: <b>Karl Schmidt</b>.
+ <b>Project Manager for this assignment:</b> <i>Karl Schmidt</i>.
 
-Project description:
+
+ <b>Project description:</b>
 
  <span style="font-size: 80%">Team 404’s Project will be a 2D turn-based (grid-based) strategic game. Our goal is to create a strategy game derived from the style of games that came before it such as Final Fantasy Tactics, Fire Emblem, Super Robot Wars and Advance Wars. The main objective of our game is to have the user utilize unique units and weapons to defeat an enemy composed of similar units during instanced combat. These loose instances of combat will be tied into the overarching storyline through a world map, where players will choose which conflicts they wish to participate in. The technical aspects of our game will be designed with modularity in mind. The 3 main aspects of our game will revolve around the user interface, the database and the security.
 
@@ -12,9 +13,13 @@ Lastly the security of our game will be supported both through profiles (a metho
 
 Overall, our goal is to create an engaging and thought provoking game that will force users to play an active mental role in the action on screen. Our game will be a strong display of proper programming practices in modularity, and display key understandings in the underlying aspects of good software design. </span>
 
-SVN Repository Information can be found</b> <a href="http://code.google.com/p/project404/source">here</a>.
 
-Risk Table:
+ <b>SVN Repository Information can be found <a href="http://code.google.com/p/project404/source">here</a></b>.
+
+ <b>We have chosen the <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD License</a> as the license for our project's source code.</b>
+
+
+ <b>Risk Table:</b>
 
 <span style="font-size: 80%">
 Values for Likelyhood are: Very Low (< 10%), Low (10-25%), Moderate (25-50%), High (50-75%) or Very High (>75%)
