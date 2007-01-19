@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+
 
 = Introduction =
 
@@ -8,6 +8,5 @@ Mock up
 = Details =
 
 http://mail.google.com/mail/?attid=0.1&disp=emb&view=att&th=110393618ed1a454
-
 
 
