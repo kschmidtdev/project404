@@ -34,9 +34,8 @@ Project description:
 
 _<Insert Project Description Here>_
 
-We have chosen the [http://www.opensource.org/licenses/bsd-license.php New BSD License] as the license for our project's source code. 
+We have chosen the [http://www.opensource.org/licenses/bsd-license.php New BSD License] as the license for our project's source code.
 
 SVN Repository Information -> http://code.google.com/p/project404/source
 
 _<Insert Risk Table Here (see [Assignment_plan])>_
-
