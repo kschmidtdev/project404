@@ -1,12 +1,17 @@
 
-
 = Introduction =
 
-Mock up
+Presentation Notes
+
+*For our game, we want a UI that is simple and easy to learn, understand and use
+* The following is an approximation and simplification of what our UI will look like
+* Sample turn:  when it is someone's turn, a user can use cursorKeys/joypad to select item
+* when cursor passess over unit, unit's information appears here-
+* when unit is selected, menu appears
+* there is also world map, load/save option menu
 
 
 = Details =
 
 http://mail.google.com/mail/?attid=0.1&disp=emb&view=att&th=110393618ed1a454
-
 
