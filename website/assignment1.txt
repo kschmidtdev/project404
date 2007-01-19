@@ -13,8 +13,15 @@ Lastly the security of our game will be supported both through profiles (a metho
 
 Overall, our goal is to create an engaging and thought provoking game that will force users to play an active mental role in the action on screen. Our game will be a strong display of proper programming practices in modularity, and display key understandings in the underlying aspects of good software design. </span>
 
+ <b>Instructions for checking out our SVN repository:</b>
+<span style="font-size: 80%">
+Use this SVN command to anonymously check out the latest project source code:
 
- <b>SVN Repository Information can be found <a href="http://code.google.com/p/project404/source">here</a></b>.
+ <i>svn checkout http://project404.googlecode.com/svn/trunk/ project404 </i>
+
+To use a graphical client like TortoiseSVN, checkout this url: <a href="http://project404.googlecode.com/svn/trunk/">http://project404.googlecode.com/svn/trunk/</a> to a folder on your desktop.
+</span>
+
 
  <b>We have chosen the <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD License</a> as the license for our project's source code.</b>
 
