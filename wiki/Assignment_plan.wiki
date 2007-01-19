@@ -9,6 +9,18 @@ So we will need to figure out who wants to talk about what for our short present
  * Talk about our database component and how it would work
  * Talk about our project description
 
+1. Overview by MIKE
+
+2. User Interface by ANDY
+
+3. Database by KARL
+
+4. Security by HAN
+
+   One of the possible threats to our game system is unauthorized user gains direct access to the game’s save file (or profile) and corrupt the data by arbitrary editing. Consequently, this kind of threat can make the game runs improperly, even can bring the unpredictable termination. To prevent this, we will add simple, but a stand alone security component to our game system. 
+   The security component mainly will handle the data encryption and decryption. For instance, we convert the save data to some sort of encrypted binary data when saving is performed during the game and decrypts a binary-based save file when loading the game data. 
+   Another major role of the security system is protecting user profiles in the game by password. This is very common way of security but also useful enough for this performance. Since we plan to have two input devices—keyboard and joystick, we will have a similar password-input-interface like XBOX360 Live Login which can be suitable for both keyboard and joystick.
+  
 =Assignment 1: Project Plan and Website=
 
 _.... so we haven't 'finished' a lot...._
