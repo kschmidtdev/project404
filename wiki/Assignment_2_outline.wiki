@@ -17,30 +17,19 @@ Decide who is going to do what
 
 = Timeline (and task assignment) =
 
-_ task name (additional info) [ person assigned to it - deadline ] _
-
-Read/Skim  Ch. 6, 7, & 8 [ each of us - Wed ]
-
-Feature Priority [ together - Wed ]
-
-Guidelines ( prog. languange & libraries: SDL, OGRE??, etc. ) [ together - Wed ]
-
-
-Game mechanics (see note below) [ together - Thurs ]
-
-Functional Requirements (Use cases/scenarios) [ ??? - Sun ]
-
-UML [ ??? - Sun ]
-
-Data Requirements (file formats) [ ??? - Sun ]
+|| _* Task name *_ ||  _* Additional info *_ || _* assigned to *_ || _* deadline || 
+|| Read/Skim || Ch. 6, 7, & 8 || each of us || Wed ||
+|| Feature Priority || (blah) || together || Wed ||
+|| Guidelines || prog. languange & libraries: SDL, OGRE??, etc. || together || Wed ||
+|| Game mechanics || (seen note below) || together || Thurs ||
+|| Functional Requirements || Use cases/scenarios || ??? || Sun ||
+|| UML || (self-explanatory) || ??? || Sun ||
+|| Data Requirements || file formats || ??? || Sun ||
+|| Non-functional requirements || (blah) || ??? || ??? ||
+|| Glossary || (no one cares) || ??? || last ||
 
 
-Non-functional requirements [ ??? - ??? ]
-
-Glossary { ??? - last ]
-
-
-Gameplay mechanics - This is something that we do need to discuss.  I know that there is a general consensus that we shouldn't spend much time dwelling over how the game works.  I propose that we all (unless you don't want input) come up with 1 or 2 developed ideas about how the game should work and then we have a capped discussion (maybe 1hr) on deciding (and integrating ideas) - let me know what you think about this method (this rather decision must be made somehow)
+Gameplay mechanics - This is something that we do need to discuss.  I know that there is a general consensus that we shouldn't spend much time dwelling over how the game works.  I propose that we all (unless you don't want input) come up with 1 or 2 developed ideas about how the game should work and then we have a capped discussion (maybe 1hr) on deciding (and integrating ideas) - let me know what you think about this method (this rather decision must be made somehow) 
 
 
 
@@ -98,6 +87,12 @@ It is important that version 1 (and, of course, the following versions) be a usa
 Think hard about this: good planning pays off. Do not over-promise (i.e. too many features) or under-deliver (too few features).
 
 _Hint:_ If you have access to a good issue tracking tool, putting these features into it with labels "version 1", "version 2", etc. might be a good idea. 
+
+
+
+
+
+
 
 
 
