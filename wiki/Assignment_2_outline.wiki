@@ -48,13 +48,13 @@ The functional requirements of your system detail what your software must do, bu
 
           * _List of actors_. The actors are the users of your system, divided into categories specific to your application. For each actor, list their goals and abilities with respect to the system.
           * _Usage scenarios_ for major features. A useful way to describe what a system will do without diving into the technical details of how it will do it is to write a description of typical "usage scenarios". These are sometimes called "use cases", and they describe a user would normally use the system. For this project, all your major project features must be described in usage scenarios with the following information:
-                o Short name. For example: "Calculate GPA", "Set Time".
-                o Informal description. Briefly described the feature in language that any SFU student could understand.
-                o Actors. List the subset of actors who will most likely use the feature.
-                o Use cases. Write use cases for the chosen actors. There should be at least one use case per actor. A feature might have more than one use case, e.g. you should definitely include a use-case for ordinary usage, and possibly some for abnormal usage when an error occurs.
-                o Features used. List the features that this usage needs to work. A feature is a small, coherent piece of functionality of your system. For example, in a post-it note program, the "enter note" scenario might need features like "text edit box", "file save", "spell check", etc.
-                o Exceptions: List what could reasonably go wrong, and what will be done if it does wrong. For example, if you ask the user to type in their phone number, and they type an invalid phone number, then you might print an error screen, clear what they have written, and ask them to do it again.
-                o Screen mock-ups. Provide a sketch of how the feature will look on the screen when implemented. Sketch these with a drawing program, are a UI tool (like Visual BASIC), or make neat hand-drawn sketches.
+              * _Short name_. For example: "Calculate GPA", "Set Time".
+              * _Informal description_. Briefly described the feature in language that any SFU student could understand.
+              * _Actors_. List the subset of actors who will most likely use the feature.
+              * _Use cases_. Write use cases for the chosen actors. There should be at least one use case per actor. A feature might have more than one use case, e.g. you should definitely include a use-case for ordinary usage, and possibly some for abnormal usage when an error occurs.
+              * _Features used_. List the features that this usage needs to work. A feature is a small, coherent piece of functionality of your system. For example, in a post-it note program, the "enter note" scenario might need features like "text edit box", "file save", "spell check", etc.
+              * _Exceptions_: List what could reasonably go wrong, and what will be done if it does wrong. For example, if you ask the user to type in their phone number, and they type an invalid phone number, then you might print an error screen, clear what they have written, and ask them to do it again.
+              * _Screen mock-ups_. Provide a sketch of how the feature will look on the screen when implemented. Sketch these with a drawing program, are a UI tool (like Visual BASIC), or make neat hand-drawn sketches.
             Think hard about these! These usage scenarios should cover all usage of your system --- if it is not in a use case, then it will not be in your system.  Even seemingly trivial features like "enter name and address in a form" can have hidden subtleties and issues that could come back to haunt you later if you don't handle them correctly from the beginning.
 
 * UML Architectural Diagram *
@@ -87,6 +87,10 @@ It is important that version 1 (and, of course, the following versions) be a usa
 Think hard about this: good planning pays off. Do not over-promise (i.e. too many features) or under-deliver (too few features).
 
 _Hint:_ If you have access to a good issue tracking tool, putting these features into it with labels "version 1", "version 2", etc. might be a good idea. 
+
+
+
+
 
 
 
