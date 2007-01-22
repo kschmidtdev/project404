@@ -2,7 +2,7 @@
 
 = General Discussion =
 
-I just wrote things in that _I_ thought made sense.  All of this is just rough.  We'll discuss it all at the next meeting. 
+I just wrote things in that 'I' thought made sense.  All of this is just rough.  We'll discuss it all at the next meeting. 
 
 
 
@@ -87,6 +87,7 @@ It is important that version 1 (and, of course, the following versions) be a usa
 Think hard about this: good planning pays off. Do not over-promise (i.e. too many features) or under-deliver (too few features).
 
 _Hint:_ If you have access to a good issue tracking tool, putting these features into it with labels "version 1", "version 2", etc. might be a good idea. 
+
 
 
 
