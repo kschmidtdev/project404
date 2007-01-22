@@ -1,0 +1,20 @@
+#summary Place to put ideas/completed-paragraphs on assignment 2
+
+
+
+
+= Feature Priority List =
+
+_Version 1_
+
+_Version 2_
+
+_Version 3_
+
+= Actors =
+
+Insert crap here
+
+= Ideas for Use Cases/Scenarios =
+
+Insert different crap here
