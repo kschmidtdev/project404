@@ -25,7 +25,7 @@ Decide who is going to do what
 || Functional Requirements || Use cases/scenarios || ??? || Sun ||
 || UML || (self-explanatory) || ??? || Sun ||
 || Data Requirements || file formats || ??? || Sun ||
-|| Non-functional requirements || (blah) || ??? || ??? ||
+|| Non-functional requirements || A chart of properties such as speed (possible actions/s), memory size, ease of use (???), etc. || ??? || ??? ||
 || Glossary || (no one cares) || ??? || last ||
 
 
@@ -87,7 +87,6 @@ It is important that version 1 (and, of course, the following versions) be a usa
 Think hard about this: good planning pays off. Do not over-promise (i.e. too many features) or under-deliver (too few features).
 
 _Hint:_ If you have access to a good issue tracking tool, putting these features into it with labels "version 1", "version 2", etc. might be a good idea. 
-
 
 
 
