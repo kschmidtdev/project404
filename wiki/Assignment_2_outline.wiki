@@ -1,5 +1,5 @@
 #summary Our guideline/todo-list/task-list for 2nd assignment
-#Meeting Thurs 630 room: 3264
+_Meeting Thurs 630 room: 3264
 
 = General Discussion =
 
@@ -88,7 +88,6 @@ It is important that version 1 (and, of course, the following versions) be a usa
 Think hard about this: good planning pays off. Do not over-promise (i.e. too many features) or under-deliver (too few features).
 
 _Hint:_ If you have access to a good issue tracking tool, putting these features into it with labels "version 1", "version 2", etc. might be a good idea. 
-
 
 
 
