@@ -1,7 +1,17 @@
 #summary Place to put ideas/completed-paragraphs on assignment 2
 
 
+= Guidelines =
+ * The software will be written in C++
+ * The renderer, and input will use the SDL
+ * User profiles will be encrypted for protection
+ * Game archives (data and database, if they are separate) will be encrypted for protection and integrity assurance
+ * Our game will not be a clone or copy of the gameplay found in another game title
+ * Our game will not include or use media or trademarks not legally licensed to us
 
+= Data Requirements =
+ * Input information from keyboard, joystick directional pad and joystick buttons
+ * Database stored in a XML document which will on deployment exist in an encrypted form, and will be decrypted on the fly
 
 = Feature Priority List =
 
@@ -18,3 +28,5 @@ Insert crap here
 = Ideas for Use Cases/Scenarios =
 
 Insert different crap here
+
+
