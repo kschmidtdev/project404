@@ -12,6 +12,8 @@
 = Data Requirements =
  * Input information from keyboard, joystick directional pad and joystick buttons
  * Database stored in a XML document which will on deployment exist in an encrypted form, and will be decrypted on the fly
+ * Read JPG textures
+ * Read PNG textures
 
 = Feature Priority List =
 
@@ -34,7 +36,8 @@
  * Main menu
  * Over-map
  * Battle map
- * Tile-map rendering
+ * Tile-map rendering (20x16 tiles at a time)
+ * Dynamic sizes of tile-map rendering (not all tile-maps have to be the same size)
  * Mini-map during battle map
  * Password entering/setting screens
  * Intro screens (Team404, etc)
@@ -68,5 +71,4 @@ Insert crap here
 = Ideas for Use Cases/Scenarios =
 
 Insert different crap here
-
 
