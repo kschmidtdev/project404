@@ -30,6 +30,8 @@
  * Enemies
  * Items
  * Tile-map movement (certain tiles are impassable, take longer to cross, etc)
+ * Store/Load savegames
+ * Store/Load gamestates (like in the middle of a battle)
 
 == UI ==
  * Animations during battles
@@ -71,4 +73,3 @@ Insert crap here
 = Ideas for Use Cases/Scenarios =
 
 Insert different crap here
-
