@@ -15,6 +15,46 @@
 
 = Feature Priority List =
 
+== Game ==
+ * Simple background music
+ * Item store
+ * Turn-based combat
+ * Logging system
+ * Simple configuration file parsing
+ * Keyboard, joystick input handling
+ * Computer AI (first level, does something)
+ * Computer AI (second level, actually seems to do intelligent things)
+ * Computer AI (third level, actually challenging)
+ * Enemies
+ * Items
+ * Tile-map movement (certain tiles are impassable, take longer to cross, etc)
+
+== UI ==
+ * Animations during battles
+ * Main menu
+ * Over-map
+ * Battle map
+ * Tile-map rendering
+ * Mini-map during battle map
+ * Password entering/setting screens
+ * Intro screens (Team404, etc)
+ * Fading in/out textures
+ * Scrolling text-boxes (for dialog, press a button/key to progress)
+ * Item store interface
+
+== Security ==
+ * Encrypt an incoming file, output to another file
+ * Decrypt an incoming file to memory
+ * Password verification (hash incoming password and compare against a stored hashed password)
+
+== Database ==
+ * Load an XML document into a lightweight graph structure
+ * Save a lightweight graph structure into an XML document
+ * Supports look-ups (fast)
+ * Search functionality for specific data
+ * Support range query functionality (eg. get item with attribute from one range to another)
+ * Store history of character's moves
+
 _Version 1_
 
 _Version 2_
