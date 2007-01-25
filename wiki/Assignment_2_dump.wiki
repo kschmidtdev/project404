@@ -227,6 +227,9 @@ _ALL Actors:_
   * The user will be allowed to enter a maximum of 16 characters.
 
 *Screen Mockup*
+
+http://www.sfu.ca/~karls/CMPT275/textentrymockup.jpg
+
 === ===
 
 Insert crap here
