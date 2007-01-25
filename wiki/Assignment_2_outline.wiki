@@ -10,11 +10,12 @@ I just wrote things in that 'I' thought made sense.  All of this is just rough. 
  
 = Next Meeting =
 
-Decide project manager for this assignment and criteria for following assignments
+Decide on Project Manager System
 
-Discuss Features for game, and what we're going to use
+(during meeting)
+Decide on Game Features (including game mechanics)
+One additional functional requirement
 
-Decide who is going to do what
 
 = Timeline (and task assignment) =
 
@@ -88,7 +89,6 @@ It is important that version 1 (and, of course, the following versions) be a usa
 Think hard about this: good planning pays off. Do not over-promise (i.e. too many features) or under-deliver (too few features).
 
 _Hint:_ If you have access to a good issue tracking tool, putting these features into it with labels "version 1", "version 2", etc. might be a good idea. 
-
 
 
 
