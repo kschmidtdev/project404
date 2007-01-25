@@ -188,6 +188,47 @@ Stem:
 
 *Screen Mockup*
 
+=== ===
+
+*Short Name:* Entering text into a text-field
+
+*Informal Description:* In the game there will be points where you will be asked to enter text, like creating a name for your profile or a name for a character. 
+
+*Actors:* ALL
+
+*Use Cases:* 
+=== ===
+
+_ALL Actors:_ 
+
+ # Evaluation: The player is views the screen featuring a text-field, an alphabet, the numbers 0 - 9, and short instructions (press this button for caps, to erase, etc).
+ # Choose character: Player moves selection by pressing keys or using a joystick directional pad.
+ # Selects character: Player presses corresponding key/button to choose the currently-highlighted character.
+ # Repeat previous steps until complete: Player is ready to finish, presses corresponding key to continue.
+ # Decide if really done: Player is presented with an "are you sure" message showing their characters chosen, different button than previous is required to be pressed (to prevent accidents).
+=== ===
+
+  * Abnormal 1:
+
+ # Correcting a mistake: Player presses corresponding key/button to erase the rightmost entered character.
+ # Continue as normal to 4.
+
+=== ===
+
+*Features Used:*
+  * Cursor (and associated controls)
+  * Choose button
+  * Erase button
+  * Caps button
+  * Accept button
+  * Accept/Cancel dialog
+  * Text-entry screen
+*Exceptions:*
+  * The user will be allowed to enter a maximum of 16 characters.
+
+*Screen Mockup*
+=== ===
+
 Insert crap here
 === ===
 *Short Name:*
@@ -207,6 +248,8 @@ Insert crap here
 = Ideas for Use Cases/Scenarios =
 
 Insert different crap here
+
+
 
 
 
