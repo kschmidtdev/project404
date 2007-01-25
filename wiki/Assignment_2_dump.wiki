@@ -100,17 +100,88 @@ Abilities: Usually have a strong sense of enthusiasm and start at a game with gr
 
 === ===
 == Usage Scenarios for Major Features ==
-*Short Name:*
+*Short Name:* Attacking
 
-*Informal Description:*
+*Informal Description:* During the course of the game, the user will have to be able to get their character into a position where they may attack an opponent character.
 
-*Actors:*
+*Actors:* ALL
 
-*Use Cases:*
+*Use Cases:* 
+=== ===
+
+_Casual/RPG Gamer:_ 
+
+1. Selection: Player selects his/her own unit
+
+2. Choose Target: Player uses cursor and places it over opponent before accepting.
+
+3. Selects Weapon: Player navigates menu, selects appropriate weapon.
+
+4. Attacks: Player affirms attack action.
+=== ===
+
+_"Hardcore" Gamer:_
+
+1. Check Skills: Player checks character statistics before choosing target.
+
+2. Check Opponent Skills: Player checks opponent statistics by placing cursor over opposing character.
+
+3. Selection: Deciding it is a good move, player selects his/her own character.
+
+4. Choose Target: Selects character he/she planned to attack with cursor.
+
+5. Selects Weapon: Player navigates menu, selects appropriate weapon.
+
+6. Attacks: Player affirms attack action.
+=== ===
+
+_"Newbie" Gamer_:
+
+  * Ordinary:
+
+1. Selection: Player selects his/her own unit
+
+2. Choose Target: Player uses cursor and places it over opponent before accepting.
+
+3. Selects Weapon: Player navigates menu, selects appropriate weapon.
+
+4. Attacks: Player affirms attack action.
+
+
+  * Abnormal 1:
+
+1. Selection: Player selects a unit not their own
+
+2. Re-Selection: Interface does not allow selection of opposing units, player reselects
+
+3-5 Continue as normal
+
+
+  * Abnormal 2:
+1. Selection: Player selects his/her own unit
+
+2. Choose Target: Player uses cursor and places it over ally or blank ground.
+
+Stem: 
+3i: Player has selected ground, this will only be allowed if attack is Area of Effect (attack damages more than one space, and may still be effective)
+
+3ii: Player has selected ally, attack will only be allowed if "healing".
+
+4-5 Continue as normal
+=== ===
 
 *Features Used:*
-
+  * Cursor (and associated controls)
+  * Selection button
+  * Information button
+  * Details menu
+  * Weapons menu
+  * Weapon/Spell
 *Exceptions:*
+  * If a user selects the wrong unit or a unit who has already had it's turn, the game will not allow selection. 
+  * If a user tries to attack an ally, it will only be allowed if a healing ability if invalid, will wait until user selects proper target
+  * If a user tries to attack ground, it will only be allowed for an area of effect attack if invalid, will wait until user selects proper target
+  * Unusable weapons for selection will be greyed out, and attempts to use these weapons will not be allowed, waits for proper input.
 
 *Screen Mockup*
 
@@ -119,6 +190,11 @@ Insert crap here
 = Ideas for Use Cases/Scenarios =
 
 Insert different crap here
+
+
+
+
+
 
 
 
