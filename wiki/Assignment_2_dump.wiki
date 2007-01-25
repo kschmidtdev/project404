@@ -19,6 +19,8 @@
 
 == Game ==
  * Simple background music
+ * Sound effects (for actions)
+ * particle/pixel animations to indicate actions (attack, magic, item, etc.)
  * Item store
  * Turn-based combat
  * Logging system
@@ -205,7 +207,6 @@ Insert crap here
 = Ideas for Use Cases/Scenarios =
 
 Insert different crap here
-
 
 
 
