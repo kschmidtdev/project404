@@ -100,6 +100,7 @@ Abilities: Usually have a strong sense of enthusiasm and start at a game with gr
 
 === ===
 == Usage Scenarios for Major Features ==
+=== ===
 *Short Name:* Attacking
 
 *Informal Description:* During the course of the game, the user will have to be able to get their character into a position where they may attack an opponent character.
@@ -186,7 +187,21 @@ Stem:
 *Screen Mockup*
 
 Insert crap here
+=== ===
+*Short Name:*
 
+*Informal Description:*
+
+*Actors:*
+
+*Use Cases:*
+
+*Features Used:*
+
+*Exceptions:*
+
+*Screen Mockup:*
+=== ===
 = Ideas for Use Cases/Scenarios =
 
 Insert different crap here
