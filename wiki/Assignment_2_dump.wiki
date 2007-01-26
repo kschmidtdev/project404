@@ -35,6 +35,13 @@
  * Store/Load savegames
  * Store/Load gamestates (like in the middle of a battle)
 
+== Game Mechanics ==
+ * What kind of tiles do we have?
+ * What kind of attriubtes does character have? (name, ID, weight, etc)
+ * How many units on screen? (4-8)
+ * How many units per party? (Upon battle, choose members for each battle)
+ * Standard # of classes? 4
+
 == World Map (UI) ==
  * Simple background music
  * Sound effects (for actions)
@@ -324,7 +331,6 @@ Insert crap here
 = Ideas for Use Cases/Scenarios =
 
 Insert different crap here
-
 
 
 
