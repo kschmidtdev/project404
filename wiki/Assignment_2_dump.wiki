@@ -79,6 +79,24 @@ _Version 3_
 
 Questions we should ask ourselves:
 
+What kind of turn Based?:
+
+Player - turn based (Chess)
+Game piece - Turn based 
+
+How are we going to differentiate our characters?
+How are these attributes which differentiate these characters be assigned?
+
+How many characters will each profile have?
+How many people on screen?
+How are the characters created?
+
+
+How does the world map work?
+
+
+How big in scope and what features will be in
+
 = Menu Operations =
 
 _This is something that I think should be in the design documentation, but is not currently in assignment outline:  _
@@ -306,7 +324,6 @@ Insert crap here
 = Ideas for Use Cases/Scenarios =
 
 Insert different crap here
-
 
 
 
