@@ -17,70 +17,65 @@
 
 = Feature Priority List =
 
-== Game ==
- * Simple background music
- * Sound effects (for actions)
- * particle/pixel animations to indicate actions (attack, magic, item, etc.)
- * Item store
- * Turn-based combat
- * Logging system
- * Simple configuration file parsing
- * Keyboard, joystick input handling
- * Computer AI (first level, does something)
- * Computer AI (second level, actually seems to do intelligent things)
- * Computer AI (third level, actually challenging)
- * Enemies
- * Items
- * Tile-map movement (certain tiles are impassable, take longer to cross, etc)
- * Store/Load savegames
- * Store/Load gamestates (like in the middle of a battle)
+== Version 1 Features ==
 
-== Game Mechanics ==
- * What kind of tiles do we have?
- * What kind of attriubtes does character have? (name, ID, weight, etc)
- * How many units on screen? (4-8)
- * How many units per party? (Upon battle, choose members for each battle)
- * Standard # of classes? 4
+=== Game ===
+ * Simple background music 1
+ * Turn-based combat 1
+ * Logging system 1
+ * Simple configuration file parsing 1
+ * Keyboard, joystick input handling 1
+ * Computer AI (first level, does something) 1
+ * Enemies 1
+ * Items 1
+ * Tile-map movement 1
+ * Characters with different classes (4) 1
+=== UI ===
+ * Indicator of actions (visual) during battles 1
+ * Main menu 1
+ * Over-map 1
+ * Battle map 1
+ * Tile-map rendering (20x16 tiles at a time) 1
+ * Password entering/setting screens 1 (mockup)
+ * Security
+ * Password verification (hash incoming password and compare against a stored hashed password) 1
+=== Database ===
+ * Load an XML document into a lightweight graph structure 1
+ * Supports look-ups (fast) 1
 
-== World Map (UI) ==
- * Simple background music
- * Sound effects (for actions)
+== Version 2 Features ==
 
+=== Game ===
+ * Computer AI (second level, actually seems to do intelligent things) 2
+ * Tile-map weights (certain tiles are impassable, take longer to cross, etc) 2
+ * Store/Load savegames 2
+=== UI ===
+ * Dynamic sizes of tile-map rendering (not all tile-maps have to be the same size) 2
+ * Scrolling text-boxes (for dialog, press a button/key to progress) 2
+=== Security ===
+ * Encrypt an incoming file, output to another file 2
+ * Decrypt an incoming file to memory 2
+=== Database ===
+ * Save a lightweight graph structure into an XML document 2
+ * Search functionality for specific data 2
+ * Support range query functionality (eg. get item with attribute from one range to another) 
+ * Template system for creating items and characters 2
 
+== Version 3 Features ==
 
-
-== UI ==
- * Animations during battles
- * Main menu
- * Over-map
- * Battle map
- * Tile-map rendering (20x16 tiles at a time)
- * Dynamic sizes of tile-map rendering (not all tile-maps have to be the same size)
- * Mini-map during battle map
- * Password entering/setting screens
- * Intro screens (Team404, etc)
- * Fading in/out textures
- * Scrolling text-boxes (for dialog, press a button/key to progress)
- * Item store interface
-
-== Security ==
- * Encrypt an incoming file, output to another file
- * Decrypt an incoming file to memory
- * Password verification (hash incoming password and compare against a stored hashed password)
-
-== Database ==
- * Load an XML document into a lightweight graph structure
- * Save a lightweight graph structure into an XML document
- * Supports look-ups (fast)
- * Search functionality for specific data
- * Support range query functionality (eg. get item with attribute from one range to another)
- * Store history of character's moves
-
-_Version 1_
-
-_Version 2_
-
-_Version 3_
+=== Game ===
+ * Item store (shopping) 3
+ * Computer AI (third level, actually challenging) 3
+ * Store/Load gamestates (like in the middle of a battle) 3
+=== UI ===
+ * Animations during battles 3
+ * Mini-map during battle map 3
+ * Intro screens (Team404, etc) 3
+ * Fading in/out textures 3
+ * Item store interface 3
+ * Refine battle screen UI 3
+=== Database ===
+ * Store history of character's moves 3
 
 = Game Mechanics =
 
