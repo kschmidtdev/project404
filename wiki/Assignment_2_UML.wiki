@@ -1,0 +1,29 @@
+#summary Notes that will eventually become our UML diagram for assignment 2.
+
+= List of 'major' classes: =
+ * Renderer -> SDLRenderer
+ * Vector
+ * SecurityManager
+  * LoadPasswordHashes
+ * Database
+  * Search (type, value)
+  * GetNode(name)
+  * LoadFromFile
+  * SaveFromFile
+ * DatabaseNode
+ * UIManager (state machine)
+ * UILayout
+ * UIMenu
+ * UIImage
+ * UILabel
+ * UIText
+ * UICursor
+ * UITileMap
+ * InputManager
+ * GameRoot
+ * Logger
+ * Party
+ * Character
+ * ResourceManager
+ * ComputerPlayer
+ * Item
