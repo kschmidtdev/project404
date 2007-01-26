@@ -35,6 +35,49 @@
  * Store/Load savegames
  * Store/Load gamestates (like in the middle of a battle)
 
+== World Map (UI) ==
+ * Simple background music
+ * Sound effects (for actions)
+
+
+
+Topics for which should develop documentation, but does not really currently fit in assignment criteria:  
+
+
+ * What options exist for (detailed descriptions):
+    * Main Menu
+    * Battle Menu
+    * World Map
+
+(This is obvious, but it needs to be described)
+
+== Main Menu ==
+
+ * Create New Game
+ * Load Saved Game
+ * Credits
+ * Options
+ * Exit
+
+== World Map ==
+ * Explore (move to adjacent spot on map)
+ * Visit City (in which there will be Shop, Inn, etc.)
+ * Load/Save Profile
+ * Party Menu (to adjust 'things' about your party: equip, etc.)
+ * Exit 
+
+== Action Menu ==
+_(menu of actions that game piece possesses in battle)_
+
+ * Move
+ * Attack
+ * Magic
+ * Item
+ * Sacrifice :P
+ * ???
+
+
+
 == UI ==
  * Animations during battles
  * Main menu
@@ -67,6 +110,11 @@ _Version 1_
 _Version 2_
 
 _Version 3_
+
+= Game Mechanics =
+
+Questions we should ask ourselves:
+
 
 = Functional Requirements =
 
@@ -251,7 +299,6 @@ Insert crap here
 = Ideas for Use Cases/Scenarios =
 
 Insert different crap here
-
 
 
 
