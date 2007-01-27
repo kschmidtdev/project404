@@ -100,6 +100,9 @@ Selecting Load profile:
   * Navigate listing, pick profile
   * Enter Password
 
+Options:
+  * Change volume
+
 Selecting Load game
 
 World map:
@@ -240,5 +243,4 @@ _ALL Actors:_
 
  # Correcting a mistake: Player presses corresponding key/button to erase the rightmost entered character.
  # Continue as normal to 4.
-
 
