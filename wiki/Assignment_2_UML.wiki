@@ -1,11 +1,13 @@
 #summary Notes that will eventually become our UML diagram for assignment 2.
 
 = List of 'major' classes: =
+
+== Managers (large classes) ==
+
  * Renderer -> SDLRenderer
- * Vector
  * SecurityManager
   * LoadPasswordHashes
- * Database
+ * DatabaseManager (?)
   * Search (type, value)
   * GetNode(name)
   * LoadFromFile
@@ -20,10 +22,22 @@
  * UICursor
  * UITileMap
  * InputManager
- * GameRoot
+ * GameRoot (DeviceManager)
+ * ResourceManager
+
+
+== Tools ==
+
  * Logger
+ * ComputerPlayer (AI)
+
+== Data Classes ==
+
  * Party
  * Character
- * ResourceManager
- * ComputerPlayer
- * Item
+ * Vector
+ * Item  
+    * WeaponItem
+    * ArmorItem
+    * (potentially) potions, etc.
+ * CharacterClass  (e.g. Archer)
