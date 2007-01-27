@@ -3,7 +3,6 @@
 = List of 'major' classes: =
 
 == Managers (large classes) ==
-
  * Renderer -> SDLRenderer
  * SecurityManager
   * LoadPasswordHashes
@@ -12,7 +11,14 @@
   * GetNode(name)
   * LoadFromFile
   * SaveFromFile
+ * InputManager
+ * GameRoot (DeviceManager)
+ * ResourceManager
+
+== Database ==
  * DatabaseNode
+
+== UI ==
  * UIManager (state machine)
  * UILayout
  * UIMenu
@@ -21,9 +27,6 @@
  * UIText
  * UICursor
  * UITileMap
- * InputManager
- * GameRoot (DeviceManager)
- * ResourceManager
 
 
 == Tools ==
