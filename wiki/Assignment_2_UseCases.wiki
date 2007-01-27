@@ -58,10 +58,75 @@ Party Options: Not Newbie
 
 Main Map: ALL
 
-
 == Use Case Map ==
 
 http://www.sfu.ca/~mmalyuk/275/Flow.png
+
+==SCENARIOS (short form)==
+
+*New game start*
+
+Overview: This scenario will cover the basics of starting up (new profile, new game, tutorial basic battle)
+
+Flow:
+
+Selecting new profile:
+  * Entering a name
+  * Entering a password
+
+Selecting a new game
+
+Selecting tutorial
+
+World map:
+  * Entering an instance (running into a contested area)
+
+Battle screen:
+  * Fighting a short battle (move/attack)
+ 
+World map:
+  * Saving
+  * Quitting
+
+
+=== ===
+*Loading game*
+
+Overview: Scenario will cover loading of games, world map functionality and a short battle
+
+Flow:
+
+Selecting Load profile:
+  * Navigate listing, pick profile
+  * Enter Password
+
+Selecting Load game
+
+World map:
+  * Movement
+  * Select Marketplace
+
+Marketplace:
+  * Show buying/scrolling
+  * Exit
+
+World map:
+  * Select party status
+
+Party status:
+  * Setting items
+  * Setting Party
+  * Exit
+
+World map:
+  * Enter instance
+
+Battlescreen:
+  * Show move/attack/end turn
+  * win
+
+World map:
+  * Quit
 
 === ===
 == Usage Scenarios for Major Features ==
@@ -175,3 +240,5 @@ _ALL Actors:_
 
  # Correcting a mistake: Player presses corresponding key/button to erase the rightmost entered character.
  # Continue as normal to 4.
+
+
