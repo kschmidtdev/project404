@@ -160,13 +160,6 @@ Goals: To complete a video game in the shortest time, with the most skills and a
 Abilities: Generally have an encyclopedic knowledge of the game and it's minute facets. Having studied previous games in the series, and likely, having played other games in the genre, consider themselves specialists and elite. Have a low tolerance for hindrance, bugs or general slow downs in a game. Usually have little to no care about the plot, as it is only a means to an ends in the game.
 
  
-===Role Playing Gamer===
-
-Goals: To play through the game from start to end, with attention paid mainly to the advancement of plot and characters. Generally role players are more interested in gleaning all possible dialog from the game, and wish to "immerse" themselves in the game's flow, versus treating it as a means to an ends (see Hardcore gamer). Expect to gain a satisfying experience through playing through a story, and expect the story to have some complexity and interest. Usually are expecting to unlock special characters, and generally have a favorite character.
-
-Abilities: Wide range of abilities, from poor to exceptional, but are generally willing to learn a game if it allows them to get into the storyline (generally form opinions of this early). Usually are able to find many secrets through dialog with other characters, and are constantly analyzing the story at hand and the hints non-player characters (NPC's) may drop.
-
- 
 ==="Newbie" Gamer===
 
 (newbie means a player new to the genre, game or both)
@@ -174,6 +167,37 @@ Abilities: Wide range of abilities, from poor to exceptional, but are generally 
 Goals: To learn a new game and to try and gain experience in how it works and what are the best options. Generally unconcerned about asking for information, they wish only to gain the best experience with the software at hand. Generally Newbie's have high expectations of games and hope to become better at them through time. 
 
 Abilities: Usually have a strong sense of enthusiasm and start at a game with great gusto. Additionally, they are more likely to try out new things, and question how the game works as a whole. Their best abilities (in testing purposes) is their relatively new nature to the game, which gives great insight into UI and game design through their interactions with the game.
+
+
+==Short list of Use Cases==
+
+Attacking/Moving: ALL
+
+Entering Text: ALL
+
+Load Profile: ALL
+
+New Profile: ALL
+
+Status: Hardcore
+
+Item Buying: Not Newbie
+
+Equipping: Not Newbie
+
+Setting Options: ALL
+
+Save (from Map): ALL
+
+Load (from Map): ALL
+
+New Game: ALL
+
+Quitting (from Map): ALL
+
+Party Options: Not Newbie
+
+Main Map: ALL
 
 === ===
 == Usage Scenarios for Major Features ==
@@ -187,7 +211,7 @@ Abilities: Usually have a strong sense of enthusiasm and start at a game with gr
 *Use Cases:* 
 === ===
 
-_Casual/RPG Gamer:_ 
+_Casual Gamer:_ 
 
 1. Selection: Player selects his/her own unit
 
@@ -326,6 +350,7 @@ Insert crap here
 = Ideas for Use Cases/Scenarios =
 
 Insert different crap here
+
 
 
 
