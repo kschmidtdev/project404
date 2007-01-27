@@ -158,8 +158,29 @@ http://www.sfu.ca/~karls/CMPT275/textentrymockup.jpg
 
 
 
+= Non-Functional Requirements =
 
+=== Preamble ===
+The definition of a 'functional' requirement is "you give it this input, it gives back this output".
+The definition of a 'non-functional' requirement is bascially "any 'requirement/guideline' that is not a 'functional' requirement is a 'non-functional' requirement"
+Thus, since our use cases (functional requirements) will not cover "game mechanics" and other things about our software, they seem to be non-functional requirements
 
+ * Must be feedback all actions in battle???
+ * Game Mechanics
+ * Game must be fun
+ * Main game is grid-based (tactics-esque??)
+ * Armor and Weapon guidelines (templates)
+ * World Map extent (how big?)
+ * Characer templates
+ * etc? (probably should email Toby before we develop this list too far)
+
+= Domain Requirements = 
+(domain considered that we are doing this for 275)
+
+ * We must use one of C++, Java or Python
+ * We must use subversion repository
+ * There must be 3 working versions of the software (insert deadlines here)
+ * 
 
 
 
