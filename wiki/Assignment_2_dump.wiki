@@ -77,27 +77,10 @@
 === Database ===
  * Store history of character's moves 3
 
-= Game Mechanics =
+== Missing Features ==
 
-Questions we should ask ourselves:
-
-What kind of turn Based?:
-
-Player - turn based (Chess)
-Game piece - Turn based 
-
-How are we going to differentiate our characters?
-How are these attributes which differentiate these characters be assigned?
-
-How many characters will each profile have?
-How many people on screen?
-How are the characters created?
-
-
-How does the world map work?
-
-
-How big in scope and what features will be in
+ * tutorial
+ * credites
 
 = Menu Operations =
 
@@ -156,9 +139,7 @@ _(menu of actions that game piece possesses in battle)_
 
 http://www.sfu.ca/~karls/CMPT275/textentrymockup.jpg
 
-=== ===
 
-Insert crap here
 === ===
 *Short Name:*
 
@@ -174,9 +155,7 @@ Insert crap here
 
 *Screen Mockup:*
 === ===
-= Ideas for Use Cases/Scenarios =
 
-Insert different crap here
 
 
 
