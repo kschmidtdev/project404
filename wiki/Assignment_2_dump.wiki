@@ -175,13 +175,13 @@ Thus, since our use cases (functional requirements) will not cover "game mechani
  * etc? (probably should email Toby before we develop this list too far)
 
 = Domain Requirements = 
+= Domain Requiremetns =
 (domain considered that we are doing this for 275)
 
  * We must use one of C++, Java or Python
  * We must use subversion repository
  * There must be 3 working versions of the software (insert deadlines here)
  * 
-
 
 
 
