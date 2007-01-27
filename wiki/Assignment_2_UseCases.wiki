@@ -58,6 +58,11 @@ Party Options: Not Newbie
 
 Main Map: ALL
 
+
+== Use Case Map ==
+
+http://www.sfu.ca/~mmalyuk/275/Flow.png
+
 === ===
 == Usage Scenarios for Major Features ==
 === ===
