@@ -1,0 +1,171 @@
+#summary Are use-cases dumping ground
+
+
+
+Functional Requirements
+List of Actors
+Casual Gamer
+
+Goals: To play through a video game at their own pace, the casual gamer hopes to enjoy the game as much for its story line as he/she does for its in game play mechanics. The casual gamer is unlikely to play games for hours on end, and is likely to pick up and put down a game multiple times before finishing it. Usually they are unconcerned about gaining every attribute, and finding every rare thing, and are most likely to follow a linear and unending path to the end.
+
+Abilities: Generally have a decent understanding of how games work, and if they do not understand, are able to learn relatively easily (through instruction). Usually have more patience than other gamers and are more likely to carry through and finish a game. Additionally are not afraid to seek out "help" and are more likely to search through FAQs or other information to ensure their experience proceeds unhindered.
+"Hardcore" Gamer
+
+Goals: To complete a video game in the shortest time, with the most skills and abilities they can amass. Wish to do the absolute best in a game, before others, and without aid or outside influence. Dedicate large consecutive hours towards a game not only until the game is finished, but also only until they have assured themselves they have done everything, and have "spec'd" (made the abilities of their character the most potent). Even then "Hardcore" gamers may stick around to show off their skills.
+
+Abilities: Generally have an encyclopedic knowledge of the game and it's minute facets. Having studied previous games in the series, and likely, having played other games in the genre, consider themselves specialists and elite. Have a low tolerance for hindrance, bugs or general slow downs in a game. Usually have little to no care about the plot, as it is only a means to an ends in the game.
+
+"Newbie" Gamer
+
+(newbie means a player new to the genre, game or both)
+
+Goals: To learn a new game and to try and gain experience in how it works and what are the best options. Generally unconcerned about asking for information, they wish only to gain the best experience with the software at hand. Generally Newbie's have high expectations of games and hope to become better at them through time.
+
+Abilities: Usually have a strong sense of enthusiasm and start at a game with great gusto. Additionally, they are more likely to try out new things, and question how the game works as a whole. Their best abilities (in testing purposes) is their relatively new nature to the game, which gives great insight into UI and game design through their interactions with the game.
+Short list of Use Cases
+
+Attacking/Moving: ALL
+
+Entering Text: ALL
+
+Load Profile: ALL
+
+New Profile: ALL
+
+Status: Hardcore
+
+Item Buying: Not Newbie
+
+Equipping: Not Newbie
+
+Setting Options: ALL
+
+Save (from Map): ALL
+
+Load (from Map): ALL
+
+New Game: ALL
+
+Quitting (from Map): ALL
+
+Party Options: Not Newbie
+
+Main Map: ALL
+Usage Scenarios for Major Features
+
+Short Name: Attacking
+
+Informal Description: During the course of the game, the user will have to be able to get their character into a position where they may attack an opponent character.
+
+Actors: ALL
+
+Use Cases:
+
+Casual Gamer:
+
+1. Selection: Player selects his/her own unit
+
+2. Choose Target: Player uses cursor and places it over opponent before accepting.
+
+3. Selects Weapon: Player navigates menu, selects appropriate weapon.
+
+4. Attacks: Player affirms attack action.
+
+"Hardcore" Gamer:
+
+1. Check Skills: Player checks character statistics before choosing target.
+
+2. Check Opponent Skills: Player checks opponent statistics by placing cursor over opposing character.
+
+3. Selection: Deciding it is a good move, player selects his/her own character.
+
+4. Choose Target: Selects character he/she planned to attack with cursor.
+
+5. Selects Weapon: Player navigates menu, selects appropriate weapon.
+
+6. Attacks: Player affirms attack action.
+
+"Newbie" Gamer:
+
+    * Ordinary: 
+
+1. Selection: Player selects his/her own unit
+
+2. Choose Target: Player uses cursor and places it over opponent before accepting.
+
+3. Selects Weapon: Player navigates menu, selects appropriate weapon.
+
+4. Attacks: Player affirms attack action.
+
+    * Abnormal 1: 
+
+1. Selection: Player selects a unit not their own
+
+2. Re-Selection: Interface does not allow selection of opposing units, player reselects
+
+3-5 Continue as normal
+
+    * Abnormal 2: 
+
+1. Selection: Player selects his/her own unit
+
+2. Choose Target: Player uses cursor and places it over ally or blank ground.
+
+Stem: 3i: Player has selected ground, this will only be allowed if attack is Area of Effect (attack damages more than one space, and may still be effective)
+
+3ii: Player has selected ally, attack will only be allowed if "healing".
+
+4-5 Continue as normal
+
+Features Used:
+
+    * Cursor (and associated controls)
+    * Selection button
+    * Information button
+    * Details menu
+    * Weapons menu
+    * Weapon/Spell 
+
+Exceptions:
+
+    * If a user selects the wrong unit or a unit who has already had it's turn, the game will not allow selection.
+    * If a user tries to attack an ally, it will only be allowed if a healing ability if invalid, will wait until user selects proper target
+    * If a user tries to attack ground, it will only be allowed for an area of effect attack if invalid, will wait until user selects proper target
+    * Unusable weapons for selection will be greyed out, and attempts to use these weapons will not be allowed, waits for proper input. 
+
+Screen Mockup
+
+Short Name: Entering text into a text-field
+
+Informal Description: In the game there will be points where you will be asked to enter text, like creating a name for your profile or a name for a character.
+
+Actors: ALL
+
+Use Cases:
+
+ALL Actors:
+
+   1. Evaluation: The player is views the screen featuring a text-field, an alphabet, the numbers 0 - 9, and short instructions (press this button for caps, to erase, etc).
+   2. Choose character: Player moves selection by pressing keys or using a joystick directional pad.
+   3. Selects character: Player presses corresponding key/button to choose the currently-highlighted character.
+   4. Repeat previous steps until complete: Player is ready to finish, presses corresponding key to continue.
+   5. Decide if really done: Player is presented with an "are you sure" message showing their characters chosen, different button than previous is required to be pressed (to prevent accidents). 
+
+    * Abnormal 1: 
+
+   1. Correcting a mistake: Player presses corresponding key/button to erase the rightmost entered character.
+   2. Continue as normal to 4. 
+
+Features Used:
+
+    * Cursor (and associated controls)
+    * Choose button
+    * Erase button
+    * Caps button
+    * Accept button
+    * Accept/Cancel dialog
+    * Text-entry screen 
+
+Exceptions:
+
+    * The user will be allowed to enter a maximum of 16 characters. 
