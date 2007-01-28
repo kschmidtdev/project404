@@ -259,6 +259,12 @@ _ALL Actors:_
 
 = FINAL TRY =
 
+=== New game start ===
+
+Overview: This scenario will cover the basics of starting up (new profile, new game, tutorial basic battle)
+
+Flow: 
+
 *Name:* Name and Password
 
 *Description:* The user must enter a name and password when creating a profile.
@@ -604,3 +610,140 @@ Abnormal Usage:
 *Screen Mockups:*
 
 === ===
+
+=== Load game start ===
+
+Overview: This scenario will cover the basics of loading a game and other assorted functionalities (load profile, options, load game, marketplace, battle options, save and exit)
+
+Flow:
+
+*Name:* Load Profile
+
+*Description:* The user loads a previously saved profile
+
+*Actors:* ALL
+
+*Use Case:*
+=== ===
+_ALL:_
+
+Ordinary:
+
+1. Selection: Move the cursor to “Load Profile”
+
+2. Selection: Move cursor over player profile with user's name
+
+3. Text Entry: Write password in password box
+
+Abnormal 1:
+
+1. Selection: Move the cursor to “Load Profile”
+
+2. Selection: Move cursor over player profile with user's name
+
+3. Text Entry: Write password in password box
+
+4. Wrong Entry: User is notified, writes again
+
+Abnormal 2:
+
+1. Selection: Move the cursor to “Load Profile”
+
+2. Selection: Move cursor over player profile with user's name
+
+3. Selection: Select Cancel, if the user selects incorrect profile
+
+4. Text Entry: Write password in password box
+
+*Features Used:*
+  * Selection Cursor
+  * Menu
+  * Button
+
+*Exceptions:*
+  * Incorrect password entry, rectified by allowing the user to enter again
+  * Incorrect selection of profile, rectified by allowing the user to “cancel” entry.
+*Screen Mockups:*
+
+=== ===
+
+*Name:* Main Options
+
+*Description:* The user accesses the Options Menu (before game)
+
+*Actors:* ALL
+
+*Use Case:*
+=== ===
+_ALL:_
+
+Ordinary:
+
+1. Selection: Move the cursor to Options and enter
+
+2. Selection: Select volume bar, move to left for less or right for more.
+
+3. Validate: Select Apply Changes.
+
+Abnormal 1:
+
+1. Selection: Move the cursor to Options and enter
+
+2. Selection: Select volume bar, move to left for less or right for more.
+
+3. Reset: User makes an error, selects “use defaults”
+
+*Features Used:*
+  * Selection Cursor
+  * Menu
+  * Button
+
+*Exceptions:*
+  * Incorrect volume, allow user to reset to defaults
+
+*Screen Mockups:*
+
+=== ===
+
+*Name:* Load Game
+
+*Description:* The user selects their saved game
+
+*Actors:* ALL
+
+*Use Case:*
+=== ===
+_ALL:_
+
+Ordinary:
+
+1. Selection: Move the cursor to Load game and Enter
+
+2. Selection: Select preferred saved game.
+
+3. Validate: User accepts when asked if this is the game they wish to load
+
+Abnormal 1:
+
+1. Selection: Move the cursor to Load game and Enter
+
+2. Selection: Select preferred saved game.
+
+3. Validate: User denies when asked if this is the game they wish to load
+
+4. Selection: User is returned to load menu, and may select again.
+
+*Features Used:*
+  * Selection Cursor
+  * Menu
+  * Button
+
+*Exceptions:*
+  * Incorrect save game, allow user to go back before finalizing choice
+
+*Screen Mockups:*
+
+=== ===
+
+_Will add rest tonight_
+
