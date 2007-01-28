@@ -270,12 +270,15 @@ _ALL Actors:_
 _ALL:_
 
 Normal:
+
 1. Type:  Characters into text field
 
 Alternative:
+
 1. Joypad: To select characters
 
 2. Selection: “Ok” when finished, text affirms decision with yes or no.
+
 3. Affirmation: User selects Yes, if no, go to 1.
 
 Abnormal:
@@ -305,6 +308,7 @@ _ALL:_
 
 Normal:
 1. Selection: Move the cursor to “New Game”
+
 2. Start: Use enter to start the game.
 
 *Features Used:*
@@ -329,6 +333,7 @@ Normal:
 _Newbie/Casual:_
 
 1. Selection: Move the cursor to “Tutorial”
+
 2. Start: Use enter to start the tutorial.
 
 *Features Used:*
@@ -599,4 +604,3 @@ Abnormal Usage:
 *Screen Mockups:*
 
 === ===
-
