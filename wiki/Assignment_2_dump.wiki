@@ -30,14 +30,15 @@
  * Items 1
  * Tile-map movement 1
  * Characters with different classes (4) 1
+ * Optional tutorial to demonstrate how to battle 1
 === UI ===
  * Indicator of actions (visual) during battles 1
  * Main menu 1
  * Over-map 1
- * Battle map 1
- * Tile-map rendering (20x16 tiles at a time) 1
- * Password entering/setting screens 1 (mockup)
- * Security
+ * Battle map 1 (hard-coded map layouts)
+ * Tile-map rendering 1
+ * Password entering/setting screens 1 (mock-up)
+=== Security ===
  * Password verification (hash incoming password and compare against a stored hashed password) 1
 === Database ===
  * Load an XML document into a lightweight graph structure 1
@@ -52,6 +53,7 @@
 === UI ===
  * Dynamic sizes of tile-map rendering (not all tile-maps have to be the same size) 2
  * Scrolling text-boxes (for dialog, press a button/key to progress) 2
+ * Battle-map loading from database 2
 === Security ===
  * Encrypt an incoming file, output to another file 2
  * Decrypt an incoming file to memory 2
@@ -162,7 +164,7 @@ http://www.sfu.ca/~karls/CMPT275/textentrymockup.jpg
 
 === Preamble ===
 The definition of a 'functional' requirement is "you give it this input, it gives back this output".
-The definition of a 'non-functional' requirement is bascially "any 'requirement/guideline' that is not a 'functional' requirement is a 'non-functional' requirement"
+The definition of a 'non-functional' requirement is basically "any 'requirement/guideline' that is not a 'functional' requirement is a 'non-functional' requirement"
 Thus, since our use cases (functional requirements) will not cover "game mechanics" and other things about our software, they seem to be non-functional requirements
 
  * Must be feedback all actions in battle???
@@ -171,18 +173,17 @@ Thus, since our use cases (functional requirements) will not cover "game mechani
  * Main game is grid-based (tactics-esque??)
  * Armor and Weapon guidelines (templates)
  * World Map extent (how big?)
- * Characer templates
+ * Character templates
  * etc? (probably should email Toby before we develop this list too far)
 
 = Domain Requirements = 
-= Domain Requiremetns =
+= Domain Requirements =
 (domain considered that we are doing this for 275)
 
  * We must use one of C++, Java or Python
  * We must use subversion repository
  * There must be 3 working versions of the software (insert deadlines here)
  * 
-
 
 
 
