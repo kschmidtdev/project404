@@ -32,6 +32,7 @@ Abilities: Generally have an encyclopedic knowledge of the game and it's minute 
 (newbie means a player new to the genre, game or both)
 
 Ida gamahata
+_(pronounced I-duh game-a hate-a)_
 
 Profile:  Ida is a thirty-something who works as an accountant at ABC Accounting firm in San Frasisco, CA.  The extenet to which she uses her computer for leisure is usually solitare and minesweeper.  However, a friend recently introduced her to Sim City, which she enjoyed, and her geeky friend pointed her to the open-source game "SymTac", which she has decided to try.  
 She has a short time and attention span for such a seemingly "hardcore game" and the game roughly has 30-60 minutes to convince her that it's worth her time.
@@ -746,4 +747,3 @@ Abnormal 1:
 === ===
 
 _Will add rest tonight_
-
