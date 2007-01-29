@@ -44,3 +44,9 @@
     * ArmorItem
     * (potentially) potions, etc.
  * CharacterClass  (e.g. Archer)
+
+= Andrew's UML diagrams =
+
+http://www.sfu.ca/~aco1/dataClasses.jpg
+
+_Add comments/critiques as required_
