@@ -160,6 +160,8 @@ Abnormal 2:
   * Selection Cursor
   * Menu
   * Button
+  * Profiles
+  * Saving/Loading
 
 *Exceptions:*
   * Incorrect password entry, rectified by allowing the user to enter again
@@ -306,6 +308,8 @@ Abnormal 1:
   * Selection Cursor
   * Menu
   * Button
+  * Loading
+
 *Exceptions:*
 
   * Incorrect save game, allow user to go back before finalizing choice
@@ -358,6 +362,8 @@ Abnormal 2:
   * Selection Cursor
   * Button
   * Menu
+  * World Map
+  * Movement
 
 *Exceptions:*
 
@@ -408,6 +414,7 @@ Abnormal 1:
   * Selection Cursor
   * Button
   * Menu
+  * Database (storage)
 
 *Exceptions:*
 
@@ -444,6 +451,8 @@ Abnormal:
   * Selection Cursor
   * Button
   * Menu
+  * Database (unit modified)
+
 *Exceptions:*
 
   * Choosing the wrong option (go back and try again)
@@ -451,10 +460,6 @@ Abnormal:
 *Screen Mockups:*
 
 === === 
-Party status: --branch--
-
-  * Setting party members
-  * Setting weapons
 
 *Name:* Party Status
 
@@ -499,6 +504,8 @@ Case Unit Item Selection:
   * Menu
   * Items
   * Button
+  * Units
+  * Database
 
 *Exceptions:*
 
@@ -541,6 +548,8 @@ Abnormal 2:
 *Features Used:*
 
   * Selection Cursor
+  * Movement
+
 *Exceptions:*
 
   * Choosing the wrong position (movement but no instance)
@@ -617,7 +626,8 @@ Abnormal 2:
 *Features Used:*
 
   * Selection Cursor
-  * Action button
+  * Button
+  * Tiles
 
 *Exceptions:*
 
