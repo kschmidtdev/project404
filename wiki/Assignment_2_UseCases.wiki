@@ -112,6 +112,7 @@ Abnormal:
   * Button (affirmation yes or no, and ok)
 *Exceptions:*
   * If the user does not enter a name, the screen will respond with a message to the user, indicating they should.
+
 *Screen Mockups:*
 
 === === 
@@ -313,21 +314,197 @@ Abnormal 1:
 
 === ===
 
-World map: 
 
-  * Movement 
-  * Select Marketplace 
-Marketplace:  --branch-- 
+*Name:* Navigating the World Map
 
-  * Show buying/scrolling 
-  * Exit 
-World map: 
+*Description:* The user must navigate a map, and enter an item shop (marketplace/armory)
 
-  * Select party status 
+*Actors:* ALL
+
+*Use Case:*
+
+=== ===
+
+_ALL:_
+
+1. Selection: Move the cursor to toward a city
+
+2. Movement: By selecting the node, the character will move to this point 
+
+3. Menu: Press "M" to bring up the menu.
+
+4. Selection: Navigate menu to "Armoury/Marketplace"(whichever is there) and enter.
+
+Abnormal:
+
+1. Selection: User selects node that does not contain a city
+
+2. Movement: Player moves to position
+
+3. Menu: Pressing "M" brings up the menu.
+
+4. Unselectable: Menu does not allow selection of Armoury or Marketplace.
+
+5. Movement: Player moves until they are on a city.
+
+Abnormal 2:
+
+1. Selection. User selects an area on the map where no nodes or roads exist
+
+2. Movement: No movement occurs until a valid movement is proposed.
+
+*Features Used:*
+
+  * Selection Cursor
+  * Button
+  * Menu
+
+*Exceptions:*
+
+  * Choosing the wrong position (movement but no marketplace or armoury present or selectable)
+  * Choosing an invalid position (no movement)
+
+*Screen Mockups:*
+
+=== ===
+
+
+*Name:* Using Marketplace
+
+*Description:* The user must utilize the menu list to buy items for their units.
+
+*Actors:* ALL
+
+*Use Case:*
+
+=== ===
+
+_ALL:_
+
+1. Selection: Move the cursor to select the type of weapon/spell/armor needed (Sword/Axe/Shield/Spell etc.)
+
+2. Selection: Press the selection button on desired object.
+
+3. Selection: Affirm selection with another button press. (item placed in repository)
+
+4. Exit: Select exit option, press button.
+
+Alternate:
+
+1. Selection: Move the cursor to sell and select
+
+2. Selection: Select the item from your repository with button press.
+
+3. Selection: Affirm selection with another button press. (item removed from repository money given back)
+
+Abnormal 1:
+
+1. Selection: User selects an item they cannot afford (greyed out)
+
+2. Selection: Game informs user, item is too expensive. Must select again.
+
+*Features Used:*
+
+  * Selection Cursor
+  * Button
+  * Menu
+
+*Exceptions:*
+
+  * Choosing the wrong item (error message generated)
+
+*Screen Mockups:*
+
+=== ===
+
+*Name:* Accessing party status
+
+*Description:* The user must navigate the world map menu to access party status.
+
+*Actors:* ALL
+
+*Use Case:*
+
+=== ===
+
+_ALL:_
+
+1. Selection: Press the "M" button to bring up the menu
+
+2. Selection: Navigate to the "Party Status" button, and press the button.
+
+Abnormal:
+
+1. Selection: User selects menu item that is not Party Status
+
+2. Selection: Select back or cancel, and go back to menu. Try again.
+
+*Features Used:*
+
+  * Selection Cursor
+  * Button
+  * Menu
+*Exceptions:*
+
+  * Choosing the wrong option (go back and try again)
+
+*Screen Mockups:*
+
+=== === 
 Party status: --branch--
 
   * Setting party members
   * Setting weapons
+
+*Name:* Party Status
+
+*Description:* The user must be able to set their starting member roster, and equip their units with items.
+
+*Actors:* ALL
+
+*Use Case:*
+
+=== ===
+
+_ALL:_
+
+Case Party Setup:
+
+1. Selection: Move the cursor onto a unit and press button
+
+2. Selection: In sub menu, select option (Include in party)
+
+Abnormal:
+
+1. Selection: User selects too many to be in party
+
+2. Selection: User receives warning message, that too many members are in party, to either de-select a member or not add a new one.
+
+3. Selection: Do nothing if not adding, otherwise, select a character that is in party (noted by highlight) and press button.
+
+4. Selection: In sub menu, select option (remove from party).
+  * _Note if the user tries to remove all members from party a similar warning will be produced to warn them_
+
+Case Unit Item Selection:
+
+1. Selection: Move the cursor onto a unit and press button
+
+2. Selection: In sub menu, select option (Set Items)
+
+3. Selection: From items menu, select the item you wish to change (from the unit), with the item you wish to use (from the repository).
+
+*Features Used:*
+
+  * Selection Cursor
+  * Menu
+  * Items
+  * Button
+
+*Exceptions:*
+
+  * Choosing too many or too few party members (error message generated)
+
+*Screen Mockups:*
 
 === ===
 
@@ -357,7 +534,7 @@ Abnormal:
 
 Abnormal 2:
 
-1. Selection. User selects an area on the map where no nodes or roads exist
+1. Selection: User selects an area on the map where no nodes or roads exist
 
 2. Movement: No movement occurs until a valid movement is proposed.
 
@@ -368,6 +545,38 @@ Abnormal 2:
 
   * Choosing the wrong position (movement but no instance)
   * Choosing an invalid position (no movement and no instance)
+
+*Screen Mockups:*
+
+=== ===
+
+*Name:* In Game Status
+
+*Description:* The user must enter the in Game Status menu, view current statistics of units
+
+*Actors:* ALL
+
+*Use Case:*
+
+=== ===
+
+_ALL:_
+
+1. Selection: Press the "S" button
+
+2. Selection: Side menu shows listing of all characters on field with basic info. Selecting a unit brings up submenu.
+
+3. Selection: Submenu displays further information, button press exits menu
+
+
+*Features Used:*
+
+  * Selection Cursor
+  * Menu (s button)
+  * Button
+*Exceptions:*
+
+  N/A
 
 *Screen Mockups:*
 
