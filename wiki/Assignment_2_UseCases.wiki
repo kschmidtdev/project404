@@ -1,4 +1,4 @@
-#summary Our use-case dumping ground
+#summary Are use-cases dumping ground
 
 
 
@@ -22,9 +22,9 @@ Jimmy Hardcore
 
 Profile:  Jimmy loves his RPGs (role-playing games).  His favourite franchise is Final Fantasy and has played and beaten Final Fantasy Tactics.  He owns a PC, a PS2 and wishes he could afford a PS3.  Jimmy likes to find every single item and ability in a game before putting it away, so he usually doesn't buy many games.  He recently noticed a post on a gaming website for the open-source game "SymTac" and thought he'd give it a try (since it's free).
   
-??Goals: To complete a video game in the shortest time, with the most skills and abilities they can amass. Wishes to do the absolute best in a game, before others, and without aid or outside influence. Will dedicate many consecutive hours towards a game not only until the game is finished, but also only until they have assured themselves they have done everything, and have "spec'd" (made the abilities of their character the most potent). Even then "Hardcore" gamers may stick around to show off their skills. ???
+??Goals: To complete a video game in the shortest time, with the most skills and abilities they can amass. Wish to do the absolute best in a game, before others, and without aid or outside influence. Dedicate large consecutive hours towards a game not only until the game is finished, but also only until they have assured themselves they have done everything, and have "spec'd" (made the abilities of their character the most potent). Even then "Hardcore" gamers may stick around to show off their skills. ???
 
-Abilities: Generally have an encyclopedic knowledge of the game and its minute facets. Having studied previous games in the series, and likely, having played other games in the genre, consider themselves specialists and elite. Have a low tolerance for hindrance, bugs or general slow downs in a game. Usually have little to no care about the plot, as it is only a means to an ends in the game.
+Abilities: Generally have an encyclopedic knowledge of the game and it's minute facets. Having studied previous games in the series, and likely, having played other games in the genre, consider themselves specialists and elite. Have a low tolerance for hindrance, bugs or general slow downs in a game. Usually have little to no care about the plot, as it is only a means to an ends in the game.
 
  
 ==="Newbie" Gamer===
@@ -34,10 +34,10 @@ Abilities: Generally have an encyclopedic knowledge of the game and its minute f
 Ida gamahata
 _(pronounced I-duh game-a hate-a)_
 
-Profile:  Ida is a thirty-something who works as an accountant at ABC Accounting firm in San Fransisco, CA.  The extent to which she uses her computer for leisure is usually solitaire and minesweeper.  However, a friend recently introduced her to Sim City, which she enjoyed, and her geeky friend pointed her to the open-source game "SymTac", which she has decided to try.  
+Profile:  Ida is a thirty-something who works as an accountant at ABC Accounting firm in San Frasisco, CA.  The extenet to which she uses her computer for leisure is usually solitare and minesweeper.  However, a friend recently introduced her to Sim City, which she enjoyed, and her geeky friend pointed her to the open-source game "SymTac", which she has decided to try.  
 She has a short time and attention span for such a seemingly "hardcore game" and the game roughly has 30-60 minutes to convince her that it's worth her time.
 
-Goals: To learn a new game and to try and gain experience in how it works and what are the best options. Generally unconcerned about asking for information, they wish only to gain the best experience with the software at hand. Generally Newbies have high expectations of games and hope to become better at them through time. 
+Goals: To learn a new game and to try and gain experience in how it works and what are the best options. Generally unconcerned about asking for information, they wish only to gain the best experience with the software at hand. Generally Newbie's have high expectations of games and hope to become better at them through time. 
 
 Abilities: Usually have a strong sense of enthusiasm and start at a game with great gusto. Additionally, they are more likely to try out new things, and question how the game works as a whole. Their best abilities (in testing purposes) is their relatively new nature to the game, which gives great insight into UI and game design through their interactions with the game.
 
@@ -76,195 +76,8 @@ Main Map: ALL
 
 http://www.sfu.ca/~mmalyuk/275/Flow.png
 
-==SCENARIOS (short form)==
-
-*New game start*
-
-Overview: This scenario will cover the basics of starting up (new profile, new game, tutorial basic battle)
-
-Flow:
-
-Selecting new profile:
-  * Entering a name
-  * Entering a password
-
-Selecting a new game
-
-Selecting tutorial
-
-World map:
-  * Entering an instance (running into a contested area)
-
-Battle screen:
-  * Fighting a short battle (move/attack)
- 
-World map:
-  * Saving
-  * Quitting
-
-
-=== ===
-*Loading game*
-
-Overview: Scenario will cover loading of games, world map functionality and a short battle
-
-Flow:
-
-Selecting Load profile:
-  * Navigate listing, pick profile
-  * Enter Password
-
-Options:
-  * Change volume
-
-Selecting Load game
-
-World map:
-  * Movement
-  * Select Marketplace
-
-Marketplace:
-  * Show buying/scrolling
-  * Exit
-
-World map:
-  * Select party status
-
-Party status:
-  * Setting items
-  * Setting Party
-  * Exit
-
-World map:
-  * Enter instance
-
-Battlescreen:
-  * Show move/attack/end turn
-  * win
-
-World map:
-  * Quit
-
-=== ===
-== Usage Scenarios for Major Features ==
-=== ===
-*Short Name:* Attacking
-
-*Informal Description:* During the course of the game, the user will have to be able to get their character into a position where they may attack an opponent character.
-
-*Actors:* ALL
-
-*Use Cases:* 
-=== ===
-
-_Casual Gamer:_ 
-
-1. Selection: Player selects his/her own unit
-
-2. Choose Target: Player uses cursor and places it over opponent before accepting.
-
-3. Selects Weapon: Player navigates menu, selects appropriate weapon.
-
-4. Attacks: Player affirms attack action.
-=== ===
-
-_"Hardcore" Gamer:_
-
-1. Check Skills: Player checks character statistics before choosing target.
-
-2. Check Opponent Skills: Player checks opponent statistics by placing cursor over opposing character.
-
-3. Selection: Deciding it is a good move, player selects his/her own character.
-
-4. Choose Target: Selects character he/she planned to attack with cursor.
-
-5. Selects Weapon: Player navigates menu, selects appropriate weapon.
-
-6. Attacks: Player affirms attack action.
-=== ===
-
-_"Newbie" Gamer_:
-
-  * Ordinary:
-
-1. Selection: Player selects his/her own unit
-
-2. Choose Target: Player uses cursor and places it over opponent before accepting.
-
-3. Selects Weapon: Player navigates menu, selects appropriate weapon.
-
-4. Attacks: Player affirms attack action.
-
-
-  * Abnormal 1:
-
-1. Selection: Player selects a unit not their own
-
-2. Re-Selection: Interface does not allow selection of opposing units, player reselects
-
-3-5 Continue as normal
-
-
-  * Abnormal 2:
-1. Selection: Player selects his/her own unit
-
-2. Choose Target: Player uses cursor and places it over ally or blank ground.
-
-Stem: 
-3i: Player has selected ground, this will only be allowed if attack is Area of Effect (attack damages more than one space, and may still be effective)
-
-3ii: Player has selected ally, attack will only be allowed if "healing".
-
-4-5 Continue as normal
-=== ===
-
-*Features Used:*
-  * Cursor (and associated controls)
-  * Selection button
-  * Information button
-  * Details menu
-  * Weapons menu
-  * Weapon/Spell
-*Exceptions:*
-  * If a user selects the wrong unit or a unit who has already had it's turn, the game will not allow selection. 
-  * If a user tries to attack an ally, it will only be allowed if a healing ability if invalid, will wait until user selects proper target
-  * If a user tries to attack ground, it will only be allowed for an area of effect attack if invalid, will wait until user selects proper target
-  * Unusable weapons for selection will be greyed out, and attempts to use these weapons will not be allowed, waits for proper input.
-
-*Screen Mockup*
-
-=== ===
-
-*Short Name:* Entering text into a text-field
-
-*Informal Description:* In the game there will be points where you will be asked to enter text, like creating a name for your profile or a name for a character. 
-
-*Actors:* ALL
-
-*Use Cases:* 
-=== ===
-
-_ALL Actors:_ 
-
- # Evaluation: The player is views the screen featuring a text-field, an alphabet, the numbers 0 - 9, and short instructions (press this button for caps, to erase, etc).
- # Choose character: Player moves selection by pressing keys or using a joystick directional pad.
- # Selects character: Player presses corresponding key/button to choose the currently-highlighted character.
- # Repeat previous steps until complete: Player is ready to finish, presses corresponding key to continue.
- # Decide if really done: Player is presented with an "are you sure" message showing their characters chosen, different button than previous is required to be pressed (to prevent accidents).
-=== ===
-
-  * Abnormal 1:
-
- # Correcting a mistake: Player presses corresponding key/button to erase the rightmost entered character.
- # Continue as normal to 4.
-
-= FINAL TRY =
-
-=== New game start ===
-
-Overview: This scenario will cover the basics of starting up (new profile, new game, tutorial basic battle)
-
-Flow: 
+=FINAL=
+Overview: This scenario will cover the basics of playing the game
 
 *Name:* Name and Password
 
@@ -273,6 +86,7 @@ Flow:
 *Actors:* ALL
 
 *Use Case:*
+
 === ===
 _ALL:_
 
@@ -289,335 +103,18 @@ Alternative:
 3. Affirmation: User selects Yes, if no, go to 1.
 
 Abnormal:
+
 2 ii) Erasing: User uses backspacing or selects backspacing to remove characters.
 
 *Features Used:*
   * Selection Cursor
   * Text box
   * Button (affirmation yes or no, and ok)
-
 *Exceptions:*
   * If the user does not enter a name, the screen will respond with a message to the user, indicating they should.
-
 *Screen Mockups:*
 
-=== ===
-
-*Name:* Start a New Game
-
-*Description:* The user must start a new instance of the game.
-
-*Actors:* ALL
-
-*Use Case:*
-=== ===
-_ALL:_
-
-Normal:
-1. Selection: Move the cursor to “New Game”
-
-2. Start: Use enter to start the game.
-
-*Features Used:*
-  * Selection Cursor
-  * Menu
-  * Button
-
-*Exceptions:*
-   N/A
-*Screen Mockups:*
-
-=== ===
-
-*Name:* Playing Tutorial
-
-*Description:* The user must start the tutorial mode
-
-*Actors:* Newbie/Casual
-
-*Use Case:*
-=== ===
-_Newbie/Casual:_
-
-1. Selection: Move the cursor to “Tutorial”
-
-2. Start: Use enter to start the tutorial.
-
-*Features Used:*
-  * Selection Cursor
-  * Menu
-  * Button
-
-*Exceptions:*
-   N/A
-*Screen Mockups:*
-
-=== ===
-
-*Name:* Entering Battle
-
-*Description:* The user must navigate a map, and join (move to) a conflict denoted by a red mark.
-
-*Actors:* ALL
-
-*Use Case:*
-=== ===
-_ALL:_
-
-1. Selection: Move the cursor to toward the contested point
-
-2. Movement: By selecting the node, the character will move to this point 
-
-Abnormal:
-1. Selection: User selects node that is not contested
-
-2. Movement: No action results, user continues movement
-
-3. Arrival: When arriving at the correct node, the instance will start.
-
-Abnormal 2:
-1. Selection. User selects an area on the map where no nodes or roads exist
-
-2. Movement: No movement occurs until a valid movement is proposed.
-
-*Features Used:*
-  * Selection Cursor
-
-*Exceptions:*
-  * Choosing the wrong position (movement but no instance)
-  * Choosing an invalid position (no movement and no instance)
-
-*Screen Mockups:*
-
-=== ===
-
-*Name:* Moving (tutorial)
-
-*Description:* The user must navigate the tactical map, aided by the tutorial mechanism
-
-*Actors:* ALL
-
-*Use Case:*
-=== ===
-_ALL:_
-
-Ordinary Usage:
-
-1. Selection: Select an allied character
-
-2. Movement: Move the cursor within the movement range of the character (denoted by bordered box)
-
-3. Commit: Use the action button to move the unit to the spot at the cursor.
-
-Abnormal Usage:
-
-1. Selection: Selecting ground
-
-2. Selection: User cannot select ground, only allowed to select unit
-
-Abnormal Usage:
-
-1. Selection: Select an allied character.
-
-2. Movement: Move character outside the allowable movement area (not allowed).
-
-*Features Used:*
-  * Selection Cursor
-  * Action button
-
-*Exceptions:*
-  * Selecting ground (no effect)
-  * Trying to move to invalid position (restricted to movement area of unit only)
-
-*Screen Mockups:*
-
-=== ===
-
-*Short Name:* Attacking
-
-*Informal Description:* During the course of the game, the user will have to be able to get their character into a position where they may attack an opponent character.
-
-*Actors:* ALL
-
-*Use Cases:* 
-=== ===
-
-_Casual Gamer:_ 
-
-1. Selection: Player selects his/her own unit
-
-2. Choose Target: Player uses cursor and places it over opponent before accepting.
-
-3. Selects Weapon: Player navigates menu, selects appropriate weapon.
-
-4. Attacks: Player affirms attack action.
-=== ===
-
-_"Hardcore" Gamer:_
-
-1. Check Skills: Player checks character statistics before choosing target.
-
-2. Check Opponent Skills: Player checks opponent statistics by placing cursor over opposing character.
-
-3. Selection: Deciding it is a good move, player selects his/her own character.
-
-4. Choose Target: Selects character he/she planned to attack with cursor.
-
-5. Selects Weapon: Player navigates menu, selects appropriate weapon.
-
-6. Attacks: Player affirms attack action.
-=== ===
-
-_"Newbie" Gamer_:
-
-  * Ordinary:
-
-1. Selection: Player selects his/her own unit
-
-2. Choose Target: Player uses cursor and places it over opponent before accepting.
-
-3. Selects Weapon: Player navigates menu, selects appropriate weapon.
-
-4. Attacks: Player affirms attack action.
-
-
-  * Abnormal 1:
-
-1. Selection: Player selects a unit not their own
-
-2. Re-Selection: Interface does not allow selection of opposing units, player reselects
-
-3-5 Continue as normal
-
-
-  * Abnormal 2:
-1. Selection: Player selects his/her own unit
-
-2. Choose Target: Player uses cursor and places it over ally or blank ground.
-
-Stem: 
-3i: Player has selected ground, this will only be allowed if attack is Area of Effect (attack damages more than one space, and may still be effective)
-
-3ii: Player has selected ally, attack will only be allowed if "healing".
-
-4-5 Continue as normal
-=== ===
-
-*Features Used:*
-  * Cursor (and associated controls)
-  * Selection button
-  * Information button
-  * Details menu
-  * Weapons menu
-  * Weapon/Spell
-*Exceptions:*
-  * If a user selects the wrong unit or a unit who has already had it's turn, the game will not allow selection. 
-  * If a user tries to attack an ally, it will only be allowed if a healing ability if invalid, will wait until user selects proper target
-  * If a user tries to attack ground, it will only be allowed for an area of effect attack if invalid, will wait until user selects proper target
-  * Unusable weapons for selection will be greyed out, and attempts to use these weapons will not be allowed, waits for proper input.
-
-*Screen Mockup*
-
-=== ===
-
-*Name:* Saving
-
-*Description:* Once the battle has ended, the user must save from the overmap
-
-*Actors:* ALL
-
-*Use Case:*
-=== ===
-_ALL:_
-
-Ordinary Usage:
-
-1. Menu: Access the menu by pressing “M”
-
-2. Selection: Select the save option
-
-3. Selection: In the save menu select an empty space.
-
-Abnormal Usage:
-
-1. Menu: Access the menu by pressing “M”
-
-2. Selection: Select the save option
-
-3. Selection: Select already in use save slot
-
-4. Input: Answer with button on Yes overwrite or No do not.
-
-Abnormal Usage 2:
-
-1. Menu. Access the menu by pressing “M”
-
-2. Selection: Select improper action.
-
-3. Selection: Choose cancel and go back to main menu.
-
-4. Selection: Select proper option.
-
-5. Selection: In the save menu select an empty space.
-=== ===
-
-*Features Used:*
-  * Selection Cursor
-  * Action button
-  * World Map Menu
-
-*Exceptions:*
-  * Selecting improper button (simply go back and choose correct)
-  * Overwriting files (ask if they are sure)
-
-*Screen Mockups:*
-
-=== ===
-
-*Name:* Quitting
-
-*Description:* The user wishes to exit the game from the main map
-
-*Actors:* ALL
-
-*Use Case:*
-=== ===
-_ALL:_
-
-Ordinary Usage:
-
-1. Menu: Press “M” to access the menu.
-
-2. Selection: Select the quit option.
-
-3. Selection: Select Yes when asked if they are sure.
-
-Abnormal Usage:
-
-1. Menu: Press “M” to access the menu.
-
-2. Selection: Select the quit option.
-
-3. Mistake: Select No to go back to game.
-=== ===
-*Features Used:*
-  * Selection Cursor
-  * Action button
-  * World Map menu
-
-*Exceptions:*
-  * Selecting No, back to map
-
-*Screen Mockups:*
-
-=== ===
-
-=== Load game start ===
-
-Overview: This scenario will cover the basics of loading a game and other assorted functionalities (load profile, options, load game, marketplace, battle options, save and exit)
-
-Flow:
-
+=== === 
 *Name:* Load Profile
 
 *Description:* The user loads a previously saved profile
@@ -625,7 +122,9 @@ Flow:
 *Actors:* ALL
 
 *Use Case:*
+
 === ===
+
 _ALL:_
 
 Ordinary:
@@ -664,6 +163,7 @@ Abnormal 2:
 *Exceptions:*
   * Incorrect password entry, rectified by allowing the user to enter again
   * Incorrect selection of profile, rectified by allowing the user to “cancel” entry.
+
 *Screen Mockups:*
 
 === ===
@@ -675,7 +175,9 @@ Abnormal 2:
 *Actors:* ALL
 
 *Use Case:*
+
 === ===
+
 _ALL:_
 
 Ordinary:
@@ -695,12 +197,74 @@ Abnormal 1:
 3. Reset: User makes an error, selects “use defaults”
 
 *Features Used:*
+
   * Selection Cursor
   * Menu
   * Button
+*Exceptions:*
+
+  * Incorrect volume, allow user to reset to defaults
+
+*Screen Mockups:*
+
+=== ===
+
+*Name:* Start a New Game
+
+*Description:* The user must start a new instance of the game.
+
+*Actors:* ALL
+
+*Use Case:*
+
+=== ===
+_ALL:_
+
+Normal:
+
+1. Selection: Move the cursor to “New Game”
+
+2. Start: Use enter to start the game.
+
+*Features Used:*
+
+  * Selection Cursor
+
+  * Menu
+
+  * Button
 
 *Exceptions:*
-  * Incorrect volume, allow user to reset to defaults
+
+   N/A
+
+*Screen Mockups:*
+
+=== ===
+
+*Name:* Playing Tutorial
+
+*Description:* The user must start the tutorial mode
+
+*Actors:* Newbie/Casual
+
+*Use Case:*
+
+=== ===
+_Newbie/Casual:_
+
+1. Selection: Move the cursor to “Tutorial”
+
+2. Start: Use enter to start the tutorial.
+
+*Features Used:*
+
+  * Selection Cursor
+  * Menu
+  * Button
+*Exceptions:*
+
+   N/A
 
 *Screen Mockups:*
 
@@ -713,7 +277,9 @@ Abnormal 1:
 *Actors:* ALL
 
 *Use Case:*
+
 === ===
+
 _ALL:_
 
 Ordinary:
@@ -735,15 +301,315 @@ Abnormal 1:
 4. Selection: User is returned to load menu, and may select again.
 
 *Features Used:*
+
   * Selection Cursor
   * Menu
   * Button
-
 *Exceptions:*
+
   * Incorrect save game, allow user to go back before finalizing choice
 
 *Screen Mockups:*
 
 === ===
 
-_Will add rest tonight_
+World map: 
+
+  * Movement 
+  * Select Marketplace 
+Marketplace:  --branch-- 
+
+  * Show buying/scrolling 
+  * Exit 
+World map: 
+
+  * Select party status 
+Party status: --branch--
+
+  * Setting party members
+  * Setting weapons
+
+=== ===
+
+*Name:* Entering Battle
+
+*Description:* The user must navigate a map, and join (move to) a conflict denoted by a red mark.
+
+*Actors:* ALL
+
+*Use Case:*
+
+=== ===
+
+_ALL:_
+
+1. Selection: Move the cursor to toward the contested point
+
+2. Movement: By selecting the node, the character will move to this point 
+
+Abnormal:
+
+1. Selection: User selects node that is not contested
+
+2. Movement: No action results, user continues movement
+
+3. Arrival: When arriving at the correct node, the instance will start.
+
+Abnormal 2:
+
+1. Selection. User selects an area on the map where no nodes or roads exist
+
+2. Movement: No movement occurs until a valid movement is proposed.
+
+*Features Used:*
+
+  * Selection Cursor
+*Exceptions:*
+
+  * Choosing the wrong position (movement but no instance)
+  * Choosing an invalid position (no movement and no instance)
+
+*Screen Mockups:*
+
+=== ===
+
+*Name:* Moving (tutorial)
+
+*Description:* The user must navigate the tactical map, aided by the tutorial mechanism
+
+*Actors:* ALL
+
+*Use Case:*
+
+=== ===
+
+_ALL:_
+
+Ordinary Usage:
+
+1. Selection: Select an allied character
+
+2. Movement: Move the cursor within the movement range of the character (denoted by bordered box)
+
+3. Commit: Use the action button to move the unit to the spot at the cursor.
+
+Abnormal 1:
+
+1. Selection: Selecting ground
+
+2. Selection: User cannot select ground, only allowed to select unit
+
+Abnormal 2:
+
+1. Selection: Select an allied character.
+
+2. Movement: Move character outside the allowable movement area (not allowed).
+
+*Features Used:*
+
+  * Selection Cursor
+  * Action button
+
+*Exceptions:*
+
+  * Selecting ground (no effect)
+  * Trying to move to invalid position (restricted to movement area of unit only)
+
+*Screen Mockups:*
+
+=== ===
+
+*Short Name:* Attacking
+
+*Informal Description:* During the course of the game, the user will have to be able to get their character into a position where they may attack an opponent character.
+
+*Actors:* ALL
+
+*Use Cases:* 
+
+=== ===
+
+_Casual Gamer:_ 
+
+1. Selection: Player selects his/her own unit
+
+2. Choose Target: Player uses cursor and places it over opponent before accepting.
+
+3. Selects Weapon: Player navigates menu, selects appropriate weapon.
+
+4. Attacks: Player affirms attack action.
+
+=== ===
+
+_"Hardcore" Gamer:_
+
+1. Check Skills: Player checks character statistics before choosing target.
+
+2. Check Opponent Skills: Player checks opponent statistics by placing cursor over opposing character.
+
+3. Selection: Deciding it is a good move, player selects his/her own character.
+
+4. Choose Target: Selects character he/she planned to attack with cursor.
+
+5. Selects Weapon: Player navigates menu, selects appropriate weapon.
+
+6. Attacks: Player affirms attack action.
+
+=== ===
+
+_"Newbie" Gamer_:
+
+Ordinary:
+
+1. Selection: Player selects his/her own unit
+
+2. Choose Target: Player uses cursor and places it over opponent before accepting.
+
+3. Selects Weapon: Player navigates menu, selects appropriate weapon.
+
+4. Attacks: Player affirms attack action.
+
+Abnormal 1:
+
+1. Selection: Player selects a unit not their own
+
+2. Re-Selection: Interface does not allow selection of opposing units, player reselects
+
+3-5 Continue as normal
+
+Abnormal 2:
+
+1. Selection: Player selects his/her own unit
+
+2. Choose Target: Player uses cursor and places it over ally or blank ground.
+
+Stem: 
+
+3i: Player has selected ground, this will only be allowed if attack is Area of Effect (attack damages more than one space, and may still be effective)
+
+3ii: Player has selected ally, attack will only be allowed if "healing".
+
+4-5 Continue as normal
+
+=== ===
+
+*Features Used:*
+
+  * Cursor (and associated controls)
+  * Selection button
+  * Information button
+  * Details menu
+  * Weapons menu
+  * Weapon/Spell
+
+*Exceptions:*
+  * If a user selects the wrong unit or a unit who has already had it's turn, the game will not allow selection. 
+  * If a user tries to attack an ally, it will only be allowed if a healing ability if invalid, will wait until user selects proper target
+  * If a user tries to attack ground, it will only be allowed for an area of effect attack if invalid, will wait until user selects proper target
+  * Unusable weapons for selection will be greyed out, and attempts to use these weapons will not be allowed, waits for proper input.
+
+*Screen Mockup*
+
+=== ===
+
+*Name:* Saving
+
+*Description:* Once the battle has ended, the user must save from the overmap
+
+*Actors:* ALL
+
+*Use Case:*
+
+=== ===
+
+_ALL:_
+
+Ordinary Usage:
+
+1. Menu: Access the menu by pressing “M”
+
+2. Selection: Select the save option
+
+3. Selection: In the save menu select an empty space.
+
+Abnormal Usage:
+
+1. Menu: Access the menu by pressing “M”
+
+2. Selection: Select the save option
+
+3. Selection: Select already in use save slot
+
+4. Input: Answer with button on Yes overwrite or No do not.
+
+Abnormal Usage 2:
+
+1. Menu. Access the menu by pressing “M”
+
+2. Selection: Select improper action.
+
+3. Selection: Choose cancel and go back to main menu.
+
+4. Selection: Select proper option.
+
+5. Selection: In the save menu select an empty space.
+
+=== ===
+
+*Features Used:*
+
+  * Selection Cursor
+  * Action button
+  * World Map Menu
+*Exceptions:*
+
+  * Selecting improper button (simply go back and choose correct)
+  * Overwriting files (ask if they are sure)
+
+*Screen Mockups:*
+
+=== ===
+
+*Name:* Quitting
+
+*Description:* The user wishes to exit the game from the main map
+
+*Actors:* ALL
+
+*Use Case:*
+
+=== ===
+
+_ALL:_
+
+Ordinary Usage:
+
+1. Menu: Press “M” to access the menu.
+
+2. Selection: Select the quit option.
+
+3. Selection: Select Yes when asked if they are sure.
+
+Abnormal Usage:
+
+1. Menu: Press “M” to access the menu.
+
+2. Selection: Select the quit option.
+
+3. Mistake: Select No to go back to game.
+
+=== ===
+
+*Features Used:*
+
+  * Selection Cursor
+  * Action button
+  * World Map menu
+
+*Exceptions:*
+
+  * Selecting No, back to map
+
+*Screen Mockups:*
+
+=== ===
