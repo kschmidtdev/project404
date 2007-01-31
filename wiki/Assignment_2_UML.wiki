@@ -73,3 +73,6 @@ http://www.sfu.ca/~karls/CMPT275/UI_UML.jpg
 
 _Add comments/critiques as required_
 
+_Game Engine UML (start)_
+
+[http://www.sfu.ca/~mmalyuk/275/StartGameEngine.zip UML File] (also zipped)
