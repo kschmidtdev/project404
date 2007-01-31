@@ -1,4 +1,4 @@
-#summary Are use-cases dumping ground
+#summary Our use-case dumping ground
 
 
 
@@ -22,9 +22,9 @@ Jimmy Hardcore
 
 Profile:  Jimmy loves his RPGs (role-playing games).  His favourite franchise is Final Fantasy and has played and beaten Final Fantasy Tactics.  He owns a PC, a PS2 and wishes he could afford a PS3.  Jimmy likes to find every single item and ability in a game before putting it away, so he usually doesn't buy many games.  He recently noticed a post on a gaming website for the open-source game "SymTac" and thought he'd give it a try (since it's free).
   
-??Goals: To complete a video game in the shortest time, with the most skills and abilities they can amass. Wish to do the absolute best in a game, before others, and without aid or outside influence. Dedicate large consecutive hours towards a game not only until the game is finished, but also only until they have assured themselves they have done everything, and have "spec'd" (made the abilities of their character the most potent). Even then "Hardcore" gamers may stick around to show off their skills. ???
+??Goals: To complete a video game in the shortest time, with the most skills and abilities they can amass. Wishes to do the absolute best in a game, before others, and without aid or outside influence. Will dedicate many consecutive hours towards a game not only until the game is finished, but also only until they have assured themselves they have done everything, and have "spec'd" (made the abilities of their character the most potent). Even then "Hardcore" gamers may stick around to show off their skills. ???
 
-Abilities: Generally have an encyclopedic knowledge of the game and it's minute facets. Having studied previous games in the series, and likely, having played other games in the genre, consider themselves specialists and elite. Have a low tolerance for hindrance, bugs or general slow downs in a game. Usually have little to no care about the plot, as it is only a means to an ends in the game.
+Abilities: Generally have an encyclopedic knowledge of the game and its minute facets. Having studied previous games in the series, and likely, having played other games in the genre, consider themselves specialists and elite. Have a low tolerance for hindrance, bugs or general slow downs in a game. Usually have little to no care about the plot, as it is only a means to an ends in the game.
 
  
 ==="Newbie" Gamer===
@@ -34,10 +34,10 @@ Abilities: Generally have an encyclopedic knowledge of the game and it's minute 
 Ida gamahata
 _(pronounced I-duh game-a hate-a)_
 
-Profile:  Ida is a thirty-something who works as an accountant at ABC Accounting firm in San Frasisco, CA.  The extenet to which she uses her computer for leisure is usually solitare and minesweeper.  However, a friend recently introduced her to Sim City, which she enjoyed, and her geeky friend pointed her to the open-source game "SymTac", which she has decided to try.  
+Profile:  Ida is a thirty-something who works as an accountant at ABC Accounting firm in San Fransisco, CA.  The extent to which she uses her computer for leisure is usually solitaire and minesweeper.  However, a friend recently introduced her to Sim City, which she enjoyed, and her geeky friend pointed her to the open-source game "SymTac", which she has decided to try.  
 She has a short time and attention span for such a seemingly "hardcore game" and the game roughly has 30-60 minutes to convince her that it's worth her time.
 
-Goals: To learn a new game and to try and gain experience in how it works and what are the best options. Generally unconcerned about asking for information, they wish only to gain the best experience with the software at hand. Generally Newbie's have high expectations of games and hope to become better at them through time. 
+Goals: To learn a new game and to try and gain experience in how it works and what are the best options. Generally unconcerned about asking for information, they wish only to gain the best experience with the software at hand. Generally Newbies have high expectations of games and hope to become better at them through time. 
 
 Abilities: Usually have a strong sense of enthusiasm and start at a game with great gusto. Additionally, they are more likely to try out new things, and question how the game works as a whole. Their best abilities (in testing purposes) is their relatively new nature to the game, which gives great insight into UI and game design through their interactions with the game.
 
