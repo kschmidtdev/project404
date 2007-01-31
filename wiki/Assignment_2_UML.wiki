@@ -54,10 +54,22 @@ _Add comments/critiques as required_
 = Karl's UML diagrams =
 
 _Database Objects UML_
+
 http://www.sfu.ca/~karls/CMPT275/DatabaseUML.jpg
+
 _Manager Objects UML_
+
 http://www.sfu.ca/~karls/CMPT275/ManagerUML.jpg
+
 _Rendering Objects UML_
+
 http://www.sfu.ca/~karls/CMPT275/RenderingUML.jpg
 
+_UI UML_
+
+http://www.sfu.ca/~karls/CMPT275/UI_UML.jpg
+
+[http://www.sfu.ca/~karls/CMPT275/managerclasses.zip UML File] (zipped)
+
 _Add comments/critiques as required_
+
