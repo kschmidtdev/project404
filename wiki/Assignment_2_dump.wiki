@@ -199,29 +199,39 @@ http://www.sfu.ca/~karls/CMPT275/textentrymockup.jpg
 
 = Non-Functional Requirements =
 
-=== Preamble ===
-The definition of a 'functional' requirement is "you give it this input, it gives back this output".
-The definition of a 'non-functional' requirement is basically "any 'requirement/guideline' that is not a 'functional' requirement is a 'non-functional' requirement"
-Thus, since our use cases (functional requirements) will not cover "game mechanics" and other things about our software, they seem to be non-functional requirements
+_I realized I'm missing requirements from the text... I"ll add them tomorrow mourning_
+_Sorry_
 
- * Must be feedback all actions in battle???
- * Game Mechanics
- * Game must be fun
- * Main game is grid-based (tactics-esque??)
- * Armor and Weapon guidelines (templates)
- * World Map extent (how big?)
- * Character templates
- * etc? (probably should email Toby before we develop this list too far)
+<table border=1 width=100%>
+<tr>
+<th width=100%>Requirement Description</th>
+</tr>
 
-= Domain Requirements = 
-= Domain Requirements =
-(domain considered that we are doing this for 275)
+<tr><th>Product REquirements</th></tr>
 
- * We must use one of C++, Java or Python
- * We must use subversion repository
- * There must be 3 working versions of the software (insert deadlines here)
- * 
+<tr><td>Game must be fun</td></tr>
+<tr><td>There must be at least 250 different possible character creations to create the appearance of a system that contains an infinite number of characters</td></tr>
 
+
+<tr><td>The level 3 AI should use at least tactical methods for winning the battle</td></tr>
+
+<tr><td>The battle game must possess some form of utilizable strategy (or strategies) to win a battle </td></tr>
+<tr><td>The game must be at least somewhat graphically appealing on all screens</td></tr>
+<tr><td>The visual style (when possible) should be a consistant personification of nostalgic glamorized medival times</td></tr>
+
+<tr><th>Organizational requirements</th></tr>
+
+<tr><td>Use SDL for Input and Graphics</td></tr>
+<tr><td>Use SDL_ttf for visual font</td></tr>
+<tr><td>Use SDL_sound for music and sound effects</td></tr>
+<tr><td>There will be at least 4 character classes</td></tr>
+<tr><td>The Manager classes should be (whenever possible) modular in design </td></tr>
+<tr><td>The graphics renderer class must be modular </td></tr>
+<tr><td>We must use one of C++, Java, or Python</td></tr>
+<tr><td>We must use an SVN repository</td></tr>
+<tr><td>The project must be open-source</td></tr>
+
+</table>
 
 
 
