@@ -207,32 +207,36 @@ _Sorry_
 <th width=100%>Requirement Description</th>
 </tr>
 
-<tr><th>Product REquirements</th></tr>
+<tr><th>Product Requirements</th></tr>
 
-<tr><td>Game must be fun</td></tr>
+<tr><td>Game must be fun.  Players must naturally be interested to play the game through a least one battle per sitting, and complete the game through a timespan of a couple weeks.</td></tr>
 <tr><td>There must be at least 250 different possible character creations to create the appearance of a system that contains an infinite number of characters</td></tr>
 
 
-<tr><td>The level 3 AI should use at least tactical methods for winning the battle</td></tr>
+<tr><td>The level 3 AI will use some form of tactical methods to win the battle</td></tr>
 
 <tr><td>The battle game must possess some form of utilizable strategy (or strategies) to win a battle </td></tr>
 <tr><td>The game must be at least somewhat graphically appealing on all screens</td></tr>
-<tr><td>The visual style (when possible) should be a consistant personification of nostalgic glamorized medival times</td></tr>
-
+<tr><td>The visual style (when possible) should be a consistant personification of nostalgic glamorized medieval times</td></tr>
+<tr><td>Speed: When user enters a command the response time must appear instantaneous.  Therefore, response time <.15s </td></tr>
+<tr><td>Speed: The character animations will be purposefully slowed down, so to appear at a natural pace.</td></tr>
+<tr><td>Size: System requirements should only require 64Mb of RAM </td></tr>
+<tr><td>Size: The database should be large enough to allow for the aforementioned 250 randomized characters </td></tr>
+<tr><td>Reliability: The software should be able to run at least 1hr without failure </td></tr>
+<tr><td>Robustness: <2.0% of events in the game should cause failure </td></tr>
+<tr><td>Portability: The Manager classes will be (whenever possible) modular in design </td></tr>
+<tr><td>Portability: The renderer class should be modular to all for the use of other graphics systems to draw the game. </td></tr>
 <tr><th>Organizational requirements</th></tr>
-
 <tr><td>Use SDL for Input and Graphics</td></tr>
-<tr><td>Use SDL_ttf for visual font</td></tr>
+<tr><td>Use SDL_ttf for visual fonts</td></tr>
 <tr><td>Use SDL_sound for music and sound effects</td></tr>
-<tr><td>There will be at least 4 character classes</td></tr>
-<tr><td>The Manager classes should be (whenever possible) modular in design </td></tr>
-<tr><td>The graphics renderer class must be modular </td></tr>
+<tr><td>There will be at least 4 character classes (Archer, Knight, Mage and Healer)</td></tr>
 <tr><td>We must use one of C++, Java, or Python</td></tr>
 <tr><td>We must use an SVN repository</td></tr>
 <tr><td>The project must be open-source</td></tr>
 
-</table>
 
+</table>
 
 
 
