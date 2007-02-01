@@ -239,16 +239,24 @@ _Sorry_
 </table>
 
 Notes:
-Constraints on system functionality.
-Restricted to certain language and tools.
-Program is “stand-alone” and not a web app.
-Must run on computers at school.
-Process and Assignments must be followed.
-Must use version control.
-Team has 3 or 4
-(speed, size, user friendlyness, reliability, security, robustness, portability)
-Usually system-wide
 
+Constraints on system functionality.
+
+Restricted to certain language and tools.
+
+Program is “stand-alone” and not a web app.
+
+Must run on computers at school.
+
+Process and Assignments must be followed.
+
+Must use version control.
+
+Team has 3 or 4
+
+(speed, size, user friendlyness, reliability, security, robustness, portability)
+
+Usually system-wide
 
 
 
