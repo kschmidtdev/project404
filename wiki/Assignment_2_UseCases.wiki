@@ -10,7 +10,7 @@
 
 Name: Max
 
-Profile:  Max has always been a fan of the ultimate in tactics games. Having played them all, from fire emblem to final fantasy tactics, Max loves tactics. He's the kind of guy that will put his archers on a hill to gain that extra space of damage. Generally, Max says he enjoys the plot as much as anyone else, but what it boils down to for him, is careful planning, and quick decisive moves with little room for error. This kind of play makes Max apt to go with his strongest characters, seek out the best items, and generally specialize his characters to the maximum of their ability. 
+Profile:  Max has always been a fan of the ultimate in tactics games. Having played them all, from fire emblem to final fantasy tactics, Max loves tactics. He's the kind of guy that will put his archers on a hill to gain that extra space of damage. When Max isn't in his latest battle, he is talking with his friends about the strength of his units and their specialties. Generally, Max says he enjoys the plot as much as anyone else, but what it boils down to for him, is careful planning, and quick decisive moves with little room for error. This kind of play makes Max apt to go with his strongest characters, seek out the best items, and generally specialize his characters to the maximum of their ability. 
 
 Goals:
   * Generally wants to gain the most in physical terms (most characters, most weapons)
@@ -29,7 +29,7 @@ Abilities:
 
 Name: Hubert
 
-Profile: Hubert is new to tactics. Lately his friends have all been playing tactics games, and he wants to give it a shot. However, Hubert's friends are usually busy doing their school work, so Hubert has to learn on the fly. Although he has never tried tactics before, he believes that this type of game can't be that hard to learn. He just wants to play the game, and although he won't learn as much by doing so, he wants the accomplishment of getting through it on his own.
+Profile: Hubert is new to tactics. Lately his friends have all been playing tactics games, and he wants to give it a shot. However, Hubert's friends are usually busy doing their school work, so Hubert has to learn on the fly. Although he has never tried tactics before, he believes that this type of game can't be that hard to learn. He just wants to play the game, and although he won't learn as much by doing so, he wants the accomplishment of getting through it on his own. At least that way he can gain the key to communication with his peers, and be on equal footing.
 
 Goals: 
   * To finish the game
@@ -831,4 +831,3 @@ Abnormal Usage:
 *Screen Mockups:*
 
 === ===
-
