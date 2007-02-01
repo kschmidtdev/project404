@@ -67,3 +67,19 @@ http://www.sfu.ca/~rhan/img/battlemap.png
 * Armor : Armor is a type of equipment that improves a character's defence.(i.e., shield)
 
 * Armory : Place to buy weapons, armors, and other items(i.e., potion). Amory is easy to accessed by the world map in our game.
+
+* Attack : In our game(like all other RPG games), each character can attack an opponent. Action of attack lowers HP of an opponent or kills an opponent.
+
+* Battle : Normally, battle occurs between a user's party(a group of characters) and enemy's party(AI). Battle is one of the major features in our game. A character can attack, move, get item, or be defeated during the battle.
+
+* Battle Map : All the actions related to battle occurs on the battle map. It is a main place(map) of battle actions. The game has many different battle maps. Each battle map is formed by set of tiles which has its own geographical attributes.
+
+* Casual Gamer : Casual gamer is a term used to describe a type of video game player who plays casual games and whose time or interest in playing games is limited compared with a hardcore gamer. The type of game a casual gamer prefers varies but it is generally a game with a few simple rules and which requires no long-term time commitment or special skills to play.
+
+* Character : A figure that is controlled by a user or AI. Each character is unique in the game and has it's own name, class, attributes, story, and etc.
+
+* Character Class : Character Class defines the types of characters in more detail. For instance, fighter(melee-attack type) is more suitable for direct attack; however, archer(range-attack type) can attack the enemy without taking any damage. Magician(special-attack type) can perform various of elemental magic attack to enemies(multiple targets).
+
+* Character Template :	Since tons of characters are in the game, our implementation has a basic template class of a character and all the characters are derived from the character template class.
+
+
