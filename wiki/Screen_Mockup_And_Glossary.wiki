@@ -3,25 +3,40 @@
 = Screen Mock-up =
 
 * Main Menu
+
 http://www.sfu.ca/~rhan/img/mainmenu.png
 
+
 * Profile Dialog
+
 http://www.sfu.ca/~rhan/img/profile_dlg.png
 
+
 * Start Menu (After create/load profile on main menu)
+
 http://www.sfu.ca/~rhan/img/startmenu.png
 
+
 * Option Dialog
+
 http://www.sfu.ca/~rhan/img/option_dlg.png
 
+
 * New Game Dialog
+
 http://www.sfu.ca/~rhan/img/newgame_dlg.png
 
+
 * World Map
+
 http://www.sfu.ca/~rhan/img/worldmap.png
 
+
 * Marketplace/Armory Dialog
+
 http://www.sfu.ca/~rhan/img/store.png
 
+
 * Battle Map
+
 http://www.sfu.ca/~rhan/img/battlemap.png
