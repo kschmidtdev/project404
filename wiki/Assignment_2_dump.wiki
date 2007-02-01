@@ -3,7 +3,9 @@
 
 = Guidelines =
  * The software will be written in C++
- * The renderer, and input will use the SDL
+ * The renderer, and input will use the SDL (http://www.libsdl.org)
+ * Sound will be implemented using SDL_sound (http://icculus.org/SDL_sound/)
+ * Font loading/rendering will be implemented using SDL_ttf (http://www.libsdl.org/projects/SDL_ttf/)
  * User profiles will be encrypted for protection
  * Game archives (data and database, if they are separate) will be encrypted for protection and integrity assurance
  * Our game will not be a clone or copy of the gameplay found in another game title
@@ -219,7 +221,6 @@ Thus, since our use cases (functional requirements) will not cover "game mechani
  * We must use subversion repository
  * There must be 3 working versions of the software (insert deadlines here)
  * 
-
 
 
 
