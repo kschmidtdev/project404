@@ -1,4 +1,5 @@
 = Screen Mock-up =
 
 # Main Menu
-http://www.sfu.ca/~rhan/img/mainmenu.jpg
+
+http://www.sfu.ca/~rhan/img/mainmenu.png
