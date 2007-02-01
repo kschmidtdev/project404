@@ -823,8 +823,6 @@ Hubert finds the attack mechanics confusing. How come his archer can only attack
 
 === ===
 
-_ALL:_
-
 Ordinary Usage:
 
 1. Menu: Access the menu by pressing “M”
@@ -888,8 +886,6 @@ Hubert will know to save, but he may need to learn how to reach the save menus s
 *Use Case:*
 
 === ===
-
-_ALL:_
 
 Ordinary Usage:
 
