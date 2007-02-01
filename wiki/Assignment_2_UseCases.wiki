@@ -5,42 +5,41 @@
 = Functional Requirements =
 
 == List of Actors ==
-===Casual Gamer===
 
-Casey Casual
+===Veteran Gamer===
 
- 
+Name: Max
 
-Profile: Casey plays through a video game at his own pace.  Casey's primary object is to enjoy the game as much for its story line as much as game play mechanics. The casual gamer is unlikely to play games for hours on end, and is likely to pick up and put down a game multiple times before finishing it. Usually they are unconcerned about gaining every attribute, and finding every rare thing, and are most likely to follow a linear and unending path to the end.??????
-
-Abilities: She has a decent understanding of how games work, and if she does not understand, she is able to learn relatively easily (through instruction). Usually has less patience than hardcore gamers and are less likely to carry through and finish a game. Additionally are not afraid to seek out "help" and are more likely to search through FAQs or instruction manuals to ensure their experience proceeds unhindered.
-
-
-==="Hardcore" Gamer===
-
-Jimmy Hardcore
-
-Profile:  Jimmy loves his RPGs (role-playing games).  His favourite franchise is Final Fantasy and has played and beaten Final Fantasy Tactics.  He owns a PC, a PS2 and wishes he could afford a PS3.  Jimmy likes to find every single item and ability in a game before putting it away, so he usually doesn't buy many games.  He recently noticed a post on a gaming website for the open-source game "SymTac" and thought he'd give it a try (since it's free).
+Profile:  Max has always been a fan of the ultimate in tactics games. Having played them all, from fire emblem to final fantasy tactics, Max loves tactics. He's the kind of guy that will put his archers on a hill to gain that extra space of damage. Generally, Max says he enjoys the plot as much as anyone else, but what it boils down to for him, is careful planning, and quick decisive moves with little room for error. This kind of play makes Max apt to go with his strongest characters, seek out the best items, and generally specialize his characters to the maximum of their ability. 
   
-??Goals: To complete a video game in the shortest time, with the most skills and abilities they can amass. Wish to do the absolute best in a game, before others, and without aid or outside influence. Dedicate large consecutive hours towards a game not only until the game is finished, but also only until they have assured themselves they have done everything, and have "spec'd" (made the abilities of their character the most potent). Even then "Hardcore" gamers may stick around to show off their skills. ???
+Goals:
+  * Generally wants to gain the most in physical terms (most characters, most weapons)
+  * Loves unique and powerful weapons/characters
+  * Is willing to seek out unique game play opportunities
+  * Wants to crush the enemy AI 
 
-Abilities: Generally have an encyclopedic knowledge of the game and it's minute facets. Having studied previous games in the series, and likely, having played other games in the genre, consider themselves specialists and elite. Have a low tolerance for hindrance, bugs or general slow downs in a game. Usually have little to no care about the plot, as it is only a means to an ends in the game.
+Abilities: 
+  * Good grasp of Tactics style games
+  * Strong incentive to complete all goals and tasks
+  * Relatively strong interpretation ability
+  * Willingness to quickly identify information that will strengthen his game.
 
  
 ==="Newbie" Gamer===
 
-(newbie means a player new to the genre, game or both)
+Name: Hubert
 
-Ida gamahata
-_(pronounced I-duh game-a hate-a)_
+Profile: Hubert is new to tactics. Lately his friends have all been playing tactics games, and he wants to give it a shot. However, Hubert's friends are usually busy doing their school work, so Hubert has to learn on the fly. Although he has never tried tactics before, he believes that this type of game can't be that hard to learn. He just wants to play the game, and although he won't learn as much by doing so, he wants the accomplishment of getting through it on his own.
 
-Profile:  Ida is a thirty-something who works as an accountant at ABC Accounting firm in San Frasisco, CA.  The extenet to which she uses her computer for leisure is usually solitare and minesweeper.  However, a friend recently introduced her to Sim City, which she enjoyed, and her geeky friend pointed her to the open-source game "SymTac", which she has decided to try.  
-She has a short time and attention span for such a seemingly "hardcore game" and the game roughly has 30-60 minutes to convince her that it's worth her time.
+Goals: 
+  * To finish the game
+  * To learn tactics style games on his own
+  * To have something to say to his friends
 
-Goals: To learn a new game and to try and gain experience in how it works and what are the best options. Generally unconcerned about asking for information, they wish only to gain the best experience with the software at hand. Generally Newbie's have high expectations of games and hope to become better at them through time. 
-
-Abilities: Usually have a strong sense of enthusiasm and start at a game with great gusto. Additionally, they are more likely to try out new things, and question how the game works as a whole. Their best abilities (in testing purposes) is their relatively new nature to the game, which gives great insight into UI and game design through their interactions with the game.
-
+Abilities: 
+  * Highly Enthusiastic
+  * Willingness to learn (short attention span)
+  * Not afraid to try something new
 
 ==Short list of Use Cases==
 
@@ -832,3 +831,4 @@ Abnormal Usage:
 *Screen Mockups:*
 
 === ===
+
