@@ -1,4 +1,4 @@
-# Screen mock-up and glossary.
+# Screen mock-up and glossary. #
 
 = Screen Mock-up =
 
@@ -81,5 +81,4 @@ http://www.sfu.ca/~rhan/img/battlemap.png
 * Character Class : Character Class defines the types of characters in more detail. For instance, fighter(melee-attack type) is more suitable for direct attack; however, archer(range-attack type) can attack the enemy without taking any damage. Magician(special-attack type) can perform various of elemental magic attack to enemies(multiple targets).
 
 * Character Template :	Since tons of characters are in the game, our implementation has a basic template class of a character and all the characters are derived from the character template class.
-
 
