@@ -1,0 +1,85 @@
+<b>Feature Priority List</b>
+
+<span style="font-size: 80%;">
+<h2>Version 1 Features</h2>
+<h3>Game</h3>
+<ul><li>Simple background music</li>
+<li>Turn-based combat</li>
+<li>Logging system</li>
+<li>Simple configuration file parsing</li>
+<li>Keyboard, joystick input handling</li>
+<li>Computer AI (first level, does something)</li>
+<li>Enemies</li>
+<li>Items</li>
+<li>Tile-map movement</li>
+<li>Characters with different classes (4)</li>
+<li>Optional tutorial to demonstrate how to battle</li>
+</ul>
+<h3>UI</h3>
+<ul>
+<li>Indicator of actions (visual) during battles</li>
+<li>Main menu</li>
+<li>Over-map</li>
+<li>Battle map(hard-coded map layouts) </li>
+<li>Tile-map rendering</li>
+<li>Password entering/setting screens (mock-up) </li>
+</ul>
+<h3>Security</h3>
+<ul><li>Password verification (hash incoming password and compare against a stored hashed password)</li>
+</ul>
+<h3>Database</h3>
+<ul>
+<li>Load an XML document into a lightweight graph structure</li>
+<li>Supports look-ups (fast)</li>
+</ul>
+<h2>Version 2 Features</h2>
+<h3>Game</h3>
+<ul>
+<li>Computer AI (second level, actually seems to do intelligent things)</li>
+<li>Tile-map weights (certain tiles are impassable, take longer to cross, etc)</li>
+<li>Store/Load savegames</li>
+</ul>
+<h3>UI</h3>
+<ul>
+<li>Dynamic sizes of tile-map rendering (not all tile-maps have to be the same size)</li>
+<li>Scrolling text-boxes (for dialog, press a button/key to progress)</li>
+<li>Battle-map loading from database</li>
+</ul>
+<h3>Security</h3>
+<ul>
+<li>Encrypt an incoming file, output to another file</li>
+<li>Decrypt an incoming file to memory</li>
+</ul>
+<h3>Database</h3>
+<ul>
+<li>Save a lightweight graph structure into an XML document</li>
+<li>Search functionality for specific data</li>
+<li>Support range query functionality (eg. get item with attribute from one range to another)  </li>
+<li>Template system for creating items and characters</li>
+</ul>
+<h2>Version 3 Features</h2>
+<h3>Game</h3>
+<ul>
+<li>Item store (shopping)</li>
+<li>Computer AI (third level, actually challenging)</li>
+<li>Store/Load gamestates (like in the middle of a battle)</li>
+</ul>
+<h3>UI</h3>
+<ul>
+<li>Animations during battles</li>
+<li>Mini-map during battle map</li>
+<li>Intro screens (Team404, etc)</li>
+<li>Fading in/out textures</li>
+<li>Item store interface</li>
+<li>Refine battle screen UI</li>
+</ul>
+<h3>Database</h3>
+<ul>
+<li>Store history of character&#x27;s moves</li>
+</ul>
+<h2>Missing Features</h2>
+<ul>
+<li>tutorial </li>
+<li>credits </li>
+</ul>
+</span>

@@ -13,7 +13,17 @@
 <span class = "sidemenu" >
 <a href="team.html">Team Information</a><br/>
 <a href="assignment1.html">Assignment 1</a><br/>
-<a href="assignment2.html">Assignment 2</a><br/>
+<a href="assignment2.html">Assignment 2</a>
+<ul class="sidemenulist">
+<li><a href="assignment2functionalrequirements1.html">Functional Requirements Page 1</a></li>
+<li><a href="assignment2functionalrequirements2.html">Functional Requirements Page 2</a></li>
+<li><a href="assignment2umldiagrams.html">UML Architectural Diagram</a></li>
+<li><a href="assignment2datarequirements.html">Data requirements</a></li>
+<li><a href="assignment2nonfunctionalreqs.html">Non-functional requirements</a></li>
+<li><a href="assignment2guidelines.html">Guidelines</a></li>
+<li><a href="assignment2glossary.html">Glossary</a></li>
+<li><a href="assignment2featurepriority.html">Feature Priority</a></li>
+</ul>
 <a href="assignment3.html">Assignment 3</a><br/>
 <a href="assignment4.html">Assignment 4</a><br/>
 <a href="assignment5.html">Assignment 5</a><br/>

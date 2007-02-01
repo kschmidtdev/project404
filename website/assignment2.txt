@@ -1,1 +1,14 @@
 Project Manager for this assignment: <b>TBA</b>.
+
+Sections of this assignment include:
+
+<ul class="contentlist">
+<li><a href="assignment2functionalrequirements1.html">Functional Requirements Page 1</a></li>
+<li><a href="assignment2functionalrequirements2.html">Functional Requirements Page 2</a></li>
+<li><a href="assignment2umldiagrams.html">UML Architectural Diagram</a></li>
+<li><a href="assignment2datarequirements.html">Data requirements</a></li>
+<li><a href="assignment2nonfunctionalreqs.html">Non-functional requirements</a></li>
+<li><a href="assignment2guidelines.html">Guidelines</a></li>
+<li><a href="assignment2glossary.html">Glossary</a></li>
+<li><a href="assignment2featurepriority.html">Feature Priority</a></li>
+</ul>

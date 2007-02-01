@@ -1,0 +1,79 @@
+<b>Glossary</b>
+
+
+<span style="font-size: 80%;">
+ <b>Armor :</b> Armor is a type of equipment that improves a character's defence.(i.e., shield)
+
+ <b>Armory :</b> A Place to buy weapons, armors, and other items(i.e., potion). Amory is easy to access from the world map in our game.
+
+ <b>Attack :</b> In our game(like all other RPG games), each character can attack an opponent. Action of attack lowers HP of an opponent or kills an opponent.
+
+ <b>Battle :</b> Normally, battle occurs between a user's party(a group of characters) and enemy's party(AI). Battle is one of the major features in our game. A character can attack, move, get item, or be defeated during the battle.
+
+ <b>Battle Map :</b> All the actions related to battle occurs on the battle map. It is a main place(map) of battle actions. The game has many different battle maps. Each battle map is consist of a set of tiles which has its own geographical attributes.
+
+ <b>Casual Gamer :</b> Casual gamer is a term used to describe a type of video game player who plays casual games and whose time or interest in playing games is limited compared with a hardcore gamer. The type of game a casual gamer prefers varies but it is generally a game with a few simple rules and which requires no long-term time commitment or special skills to play.
+
+ <b>Character :</b> A figure that is controlled by a user or AI. Each character is unique in the game and has it's own name, class, attributes, story, and etc.
+
+ <b>Character Class :</b> Character Class defines the types of characters in more detail. For instance, fighter(melee-attack type) is more suitable for direct attack(more powerful and has more HP); however, archer(range-attack type) can attack the enemy without taking any damage. Magician(special-attack type) can perform various types of elemental magic-attack to enemies(possibly multiple targets).
+
+ <b>Character Template :</b> Since tons of characters are in the game, our implementation has a basic template class of a character and all the characters are derived from the character template class.
+
+ <b>Code:</b>:</b>Blocks :</b> Code:</b>:</b>Blocks is a free, open source, and cross platform IDE. It is being developed in C++ using wxWidgets. Using a plugin architecture, its capabilities and features are defined by the provided plugins. Currently, Code:</b>:</b>Blocks is oriented towards C/C++.
+
+ <b>Equip :</b> This is an action to equip weapons or armors to a character in the world map.
+
+ <b>Gold :</b> Gold is a unit of money in the game. It can be otained from events or battles. Certain amount of gold is required to buy some weapons, armors and items from marketplace.
+
+ <b>Grid-based Game :</b> This is somewhat similar to the game mechanism of chess. The battle map is divided by grids and each character take a place of one grid. Characters can move to another grid but cannot move to the grid that is already taken by another character. Only exception to this is defeat the one and take his/her grid.
+
+ <b>Hardcore Gamer :</b> Hardcore gamer is a term used to describe a type of video game player whose leisure time is largely devoted to playing or reading about video games. This type of gamer prefers a game with complexity which takes significant time and practice to learn, in contrast to a casual gamer. Many hardcore gamers pride themselves on mastering the rules or use of a game although this is not a strict requirement.
+
+ <b>Item :</b> An item is an object within the game world that can be collected by the user's character. Example of items are hurb, potion, sword, armor, keys and etc.
+
+ <b>Joypad/Joystick :</b> A gamepad, also called joypad or control pad, is a type of game controller held with both hands where the thumbs are used to provide input. Gamepads generally feature a set of action buttons handled with the right thumb and a direction controller handled with the left. Our game supports joystick because SDL can be easily adopted to other console platform(i.e., GP2X)
+
+ <b>JPEG/JPG :</b> In computing, JPEG (pronounced JAY-peg) is a commonly used standard method of compression for photographic images. The name JPEG stands for Joint Photographic Experts Group, the name of the committee which created the standard.
+
+ <b>Magic :</b> Magic is another type of action to attack an enemy character. Also, magic can heal(recover the HP) other characters or enhance attributes of characters.
+
+ <b>Marketplace :</b> Synonym to armory
+
+ <b>Mini Map :</b> Mini map is displayed on the right-top corner of the screen during the battle. It helps to take a look at the current status of battle briefly.
+
+ <b>Move :</b> There are two different categories of movement in our game. Movement within the world map and movement within the battle map. In the world map, a user can move around cities, event spots, and battle points. In the battle map, a user can move to a certain grid to attack an enemy, to avoid from the enemy, or to obtain items on the field.
+
+ <b>Newbie :</b> A newbie is a newcomer to a particular field, the term being commonly used on the Internet, where it might refer to new, inexperienced, or ignorant users of a game, a newsgroup, an operating system or the Internet itself. In many cases more experienced/knowledgeable people use it in purposes of negative reinforcement, urging "newbies" to learn more about the field or area in question.
+
+ <b>Over-map :</b> Another word for World Map.
+
+ <b>Party :</b> Simply, party is a group of user's character(or even enemies'). A party is a unique and has limited spots.(So, one party is a group of a certain number of characters; however, types of characters are not constrained). If a character is not in the party, he/she cannot participate in the battle.
+
+ <b>PNG :</b> PNG (Portable Network Graphics) is a bitmap image format that employs lossless data compression. PNG was created to improve and replace the GIF format, as an image-file format not requiring a patent license. PNG is pronounced "ping", but can be spoken "P-N-G" to avoid confusion with network tool ping. PNG is supported by the libpng reference library (platform-independent), with C functions for handling PNG images.
+
+ <b>Potion :</b> A potion (from Latin potio, potionis, meaning beverage, potion, poison) is a drinkable medicine or poison. In our game, potion is a item that restores a character's HP. Potion can be bought from marketplace or obtained during the battle.
+
+ <b>Profile :</b> Each user has at least one profile which saves configuration settings of game and assciated save files. Each profile is protected by password and only can be accessed by the valid user with the valid password.
+
+ <b>SDL :</b> Simple DirectMedia? Layer (SDL) is a cross-platform multimedia free software library written in C that creates an abstraction over various platforms' graphics, sound, and input APIs, allowing a developer to write a computer game or other multimedia application once and run it on many operating systems including GNU/Linux, Windows and Mac OS X. It manages video, events, digital audio, CD-ROM, sound, threads, shared object loading, networking and timers.
+
+ <b>starUML :</b> StarUML is an open source UML tool, licenced under a modified version of GNU GPL. The stated goal of the project is to replace larger, commercial applications such as Rational Rose and Borland's Together. StarUML supports most of the diagram types specified in UML 2.0. It is currently missing object, package, timing and Interaction overview diagrams (though the first two can be adequately modelled through the class diagram editor).
+
+ <b>Status :</b> Status in game represents all the attributes(strenght, dexterity, inteligence and etc) of one character with their equipments(weapon and armor). status also shows the formation of party and any other informations related to a user's characters.
+
+ <b>Tile-map :</b> Basic unit of consisting battle map. Each tile has its own attributes that may helps or disturbs the battle situation.
+
+ <b>Turn-Based Game :</b> A turn-based game, also known as turn-based strategy (TBS), is a game where the game flow is partitioned into well-defined and visible parts, called turns or rounds. For example, when the game flow unit is time, turns represent units of time, like years, months, weeks, or days. A player of a turn-based game is allowed a period of analysis (sometimes bounded, sometimes unbounded) before committing to a game action, ensuring a separation between the game flow and the thinking process, which in turn presumably leads to more optimal choices. Once every player has taken his or her turn, that round of play is over, and any special shared processing is done. This is followed by the next round of play.
+
+ <b>Tutorial :</b> For anyone who is not familiar with our game, we provide a tutorial. In this tutorial, a user can experience and be able to learn most of the basic controlls of the game.
+
+ <b>Vector :</b> Vector (or std::vector) is a C++ implementation of the dynamic array data structure. Its interface emulates the behavior of a C array (i.e., capable of fast random access) but with the additional ability to automatically resize itself when inserting or erasing an object. Vector is a template class that is a part of the C++ Standard Template Library. It can store any type, but is limited to storing only one type per instance. It provides a standard set of methods for accessing elements, adding elements to the start or end, deleting elements and finding how many elements are stored.
+
+ <b>Weapon :</b> Weapon is a type of equipment that improves a character's offence.(i.e., sword)
+
+ <b>World Map :</b> Main map that shows the world of the game and all important places in the game. A user can move around the world map to experience interesting events, to fight with enemy, or visiting to a beautiful castle.
+
+ <b>XML :</b> The Extensible Markup Language (XML) is a W3C-recommended general-purpose markup language that supports a wide variety of applications. XML languages or 'dialects' are easy to design and to process. XML is also designed to be reasonably human-legible, and to this end, terseness was not considered essential in its structure. XML is a simplified subset of Standard Generalized Markup Language (SGML). Its primary purpose is to facilitate the sharing of data across different information systems, particularly systems connected via the Internet. 
+ 
+</span>

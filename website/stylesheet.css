@@ -3,9 +3,25 @@
 	float: left;
 	position: absolute;
 	left: 20px;
-	top: 50px;
-	font-size: 70%;
+	top: 70px;
+	font-size: 80%;
 	font-family: verdana, sans-serif;
+	line-height: 150%;
+}
+
+.sidemenulist
+{
+	position: relative;
+	left: -10px;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 90%;
+	line-height: 120%;
+}
+
+.contentlist
+{
+	line-height: 150%;
 }
 
 a, a:visited
@@ -22,8 +38,10 @@ a:hover
 
 .content
 {
-	left: 200px;
-	top: 80px;
+	border-left: 4px dashed black;
+	padding-left: 15px;
+	left: 245px;
+	top: 70px;
 	position: absolute;
 	font-size: 100%;
 	font-family: verdana, sans-serif;
@@ -48,4 +66,10 @@ a:hover
 .tablestyle
 {
 	border-collapse: collapse;
+}
+
+.typicallist
+{
+	font-size: 80%;
+	line-height: 150%;
 }
