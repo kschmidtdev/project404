@@ -11,7 +11,7 @@
 Name: Max
 
 Profile:  Max has always been a fan of the ultimate in tactics games. Having played them all, from fire emblem to final fantasy tactics, Max loves tactics. He's the kind of guy that will put his archers on a hill to gain that extra space of damage. Generally, Max says he enjoys the plot as much as anyone else, but what it boils down to for him, is careful planning, and quick decisive moves with little room for error. This kind of play makes Max apt to go with his strongest characters, seek out the best items, and generally specialize his characters to the maximum of their ability. 
-  
+
 Goals:
   * Generally wants to gain the most in physical terms (most characters, most weapons)
   * Loves unique and powerful weapons/characters
