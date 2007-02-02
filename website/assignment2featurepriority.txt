@@ -12,17 +12,15 @@ Link to: <a href="http://code.google.com/p/project404/issues/list?start=0">Bug T
 <li>Keyboard, joystick input handling (text box)</li>
 <li>Computer AI (first level, does something)</li>
 <li>Enemies</li>
-<li>Items</li>
+<li>Items (Equippable)</li>
 <li>Tile-map movement</li>
 <li>Characters with different classes (4)</li>
-<li>Optional tutorial to demonstrate how to battle</li>
 <li>Skeleton Profile</li>
 </ul>
 <h3>UI</h3>
 <ul>
 <li>Indicator of actions (visual) during battles</li>
 <li>Main menu</li>
-<li>Over-map</li>
 <li>Battle map(hard-coded map layouts) </li>
 <li>Tile-map rendering</li>
 <li>Password entering/setting screens (mock-up) </li>
@@ -47,6 +45,7 @@ Link to: <a href="http://code.google.com/p/project404/issues/list?start=0">Bug T
 <li>Dynamic sizes of tile-map rendering (not all tile-maps have to be the same size)</li>
 <li>Scrolling text-boxes (for dialog, press a button/key to progress)</li>
 <li>Battle-map loading from database</li>
+<li>Over-map</li>
 </ul>
 <h3>Security</h3>
 <ul>
@@ -66,6 +65,7 @@ Link to: <a href="http://code.google.com/p/project404/issues/list?start=0">Bug T
 <li>Item store (shopping)</li>
 <li>Computer AI (third level, actually challenging)</li>
 <li>Store/Load gamestates (like in the middle of a battle)</li>
+<li>Optional tutorial to demonstrate how to battle</li>
 </ul>
 <h3>UI</h3>
 <ul><li>Credits</li>
