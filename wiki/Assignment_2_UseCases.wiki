@@ -365,7 +365,7 @@ They all know that to load a game is imperative to playing the game.
 
 2. Movement: By selecting the node, the character will move to this point 
 
-3. Menu: Press "M" to bring up the menu.
+3. Menu: Press the menu button to bring up the menu.
 
 4. Selection: Navigate menu to "Armoury/Marketplace"(whichever is there) and enter.
 
@@ -375,7 +375,7 @@ Abnormal:
 
 2. Movement: Player moves to position
 
-3. Menu: Pressing "M" brings up the menu.
+3. Menu: Pressing the menu button brings up the menu.
 
 4. Unselectable: Menu does not allow selection of Armoury or Marketplace.
 
@@ -478,7 +478,7 @@ Hubert will have trouble understanding the use of the marketplace. Since he has 
 
 === ===
 
-1. Selection: Press the "M" button to bring up the menu
+1. Selection: Press the menu button to bring up the menu
 
 2. Selection: Navigate to the "Party Status" button, and press the button.
 
@@ -631,7 +631,7 @@ Hubert doesn't really understand how the battles work, but he knows where a acti
 
 === ===
 
-1. Selection: Press the "S" button
+1. Selection: Press the select button
 
 2. Selection: Side menu shows listing of all characters on field with basic info. Selecting a unit brings up submenu.
 
@@ -825,7 +825,7 @@ Hubert finds the attack mechanics confusing. How come his archer can only attack
 
 Ordinary Usage:
 
-1. Menu: Access the menu by pressing “M”
+1. Menu: Access the menu by pressing the menu button
 
 2. Selection: Select the save option
 
@@ -833,7 +833,7 @@ Ordinary Usage:
 
 Abnormal Usage:
 
-1. Menu: Access the menu by pressing “M”
+1. Menu: Access the menu by pressing the menu button
 
 2. Selection: Select the save option
 
@@ -843,7 +843,7 @@ Abnormal Usage:
 
 Abnormal Usage 2:
 
-1. Menu. Access the menu by pressing “M”
+1. Menu. Access the menu by pressing the menu button
 
 2. Selection: Select improper action.
 
@@ -889,7 +889,7 @@ Hubert will know to save, but he may need to learn how to reach the save menus s
 
 Ordinary Usage:
 
-1. Menu: Press “M” to access the menu.
+1. Menu: Press menu button to access the menu.
 
 2. Selection: Select the quit option.
 
@@ -897,7 +897,7 @@ Ordinary Usage:
 
 Abnormal Usage:
 
-1. Menu: Press “M” to access the menu.
+1. Menu: Press menu button to access the menu.
 
 2. Selection: Select the quit option.
 
