@@ -38,7 +38,7 @@ a:hover
 
 .content
 {
-	border-left: 4px dashed black;
+	border-left: 4px solid black;
 	padding-left: 15px;
 	left: 245px;
 	top: 70px;

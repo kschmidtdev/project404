@@ -65,7 +65,7 @@
 <li>Store/Load gamestates (like in the middle of a battle)</li>
 </ul>
 <h3>UI</h3>
-<ul>
+<ul><li>Credits</li>
 <li>Animations during battles</li>
 <li>Mini-map during battle map</li>
 <li>Intro screens (Team404, etc)</li>
@@ -76,10 +76,5 @@
 <h3>Database</h3>
 <ul>
 <li>Store history of character&#x27;s moves</li>
-</ul>
-<h2>Missing Features</h2>
-<ul>
-<li>tutorial </li>
-<li>credits </li>
 </ul>
 </span>

@@ -20,7 +20,7 @@
 
  <b>Character Template :</b> Since tons of characters are in the game, our implementation has a basic template class of a character and all the characters are derived from the character template class.
 
- <b>Code:</b>:</b>Blocks :</b> Code:</b>:</b>Blocks is a free, open source, and cross platform IDE. It is being developed in C++ using wxWidgets. Using a plugin architecture, its capabilities and features are defined by the provided plugins. Currently, Code:</b>:</b>Blocks is oriented towards C/C++.
+ <b>Code::Blocks :</b> Code::Blocks is a free, open source, and cross platform IDE. It is being developed in C++ using wxWidgets. Using a plugin architecture, its capabilities and features are defined by the provided plugins. Currently, Code::Blocks is oriented towards C/C++.
 
  <b>Equip :</b> This is an action to equip weapons or armors to a character in the world map.
 
