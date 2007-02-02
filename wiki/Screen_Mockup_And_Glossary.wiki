@@ -10,7 +10,15 @@ http://www.sfu.ca/~rhan/img/mainmenu.png
 
 
 
-* Profile Dialog
+* New Profile
+
+http://www.sfu.ca/~rhan/img/newprofile_dlg.png
+
+
+
+
+
+* Load Profile
 
 http://www.sfu.ca/~rhan/img/profile_dlg.png
 
@@ -45,6 +53,14 @@ http://www.sfu.ca/~rhan/img/newgame_dlg.png
 * World Map
 
 http://www.sfu.ca/~rhan/img/worldmap.png
+
+
+
+
+
+* Party Status
+
+http://www.sfu.ca/~rhan/img/partystatus.png
 
 
 
@@ -137,4 +153,3 @@ http://www.sfu.ca/~rhan/img/battlemap.png
 * World Map : Main map that shows the world of the game and all important places in the game. A user can move around the world map to experience interesting events, to fight with enemy, or visiting to a beautiful castle.
 
 * XML : The Extensible Markup Language (XML) is a W3C-recommended general-purpose markup language that supports a wide variety of applications. XML languages or 'dialects' are easy to design and to process. XML is also designed to be reasonably human-legible, and to this end, terseness was not considered essential in its structure. XML is a simplified subset of Standard Generalized Markup Language (SGML). Its primary purpose is to facilitate the sharing of data across different information systems, particularly systems connected via the Internet.
-
