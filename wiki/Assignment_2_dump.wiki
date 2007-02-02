@@ -234,7 +234,9 @@ _Sorry_
 <tr><td>We must use one of C++, Java, or Python</td></tr>
 <tr><td>We must use an SVN repository</td></tr>
 <tr><td>The project must be open-source</td></tr>
-
+<tr><td>Program is “stand-alone” and not a web app.</td></tr>
+<tr><td>Must run on computers at school.</td></tr>
+<tr><td>Team has 3 or 4</td></tr>
 
 </table>
 
@@ -244,20 +246,17 @@ Constraints on system functionality.
 
 Restricted to certain language and tools.
 
-Program is “stand-alone” and not a web app.
 
-Must run on computers at school.
 
 Process and Assignments must be followed.
 
 Must use version control.
 
-Team has 3 or 4
+
 
 (speed, size, user friendlyness, reliability, security, robustness, portability)
 
 Usually system-wide
-
 
 
 
