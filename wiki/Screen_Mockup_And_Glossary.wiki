@@ -50,6 +50,14 @@ http://www.sfu.ca/~rhan/img/newgame_dlg.png
 
 
 
+* Load Game Dialog
+
+http://www.sfu.ca/~rhan/img/loadgame_dlg.png
+
+
+
+
+
 * World Map
 
 http://www.sfu.ca/~rhan/img/worldmap.png
