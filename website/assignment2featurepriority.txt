@@ -5,15 +5,17 @@
 <h3>Game</h3>
 <ul><li>Simple background music</li>
 <li>Turn-based combat</li>
+<li>Basic UI interface (selection cursor, simple menu)</li>
 <li>Logging system</li>
 <li>Simple configuration file parsing</li>
-<li>Keyboard, joystick input handling</li>
+<li>Keyboard, joystick input handling (text box)</li>
 <li>Computer AI (first level, does something)</li>
 <li>Enemies</li>
 <li>Items</li>
 <li>Tile-map movement</li>
 <li>Characters with different classes (4)</li>
 <li>Optional tutorial to demonstrate how to battle</li>
+<li>Skeleton Profile</li>
 </ul>
 <h3>UI</h3>
 <ul>
