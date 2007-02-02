@@ -1,5 +1,6 @@
 <b>Feature Priority List</b>
 
+Link to: <a href="http://code.google.com/p/project404/issues/list?start=0">Bug Tracker</a>
 <span style="font-size: 80%;">
 <h2>Version 1 Features</h2>
 <h3>Game</h3>
