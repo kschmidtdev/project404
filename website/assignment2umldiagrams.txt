@@ -2,6 +2,8 @@
 
 <img src="http://www.sfu.ca/~aco1/dataClasses.jpg"/>
 
+<img src="http://www.sfu.ca/~karls/CMPT275/GameEngineUML.jpg"/>
+
 <b>Database Objects UML</b>
 
 <img src="http://www.sfu.ca/~karls/CMPT275/DatabaseUML.jpg"/>
