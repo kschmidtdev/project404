@@ -16,13 +16,13 @@ def writeSectionHTML( sectionTitle, sectionFilename, headTxt, footTxt, sideMenuH
             line = line.replace( "SIDEMENU", sideMenuHTML )
         elif "STYLESHEET" in line:
             if subsection:
-                line = line.replace( "STYLESHEET", "..\\stylesheet.css")
+                line = line.replace( "STYLESHEET", "../stylesheet.css")
             else:
                 line = line.replace( "STYLESHEET", "stylesheet.css" )
         if subsection:
-            line = line.replace( "\n<a href=\"", "\n<a href=\"..\\" )
-            line = line.replace( "\n<a href=\"..\\http", "\n<a href=\"http" )
-            line = line.replace( subsection + "\\", "" )
+            line = line.replace( "\n<a href=\"", "\n<a href=\"../" )
+            line = line.replace( "\n<a href=\"../http", "\n<a href=\"http" )
+            line = line.replace( subsection + "/", "" )
         thisSectionPage.write( line )
 
     sectionFile = open( sectionFilename, "r" )
@@ -79,7 +79,7 @@ def main():
                     if sectionLine[0] != "#":
                         subSectionTitle = subsectionLine.split(", ")[0].replace("\"", "")
                         subSectionFilename = subsectionLine.split(", ")[1].replace("\"", "").strip()
-                        subSectionHTMLFilename = sectionFolder + "\\" + subSectionFilename.replace("txt", "html" )
+                        subSectionHTMLFilename = sectionFolder + "/" + subSectionFilename.replace("txt", "html" )
                         sideMenuHTML += "<li><a href=\"" + subSectionHTMLFilename + "\">" + subSectionTitle + "</a></li>\n"
                 sideMenuHTML += "</ul>\n"
             elif sectionDetailTitle == "url":
