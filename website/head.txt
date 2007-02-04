@@ -3,39 +3,13 @@
 <head>
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
   <title>Team 404 : Project 404 : PAGETITLE</title>
-  <link rel="stylesheet" type="text/css" href="stylesheet.css" />
+  <link rel="stylesheet" type="text/css" href="STYLESHEET" />
 </head>
 
 <body>
 
 <span class = "title">Team 404 : Project 404 : <b>PAGETITLE</b></span>
 
-<span class = "sidemenu" >
-<a href="team.html">Team Information</a><br/>
-<a href="assignment1.html">Assignment 1</a><br/>
-<a href="assignment2.html">Assignment 2</a>
-<ul class="sidemenulist">
-<li><a href="assignment2functionalrequirements1.html">Functional Requirements Page 1</a></li>
-<li><a href="assignment2functionalrequirements2.html">Functional Requirements Page 2</a></li>
-<li><a href="assignment2functionalrequirements3.html">Functional Requirements Page 3</a></li>
-<li><a href="assignment2functionalrequirements4.html">Functional Requirements Page 4</a></li>
-<li><a href="assignment2functionalrequirements5.html">Functional Requirements Page 5</a></li>
-<li><a href="assignment2functionalrequirements6.html">Functional Requirements Page 6</a></li>
-<li><a href="assignment2functionalrequirements7.html">Functional Requirements Page 7</a></li>
-<li><a href="assignment2functionalrequirements8.html">Functional Requirements Page 8</a></li>
-<li><a href="assignment2functionalrequirements9.html">Functional Requirements Page 9</a></li>
-<li><a href="assignment2umldiagrams.html">UML Architectural Diagram</a></li>
-<li><a href="assignment2datarequirements.html">Data requirements</a></li>
-<li><a href="assignment2nonfunctionalreqs.html">Non-functional requirements</a></li>
-<li><a href="assignment2guidelines.html">Guidelines</a></li>
-<li><a href="assignment2glossary.html">Glossary</a></li>
-<li><a href="assignment2featurepriority.html">Feature Priority</a></li>
-</ul>
-<a href="assignment3.html">Assignment 3</a><br/>
-<a href="assignment4.html">Assignment 4</a><br/>
-<a href="assignment5.html">Assignment 5</a><br/>
-<a href="http://code.google.com/p/project404/source">SVN Repository Information</a><br/>
-<a href="http://code.google.com/p/project404/">Project Development Site</a>
-</span>
+SIDEMENU
 
 <span class = "content" >

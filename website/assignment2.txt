@@ -3,19 +3,19 @@ Project Manager for this assignment: <i>Mike Malyuk</i>.
 Sections of this assignment include:
 
 <ul class="contentlist">
-<li><a href="assignment2functionalrequirements1.html">Functional Requirements Page 1</a></li>
-<li><a href="assignment2functionalrequirements2.html">Functional Requirements Page 2</a></li>
-<li><a href="assignment2functionalrequirements3.html">Functional Requirements Page 3</a></li>
-<li><a href="assignment2functionalrequirements4.html">Functional Requirements Page 4</a></li>
-<li><a href="assignment2functionalrequirements5.html">Functional Requirements Page 5</a></li>
-<li><a href="assignment2functionalrequirements6.html">Functional Requirements Page 6</a></li>
-<li><a href="assignment2functionalrequirements7.html">Functional Requirements Page 7</a></li>
-<li><a href="assignment2functionalrequirements8.html">Functional Requirements Page 8</a></li>
-<li><a href="assignment2functionalrequirements9.html">Functional Requirements Page 9</a></li>
-<li><a href="assignment2umldiagrams.html">UML Architectural Diagram</a></li>
-<li><a href="assignment2datarequirements.html">Data requirements</a></li>
-<li><a href="assignment2nonfunctionalreqs.html">Non-functional requirements</a></li>
-<li><a href="assignment2guidelines.html">Guidelines</a></li>
-<li><a href="assignment2glossary.html">Glossary</a></li>
-<li><a href="assignment2featurepriority.html">Feature Priority</a></li>
+<li><a href="assignment2/functionalrequirements1.html">Functional Requirements Page 1</a></li>
+<li><a href="assignment2/functionalrequirements2.html">Functional Requirements Page 2</a></li>
+<li><a href="assignment2/functionalrequirements3.html">Functional Requirements Page 3</a></li>
+<li><a href="assignment2/functionalrequirements4.html">Functional Requirements Page 4</a></li>
+<li><a href="assignment2/functionalrequirements5.html">Functional Requirements Page 5</a></li>
+<li><a href="assignment2/functionalrequirements6.html">Functional Requirements Page 6</a></li>
+<li><a href="assignment2/functionalrequirements7.html">Functional Requirements Page 7</a></li>
+<li><a href="assignment2/functionalrequirements8.html">Functional Requirements Page 8</a></li>
+<li><a href="assignment2/functionalrequirements9.html">Functional Requirements Page 9</a></li>
+<li><a href="assignment2/umldiagrams.html">UML Architectural Diagram</a></li>
+<li><a href="assignment2/datarequirements.html">Data requirements</a></li>
+<li><a href="assignment2/nonfunctionalreqs.html">Non-functional requirements</a></li>
+<li><a href="assignment2/guidelines.html">Guidelines</a></li>
+<li><a href="assignment2/glossary.html">Glossary</a></li>
+<li><a href="assignment2/featurepriority.html">Feature Priority</a></li>
 </ul>
