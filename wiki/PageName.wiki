@@ -3,3 +3,4 @@
 = Notes =
 
   * CalcMove must be done from the level controller
+  * Create a Point class, fix inherits for Characters
