@@ -1,0 +1,5 @@
+#summary Mike's Brain dump
+
+= Notes =
+
+  * CalcMove must be done from the level controller
