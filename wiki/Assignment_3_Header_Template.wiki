@@ -39,33 +39,33 @@ class XX
 public:
 // LIFECYCLE
 
-   /**
-    * Default constructor.
-	*/
-   XX(void);
+    /**
+     * Default constructor.
+	 */
+    XX(void);
 
-   /**
-    * Copy constructor.
-	*
-	* @param from The value to copy to this object.
-	*/
-   XX(const XX& from);
+    /**
+     * Copy constructor.
+	 *
+	 * @param from The value to copy to this object.
+	 */
+    XX(const XX& from);
 
-   /**
-    * Destructor.
-	*/
-   ~XX(void);
+    /**
+     * Destructor.
+	 */
+    ~XX(void);
 
 // OPERATORS
 
-   /**
-    * Assignment operator.
-	*
-	* @param from The value to assign to this object.
-	*
-	* @return A reference to this object.
-	*/
-   XX&                     operator=(XX& from);  
+    /**
+     * Assignment operator.
+	 *
+	 * @param from The value to assign to this object.
+	 *
+	 * @return A reference to this object.
+	 */
+    XX&                     operator=(XX& from);  
 
 // OPERATIONS
 // ACCESS (writing)
