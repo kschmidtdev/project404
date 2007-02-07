@@ -10,7 +10,7 @@ classTemplateTxt = """/**
  * Project 404 2007
  *
  * Authors:
- * Name, Date
+ * Name, Date (Month Day Year), What was done
  */
 
 #ifndef XX_h
@@ -62,12 +62,14 @@ public:
 	*/
    XX&                     operator=(XX& from);  
 
-// OPERATIONS                       
-// ACCESS
-// INQUIRY
+// OPERATIONS
+// ACCESS (writing)
+// INQUIRY (reading)
 
 protected:
+// PROTECTED VARIABLES
 private:
+// PRIVATE VARIABLES
 };
 
 // INLINE METHODS
