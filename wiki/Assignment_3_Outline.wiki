@@ -16,7 +16,7 @@ Coding, testing, and documentation must be intermixed. Whenever you write code, 
           * Provide a link to your "issue tracker". We want to see how your team tracks issues, bugs, features, and so on.
     * Source code documentation
           * All source files must have a standard header that names the file, lists the programmer who have worked on it, gives the team name, etc.
-          * Your group must follow a coding standard with all of its files. This coding standard must be explicitly written down.
+          * Your group must follow a coding standard with all of its files. This coding standard must be explicitly written down. ([http://www.sfu.ca/~karls/CMPT275/CppCodingStandard.html Here])
           * All classes/files should, in comments, explain their purpose, with examples if needed.
           * All methods are either self-documenting, or have clear comments explaining them. More important methods should have more detailed comments.
           * Add comments to the source code as needed to explain tricky code or hard to understand code.
