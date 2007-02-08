@@ -1,4 +1,12 @@
-classTemplateTxt = """#include "XX.h"                                // class implemented
+classTemplateTxt = """/**
+ * File: XX.cpp
+ *
+ * Project 404 2007
+ *
+ * Authors:
+ * Name, Date | Work Done
+ */
+#include "XX.h"                                // class implemented
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
