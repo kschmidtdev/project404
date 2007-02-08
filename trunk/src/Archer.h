@@ -42,7 +42,7 @@ public:
     /**
      * Constructor
      */
-    Archer(string name, level, weapon, armor);
+    Archer(string name, int level, WeaponItem* weapon, ArmorItem* armor);
 
     /**
      * Destructor.
@@ -59,13 +59,8 @@ public:
     /**
      * Returns array of Points a character may have action on
 	 */
-    virtual Point[] CalcAction();
-// ACCESS
+    virtual vector<Point*> CalcAction();
 
-    /**
-     * Move Character to new position
-	 */
-    virtual void Move(Point p);
 // INQUIRY
 
     /**

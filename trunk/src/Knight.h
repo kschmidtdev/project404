@@ -13,7 +13,6 @@
  * Mike Malyuk, February 7 2007 | Initial design
  */
 
-
 #ifndef Knight_h
 #define Knight_h
 
@@ -30,7 +29,7 @@
 //
 
 
-class Knight
+class Knight : public Character
 {
 public:
 // LIFECYCLE
@@ -43,7 +42,7 @@ public:
     /**
      * Constructor
      */
-    Knight(string name, level, weapon, armor);
+    Knight(string name, int level, WeaponItem* weapon, ArmorItem* armor);
 
     /**
      * Destructor.
@@ -60,13 +59,9 @@ public:
     /**
      * Returns array of Points a character may have action on
 	 */
-    virtual Point[] CalcAction();
+    virtual vector<Point*> CalcAction();
 // ACCESS
 
-    /**
-     * Move Character to new position
-	 */
-    virtual void Move(Point p);
 // INQUIRY
 
     /**

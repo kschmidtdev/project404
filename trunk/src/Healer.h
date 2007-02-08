@@ -29,7 +29,7 @@
 //
 
 
-class Healer
+class Healer : public Character
 {
 public:
 // LIFECYCLE
@@ -42,7 +42,7 @@ public:
     /**
      * Constructor
      */
-    Healer(string name, level, weapon, armor);
+    Healer(string name, int level, WeaponItem* weapon, ArmorItem* armor);
 
     /**
      * Destructor.
@@ -59,13 +59,8 @@ public:
     /**
      * Returns array of Points a character may have action on
 	 */
-    virtual Point[] CalcAction();
+    virtual vector<Point*> CalcAction();
 // ACCESS
-
-    /**
-     * Move Character to new position
-	 */
-    virtual void Move(Point p);
 // INQUIRY
 
     /**
