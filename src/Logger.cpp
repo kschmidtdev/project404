@@ -1,3 +1,12 @@
+/**
+ * File:Logger.cpp
+ *
+ * Project 404 2007
+ *
+ * Authors:
+ * Karl Schmidt, February 7 2007, Created initial class definition
+ */
+
 #include "Logger.h"
 
 Logger* Logger::_instance = 0;

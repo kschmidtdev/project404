@@ -42,7 +42,7 @@ public:
     /**
      * Constructor
      */
-    Mage(string name, level, weapon, armor);
+    Mage(string name, int level, WeaponItem* weapon, ArmorItem* armor);
 
     /**
      * Destructor.
@@ -59,13 +59,9 @@ public:
     /**
      * Returns array of Points a character may have action on
 	 */
-    virtual Point[] CalcAction();
+    virtual vector<Point*> CalcAction();
 // ACCESS
 
-    /**
-     * Move Character to new position
-	 */
-    virtual void Move(Point p);
 // INQUIRY
 
     /**

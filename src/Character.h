@@ -19,11 +19,14 @@
 // SYSTEM INCLUDES
 //
 #include <string>
+#include <iostream>
+#include <vector>
 using namespace std;
 // PROJECT INCLUDES
 //
 #include "ArmorItem.h"
 #include "WeaponItem.h"
+#include "Point.h"
 // LOCAL INCLUDES
 //
 
@@ -41,13 +44,13 @@ enum Attr
         POW = 0,
         AGI,
         ATTR_COUNT
-    }
+    };
 // LIFECYCLE
 
     /**
      * Default constructor.
 	 */
-    virtual Character(void) = 0;
+    Character(void);
 
     /**
      * Destructor.
@@ -63,14 +66,14 @@ enum Attr
     /**
      * Returns array of Points a character may have action on
 	 */
-    virtual Point[] CalcAction();
+    virtual vector<Point*> CalcAction();
 
 // ACCESS
 
     /**
      * Move Character to new position
 	 */
-    virtual void Move(Point p);
+    void Move(Point p);
 
     /**
      * Set value of HP (damage)
@@ -80,12 +83,12 @@ enum Attr
     /**
      * Set value of Armor (new equips)
 	 */
-    void SetArmor(ArmorItem item);
+    void SetArmor(ArmorItem* item);
 
     /**
      * Set value of Weapon (new equips)
 	 */
-    void SetWeapon(WeaponItem item);
+    void SetWeapon(WeaponItem* item);
 
 
 // INQUIRY
@@ -101,9 +104,13 @@ enum Attr
     int GetHP();
 
     /**
+     * Get total possible HP
+	 */
+    int GetMaxHP();
+    /**
      * Get point currently at (used for move)
 	 */
-    int GetPoint();
+    Point GetPoint();
 
     /**
      * Get name of class (for UI stuff, or limiting weapons)
@@ -113,12 +120,12 @@ enum Attr
     /**
      * Get Armor (for UI representation)
 	 */
-    const ArmorItem& GetArmor();
+    ArmorItem* GetArmor();
 
     /**
      * Get Weapon (for UI representation)
 	 */
-    const WeaponItem& GetWeapon();
+    WeaponItem* GetWeapon();
 
     /**
      * Get name of character (for UI)
@@ -131,13 +138,14 @@ protected:
     string mName;
     int mLevel;
     int mExp;
-    int mHP;
+    int mCurHP;
+    int mMaxHP;
 
     int mAttributes[ATTR_COUNT];
     int mMaxActRange;
     Point mCurPos;
-    ArmorItem mArmor;
-    WeaponItem mWeapon;
+    ArmorItem* mArmor;
+    WeaponItem* mWeapon;
 
 private:
 };
