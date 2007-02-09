@@ -10,6 +10,7 @@
  *
  * Authors:
  * Karl Schmidt, February 7 2007, Initial creation of the header
+ * Karl Schmidt, February 9 2007, Fixed minor issues (so it could compile)
  */
 
 #ifndef InputManager_h
@@ -17,8 +18,9 @@
 
 // SYSTEM INCLUDES
 //
-#include "SDL.h"
+#include <SDL.h>
 #include <vector>
+using namespace std;
 
 // PROJECT INCLUDES
 //
@@ -33,7 +35,7 @@ class EventListener;
 // TYPEDEFS
 //
 typedef vector<EventListener*> EventListenerVec;
-typedef EventListener::iterator EventListenerItr;
+typedef EventListenerVec::iterator EventListenerItr;
 
 class InputManager
 {
@@ -55,7 +57,7 @@ enum INPUTKEYS
     CANCEL,
     MENU,
     KEYCOUNT
-}
+};
 
 // LIFECYCLE
 
@@ -102,7 +104,7 @@ enum INPUTKEYS
     * Determines how to deal with the input
     * event, may broadcast to listeners
     */
-    void ProcessEvent( SDLEvent* evt );
+    void ProcessEvent( const SDL_Event* evt );
 
 // ACCESS (writing)
 // INQUIRY (reading)
@@ -123,7 +125,7 @@ protected:
 
 // PROTECTED VARIABLES
     static InputManager* _instance;
-    int mKeys[KEY_COUNT];
+    int mKeys[KEYCOUNT];
     EventListenerVec mRegisteredListeners;
 
 private:

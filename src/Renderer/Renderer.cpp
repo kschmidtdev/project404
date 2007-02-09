@@ -4,7 +4,6 @@
  * Project 404 2007
  *
  * Authors:
- * Name, Date | Work Done
  * Karl Schmidt, February 8 2007 | Initial creation of renderer
  */
 #include "Renderer.h"                                // class implemented
