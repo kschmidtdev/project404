@@ -55,7 +55,12 @@ public:
      * Destructor.
 	 */
     ~Point(void);
+// OPERATORS
 
+    /**
+     * Compare points
+     */
+    bool operator==(const Point &other)const;
 // OPERATIONS
 // ACCESS (writing)
 
