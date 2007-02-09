@@ -35,6 +35,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add directory="..\external\include" />
+			<Add directory="..\external\include\SDL" />
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />
@@ -230,6 +231,13 @@
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="..\src\Renderer.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="..\src\SDLRenderable.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />

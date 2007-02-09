@@ -5,6 +5,7 @@
  *
  * Authors:
  * Name, Date | Work Done
+ * Karl Schmidt, February 8 2007 | Initial creation of renderer
  */
 #include "Renderer.h"                                // class implemented
 
@@ -14,10 +15,9 @@
 //============================= LIFECYCLE ====================================
 
 Renderer::Renderer()
-{
-}// Renderer
-
-Renderer::Renderer(const Renderer&)
+: mXRes( 640 ),
+  mYRes( 480 ),
+  mColourDepth( 32 )
 {
 }// Renderer
 
@@ -25,15 +25,15 @@ Renderer::~Renderer()
 {
 }// ~Renderer
 
+void Renderer::Initialize( const int xRes, const int yRes, const int colourDepth )
+{
+    mXRes = xRes;
+    mYRes = yRes;
+    mColourDepth = colourDepth;
+}
+
 
 //============================= OPERATORS ====================================
-
-Renderer& 
-Renderer::operator=(Renderer&);
-{
-   return *this;
-
-}// =
 
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================

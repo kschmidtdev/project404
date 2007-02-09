@@ -13,6 +13,9 @@ int main ( int argc, char** argv )
         printf( "Error during renderer initialization.\n" );
         return result;
     }*/
+    SDLRenderer* renderer = SDLRenderer::GetInstance();
+
+    renderer->Initialize( 640, 480, 32 );
 
     // program main loop
     bool done = false;
@@ -42,8 +45,10 @@ int main ( int argc, char** argv )
         } // end of message processing
 
         //renderer.Update();
+        renderer->Draw();
     }
 
+    renderer->Shutdown();
     //renderer.Shutdown();
 
     // all is well ;)

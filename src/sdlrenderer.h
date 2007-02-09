@@ -19,7 +19,8 @@
 // SYSTEM INCLUDES
 //
 #include <SDL.h>
-#include <SDL_ttf.h>
+// TODO: Add SDL_ttf.h to distribution
+//#include <SDL_ttf.h>
 #include <vector>
 using namespace std;
 
@@ -78,12 +79,14 @@ public:
     /**
      * Adds a SDLRenderable to the render queue
 	 */
-    void AddToRenderQueue( const SDLRenderable * toAdd );
+    void AddToRenderQueue( SDLRenderable * toAdd );
 
     /**
      * Removes a SDLRenderable from the render queue
 	 */
-    void RemoveFromRenderQueue( const SDLRenderable * toRemove );
+    void RemoveFromRenderQueue( SDLRenderable * toRemove );
+
+    void DrawImageAt( SDL_Surface* src, const int x, const int y, const int width, const int height, SDL_Surface* dest );
 
 // ACCESS (writing)
 // INQUIRY (reading)
@@ -98,8 +101,8 @@ protected:
 // PROTECTED VARIABLES
 
     static SDLRenderer* _instance;
-    RenderableVec renderQueue;
-    SDL_Surface* screen;
+    RenderableVec mRenderQueue;
+    SDL_Surface* mScreen;
 // TODO: Implement font support
 //    TTF_Font *font;
 
