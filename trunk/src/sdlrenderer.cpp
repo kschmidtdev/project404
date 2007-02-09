@@ -9,22 +9,26 @@
  */
 #include "SDLRenderer.h"                                // class implemented
 
+#include "SDLRenderable.h"
+
 SDLRenderer* SDLRenderer::_instance = 0;
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
+SDLRenderer::~SDLRenderer()
+{
+
+}
+
 SDLRenderer* SDLRenderer::GetInstance()
 {
-    if( _instance )
-    {
-        return _instance;
-    }
-    else
+    if( _instance == NULL )
     {
         _instance = new SDLRenderer();
     }
+    return _instance;
 }
 
 void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDepth )
@@ -55,9 +59,9 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
 
 
     // create a new window
-    screen = SDL_SetVideoMode(xRes, yRes, colourDepth, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    mScreen = SDL_SetVideoMode(xRes, yRes, colourDepth, SDL_HWSURFACE|SDL_DOUBLEBUF);
 
-    if ( !screen )
+    if ( !mScreen )
     {
         printf("Unable to set %ix%i video: %s\n", xRes, yRes, SDL_GetError());
         return;
@@ -95,9 +99,14 @@ void SDLRenderer::Shutdown()
 void SDLRenderer::Draw()
 {
     // clear screen
-    SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
+    SDL_FillRect(mScreen, 0, SDL_MapRGB(mScreen->format, 0, 0, 0));
 
     // DRAWING STARTS HERE
+
+    for( RenderableVecItr i = mRenderQueue.begin(); i != mRenderQueue.end(); ++i )
+    {
+        (*i)->renderSelf( mScreen );
+    }
 
     // TODO: Remove this code, it's just here for testing
     /*static unsigned int xDir = 1;
@@ -125,17 +134,27 @@ void SDLRenderer::Draw()
     // DRAWING ENDS HERE
 
     // finally, update the screen :)
-    SDL_Flip(screen);
+    SDL_Flip(mScreen);
 }
 
-void SDLRenderer::AddToRenderQueue( const SDLRenderable * toAdd )
+void SDLRenderer::AddToRenderQueue( SDLRenderable * toAdd )
 {
-    // stub
+    mRenderQueue.push_back( toAdd );
 }
 
-void SDLRenderer::RemoveFromRenderQueue( const SDLRenderable * toRemove )
+void SDLRenderer::RemoveFromRenderQueue( SDLRenderable * toRemove )
 {
-    // stub
+
+}
+
+void SDLRenderer::DrawImageAt( SDL_Surface* src, const int x, const int y, const int width, const int height, SDL_Surface* dest )
+{
+    SDL_Rect dstrect;
+    dstrect.x = x;
+    dstrect.y = y;
+    dstrect.w = width;
+    dstrect.h = height;
+    SDL_BlitSurface(src, 0, dest, &dstrect);
 }
 
 //============================= ACCESS     ===================================
