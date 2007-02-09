@@ -38,7 +38,7 @@ public:
 
 // OPERATIONS
 
-    virtual void renderSelf( SDL_Surface* destination ) = 0;
+    virtual void RenderSelf( SDL_Surface* destination ) = 0;
 
 // ACCESS (writing)
 // INQUIRY (reading)
