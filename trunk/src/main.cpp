@@ -5,14 +5,14 @@
 
 int main ( int argc, char** argv )
 {
-    SDLRenderer renderer;
+/*    SDLRenderer renderer;
 
     int result = renderer.Initialize( 640, 480, 16 );
     if( result != 0 )
     {
         printf( "Error during renderer initialization.\n" );
         return result;
-    }
+    }*/
 
     // program main loop
     bool done = false;
@@ -41,10 +41,10 @@ int main ( int argc, char** argv )
             } // end switch
         } // end of message processing
 
-        renderer.Update();
+        //renderer.Update();
     }
 
-    renderer.Shutdown();
+    //renderer.Shutdown();
 
     // all is well ;)
     printf("Exited cleanly\n");
