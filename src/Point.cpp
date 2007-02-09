@@ -30,7 +30,18 @@ Point::Point(const Point& from)
 Point::~Point()
 {
 }// ~Point
-
+//============================= OPERATORS  ===================================
+  bool Point::operator==(const Point &other) const
+  {
+    if(mX == other.mX && mY == other.mY)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+  }
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================
 void Point::SetX(int x)
