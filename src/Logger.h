@@ -12,6 +12,7 @@
  * Authors:
  * Name, Date (Month Day Year), What was done
  * Karl Schmidt, February 7 2007, Created initial class definition
+ * Karl Schmidt, February 7 2007, Modified slightly (no need forseen for COUNT in EMESSAGE_TYPE)
  */
 
 #ifndef Logger_h
@@ -42,8 +43,7 @@ enum EMESSAGE_TYPE
     ERROR = 0,
     CRITICAL,
     WARNING,
-    INFO,
-    COUNT
+    INFO
 };
 
 // LIFECYCLE
@@ -53,12 +53,12 @@ enum EMESSAGE_TYPE
     * is the first time it is called, it will
     * use the param as the filename for the log file
     */
-    static Logger* getInstance( const string logFileName );
+    static Logger* GetInstance( const string logFileName );
 
     /**
     * Returns an instance of a Logger
     */
-    static Logger* getInstance();
+    static Logger* GetInstance();
 
     /**
     * Shuts down the logger, must be called before

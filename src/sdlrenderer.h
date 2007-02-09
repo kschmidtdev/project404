@@ -1,45 +1,116 @@
-#ifndef SDLRENDERER_H
-#define SDLRENDERER_H
-
-#include <SDL/SDL.h>
-
 /**
- *  The SDL-specific 2D rendering manager
+ * An implementation of Renderer that uses SDL
+ *
+ * #include "SDLRenderer.h"
+ *
+ * A Renderer that uses SDL to draw 2D graphics
+ *
+ * @see Renderer
+ *
+ * Project 404 2007
+ *
+ * Authors:
+ * Karl Schmidt, February 7 2007, Initial creation of the header
  */
-class SDLRenderer
+
+#ifndef SDLRenderer_h
+#define SDLRenderer_h
+
+// SYSTEM INCLUDES
+//
+#include <SDL.h>
+#include <SDL_ttf.h>
+#include <vector>
+using namespace std;
+
+// PROJECT INCLUDES
+//
+#include "Renderer.h"
+
+// LOCAL INCLUDES
+//
+
+// FORWARD REFERENCES
+//
+class SDLRenderable;
+
+typedef vector<SDLRenderable*> RenderableVec;
+typedef RenderableVec::iterator RenderableVecItr;
+
+class SDLRenderer : public Renderer
 {
-    public:
-        SDLRenderer();
-        virtual ~SDLRenderer();
+public:
+// LIFECYCLE
 
-      /**
-       * Starts up SDL for rendering
-       * @param xRes the screen resolution width
-       * @param yRes the screen resolution height
-       * @param depth the screen resolution colour depth
-       * @return 0 if no errors occured, 1 or something else if error did occur
-       */
-        int Initialize( const unsigned short xRes, const unsigned short yRes, const unsigned short depth );
+    /**
+     * Destructor.
+	 */
+    virtual ~SDLRenderer(void);
 
-      /**
-       * Draws to the screen using SDL commands
-       */
-        void Update();
+    /**
+     * Retrieves the instance of SDLRenderer,
+     * if there is none, is makes one and retrieves
+     * a pointer to it.
+    */
+    static SDLRenderer* GetInstance();
 
-      /**
-       * Frees memory and objects to do with rendering, exits SDL
-       */
-        void Shutdown();
+    /**
+     * Initializes the SDLRenderer (sets values and starts SDL
+     * rendering sequence)
+	 */
+    void Initialize( const int xRes, const int yRes, const int colourDepth );
 
-    protected:
+    /**
+     * Shuts down the renderer, cleaning up and freeing resources
+     * specific to SDL rendering
+	 */
+    void Shutdown();
 
-        SDL_Surface* screen;
-        unsigned short xRes;
-        unsigned short yRes;
-        unsigned short depth;
+// OPERATORS
+// OPERATIONS
 
-        SDL_Rect dstrect;
-        SDL_Surface* bmp;
+    /**
+     * Responsible for drawing to the screen once, will call
+     * renderSelf on registered renderables in the render queue (in order)
+	 */
+    void Draw();
+
+    /**
+     * Adds a SDLRenderable to the render queue
+	 */
+    void AddToRenderQueue( const SDLRenderable * toAdd );
+
+    /**
+     * Removes a SDLRenderable from the render queue
+	 */
+    void RemoveFromRenderQueue( const SDLRenderable * toRemove );
+
+// ACCESS (writing)
+// INQUIRY (reading)
+
+protected:
+// PROTECTED METHODS
+    /**
+     * Default constructor.
+	 */
+    SDLRenderer(void);
+
+// PROTECTED VARIABLES
+
+    static SDLRenderer* _instance;
+    RenderableVec renderQueue;
+    SDL_Surface* screen;
+// TODO: Implement font support
+//    TTF_Font *font;
+
+private:
+// PRIVATE VARIABLES
 };
 
-#endif // SDLRENDERER_H
+// INLINE METHODS
+//
+
+// EXTERNAL REFERENCES
+//
+
+#endif  // _SDLRenderer_h_

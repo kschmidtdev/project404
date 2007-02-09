@@ -62,7 +62,7 @@ enum INPUTKEYS
     /**
     * Returns an instance of the inputmanager
     */
-    static InputManager* getInstance();
+    static InputManager* GetInstance();
 
     /**
     * Destructor.

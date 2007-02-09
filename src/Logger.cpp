@@ -9,9 +9,13 @@
 
 #include "Logger.h"
 
+/////////////////////////////// PUBLIC ///////////////////////////////////////
+
+//============================= LIFECYCLE ====================================
+
 Logger* Logger::_instance = 0;
 
-Logger* Logger::getInstance( const string logFileName )
+Logger* Logger::GetInstance( const string logFileName )
 {
     // If a logger exists, return it's instance,
     // otherwise create a new one.
@@ -26,7 +30,7 @@ Logger* Logger::getInstance( const string logFileName )
     }
 }
 
-Logger* Logger::getInstance()
+Logger* Logger::GetInstance()
 {
     // If a logger exists, return it's instance,
     // otherwise create a new one.
@@ -52,6 +56,10 @@ Logger::~Logger()
     // close the file handle, etc
 }
 
+//============================= OPERATIONS ===================================
+//============================= ACCESS      ===================================
+//============================= INQUIRY    ===================================
+/////////////////////////////// PROTECTED  ///////////////////////////////////
 Logger::Logger()
 {
     // create logger with default name
@@ -61,3 +69,5 @@ Logger::Logger( const string logFileName )
 {
     // stub
 }
+
+/////////////////////////////// PRIVATE    ///////////////////////////////////
