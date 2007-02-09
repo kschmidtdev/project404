@@ -4,7 +4,6 @@
  * Project 404 2007
  *
  * Authors:
- * Name, Date | Work Done
  * Karl Schmidt, February 8 2007 | Initial creation of cpp file
  */
 #include "SDLRenderer.h"                                // class implemented
@@ -105,7 +104,7 @@ void SDLRenderer::Draw()
 
     for( RenderableVecItr i = mRenderQueue.begin(); i != mRenderQueue.end(); ++i )
     {
-        (*i)->renderSelf( mScreen );
+        (*i)->RenderSelf( mScreen );
     }
 
     // TODO: Remove this code, it's just here for testing
@@ -144,7 +143,14 @@ void SDLRenderer::AddToRenderQueue( SDLRenderable * toAdd )
 
 void SDLRenderer::RemoveFromRenderQueue( SDLRenderable * toRemove )
 {
-
+    for( RenderableVecItr i = mRenderQueue.begin(); i != mRenderQueue.end(); ++i )
+    {
+        if( *i == toRemove )
+        {
+            mRenderQueue.erase( i );
+            break;
+        }
+    }
 }
 
 void SDLRenderer::DrawImageAt( SDL_Surface* src, const int x, const int y, const int width, const int height, SDL_Surface* dest )

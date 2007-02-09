@@ -1,7 +1,6 @@
-#include <cstdlib>
-
-#include <SDL/SDL.h>
-#include "sdlrenderer.h"
+#include "Renderer/sdlrenderer.h"
+#include "ResourceManager/ResourceManager.h"
+#include "Renderer/ExampleRenderable.h"
 
 int main ( int argc, char** argv )
 {
@@ -13,9 +12,21 @@ int main ( int argc, char** argv )
         printf( "Error during renderer initialization.\n" );
         return result;
     }*/
+
+    ResourceManager* resManager = ResourceManager::GetInstance();
+
+    resManager->Initialize();
+
+    SDL_Surface* testSurface = 0;
+    testSurface = resManager->LoadTexture( "cb.bmp" );
+
+    ExampleRenderable dude;
+
     SDLRenderer* renderer = SDLRenderer::GetInstance();
 
     renderer->Initialize( 640, 480, 32 );
+
+    renderer->AddToRenderQueue( &dude );
 
     // program main loop
     bool done = false;
@@ -48,8 +59,8 @@ int main ( int argc, char** argv )
         renderer->Draw();
     }
 
+    resManager->Shutdown();
     renderer->Shutdown();
-    //renderer.Shutdown();
 
     // all is well ;)
     printf("Exited cleanly\n");

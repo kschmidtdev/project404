@@ -1,16 +1,18 @@
 /**
- * A one line description of the class.
+ * A simple abstract class for a renderable
  *
  * #include "SDLRenderable.h"
  *
- * A longer description.
+ * A class to inherit from if you want
+ * to have it draw something to the screen
+ * (must register with SDLRenderer also)
  *
- * @see something
+ * @see SDLRenderer
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Karl Schmidt, February 9 2007, Initial creation of header
  */
 
 #ifndef SDLRenderable_h
@@ -38,6 +40,7 @@ public:
 
 // OPERATIONS
 
+	// TODO: Add comment
     virtual void RenderSelf( SDL_Surface* destination ) = 0;
 
 // ACCESS (writing)
