@@ -2,18 +2,22 @@
 #include "ResourceManager/ResourceManager.h"
 #include "Renderer/ExampleRenderable.h"
 
+#include "InputManager.h"
+#include "ExampleEventListener.h"
+#include "Logger.h"
+
 int main ( int argc, char** argv )
 {
-/*    SDLRenderer renderer;
+    // TODO: Clean all this up, make the darn GameRoot!
 
-    int result = renderer.Initialize( 640, 480, 16 );
-    if( result != 0 )
-    {
-        printf( "Error during renderer initialization.\n" );
-        return result;
-    }*/
+    Logger* logger = Logger::GetInstance( "tacLogFile.txt" );
+
+    logger->Initialize();
 
     ResourceManager* resManager = ResourceManager::GetInstance();
+    LogInfo( "ResourceManager started successfully" );
+
+    InputManager* inputManager = InputManager::GetInstance();
 
     resManager->Initialize();
 
@@ -25,8 +29,13 @@ int main ( int argc, char** argv )
     SDLRenderer* renderer = SDLRenderer::GetInstance();
 
     renderer->Initialize( 640, 480, 32 );
+    inputManager->Initialize();
 
     renderer->AddToRenderQueue( &dude );
+
+    ExampleEventListener testListener;
+
+    inputManager->AddEventListener( &testListener );
 
     // program main loop
     bool done = false;
@@ -47,6 +56,7 @@ int main ( int argc, char** argv )
                 // check for keypresses
             case SDL_KEYDOWN:
                 {
+                    inputManager->ProcessEvent( &event );
                     // exit if ESCAPE is pressed
                     if (event.key.keysym.sym == SDLK_ESCAPE)
                         done = true;
@@ -59,10 +69,10 @@ int main ( int argc, char** argv )
         renderer->Draw();
     }
 
+    inputManager->Shutdown();
     resManager->Shutdown();
     renderer->Shutdown();
+    logger->Shutdown();
 
-    // all is well ;)
-    printf("Exited cleanly\n");
     return 0;
 }

@@ -40,7 +40,10 @@ public:
 
 // OPERATIONS
 
-	// TODO: Add comment
+    /**
+     * To be overritten by an inheriting class,
+     * should draw to the given surface
+    */
     virtual void RenderSelf( SDL_Surface* destination ) = 0;
 
 // ACCESS (writing)

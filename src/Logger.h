@@ -11,8 +11,11 @@
  *
  * Authors:
  * Name, Date (Month Day Year), What was done
- * Karl Schmidt, February 7 2007, Created initial class definition
+ * Karl Schmidt, February 9 2007, Found a need for ERR_COUNT, added it back in, added
+ * shortcut macros to the bottom
+ *
  * Karl Schmidt, February 7 2007, Modified slightly (no need forseen for COUNT in EMESSAGE_TYPE)
+ * Karl Schmidt, February 7 2007, Created initial class definition
  */
 
 #ifndef Logger_h
@@ -43,7 +46,8 @@ enum EMESSAGE_TYPE
     ERROR = 0,
     CRITICAL,
     WARNING,
-    INFO
+    INFO,
+    ERR_COUNT
 };
 
 // LIFECYCLE
@@ -59,6 +63,8 @@ enum EMESSAGE_TYPE
     * Returns an instance of a Logger
     */
     static Logger* GetInstance();
+
+    void Initialize();
 
     /**
     * Shuts down the logger, must be called before
@@ -80,6 +86,13 @@ enum EMESSAGE_TYPE
     * Log an error/info message
     */
     void LogMessage( const EMESSAGE_TYPE type, const string msg );
+
+    /**
+    * Log an error/info message, with additional developer
+    * information (source filename, line number)
+    */
+    void LogMessage( const EMESSAGE_TYPE type, const string msg, const string srcFileName, const int lineNum );
+
 
 // ACCESS (writing)
 // INQUIRY (reading)
@@ -103,6 +116,7 @@ protected:
 
     FILE* mLogFileHandle;
     string mLogFileName;
+    const char* mMsgTypeText[ERR_COUNT];
 
 private:
 // PRIVATE VARIABLES
@@ -113,5 +127,10 @@ private:
 
 // EXTERNAL REFERENCES
 //
+
+#define LogError( msg ) Logger::GetInstance()->LogMessage( Logger::ERROR, msg, __FILE__, __LINE__ );
+#define LogCritical( msg ) Logger::GetInstance()->LogMessage( Logger::CRITICAL, msg, __FILE__, __LINE__ );
+#define LogWarning( msg ) Logger::GetInstance()->LogMessage( Logger::WARNING, msg, __FILE__, __LINE__ );
+#define LogInfo( msg ) Logger::GetInstance()->LogMessage( Logger::INFO, msg, __FILE__, __LINE__ );
 
 #endif  // _Logger_h_

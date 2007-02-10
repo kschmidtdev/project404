@@ -36,21 +36,27 @@ class TextureResource : public Resource
 public:
 // LIFECYCLE
 
+    /**
+     * Constructor, passes fileName to base Resource constructor
+     */
     TextureResource( const string fileName )
     : Resource( fileName ) { };
 
+    /**
+     * Destructor
+     */
     ~TextureResource();
 
 // OPERATORS
 // OPERATIONS
 
     /**
-     *
-	 */
+     * Loads the texture into memory using SDL
+     */
     void Load();
 
     /**
-     *
+     * Unloads the texture from memory using SDL
 	 */
     void Unload();
 

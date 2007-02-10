@@ -12,7 +12,7 @@
 				<Option output="..\bin\Project404d.exe" />
 				<Option working_dir="..\bin\" />
 				<Option object_output="..\obj\Debug\" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
@@ -27,6 +27,9 @@
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-Os" />
+					<Add option="-O3" />
 					<Add option="-O2" />
 					<Add option="-D_WIN32" />
 				</Compiler>
@@ -36,6 +39,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-W" />
 			<Add option="-Wall" />
 			<Add directory="..\external\include" />
 			<Add directory="..\external\include\SDL" />
@@ -144,6 +148,13 @@
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="..\src\EventListener.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="..\src\ExampleEventListener.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
@@ -336,6 +347,13 @@
 		</Unit>
 		<Unit filename="..\src\main.cpp">
 			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="..\src\util.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
