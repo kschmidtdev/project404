@@ -9,6 +9,7 @@
 #include "InputManager.h"                                // class implemented
 
 #include "EventListener.h"
+#include "Logger.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -31,12 +32,15 @@ InputManager::~InputManager(void)
 
 void InputManager::Initialize()
 {
-    // stub
+    SetupKeyBindings();
+    LogInfo( "The InputManager has been initialized successfully." );
 }
 
 void InputManager::Shutdown()
 {
-    // stub
+    delete _instance;
+    _instance = NULL;
+    LogInfo( "The InputManager has been shut down successfully." );
 }
 
 //============================= OPERATORS ====================================
@@ -63,12 +67,23 @@ void InputManager::RemoveEventListener( EventListener* toRemove )
 void InputManager::ProcessEvent( const SDL_Event* evt )
 {
     // translate SDLEvent into appropriate key
-    for( EventListenerItr i = mRegisteredListeners.begin(); i != mRegisteredListeners.end(); ++i )
+    int foundBoundKey = -1;
+    for( int i( 0 ); i < KEYCOUNT; ++i )
     {
-        (*i)->ProcessEvent( RIGHT );
-        // THIS IS JUST A BAD HARDCODED TEST CASE
+        if( mKeys[i] == evt->key.keysym.sym )
+        {
+            foundBoundKey = i;
+            break;
+        }
     }
-    // stub
+
+    if( foundBoundKey != -1 )
+    {
+        for( EventListenerItr i = mRegisteredListeners.begin(); i != mRegisteredListeners.end(); ++i )
+        {
+            (*i)->ProcessEvent( INPUTKEYS( foundBoundKey ) );
+        }
+    }
 }
 
 //============================= ACCESS     ===================================
@@ -77,12 +92,29 @@ void InputManager::ProcessEvent( const SDL_Event* evt )
 
 InputManager::InputManager(void)
 {
-    // stub
+    for( int i( 0 ); i < KEYCOUNT; ++i )
+    {
+        mKeys[i] = 0;
+    }
 }
 
 void InputManager::SetupKeyBindings()
 {
-    // stub
+    // TODO: This is for keyboard-only until we expand it
+    mKeys[UP] = SDLK_UP;
+    mKeys[LEFTUP] = SDLK_HOME;
+    mKeys[LEFT] = SDLK_LEFT;
+    mKeys[LEFTDOWN] = SDLK_END;
+    mKeys[DOWN] = SDLK_DOWN;
+    mKeys[RIGHTDOWN] = SDLK_PAGEDOWN;
+    mKeys[RIGHT] = SDLK_RIGHT;
+    mKeys[RIGHTUP] = SDLK_PAGEUP;
+
+    mKeys[START] = SDLK_s;
+    mKeys[SELECT] = SDLK_a;
+    mKeys[CONFIRM] = SDLK_RETURN;
+    mKeys[CANCEL] = SDLK_BACKSPACE;
+    mKeys[MENU] = SDLK_m;
 }
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

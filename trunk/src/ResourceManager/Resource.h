@@ -53,12 +53,14 @@ public:
 // OPERATIONS
 
     /**
-     *
+     * To be implemented by the inheriting class, will
+     * handle loading of the resource
 	 */
     virtual void Load() = 0;
 
     /**
-     *
+     * To be implemented by the inheriting class, will
+     * handle unloading of the resource
 	 */
     virtual void Unload() = 0;
 
@@ -66,7 +68,7 @@ public:
 // INQUIRY (reading)
 
     /**
-     *
+     * Returns the filename of the resource
 	 */
     string GetFileName() { return mFileName; };
 

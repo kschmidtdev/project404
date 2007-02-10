@@ -88,7 +88,13 @@ protected:
 	 */
     ResourceManager(void);
 
-    Resource* LoadResource( const string fileName );
+    /**
+     * A generic method used internally to check
+     * if a resource has been loaded already, if it
+     * has, it returns a pointer to that resource back,
+     * if it cannot find one, it returns NULL
+	 */
+    Resource* CheckForResource( const string fileName );
 
 // PROTECTED VARIABLES
 

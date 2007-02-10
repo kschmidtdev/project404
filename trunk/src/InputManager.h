@@ -9,8 +9,8 @@
  * Project 404 2007
  *
  * Authors:
- * Karl Schmidt, February 7 2007, Initial creation of the header
  * Karl Schmidt, February 9 2007, Fixed minor issues (so it could compile)
+ * Karl Schmidt, February 7 2007, Initial creation of the header
  */
 
 #ifndef InputManager_h

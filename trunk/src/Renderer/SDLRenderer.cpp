@@ -9,6 +9,7 @@
 #include "SDLRenderer.h"                                // class implemented
 
 #include "SDLRenderable.h"
+#include "Logger.h"
 
 SDLRenderer* SDLRenderer::_instance = 0;
 
@@ -32,6 +33,7 @@ SDLRenderer* SDLRenderer::GetInstance()
 
 void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDepth )
 {
+    LogInfo( "Beginning SDLRenderer initialization..." );
     Renderer::Initialize( xRes, yRes, colourDepth );
    // initialize SDL video
     if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
@@ -65,31 +67,23 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
         printf("Unable to set %ix%i video: %s\n", xRes, yRes, SDL_GetError());
         return;
     }
-/*
-    // load an image
-    bmp = SDL_LoadBMP("cb.bmp");
-    if (!bmp)
-    {
-        printf("Unable to load bitmap: %s\n", SDL_GetError());
-        return 1;
-    }
-
-    // centre the bitmap on screen
-    dstrect.x = (screen->w - bmp->w) / 2;
-    dstrect.y = (screen->h - bmp->h) / 2;*/
+    LogInfo( "The SDLRenderer has been initialized successfully." );
 }
 
 void SDLRenderer::Shutdown()
 {
-    //SDL_FreeSurface(bmp);
-
     //perhaps we can reuse it, but I assume not for simplicity.
     //SDL_FreeSurface(text_surface);
 
     //TTF_CloseFont(font);
     //TTF_Quit();
+    LogInfo( "Beginning SDLRenderer shut down..." );
 
     SDL_Quit();
+
+    delete _instance;
+    _instance = NULL;
+    LogInfo( "The SDLRenderer has been shut down successfully." );
 }
 
 //============================= OPERATORS ====================================
@@ -101,38 +95,11 @@ void SDLRenderer::Draw()
     SDL_FillRect(mScreen, 0, SDL_MapRGB(mScreen->format, 0, 0, 0));
 
     // DRAWING STARTS HERE
-
     for( RenderableVecItr i = mRenderQueue.begin(); i != mRenderQueue.end(); ++i )
     {
         (*i)->RenderSelf( mScreen );
     }
 
-    // TODO: Remove this code, it's just here for testing
-    /*static unsigned int xDir = 1;
-    static unsigned int yDir = 1;
-
-    dstrect.x += xDir;
-    if( dstrect.x > xRes-bmp->w || dstrect.x < 0 )
-    {
-        xDir = -xDir;
-    }
-    dstrect.y += yDir;
-    if( dstrect.y > yRes-bmp->h || dstrect.y < 0 )
-    {
-        yDir = -yDir;
-    }
-
-    // draw bitmap
-    SDL_BlitSurface(bmp, 0, screen, &dstrect);
-
-    // draw text
-    SDL_BlitSurface(text_surface,NULL,screen,NULL);
-
-    // end TODO test code
-*/
-    // DRAWING ENDS HERE
-
-    // finally, update the screen :)
     SDL_Flip(mScreen);
 }
 
@@ -168,7 +135,7 @@ void SDLRenderer::DrawImageAt( SDL_Surface* src, const int x, const int y, const
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 SDLRenderer::SDLRenderer(void)
-: Renderer()
+: Renderer(), mScreen( NULL )
 {
 
 }
