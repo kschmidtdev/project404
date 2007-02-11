@@ -5,14 +5,18 @@
  *
  * Authors:
  * Andrew Osborne, February 10, 2007 | Initial creation and testing
+ * Andrew Osborne, February 10, 2007 | Added some comments, deleted inputFunction
  */
 #include "UIMenu.h"                                // class implemented
 #include "Point.h"
-//#include "ResourceManager.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
+
+
+// The code in the constructor is temporary, it was used for testing
+// It should be commented out or deleted once proper sub-classes are defined
 
 UIMenu::UIMenu()
 {
@@ -53,7 +57,7 @@ UIMenu::~UIMenu()
 void UIMenu::RenderSelf(SDL_Surface* destination)
 {
     // The menu must be rendered first
-    rend->DrawImageAt(elementImage, pos.GetX(), pos.GetY(), elementImage->w, elementImage->h, destination);
+    SDLRenderer::GetInstance()->DrawImageAt(elementImage, pos.GetX(), pos.GetY(), elementImage->w, elementImage->h, destination);
 
     // Cursor is rendered second
     cursor->RenderSelf(elementImage);
@@ -70,10 +74,7 @@ void UIMenu::RenderSelf(SDL_Surface* destination)
 
 }
 
-void UIMenu::inputFunction(void)
-{
 
-}
 
 
 //============================= ACCESS     ===================================

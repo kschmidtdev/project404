@@ -1,8 +1,22 @@
+/**
+ * File: UILayout.cpp
+ *
+ * Project 404 2007
+ *
+ * Authors:
+ * Andrew Osborne, February 7, 2007 | Initial creation
+ * Andrew Osborne, February 10, 2007 | Got it to work
+ * Andrew Osborne, February 10, 2007 | Added documentation
+ */
 
-#include <UILayout.h>
+
+#include <UILayout.h>                                   // class implemented
 #include <Renderer/SDLRenderer.h>
 
 
+/////////////////////////////// PUBLIC ///////////////////////////////////////
+
+//============================= LIFECYCLE ====================================
 
 UILayout::UILayout(void)
 {
@@ -16,34 +30,31 @@ UILayout::~UILayout(void)
 }
 
 
+//============================= OPERATORS ====================================
+//============================= OPERATIONS ===================================
 
-// OPERATIONS
+
 void UILayout::RenderSelf(SDL_Surface* destination)
 {
     // Needs to be overridden
     // Display background Image
 }
 
-/**
- * Upon loading (this layout becoming the current on screen), the elements of the layout are added to the render queue.
- *
- */
+
 void UILayout::onLoad(void)
 {
     // Iterate through elements in layout
     // and add them to renderer queue
 
     std::vector<UIElement*>::iterator iter;
-    //int size = elements.size();
+    SDLRenderer *rend = SDLRenderer::GetInstance();
 
     for (iter = elements.begin();
             iter!=elements.end(); iter++)
     {
-        SDLRenderer::GetInstance()->AddToRenderQueue( (*iter) );
+        rend->AddToRenderQueue( (*iter) );
     }
 
-    // Layout must also ensure that all the elements it's using (because some are shared)
-    // are in the correct position (or are they shared??)
 
 }
 
@@ -52,18 +63,24 @@ void UILayout::onClose(void)
     // Iterate through elements in layout
     // and remove them from renderer
 
-    // Iterate through elements in layout
-    // and add them to renderer queue
-
     std::vector<UIElement*>::iterator iter;
-    //int size = elements.size();
+    SDLRenderer *rend = SDLRenderer::GetInstance();
+
 
     for (iter = elements.begin();
             iter!=elements.end(); iter++)
     {
-        SDLRenderer::GetInstance()->RemoveFromRenderQueue( (*iter) );
+        rend->RemoveFromRenderQueue( (*iter) );
     }
 
 }
+
+
+
+//============================= ACCESS     ===================================
+//============================= INQUIRY    ===================================
+/////////////////////////////// PROTECTED  ///////////////////////////////////
+
+/////////////////////////////// PRIVATE    ///////////////////////////////////
 
 

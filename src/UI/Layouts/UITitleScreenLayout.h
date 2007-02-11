@@ -1,16 +1,17 @@
 /**
- * A one line description of the class.
+ * UILayout sub-class for the main battle screen
  *
  * #include "UITitleScreenLayout.h"
  *
- * A longer description.
+ * UILayout sub-class for the main battle screen
  *
- * @see something
+ * @see UILayout
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Andrew Osborne, February 10 2007 | Initial Creation
+ * Andrew Osborne, February 10 2007 | Documentation
  */
 
 #ifndef UITitleScreenLayout_h
@@ -47,7 +48,13 @@ public:
 
 // OPERATORS
 // OPERATIONS
-virtual void RenderSelf( SDL_Surface* destination );
+    /**
+     * Method to Draw the element on the screen
+     *
+     * @param Desitination surface
+     *
+     */
+    virtual void RenderSelf( SDL_Surface* destination );
 
 // ACCESS (writing)
 // INQUIRY (reading)

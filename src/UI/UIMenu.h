@@ -1,16 +1,16 @@
 /**
- * A one line description of the class.
+ * UIMenu class (mostly abstract) used to define a menu element on screen
  *
  * #include "UIMenu.h"
  *
- * A longer description.
- *
- * @see something
+ * UIMenu contains a vector of buttons, a cursor and a background box.  It also can handle eventListening
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Andrew Osborne, February 10 2007 | Initial Creation
+ * Karl Schmidt, February 10 2007 | Changed some include directory formats
+ * Andrew Osborne, February 10 2007 | Filled out documentation
  */
 
 #ifndef UIMenu_h
@@ -24,6 +24,7 @@
 #include <SDL.h>
 #include <Renderer/SDLRenderable.h>
 #include <UIElement.h>
+#include <EventListener.h>
 
 // LOCAL INCLUDES
 //
@@ -59,17 +60,25 @@ public:
     UIMenu&                     operator=(UIMenu& from);
 
 // OPERATIONS
-virtual void RenderSelf(SDL_Surface *destination);
-virtual void inputFunction(void);
+    /**
+     * Method renders menu on screen
+	 *
+	 * @param the destination (SDL_Surface) where the menu will go.
+	 *
+	 */
+    virtual void RenderSelf(SDL_Surface *destination);
+
+
+
 
 // ACCESS (writing)
 // INQUIRY (reading)
 
 protected:
 // PROTECTED VARIABLES
-UIElement* cursor;
-int curCursorPosition;
-vector<UIElement*> buttons;
+    UIElement* cursor;
+    int curCursorPosition;
+    vector<UIElement*> buttons;
 
 private:
 // PRIVATE VARIABLES

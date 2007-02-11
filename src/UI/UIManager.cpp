@@ -1,8 +1,21 @@
+/**
+ * File: UIManager.cpp
+ *
+ * Project 404 2007
+ *
+ * Authors:
+ * Andrew Osborne, February 10, 2007 | Initial creation and testing
+ * Andrew Osborne, February 10, 2007 | Added some comments, deleted inputFunction
+ */
 
-#include <UIManager.h>
+#include <UIManager.h>                                  // class implemented
 #include <../Logger.h>
 
-//UILayout testLayout;
+
+
+/////////////////////////////// PUBLIC ///////////////////////////////////////
+
+//============================= LIFECYCLE ====================================
 
 
  UIManager::UIManager(void)
@@ -16,9 +29,7 @@
 
  }
 
-    /**
-     * Destructor.
-	 */
+
 UIManager::~UIManager(void)
 {
 
@@ -34,14 +45,10 @@ UIManager::~UIManager(void)
 
 
 
-// OPERATIONS
-    /**
-     * Initialize Manager.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
+//============================= OPERATORS ====================================
+//============================= OPERATIONS ===================================
+
+
 void UIManager::Initialize(void)
 {
 
@@ -77,7 +84,9 @@ void UIManager::Render(void)
 
 }
 
-// ACCESS (writing)
+
+//============================= ACCESS     ===================================
+
 
 void UIManager::pushLayout(UILayout* newLayout)
 {
@@ -109,9 +118,14 @@ void UIManager::removeLayout(UILayout* removeLayout)
         // Do it later....
 }
 
+//============================= INQUIRY    ===================================
 
-// INQUIRY (reading)
+
 UILayout* UIManager::peekLayout(void)
 {
     return curLayout;
 }
+
+/////////////////////////////// PROTECTED  ///////////////////////////////////
+
+/////////////////////////////// PRIVATE    ///////////////////////////////////

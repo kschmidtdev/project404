@@ -5,7 +5,7 @@
  *
  * The screen we need to run the game
  *
- * @see GameEngine
+ * @see GameEngine, UILayout
  *
  * Project 404 2007
  *
@@ -41,28 +41,11 @@ public:
     UIBattleScreenLayout(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    UIBattleScreenLayout(const UIBattleScreenLayout& from);
-
-    /**
      * Destructor.
 	 */
     ~UIBattleScreenLayout(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    UIBattleScreenLayout&                     operator=(UIBattleScreenLayout& from);
-
 // OPERATIONS
 // ACCESS (writing)
 // INQUIRY (reading)

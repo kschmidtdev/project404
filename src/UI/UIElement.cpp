@@ -1,11 +1,26 @@
+/**
+ * File: UIElement.cpp
+ *
+ * Project 404 2007
+ *
+ * Authors:
+ * Andrew Osborne, February 7, 2007 | Initial creation
+ * Andrew Osborne, February 10, 2007 | Got it to work
+ * Andrew Osborne, February 10, 2007 | Added documentation, removed RSM/rend references
+ */
 
-#include <UIElement.h>
+#include <UIElement.h>                   // class implemented
+
+
+/////////////////////////////// PUBLIC ///////////////////////////////////////
+
+//============================= LIFECYCLE ====================================
 
 UIElement::UIElement(void)
 {
     // Overridden initialization
-    rend = SDLRenderer::GetInstance();  // This needs to be overridden to allow for modularization
-    RSM = ResourceManager::GetInstance();
+    //rend = SDLRenderer::GetInstance();  // This needs to be overridden to allow for modularization
+    //RSM = ResourceManager::GetInstance();
 
 
 /*    pos.SetX(100);
@@ -28,21 +43,24 @@ UIElement::~UIElement(void)
 {
 }
 
+
+
+//============================= OPERATORS ====================================
+//============================= OPERATIONS ===================================
+
+
 void UIElement::RenderSelf(SDL_Surface* destination)
 {
-    rend->DrawImageAt(elementImage, pos.GetX(), pos.GetY(), elementImage->w, elementImage->h, destination);
-    //rend->DrawImageAt(elementImage, pos.GetX(), pos.GetY(), elementImage->w, elementImage->h, elementImage);
-
+    SDLRenderer::GetInstance()->DrawImageAt(elementImage, pos.GetX(), pos.GetY(), elementImage->w, elementImage->h, destination);
 }
+
+
+//============================= ACCESS     ===================================
+
 
 void UIElement::setPos(Point nPos)
 {
     pos = nPos;
-}
-
-Point UIElement::getPos(void)
-{
-    return pos;
 }
 
 void UIElement::setVisible(bool nVisible)
@@ -51,7 +69,21 @@ void UIElement::setVisible(bool nVisible)
 }
 
 
+//============================= INQUIRY    ===================================
+
+Point UIElement::getPos(void)
+{
+    return pos;
+}
+
+
 bool UIElement::getVisible(void)
 {
     return visible;
 }
+
+/////////////////////////////// PROTECTED  ///////////////////////////////////
+
+/////////////////////////////// PRIVATE    ///////////////////////////////////
+
+

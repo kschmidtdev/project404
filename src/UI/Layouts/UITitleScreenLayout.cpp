@@ -4,8 +4,9 @@
  * Project 404 2007
  *
  * Authors:
- * Name, Date | Work Done
- */
+ * Andrew Osborne, February 10 2007 | Initial Creation
+ * Andrew Osborne, February 10 2007 | Documentation
+*/
 #include "UITitleScreenLayout.h"                                // class implemented
 
 
