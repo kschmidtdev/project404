@@ -29,12 +29,12 @@ UITitleScreenLayout::~UITitleScreenLayout()
 
 //============================= OPERATORS ====================================
 
-UITitleScreenLayout&
+/*UITitleScreenLayout&
 UITitleScreenLayout::operator=(UITitleScreenLayout&);
 {
    return *this;
 
-}// =
+}// =*/
 
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================

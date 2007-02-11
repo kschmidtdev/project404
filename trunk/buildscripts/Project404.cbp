@@ -46,6 +46,8 @@
 			<Add directory="..\src" />
 			<Add directory="..\src\UI" />
 			<Add directory="..\src\UI\Layouts" />
+			<Add directory="..\src\Renderer" />
+			<Add directory="..\src\ResourceManager" />
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />
@@ -336,11 +338,6 @@
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="..\src\UI\Layouts\UIBattleScreenLayout.cpp">
-			<Option compilerVar="CPP" />
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="..\src\UI\Layouts\UITitleScreenLayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
 			<Option target="Release" />
