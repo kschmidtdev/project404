@@ -41,6 +41,7 @@
 		<Compiler>
 			<Add option="-W" />
 			<Add option="-Wall" />
+			<Add option="-DTIXML_USE_STL" />
 			<Add directory="..\external\include" />
 			<Add directory="..\external\include\SDL" />
 			<Add directory="..\src" />
@@ -56,6 +57,7 @@
 			<Add library="dxguid" />
 			<Add library="SDL.dll" />
 			<Add library="..\bin\SDL_mixer.dll" />
+			<Add library="libtinyxml_STL" />
 			<Add directory="..\external\lib" />
 		</Linker>
 		<Unit filename="..\src\Archer.cpp">
