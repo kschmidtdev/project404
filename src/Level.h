@@ -10,6 +10,11 @@
  *
  * Authors:
  * Mike Malyuk, February 9, 1007 | Initial design
+ * Mike Malyuk, February 11 2007 | Added includes for vector, Point.h
+ *                                 Added proper constructor, changed TakeTurn to void return
+ *                                 Changed OnSelect to accept Point not Point*, Added ReturnState
+ *                                 Added GetMovementHelp and changed GetMovement to use recursion
+ *                                 Added GetTurn, Changed variables with <Point*> to <Point>
  */
 
 #ifndef Level_h
@@ -17,11 +22,12 @@
 
 // SYSTEM INCLUDES
 //
-
+#include <vector>
 // PROJECT INCLUDES
 //
 #include "Map.h"
 #include "Character.h"
+#include "Point.h"
 
 // LOCAL INCLUDES
 //
@@ -48,6 +54,11 @@ enum charState
     Level(void);
 
     /**
+     * Constructor.
+	 */
+    Level(vector<Character*> party, vector<Character*> badguys, vector<Point> start, Map* map);
+
+    /**
      * Destructor.
 	 */
     ~Level(void);
@@ -56,43 +67,40 @@ enum charState
     /**
      * End current users turn, move to AI, or AI moves to User
 	 */
-    bool TakeTurn();
+    void TakeTurn();
 
     /**
      * From SetCursorBattle, controls STATE by checking position for players.
      * If character exists returns pointer, if not, returns null
 	 */
-    Character* OnSelect(Point* p);
+    Character* OnSelect(Point p);
 // ACCESS (writing)
 // INQUIRY (reading)
 
-    /**
-     * Tell user if character is selected.
-	 */
-    bool CharSelected();
-
+    int ReturnState();
     /**
      * Get movement possibilities
 	 */
-    vector<Point*> GetMovement();
+    void GetMovement();
 
-    /**
-     * Get action possibilities
-	 */
-	 vector<Point*> GetAction();
+    void GetMovementHelp(int move, int x, int y);
 
     /**
      * Get Map for Renderer
      */
      Map* GetMap();
 
+     bool GetTurn();
+
 protected:
 // PROTECTED VARIABLES
     charState mState;
     vector<Character*> mEnemies;
-    vector<Character*> mPlayer;
-    vector<Point*> mMoveArea;
-    vector<Point*> mAttackArea;
+    vector<Character*> mParty;
+    vector<Point> mMoveArea;
+    vector<Point> mAttackArea;
+    vector<Point> mStart;
+    Character* mCurChar;
     Map* mThisMap;
     bool mMyTurn;
 

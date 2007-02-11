@@ -5,6 +5,7 @@
  *
  * Authors:
  * Mike Malyuk, February 7 2007 | Initial design
+ * Mike Malyuk, February 11 2007 | Made CalcAction return non-pointer Point vector
  */
 
 #include "Healer.h"                                // class implemented
@@ -62,13 +63,13 @@ void Healer::LevelUp()
     mMaxHP = mMaxHP + 2;
     mLevel++;
 }
-vector<Point*> Healer::CalcAction()
+vector<Point> Healer::CalcAction()
 {
-    vector<Point*> points;
-    points.push_back(new Point(mCurPos.GetX()-1, mCurPos.GetY()));
-    points.push_back(new Point(mCurPos.GetX()+1, mCurPos.GetY()));
-    points.push_back(new Point(mCurPos.GetX(), mCurPos.GetY()-1));
-    points.push_back(new Point(mCurPos.GetX(), mCurPos.GetY()+1));
+    vector<Point> points;
+    points.push_back(Point(mCurPos.GetX()-1, mCurPos.GetY()));
+    points.push_back(Point(mCurPos.GetX()+1, mCurPos.GetY()));
+    points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()-1));
+    points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()+1));
     return points;
 }
 //============================= ACCESS     ===================================

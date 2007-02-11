@@ -5,6 +5,7 @@
  *
  * Authors:
  * Mike Malyuk, February 7 2007 | Initial design
+ * Mike Malyuk, February 11 2007 | Made CalcAction return non-pointer Point vector
  */
 
 #include "Mage.h"                                // class implemented
@@ -62,21 +63,21 @@ void Mage::LevelUp()
     mMaxHP = mMaxHP + 1;
     mLevel++;
 }
-vector<Point*> Mage::CalcAction()
+vector<Point> Mage::CalcAction()
 {
-    vector<Point*> points;
-    points.push_back(new Point(mCurPos.GetX()-1, mCurPos.GetY()));
-    points.push_back(new Point(mCurPos.GetX()+1, mCurPos.GetY()));
-    points.push_back(new Point(mCurPos.GetX(), mCurPos.GetY()-1));
-    points.push_back(new Point(mCurPos.GetX(), mCurPos.GetY()+1));
-    points.push_back(new Point(mCurPos.GetX()-1, mCurPos.GetY()-1));
-    points.push_back(new Point(mCurPos.GetX()+1, mCurPos.GetY()+1));
-    points.push_back(new Point(mCurPos.GetX()+1, mCurPos.GetY()-1));
-    points.push_back(new Point(mCurPos.GetX()-1, mCurPos.GetY()+1));
-    points.push_back(new Point(mCurPos.GetX()-2, mCurPos.GetY()));
-    points.push_back(new Point(mCurPos.GetX()+2, mCurPos.GetY()));
-    points.push_back(new Point(mCurPos.GetX(), mCurPos.GetY()-2));
-    points.push_back(new Point(mCurPos.GetX(), mCurPos.GetY()+2));
+    vector<Point> points;
+    points.push_back(Point(mCurPos.GetX()-1, mCurPos.GetY()));
+    points.push_back(Point(mCurPos.GetX()+1, mCurPos.GetY()));
+    points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()-1));
+    points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()+1));
+    points.push_back(Point(mCurPos.GetX()-1, mCurPos.GetY()-1));
+    points.push_back(Point(mCurPos.GetX()+1, mCurPos.GetY()+1));
+    points.push_back(Point(mCurPos.GetX()+1, mCurPos.GetY()-1));
+    points.push_back(Point(mCurPos.GetX()-1, mCurPos.GetY()+1));
+    points.push_back(Point(mCurPos.GetX()-2, mCurPos.GetY()));
+    points.push_back(Point(mCurPos.GetX()+2, mCurPos.GetY()));
+    points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()-2));
+    points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()+2));
     return points;
 }
 //============================= ACCESS     ===================================

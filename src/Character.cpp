@@ -5,6 +5,9 @@
  *
  * Authors:
  * Mike Malyuk, February 7 2007 | Initial design
+ * Mike Malyuk, February 11 2007 | Added DEF attr, Made CalcAction return non-pointer Point vector,
+ *                                 Added Exhaust, Invigorate, Attack, MakeDead, GetExhaust, IsDead,
+ *                                 and two booleans, mExhausted and mIsDead
  */
 
 #include "Character.h"                                // class implemented
@@ -21,16 +24,60 @@ Character::~Character()
 
 //============================= OPERATIONS ===================================
 void Character::LevelUp(){}
-vector<Point*> Character::CalcAction()
+vector<Point> Character::CalcAction()
 {
-    vector<Point*> points;
-    points.push_back(new Point(mCurPos.GetX()-1, mCurPos.GetY()));
-    points.push_back(new Point(mCurPos.GetX()+1, mCurPos.GetY()));
-    points.push_back(new Point(mCurPos.GetX(), mCurPos.GetY()-1));
-    points.push_back(new Point(mCurPos.GetX(), mCurPos.GetY()+1));
+    vector<Point> points;
+    points.push_back(Point(mCurPos.GetX()-1, mCurPos.GetY()));
+    points.push_back(Point(mCurPos.GetX()+1, mCurPos.GetY()));
+    points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()-1));
+    points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()+1));
     return points;
 }
 
+void Character::Exhaust()
+{
+    mExhausted = true;
+}
+
+void Character::Invigorate()
+{
+    mExhausted = false;
+}
+void Character::MakeDead()
+{
+    mIsDead = true;
+    mExhausted = true;
+}
+void Character::Attack(Character* another)
+{
+    if(GetClassName() == "Knight")
+    {
+        another->SetHP(another->GetHP()-mAttributes[POW]+another->GetAttr(Character::DEF));
+        if(another->GetHP() < 0)
+        {
+            another->MakeDead();
+            another->Exhaust();
+        }
+        else
+        {
+            mCurHP = (mCurHP-another->GetAttr(Character::POW) + mAttributes[DEF]);
+            if (mCurHP < 0)
+            {
+                mIsDead = true;
+                mExhausted = true;
+            }
+        }
+    }
+    else
+    {
+        another->SetHP(another->GetHP()-mAttributes[DEF]+another->GetAttr(DEF));
+        if(another->GetHP() < 0)
+        {
+            another->MakeDead();
+        }
+    }
+    mExhausted = true;
+}
 //============================= ACCESS     ===================================
 void Character::Move(Point p)
 {
@@ -43,7 +90,16 @@ void Character::SetHP(int value)
 }
 void Character::SetArmor(ArmorItem* item)
 {
-    mArmor = item;
+    if(mArmor == NULL)
+    {
+        mAttributes[DEF] = mAttributes[DEF] + item->GetAttr();
+        mArmor = item;
+    }
+    else
+    {
+        mAttributes[DEF] = mAttributes[DEF] - mWeapon->GetAttr() + item->GetAttr();
+        mArmor = item;
+    }
 }
 
 void Character::SetWeapon(WeaponItem* item)
@@ -100,6 +156,15 @@ string Character::GetName()
     return mName;
 }
 
+bool Character::GetExhaust()
+{
+    return mExhausted;
+}
+
+bool Character::IsDead()
+{
+    return mIsDead;
+}
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

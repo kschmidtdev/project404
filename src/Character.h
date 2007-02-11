@@ -10,7 +10,10 @@
  * Project 404 2007
  *
  * Authors:
- * Mike Malyuk, February 7 2007 | Initial design
+ * Mike Malyuk, February 7 2007  | Initial design
+ * Mike Malyuk, February 11 2007 | Added DEF attr, Made CalcAction return non-pointer Point vector,
+ *                                 Added Exhaust, Invigorate, Attack, MakeDead, GetExhaust, IsDead,
+ *                                 and two booleans, mExhausted and mIsDead
  */
 
 #ifndef Character_h
@@ -43,6 +46,7 @@ enum Attr
     {
         POW = 0,
         AGI,
+        DEF,
         ATTR_COUNT
     };
 // LIFECYCLE
@@ -66,7 +70,22 @@ enum Attr
     /**
      * Returns array of Points a character may have action on
 	 */
-    virtual vector<Point*> CalcAction();
+    virtual vector<Point> CalcAction();
+
+    /**
+     * Set character to exhausted, done moving or attack
+	 */
+    void Exhaust();
+
+    /**
+     * Reset characters exhausted state
+	 */
+    void Invigorate();
+
+    /**
+     * Attack another character
+	 */
+    void Attack(Character* another);
 
 // ACCESS
 
@@ -90,6 +109,10 @@ enum Attr
 	 */
     void SetWeapon(WeaponItem* item);
 
+    /**
+     * Kill this character so the game knows it is dead
+     */
+    void MakeDead();
 
 // INQUIRY
 
@@ -132,6 +155,16 @@ enum Attr
 	 */
     string GetName();
 
+    /**
+     * Get exhausted status of character
+	 */
+    bool GetExhaust();
+
+    /**
+     * Get dead status of character
+	 */
+    bool IsDead();
+
 protected:
 
 // VARIABLES
@@ -140,9 +173,10 @@ protected:
     int mExp;
     int mCurHP;
     int mMaxHP;
-
     int mAttributes[ATTR_COUNT];
     int mMaxActRange;
+    bool mExhausted;
+    bool mIsDead;
     Point mCurPos;
     ArmorItem* mArmor;
     WeaponItem* mWeapon;
