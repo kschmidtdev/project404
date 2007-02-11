@@ -41,11 +41,21 @@ public:
     ExampleRenderable(void)
     : mSurface( NULL ), mX( 0 ), mY( 0 )
     {
-        mSurface = ResourceManager::GetInstance()->LoadTexture( "cb.bmp" );
     }
 
 // OPERATORS
 // OPERATIONS
+
+    void SetTexture( SDL_Surface* texture )
+    {
+        mSurface = texture;
+    }
+
+    void SetPos( const int x, const int y )
+    {
+        mX = x;
+        mY = y;
+    }
 
     /**
      * Renders this renderable to the given destination surface

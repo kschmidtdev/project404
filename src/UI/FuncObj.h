@@ -29,26 +29,14 @@
 // FORWARD REFERENCES
 //
 
-
 class FuncObj
 {
 public:
 // LIFECYCLE
-
-    /**
-     * Default constructor.
-	 */
-    FuncObj(void);
-
-    /**
-     * Destructor.
-	 */
-    ~FuncObj(void);
-
 // OPERATORS
 // OPERATIONS
 
-virtual void run(void);
+    virtual void operator()(void) = 0;
 
 // ACCESS (writing)
 // INQUIRY (reading)

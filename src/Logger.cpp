@@ -99,9 +99,16 @@ string toString( const T& toConvert )
 
 void Logger::LogMessage( const EMESSAGE_TYPE type, const string msg )
 {
-    tacAssert( mLogFileHandle ); // Should never try to log a message without initializing correctly
+    if( !mLogFileHandle )
+    {
+        mLogFileHandle = fopen( mLogFileName.c_str(), "a" );
+    }
+    tacAssert( mLogFileHandle ); // Log file should be able to be written
 
     fprintf( mLogFileHandle, "%s: %s\n", mMsgTypeText[type], msg.c_str() );
+
+    fclose( mLogFileHandle );
+    mLogFileHandle = false;
 }
 
 void Logger::LogMessage( const EMESSAGE_TYPE type, const string msg, const string srcFileName, const int lineNum )

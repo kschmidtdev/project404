@@ -8,6 +8,8 @@
  */
 #include "TextureResource.h"                                // class implemented
 
+#include <Logger.h>
+#include <util.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -23,14 +25,15 @@ TextureResource::~TextureResource()
 
 void TextureResource::Load()
 {
-    // TODO: Make a default constructor that sets the pointers to NULL
-    mSurface = NULL;
+    tacAssert( mFileName != "" );
+
     // load an image
     mSurface = SDL_LoadBMP( mFileName.c_str() );
+
+    tacAssert( mSurface );
     if ( !mSurface )
     {
-        // TODO: Use the logger for this
-        printf("Unable to load bitmap: %s\n", SDL_GetError());
+        LogError( string("Unable to load bitmap: ") + mFileName + string(" SDL error: ") + string( SDL_GetError() ) );
     }
 }
 

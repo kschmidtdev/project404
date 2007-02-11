@@ -12,6 +12,8 @@
 #include "SDLRenderable.h"
 #include "Logger.h"
 
+#include <util.h>
+
 SDLRenderer* SDLRenderer::_instance = 0;
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -123,6 +125,9 @@ void SDLRenderer::RemoveFromRenderQueue( SDLRenderable * toRemove )
 
 void SDLRenderer::DrawImageAt( SDL_Surface* src, const int x, const int y, const int width, const int height, SDL_Surface* dest )
 {
+    tacAssert( src );
+    tacAssert( dest );
+
     SDL_Rect dstrect;
     dstrect.x = x;
     dstrect.y = y;
