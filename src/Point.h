@@ -10,7 +10,9 @@
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Mike Malyuk,    February 7, 2007 | Initial design
+ * Andrew Osborne, February 8, 2007 | Added default construct
+ * Mike Malyuk,    February 9, 2007 | Added comparison operator
  */
 
 #ifndef Point_h
@@ -61,6 +63,12 @@ public:
      * Compare points
      */
     bool operator==(const Point &other)const;
+
+    /**
+     * Compare points
+     */
+    bool operator!=(const Point &other)const;
+
 // OPERATIONS
 // ACCESS (writing)
 
