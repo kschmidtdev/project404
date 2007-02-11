@@ -7,6 +7,7 @@
  * Andrew Osborne, February 7, 2007 | Initial creation
  * Andrew Osborne, February 10, 2007 | Got it to work
  * Andrew Osborne, February 10, 2007 | Added documentation
+ * Andrew Osborne, February 11, 2007 | Added Process event handling, took out renderSelf
  */
 
 
@@ -34,11 +35,11 @@ UILayout::~UILayout(void)
 //============================= OPERATIONS ===================================
 
 
-void UILayout::RenderSelf(SDL_Surface* destination)
+/*void UILayout::RenderSelf(SDL_Surface* destination)
 {
     // Needs to be overridden
     // Display background Image
-}
+}*/
 
 
 void UILayout::onLoad(void)
@@ -48,6 +49,8 @@ void UILayout::onLoad(void)
 
     std::vector<UIElement*>::iterator iter;
     SDLRenderer *rend = SDLRenderer::GetInstance();
+
+    InputManager::GetInstance()->AddEventListener(this);
 
     for (iter = elements.begin();
             iter!=elements.end(); iter++)
@@ -66,6 +69,7 @@ void UILayout::onClose(void)
     std::vector<UIElement*>::iterator iter;
     SDLRenderer *rend = SDLRenderer::GetInstance();
 
+    InputManager::GetInstance()->RemoveEventListener(this);
 
     for (iter = elements.begin();
             iter!=elements.end(); iter++)
@@ -76,6 +80,13 @@ void UILayout::onClose(void)
 }
 
 
+void UILayout::ProcessEvent( const InputManager::INPUTKEYS evt )
+{
+
+    if (defaultEventListener!=NULL)
+        defaultEventListener->ProcessEvent(evt);
+
+}
 
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================

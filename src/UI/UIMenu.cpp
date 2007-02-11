@@ -21,7 +21,9 @@
 UIMenu::UIMenu()
 {
 
-    curCursorPosition = 1;
+    //curCursorPosition = 1;
+    cursorPos = 0;
+    maxCursorPos = 2;
     Point tempPoint(0,0);
 
     // Create cursor
@@ -74,6 +76,33 @@ void UIMenu::RenderSelf(SDL_Surface* destination)
 
 }
 
+void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
+{
+    // Come back to this later
+    switch(evt) {
+        case InputManager::UP:
+            // Move cursor up
+            if (cursorPos>0) {
+                cursorPos--;
+                cursor->setPos( Point(40, 20 + cursorPos*70) );
+            }
+            //cursor->moveUp()
+            break;
+        case InputManager::DOWN:
+            if (cursorPos<maxCursorPos) {
+                cursorPos++;
+                cursor->setPos( Point(40, 20 + cursorPos*70) );
+            }
+            break;
+        default:
+            break;
+
+    }
+
+
+
+}
+
 
 
 
@@ -81,4 +110,4 @@ void UIMenu::RenderSelf(SDL_Surface* destination)
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
-/////////////////////////////// PRIVATE    ///////////////////////////////////
+/////////////////////////////// PRIVATE    ////////////////////////////////////
