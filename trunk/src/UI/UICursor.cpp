@@ -1,41 +1,66 @@
 /**
- * File: UIBattleScreenLayout.cpp
+ * File: UICursor.cpp
  *
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, February 10 2007 | Initial Creation
- * Andrew Osborne, February 11 2007 | Added Event Listening
+ * Name, Date | Work Done
  */
+#include "UICursor.h"                                // class implemented
 
-#include "UIBattleScreenLayout.h"                                // class implemented
-#include "UIMenu.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
-UIBattleScreenLayout::UIBattleScreenLayout()
+UICursor::UICursor()
 {
-    // Add components
-    UIMenu *temp = new UIMenu();
-    defaultEventListener = temp;
-    temp->setPos( Point(300, 150) );
-    elements.push_back( temp );
+}// UICursor
 
-
-
-}// UIBattleScreenLayout
-
-UIBattleScreenLayout::~UIBattleScreenLayout()
+UICursor::UICursor(const UICursor&)
 {
-}// ~UIBattleScreenLayout
+}// UICursor
+
+UICursor::UICursor(const UICursor&)
+{
+}// UICursor
+
+UICursor::~UICursor()
+{
+}// ~UICursor
 
 
 //============================= OPERATORS ====================================
 
+
 //============================= OPERATIONS ===================================
+
+UICursor::moveUp(void)
+{
+}
+
+UICursor::moveDown(void)
+{
+}
+
+UICursor::moveLeft(void)
+{
+}
+
+UICursor::moveRight(void)
+{
+}
+
+
+
 //============================= ACCESS     ===================================
+
+
+UICursor::setDefaultPos(Point startPos)
+{
+}
+
+UICursor::setDefaultPos
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 

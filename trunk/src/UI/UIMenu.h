@@ -25,6 +25,7 @@
 #include <Renderer/SDLRenderable.h>
 #include <UIElement.h>
 #include <EventListener.h>
+#include <FuncObj.h>
 
 // LOCAL INCLUDES
 //
@@ -33,7 +34,7 @@
 //
 
 
-class UIMenu : public UIElement
+class UIMenu : public UIElement, public EventListener
 {
 public:
 // LIFECYCLE
@@ -68,7 +69,10 @@ public:
 	 */
     virtual void RenderSelf(SDL_Surface *destination);
 
-
+    /**
+     * Listens for Key Press from User
+    */
+    virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
 
 
 // ACCESS (writing)
@@ -77,8 +81,13 @@ public:
 protected:
 // PROTECTED VARIABLES
     UIElement* cursor;
-    int curCursorPosition;
     vector<UIElement*> buttons;
+    vector<FuncObj*> buttonFuncs;
+
+    int cursorPos;  // Starts with 0 to max (inclusive)
+    int maxCursorPos;
+
+
 
 private:
 // PRIVATE VARIABLES

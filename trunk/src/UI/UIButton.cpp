@@ -1,41 +1,42 @@
 /**
- * File: UIBattleScreenLayout.cpp
+ * File: UIButton.cpp
  *
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, February 10 2007 | Initial Creation
- * Andrew Osborne, February 11 2007 | Added Event Listening
+ * Name, Date | Work Done
  */
+#include "UIButton.h"                                // class implemented
 
-#include "UIBattleScreenLayout.h"                                // class implemented
-#include "UIMenu.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
-UIBattleScreenLayout::UIBattleScreenLayout()
+UIButton::UIButton()
 {
-    // Add components
-    UIMenu *temp = new UIMenu();
-    defaultEventListener = temp;
-    temp->setPos( Point(300, 150) );
-    elements.push_back( temp );
+}// UIButton
 
-
-
-}// UIBattleScreenLayout
-
-UIBattleScreenLayout::~UIBattleScreenLayout()
+// constructor that will
+UIButton::UIButton(const string ButtonMessage )
+:elementImage( ResourceManager::GetInstance()->LoadTexture("testButton") )
 {
-}// ~UIBattleScreenLayout
+    // Code to put text on screen
+}
+
+UIButton::~UIButton()
+{
+}// ~UIButton
 
 
 //============================= OPERATORS ====================================
 
+
 //============================= OPERATIONS ===================================
+
+
 //============================= ACCESS     ===================================
+
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
