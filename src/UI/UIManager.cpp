@@ -5,7 +5,8 @@
 //UILayout testLayout;
 
 
- UIManager::UIManager(void) {
+ UIManager::UIManager(void)
+ {
 
      // Constructor stuff
 
@@ -16,21 +17,10 @@
  }
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-UIManager::UIManager(const UIManager& from) {
-
-    // I'm lazy, I'll implement this later
-    //CurrentLayoutList = from->CurrentLayoutList;  // I don't know if this will work
-
-}
-
-    /**
      * Destructor.
 	 */
-UIManager::~UIManager(void) {
+UIManager::~UIManager(void)
+{
 
      // Destructor stuff
 
@@ -52,7 +42,8 @@ UIManager::~UIManager(void) {
 	 *
 	 * @return A reference to this object.
 	 */
-void UIManager::Initialize(void) {
+void UIManager::Initialize(void)
+{
 
     // I don't know
 
@@ -60,7 +51,8 @@ void UIManager::Initialize(void) {
 
 }
 
-void UIManager::Shutdown(void) {
+void UIManager::Shutdown(void)
+{
 
     // Remove all the elements from the stack/list
     // Delete them too? - yes
@@ -77,7 +69,8 @@ void UIManager::Shutdown(void) {
 
 }
 
-void UIManager::Render(void) {
+void UIManager::Render(void)
+{
 
     // or RenderSelf()
     //curLayout->RenderSelf();
@@ -86,7 +79,8 @@ void UIManager::Render(void) {
 
 // ACCESS (writing)
 
-void UIManager::pushLayout(UILayout* newLayout) {
+void UIManager::pushLayout(UILayout* newLayout)
+{
 
     CurrentLayoutList.push_front(newLayout);
     curLayout = CurrentLayoutList.front();
@@ -94,8 +88,8 @@ void UIManager::pushLayout(UILayout* newLayout) {
 
 }
 
-void UIManager::popLayout(void) {
-
+void UIManager::popLayout(void)
+{
 
     CurrentLayoutList.pop_front();
     curLayout->onClose();
@@ -117,8 +111,7 @@ void UIManager::removeLayout(UILayout* removeLayout)
 
 
 // INQUIRY (reading)
-UILayout* UIManager::peekLayout(void) {
-
+UILayout* UIManager::peekLayout(void)
+{
     return curLayout;
-
 }

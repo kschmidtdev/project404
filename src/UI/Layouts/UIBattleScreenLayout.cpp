@@ -23,10 +23,6 @@ UIBattleScreenLayout::UIBattleScreenLayout()
 
 }// UIBattleScreenLayout
 
-UIBattleScreenLayout::UIBattleScreenLayout(const UIBattleScreenLayout&)
-{
-}// UIBattleScreenLayout
-
 UIBattleScreenLayout::~UIBattleScreenLayout()
 {
 }// ~UIBattleScreenLayout

@@ -22,9 +22,9 @@
 
 // PROJECT INCLUDES
 //
-#include "SDLRenderable.h"
-#include "SDLRenderer.h"
-#include "ResourceManager.h"
+#include <Renderer/SDLRenderable.h>
+#include <Renderer/SDLRenderer.h>
+#include <ResourceManager/ResourceManager.h>
 
 // LOCAL INCLUDES
 //
