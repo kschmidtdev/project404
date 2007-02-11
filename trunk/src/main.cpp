@@ -5,6 +5,7 @@
 #include "InputManager.h"
 #include "ExampleEventListener.h"
 #include "Logger.h"
+#include "UIManager.h"
 
 int main ( int argc, char** argv )
 {
