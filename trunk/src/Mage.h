@@ -11,6 +11,7 @@
  *
  * Authors:
  * Mike Malyuk, February 7 2007 | Initial design
+ * Mike Malyuk, February 11 2007 | Made CalcAction return non-pointer Point vector
  */
 
 #ifndef Mage_h
@@ -59,7 +60,7 @@ public:
     /**
      * Returns array of Points a character may have action on
 	 */
-    virtual vector<Point*> CalcAction();
+    virtual vector<Point> CalcAction();
 // ACCESS
 
 // INQUIRY

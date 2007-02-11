@@ -5,6 +5,7 @@
  *
  * Authors:
  * Mike Malyuk, February 9, 2007 | Initial design
+ * Mike Malyuk, February 11 2007 | Removed unused code
  */
 #include "Map.h"                                // class implemented
 
@@ -35,7 +36,6 @@ Tile* Map::GetTile(Point p)
 {
     vector<Tile*>::iterator iter;
     iter = mTiles.begin();
-    (*iter)->GetPoint();
     while( ((*iter)->GetPoint()) != p && iter != mTiles.end())
     {
         iter++;
