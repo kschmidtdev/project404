@@ -44,6 +44,8 @@
 			<Add directory="..\external\include" />
 			<Add directory="..\external\include\SDL" />
 			<Add directory="..\src" />
+			<Add directory="..\src\UI" />
+			<Add directory="..\src\UI\Layouts" />
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />
@@ -330,6 +332,36 @@
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIBattleScreenLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UITitleScreenLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="..\src\UI\UIElement.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="..\src\UI\UILayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="..\src\UI\UIManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="..\src\UI\UIMenu.cpp">
+			<Option compilerVar="CPP" />
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
