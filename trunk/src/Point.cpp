@@ -7,6 +7,7 @@
  * Mike Malyuk,    February 7, 2007 | Initial design
  * Andrew Osborne, February 8, 2007 | Added default construct
  * Mike Malyuk,    February 9, 2007 | Added comparison operator
+ * Andrew Osborne, February 10 2007 | added Set(x,y) function
  */
 
 #include "Point.h"                                // class implemented
@@ -64,6 +65,12 @@ void Point::SetX(int x)
 
 void Point::SetY(int y)
 {
+    mY = y;
+}
+
+void Point::Set(int x, int y)
+{
+    mX = x;
     mY = y;
 }
 
