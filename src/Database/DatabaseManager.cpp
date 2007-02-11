@@ -15,9 +15,10 @@ DatabaseManager::~DatabaseManager()
 
 }
 
-int DatabaseManager::GenerateUniqueID(const int datatype) {
+int DatabaseManager::GenerateUniqueID(const int datatype)
+{
 
-    int uniqueID = datatype * 10000
+    int uniqueID = datatype * 10000;
 
 
 
