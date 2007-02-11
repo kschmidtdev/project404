@@ -13,6 +13,7 @@
  *
  * Authors:
  * Karl Schmidt, February 9 2007, Initial creation of header
+ * Andrew Osborne, February 10 2007, added SDL include
  */
 
 #ifndef SDLRenderable_h
@@ -23,6 +24,7 @@
 
 // PROJECT INCLUDES
 //
+#include <SDL.h>
 
 // LOCAL INCLUDES
 //
