@@ -16,14 +16,15 @@
 #ifndef DBInt_h
 #define DBInt_h
 
-class DBInt : public DBBase, public DBData
+#include "DBData.h"
+
+class DBInt : public DBData
 {
 public:
 
-    DBInt(const int uniqueID, const string & name, const int intData) : DBBase(uniqueID), DBData(uniqueID, name) { mIntData = intData; }
-    ~DBInt(void);
-
-    int getData() { return mIntData; }
+    DBInt(const int uniqueID, const string & name, const int intData);
+    virtual ~DBInt(void);
+    int GetData() { return mIntData; }
 
 protected:
 

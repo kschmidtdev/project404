@@ -16,16 +16,17 @@
 #ifndef DBVector2D_h
 #define DBVector2D_h
 
-class DBVector2D : public DBBase, public DBData
+#include "DBData.h"
+
+class DBVector2D : public DBData
 {
 public:
 
-    DBVector2D(const int uniqueID, const string & name, const int* vector2DData) : DBBase(uniqueID), DBData(uniqueID, name) { /* mVector2DData =  vector2DData; */ }
-    ~DBVector2D(void);
-
-    int* getData() { return mVector2DData; }
-    int getX() { return mVector2DData[0]; }
-    int getY() { return mVector2DData[1]; }
+    DBVector2D(const int uniqueID, const string & name, const int* vector2DData);
+    virtual ~DBVector2D();
+    int* GetData() { return mVector2DData; }
+    int GetX() { return mVector2DData[0]; }
+    int GetY() { return mVector2DData[1]; }
 
 protected:
 

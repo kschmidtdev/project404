@@ -16,32 +16,19 @@
 #ifndef DBBase_h
 #define DBBase_h
 
-// SYSTEM INCLUDES
-//
-
-// PROJECT INCLUDES
-//
-
-// LOCAL INCLUDES
-//
-
-// FORWARD REFERENCES
-//
-
-
 class DBBase // This is abstract base class(ABC).
 {
+
 public:
 
     // No default constructor.
-
-    DBBase(const int uniqueID) { mUniqueID = uniqueID; } // constructor with 1 argument.
-
-    ~DBBase(void) = 0; // destructor with pure virtual function.
-
-    int getUniqueID() { return mUniqueID; }
+    DBBase(const int uniqueID); // constructor with 1 argument.
+    virtual ~DBBase(void) = 0; // destructor with a pure virtual function.
+    int GetUniqueID() { return mUniqueID; }
 
 protected:
+
+    // proteced here.
 
 private:
 
