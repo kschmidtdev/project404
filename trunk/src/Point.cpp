@@ -4,7 +4,9 @@
  * Project 404 2007
  *
  * Authors:
- * Mike Malyuk, February 7 2007 | Initial design
+ * Mike Malyuk,    February 7, 2007 | Initial design
+ * Andrew Osborne, February 8, 2007 | Added default construct
+ * Mike Malyuk,    February 9, 2007 | Added comparison operator
  */
 
 #include "Point.h"                                // class implemented
@@ -31,8 +33,8 @@ Point::~Point()
 {
 }// ~Point
 //============================= OPERATORS  ===================================
-  bool Point::operator==(const Point &other) const
-  {
+bool Point::operator==(const Point &other) const
+{
     if(mX == other.mX && mY == other.mY)
     {
         return true;
@@ -41,7 +43,18 @@ Point::~Point()
     {
         return false;
     }
-  }
+}
+bool Point::operator!=(const Point &other)const
+{
+    if(mX == other.mX && mY == other.mY)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================
 void Point::SetX(int x)
