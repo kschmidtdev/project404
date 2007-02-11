@@ -36,6 +36,7 @@ class SDLRenderer;
 class ResourceManager;
 class SoundManager;
 class GameEngine;
+class UIManager;
 
 class GameRoot
 {
@@ -93,6 +94,8 @@ protected:
     ResourceManager*    mResManager;
     SoundManager*       mSoundManager;
     GameEngine*         mGameEngine;
+    UIManager*          mUIManager;
+
 private:
 // PRIVATE VARIABLES
 };

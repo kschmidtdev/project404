@@ -14,6 +14,7 @@
  * Authors:
  * Andrew Osborne, February 10 2007 | Initial Implementation
  * Andrew Osborne, February 10 2007 | Fleshed out comments
+ * Andrew Osborne, February 11 2007 | Added GetInstance method
  */
 
 #ifndef UIManager_h
@@ -42,32 +43,13 @@ public:
 // LIFECYCLE
 
     /**
-     * Default constructor.
-	 */
-    UIManager(void);
+    * Returns an instance of the inputmanager
+    */
+    static UIManager* GetInstance();
 
-    /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    UIManager(const UIManager& from);
 
-    /**
-     * Destructor.
-	 */
-    ~UIManager(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    UIManager&                     operator=(UIManager& from);
 
 // OPERATIONS
 
@@ -127,9 +109,22 @@ public:
 
 protected:
 // PROTECTED VARIABLES
+    static UIManager* _instance;
+
     vector<UILayout*> LayoutMasterList;
     list<UILayout*> CurrentLayoutList;
     UILayout * curLayout;
+
+// PROTECTED METHODS
+    /**
+     * Default constructor.
+	 */
+    UIManager(void);
+
+    /**
+     * Destructor.
+	 */
+    ~UIManager(void);
 
 private:
 // PRIVATE VARIABLES

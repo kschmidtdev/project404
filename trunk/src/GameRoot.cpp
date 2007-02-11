@@ -17,6 +17,7 @@
 #include <Renderer/SDLRenderer.h>
 #include <ResourceManager/ResourceManager.h>
 #include <SoundManager.h>
+#include <UIManager.h>
 
 // TODO: Include when GameEngine is ready
 //#include <GameEngine.h>
@@ -32,7 +33,8 @@ GameRoot::GameRoot()
   mRenderer( NULL ),
   mResManager( NULL ),
   mSoundManager( NULL ),
-  mGameEngine( NULL )
+  mGameEngine( NULL ),
+  mUIManager( NULL )
 {
 }// GameRoot
 
@@ -67,10 +69,16 @@ void GameRoot::Initialize()
 
 // TODO: Implement GameEngine when it is ready
 //    mGameEngine = GameEngine()::GetInstance();
+
+    mUIManager = UIManager::GetInstance();
+    mUIManager->Initialize();
+
 }
 
 void GameRoot::Shutdown()
 {
+    mUIManager->Shutdown();
+
 // TODO: Implement GameEngine when it is ready
 //    mGameEngine->Shutdown();
 
@@ -87,6 +95,8 @@ void GameRoot::Shutdown()
     mResManager->Shutdown();
 
     mRenderer->Shutdown();
+
+
 
     Logger::GetInstance()->Shutdown();
 }
