@@ -41,30 +41,13 @@ public:
     UITitleScreenLayout(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    UITitleScreenLayout(const UITitleScreenLayout& from);
-
-    /**
      * Destructor.
 	 */
     ~UITitleScreenLayout(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    UITitleScreenLayout&                     operator=(UITitleScreenLayout& from);
-
 // OPERATIONS
-virtual void RenderSelf(void);
+virtual void RenderSelf( SDL_Surface* destination );
 
 // ACCESS (writing)
 // INQUIRY (reading)

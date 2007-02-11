@@ -1,6 +1,6 @@
 
 #include <UILayout.h>
-#include <sdlrenderer.h>
+#include <Renderer/SDLRenderer.h>
 
 
 
@@ -10,12 +10,6 @@ UILayout::UILayout(void)
         // Code that will be taken out at some point
    // elements.push_back(
 }
-
-
-UILayout::UILayout(const UILayout& from)
-{
-}
-
 
 UILayout::~UILayout(void)
 {
@@ -45,7 +39,7 @@ void UILayout::onLoad(void)
     for (iter = elements.begin();
             iter!=elements.end(); iter++)
     {
-        rend->AddToRenderQueue( (*iter) );
+        SDLRenderer::GetInstance()->AddToRenderQueue( (*iter) );
     }
 
     // Layout must also ensure that all the elements it's using (because some are shared)
@@ -67,7 +61,7 @@ void UILayout::onClose(void)
     for (iter = elements.begin();
             iter!=elements.end(); iter++)
     {
-        rend->RemoveFromRenderQueue( (*iter) );
+        SDLRenderer::GetInstance()->RemoveFromRenderQueue( (*iter) );
     }
 
 }

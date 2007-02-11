@@ -33,7 +33,7 @@ using namespace std;
 //
 
 
-class UILayout : public UIElement
+class UILayout : public SDLRenderable
 {
 public:
 // LIFECYCLE
@@ -44,28 +44,11 @@ public:
     UILayout(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    UILayout(const UILayout& from);
-
-    /**
      * Destructor.
 	 */
     virtual ~UILayout(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    UILayout&                     operator=(UILayout& from);
-
 // OPERATIONS
 virtual void RenderSelf(SDL_Surface* destination);
 virtual void onLoad(void);

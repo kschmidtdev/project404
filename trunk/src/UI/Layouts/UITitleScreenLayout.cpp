@@ -15,11 +15,7 @@
 
 UITitleScreenLayout::UITitleScreenLayout()
 {
-    elements.push_back( new UIElement("nicePic.bmp") );
-}// UITitleScreenLayout
-
-UITitleScreenLayout::UITitleScreenLayout(const UITitleScreenLayout&)
-{
+    //elements.push_back( new UIElement("nicePic.bmp") );
 }// UITitleScreenLayout
 
 UITitleScreenLayout::~UITitleScreenLayout()
@@ -28,15 +24,13 @@ UITitleScreenLayout::~UITitleScreenLayout()
 
 
 //============================= OPERATORS ====================================
-
-/*UITitleScreenLayout&
-UITitleScreenLayout::operator=(UITitleScreenLayout&);
-{
-   return *this;
-
-}// =*/
-
 //============================= OPERATIONS ===================================
+
+void UITitleScreenLayout::RenderSelf( SDL_Surface* destination )
+{
+    // stub
+}
+
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////

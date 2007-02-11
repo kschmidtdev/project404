@@ -22,7 +22,7 @@
 // PROJECT INCLUDES
 //
 #include <SDL.h>
-#include <SDLRenderable.h>
+#include <Renderer/SDLRenderable.h>
 #include <UIElement.h>
 
 // LOCAL INCLUDES
@@ -41,13 +41,6 @@ public:
      * Default constructor.
 	 */
     UIMenu(void);
-
-    /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    UIMenu(const UIMenu& from);
 
     /**
      * Destructor.

@@ -42,24 +42,12 @@ UIMenu::UIMenu()
 
 }// UIMenu
 
-UIMenu::UIMenu(const UIMenu&)
-{
-}// UIMenu
-
 UIMenu::~UIMenu()
 {
 }// ~UIMenu
 
 
 //============================= OPERATORS ====================================
-
-/*UIMenu&
-UIMenu::operator=(UIMenu&)
-{
-   return *this;
-
-}// =*/
-
 //============================= OPERATIONS ===================================
 
 void UIMenu::RenderSelf(SDL_Surface* destination)
