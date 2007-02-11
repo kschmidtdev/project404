@@ -16,14 +16,15 @@
 #ifndef DBFloat_h
 #define DBFloat_h
 
-class DBFloat : public DBBase, public DBData
+#include "DBData.h"
+
+class DBFloat : public DBData
 {
 public:
 
-    DBFloat(const int uniqueID, const string & name, const float floatData) : DBBase(uniqueID), DBData(uniqueID, name) { mFloatData = floatData; }
-    ~DFloat(void);
-
-    float getData() { return mFloatData; }
+    DBFloat(const int uniqueID, const string & name, const float floatData);
+    virtual ~DBFloat();
+    float GetData() { return mFloatData; }
 
 protected:
 

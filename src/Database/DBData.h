@@ -17,16 +17,16 @@
 #define DBData_h
 
 #include <string>
+#include "DBBase.h"
+using namespace std;
 
 class DBData : public DBBase // ABS.
 {
 public:
 
-    DBData(const int uniqueID, const string & name) : DBBase(uniqueID), mName(name) {}
-
-    ~DBData(void) = 0;
-
-    string getName() { return mName; }
+    DBData(const int uniqueID, const string & name);
+    virtual ~DBData(void); // = 0
+    string GetName() { return mName; }
 
 protected:
 

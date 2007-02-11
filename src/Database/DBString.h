@@ -16,14 +16,15 @@
 #ifndef DBString_h
 #define DBString_h
 
+#include "DBData.h"
+
 class DBString : public DBData
 {
 public:
 
-    DBString(const int uniqueID, const string & name, const string & stringData) : DBBase(uniqueID), DBData(uniqueID, name) { mStringData = stringData; }
-    ~DBString(void);
-
-    string getData() { return mStringData; }
+    DBString(const int uniqueID, const string & name, const string & stringData);
+    virtual ~DBString(void);
+    string GetData() { return mStringData; }
 
 protected:
 
