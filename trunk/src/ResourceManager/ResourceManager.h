@@ -11,6 +11,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 10 2007, Added support for sound and music resources
  * Karl Schmidt, February 9 2007, Initial creation of header
  */
 
@@ -20,6 +21,8 @@
 // SYSTEM INCLUDES
 //
 #include <SDL.h>
+#include <SDL_mixer.h>
+
 #include <string>
 #include <vector>
 using namespace std;
@@ -78,7 +81,20 @@ public:
      * has already been loaded
 	 */
     SDL_Surface* LoadTexture( const string fileName );
-    // TODO: LoadSound( const string fileName )
+
+    /**
+     * Returns a pointer to the loaded sound,
+     * will return an existing pointer if sound
+     * has already been loaded
+	 */
+    Mix_Chunk* LoadSound( const string fileName );
+
+    /**
+     * Returns a pointer to the loaded music,
+     * will return an existing pointer if music
+     * has already been loaded
+	 */
+    Mix_Music* LoadMusic( const string fileName );
 
 protected:
 // PROTECTED METHODS

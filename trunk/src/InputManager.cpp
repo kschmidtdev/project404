@@ -25,6 +25,7 @@ InputManager* InputManager::GetInstance()
     }
     return _instance;
 }
+
 InputManager::~InputManager(void)
 {
     // stub

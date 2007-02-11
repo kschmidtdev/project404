@@ -50,11 +50,12 @@
 		<Linker>
 			<Add library="mingw32" />
 			<Add library="SDLmain" />
-			<Add library="SDL.dll" />
 			<Add library="user32" />
 			<Add library="gdi32" />
 			<Add library="winmm" />
 			<Add library="dxguid" />
+			<Add library="SDL.dll" />
+			<Add library="..\bin\SDL_mixer.dll" />
 			<Add directory="..\external\lib" />
 		</Linker>
 		<Unit filename="..\src\Archer.cpp">
@@ -318,6 +319,18 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="..\src\ResourceManager\MusicResource.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="..\src\ResourceManager\MusicResource.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="..\src\ResourceManager\Resource.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
@@ -355,6 +368,18 @@
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="..\src\ResourceManager\TextureResource.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="..\src\SoundManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="..\src\SoundManager.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
