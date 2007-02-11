@@ -40,7 +40,7 @@ public:
      * Constructor, passes fileName to base Resource constructor
      */
     TextureResource( const string fileName )
-    : Resource( fileName ) { };
+    : Resource( fileName ), mSurface( NULL ) { };
 
     /**
      * Destructor

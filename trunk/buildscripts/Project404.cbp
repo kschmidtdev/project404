@@ -12,7 +12,7 @@
 				<Option output="..\bin\Project404d.exe" />
 				<Option working_dir="..\bin\" />
 				<Option object_output="..\obj\Debug\" />
-				<Option type="0" />
+				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
@@ -50,12 +50,12 @@
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />
+			<Add library="SDL.dll" />
 			<Add library="SDLmain" />
 			<Add library="user32" />
 			<Add library="gdi32" />
 			<Add library="winmm" />
 			<Add library="dxguid" />
-			<Add library="SDL.dll" />
 			<Add library="..\bin\SDL_mixer.dll" />
 			<Add library="libtinyxml_STL" />
 			<Add directory="..\external\lib" />

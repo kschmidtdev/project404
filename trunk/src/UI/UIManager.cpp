@@ -69,7 +69,7 @@ void UIManager::Initialize(void)
     pushLayout( new UIBattleScreenLayout() );
 
     // Add all the layouts to the manager.
-    LogInfo( "The InputManager has been initialized successfully." );
+    LogInfo( "The UIManager has been initialized successfully." );
 
 }
 
@@ -83,7 +83,7 @@ void UIManager::Shutdown(void)
     // Delete this instance
     delete _instance;
     _instance = NULL;
-    LogInfo( "The InputManager has been shut down successfully." );
+    LogInfo( "The UIManager has been shut down successfully." );
 
 }
 
