@@ -4,10 +4,10 @@
  * Project 404 2007
  *
  * Authors:
- * Name, Date | Work Done
+ * Andrew Osborne, February 10 2007 | Initial Creation
  */
-#include "UIBattleScreenLayout.h"                                // class implemented
 
+#include "UIBattleScreenLayout.h"                                // class implemented
 #include "UIMenu.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -29,13 +29,6 @@ UIBattleScreenLayout::~UIBattleScreenLayout()
 
 
 //============================= OPERATORS ====================================
-
-/*UIBattleScreenLayout&
-UIBattleScreenLayout::operator=(UIBattleScreenLayout&);
-{
-   return *this;
-
-}// =*/
 
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================

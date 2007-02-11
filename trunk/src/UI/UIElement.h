@@ -8,11 +8,12 @@
  *
  * Project 404 2007
  *
- * Authors: Andrew Osborne
- * Name, Date (Month Day Year), What was done
+ * Authors:
+ * Andrew Osborne, February 7 2007 | Initial Design
+ * Andrew Osborne, February 10 2007 | added bitmap constructor, added RSM and rend variable
+ * Andrew Osborne, February 10 2007 | Added more documentation, removed RSM/rend
  */
 
-#include <Point.h>
 
 #ifndef UIElement_h
 #define UIElement_h
@@ -25,6 +26,8 @@
 #include <Renderer/SDLRenderable.h>
 #include <Renderer/SDLRenderer.h>
 #include <ResourceManager/ResourceManager.h>
+#include <Point.h>
+
 
 // LOCAL INCLUDES
 //
@@ -106,7 +109,7 @@ public:
      */
     bool getVisible(void);
 
-/**
+    /**
      * Method to set the position of element relative to it's parent
      *
      * @param boolean value true=visible, false=invisible
@@ -117,14 +120,11 @@ public:
 
 protected:
 // PROTECTED VARIABLES
-bool visible;
-Point pos;
-SDLRenderer *rend;
-ResourceManager *RSM;
-SDL_Surface* elementImage;
+    bool visible;
+    Point pos;
+    SDL_Surface* elementImage;
 
-//int posX;
-//int posY; // possible changed to vector2
+
 
 private:
 // PRIVATE VARIABLES
