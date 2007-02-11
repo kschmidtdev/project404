@@ -4,13 +4,18 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 10 2007 | Added support for sound and music resources, added some assertions
  * Karl Schmidt, February 9 2007 | Initial creation and stubbing out of methods
  */
 #include "ResourceManager.h"                                // class implemented
 
 #include "Resource.h"
 #include "TextureResource.h"
+#include "SoundResource.h"
+#include "MusicResource.h"
+
 #include "Logger.h"
+#include "util.h"
 
 ResourceManager* ResourceManager::_instance = 0;
 
@@ -64,11 +69,42 @@ SDL_Surface* ResourceManager::LoadTexture( const string fileName )
     if( !toLoad )
     {
         toLoad = new TextureResource( fileName );
-        // TODO: assert toLoad here
+
+        tacAssert( toLoad );
         toLoad->Load();
         mLoadedResources.push_back( toLoad );
     }
     return static_cast<TextureResource*>(toLoad)->GetTexture();
+}
+
+Mix_Chunk* ResourceManager::LoadSound( const string fileName )
+{
+    Resource* toLoad = CheckForResource( fileName );
+
+    if( !toLoad )
+    {
+        toLoad = new SoundResource( fileName );
+
+        tacAssert( toLoad );
+        toLoad->Load();
+        mLoadedResources.push_back( toLoad );
+    }
+    return static_cast<SoundResource*>(toLoad)->GetSound();
+}
+
+Mix_Music* ResourceManager::LoadMusic( const string fileName )
+{
+    Resource* toLoad = CheckForResource( fileName );
+
+    if( !toLoad )
+    {
+        toLoad = new MusicResource( fileName );
+
+        tacAssert( toLoad );
+        toLoad->Load();
+        mLoadedResources.push_back( toLoad );
+    }
+    return static_cast<MusicResource*>(toLoad)->GetMusic();
 }
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////

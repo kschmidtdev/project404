@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 10 2007 | Added SDL_INIT_AUDIO flag to SDL_Init
  * Karl Schmidt, February 8 2007 | Initial creation of cpp file
  */
 #include "SDLRenderer.h"                                // class implemented
@@ -36,7 +37,7 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
     LogInfo( "Beginning SDLRenderer initialization..." );
     Renderer::Initialize( xRes, yRes, colourDepth );
    // initialize SDL video
-    if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+    if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO ) < 0 )
     {
 // TODO: Use Logger instead of printf
         printf( "Unable to init SDL: %s\n", SDL_GetError() );

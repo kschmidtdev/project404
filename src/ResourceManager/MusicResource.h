@@ -1,22 +1,21 @@
 /**
- * An implementation of Resource to store Sound data
+ * An implementation of Resource to store Music data
  *
- * #include "SoundResource.h"
+ * #include "MusicResource.h"
  *
  * A Resource object that stores sound data that is loaded with SDL_mixer,
- * accepts WAV format files
+ * accepts OGG and MP3 format files
  *
  * @see Resource, ResourceManager
  *
  * Project 404 2007
  *
  * Authors:
- * Karl Schmidt, February 10 2007 | Implementation
- * Karl Schmidt, February 9 2007 | Initial creation of header
+ * Karl Schmidt, February 10 2007 | Initial creation of header
  */
 
-#ifndef SoundResource_h
-#define SoundResource_h
+#ifndef MusicResource_h
+#define MusicResource_h
 
 // SYSTEM INCLUDES
 //
@@ -32,7 +31,7 @@
 // FORWARD REFERENCES
 //
 
-class SoundResource : public Resource
+class MusicResource : public Resource
 {
 public:
 // LIFECYCLE
@@ -40,14 +39,14 @@ public:
     /**
      * Default constructor, just sets the filename based on the given parameter
 	 */
-    SoundResource( const string fileName )
-    : Resource( fileName ), mSndData( NULL )
+    MusicResource( const string fileName )
+    : Resource( fileName ), mMusData( NULL )
     { };
 
     /**
      * Destructor, serves no purpose for this class
 	 */
-    ~SoundResource();
+    ~MusicResource();
 
 // OPERATORS
 
@@ -67,15 +66,15 @@ public:
 // INQUIRY (reading)
 
     /**
-     * Returns a pointer to the Mix_Chunk
+     * Returns a pointer to the Mix_Music
      * instance
 	 */
-    Mix_Chunk* GetSound() { return mSndData; };
+    Mix_Music* GetMusic() { return mMusData; };
 
 protected:
 // PROTECTED VARIABLES
 
-Mix_Chunk* mSndData;
+Mix_Music* mMusData;
 
 private:
 // PRIVATE VARIABLES
@@ -87,4 +86,4 @@ private:
 // EXTERNAL REFERENCES
 //
 
-#endif  // _SoundResource_h_
+#endif  // _MusicResource_h_
