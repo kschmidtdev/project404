@@ -10,6 +10,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 11 2007 | Made all the members pointers
  * Karl Schmidt, February 07 2007, Initial creation of header
  */
 
@@ -85,13 +86,13 @@ public:
 protected:
 // PROTECTED VARIABLES
 
-    SecurityManager mSecurityManager;
-    DatabaseManager mDatabase;
-    InputManager mInput;
-    SDLRenderer mRenderer;
-    ResourceManager mResManager;
-    SoundManager mSoundManager;
-    GameEngine mGameEngine;
+    SecurityManager*    mSecurityManager;
+    DatabaseManager*    mDatabase;
+    InputManager*       mInput;
+    SDLRenderer*        mRenderer;
+    ResourceManager*    mResManager;
+    SoundManager*       mSoundManager;
+    GameEngine*         mGameEngine;
 private:
 // PRIVATE VARIABLES
 };

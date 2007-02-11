@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 11 2007 | Correctly cleared the singleton instance in Shutdown()
  * Karl Schmidt, February 10 2007 | Initial creation of the class
  */
 #include "SoundManager.h"                                // class implemented
@@ -52,6 +53,8 @@ void SoundManager::Shutdown()
 {
     LogInfo( "Beginning SoundManager shut down..." );
     Mix_CloseAudio();
+    delete _instance;
+    _instance = NULL;
     LogInfo( "SoundManager shut down successfully." );
 }
 

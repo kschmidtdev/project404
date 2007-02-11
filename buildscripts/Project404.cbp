@@ -232,6 +232,11 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="..\src\GameRoot.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="..\src\GameRoot.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
