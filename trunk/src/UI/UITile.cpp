@@ -1,42 +1,31 @@
 /**
- * File: UIBattleScreenLayout.cpp
+ * File: UITile.cpp
  *
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, February 10 2007 | Initial Creation
- * Andrew Osborne, February 11 2007 | Added Event Listening
+ * Name, Date | Work Done
  */
+#include "UITile.h"                                // class implemented
 
-#include "UIBattleScreenLayout.h"                                // class implemented
-#include "UIMenu.h"
-#include "UIGrid.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
-UIBattleScreenLayout::UIBattleScreenLayout()
+UITile::UITile()
 {
-    // Add components
-    UIMenu *temp = new UIMenu();
-    defaultEventListener = temp;
-    temp->setPos( Point(300, 150) );
-    elements.push_back( temp );
-
-    UIGrid *temp2 = new UIGrid();
-    elements.push_back( temp2 );
+    elementImage = ResourceManager::GetInstance()->LoadTexture("defaultTile.bmp");
+}// UITile
 
 
-
-}// UIBattleScreenLayout
-
-UIBattleScreenLayout::~UIBattleScreenLayout()
+UITile::~UITile()
 {
-}// ~UIBattleScreenLayout
+}// ~UITile
 
 
 //============================= OPERATORS ====================================
+
 
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================

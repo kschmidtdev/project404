@@ -98,7 +98,7 @@ public:
      * @param boolean value true=visible, false=invisible
      *
      */
-    void setPos(Point nPos);
+    virtual void setPos(Point nPos);
 
 // INQUIRY (reading)
     /**

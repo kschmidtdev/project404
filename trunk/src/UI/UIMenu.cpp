@@ -36,7 +36,7 @@ UIMenu::UIMenu()
     for (int i=0; i<3; i++)
     {
         tempButton = new UIElement("testButton.bmp");
-        tempPoint.Set(50, 30 + i*70);
+        tempPoint.Set(pos.GetX() + 50, pos.GetY() + 30 + i*70);
         tempButton->setPos( tempPoint );
         buttons.push_back( tempButton );
     }
@@ -62,7 +62,7 @@ void UIMenu::RenderSelf(SDL_Surface* destination)
     SDLRenderer::GetInstance()->DrawImageAt(elementImage, pos.GetX(), pos.GetY(), elementImage->w, elementImage->h, destination);
 
     // Cursor is rendered second
-    cursor->RenderSelf(elementImage);
+    cursor->RenderSelf(destination);
 
     // Buttons are rendered second
     std::vector<UIElement*>::iterator iter;
@@ -71,7 +71,7 @@ void UIMenu::RenderSelf(SDL_Surface* destination)
     for (iter = buttons.begin();
             iter!=buttons.end(); iter++)
     {
-        (*iter)->RenderSelf(elementImage);
+        (*iter)->RenderSelf(destination);
     }
 
 }
@@ -84,14 +84,14 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
             // Move cursor up
             if (cursorPos>0) {
                 cursorPos--;
-                cursor->setPos( Point(40, 20 + cursorPos*70) );
+                cursor->setPos( Point(pos.GetX() + 40, pos.GetY() + 20 + cursorPos*70) );
             }
             //cursor->moveUp()
             break;
         case InputManager::DOWN:
             if (cursorPos<maxCursorPos) {
                 cursorPos++;
-                cursor->setPos( Point(40, 20 + cursorPos*70) );
+                cursor->setPos( Point(pos.GetX() + 40, pos.GetY() + 20 + cursorPos*70) );
             }
             break;
         default:
@@ -107,6 +107,27 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
 
 
 //============================= ACCESS     ===================================
+
+void UIMenu::setPos(Point nPos)
+{
+    pos = nPos;
+
+    Point tempPoint(pos.GetX() + 40, pos.GetY() + 20);
+    cursor ->setPos( tempPoint );
+
+    // Move buttons
+    std::vector<UIElement*>::iterator iter;
+
+    int i = 0;
+    for (iter = buttons.begin();
+            iter!=buttons.end(); iter++)
+    {
+        (*iter)->setPos( Point(pos.GetX() + 50, pos.GetY() + 30 + i*70) );
+        i++;
+    }
+
+
+}
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 

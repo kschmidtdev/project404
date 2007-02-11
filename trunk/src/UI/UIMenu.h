@@ -76,6 +76,11 @@ public:
 
 
 // ACCESS (writing)
+    /**
+     * Changes position
+    */
+    virtual void setPos(Point nPos);
+
 // INQUIRY (reading)
 
 protected:
