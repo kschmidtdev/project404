@@ -34,7 +34,7 @@ public:
     vector<DBNode*> Search(const string& key);
     void LoadFromFile();
     void SaveToFile();
-    string Search(string& name);
+    DBNode* Search(string& name);
 
 protected:
 
@@ -46,6 +46,8 @@ private:
     void CreateChildNode( TiXmlElement* currentNode, DBNode* parent );
     void ToNextSiblingNode(DBNode* parent);
     void ToNextChildNode(DBNode* parent);
+    DBNode* SearchRecursion(string& name, DBNode* currentNode);
+
     DBNode* mRootNode;
     int mSize;
 
