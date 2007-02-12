@@ -5,6 +5,7 @@
  *
  * Authors:
  * Mike Malyuk, February 11, 2007 | Initial Implementation
+ * Mike Malyuk, February 12, 2007 | Added getters for UI
  */
 #include "Level.h"                                // class implemented
 
@@ -74,6 +75,7 @@ Character* Level::OnSelect(Point p)
         {
             mCurChar = (*iter);
             mState = MOVE;
+            GetMovement();
             return *iter;
         }
         else
@@ -84,7 +86,6 @@ Character* Level::OnSelect(Point p)
     //Need to move
     else if(mState == MOVE)
     {
-        GetMovement();
         vector<Point>::iterator iter;
         iter = mMoveArea.begin();
         while( (*iter) != p && iter != mMoveArea.end())
@@ -110,6 +111,7 @@ Character* Level::OnSelect(Point p)
                 }
                 if(((*iter2)) == ((*chariter)->GetPoint()) && !((*chariter)->IsDead()))
                 {
+                    mAttackArea = attackarea;
                     mState = ATTACK;
                     return mCurChar;
                 }
@@ -260,6 +262,42 @@ Character* Level::OnSelect(Point p)
         }
         if(allDead == mEnemies.size())
         {
+            return true;
+        }
+        return false;
+    }
+    vector<Character*> Level::GetEveryone()
+    {
+        vector<Character*> temp = mParty;
+        temp.insert(temp.end(),mEnemies.begin(),mEnemies.end());
+        return temp;
+    }
+
+    vector<Point> Level::GetMoveArea()
+    {
+        return mMoveArea;
+    }
+
+    vector<Point> Level::GetAttackArea()
+    {
+        return mAttackArea;
+    }
+
+    bool Level::AllExhaustedParty()
+    {
+        vector<Character*>::iterator iter;
+        iter = mParty.begin();
+        int count = 0;
+        while(iter != mParty.end())
+        {
+            if((*iter)->GetExhaust())
+            {
+                count++;
+            }
+        }
+        if(count == mParty.size())
+        {
+            TakeTurn();
             return true;
         }
         return false;
