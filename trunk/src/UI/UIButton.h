@@ -42,10 +42,6 @@ public:
     UIButton(void);
 
 
-    /**
-     * String constructor, which specifies text
-	 */
-    UIButton(const string ButtonMessage );
 
 
     /**

@@ -21,6 +21,7 @@
 
 // PROJECT INCLUDES
 //
+#include <UIElement.h>
 
 // LOCAL INCLUDES
 //
@@ -29,7 +30,7 @@
 //
 
 
-class UICursor
+class UICursor : public UIElement
 {
 public:
 // LIFECYCLE
@@ -40,11 +41,9 @@ public:
     UICursor(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    UICursor(const UICursor& from);
+     * Input constructor.
+     */
+    UICursor(const string filename, const string buttonHeading);
 
     /**
      * Destructor.
@@ -53,23 +52,16 @@ public:
 
 // OPERATORS
 
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    UICursor&                     operator=(UICursor& from);
-
 // OPERATIONS
+
+//virtual void RenderSelf(SDL_Surface* destination, Point offset);
 // ACCESS (writing)
 // INQUIRY (reading)
 
 protected:
 // PROTECTED VARIABLES
-    int maxPosition;
-    int curPosition;
+ //   int maxPosition;
+ //   int curPosition;
 
 private:
 // PRIVATE VARIABLES

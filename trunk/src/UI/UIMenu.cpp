@@ -25,9 +25,9 @@ UIMenu::UIMenu()
     SDL_Surface *sample = ResourceManager::GetInstance()->LoadTexture("testButton.bmp");
 
     // Setting location parameters
-    mButtonStart.Set(50, 30);
-    mButtonOffset.Set(0, (sample->h+20) );
-    mCursorOffset.Set(-10,-10);
+    mButtonStart.Set(15, 15);
+    mButtonOffset.Set(0, (sample->h+10) );
+    mCursorOffset.Set(-5,-5);
 
     // Set cursor parameters
     mCursorPos = 0;

@@ -20,11 +20,12 @@ UIBattleScreenLayout::UIBattleScreenLayout()
 {
     // Add components
     UIMenu *temp = new UIMenu();
-    defaultEventListener = temp;
-    temp->setPos( Point(300, 150) );
+    //defaultEventListener = temp;
+    temp->setPos( Point(470, 150) );
     elements.push_back( temp );
 
     UIGrid *temp2 = new UIGrid();
+    defaultEventListener = temp2;
     elements.push_back( temp2 );
 
 
