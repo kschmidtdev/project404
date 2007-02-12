@@ -48,18 +48,38 @@ void DatabaseManager::LoadFromFile()
     }
 }
 
-string DatabaseManager::Search(string& name)
+DBNode* DatabaseManager::Search(string& name)
 {
+    return SearchRecursion(name, mRootNode);
 }
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
 
+DBNode* DatabaseManager::SearchRecursion(string& name, DBNode* currentNode)
+{
+    if ( currentNode == NULL)
+    {
+        return NULL;
+    }
+
+    else if ( currentNode->GetName() == name ) // if they have the same name.
+    {
+        return currentNode;
+    }
+
+    else // currentNode is not NULL and not the one we want to find.
+    {
+        SearchRecursion(name, *currentNode->GetFirstChild());
+    }
+}
+
 void DatabaseManager::CreateSiblingNode(TiXmlElement* currentNode, DBNode* parent) { // All sibling nodes have the same parent node.
 
-    if (currentNode != NULL) // If currentNode == NULL, the recursion terminate.
+    if ( currentNode != NULL ) // If currentNode == NULL, the recursion terminate.
     {
         DBNode* newChild = new DBNode( GenerateUniqueID(), currentNode->Attribute( "name" ), parent );
-        //cout << newChild->GetName() << endl;
+        parent->AddChild(newChild);
+
         CreateChildNode( currentNode->FirstChildElement(), newChild );
         CreateSiblingNode( currentNode->NextSiblingElement(), parent );
     }
@@ -70,7 +90,8 @@ void DatabaseManager::CreateChildNode(TiXmlElement* currentNode, DBNode* parent)
     if (currentNode != NULL) // If currentNode == NULL, the recursion terminate.
     {
         DBNode* newChild = new DBNode( GenerateUniqueID(), currentNode->Attribute( "name" ), parent );
-        //cout << newChild->GetName() << endl;
+        parent->AddChild(newChild);
+
         CreateChildNode( currentNode->FirstChildElement(), newChild );
         CreateSiblingNode( currentNode->NextSiblingElement(), parent );
     }
@@ -82,4 +103,5 @@ void DatabaseManager::ToNextSiblingNode(DBNode* parent)
 
 void DatabaseManager::ToNextChildNode(DBNode* parent)
 {
+
 }
