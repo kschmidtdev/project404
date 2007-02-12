@@ -22,6 +22,8 @@
 // PROJECT INCLUDES
 //
 #include <UILayout.h>
+#include <UIMenu.h>
+#include <UIGrid.h>
 
 // LOCAL INCLUDES
 //
@@ -47,11 +49,31 @@ public:
 
 // OPERATORS
 // OPERATIONS
+
+    /**
+     * Overrides the ProcessEvent so that it can control the cursor.
+	 */
+	//virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
+
 // ACCESS (writing)
+
+    /**
+     * Change event handler to Menu
+     */
+    void switchToMenu(void);
+
+    /**
+     * Change event handler to Grid
+     */
+    void switchToGrid(void);
+
+
 // INQUIRY (reading)
 
 protected:
 // PROTECTED VARIABLES
+    UIMenu* mMenu;
+    UIGrid* mGrid;
 private:
 // PRIVATE VARIABLES
 };

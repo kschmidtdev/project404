@@ -30,8 +30,6 @@ UIGrid::UIGrid()
 
     int i, j;
 
-    //tiles = new UITile*[mNumColumns];
-    //for (i=0; i<mNumColumns; i++)
 
 
 
@@ -67,6 +65,10 @@ UIGrid::UIGrid()
     mCursorStart = mTileStart + Point( -mTileOffset, -mTileOffset);
     mCursor = new UICursor("tileCursor.bmp", "");
     mCursor->setPos( mCursorStart );
+
+    // Retrieve Game Engine
+    //mGameEngine = GameEngine::GetInstance();
+    //mGameEngine = NULL;
 
 }// UIGrid
 
