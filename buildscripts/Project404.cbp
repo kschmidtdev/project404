@@ -38,6 +38,9 @@
 				</Linker>
 			</Target>
 		</Build>
+		<VirtualTargets>
+			<Add alias="All" targets="Debug;Release;" />
+		</VirtualTargets>
 		<Compiler>
 			<Add option="-W" />
 			<Add option="-Wall" />
@@ -58,6 +61,7 @@
 			<Add library="SDL.dll" />
 			<Add library="..\bin\SDL_mixer.dll" />
 			<Add library="libtinyxml_STL" />
+			<Add library="SDL_ttf" />
 			<Add directory="..\external\lib" />
 		</Linker>
 		<Unit filename="..\src\Archer.cpp">

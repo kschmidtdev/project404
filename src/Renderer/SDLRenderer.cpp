@@ -16,6 +16,8 @@
 
 SDLRenderer* SDLRenderer::_instance = 0;
 
+const char* fontName( "Vera.ttf" );
+
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
@@ -38,33 +40,25 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
 {
     LogInfo( "Beginning SDLRenderer initialization..." );
     Renderer::Initialize( xRes, yRes, colourDepth );
+
    // initialize SDL video
     if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO ) < 0 )
     {
-// TODO: Use Logger instead of printf
-        printf( "Unable to init SDL: %s\n", SDL_GetError() );
+        tacAssert( false ); // Always assert if this happens
+        LogCritical( string("Unable to init SDL: ") + string( SDL_GetError() ) );
         return;
     }
 
-// TODO: Implement font support (below)
-    /*TTF_Init();
+    // Initialize the font library
+    TTF_Init();
 
-    font=TTF_OpenFont("Vera.ttf", 32);
-
-    // Render some text in solid black to a new surface
-    // then blit to the upper left of the screen
-    // then free the text surface
-    //SDL_Surface *screen;
-    SDL_Color color={255,255,255};
-    text_surface = 0;
-    text_surface=TTF_RenderText_Blended(font,"Cool Tactics Game!",color);
-    printf( "Rendering text result=%i\n", text_surface );*/
-    //handle error here, perhaps print TTF_GetError at least
-
+    // Preload our typical font size
+    mFonts[32] = TTF_OpenFont( fontName, 32);
 
     // create a new window
     mScreen = SDL_SetVideoMode(xRes, yRes, colourDepth, SDL_HWSURFACE|SDL_DOUBLEBUF);
 
+    tacAssert( mScreen );
     if ( !mScreen )
     {
         printf("Unable to set %ix%i video: %s\n", xRes, yRes, SDL_GetError());
@@ -75,12 +69,13 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
 
 void SDLRenderer::Shutdown()
 {
-    //perhaps we can reuse it, but I assume not for simplicity.
-    //SDL_FreeSurface(text_surface);
-
-    //TTF_CloseFont(font);
-    //TTF_Quit();
     LogInfo( "Beginning SDLRenderer shut down..." );
+
+    for( FontMapItr i = mFonts.begin(); i != mFonts.end(); ++i )
+    {
+        TTF_CloseFont( i->second );
+    }
+    TTF_Quit();
 
     SDL_Quit();
 
@@ -123,8 +118,43 @@ void SDLRenderer::RemoveFromRenderQueue( SDLRenderable * toRemove )
     }
 }
 
+SDL_Surface* SDLRenderer::CreateTextSurface( const string textToRender, const int size, const int red = 255, const int green = 255, const int blue = 255 )
+{
+    tacAssert( textToRender != "" );
+    tacAssert( red >= 0 );
+    tacAssert( green >= 0 );
+    tacAssert( blue >= 0 );
+    tacAssert( size > 0 );
+
+    if( mFonts.find( size ) == mFonts.end() )
+    {
+        mFonts[size] = TTF_OpenFont( fontName, size );
+    }
+
+    // Render some text in solid black to a new surface
+    // then blit to the upper left of the screen
+    // then free the text surface
+    SDL_Color colour = { red, green, blue, 255 };
+
+    SDL_Surface* textSurface = NULL;
+    textSurface = TTF_RenderText_Blended( mFonts[size], textToRender.c_str(), colour );
+
+    tacAssert( textSurface );
+    if( !textSurface )
+    {
+        LogError( string("Could not render text to surface, given text: ") + textToRender + string(", TTF_GetError says: ") + string( TTF_GetError() ) );
+        return NULL;
+    }
+
+    return textSurface;
+}
+
 void SDLRenderer::DrawImageAt( SDL_Surface* src, const int x, const int y, const int width, const int height, SDL_Surface* dest )
 {
+    if( !src || !dest )
+    {
+        return;
+    }
     tacAssert( src );
     tacAssert( dest );
 
