@@ -1,16 +1,17 @@
 /**
- * A one line description of the class.
+ * Subclass of DBData for storing float-type data
  *
  * #include "DBFloat.h"
  *
- * A longer description.
+ * This class stores a unique ID, name, and float data.
  *
- * @see something
+ * @see DBData.h
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Seung Woo Han, February 7 2007 | Initial design
+ * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  */
 
 #ifndef DBFloat_h
@@ -22,7 +23,7 @@ class DBFloat : public DBData
 {
 public:
 
-    DBFloat(const int uniqueID, const string & name, const float floatData);
+    DBFloat(const int uniqueID, const string& name, const float floatData);
     virtual ~DBFloat();
     float GetData() { return mFloatData; }
 

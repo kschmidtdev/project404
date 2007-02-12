@@ -1,16 +1,16 @@
 /**
- * A one line description of the class.
+ * Base class for every other classes in database(except DatabaseManager class)
  *
  * #include "DBBase.h"
  *
- * A longer description.
- *
- * @see something
+ * This class stores a unique ID which might be useful in further implementaion
+ * This class cannot be instaniated(Abstract Base Class)
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Seung Woo Han, February 7 2007 | Initial design
+ * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  */
 
 #ifndef DBBase_h

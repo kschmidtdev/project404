@@ -1,17 +1,19 @@
 /**
- * A one line description of the class.
+ * Subclass of DBData for storing string-type data
  *
  * #include "DBString.h"
  *
- * A longer description.
+ * This class stores a unique ID, name, and string data.
  *
- * @see something
+ * @see DBData.h
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Seung Woo Han, February 7 2007 | Initial design
+ * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  */
+
 
 #ifndef DBString_h
 #define DBString_h
@@ -22,7 +24,7 @@ class DBString : public DBData
 {
 public:
 
-    DBString(const int uniqueID, const string & name, const string & stringData);
+    DBString(const int uniqueID, const string& name, const string& stringData);
     virtual ~DBString(void);
     string GetData() { return mStringData; }
 

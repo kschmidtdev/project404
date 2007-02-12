@@ -42,7 +42,6 @@
 			<Add alias="All" targets="Debug;Release;" />
 		</VirtualTargets>
 		<Compiler>
-			<Add option="-W" />
 			<Add option="-Wall" />
 			<Add option="-DTIXML_USE_STL" />
 			<Add directory="..\external\include" />
@@ -202,13 +201,6 @@
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="..\src\Database\DatabaseManager.h">
-			<Option compilerVar="CPP" />
-			<Option compile="0" />
-			<Option link="0" />
-			<Option target="Debug" />
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="..\src\Database\HashTable.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />

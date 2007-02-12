@@ -1,24 +1,26 @@
 /**
- * A one line description of the class.
+ * This is a class which take a controll of whole database system.
  *
  * #include "DatabaseManager.h"
  *
- * A longer description.
+ * Major functionalities : Load XML file and create DBNode objects and set a relationship among them
+ *                         Save existing DBNode objects and their attributes to XML file.
+ *                         Generate Unique ID and assign it to each Data and Nodes object in database.
  *
- * @see something
+ * @see DBData.h
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Seung Woo Han, February 7 2007 | Initial design
+ * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  */
 
 #ifndef DatabaseManager_h
 #define DatabaseManager_h
 
-#include <time.h>
+#include "tinyxml.h"
 #include "DBNode.h"
-#include "HashTable.h"
 
 class DatabaseManager
 {
@@ -28,18 +30,19 @@ public:
     ~DatabaseManager();
     void Initialize();
     void Shutdown();
-    int GenerateUniqueID(const int datatype);
+    int GenerateUniqueID();
     vector<DBNode*> Search(const string& key);
     void LoadFromFile();
     void SaveToFile();
 
 protected:
-// PROTECTED VARIABLES
+
+    // PROTECTED VARIABLES
+
 private:
 
     DBNode* mRootNode;
-    // vector<DBNode*> mDatabase;
-    HashTable<DBNode*> * mDatabase;
+    int mSize;
 
 };
 

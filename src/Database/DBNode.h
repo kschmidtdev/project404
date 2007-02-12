@@ -1,17 +1,20 @@
 /**
- * A one line description of the class.
+ * Subclass of DBBase.
  *
  * #include "DBNode.h"
  *
- * A longer description.
+ * This class stores a unique ID, name, parent Node, children Nodes(0 to infinite numbers of),
+ * and attributes(DBData-type)
  *
- * @see something
+ * @see DBBase.h
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Seung Woo Han, February 7 2007 | Initial design
+ * Seung Woo Han, February 11 2007 | Added more functinos related to iterator.
  */
+
 
 #ifndef DBNode_h
 #define DBNode_h
@@ -27,15 +30,26 @@ class DBNode : public DBBase
 public:
 
     // no default constructor.
-    DBNode(const int uniqueID, const string & name, DBNode* parent = NULL, vector<DBNode*> children = NULL, vector<DBData*> attributes = NULL);
+    DBNode(const int uniqueID, const string& name);
+    DBNode(const int uniqueID, const string& name, DBNode* parent);
+    DBNode(const int uniqueID, const string& name, DBNode* parent, vector<DBNode*> children);
+    DBNode(const int uniqueID, const string& name, DBNode* parent, vector<DBNode*> children, vector<DBData*> attributes);
     virtual ~DBNode(void);
     // Serialization here.
     string GetName() { return mName; }
     DBNode* GetParent() { return mParent; } // *** How do I make sure that returned value (mParent) is not changing anywhere?
-    DBNode* GetChildren(); // using iterator to traverse all the children in the vector container.
-    DBNode* GetAttributes(); // using iterator to traverse all the attributes in the vector container.
-    DBData* GetAttribute(const string & name); // return the specific attribute in the attribute vector.
+
+    vector<DBNode*>::iterator GetFirstChild() { return mChildren.begin(); }
+    vector<DBNode*>::iterator GetEndChild() { return mChildren.end(); }
+    vector<DBData*>::iterator GetFirstAttribute() { return mAttributes.begin(); }
+    vector<DBData*>::iterator GetEndAttribute() { return mAttributes.end(); }
+
+    DBData* GetAttribute(const string& name); // return the specific attribute in the attribute vector.
     void SetParent(DBNode* parent) { mParent = parent; }
+    void AddChild(DBNode * child) { mChildren.push_back(child); }
+    void AddAttribute(DBData* attribute) { mAttributes.push_back(attribute); }
+
+    void CheckDataType(const string& type); // Determine what type of the data it is : DBInt, DBFloat, DBString, and etc.
 
 protected:
 
@@ -45,9 +59,6 @@ private:
     DBNode* mParent;
     vector<DBNode*> mChildren;
     vector<DBData*> mAttributes;
-
-    vector<DBNode*>::iterator mCIter; // iterator for Children vector.
-    vector<DBData*>::iterator mAIter; // iterator for attributes vector.
 
 };
 
