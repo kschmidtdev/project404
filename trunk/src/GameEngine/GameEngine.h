@@ -10,6 +10,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 12 2007 | Fixed includes, made it a singleton, fixed some compilation errors
  * Mike Malyuk, February 8, 2007, | Initial design
  */
 
@@ -21,10 +22,11 @@
 
 // PROJECT INCLUDES
 //
-#include "City.h"
-#include "Level.h"
-#include "Character.h"
-#include "Item.h"
+// TODO: Include City.h when it exists
+//#include <GameEngine/City.h>
+#include <GameEngine/Level.h>
+#include <GameEngine/Character.h>
+#include <GameEngine/Item.h>
 
 
 // LOCAL INCLUDES
@@ -49,14 +51,19 @@ enum Cities
 // LIFECYCLE
 
     /**
-     * Default constructor.
-	 */
-    GameEngine(void);
+    * Returns an instance of the GameEngine
+    */
+    static GameEngine* GetInstance();
 
     /**
      * Destructor.
 	 */
     ~GameEngine(void);
+
+    /**
+    * Destroys the singleton instance, cleans other things up
+    */
+    void Shutdown();
 
 // OPERATIONS
 //  Character* GetInstChar(string templatename);
@@ -103,7 +110,7 @@ enum Cities
     /**
      * Set cursor to a City, update current city
 	 */
-    void SetCursorBattle(x, y);
+    void SetCursorBattle( const int x, const int y );
 
 // INQUIRY (reading)
     /**
@@ -117,16 +124,26 @@ enum Cities
     vector<Item*> ReturnArmory();
 
 protected:
+// PROTECTED METHODS
+    /**
+     * Default constructor.
+	 */
+    GameEngine(void);
+
 // PROTECTED VARIABLES
     vector<Character*> mCharacters;
     vector<Character*> mParty;
     vector<Level*> mLevels;
-    vector<City*> mCities;
+// TODO: Implement when City.h exists
+//    vector<City*> mCities;
     vector<Item*> mItems;
     Level* mCurLvl;
-    City* mCurCity;
+// TODO: Implement when City.h exists
+//    City* mCurCity;
     Point* mCurTile;
     Character* mCurChar;
+
+    static GameEngine* _instance;
 
 private:
 // PRIVATE VARIABLES

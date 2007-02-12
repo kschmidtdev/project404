@@ -221,6 +221,11 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="..\src\GameEngine\GameEngine.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="..\src\GameEngine\GameEngine.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
