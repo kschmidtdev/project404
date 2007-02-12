@@ -15,6 +15,7 @@
  *                                 Changed OnSelect to accept Point not Point*, Added ReturnState
  *                                 Added GetMovementHelp and changed GetMovement to use recursion
  *                                 Added GetTurn, Changed variables with <Point*> to <Point>
+ * Mike Malyuk, February 12 2007 | Added getters for UI.
  */
 
 #ifndef Level_h
@@ -95,9 +96,35 @@ enum charState
      */
     bool GetTurn();
 
+    /**
+     * Check if all party is dead
+     */
     bool GetLoseCondition();
 
+    /**
+     * Check if all enemies are dead
+     */
     bool GetWinCondition();
+
+    /**
+     * Return all characters in level (for UI)
+     */
+    vector<Character*> GetEveryone();
+
+    /**
+     * Return all points in movement area (state = 1)
+     */
+    vector<Point> GetMoveArea();
+
+    /**
+     * Return all points in attack area (state = 2)
+     */
+    vector<Point> GetAttackArea();
+
+    /**
+     * Checks if party is exhausted, if true, it will automatically switch turns
+     */
+    bool AllExhaustedParty();
 protected:
 // PROTECTED VARIABLES
     charState mState;
