@@ -9,8 +9,9 @@
  * Project 404 2007
  *
  * Authors:
- * Karl Schmidt, February 9 2007, Fixed minor issues (so it could compile)
- * Karl Schmidt, February 7 2007, Initial creation of the header
+ * Karl Schmidt, February 12 2007 | Added inline function for sending events to listeners
+ * Karl Schmidt, February 9 2007 | Fixed minor issues (so it could compile)
+ * Karl Schmidt, February 7 2007 | Initial creation of the header
  */
 
 #ifndef InputManager_h
@@ -122,6 +123,12 @@ protected:
     * input
     */
     void SetupKeyBindings();
+
+    /**
+    * Internal method that sends the incoming event
+    * to all event listeners registered
+    */
+    inline void SendEventToListeners( const INPUTKEYS evt );
 
 // PROTECTED VARIABLES
     static InputManager* _instance;

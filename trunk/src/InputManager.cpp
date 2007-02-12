@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 12 2007 | Added corner direction event sending changes
  * Karl Schmidt, February 9 2007 | Initial creation, all functions stubbed
  */
 #include "InputManager.h"                                // class implemented
@@ -80,9 +81,31 @@ void InputManager::ProcessEvent( const SDL_Event* evt )
 
     if( foundBoundKey != -1 )
     {
-        for( EventListenerItr i = mRegisteredListeners.begin(); i != mRegisteredListeners.end(); ++i )
+        // We typically won't be using the corner directions,
+        // so events are sent separately for LEFTUP (ie: LEFT then UP)
+        if( foundBoundKey == LEFTUP )
         {
-            (*i)->ProcessEvent( INPUTKEYS( foundBoundKey ) );
+            SendEventToListeners( LEFT );
+            SendEventToListeners( UP );
+        }
+        else if( foundBoundKey == LEFTDOWN )
+        {
+            SendEventToListeners( LEFT );
+            SendEventToListeners( DOWN );
+        }
+        else if( foundBoundKey == RIGHTUP )
+        {
+            SendEventToListeners( LEFT );
+            SendEventToListeners( UP );
+        }
+        else if( foundBoundKey == RIGHTDOWN )
+        {
+            SendEventToListeners( LEFT );
+            SendEventToListeners( UP );
+        }
+        else // the usual
+        {
+            SendEventToListeners( INPUTKEYS( foundBoundKey ) );
         }
     }
 }
@@ -116,6 +139,14 @@ void InputManager::SetupKeyBindings()
     mKeys[CONFIRM] = SDLK_RETURN;
     mKeys[CANCEL] = SDLK_BACKSPACE;
     mKeys[MENU] = SDLK_m;
+}
+
+void InputManager::SendEventToListeners( const INPUTKEYS evt )
+{
+    for( EventListenerItr i = mRegisteredListeners.begin(); i != mRegisteredListeners.end(); ++i )
+    {
+        (*i)->ProcessEvent( evt );
+    }
 }
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
