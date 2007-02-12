@@ -22,11 +22,11 @@ UIBattleScreenLayout::UIBattleScreenLayout()
     // Add components
     mMenu = new UIMenu();
     mMenu->setPos( Point(470, 150) );
-    elements.push_back( mMenu );
+    mElements.push_back( mMenu );
 
     mGrid = new UIGrid();
-    defaultEventListener = mGrid;
-    elements.push_back( mGrid );
+    mDefaultEventListener = mGrid;
+    mElements.push_back( mGrid );
 
 
 
@@ -50,13 +50,13 @@ UIBattleScreenLayout::~UIBattleScreenLayout()
 
 void UIBattleScreenLayout::switchToMenu(void)
 {
-    defaultEventListener = mMenu;
+    mDefaultEventListener = mMenu;
 }
 
 
 void UIBattleScreenLayout::switchToGrid(void)
 {
-    defaultEventListener = mGrid;
+    mDefaultEventListener = mGrid;
 }
 
 

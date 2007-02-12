@@ -23,11 +23,20 @@ UILayout::UILayout(void)
 {
 
         // Code that will be taken out at some point
-   // elements.push_back(
+   // mElements.push_back(
 }
 
 UILayout::~UILayout(void)
 {
+    std::vector<UIElement*>::iterator iter;
+
+    for (iter = mElements.begin();
+            iter!=mElements.end(); iter++)
+    {
+        delete *iter;
+    }
+
+    mDefaultEventListener = NULL;
 }
 
 
@@ -52,8 +61,8 @@ void UILayout::onLoad(void)
 
     InputManager::GetInstance()->AddEventListener(this);
 
-    for (iter = elements.begin();
-            iter!=elements.end(); iter++)
+    for (iter = mElements.begin();
+            iter!=mElements.end(); iter++)
     {
         rend->AddToRenderQueue( (*iter) );
     }
@@ -71,8 +80,8 @@ void UILayout::onClose(void)
 
     InputManager::GetInstance()->RemoveEventListener(this);
 
-    for (iter = elements.begin();
-            iter!=elements.end(); iter++)
+    for (iter = mElements.begin();
+            iter!=mElements.end(); iter++)
     {
         rend->RemoveFromRenderQueue( (*iter) );
     }
@@ -83,8 +92,8 @@ void UILayout::onClose(void)
 void UILayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
 
-    if (defaultEventListener!=NULL)
-        defaultEventListener->ProcessEvent(evt);
+    if (mDefaultEventListener!=NULL)
+        mDefaultEventListener->ProcessEvent(evt);
 
 }
 

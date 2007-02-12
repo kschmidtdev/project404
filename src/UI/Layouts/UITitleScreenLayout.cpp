@@ -16,7 +16,7 @@
 
 UITitleScreenLayout::UITitleScreenLayout()
 {
-    //elements.push_back( new UIElement("nicePic.bmp") );
+    //mElements.push_back( new UIElement("nicePic.bmp") );
 }// UITitleScreenLayout
 
 UITitleScreenLayout::~UITitleScreenLayout()

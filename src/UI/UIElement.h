@@ -72,7 +72,7 @@ public:
 	 *
 	 * @return A reference to this object.
 	 */
-    UIElement&                     operator=(UIElement& from);
+    //UIElement&                     operator=(UIElement& from);
 
 // OPERATIONS
     /**
@@ -120,9 +120,9 @@ public:
 
 protected:
 // PROTECTED VARIABLES
-    bool visible;
-    Point pos;
-    SDL_Surface* elementImage;
+    bool mVisible;
+    Point mPos;
+    SDL_Surface* mElementImage;
 
 
 

@@ -86,8 +86,8 @@ public:
 
 protected:
 // PROTECTED VARIABLES
-    vector<UIElement*> elements;
-    EventListener* defaultEventListener;
+    vector<UIElement*> mElements;
+    EventListener* mDefaultEventListener;
 
 private:
 // PRIVATE VARIABLES

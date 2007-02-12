@@ -8,6 +8,7 @@
  * Andrew Osborne, February 10, 2007 | Added some comments, deleted inputFunction
  * Andrew Osborne, February 11, 2007 | added 'm' to members, added input funcitonality, used Point addition/mult
  * Karl Schmidt, February 11 2007 | Added checks to prevent crashes when textures are not loaded
+ * Andrew Osborne, February 11, 2007 | added destructor
  */
 #include "UIMenu.h"                                // class implemented
 #include "Point.h"
@@ -50,7 +51,7 @@ UIMenu::UIMenu()
     }
 
     // Set backgound
-    elementImage = ResourceManager::GetInstance()->LoadTexture("testMenu.bmp");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("testMenu.bmp");
 
     setPos( Point(0,0) );
 
@@ -58,6 +59,18 @@ UIMenu::UIMenu()
 
 UIMenu::~UIMenu()
 {
+    std::vector<UIElement*>::iterator iter;
+
+    for (iter = mButtons.begin();
+            iter!=mButtons.end(); iter++)
+    {
+        delete (*iter);
+    }
+
+    // Need to add function Objects... when I add them
+
+    delete mCursor;
+
 }// ~UIMenu
 
 
@@ -67,9 +80,9 @@ UIMenu::~UIMenu()
 void UIMenu::RenderSelf(SDL_Surface* destination)
 {
     // The menu must be rendered first
-    if( elementImage )
+    if( mElementImage )
     {
-        SDLRenderer::GetInstance()->DrawImageAt(elementImage, pos.GetX(), pos.GetY(), elementImage->w, elementImage->h, destination);
+        SDLRenderer::GetInstance()->DrawImageAt(mElementImage, mPos.GetX(), mPos.GetY(), mElementImage->w, mElementImage->h, destination);
     }
 
     // Cursor is rendered second
@@ -95,14 +108,14 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
             // Move cursor up
             if (mCursorPos>0) {
                 mCursorPos--;
-                mCursor->setPos( pos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
+                mCursor->setPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
             }
             //cursor->moveUp()
             break;
         case InputManager::DOWN:
             if (mCursorPos<mMaxCursorPos) {
                 mCursorPos++;
-                mCursor->setPos( pos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
+                mCursor->setPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
             }
             break;
         default:
@@ -121,10 +134,10 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
 
 void UIMenu::setPos(Point nPos)
 {
-    pos = nPos;
+    mPos = nPos;
 
     // Move cursor
-    mCursor->setPos( pos + mButtonStart + mCursorOffset );
+    mCursor->setPos( mPos + mButtonStart + mCursorOffset );
 
     // Move buttons
     std::vector<UIElement*>::iterator iter;
@@ -132,7 +145,7 @@ void UIMenu::setPos(Point nPos)
     for (iter = mButtons.begin();
             iter!=mButtons.end(); iter++)
     {
-        (*iter)->setPos( pos + mButtonStart + (mButtonOffset * i) );
+        (*iter)->setPos( mPos + mButtonStart + (mButtonOffset * i) );
         i++;
     }
 

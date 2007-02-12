@@ -111,9 +111,9 @@ protected:
 // PROTECTED VARIABLES
     static UIManager* _instance;
 
-    vector<UILayout*> LayoutMasterList;
-    list<UILayout*> CurrentLayoutList;
-    UILayout * curLayout;
+    vector<UILayout*> mLayoutMasterList;
+    list<UILayout*> mCurrentLayoutList;
+    UILayout* mCurLayout;
 
 // PROTECTED METHODS
     /**

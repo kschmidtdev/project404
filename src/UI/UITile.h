@@ -1,16 +1,16 @@
 /**
- * A one line description of the class.
+ * The UI class that represents a single tile on a grid (Battle grid)
  *
  * #include "UITile.h"
  *
- * A longer description.
+ * The UI class that represents a single tile on a grid (Battle grid)
  *
- * @see something
+ * @see UIGrid
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Andrew Osborne, February 11 2007, Initial Creation
  */
 
 #ifndef UITile_h
@@ -40,12 +40,6 @@ public:
 	 */
     UITile(void);
 
-    /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    UITile(const UITile& from);
 
     /**
      * Destructor.
@@ -54,14 +48,6 @@ public:
 
 // OPERATORS
 
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    UITile&                     operator=(UITile& from);
 
 // OPERATIONS
 // ACCESS (writing)

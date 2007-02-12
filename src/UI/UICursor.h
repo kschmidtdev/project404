@@ -1,16 +1,16 @@
 /**
- * A one line description of the class.
+ * The UI class representation of a cursor on screen
  *
  * #include "UICursor.h"
  *
- * A longer description.
+ * The UI class representation of a cursor on screen
  *
- * @see something
+ * @see UIMenu
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Andrew Osborne, February 11 2007, Initial Creation
  */
 
 #ifndef UICursor_h
