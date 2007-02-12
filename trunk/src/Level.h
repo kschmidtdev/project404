@@ -88,10 +88,16 @@ enum charState
     /**
      * Get Map for Renderer
      */
-     Map* GetMap();
+    Map* GetMap();
 
-     bool GetTurn();
+    /**
+     * Get Turn (true ours, false theirs)
+     */
+    bool GetTurn();
 
+    bool GetLoseCondition();
+
+    bool GetWinCondition();
 protected:
 // PROTECTED VARIABLES
     charState mState;

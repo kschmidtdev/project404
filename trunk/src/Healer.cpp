@@ -6,6 +6,7 @@
  * Authors:
  * Mike Malyuk, February 7 2007 | Initial design
  * Mike Malyuk, February 11 2007 | Made CalcAction return non-pointer Point vector
+ *                                 Added variables for mIsDead, mExhausted and new attr DEF
  */
 
 #include "Healer.h"                                // class implemented
@@ -28,6 +29,9 @@ Healer::Healer()
     mWeapon = NULL;
     mAttributes[POW] = 2;
     mAttributes[AGI] = 2;
+    mAttributes[DEF] = 1;
+    mExhausted = false;
+    mIsDead = false;
 }// Healer
 
 Healer::Healer(string name, int level, WeaponItem* weapon, ArmorItem* armor)
@@ -43,6 +47,17 @@ Healer::Healer(string name, int level, WeaponItem* weapon, ArmorItem* armor)
     mCurPos = Point(0,0);
     mAttributes[POW] = 2;
     mAttributes[AGI] = 2;
+    mAttributes[DEF] = 1;
+    mExhausted = false;
+    mIsDead = false;
+    if(weapon != NULL)
+    {
+        mAttributes[POW] = mAttributes[POW] + weapon->GetAttr();
+    }
+    if(armor != NULL)
+    {
+        mAttributes[DEF] = mAttributes[DEF] + armor->GetAttr();
+    }
     for(int i = 0; i < level; i++)
     {
         LevelUp();

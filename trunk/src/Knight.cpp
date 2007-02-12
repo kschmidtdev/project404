@@ -4,8 +4,9 @@
  * Project 404 2007
  *
  * Authors:
- * Mike Malyuk, February 7 2007 | Initial design
+ * Mike Malyuk, February 7 2007  | Initial design
  * Mike Malyuk, February 11 2007 | Made CalcAction return non-pointer Point vector
+ *                                 Added variables for mIsDead, mExhausted and new attr DEF
  */
 
 #include "Knight.h"                                // class implemented
@@ -28,6 +29,9 @@ Knight::Knight()
     mWeapon = NULL;
     mAttributes[POW] = 3;
     mAttributes[AGI] = 3;
+    mAttributes[DEF] = 4;
+    mExhausted = false;
+    mIsDead = false;
 }// Knight
 
 Knight::Knight(string name, int level, WeaponItem* weapon, ArmorItem* armor)
@@ -43,6 +47,17 @@ Knight::Knight(string name, int level, WeaponItem* weapon, ArmorItem* armor)
     mCurPos = Point(0,0);
     mAttributes[POW] = 3;
     mAttributes[AGI] = 3;
+    mAttributes[DEF] = 4;
+    mExhausted = false;
+    mIsDead = false;
+    if(weapon != NULL)
+    {
+        mAttributes[POW] = mAttributes[POW] + weapon->GetAttr();
+    }
+    if(armor != NULL)
+    {
+        mAttributes[DEF] = mAttributes[DEF] + armor->GetAttr();
+    }
     for(int i = 1; i < level; i++)
     {
         LevelUp();

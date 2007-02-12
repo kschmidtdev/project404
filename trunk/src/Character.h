@@ -165,6 +165,16 @@ enum Attr
 	 */
     bool IsDead();
 
+    /**
+     * Get Level of character
+	 */
+    int GetLevel();
+
+    /**
+     * Get Exp of character
+	 */
+    int GetExp();
+
 protected:
 
 // VARIABLES

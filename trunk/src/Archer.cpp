@@ -4,8 +4,9 @@
  * Project 404 2007
  *
  * Authors:
- * Mike Malyuk, February 7 2007 | Initial design
+ * Mike Malyuk, February 7 2007  | Initial design
  * Mike Malyuk, February 11 2007 | Made CalcAction return non-pointer Point vector
+ *                                 Added variables for mIsDead, mExhausted and new attr DEF
  */
 
 #include "Archer.h"                                // class implemented
@@ -28,6 +29,9 @@ Archer::Archer()
     mWeapon = NULL;
     mAttributes[POW] = 2;
     mAttributes[AGI] = 5;
+    mAttributes[DEF] = 2;
+    mExhausted = false;
+    mIsDead = false;
 }// Archer
 
 Archer::Archer(string name, int level, WeaponItem* weapon, ArmorItem* armor)
@@ -43,6 +47,17 @@ Archer::Archer(string name, int level, WeaponItem* weapon, ArmorItem* armor)
     mCurPos = Point(0,0);
     mAttributes[POW] = 2;
     mAttributes[AGI] = 5;
+    mAttributes[DEF] = 2;
+    mExhausted = false;
+    mIsDead = false;
+    if(weapon != NULL)
+    {
+        mAttributes[POW] = mAttributes[POW] + weapon->GetAttr();
+    }
+    if(armor != NULL)
+    {
+        mAttributes[DEF] = mAttributes[DEF] + armor->GetAttr();
+    }
     for(int i = 0; i < level; i++)
     {
         LevelUp();
