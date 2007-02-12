@@ -50,13 +50,16 @@ void Character::MakeDead()
 }
 void Character::Attack(Character* another)
 {
+    bool killed = false;
     if(GetClassName() == "Knight")
     {
         another->SetHP(another->GetHP()-mAttributes[POW]+another->GetAttr(Character::DEF));
         if(another->GetHP() < 0)
         {
+            cout << "Opponent dead" << endl;
             another->MakeDead();
             another->Exhaust();
+            killed = true;
         }
         else
         {
@@ -74,6 +77,17 @@ void Character::Attack(Character* another)
         if(another->GetHP() < 0)
         {
             another->MakeDead();
+            another->Exhaust();
+            killed = true;
+        }
+    }
+    if(killed == true)
+    {
+        mExp = ((another->GetLevel()*1.0)/mLevel)*100;
+        if(mExp > 100)
+        {
+            LevelUp();
+            mExp = mExp-100;
         }
     }
     mExhausted = true;
@@ -164,6 +178,16 @@ bool Character::GetExhaust()
 bool Character::IsDead()
 {
     return mIsDead;
+}
+
+int Character::GetLevel()
+{
+    return mLevel;
+}
+
+int Character::GetExp()
+{
+    return mExp;
 }
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
