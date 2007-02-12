@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 11 2007 | Added background music implementation
  * Karl Schmidt, February 11 2007 | Initial creation of implementation
  */
 #include "GameRoot.h"                                // class implemented
@@ -96,13 +97,17 @@ void GameRoot::Shutdown()
 
     mRenderer->Shutdown();
 
-
-
     Logger::GetInstance()->Shutdown();
 }
 
 void GameRoot::GameLoop()
 {
+    Mix_Music* gameMusic = mResManager->LoadMusic( "Fantastic_B1-256.mp3" );
+    if( gameMusic )
+    {
+        mSoundManager->PlayMusic( gameMusic, true );
+    }
+
     bool done = false;
     while (!done)
     {

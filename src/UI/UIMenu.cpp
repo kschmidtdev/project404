@@ -7,6 +7,7 @@
  * Andrew Osborne, February 10, 2007 | Initial creation and testing
  * Andrew Osborne, February 10, 2007 | Added some comments, deleted inputFunction
  * Andrew Osborne, February 11, 2007 | added 'm' to members, added input funcitonality, used Point addition/mult
+ * Karl Schmidt, February 11 2007 | Added checks to prevent crashes when textures are not loaded
  */
 #include "UIMenu.h"                                // class implemented
 #include "Point.h"
@@ -20,14 +21,18 @@
 // It should be commented out or deleted once proper sub-classes are defined
 
 UIMenu::UIMenu()
+: mCursor( NULL )
 {
+    SDL_Surface *sample = NULL;
+    sample = ResourceManager::GetInstance()->LoadTexture("testButton.bmp");
 
-    SDL_Surface *sample = ResourceManager::GetInstance()->LoadTexture("testButton.bmp");
-
-    // Setting location parameters
-    mButtonStart.Set(15, 15);
-    mButtonOffset.Set(0, (sample->h+10) );
-    mCursorOffset.Set(-5,-5);
+    if( sample )
+    {
+    	// Setting location parameters
+	    mButtonStart.Set(15, 15);
+	    mButtonOffset.Set(0, (sample->h+10) );
+	    mCursorOffset.Set(-5,-5);
+    }
 
     // Set cursor parameters
     mCursorPos = 0;
@@ -62,7 +67,10 @@ UIMenu::~UIMenu()
 void UIMenu::RenderSelf(SDL_Surface* destination)
 {
     // The menu must be rendered first
-    SDLRenderer::GetInstance()->DrawImageAt(elementImage, pos.GetX(), pos.GetY(), elementImage->w, elementImage->h, destination);
+    if( elementImage )
+    {
+        SDLRenderer::GetInstance()->DrawImageAt(elementImage, pos.GetX(), pos.GetY(), elementImage->w, elementImage->h, destination);
+    }
 
     // Cursor is rendered second
     mCursor->RenderSelf(destination);

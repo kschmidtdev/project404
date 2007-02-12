@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 11 2007 | Disabled the mouse cursor, added custom window title, more error/info logging
  * Karl Schmidt, February 10 2007 | Added SDL_INIT_AUDIO flag to SDL_Init
  * Karl Schmidt, February 8 2007 | Initial creation of cpp file
  */
@@ -49,6 +50,8 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
         return;
     }
 
+    SDL_ShowCursor( SDL_DISABLE );
+
     // Initialize the font library
     TTF_Init();
 
@@ -61,9 +64,14 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
     tacAssert( mScreen );
     if ( !mScreen )
     {
+        LogError( string("Unable to set video mode: ") + toString(xRes) + string(" ") + toString(yRes) + string("SDL error is: ") + toString(SDL_GetError()) + string(")") );
         printf("Unable to set %ix%i video: %s\n", xRes, yRes, SDL_GetError());
         return;
     }
+
+    SDL_WM_SetCaption( "SymTac Alpha 1", NULL );
+
+    LogInfo( string("Set video mode: ") + toString(xRes) + string(" ") + toString(yRes) );
     LogInfo( "The SDLRenderer has been initialized successfully." );
 }
 

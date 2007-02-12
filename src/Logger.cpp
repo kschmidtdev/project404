@@ -88,15 +88,6 @@ Logger::~Logger()
 
 //============================= OPERATIONS ===================================
 
-// Utility Function
-template< typename T >
-string toString( const T& toConvert )
-{
-    ostringstream output;
-    output << toConvert;
-    return output.str();
-}
-
 void Logger::LogMessage( const EMESSAGE_TYPE type, const string msg )
 {
     if( !mLogFileHandle )

@@ -5,6 +5,7 @@
  *
  * Authors:
  * Name, Date | Work Done
+ * Karl Schmidt, February 11 2007 | Added checks to prevent crashing if textures are not loaded
  */
 #include "UIGrid.h"                                // class implemented
 #include "UITile.h"
@@ -21,8 +22,12 @@ UIGrid::UIGrid()
     // Add all elements
     SDL_Surface *sample = ResourceManager::GetInstance()->LoadTexture("defaultTile.bmp");
 
-    mTileHeight = sample->h;
-    mTileWidth = sample->w;
+    if( sample )
+    {
+        mTileHeight = sample->h;
+        mTileWidth = sample->w;
+    }
+
     int i, j;
 
     //tiles = new UITile*[mNumColumns];
@@ -79,8 +84,11 @@ UIGrid::~UIGrid()
 
 void UIGrid::RenderSelf(SDL_Surface* destination)
 {
-    // The menu must be rendered first
-    //SDLRenderer::GetInstance()->DrawImageAt(elementImage, pos.GetX(), pos.GetY(), elementImage->w, elementImage->h, destination);
+    if( elementImage )
+    {
+        // The menu must be rendered first
+        //SDLRenderer::GetInstance()->DrawImageAt(elementImage, pos.GetX(), pos.GetY(), elementImage->w, elementImage->h, destination);
+    }
 
     // Cursor is rendered second
     mCursor->RenderSelf(destination);
