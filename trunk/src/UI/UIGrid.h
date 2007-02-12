@@ -24,6 +24,8 @@
 #include <UIElement.h>
 #include <UITile.h>
 #include <EventListener.h>
+//#include <GameEngine.h>
+#include <UIImage.h>
 
 // LOCAL INCLUDES
 //
@@ -61,6 +63,27 @@ public:
 	virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
 
 // ACCESS (writing)
+
+    /**
+     * Used for displaying the range of motion for a particular player
+     */
+    void AddMoveableRange( vector<Point> moveableSpots);
+
+    /**
+     *  Clears the points which make up
+     */
+    void ClearMoveableRange( void );
+
+    /**
+     * Used for displaying an attacking range of motion
+     */
+    void AddAttackRange( vector<Point> attackableSpots);
+
+    /**
+     * Clear the attack range that appears
+     */
+    void ClearAttackRange( void );
+
 // INQUIRY (reading)
 
 protected:
@@ -80,6 +103,12 @@ protected:
     int mTotalTileOffset;
     UIElement* mCursor;
 
+    // Range storage variables
+    vector<UIImage> mMoveRange;
+    vector<UIImage> mAttackRange;
+
+    // Regular Communication
+    //GameEngine* mGameEngine;
 
 // PROTECTED METHODS
     int findIndex(int x, int y);
