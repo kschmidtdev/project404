@@ -1,17 +1,20 @@
 /**
- * A one line description of the class.
+ * Subclass of DBBase. This is also a base class for all other data classes.
  *
  * #include "DBData.h"
  *
- * A longer description.
+ * This class stores a unique ID, and name
+ * This class cannot be instaniated(Abstract Base Class)
  *
- * @see something
+ * @see DBBase.h
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Seung Woo Han, February 7 2007 | Initial design
+ * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  */
+
 
 #ifndef DBData_h
 #define DBData_h
@@ -24,8 +27,8 @@ class DBData : public DBBase // ABS.
 {
 public:
 
-    DBData(const int uniqueID, const string & name);
-    virtual ~DBData(void); // = 0
+    DBData(const int uniqueID, const string& name);
+    virtual ~DBData(void) = 0;
     string GetName() { return mName; }
 
 protected:

@@ -1,17 +1,19 @@
 /**
- * A one line description of the class.
+ * Subclass of DBData for storing 2D-Vector-type data
  *
  * #include "DBVector2D.h"
  *
- * A longer description.
+ * This class stores a unique ID, name, and 2D Vector data(which are 2 integers)
  *
- * @see something
+ * @see DBData.h
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Seung Woo Han, February 7 2007 | Initial design
+ * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  */
+
 
 #ifndef DBVector2D_h
 #define DBVector2D_h
@@ -22,7 +24,7 @@ class DBVector2D : public DBData
 {
 public:
 
-    DBVector2D(const int uniqueID, const string & name, const int* vector2DData);
+    DBVector2D(const int uniqueID, const string& name, const int* vector2DData);
     virtual ~DBVector2D();
     int* GetData() { return mVector2DData; }
     int GetX() { return mVector2DData[0]; }
