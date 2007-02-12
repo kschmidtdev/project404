@@ -70,6 +70,16 @@ public:
      */
     bool operator!=(const Point &other)const;
 
+    /**
+     * Addition operator
+     */
+    Point operator+(const Point &other)const;
+
+    /**
+     * Integer multiplication operator
+     */
+    Point operator*(const int &other)const;
+
 // OPERATIONS
 // ACCESS (writing)
 
