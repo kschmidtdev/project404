@@ -17,12 +17,7 @@ UIButton::UIButton()
 {
 }// UIButton
 
-// constructor that will
-UIButton::UIButton(const string ButtonMessage )
-:elementImage( ResourceManager::GetInstance()->LoadTexture("testButton") )
-{
-    // Code to put text on screen
-}
+
 
 UIButton::~UIButton()
 {

@@ -23,6 +23,7 @@
 //
 #include <UIElement.h>
 #include <UITile.h>
+#include <EventListener.h>
 
 // LOCAL INCLUDES
 //
@@ -31,7 +32,7 @@
 //
 
 
-class UIGrid : public UIElement
+class UIGrid : public UIElement, public EventListener
 {
 public:
 // LIFECYCLE
@@ -49,7 +50,15 @@ public:
 // OPERATORS
 
 // OPERATIONS
+    /**
+     * Overrides RenderSelf to render the tiles.
+	 */
     virtual void RenderSelf(SDL_Surface* destination);
+
+    /**
+     * Overrides the ProcessEvent so that it can control the cursor.
+	 */
+	virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
 
 // ACCESS (writing)
 // INQUIRY (reading)
@@ -61,6 +70,16 @@ protected:
     int mTileHeight;
     int mNumRows;
     int mNumColumns;
+
+    // Cursor values
+    Point mCursorPos;
+    Point mMaxCursorPos;
+    Point mCursorStart;
+    Point mTileStart;
+    int mTileOffset;  // This variable assumes square tiles
+    int mTotalTileOffset;
+    UIElement* mCursor;
+
 
 // PROTECTED METHODS
     int findIndex(int x, int y);

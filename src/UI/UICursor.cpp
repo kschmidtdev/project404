@@ -17,13 +17,12 @@ UICursor::UICursor()
 {
 }// UICursor
 
-UICursor::UICursor(const UICursor&)
+UICursor::UICursor(const string fileName, const string buttonHeading)
 {
+    elementImage = ResourceManager::GetInstance()->LoadTexture(fileName);
+
 }// UICursor
 
-UICursor::UICursor(const UICursor&)
-{
-}// UICursor
 
 UICursor::~UICursor()
 {
@@ -34,7 +33,7 @@ UICursor::~UICursor()
 
 
 //============================= OPERATIONS ===================================
-
+/*
 UICursor::moveUp(void)
 {
 }
@@ -60,7 +59,7 @@ UICursor::setDefaultPos(Point startPos)
 {
 }
 
-UICursor::setDefaultPos
+UICursor::setDefaultPos*/
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
