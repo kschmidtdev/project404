@@ -29,30 +29,57 @@ int DatabaseManager::GenerateUniqueID()
 
 void DatabaseManager::LoadFromFile()
 {
-    TiXmlDocument Document( "database.xml" );
+    TiXmlDocument Document( "sample.xml" );
 	bool loadOkay = Document.LoadFile();
 
 	if (loadOkay)
 	{
-
         TiXmlHandle docHandle( &Document );
 
-        TiXmlElement* Root = docHandle.FirstChild().ToElement();
+        TiXmlElement* XML_Root = docHandle.FirstChild().ToElement();
+        mRootNode = new DBNode( GenerateUniqueID(), "Database" ); // Save the first xml node to the mRootNode.
 
-        cout << Root->Value() << endl;
-
-
-
-
-
-
-
-
-
-	}
+        CreateSiblingNode( XML_Root->FirstChildElement(), mRootNode ); // Recursive function to traverse all XML tags and create DBNode objects.
+    }
 
 	else
 	{
-	    // if loading xml file is failed.
+	    cout << "Failed to Load." << endl; // if loading xml file is failed.
     }
+}
+
+string DatabaseManager::Search(string& name)
+{
+}
+
+/////////////////////////////// PRIVATE    ///////////////////////////////////
+
+void DatabaseManager::CreateSiblingNode(TiXmlElement* currentNode, DBNode* parent) { // All sibling nodes have the same parent node.
+
+    if (currentNode != NULL) // If currentNode == NULL, the recursion terminate.
+    {
+        DBNode* newChild = new DBNode( GenerateUniqueID(), currentNode->Attribute( "name" ), parent );
+        //cout << newChild->GetName() << endl;
+        CreateChildNode( currentNode->FirstChildElement(), newChild );
+        CreateSiblingNode( currentNode->NextSiblingElement(), parent );
+    }
+}
+
+void DatabaseManager::CreateChildNode(TiXmlElement* currentNode, DBNode* parent) {
+
+    if (currentNode != NULL) // If currentNode == NULL, the recursion terminate.
+    {
+        DBNode* newChild = new DBNode( GenerateUniqueID(), currentNode->Attribute( "name" ), parent );
+        //cout << newChild->GetName() << endl;
+        CreateChildNode( currentNode->FirstChildElement(), newChild );
+        CreateSiblingNode( currentNode->NextSiblingElement(), parent );
+    }
+}
+
+void DatabaseManager::ToNextSiblingNode(DBNode* parent)
+{
+}
+
+void DatabaseManager::ToNextChildNode(DBNode* parent)
+{
 }
