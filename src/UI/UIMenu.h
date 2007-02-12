@@ -85,12 +85,18 @@ public:
 
 protected:
 // PROTECTED VARIABLES
-    UIElement* cursor;
-    vector<UIElement*> buttons;
-    vector<FuncObj*> buttonFuncs;
+    UIElement* mCursor;
+    vector<UIElement*> mButtons;
+    vector<FuncObj*> mButtonFuncs;
 
-    int cursorPos;  // Starts with 0 to max (inclusive)
-    int maxCursorPos;
+    int mCursorPos;  // Starts with 0 to max (inclusive)
+    int mMaxCursorPos;
+
+    Point mButtonStart;
+    Point mButtonOffset;
+    Point mCursorOffset;
+
+
 
 
 

@@ -56,6 +56,17 @@ bool Point::operator!=(const Point &other)const
         return true;
     }
 }
+
+Point Point::operator+(const Point &other)const
+{
+    return Point( mX + other.mX, mY + other.mY);
+}
+
+Point Point::operator*(const int &other)const
+{
+    return Point( mX * other, mY * other );
+}
+
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================
 void Point::SetX(int x)

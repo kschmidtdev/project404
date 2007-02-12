@@ -59,8 +59,8 @@ protected:
     vector<UITile*> mTiles;
     int mTileWidth;
     int mTileHeight;
-    int mNumColumns;
     int mNumRows;
+    int mNumColumns;
 
 // PROTECTED METHODS
     int findIndex(int x, int y);
