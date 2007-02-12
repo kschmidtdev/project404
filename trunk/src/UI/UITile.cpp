@@ -4,7 +4,7 @@
  * Project 404 2007
  *
  * Authors:
- * Name, Date | Work Done
+ * Andrew Osborne, February 11 2007 | Initial Creation
  */
 #include "UITile.h"                                // class implemented
 
@@ -15,7 +15,7 @@
 
 UITile::UITile()
 {
-    elementImage = ResourceManager::GetInstance()->LoadTexture("defaultTile.bmp");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("defaultTile.bmp");
 }// UITile
 
 

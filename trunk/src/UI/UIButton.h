@@ -41,9 +41,6 @@ public:
 	 */
     UIButton(void);
 
-
-
-
     /**
      * Destructor.
 	 */
@@ -51,14 +48,6 @@ public:
 
 // OPERATORS
 
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    UIButton&                     operator=(UIButton& from);
 
 // OPERATIONS
 // ACCESS (writing)

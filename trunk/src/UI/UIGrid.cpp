@@ -4,8 +4,9 @@
  * Project 404 2007
  *
  * Authors:
- * Name, Date | Work Done
+ * Andrew Osborne, February 11 2007 | Initial Creation
  * Karl Schmidt, February 11 2007 | Added checks to prevent crashing if textures are not loaded
+ * Andrew osborne, February 11 2007 | Added Destructor and documentaton
  */
 #include "UIGrid.h"                                // class implemented
 #include "UITile.h"
@@ -57,7 +58,7 @@ UIGrid::UIGrid()
 
     // Assign self an image
     // ----------------------------------------------------
-    elementImage = ResourceManager::GetInstance()->LoadTexture("testMenu.bmp");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("testMenu.bmp");
 
     // Assign Cursor its place
     // ----------------------------------------------------
@@ -75,6 +76,19 @@ UIGrid::UIGrid()
 
 UIGrid::~UIGrid()
 {
+    // Release Tiles
+    std::vector<UITile*>::iterator iter;
+    for (iter = mTiles.begin();
+            iter!=mTiles.end(); iter++)
+    {
+        delete *iter;
+    }
+
+    delete mCursor;
+    mCursor = NULL;
+
+
+
 }// ~UIGrid
 
 
@@ -86,10 +100,10 @@ UIGrid::~UIGrid()
 
 void UIGrid::RenderSelf(SDL_Surface* destination)
 {
-    if( elementImage )
+    if( mElementImage )
     {
         // The menu must be rendered first
-        //SDLRenderer::GetInstance()->DrawImageAt(elementImage, pos.GetX(), pos.GetY(), elementImage->w, elementImage->h, destination);
+        //SDLRenderer::GetInstance()->DrawImageAt(mElementImage, mPos.GetX(), mPos.GetY(), mElementImage->w, mElementImage->h, destination);
     }
 
     // Cursor is rendered second

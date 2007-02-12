@@ -7,12 +7,13 @@
  * Andrew Osborne, February 10, 2007 | Initial creation and testing
  * Andrew Osborne, February 10, 2007 | Added some comments, deleted inputFunction
  * Andrew Osborne, February 11 2007 | Added GetInstance method
+ * Andrew Osborne, February 11 2007 | Added Destructor, added 'm' prefix to members
  */
 
 #include <UIManager.h>                                  // class implemented
 #include <../Logger.h>
 #include <UIBattleScreenLayout.h> // temp fix
-
+#include <vector>
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -45,14 +46,8 @@ UIManager* UIManager::GetInstance()
 
 UIManager::~UIManager(void)
 {
-
-     // Destructor stuff
-
-     // Add title screen or profile menu
-     //Logger::GetInstance()->LogMessage(Logger::INFO, "UIManager Initiated");
-
-
- }
+    // stub
+}
 
 
 
@@ -78,7 +73,15 @@ void UIManager::Shutdown(void)
 
     // Delete all the objects withing UIManager
 
-    // To be implemented later
+    // At the moment I'm not using the UIManager master list, but I'll change this if I am
+    std::list<UILayout*>::iterator iter;
+
+    for (iter = mCurrentLayoutList.begin();
+            iter!=mCurrentLayoutList.end(); iter++)
+    {
+        delete (*iter);
+    }
+    mCurLayout = NULL;
 
     // Delete this instance
     delete _instance;
@@ -91,7 +94,7 @@ void UIManager::Render(void)
 {
 
     // or RenderSelf()
-    //curLayout->RenderSelf();
+    //mCurLayout->RenderSelf();
 
 }
 
@@ -102,24 +105,24 @@ void UIManager::Render(void)
 void UIManager::pushLayout(UILayout* newLayout)
 {
 
-    CurrentLayoutList.push_front(newLayout);
-    curLayout = CurrentLayoutList.front();
-    curLayout->onLoad();
+    mCurrentLayoutList.push_front(newLayout);
+    mCurLayout = mCurrentLayoutList.front();
+    mCurLayout->onLoad();
 
 }
 
 void UIManager::popLayout(void)
 {
 
-    CurrentLayoutList.pop_front();
-    curLayout->onClose();
-    curLayout = CurrentLayoutList.front();
+    mCurrentLayoutList.pop_front();
+    mCurLayout->onClose();
+    mCurLayout = mCurrentLayoutList.front();
 
 }
 
 void UIManager::addLayout(UILayout* newLayout)
 {
-    LayoutMasterList.push_back(newLayout);
+    mLayoutMasterList.push_back(newLayout);
 
 }
 
@@ -134,7 +137,7 @@ void UIManager::removeLayout(UILayout* removeLayout)
 
 UILayout* UIManager::peekLayout(void)
 {
-    return curLayout;
+    return mCurLayout;
 }
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////

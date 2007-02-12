@@ -4,7 +4,7 @@
  * Project 404 2007
  *
  * Authors:
- * Name, Date | Work Done
+ * Andrew Osborne, February 11 2007 | Initial Creation
  */
 #include "UICursor.h"                                // class implemented
 
@@ -19,13 +19,14 @@ UICursor::UICursor()
 
 UICursor::UICursor(const string fileName, const string buttonHeading)
 {
-    elementImage = ResourceManager::GetInstance()->LoadTexture(fileName);
+    mElementImage = ResourceManager::GetInstance()->LoadTexture(fileName);
 
 }// UICursor
 
 
 UICursor::~UICursor()
 {
+
 }// ~UICursor
 
 

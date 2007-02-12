@@ -1,16 +1,16 @@
 /**
- * A one line description of the class.
+ * A class representation of the battle grid on the main screen
  *
  * #include "UIGrid.h"
  *
- * A longer description.
+ * A class representation of the battle grid on the main screen
  *
- * @see something
+ * @see UIBattleScreenLayout
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Andrew Osborne, February 11 2007, Initial Creation
  */
 
 #ifndef UIGrid_h
