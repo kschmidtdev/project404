@@ -19,9 +19,7 @@
 #include <ResourceManager/ResourceManager.h>
 #include <SoundManager.h>
 #include <UIManager.h>
-
-// TODO: Include when GameEngine is ready
-//#include <GameEngine.h>
+#include <GameEngine/GameEngine.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -68,8 +66,7 @@ void GameRoot::Initialize()
 //    mDatabase = DatabaseManager::GetInstance();
 //    mDatabase->Initialize();
 
-// TODO: Implement GameEngine when it is ready
-//    mGameEngine = GameEngine()::GetInstance();
+    mGameEngine = GameEngine::GetInstance();
 
     mUIManager = UIManager::GetInstance();
     mUIManager->Initialize();
@@ -80,8 +77,7 @@ void GameRoot::Shutdown()
 {
     mUIManager->Shutdown();
 
-// TODO: Implement GameEngine when it is ready
-//    mGameEngine->Shutdown();
+    mGameEngine->Shutdown();
 
 // TODO: Make DatabaseManager a singleton
 //    mDatabase->Shutdown();
