@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 11 2007 | Added calls to stop playing music before shutting down
  * Karl Schmidt, February 11 2007 | Correctly cleared the singleton instance in Shutdown()
  * Karl Schmidt, February 10 2007 | Initial creation of the class
  */
@@ -52,6 +53,10 @@ void SoundManager::Initialize()
 void SoundManager::Shutdown()
 {
     LogInfo( "Beginning SoundManager shut down..." );
+
+    Mix_HaltChannel(-1);
+    Mix_HaltMusic();
+
     Mix_CloseAudio();
     delete _instance;
     _instance = NULL;

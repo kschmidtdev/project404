@@ -7,6 +7,7 @@
  * Andrew Osborne, February 7, 2007 | Initial creation
  * Andrew Osborne, February 10, 2007 | Got it to work
  * Andrew Osborne, February 10, 2007 | Added documentation, removed RSM/rend references
+ * Karl Schmidt, February 11 2007 | Added checks that prevent game from crashing if textures are missing
  */
 
 #include <UIElement.h>                   // class implemented
@@ -17,6 +18,7 @@
 //============================= LIFECYCLE ====================================
 
 UIElement::UIElement(void)
+: elementImage( NULL )
 {
     // Overridden initialization
     //rend = SDLRenderer::GetInstance();  // This needs to be overridden to allow for modularization
@@ -34,8 +36,9 @@ UIElement::UIElement(void)
 }
 
 UIElement::UIElement( const string filename)
-: elementImage( ResourceManager::GetInstance()->LoadTexture(filename) )
+: elementImage( NULL )
 {
+    elementImage = ResourceManager::GetInstance()->LoadTexture(filename);
 }
 
 
@@ -51,7 +54,10 @@ UIElement::~UIElement(void)
 
 void UIElement::RenderSelf(SDL_Surface* destination)
 {
-    SDLRenderer::GetInstance()->DrawImageAt(elementImage, pos.GetX(), pos.GetY(), elementImage->w, elementImage->h, destination);
+    if( elementImage )
+    {
+        SDLRenderer::GetInstance()->DrawImageAt(elementImage, pos.GetX(), pos.GetY(), elementImage->w, elementImage->h, destination);
+    }
 }
 
 
