@@ -19,9 +19,9 @@
 // SYSTEM INCLUDES
 //
 #include <SDL.h>
-// TODO: Add SDL_ttf.h to distribution
-//#include <SDL_ttf.h>
+#include <SDL_ttf.h>
 #include <vector>
+#include <map>
 using namespace std;
 
 // PROJECT INCLUDES
@@ -37,6 +37,8 @@ class SDLRenderable;
 
 typedef vector<SDLRenderable*> RenderableVec;
 typedef RenderableVec::iterator RenderableVecItr;
+typedef map<int, TTF_Font*> FontMap;
+typedef FontMap::iterator FontMapItr;
 
 class SDLRenderer : public Renderer
 {
@@ -86,7 +88,17 @@ public:
 	 */
     void RemoveFromRenderQueue( SDLRenderable * toRemove );
 
+    /**
+     * Blits an image (src) on to dest at the particular point (x, y) and size (width, height)
+	 */
     void DrawImageAt( SDL_Surface* src, const int x, const int y, const int width, const int height, SDL_Surface* dest );
+
+    /**
+     * Creates a SDL_Surface object with the given text written to that surface, colour
+     * will default to white if no colour components are passed in. IF YOU CALL THIS YOU
+     * MUST HANDLE DESTROYING THE SURFACE IT GIVES YOU WHEN YOU ARE DONE WITH IT
+	 */
+    SDL_Surface* SDLRenderer::CreateTextSurface( const string textToRender, const int size, const int red, const int green, const int blue );
 
 // ACCESS (writing)
 // INQUIRY (reading)
@@ -103,8 +115,7 @@ protected:
     static SDLRenderer* _instance;
     RenderableVec mRenderQueue;
     SDL_Surface* mScreen;
-// TODO: Implement font support
-//    TTF_Font *font;
+    FontMap mFonts;
 
 private:
 // PRIVATE VARIABLES
