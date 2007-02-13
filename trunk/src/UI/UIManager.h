@@ -80,6 +80,13 @@ public:
     void pushLayout(UILayout* newLayout);
 
     /**
+     * Makes the UILayout, whose name is passed, as the current layout.
+	 *
+	 * @param string name of desired layout.
+	 */
+    void pushLayout(const string newLayout);
+
+    /**
      * Releases current UILayout and makes previous UILayout current one.
 	 */
     void popLayout(void);
@@ -107,6 +114,15 @@ public:
 	 */
     UILayout* peekLayout(void);
 
+    /**
+     * Given string name of layout, finds and returns that layout
+     *
+     * @param string name of layout
+     *
+	 * @return pointer to requested layout (or NULL if doesn't exist).
+	 */
+	 UILayout* getLayout(const string layoutName);
+
 protected:
 // PROTECTED VARIABLES
     static UIManager* _instance;
@@ -125,6 +141,8 @@ protected:
      * Destructor.
 	 */
     ~UIManager(void);
+
+
 
 private:
 // PRIVATE VARIABLES

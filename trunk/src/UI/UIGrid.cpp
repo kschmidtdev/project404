@@ -11,7 +11,9 @@
 #include "UIGrid.h"                                // class implemented
 #include "UITile.h"
 #include "UICursor.h"
+#include "UIManager.h"
 #include "InputManager.h"
+#include "GameEngine/Level.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -125,6 +127,7 @@ void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
     // Come back to this later
     Point newPos;
+
     switch(evt) {
         case InputManager::UP:
             // Move cursor up
@@ -165,8 +168,149 @@ void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
 }
 
 
+void UIGrid::addCharacter( Character *c)
+{
+    Point p = c->GetPoint();
+
+    if ( validPoint(p)  )
+    {
+        int index = findIndex( p.GetX(), p.GetY() );
+        //printf("index: %d, maxSize: %d\n", index, mTiles.size());
+        UITile* temp = mTiles[index];
+        temp->addCharacter( getClassSurface(c) );
+    }
+}
+
+void UIGrid::removeCharacter(Point p) {
+
+    int x = p.GetX();
+    int y = p.GetY();
+
+    if ( validPoint(p) )
+    {
+        int index = findIndex( x, y );
+        UITile* temp = mTiles[index];
+        temp->removeCharacter();
+    }
+}
+
+
 //============================= ACCESS     ===================================
+
+/*void UIGrid::setParent(UIBattleScreenLayout *parent)
+{
+    mBattleLayout = parent;
+}*/
+
 //============================= INQUIRY    ===================================
+
+bool UIGrid::validPoint(Point p)
+{
+    if ( (p.GetX()<mNumColumns) && (p.GetY()<mNumRows) )
+    {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 /////////////////////////////// PROTECTED  ///////////////////////////////////
+
+
+int UIGrid::findIndex(int x, int y)
+{
+    return y + mNumRows*x;
+}
+
+void UIGrid::confirmFunction(Point p)
+{
+
+    //UILayout *tempLayout = UIManager::GetInstance()->getLayout("BattleScreen");
+    Level *mLevel = NULL;
+
+    // tHIS function should not be called at this point
+
+    int curState = mLevel->ReturnState();
+    bool validAction = false;
+
+    Character* tempChar;
+    switch(curState) {
+        case 0:
+            // Attempt to select character
+            tempChar = mLevel->OnSelect(p);
+            if (tempChar==NULL) {
+                // Unsuccessful, do nothing
+            } else {
+                // Successful, display move range
+                vector<Point> moveArea = mLevel->GetMoveArea();
+                //AddMoveableRange( moveArea );
+                mCurCharacter = tempChar;
+            }
+            break;
+        case 1:
+            // Attempting to move to new spot
+
+
+            // Check to see if valid spot for movement
+
+            if ( validAction ) {
+                // remove icon from old spot
+                removeCharacter( mCurCharacter->GetPoint() );
+
+                // add icon to new spot
+                mCurCharacter->Move(p);
+                addCharacter( mCurCharacter );
+
+            } else {
+                // do nothing
+                // maybe display message later....
+            }
+
+
+            break;
+
+        case 2:
+            // Attempting to attack
+
+            // check to see if attack-range is valid
+
+
+            // now check if person is there
+            Character* target = mLevel->OnSelect(p);
+            if ( (validAction) && (target!=NULL) )
+            {
+
+                // no
+
+            }
+
+            // Check for end game
+
+            // Check for end turn
+
+            break;
+
+    }
+}
+
+SDL_Surface* UIGrid::getClassSurface(Character* c)
+{
+    string temp = c->GetClassName();
+
+    if (temp=="Archer") {
+        return ResourceManager::GetInstance()->LoadTexture("archer.bmp");
+    } else if (temp=="Knight") {
+        return ResourceManager::GetInstance()->LoadTexture("knight.bmp");
+    } else if (temp=="Healer") {
+        return ResourceManager::GetInstance()->LoadTexture("healer.bmp");
+    } else if (temp=="Mage") {
+        return ResourceManager::GetInstance()->LoadTexture("mage.bmp");
+    } else {
+        // you screwed up
+        return ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
+    }
+
+}
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

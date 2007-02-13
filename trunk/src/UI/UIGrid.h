@@ -24,8 +24,10 @@
 #include <UIElement.h>
 #include <UITile.h>
 #include <EventListener.h>
-//#include <GameEngine.h>
+#include <GameEngine/GameEngine.h>
 #include <UIImage.h>
+#include <GameEngine/Character.h>
+//#include <UIBattleScreenLayout.h>
 
 // LOCAL INCLUDES
 //
@@ -62,7 +64,15 @@ public:
 	 */
 	virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
 
-// ACCESS (writing)
+	/**
+     * Adds character element to grid.
+	 */
+    virtual void addCharacter(Character *c);
+
+    /**
+     * Removes character element from grid.
+	 */
+    virtual void removeCharacter(Point p);
 
     /**
      * Used for displaying the range of motion for a particular player
@@ -84,7 +94,19 @@ public:
      */
     void ClearAttackRange( void );
 
+// ACCESS (writing)
+
+    /**
+     * Used by parent to allow access to certain operations
+     */
+    //void setParent(UIBattleScreenLayout* parent);
+
 // INQUIRY (reading)
+
+    /**
+     * Check to see if point is 'valid' point on grid
+     */
+    bool validPoint(Point p);
 
 protected:
 // PROTECTED VARIABLES
@@ -93,6 +115,9 @@ protected:
     int mTileHeight;
     int mNumRows;
     int mNumColumns;
+
+    // Parent
+    //UIBattleScreenLayout *mBattleLayout;
 
     // Cursor values
     Point mCursorPos;
@@ -103,15 +128,27 @@ protected:
     int mTotalTileOffset;
     UIElement* mCursor;
 
-    // Range storage variables
-    vector<UIImage> mMoveRange;
-    vector<UIImage> mAttackRange;
+    // Gameplay-Character Movement/Attack variables
+
+    // Gameplay elements
+    vector<Point> mMoveRange;
+    vector<Point> mAttackRange;
+    Character* mCurCharacter;
+
+    // Display/UI elements
+    vector<UIImage> mImageMoveRange;
+    vector<UIImage> mImageAttackRange;
+
+
 
     // Regular Communication
     //GameEngine* mGameEngine;
 
 // PROTECTED METHODS
     int findIndex(int x, int y);
+    void confirmFunction(Point p);
+    SDL_Surface* getClassSurface(Character* c);
+
 private:
 // PRIVATE VARIABLES
 };

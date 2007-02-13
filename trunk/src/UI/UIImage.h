@@ -41,6 +41,11 @@ public:
     UIImage(void);
 
     /**
+     * constructor involving loading bitmap file for image
+	 */
+    UIImage(const string filename);
+
+    /**
      * Destructor.
 	 */
     ~UIImage(void);

@@ -1,35 +1,38 @@
 /**
- * File: UIImage.cpp
+ * File: UIMainMenuLayout.cpp
  *
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, February 11 2007 | Initial Creation
+ * Name, Date | Work Done
  */
-#include "UIImage.h"                                // class implemented
+#include "UIMainMenuLayout.h"                                // class implemented
+#include "UIMenu.h"
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
-UIImage::UIImage()
+UIMainMenuLayout::UIMainMenuLayout()
 {
-}// UIImage
+    mName = "MainMenu";
+
+    UIMenu *temp = new UIMenu();
+    temp->setPos( Point(100,100) );
+    mDefaultEventListener = temp;
+    mElements.push_back(temp);
+
+}// UIMainMenuLayout
 
 
-UIImage::UIImage( const string filename)
-{
-    mElementImage = ResourceManager::GetInstance()->LoadTexture(filename);
-}
 
-UIImage::~UIImage()
+UIMainMenuLayout::~UIMainMenuLayout()
 {
-}// ~UIImage
+}// ~UIMainMenuLayout
 
 
 //============================= OPERATORS ====================================
-
 
 
 //============================= OPERATIONS ===================================

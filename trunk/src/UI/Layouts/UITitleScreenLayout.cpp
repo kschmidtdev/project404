@@ -8,6 +8,7 @@
  * Andrew Osborne, February 10 2007 | Documentation
 */
 #include "UITitleScreenLayout.h"                                // class implemented
+#include "UIImage.h"
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -16,7 +17,11 @@
 
 UITitleScreenLayout::UITitleScreenLayout()
 {
-    //mElements.push_back( new UIElement("nicePic.bmp") );
+    mName = "TitleScreen";
+
+    UIImage *temp = new UIImage("nicePic.bmp");
+    mElements.push_back(temp);
+
 }// UITitleScreenLayout
 
 UITitleScreenLayout::~UITitleScreenLayout()
@@ -27,10 +32,11 @@ UITitleScreenLayout::~UITitleScreenLayout()
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================
 
-void UITitleScreenLayout::RenderSelf( SDL_Surface* destination )
+/*void UITitleScreenLayout::RenderSelf( SDL_Surface* destination )
 {
     // stub
-}
+}*/
+
 
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================

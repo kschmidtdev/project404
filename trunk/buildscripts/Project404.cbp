@@ -487,6 +487,11 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIMainMenuLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UITitleScreenLayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
@@ -508,6 +513,11 @@
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="..\src\UI\UIGrid.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="..\src\UI\UIImage.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
 			<Option target="Release" />

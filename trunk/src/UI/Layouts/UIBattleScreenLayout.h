@@ -24,6 +24,8 @@
 #include <UILayout.h>
 #include <UIMenu.h>
 #include <UIGrid.h>
+#include <GameEngine/Level.h>
+#include <GameEngine/GameEngine.h>
 
 // LOCAL INCLUDES
 //
@@ -55,6 +57,11 @@ public:
 	 */
 	//virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
 
+    /**
+     * Overriding OnLoad function to allow for additional communication.
+	 */
+	virtual void onLoad( void );
+
 // ACCESS (writing)
 
     /**
@@ -70,10 +77,19 @@ public:
 
 // INQUIRY (reading)
 
+    /**
+     * allows access to currently loaded level (for elements UIGrid and UIMenu)
+     */
+    Level* getLevel(void);
+
 protected:
 // PROTECTED VARIABLES
     UIMenu* mMenu;
     UIGrid* mGrid;
+    int mGameState;
+    Level* mLevel;
+    GameEngine *mGameEngine;
+
 private:
 // PRIVATE VARIABLES
 };

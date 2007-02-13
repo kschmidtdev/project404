@@ -12,7 +12,9 @@
 
 #include <UIManager.h>                                  // class implemented
 #include <../Logger.h>
-#include <UIBattleScreenLayout.h> // temp fix
+#include <UIBattleScreenLayout.h>
+#include <UITitleScreenLayout.h>
+#include <UIMainMenuLayout.h>
 #include <vector>
 
 
@@ -60,8 +62,15 @@ UIManager::~UIManager(void)
 void UIManager::Initialize(void)
 {
 
-    // I don't know
-    pushLayout( new UIBattleScreenLayout() );
+    LogInfo( "The UIManager initializatio has started" );
+
+    // Create Master List
+    addLayout( new UIBattleScreenLayout() );
+    addLayout( new UITitleScreenLayout() );
+    addLayout( new UIMainMenuLayout() );
+
+    // Set current (first) layout
+    pushLayout("BattleScreen");
 
     // Add all the layouts to the manager.
     LogInfo( "The UIManager has been initialized successfully." );
@@ -111,6 +120,13 @@ void UIManager::pushLayout(UILayout* newLayout)
 
 }
 
+void UIManager::pushLayout(const string newLayout)
+{
+
+    pushLayout( getLayout(newLayout) );
+
+}
+
 void UIManager::popLayout(void)
 {
 
@@ -141,5 +157,24 @@ UILayout* UIManager::peekLayout(void)
 }
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////
+
+UILayout* UIManager::getLayout(const string layoutName)
+{
+    std::vector<UILayout*>::iterator iter;
+    string compare;
+
+    for (iter = mLayoutMasterList.begin();
+            iter!=mLayoutMasterList.end(); iter++)
+    {
+        compare = (*iter)->getName();
+        if (compare==layoutName)
+            return (*iter);
+
+    }
+
+    return NULL;
+
+}
+
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
