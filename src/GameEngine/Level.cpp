@@ -6,8 +6,14 @@
  * Authors:
  * Mike Malyuk, February 11, 2007 | Initial Implementation
  * Mike Malyuk, February 12, 2007 | Added getters for UI
+ * Andrew Osborne, February 12, 2007 | Added default constructor to create test/version1 level
  */
 #include "Level.h"                                // class implemented
+//#include "Character.h"
+#include "Archer.h"
+#include "Knight.h"
+#include "Healer.h"
+#include "Mage.h"
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -15,11 +21,101 @@
 //============================= LIFECYCLE ====================================
 
 Level::Level()
+
 {
+    // Useful point variables
+    Point tempPoint(0,0);
+    int xStart=0;
+    int yBadStart=9;
+    int yGoodStart=0;
+
+    // Load party (player - good guys)
+    //----------------------------------------------------------
+    Character* tempChar;
+    //std:vector<Character*> tempParty;
+
+    // Archer
+    tempChar = new Archer();
+    tempPoint.Set(xStart, yGoodStart);
+    tempChar->Move( tempPoint );
+    mParty.push_back(tempChar);
+    xStart++;
+
+    // Knight
+    tempChar = new Knight();
+    tempPoint.Set(xStart, yGoodStart);
+    tempChar->Move( tempPoint );
+    mParty.push_back(tempChar);
+    xStart++;
+
+    // Healer
+    tempChar = new Healer();
+    tempPoint.Set(xStart, yGoodStart);
+    tempChar->Move( tempPoint );
+    mParty.push_back(tempChar);
+    xStart++;
+
+    // Mage
+    tempChar = new Mage();
+    tempPoint.Set(xStart, yGoodStart);
+    tempChar->Move( tempPoint );
+    mParty.push_back(tempChar);
+
+    xStart = 0;
+
+    // Create bad guys
+    // ---------------------------------------------------
+    //std:vector<Character*> tempBadGuys;
+
+    // Archer
+    tempChar = new Archer();
+    tempPoint.Set(xStart, yBadStart);
+    tempChar->Move( tempPoint );
+    mEnemies.push_back(tempChar);
+    xStart++;
+
+    // Knight
+    tempChar = new Knight();
+    tempPoint.Set(xStart, yBadStart);
+    tempChar->Move( tempPoint );
+    mEnemies.push_back(tempChar);
+    xStart++;
+
+    // Healer
+    tempChar = new Healer();
+    tempPoint.Set(xStart, yBadStart);
+    tempChar->Move( tempPoint );
+    mEnemies.push_back(tempChar);
+    xStart++;
+
+    // Mage
+    tempChar = new Mage();
+    tempPoint.Set(xStart, yBadStart);
+    tempChar->Move( tempPoint );
+    mEnemies.push_back(tempChar);
+    //std:vector<Character*> tempBad;
+
+
+    /*vector<Character*>::iterator iter;
+    vector<Point>::iterator piter;
+
+    iter = mParty.begin();
+    piter = mStart.begin();
+
+
+    while(iter != mParty.end() && piter != mStart.end())
+    {
+        (*iter)->Move((*piter));
+        iter++;
+        piter++;
+    }*/
+
+
+
 }// Level
 
 Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point> start, Map* map)
-: mParty(party), mEnemies(badguys), mStart(start), mState(FREE), mThisMap(map), mMyTurn(true)
+: mParty(party), mEnemies(badguys), mStart(start), mState(FREE), mThisMap(map), mMyTurn(true), mDefaultConstructor( false )
 {
     vector<Character*>::iterator iter;
     vector<Point>::iterator piter;
@@ -31,6 +127,8 @@ Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point>
         iter++;
         piter++;
     }
+
+
 }
 
 Level::~Level()

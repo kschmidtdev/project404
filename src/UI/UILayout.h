@@ -83,11 +83,13 @@ public:
 
 // ACCESS (writing)
 // INQUIRY (reading)
+    string getName(void);
 
 protected:
 // PROTECTED VARIABLES
     vector<UIElement*> mElements;
     EventListener* mDefaultEventListener;
+    string mName;
 
 private:
 // PRIVATE VARIABLES

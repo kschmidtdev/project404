@@ -16,6 +16,7 @@
  *                                 Added GetMovementHelp and changed GetMovement to use recursion
  *                                 Added GetTurn, Changed variables with <Point*> to <Point>
  * Mike Malyuk, February 12 2007 | Added getters for UI.
+ * Andrew Osborne, February 12 2007 | Added mDefaultConstructor to proplerly delete items after creation
  */
 
 #ifndef Level_h
@@ -128,14 +129,17 @@ enum charState
 protected:
 // PROTECTED VARIABLES
     charState mState;
-    vector<Character*> mEnemies;
     vector<Character*> mParty;
+    vector<Character*> mEnemies;
     vector<Point> mMoveArea;
     vector<Point> mAttackArea;
     vector<Point> mStart;
     Character* mCurChar;
     Map* mThisMap;
     bool mMyTurn;
+
+    // For testing/version1
+    bool mDefaultConstructor;
 
 private:
 // PRIVATE VARIABLES

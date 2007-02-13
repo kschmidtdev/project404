@@ -8,6 +8,7 @@
  * Andrew Osborne, February 10, 2007 | Got it to work
  * Andrew Osborne, February 10, 2007 | Added documentation
  * Andrew Osborne, February 11, 2007 | Added Process event handling, took out renderSelf
+ * Andrew Osborne, February 12, 2007 | Added getName for searching purposes
  */
 
 
@@ -99,6 +100,12 @@ void UILayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
+
+string UILayout::getName(void)
+{
+    return mName;
+}
+
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

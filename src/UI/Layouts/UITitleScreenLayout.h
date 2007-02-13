@@ -54,7 +54,7 @@ public:
      * @param Desitination surface
      *
      */
-    virtual void RenderSelf( SDL_Surface* destination );
+    //virtual void RenderSelf( SDL_Surface* destination );
 
 // ACCESS (writing)
 // INQUIRY (reading)

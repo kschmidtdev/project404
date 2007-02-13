@@ -50,11 +50,33 @@ public:
 
 
 // OPERATIONS
+
+    /**
+     * Overrides RenderSelf to render the the proper tile (character or terrain).
+	 */
+    virtual void RenderSelf(SDL_Surface* destination);
+
+    /**
+     * Adds character icon to tile (metaphorically - on top of terrain)
+     */
+    void addCharacter(SDL_Surface *nSur);
+
+    /**
+     * Remove character icon from tile
+     */
+    void removeCharacter(void);
+
+
+
 // ACCESS (writing)
 // INQUIRY (reading)
 
 protected:
 // PROTECTED VARIABLES
+    SDL_Surface* mCharacterImage;
+    // Animation variable
+
+
 private:
 // PRIVATE VARIABLES
 };

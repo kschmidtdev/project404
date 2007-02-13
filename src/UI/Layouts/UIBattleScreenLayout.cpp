@@ -12,6 +12,8 @@
 #include "UIBattleScreenLayout.h"                                // class implemented
 #include "UIMenu.h"
 #include "UIGrid.h"
+#include "Logger.h"
+#include "GameEngine/Level.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -26,9 +28,10 @@ UIBattleScreenLayout::UIBattleScreenLayout()
 
     mGrid = new UIGrid();
     mDefaultEventListener = mGrid;
+    //mGrid->setParent(this);
     mElements.push_back( mGrid );
 
-
+    mName = "BattleScreen";
 
 }// UIBattleScreenLayout
 
@@ -41,6 +44,43 @@ UIBattleScreenLayout::~UIBattleScreenLayout()
 
 //============================= OPERATIONS ===================================
 
+void UIBattleScreenLayout::onLoad( void )
+{
+    UILayout::onLoad();
+
+    // doing other initialization
+
+    //mLevel = GameEngine::GetInstance()->battleInitializer();
+    mLevel = new Level();
+
+    // Put the characters on the screen
+    vector<Character*> everyoneList = mLevel->GetEveryone();
+    vector<Character*>::iterator iter;
+
+    iter = everyoneList.begin();
+
+    SDL_Surface *tempIcon = ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
+
+    if (tempIcon!=NULL) {
+
+        //LogInfo("Character Icon loaded successfully");
+        while(iter != everyoneList.end() )
+        {
+            //(*iter)->Move((*piter));
+            //mGrid->addCharacter( (*iter)->getTexture(), (*iter)->GetPoint() );
+            mGrid->addCharacter( (*iter) );
+            iter++;
+
+        }
+    } else {
+        //LogInfo("Character Icon load failed");
+    }
+
+    // Load in map textures
+
+    // Load in character textures
+
+}
 
 
 
@@ -61,6 +101,11 @@ void UIBattleScreenLayout::switchToGrid(void)
 
 
 //============================= INQUIRY    ===================================
+
+Level* UIBattleScreenLayout::getLevel(void)
+{
+    return mLevel;
+}
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
