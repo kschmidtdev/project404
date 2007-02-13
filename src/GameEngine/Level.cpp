@@ -8,6 +8,8 @@
  * Mike Malyuk, February 12, 2007 | Added getters for UI
  * Andrew Osborne, February 12, 2007 | Added default constructor to create test/version1 level
  * Mike Malyuk, February 12, 2007 | Added tiny fix to make sure we don't hang on empty spaces
+ * Karl Schmidt, February 12 2007 | Added initializing values for some variables that weren't being set
+ *									 in the current default constructor
  */
 #include "Level.h"                                // class implemented
 //#include "Character.h"
@@ -22,7 +24,7 @@
 //============================= LIFECYCLE ====================================
 
 Level::Level()
-
+: mState( FREE ), mMyTurn( true )
 {
     // Useful point variables
     Point tempPoint(0,0);

@@ -15,6 +15,7 @@
  * Karl Schmidt, February 10 2007 | Changed inheritance from UIElemnt to SDLRenderable
  * Andrew Osborne, February 10 2007 | Fleshed out documentation
  * Andrew Osborne, February 11 2007 | Made UILayout inherit EventListener, added processEvent method
+ * Karl Schmidt, February 13 2007 | Added typedefs instead of lots of vector<Type>
  */
 
 #ifndef UILayout_h
@@ -38,6 +39,8 @@ using namespace std;
 // FORWARD REFERENCES
 //
 
+typedef vector<UIElement*> UIElementVec;
+typedef UIElementVec::iterator UIElementItr;
 
 class UILayout : public EventListener
 {
@@ -87,7 +90,7 @@ public:
 
 protected:
 // PROTECTED VARIABLES
-    vector<UIElement*> mElements;
+    UIElementVec mElements;
     EventListener* mDefaultEventListener;
     string mName;
 

@@ -15,6 +15,7 @@
  * Andrew Osborne, February 10 2007 | Initial Implementation
  * Andrew Osborne, February 10 2007 | Fleshed out comments
  * Andrew Osborne, February 11 2007 | Added GetInstance method
+ * Karl Schmidt, February 13 2007 | Added typedefs instead of lots of vector<Type>
  */
 
 #ifndef UIManager_h
@@ -36,6 +37,8 @@ using namespace std;
 // FORWARD REFERENCES
 //
 
+typedef vector<UILayout*> UILayoutVec;
+typedef UILayoutVec::iterator UILayoutItr;
 
 class UIManager
 {
@@ -127,7 +130,7 @@ protected:
 // PROTECTED VARIABLES
     static UIManager* _instance;
 
-    vector<UILayout*> mLayoutMasterList;
+    UILayoutVec mLayoutMasterList;
     list<UILayout*> mCurrentLayoutList;
     UILayout* mCurLayout;
 

@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 12 2007, Removed opening the file handle in Initialize, unnecessary. 
  * Karl Schmidt, February 9 2007, Added full functionality
  * Karl Schmidt, February 7 2007, Created initial class definition
  */
@@ -57,10 +58,6 @@ void Logger::Initialize()
 
     tacAssert( !mLogFileHandle ); // Shouldn't already have a file handle, means we've called Initialize twice
     tacAssert( mLogFileName != "" ); // Log filename should be valid
-
-    mLogFileHandle = fopen( mLogFileName.c_str(), "w" );
-
-    tacAssert( mLogFileHandle ); // Log file should be able to be written
 
 #ifdef _DEBUG
     LogMessage( INFO, "The log has started successfully for a DEBUG build" );

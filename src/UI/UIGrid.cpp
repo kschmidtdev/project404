@@ -8,6 +8,7 @@
  * Karl Schmidt, February 11 2007 | Added checks to prevent crashing if textures are not loaded
  * Andrew osborne, February 11 2007 | Added Destructor and documentaton
  * Andrew Osborne, February 12 2007 | Setup characters, allowed movement, created a number of helper functions
+ * Karl Schmidt, February 13 2007 | Reworked destructor, noted current bug and temporary work-around
  */
 #include "UIGrid.h"                                // class implemented
 #include "UITile.h"
@@ -77,34 +78,47 @@ UIGrid::UIGrid()
 UIGrid::~UIGrid()
 {
     // Release Tiles
-    std::vector<UITile*>::iterator iter;
-    for (iter = mTiles.begin();
-            iter!=mTiles.end(); iter++)
+    for( UITileItr i = mTiles.begin(); i != mTiles.end(); ++i )
     {
-        delete *iter;
+        if( *i )
+        {
+            delete *i;
+        }
     }
 
-    delete mCursor;
-    mCursor = NULL;
+    if( mCursor )
+    {
+        delete mCursor;
+        mCursor = NULL;
+    }
 
     // Move Range
-    std::vector<UIImage*>::iterator iIter;
-    iIter = mImageMoveRange.begin();
-    while (iIter!=mImageMoveRange.end())
+    for( UIImageItr i = mImageMoveRange.begin(); i != mImageMoveRange.end(); ++i )
     {
-        delete (*iIter);
-        iIter++;
+        if( *i )
+        {
+            // EXPLICITLY FINDING POINTERS THAT EXIST IN THE OTHER VECTOR THAT DELETE'S IT'S
+            // ELEMENTS IN THE FOR LOOP BELOW THIS ONE
+            // WITHOUT DOING THIS THE GAME WILL CRASH IN SOME CASES, ANDREW PLEASE FIND OUT
+            // WHY THESE VECTORS ARE ENDING UP WITH THE SAME POINTERS IN THEM SO THIS CHECKING
+            // CODE CAN BE REMOVED
+            UIImageItr dupPtrItr = find( mImageAttackRange.begin(), mImageAttackRange.end(), *i );
+            if( dupPtrItr != mImageAttackRange.end() )
+            {
+                mImageAttackRange.erase( dupPtrItr );
+            }
+            delete *i;
+        }
     }
 
     // Attack Range
-    iIter = mImageAttackRange.begin();
-    while (iIter!=mImageMoveRange.end())
+    for( UIImageItr i = mImageAttackRange.begin(); i != mImageAttackRange.end(); ++i )
     {
-        delete (*iIter);
-        iIter++;
+        if( *i )
+        {
+            delete *i;
+        }
     }
-
-
 }// ~UIGrid
 
 
@@ -151,7 +165,7 @@ void UIGrid::RenderSelf(SDL_Surface* destination)
     mCursor->RenderSelf(destination);
 
     // Tiles are rendered third
-    std::vector<UITile*>::iterator iter;
+    UITileItr iter;
 
     for (iter = mTiles.begin();
             iter!=mTiles.end(); iter++)

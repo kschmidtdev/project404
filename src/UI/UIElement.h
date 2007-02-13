@@ -12,6 +12,7 @@
  * Andrew Osborne, February 7 2007 | Initial Design
  * Andrew Osborne, February 10 2007 | added bitmap constructor, added RSM and rend variable
  * Andrew Osborne, February 10 2007 | Added more documentation, removed RSM/rend
+ * Karl Schmidt, February 12 2007 | Removed unnecessary copy constructor and assignment operator overload
  */
 
 
@@ -52,28 +53,11 @@ public:
     UIElement(const string filename);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    UIElement(const UIElement& from);
-
-    /**
      * Destructor.
 	 */
     virtual ~UIElement(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    //UIElement&                     operator=(UIElement& from);
-
 // OPERATIONS
     /**
      * Method to Draw the element on the screen

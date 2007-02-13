@@ -11,6 +11,7 @@
  *
  * Authors:
  * Andrew Osborne, February 11 2007, Initial Creation
+ * Karl Schmidt, February 13 2007, Added typedefs instead of lots of vector<Type>
  */
 
 #ifndef UIGrid_h
@@ -36,6 +37,10 @@
 // FORWARD REFERENCES
 //
 
+typedef vector<UITile*> UITileVec;
+typedef UITileVec::iterator UITileItr;
+typedef vector<UIImage*> UIImageVec;
+typedef UIImageVec::iterator UIImageItr;
 
 class UIGrid : public UIElement, public EventListener
 {
@@ -122,7 +127,7 @@ public:
 
 protected:
 // PROTECTED VARIABLES
-    vector<UITile*> mTiles;
+    UITileVec mTiles;
     int mTileWidth;
     int mTileHeight;
     int mNumRows;
@@ -148,8 +153,8 @@ protected:
     Character* mCurCharacter;
 
     // Display/UI elements
-    vector<UIImage*> mImageMoveRange;
-    vector<UIImage*> mImageAttackRange;
+    UIImageVec mImageMoveRange;
+    UIImageVec mImageAttackRange;
 
 
 
