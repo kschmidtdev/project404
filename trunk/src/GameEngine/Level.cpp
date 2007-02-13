@@ -7,6 +7,7 @@
  * Mike Malyuk, February 11, 2007 | Initial Implementation
  * Mike Malyuk, February 12, 2007 | Added getters for UI
  * Andrew Osborne, February 12, 2007 | Added default constructor to create test/version1 level
+ * Mike Malyuk, February 12, 2007 | Added tiny fix to make sure we don't hang on empty spaces
  */
 #include "Level.h"                                // class implemented
 //#include "Character.h"
@@ -169,8 +170,9 @@ Character* Level::OnSelect(Point p)
         {
             iter++;
         }
-        if(((*iter)) != NULL && !((*iter)->GetExhaust()))
+        if(((*iter)) != NULL && !((*iter)->GetExhaust()) && (*iter)->GetPoint() == p)
         {
+            cout << ((*iter))->GetPoint().GetX() << endl;
             mCurChar = (*iter);
             mState = MOVE;
             GetMovement();
