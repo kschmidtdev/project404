@@ -14,6 +14,7 @@
 //============================= LIFECYCLE ====================================
 
 UITile::UITile()
+: UIElement(), mCharacterImage( NULL )
 {
     mElementImage = ResourceManager::GetInstance()->LoadTexture("defaultTile.bmp");
 }// UITile

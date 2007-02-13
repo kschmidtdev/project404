@@ -62,7 +62,7 @@ UIManager::~UIManager(void)
 void UIManager::Initialize(void)
 {
 
-    LogInfo( "The UIManager initializatio has started" );
+    LogInfo( "The UIManager initialization has started" );
 
     // Create Master List
     addLayout( new UIBattleScreenLayout() );
