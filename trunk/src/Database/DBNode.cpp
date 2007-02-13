@@ -36,7 +36,13 @@ DBNode::~DBNode()
 
 DBData* DBNode::GetAttribute(const string& name)
 {
-    return NULL;
+    vector<DBData*>::iterator Iter;
+    for ( Iter = mAttributes.begin(); Iter != mAttributes.end(); Iter++)
+    {
+        if ( (*Iter)->GetName() == name ) return *Iter;
+    }
+
+    return NULL; // no matching entry.
 }
 
 void DBNode::CheckDataType(const string& type) {

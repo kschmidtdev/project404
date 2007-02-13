@@ -25,6 +25,7 @@ public:
 
     DBColour(const int uniqueID, const string& name, const int* colourData);
     virtual ~DBColour();
+    virtual string GetType() { return "DBColour"; }
     int* GetData() { return mColourData; }
     int GetRed() { return mColourData[0]; }
     int GetGreen() { return mColourData[1]; }

@@ -25,6 +25,7 @@ public:
 
     DBInt(const int uniqueID, const string& name, const int intData);
     virtual ~DBInt(void);
+    virtual string GetType() { return "DBInt"; }
     int GetData() { return mIntData; }
 
 protected:

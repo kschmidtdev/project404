@@ -26,6 +26,7 @@ public:
 
     DBString(const int uniqueID, const string& name, const string& stringData);
     virtual ~DBString(void);
+    virtual string GetType() { return "DBString"; }
     string GetData() { return mStringData; }
 
 protected:

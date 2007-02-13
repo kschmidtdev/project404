@@ -26,6 +26,7 @@ public:
 
     DBVector2D(const int uniqueID, const string& name, const int* vector2DData);
     virtual ~DBVector2D();
+    virtual string GetType() { return "DBVector2D"; }
     int* GetData() { return mVector2DData; }
     int GetX() { return mVector2DData[0]; }
     int GetY() { return mVector2DData[1]; }

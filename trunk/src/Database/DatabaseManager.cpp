@@ -27,81 +27,130 @@ int DatabaseManager::GenerateUniqueID()
     return uniqueID;
 }
 
-void DatabaseManager::LoadFromFile()
+bool DatabaseManager::LoadFromFile(string& filename)
 {
-    TiXmlDocument Document( "sample.xml" );
+    TiXmlDocument Document( filename );
 	bool loadOkay = Document.LoadFile();
 
 	if (loadOkay)
 	{
-        TiXmlHandle docHandle( &Document );
+	    TiXmlHandle docHandle( &Document );
 
         TiXmlElement* XML_Root = docHandle.FirstChild().ToElement();
         mRootNode = new DBNode( GenerateUniqueID(), "Database" ); // Save the first xml node to the mRootNode.
+        mSearchList.push_back( mRootNode );
 
         CreateSiblingNode( XML_Root->FirstChildElement(), mRootNode ); // Recursive function to traverse all XML tags and create DBNode objects.
+        return true;
     }
 
 	else
 	{
-	    cout << "Failed to Load." << endl; // if loading xml file is failed.
+        return false;
     }
 }
 
-DBNode* DatabaseManager::Search(string& name)
+DBNode* DatabaseManager::Search( string& name )
 {
-    return SearchRecursion(name, mRootNode);
+    vector<DBNode*>::iterator Iter;
+    for ( Iter = mSearchList.begin(); Iter != mSearchList.end(); Iter++ )
+    {
+        if ( (*Iter)->GetName() == name ) return *Iter;
+    }
+
+    return NULL;
 }
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
 
-DBNode* DatabaseManager::SearchRecursion(string& name, DBNode* currentNode)
+void DatabaseManager::CreateSiblingNode( TiXmlElement* currentNode, DBNode* parent ) // All sibling nodes have the same parent node.
 {
-    if ( currentNode == NULL)
+    if ( currentNode != NULL ) // If currentNode == NULL, the recursion terminate.
+    {
+        if ( currentNode->ValueStr() == "Data" )
+        {
+            parent->AddAttribute( CreateAttribute( currentNode ) );
+            CreateSiblingNode( currentNode->NextSiblingElement(), parent );
+        }
+
+        else
+        {
+            DBNode* newChild = new DBNode( GenerateUniqueID(), currentNode->Attribute( "name" ), parent );
+            parent->AddChild(newChild);
+            mSearchList.push_back( newChild );
+
+            CreateChildNode( currentNode->FirstChildElement(), newChild );
+            CreateSiblingNode( currentNode->NextSiblingElement(), parent );
+        }
+    }
+}
+
+void DatabaseManager::CreateChildNode( TiXmlElement* currentNode, DBNode* parent )
+{
+    if ( currentNode != NULL ) // If currentNode == NULL, the recursion terminate.
+    {
+        if ( currentNode->ValueStr() == "Data" )
+        {
+            parent->AddAttribute( CreateAttribute( currentNode ) );
+            CreateSiblingNode( currentNode->NextSiblingElement(), parent );
+        }
+
+        else
+        {
+            DBNode* newChild = new DBNode( GenerateUniqueID(), currentNode->Attribute( "name" ), parent );
+            parent->AddChild( newChild );
+            mSearchList.push_back( newChild );
+
+            CreateChildNode( currentNode->FirstChildElement(), newChild );
+            CreateSiblingNode( currentNode->NextSiblingElement(), parent );
+        }
+    }
+}
+
+DBData* DatabaseManager::CreateAttribute( TiXmlElement* thisTag )
+{
+    string attributeType( thisTag->Attribute( "type" ) );
+
+    if ( attributeType == "string" )
+    {
+        DBString* newString = new DBString( GenerateUniqueID(), thisTag->Attribute( "name" ), thisTag->Attribute( "value" ) );
+        return newString;
+    }
+
+    else if ( attributeType == "int" )
+    {
+        int value = 0;
+        thisTag->Attribute( "value", &value );
+        DBInt* newInt = new DBInt( GenerateUniqueID(), thisTag->Attribute( "name" ), value );
+        return newInt;
+    }
+
+    else if ( attributeType == "float" )
+    {
+        double value = 0;
+        thisTag->Attribute( "value", &value );
+        DBFloat* newFloat = new DBFloat( GenerateUniqueID(), thisTag->Attribute( "name" ), value );
+        return newFloat;
+    }
+
+    else if ( attributeType == "vector2d" )
+    {
+        string value( thisTag->Attribute( "value" ) );
+        string strX( value, 0, value.find(":") ); // parsing to ':'
+        string strY( value, value.find(":")+1 ); // parsing from ':'
+        int nX = atoi(strX.c_str());
+        int nY = atoi(strY.c_str());
+
+        int XY[2] = {nX, nY};
+        DBVector2D * newVector2D = new DBVector2D( GenerateUniqueID(), thisTag->Attribute( "name" ), XY );
+    }
+
+    else if ( attributeType == "colour" )
+    {
+    }
+
+    else // unknown type.
     {
         return NULL;
     }
-
-    else if ( currentNode->GetName() == name ) // if they have the same name.
-    {
-        return currentNode;
-    }
-
-    else // currentNode is not NULL and not the one we want to find.
-    {
-        SearchRecursion(name, *currentNode->GetFirstChild());
-    }
-}
-
-void DatabaseManager::CreateSiblingNode(TiXmlElement* currentNode, DBNode* parent) { // All sibling nodes have the same parent node.
-
-    if ( currentNode != NULL ) // If currentNode == NULL, the recursion terminate.
-    {
-        DBNode* newChild = new DBNode( GenerateUniqueID(), currentNode->Attribute( "name" ), parent );
-        parent->AddChild(newChild);
-
-        CreateChildNode( currentNode->FirstChildElement(), newChild );
-        CreateSiblingNode( currentNode->NextSiblingElement(), parent );
-    }
-}
-
-void DatabaseManager::CreateChildNode(TiXmlElement* currentNode, DBNode* parent) {
-
-    if (currentNode != NULL) // If currentNode == NULL, the recursion terminate.
-    {
-        DBNode* newChild = new DBNode( GenerateUniqueID(), currentNode->Attribute( "name" ), parent );
-        parent->AddChild(newChild);
-
-        CreateChildNode( currentNode->FirstChildElement(), newChild );
-        CreateSiblingNode( currentNode->NextSiblingElement(), parent );
-    }
-}
-
-void DatabaseManager::ToNextSiblingNode(DBNode* parent)
-{
-}
-
-void DatabaseManager::ToNextChildNode(DBNode* parent)
-{
-
 }

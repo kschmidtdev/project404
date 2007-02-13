@@ -25,6 +25,7 @@ public:
 
     DBFloat(const int uniqueID, const string& name, const float floatData);
     virtual ~DBFloat();
+    virtual string GetType() { return "DBFloat"; }
     float GetData() { return mFloatData; }
 
 protected:

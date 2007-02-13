@@ -23,6 +23,11 @@
 #include <vector>
 #include "DBBase.h"
 #include "DBData.h"
+#include "DBColour.h"
+#include "DBFloat.h"
+#include "DBInt.h"
+#include "DBString.h"
+#include "DBVector2D.h"
 using namespace std;
 
 class DBNode : public DBBase
@@ -43,6 +48,8 @@ public:
     vector<DBNode*>::iterator GetEndChild() { return mChildren.end(); }
     vector<DBData*>::iterator GetFirstAttribute() { return mAttributes.begin(); }
     vector<DBData*>::iterator GetEndAttribute() { return mAttributes.end(); }
+
+    vector<DBNode*>* GetChildren() { return &mChildren; }
 
     DBData* GetAttribute(const string& name); // return the specific attribute in the attribute vector.
     void SetParent(DBNode* parent) { mParent = parent; }
