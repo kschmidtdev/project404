@@ -17,6 +17,7 @@ UITile::UITile()
 : UIElement(), mCharacterImage( NULL )
 {
     mElementImage = ResourceManager::GetInstance()->LoadTexture("defaultTile.bmp");
+    //mVisible = true;
 }// UITile
 
 
@@ -44,14 +45,27 @@ void UITile::removeCharacter(void)
 
 void UITile::RenderSelf(SDL_Surface* destination)
 {
-    if (mCharacterImage!=NULL) {
-        SDLRenderer::GetInstance()->DrawImageAt(mCharacterImage, mPos.GetX(), mPos.GetY(), mCharacterImage->w, mCharacterImage->h, destination);
-    } else if (mElementImage!=NULL) {
-        SDLRenderer::GetInstance()->DrawImageAt(mElementImage, mPos.GetX(), mPos.GetY(), mElementImage->w, mElementImage->h, destination);
-    } // ELSE do nothing
+    if (mVisible==true)
+    {
+        if (mCharacterImage!=NULL) {
+            SDLRenderer::GetInstance()->DrawImageAt(mCharacterImage, mPos.GetX(), mPos.GetY(), mCharacterImage->w, mCharacterImage->h, destination);
+        } else if (mElementImage!=NULL) {
+            SDLRenderer::GetInstance()->DrawImageAt(mElementImage, mPos.GetX(), mPos.GetY(), mElementImage->w, mElementImage->h, destination);
+        } // ELSE do nothing
+    }
 }
+
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
+
+bool UITile::hasCharacter(void)
+{
+    if (mCharacterImage==NULL) {
+        return false;
+    } else {
+        return true;
+    }
+}
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

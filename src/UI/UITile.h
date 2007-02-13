@@ -56,10 +56,7 @@ public:
 	 */
     virtual void RenderSelf(SDL_Surface* destination);
 
-    /**
-     * Adds character icon to tile (metaphorically - on top of terrain)
-     */
-    void addCharacter(SDL_Surface *nSur);
+
 
     /**
      * Remove character icon from tile
@@ -69,7 +66,19 @@ public:
 
 
 // ACCESS (writing)
+
+    /**
+     * Adds character icon to tile (metaphorically - on top of terrain)
+     */
+    void addCharacter(SDL_Surface *nSur);
 // INQUIRY (reading)
+
+    /**
+     * Returns boolean value whether character exists on tile or not
+     */
+    bool hasCharacter(void);
+
+
 
 protected:
 // PROTECTED VARIABLES

@@ -227,6 +227,160 @@ void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
     }
 }
 
+void UIGrid::confirmFunction(Point p)
+{
+
+    //UILayout *tempLayout = UIManager::GetInstance()->getLayout("BattleScreen");
+    //Level *mLevel = NULL;
+
+
+    int curState = mLevel->ReturnState();
+    printf("current State:%d\n", curState);
+    printf("current Point: %d, %d:\n", p.GetX(), p.GetY() );
+
+    bool validAction = false;
+
+    Character* tempChar;
+    switch(curState) {
+        case 0:
+
+
+            // Attempt to select character
+            // ------------------------------------------
+            tempChar = mLevel->OnSelect(p);
+
+            // Step 1 - check to see if selected character
+            // ===============
+            if (tempChar==NULL) {
+                // Unsuccessful, do nothing
+                printf("not a character\n");
+            } else {
+
+                // Step 2 - select Character
+                // =============
+                mCurCharacter = tempChar;
+                printf("character selected\n");
+
+                // Step 3 - prepare screen/UI for moveable range
+                // ==============
+
+                //mMoveRange = mLevel->GetMoveArea();
+                //mMoveRange = refineMoveArea(mMoveRange);
+                //addMoveableRange(moveArea);
+
+                // Successful, display move range
+                vector<Point> moveArea = mLevel->GetMoveArea();
+                AddMoveableRange( moveArea );
+                mMoveRange = moveArea;
+            }
+            break;
+        case 1:
+
+            // Attempting to MOVE to new spot
+            // ----------------------------------------------
+
+            // Step 1 - check if valid point
+
+            // Step 2 - check if clicked-self
+
+            // Step 3 - Move Character
+
+            // Step 4 - acknowledge level of move
+
+            // Step 5 - Remove moveable Range from screen
+
+            // Step 6 - Prep screen/UI for Attackable Range
+
+            // Check if move was cancelled
+            if (p==mCurCharacter->GetPoint()) {
+
+                mLevel->OnSelect(p);
+
+            } else {
+
+                // Check to see if valid spot for movement
+                std::vector<Point>::iterator iter;
+
+
+                for (iter = mMoveRange.begin();
+                        iter!=mMoveRange.end(); iter++)
+                {
+                    //printf("movePoint: %d, %d\n", (*iter).GetX(), (*iter).GetY() );
+                    if (p==(*iter))
+                        validAction = true;
+                }
+
+                //printf("Valid Move?:%d", validAction);
+
+                if ( validAction ) {
+                    // remove icon from old spot
+                    removeCharacter( mCurCharacter->GetPoint() );
+
+                    // add icon to new spot
+                    Point old = mCurCharacter->GetPoint();
+                    mCurCharacter->Move(p);
+                    addCharacter( mCurCharacter );
+                    mCurCharacter->Move(old);
+                    mLevel->OnSelect(p);
+                    ClearMoveableRange();
+                    printf("curState after move:%d\n", mLevel->ReturnState());
+
+                    // Prep screen for attack
+                    AddAttackRange( mLevel->GetAttackArea() );
+
+                } else {
+                    // do nothing
+                    // maybe display message later....
+                }
+            }
+
+            break;
+
+        case 2:
+            // Attempting to attack
+            //------------------------------------------------------
+
+            // Step 1 - check for valid attack point
+
+            // Step 2 - check for self-clicked
+
+            // Step 3 - Attack other character
+
+            // Step 4 - run end turn check (is target dead, is enememy dead, is party exhausted)
+
+            // Step 5 - Initialize next turn
+
+            // check to see if attack-range is valid
+            if ( validAction ) {
+                // remove icon from old spot
+                removeCharacter( mCurCharacter->GetPoint() );
+
+                // add icon to new spot
+                mCurCharacter->Move(p);
+                addCharacter( mCurCharacter );
+
+            } else {
+                // do nothing
+                // maybe display message later....
+            }
+
+            // now check if person is there
+            Character* target = mLevel->OnSelect(p);
+            if ( (validAction) && (target!=NULL) )
+            {
+
+                // no
+
+            }
+
+            // Check for end game
+
+            // Check for end turn
+
+            break;
+
+    }
+}
 
 void UIGrid::addCharacter( Character *c)
 {
@@ -257,7 +411,7 @@ void UIGrid::removeCharacter(Point p) {
 void UIGrid::AddRange( vector<Point> pointRange, vector<UIImage*> elementRange)
 {
 
-    int numOfNeededRangeSquares = pointRange.size();
+    /*int numOfNeededRangeSquares = pointRange.size();
     int numOfCurrentRangeSqaures = elementRange.size();
     int i;
     bool isMoveRange;
@@ -322,7 +476,7 @@ void UIGrid::AddRange( vector<Point> pointRange, vector<UIImage*> elementRange)
         mImageMoveRange = elementRange;
     } else {
         mImageAttackRange = elementRange;
-    }
+    }*/
 
 
 }
@@ -355,18 +509,58 @@ void UIGrid::ClearAttackRange(void) {
 
 }
 
-void UIGrid::AddAttackRange(vector<Point> moveRange)
+void UIGrid::AddAttackRange(vector<Point> attackRange)
 {
-    AddRange( moveRange, mImageAttackRange);
+    //AddRange( moveRange, mImageAttackRange);
+
+    int numOfNeededRangeSquares = attackRange.size();
+    int numOfCurrentRangeSqaures = mImageAttackRange.size();
+    int i;
+    printf("needed: %d, current: %d\n", numOfNeededRangeSquares, numOfCurrentRangeSqaures);
+
+    // If more new Blue tiles/cursors are needed more are created
+    if (numOfNeededRangeSquares>numOfCurrentRangeSqaures) {
+        // Need more squares
+        int newSquares = numOfNeededRangeSquares - numOfCurrentRangeSqaures;
+        for (i=0; i<newSquares; i++)
+            mImageAttackRange.push_back( new UIImage("yellowCursor.bmp") );
+
+    }
+
+    std::vector<Point>::iterator pointIter;
+    std::vector<UIImage*>::iterator elementIter;
+    Point cursorPos;
+    Point gridPoint;
+
+    pointIter = attackRange.begin();
+    elementIter = mImageAttackRange.begin();
+
+    for (i=0; i<numOfNeededRangeSquares; i++)
+    {
+        gridPoint = (*pointIter);
+        cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
+        (*elementIter)->setPos( cursorPos );
+        (*elementIter)->setVisible( true );
+        elementIter++;
+        pointIter++;
+    }
+
+    // for remainder of unused elements, set invisible
+    while (elementIter!=mImageAttackRange.end())
+    {
+        (*elementIter)->setVisible( false );
+        elementIter++;
+    }
+
 }
 
 
 void UIGrid::AddMoveableRange(vector<Point> moveRange)
 {
 
-    AddRange( moveRange, mImageMoveRange);
+    //AddRange( moveRange, mImageMoveRange);
 
-    /*int numOfNeededRangeSquares = moveRange.size();
+    int numOfNeededRangeSquares = moveRange.size();
     int numOfCurrentRangeSqaures = mImageMoveRange.size();
     int i;
     printf("needed: %d, current: %d\n", numOfNeededRangeSquares, numOfCurrentRangeSqaures);
@@ -384,6 +578,11 @@ void UIGrid::AddMoveableRange(vector<Point> moveRange)
     std::vector<UIImage*>::iterator elementIter;
     Point cursorPos;
     Point gridPoint;
+    Point charPoint;
+    if (mCurCharacter!=NULL)
+    {
+         charPoint = mCurCharacter->GetPoint();
+    }
 
     pointIter = moveRange.begin();
     elementIter = mImageMoveRange.begin();
@@ -391,19 +590,32 @@ void UIGrid::AddMoveableRange(vector<Point> moveRange)
     for (i=0; i<numOfNeededRangeSquares; i++)
     {
         gridPoint = (*pointIter);
-        cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
-        (*elementIter)->setPos( cursorPos );
-        (*elementIter)->setVisible( true );
-        elementIter++;
+        printf("grid point: %d, %d\n", gridPoint.GetX(), gridPoint.GetY() );
+        if ( (validPoint(gridPoint)) && ( (!hasCharacter(gridPoint)) || (gridPoint==charPoint) ) )
+        {
+            cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
+            (*elementIter)->setPos( cursorPos );
+            (*elementIter)->setVisible( true );
+            elementIter++;
+        }
         pointIter++;
     }
 
+    printf("I've made it past implementing the move squares\n");
+
     // for remainder of unused elements, set invisible
+    int test =0;
+    bool bTest;
     while (elementIter!=mImageMoveRange.end())
     {
-        (*elementIter)->setVisible( false );
+        printf("makes it invisible\n");
+        (*elementIter)->setVisible( false ); // This function isn't working for some reason....
+        bTest = (*elementIter)->getVisible();
+        if (bTest == true)
+            test = 1;
+        printf("Visible?: %d\n", test );
         elementIter++;
-    }*/
+    }
 
 }
 
@@ -421,7 +633,10 @@ void UIGrid::setLevel(Level* l)
 
 bool UIGrid::validPoint(Point p)
 {
-    if ( (p.GetX()<mNumColumns) && (p.GetY()<mNumRows) )
+    int x = p.GetX();
+    int y = p.GetY();
+
+    if ( (x<mNumColumns) && (y<mNumRows) && (x>=0) && (y>=0) )
     {
         return true;
     } else {
@@ -429,128 +644,37 @@ bool UIGrid::validPoint(Point p)
     }
 }
 
-
+bool UIGrid::hasCharacter(Point p)
+{
+    int index = findIndex(p);
+    if (index!=-1)
+    {
+        //UITile* temp =
+        return mTiles[index]->hasCharacter();
+    }
+}
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 
 int UIGrid::findIndex(int x, int y)
 {
-    return y + mNumRows*x;
-}
-
-void UIGrid::confirmFunction(Point p)
-{
-
-    //UILayout *tempLayout = UIManager::GetInstance()->getLayout("BattleScreen");
-    //Level *mLevel = NULL;
-
-    // tHIS function should not be called at this point
-
-    int curState = mLevel->ReturnState();
-    printf("current State:%d\n", curState);
-    printf("current Point: %d, %d:\n", p.GetX(), p.GetY() );
-
-    bool validAction = false;
-
-    Character* tempChar;
-    switch(curState) {
-        case 0:
-            // Attempt to select character
-            tempChar = mLevel->OnSelect(p);
-            if (tempChar==NULL) {
-                // Unsuccessful, do nothing
-                printf("not a character\n");
-            } else {
-                printf("character selected\n");
-                // Successful, display move range
-                vector<Point> moveArea = mLevel->GetMoveArea();
-                AddMoveableRange( moveArea );
-                mMoveRange = moveArea;
-                mCurCharacter = tempChar;
-            }
-            break;
-        case 1:
-            // Attempting to move to new spot
-
-            // Check if move was cancelled
-            if (p==mCurCharacter->GetPoint()) {
-
-                mLevel->OnSelect(p);
-
-            } else {
-
-                // Check to see if valid spot for movement
-                std::vector<Point>::iterator iter;
-
-
-                for (iter = mMoveRange.begin();
-                        iter!=mMoveRange.end(); iter++)
-                {
-                    printf("movePoint: %d, %d\n", (*iter).GetX(), (*iter).GetY() );
-                    if (p==(*iter))
-                        validAction = true;
-                }
-
-                //printf("Valid Move?:%d", validAction);
-
-                if ( validAction ) {
-                    // remove icon from old spot
-                    removeCharacter( mCurCharacter->GetPoint() );
-
-                    // add icon to new spot
-                    Point old = mCurCharacter->GetPoint();
-                    mCurCharacter->Move(p);
-                    addCharacter( mCurCharacter );
-                    mCurCharacter->Move(old);
-                    mLevel->OnSelect(p);
-                    ClearMoveableRange();
-                    printf("curState after move:%d\n", mLevel->ReturnState());
-
-                    // Prep screen for attack
-                    AddAttackRange( mLevel->GetAttackArea() );
-
-                } else {
-                    // do nothing
-                    // maybe display message later....
-                }
-            }
-
-            break;
-
-        case 2:
-            // Attempting to attack
-
-            // check to see if attack-range is valid
-            if ( validAction ) {
-                // remove icon from old spot
-                removeCharacter( mCurCharacter->GetPoint() );
-
-                // add icon to new spot
-                mCurCharacter->Move(p);
-                addCharacter( mCurCharacter );
-
-            } else {
-                // do nothing
-                // maybe display message later....
-            }
-
-            // now check if person is there
-            Character* target = mLevel->OnSelect(p);
-            if ( (validAction) && (target!=NULL) )
-            {
-
-                // no
-
-            }
-
-            // Check for end game
-
-            // Check for end turn
-
-            break;
-
+    if (validPoint( Point(x,y) )) {
+        return y + mNumRows*x;
+    } else {
+        return -1;
     }
 }
+
+int UIGrid::findIndex(Point p)
+{
+    if (validPoint( p )) {
+        return p.GetY() + mNumRows*p.GetX();
+    } else {
+        return -1;
+    }
+}
+
+
 
 SDL_Surface* UIGrid::getClassSurface(Character* c)
 {
