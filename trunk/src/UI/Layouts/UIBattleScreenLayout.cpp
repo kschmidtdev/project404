@@ -51,7 +51,8 @@ void UIBattleScreenLayout::onLoad( void )
     // doing other initialization
 
     //mLevel = GameEngine::GetInstance()->battleInitializer();
-    mLevel = new Level();
+    Level *mLevel = new Level();
+    mGrid->setLevel(mLevel);
 
     // Put the characters on the screen
     vector<Character*> everyoneList = mLevel->GetEveryone();
@@ -83,12 +84,25 @@ void UIBattleScreenLayout::onLoad( void )
 }
 
 
+void UIBattleScreenLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
+{
+    if ( (mDefaultEventListener==mGrid) && (evt==InputManager::MENU) )
+    {
+        mDefaultEventListener = mMenu;
+    }
+    else if ( (mDefaultEventListener==mMenu) && (evt==InputManager::CANCEL) )
+    {
+        mDefaultEventListener = mGrid;
+    } else {
+        mDefaultEventListener->ProcessEvent(evt);
+    }
 
+}
 //============================= ACCESS     ===================================
 
 
 
-void UIBattleScreenLayout::switchToMenu(void)
+/*void UIBattleScreenLayout::switchToMenu(void)
 {
     mDefaultEventListener = mMenu;
 }
@@ -97,15 +111,15 @@ void UIBattleScreenLayout::switchToMenu(void)
 void UIBattleScreenLayout::switchToGrid(void)
 {
     mDefaultEventListener = mGrid;
-}
+}*/
 
 
 //============================= INQUIRY    ===================================
 
-Level* UIBattleScreenLayout::getLevel(void)
+/*Level* UIBattleScreenLayout::getLevel(void)
 {
     return mLevel;
-}
+}*/
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

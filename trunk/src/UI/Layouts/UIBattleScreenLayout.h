@@ -55,7 +55,7 @@ public:
     /**
      * Overrides the ProcessEvent so that it can control the cursor.
 	 */
-	//virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
+	virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
 
     /**
      * Overriding OnLoad function to allow for additional communication.
@@ -67,12 +67,12 @@ public:
     /**
      * Change event handler to Menu
      */
-    void switchToMenu(void);
+    //void switchToMenu(void);
 
     /**
      * Change event handler to Grid
      */
-    void switchToGrid(void);
+    //void switchToGrid(void);
 
 
 // INQUIRY (reading)
@@ -86,9 +86,9 @@ protected:
 // PROTECTED VARIABLES
     UIMenu* mMenu;
     UIGrid* mGrid;
-    int mGameState;
-    Level* mLevel;
-    GameEngine *mGameEngine;
+    //int mGameState;
+    //Level* mLevel;
+    //GameEngine *mGameEngine;
 
 private:
 // PRIVATE VARIABLES
