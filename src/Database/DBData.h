@@ -29,7 +29,9 @@ public:
 
     DBData(const int uniqueID, const string& name);
     virtual ~DBData(void) = 0;
+    virtual string GetType() { return "DBBase"; }
     string GetName() { return mName; }
+
 
 protected:
 

@@ -32,8 +32,9 @@ public:
     void Shutdown();
     int GenerateUniqueID();
     vector<DBNode*> Search(const string& key);
-    void LoadFromFile();
+    bool LoadFromFile(string& filename);
     void SaveToFile();
+    DBNode* GetRootNode() { return mRootNode; }
     DBNode* Search(string& name);
 
 protected:
@@ -44,10 +45,9 @@ private:
 
     void CreateSiblingNode( TiXmlElement* currentNode, DBNode* parent );
     void CreateChildNode( TiXmlElement* currentNode, DBNode* parent );
-    void ToNextSiblingNode(DBNode* parent);
-    void ToNextChildNode(DBNode* parent);
-    DBNode* SearchRecursion(string& name, DBNode* currentNode);
+    DBData* CreateAttribute( TiXmlElement* thisTag );
 
+    vector<DBNode*> mSearchList;
     DBNode* mRootNode;
     int mSize;
 
