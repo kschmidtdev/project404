@@ -19,25 +19,14 @@
 //============================= LIFECYCLE ====================================
 
 UIElement::UIElement(void)
-: mElementImage( NULL )
+: mElementImage( NULL ), mVisible( true )
 {
-    // Overridden initialization
-    //rend = SDLRenderer::GetInstance();  // This needs to be overridden to allow for modularization
-    //RSM = ResourceManager::GetInstance();
 
-
-/*    mPos.SetX(100);
-
-    // This should REALLY be overridden
-    mElementImage = RSM->LoadTexture("nicePic.bmp");
-
-    // NOw THIIIIIS is extrememly temperary
-    rend->AddToRenderQueue(this);*/
 
 }
 
 UIElement::UIElement( const string filename)
-: mElementImage( NULL )
+: mElementImage( NULL ), mVisible( true )
 {
     mElementImage = ResourceManager::GetInstance()->LoadTexture(filename);
 }
@@ -55,7 +44,8 @@ UIElement::~UIElement(void)
 
 void UIElement::RenderSelf(SDL_Surface* destination)
 {
-    if( mElementImage )
+    if ( ( mElementImage ) && ( mVisible ) )
+    //if ( mElementImage )
     {
         SDLRenderer::GetInstance()->DrawImageAt(mElementImage, mPos.GetX(), mPos.GetY(), mElementImage->w, mElementImage->h, destination);
     }

@@ -41,6 +41,8 @@ typedef vector<UITile*> UITileVec;
 typedef UITileVec::iterator UITileItr;
 typedef vector<UIImage*> UIImageVec;
 typedef UIImageVec::iterator UIImageItr;
+typedef vector<Point> PointVec;
+typedef PointVec::iterator PointItr;
 
 class UIGrid : public UIElement, public EventListener
 {
@@ -125,6 +127,11 @@ public:
      */
     bool validPoint(Point p);
 
+    /**
+     *
+     */
+    bool hasCharacter(Point p);
+
 protected:
 // PROTECTED VARIABLES
     UITileVec mTiles;
@@ -164,6 +171,7 @@ protected:
 
 // PROTECTED METHODS
     int findIndex(int x, int y);
+    int findIndex(Point p);
     void confirmFunction(Point p);
     SDL_Surface* getClassSurface(Character* c);
     Point gridToAbsoluteCoordinates(Point p);
