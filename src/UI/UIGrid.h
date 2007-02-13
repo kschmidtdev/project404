@@ -27,7 +27,8 @@
 #include <GameEngine/GameEngine.h>
 #include <UIImage.h>
 #include <GameEngine/Character.h>
-//#include <UIBattleScreenLayout.h>
+#include <GameEngine/Level.h>
+
 
 // LOCAL INCLUDES
 //
@@ -94,12 +95,23 @@ public:
      */
     void ClearAttackRange( void );
 
+    /**
+     * Generic Function used for adding movement/attack range
+     */
+    void AddRange( vector<Point> pointRange, vector<UIImage*> elementRange);
+
+    /**
+     * Clear the attack range that appears
+     */
+    void ClearRange( vector<UIImage*> elements );
+
+
 // ACCESS (writing)
 
     /**
-     * Used by parent to allow access to certain operations
+     * Allows BattleLayout to pass handle for level communication
      */
-    //void setParent(UIBattleScreenLayout* parent);
+    void setLevel(Level* l);
 
 // INQUIRY (reading)
 
@@ -136,18 +148,20 @@ protected:
     Character* mCurCharacter;
 
     // Display/UI elements
-    vector<UIImage> mImageMoveRange;
-    vector<UIImage> mImageAttackRange;
+    vector<UIImage*> mImageMoveRange;
+    vector<UIImage*> mImageAttackRange;
 
 
 
     // Regular Communication
+    Level* mLevel;
     //GameEngine* mGameEngine;
 
 // PROTECTED METHODS
     int findIndex(int x, int y);
     void confirmFunction(Point p);
     SDL_Surface* getClassSurface(Character* c);
+    Point gridToAbsoluteCoordinates(Point p);
 
 private:
 // PRIVATE VARIABLES
