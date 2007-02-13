@@ -394,6 +394,7 @@ Character* Level::OnSelect(Point p)
             {
                 count++;
             }
+            iter++;
         }
         if(count == mParty.size())
         {
