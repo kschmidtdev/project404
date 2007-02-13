@@ -8,6 +8,7 @@
  * Andrew Osborne, February 10, 2007 | Added some comments, deleted inputFunction
  * Andrew Osborne, February 11 2007 | Added GetInstance method
  * Andrew Osborne, February 11 2007 | Added Destructor, added 'm' prefix to members
+ * Karl Schmidt, February 13 2007 | Added paranoia check to destructor
  */
 
 #include <UIManager.h>                                  // class implemented
@@ -88,7 +89,10 @@ void UIManager::Shutdown(void)
     for (iter = mCurrentLayoutList.begin();
             iter!=mCurrentLayoutList.end(); iter++)
     {
-        delete (*iter);
+        if( *iter )
+        {
+            delete (*iter);
+        }
     }
     mCurLayout = NULL;
 

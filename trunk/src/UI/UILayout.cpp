@@ -9,6 +9,7 @@
  * Andrew Osborne, February 10, 2007 | Added documentation
  * Andrew Osborne, February 11, 2007 | Added Process event handling, took out renderSelf
  * Andrew Osborne, February 12, 2007 | Added getName for searching purposes
+ * Karl Schmidt, February 13 2007 | Implemented typedefs for vector types, destructor modification
  */
 
 
@@ -29,12 +30,12 @@ UILayout::UILayout(void)
 
 UILayout::~UILayout(void)
 {
-    std::vector<UIElement*>::iterator iter;
-
-    for (iter = mElements.begin();
-            iter!=mElements.end(); iter++)
+    for( UIElementItr i = mElements.begin(); i != mElements.end(); ++i )
     {
-        delete *iter;
+        if( *i )
+        {
+            delete *i;
+        }
     }
 
     mDefaultEventListener = NULL;
@@ -93,8 +94,10 @@ void UILayout::onClose(void)
 void UILayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
 
-    if (mDefaultEventListener!=NULL)
+    if( mDefaultEventListener != NULL )
+    {
         mDefaultEventListener->ProcessEvent(evt);
+    }
 
 }
 
