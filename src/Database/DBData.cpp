@@ -8,13 +8,24 @@
  * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  */
 
-#include "DBData.h"
+#include "DBData.h"                                       // class implemented
 
-DBData::DBData(const int uniqueID, const string& name)
-: DBBase(uniqueID), mName(name)
+/////////////////////////////// PUBLIC ///////////////////////////////////////
+
+//============================= LIFECYCLE ====================================
+
+DBData::DBData( const int uniqueID, const string& name )
+: DBBase( uniqueID ), mName( name )
 {
-}
+} // DBData
 
 DBData::~DBData()
 {
-}
+} // ~DBData
+
+//============================= OPERATORS ====================================
+//============================= OPERATIONS ===================================
+//============================= ACCESS     ===================================
+//============================= INQUIRY    ===================================
+/////////////////////////////// PROTECTED  ///////////////////////////////////
+/////////////////////////////// PRIVATE    ///////////////////////////////////

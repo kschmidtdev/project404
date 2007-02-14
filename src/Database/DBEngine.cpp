@@ -1,16 +1,20 @@
 /**
- * File: DBBase.cpp
+ * File: DBEngine.cpp
  *
  * Project 404 2007
  *
  * Authors:
- * Seung Woo Han, February 7 2007 | Initial design
- * Seung Woo Han, February 11 2007 | Done for all the basic implementation
+ * Seung Woo Han, February 13 2007 | Initial design
+ * Seung Woo Han, February 13 2007 | Done for all the basic implementation
  */
 
-#include "DBEngine.h"
-
+#include "DBEngine.h"                                     // class implemented
 #include <util.h>
+
+
+/////////////////////////////// PUBLIC ///////////////////////////////////////
+
+//============================= LIFECYCLE ====================================
 
 DBEngine::DBEngine()
 {
@@ -18,20 +22,6 @@ DBEngine::DBEngine()
 
 DBEngine::~DBEngine()
 {
-}
-
-WeaponItem* DBEngine::CreateWeapon( DBNode* WeaponNode )
-{
-    DBInt* WeaponAttribute = dynamic_cast<DBInt*>( WeaponNode->GetFirstAttribute() );
-    WeaponItem* newWeapon = new WeaponItem( WeaponNode->GetName(), WeaponAttribute->GetData() );
-    return newWeapon;
-}
-
-ArmorItem* DBEngine::CreateArmor( DBNode* ArmorNode )
-{
-    DBInt* ArmorAttribute = dynamic_cast<DBInt*>( ArmorNode->GetFirstAttribute() );
-    ArmorItem* newArmor = new ArmorItem( ArmorNode->GetName(), ArmorAttribute->GetData() );
-    return newArmor;
 }
 
 vector<Character*>* DBEngine::Initialize()
@@ -131,4 +121,18 @@ vector<Character*>* DBEngine::Initialize()
 
     return &mCharacterList;
 
+}
+
+WeaponItem* DBEngine::CreateWeapon( DBNode* WeaponNode )
+{
+    DBInt* WeaponAttribute = dynamic_cast<DBInt*>( WeaponNode->GetFirstAttribute() );
+    WeaponItem* newWeapon = new WeaponItem( WeaponNode->GetName(), WeaponAttribute->GetData() );
+    return newWeapon;
+}
+
+ArmorItem* DBEngine::CreateArmor( DBNode* ArmorNode )
+{
+    DBInt* ArmorAttribute = dynamic_cast<DBInt*>( ArmorNode->GetFirstAttribute() );
+    ArmorItem* newArmor = new ArmorItem( ArmorNode->GetName(), ArmorAttribute->GetData() );
+    return newArmor;
 }

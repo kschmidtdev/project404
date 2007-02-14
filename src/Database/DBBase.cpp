@@ -8,13 +8,24 @@
  * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  */
 
-#include "DBBase.h"
+#include "DBBase.h"                                       // class implemented
 
-DBBase::DBBase(const int uniqueID)
-: mUniqueID(uniqueID)
+/////////////////////////////// PUBLIC ///////////////////////////////////////
+
+//============================= LIFECYCLE ====================================
+
+DBBase::DBBase( const int uniqueID )
+: mUniqueID( uniqueID )
 {
-}
+} // DBBase
 
 DBBase::~DBBase()
 {
-}
+} // ~DBBase
+
+//============================= OPERATORS ====================================
+//============================= OPERATIONS ===================================
+//============================= ACCESS     ===================================
+//============================= INQUIRY    ===================================
+/////////////////////////////// PROTECTED  ///////////////////////////////////
+/////////////////////////////// PRIVATE    ///////////////////////////////////

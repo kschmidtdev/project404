@@ -8,17 +8,25 @@
  * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  */
 
-#include "DBColour.h"
+#include "DBColour.h"                                     // class implemented
 
-DBColour::DBColour(const int uniqueID, const string& name, const int* colourData)
-: DBData(uniqueID, name)
+/////////////////////////////// PUBLIC ///////////////////////////////////////
+
+//============================= LIFECYCLE ====================================
+
+DBColour::DBColour( const int uniqueID, const string& name, const int* colourData )
+: DBData( uniqueID, name )
 {
-
-    for (int i=0; i<3; i++) mColourData[i] = colourData[i];
-
-}
+    for ( int i=0; i<3; i++ ) mColourData[i] = colourData[i];
+} // DBColour
 
 DBColour::~DBColour()
 {
-}
+} // ~DBColour
 
+//============================= OPERATORS ====================================
+//============================= OPERATIONS ===================================
+//============================= ACCESS     ===================================
+//============================= INQUIRY    ===================================
+/////////////////////////////// PROTECTED  ///////////////////////////////////
+/////////////////////////////// PRIVATE    ///////////////////////////////////

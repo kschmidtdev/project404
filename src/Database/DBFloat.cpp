@@ -8,13 +8,24 @@
  * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  */
 
-#include "DBFloat.h"
+#include "DBFloat.h"                                      // class implemented
 
-DBFloat::DBFloat(const int uniqueID, const string& name, const float floatData)
-: DBData(uniqueID, name), mFloatData(floatData)
+/////////////////////////////// PUBLIC ///////////////////////////////////////
+
+//============================= LIFECYCLE ====================================
+
+DBFloat::DBFloat( const int uniqueID, const string& name, const float floatData )
+: DBData( uniqueID, name ), mFloatData( floatData )
 {
-}
+} // DBFloat
 
 DBFloat::~DBFloat()
 {
-}
+} // ~DBFloat
+
+//============================= OPERATORS ====================================
+//============================= OPERATIONS ===================================
+//============================= ACCESS     ===================================
+//============================= INQUIRY    ===================================
+/////////////////////////////// PROTECTED  ///////////////////////////////////
+/////////////////////////////// PRIVATE    ///////////////////////////////////

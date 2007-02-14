@@ -8,16 +8,25 @@
  * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  */
 
-#include "DBVector2D.h"
+#include "DBVector2D.h"                                   // class implemented
 
-DBVector2D::DBVector2D(const int uniqueID, const string& name, const int* vector2DData)
-: DBData(uniqueID, name)
+/////////////////////////////// PUBLIC ///////////////////////////////////////
+
+//============================= LIFECYCLE ====================================
+
+DBVector2D::DBVector2D( const int uniqueID, const string& name, const int* vector2DData )
+: DBData( uniqueID, name )
 {
-
     for (int i=0; i<2; i++) mVector2DData[i] = vector2DData[i];
-
-}
+} // DBVector2D
 
 DBVector2D::~DBVector2D()
 {
-}
+} // ~DBVector2D
+
+//============================= OPERATORS ====================================
+//============================= OPERATIONS ===================================
+//============================= ACCESS     ===================================
+//============================= INQUIRY    ===================================
+/////////////////////////////// PROTECTED  ///////////////////////////////////
+/////////////////////////////// PRIVATE    ///////////////////////////////////

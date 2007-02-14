@@ -49,7 +49,6 @@ public:
     */
     void Shutdown();
 
-    int GenerateUniqueID();
     bool LoadFromFile(const string& filename);
     void SaveToFile();
     DBNode* GetRootNode() { return mRootNode; }
@@ -63,13 +62,13 @@ protected:
     */
     DatabaseManager();
 
-
     // PROTECTED VARIABLES
 
     static DatabaseManager* _instance;
 
 private:
 
+    int GenerateUniqueID();
     void CreateSiblingNode( TiXmlElement* currentNode, DBNode* parent );
     void CreateChildNode( TiXmlElement* currentNode, DBNode* parent );
     DBData* CreateAttribute( TiXmlElement* thisTag );
