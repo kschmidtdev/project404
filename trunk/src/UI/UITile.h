@@ -56,8 +56,6 @@ public:
 	 */
     virtual void RenderSelf(SDL_Surface* destination);
 
-
-
     /**
      * Remove character icon from tile
      */

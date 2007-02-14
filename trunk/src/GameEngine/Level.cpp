@@ -441,6 +441,16 @@ Character* Level::OnSelect(Point p)
         }
         return NULL;
     }
+
+    vector<Character*> Level::GetEnemies()
+    {
+        return mEnemies;
+    }
+
+    vector<Character*> Level::GetParty()
+    {
+        return mParty;
+    }
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

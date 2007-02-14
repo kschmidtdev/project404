@@ -55,25 +55,37 @@ void UIBattleScreenLayout::onLoad( void )
     mGrid->setLevel(mLevel);
 
     // Put the characters on the screen
-    vector<Character*> everyoneList = mLevel->GetEveryone();
-    vector<Character*>::iterator iter;
+    vector<Character*> party = mLevel->GetParty();
+    vector<Character*> enemies = mLevel->GetEnemies();
+    vector<Character*>::iterator piter;
+    vector<Character*>::iterator eiter;
 
-    iter = everyoneList.begin();
-
+    piter = party.begin();
+    eiter = enemies.begin();
     SDL_Surface *tempIcon = ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
 
     if (tempIcon!=NULL) {
 
         //LogInfo("Character Icon loaded successfully");
-        while(iter != everyoneList.end() )
+        while(piter != party.end() )
         {
             //(*iter)->Move((*piter));
             //mGrid->addCharacter( (*iter)->getTexture(), (*iter)->GetPoint() );
-            mGrid->addCharacter( (*iter) );
-            iter++;
+            mGrid->AddPartyCharacter( (*piter) );
+            piter++;
 
         }
-    } else {
+        while(eiter != enemies.end() )
+        {
+            //(*iter)->Move((*piter));
+            //mGrid->addCharacter( (*iter)->getTexture(), (*iter)->GetPoint() );
+            mGrid->AddEnemyCharacter( (*eiter) );
+            eiter++;
+
+        }
+    }
+    else
+    {
         //LogInfo("Character Icon load failed");
     }
 

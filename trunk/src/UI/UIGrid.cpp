@@ -331,7 +331,7 @@ void UIGrid::confirmFunction(Point p)
                     // add icon to new spot
                     Point old = mCurCharacter->GetPoint();
                     mCurCharacter->Move(p);
-                    addCharacter( mCurCharacter );
+                    AddPartyCharacter( mCurCharacter );
                     mCurCharacter->Move(old);
                     mLevel->OnSelect(p);
                     ClearMoveableRange();
@@ -415,7 +415,7 @@ void UIGrid::confirmFunction(Point p)
     }
 }
 
-void UIGrid::addCharacter( Character *c)
+void UIGrid::AddEnemyCharacter(Character *c)
 {
     Point p = c->GetPoint();
 
@@ -423,7 +423,19 @@ void UIGrid::addCharacter( Character *c)
     {
         int index = findIndex( p.GetX(), p.GetY() );
         //printf("index: %d, maxSize: %d\n", index, mTiles.size());
-         mTiles[index].addCharacter( getClassSurface(c) );
+         mTiles[index].addCharacter( getClassSurface(c, "Enemy"));
+    }
+}
+
+void UIGrid::AddPartyCharacter(Character *c)
+{
+    Point p = c->GetPoint();
+
+    if ( validPoint(p)  )
+    {
+        int index = findIndex( p.GetX(), p.GetY() );
+        //printf("index: %d, maxSize: %d\n", index, mTiles.size());
+         mTiles[index].addCharacter( getClassSurface(c, "Party"));
     }
 }
 
@@ -667,21 +679,62 @@ int UIGrid::findIndex(Point p)
 
 
 
-SDL_Surface* UIGrid::getClassSurface(Character* c)
+SDL_Surface* UIGrid::getClassSurface(Character* c, string group)
 {
     string temp = c->GetClassName();
+    if(group=="Party")
+    {
+        if (temp=="Archer")
+        {
+            return ResourceManager::GetInstance()->LoadTexture("archer_party.bmp");
+        }
+        else if (temp=="Knight")
+        {
+            return ResourceManager::GetInstance()->LoadTexture("knight_party.bmp");
+        }
+        else if (temp=="Healer")
+        {
+            return ResourceManager::GetInstance()->LoadTexture("healer_party.bmp");
+        }
+        else if (temp=="Mage")
+        {
+            return ResourceManager::GetInstance()->LoadTexture("mage_party.bmp");
+        }
+        else
+        {
+            // you screwed up
+            return ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
+        }
+    }
 
-    if (temp=="Archer") {
-        return ResourceManager::GetInstance()->LoadTexture("archer.bmp");
-    } else if (temp=="Knight") {
-        return ResourceManager::GetInstance()->LoadTexture("knight.bmp");
-    } else if (temp=="Healer") {
-        return ResourceManager::GetInstance()->LoadTexture("healer.bmp");
-    } else if (temp=="Mage") {
-        return ResourceManager::GetInstance()->LoadTexture("mage.bmp");
-    } else {
-        // you screwed up
-        return ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
+    else if("Enemy")
+    {
+        if (temp=="Archer")
+        {
+            return ResourceManager::GetInstance()->LoadTexture("archer_party.bmp");
+        }
+        else if (temp=="Knight")
+        {
+            return ResourceManager::GetInstance()->LoadTexture("knight_party.bmp");
+        }
+        else if (temp=="Healer")
+        {
+            return ResourceManager::GetInstance()->LoadTexture("healer_party.bmp");
+        }
+        else if (temp=="Mage")
+        {
+            return ResourceManager::GetInstance()->LoadTexture("mage_party.bmp");
+        }
+        else
+        {
+            // you screwed up
+            return ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
+        }
+    }
+
+    else
+    {
+        return NULL;
     }
 
 }
