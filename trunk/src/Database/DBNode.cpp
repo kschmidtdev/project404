@@ -8,33 +8,40 @@
  * Seung Woo Han, February 11 2007 | Created some overloading constructors and added more functions.
  */
 
-#include "DBNode.h"
-#include <iostream>
-using namespace std;
+#include "DBNode.h"                                       // class implemented
 
-DBNode::DBNode(const int uniqueID, const string& name)
-: DBBase(uniqueID), mName(name), mParent(NULL)
-{
-}
+/////////////////////////////// PUBLIC ///////////////////////////////////////
 
-DBNode::DBNode(const int uniqueID, const string& name, DBNode* parent)
-: DBBase(uniqueID), mName(name), mParent(parent)
-{
-}
+//============================= LIFECYCLE ====================================
 
-DBNode::DBNode(const int uniqueID, const string& name, DBNode* parent, vector<DBNode*> children)
-: DBBase(uniqueID), mName(name), mParent(parent), mChildren(children)
+DBNode::DBNode( const int uniqueID, const string& name )
+: DBBase( uniqueID ), mName( name ), mParent( NULL )
 {
-}
+} // DBNode
 
-DBNode::DBNode(const int uniqueID, const string& name, DBNode* parent, vector<DBNode*> children, vector<DBData*> attributes)
-: DBBase(uniqueID), mName(name), mParent(parent), mChildren(children), mAttributes(attributes)
+DBNode::DBNode( const int uniqueID, const string& name, DBNode* parent )
+: DBBase( uniqueID ), mName( name ), mParent( parent )
 {
-}
+} // DBNode
+
+DBNode::DBNode( const int uniqueID, const string& name, DBNode* parent, vector<DBNode*> children )
+: DBBase( uniqueID ), mName( name ), mParent( parent ), mChildren( children )
+{
+} // DBNode
+
+DBNode::DBNode( const int uniqueID, const string& name, DBNode* parent, vector<DBNode*> children, vector<DBData*> attributes )
+: DBBase( uniqueID ), mName( name ), mParent( parent ), mChildren( children ), mAttributes( attributes )
+{
+} // DBNode
 
 DBNode::~DBNode()
 {
-}
+} // ~DBNode
+
+//============================= OPERATORS ====================================
+//============================= OPERATIONS ===================================
+//============================= ACCESS     ===================================
+//============================= INQUIRY    ===================================
 
 DBNode* DBNode::GetFirstChild()
 {
@@ -56,10 +63,10 @@ DBNode* DBNode::GetNextChild()
     }
 }
 
-DBNode* DBNode::GetChild(const string& name)
+DBNode* DBNode::GetChild( const string& name )
 {
     vector<DBNode*>::iterator Iter;
-    for ( Iter = mChildren.begin(); Iter != mChildren.end(); Iter++)
+    for ( Iter = mChildren.begin(); Iter != mChildren.end(); Iter++ )
     {
         if ( (*Iter)->GetName() == name ) return *Iter;
     }
@@ -87,10 +94,10 @@ DBData* DBNode::GetNextAttribute()
     }
 }
 
-DBData* DBNode::GetAttribute(const string& name)
+DBData* DBNode::GetAttribute( const string& name )
 {
     vector<DBData*>::iterator Iter;
-    for ( Iter = mAttributes.begin(); Iter != mAttributes.end(); Iter++)
+    for ( Iter = mAttributes.begin(); Iter != mAttributes.end(); Iter++ )
     {
         if ( (*Iter)->GetName() == name ) return *Iter;
     }
@@ -98,18 +105,5 @@ DBData* DBNode::GetAttribute(const string& name)
     return NULL; // no matching entry.
 }
 
-void DBNode::CheckDataType(const string& type) {
-
-
-}
-
-void DBNode::TestFunc()
-{
-    vector<DBNode*>::iterator Iter;
-    for ( Iter = mChildren.begin(); Iter != mChildren.end(); Iter++)
-    {
-        cout << (*Iter)->GetName() << endl;
-    }
-
-}
-
+/////////////////////////////// PROTECTED  ///////////////////////////////////
+/////////////////////////////// PRIVATE    ///////////////////////////////////

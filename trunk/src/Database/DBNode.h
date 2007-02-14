@@ -56,10 +56,6 @@ public:
     void AddChild(DBNode * child) { mChildren.push_back(child); }
     void AddAttribute(DBData* attribute) { mAttributes.push_back(attribute); }
 
-    void CheckDataType(const string& type); // Determine what type of the data it is : DBInt, DBFloat, DBString, and etc.
-
-    void TestFunc();
-
 protected:
 
 private:

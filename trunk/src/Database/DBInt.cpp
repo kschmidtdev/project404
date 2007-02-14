@@ -8,13 +8,24 @@
  * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  */
 
-#include "DBInt.h"
+#include "DBInt.h"                                        // class implemented
 
-DBInt::DBInt(const int uniqueID, const string& name, const int intData)
-: DBData(uniqueID, name),  mIntData(intData)
+/////////////////////////////// PUBLIC ///////////////////////////////////////
+
+//============================= LIFECYCLE ====================================
+
+DBInt::DBInt( const int uniqueID, const string& name, const int intData )
+: DBData( uniqueID, name ),  mIntData( intData )
 {
-}
+} // DBInt
 
 DBInt::~DBInt()
 {
-}
+} // ~DBInt
+
+//============================= OPERATORS ====================================
+//============================= OPERATIONS ===================================
+//============================= ACCESS     ===================================
+//============================= INQUIRY    ===================================
+/////////////////////////////// PROTECTED  ///////////////////////////////////
+/////////////////////////////// PRIVATE    ///////////////////////////////////

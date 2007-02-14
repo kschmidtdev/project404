@@ -9,9 +9,11 @@
  * Karl Schmidt, February 13 2007 | Added code to make DatabaseManager a singleton, fixed a warning
  */
 
-#include "DatabaseManager.h"
-#include <iostream> // test
-using namespace std; // test
+#include "DatabaseManager.h"                              // class implemented
+
+/////////////////////////////// PUBLIC ///////////////////////////////////////
+
+//============================= LIFECYCLE ====================================
 
 DatabaseManager* DatabaseManager::_instance = 0;
 
@@ -38,12 +40,8 @@ void DatabaseManager::Shutdown()
     // stub
 }
 
-int DatabaseManager::GenerateUniqueID()
-{
-    int uniqueID =  10000000 + mSize;
-    mSize++;
-    return uniqueID;
-}
+//============================= OPERATORS ====================================
+//============================= OPERATIONS ===================================
 
 bool DatabaseManager::LoadFromFile(const string& filename)
 {
@@ -79,7 +77,22 @@ DBNode* DatabaseManager::Search(const string& name)
     return NULL;
 }
 
+//============================= ACCESS     ===================================
+//============================= INQUIRY    ===================================
+/////////////////////////////// PROTECTED  ///////////////////////////////////
+
+DatabaseManager::DatabaseManager()
+{
+}
+
 /////////////////////////////// PRIVATE    ///////////////////////////////////
+
+int DatabaseManager::GenerateUniqueID()
+{
+    int uniqueID =  10000000 + mSize;
+    mSize++;
+    return uniqueID;
+}
 
 void DatabaseManager::CreateSiblingNode( TiXmlElement* currentNode, DBNode* parent ) // All sibling nodes have the same parent node.
 {
@@ -170,10 +183,3 @@ DBData* DatabaseManager::CreateAttribute( TiXmlElement* thisTag )
         return NULL;
     }
 }
-
-// PROTECTED
-
-DatabaseManager::DatabaseManager()
-{
-}
-

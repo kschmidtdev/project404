@@ -8,13 +8,24 @@
  * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  */
 
-#include "DBString.h"
+#include "DBString.h"                                     // class implemented
 
-DBString::DBString(const int uniqueID, const string& name, const string& stringData)
-: DBData(uniqueID, name), mStringData(stringData)
+/////////////////////////////// PUBLIC ///////////////////////////////////////
+
+//============================= LIFECYCLE ====================================
+
+DBString::DBString( const int uniqueID, const string& name, const string& stringData )
+: DBData( uniqueID, name ), mStringData( stringData )
 {
-}
+} // DBString
 
 DBString::~DBString()
 {
-}
+} // ~DBString
+
+//============================= OPERATORS ====================================
+//============================= OPERATIONS ===================================
+//============================= ACCESS     ===================================
+//============================= INQUIRY    ===================================
+/////////////////////////////// PROTECTED  ///////////////////////////////////
+/////////////////////////////// PRIVATE    ///////////////////////////////////
