@@ -11,8 +11,7 @@
 
 #include <Logger.h>
 
-// TODO: Implement SecurityManager
-//#include <SecurityManager.h>
+#include <SecurityManager.h>
 #include <Database/DatabaseManager.h>
 #include <InputManager.h>
 #include <Renderer/SDLRenderer.h>
@@ -58,9 +57,8 @@ void GameRoot::Initialize()
     mSoundManager = SoundManager::GetInstance();
     mSoundManager->Initialize();
 
-// TODO: Implement SecurityManager
-//    mSecurityManager = SecurityManager::GetInstance();
-//    mSecurityManager->Initialize();
+    mSecurityManager = SecurityManager::GetInstance();
+    mSecurityManager->Initialize();
 
 // TODO: Make DatabaseManager a singleton
 //    mDatabase = DatabaseManager::GetInstance();
@@ -82,8 +80,7 @@ void GameRoot::Shutdown()
 // TODO: Make DatabaseManager a singleton
 //    mDatabase->Shutdown();
 
-// TODO: Implement SecurityManager
-//    mSecurityManager->Shutdown();
+    mSecurityManager->Shutdown();
 
     mSoundManager->Shutdown();
 

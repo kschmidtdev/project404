@@ -550,6 +550,20 @@
 			<Option target="Release" />
 			<Option target="UnitTest" />
 		</Unit>
+		<Unit filename="..\src\SecurityManager.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\SecurityManager.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest" />
+		</Unit>
 		<Unit filename="..\src\SoundManager.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
