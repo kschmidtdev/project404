@@ -129,9 +129,20 @@ enum charState
     bool AllExhaustedParty();
 
     /**
-     * Checks if pooint has person, return person if it does;
+     * Checks if point has person, return person if it does;
      */
     Character* PointHasPerson(Point p);
+
+    /**
+     * Return Enemies
+     */
+    vector<Character*> GetEnemies();
+
+    /**
+     * Return Party
+     */
+     vector<Character*> GetParty();
+
 protected:
 // PROTECTED VARIABLES
     charState mState;

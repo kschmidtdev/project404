@@ -76,7 +76,12 @@ public:
 	/**
      * Adds character element to grid.
 	 */
-    virtual void addCharacter(Character *c);
+    virtual void AddEnemyCharacter(Character *c);
+
+	/**
+     * Adds character element to grid.
+	 */
+    virtual void AddPartyCharacter(Character *c);
 
     /**
      * Removes character element from grid.
@@ -174,7 +179,7 @@ protected:
     int findIndex(int x, int y);
     int findIndex(Point p);
     void confirmFunction(Point p);
-    SDL_Surface* getClassSurface(Character* c);
+    SDL_Surface* getClassSurface(Character* c, string group);
     Point gridToAbsoluteCoordinates(Point p);
 
     /**
