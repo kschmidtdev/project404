@@ -16,6 +16,7 @@
  * Andrew Osborne, February 10 2007 | Fleshed out comments
  * Andrew Osborne, February 11 2007 | Added GetInstance method
  * Karl Schmidt, February 13 2007 | Added typedefs instead of lots of vector<Type>
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  */
 
 #ifndef UIManager_h
@@ -80,33 +81,33 @@ public:
 	 *
 	 * @param new current UILayout.
 	 */
-    void pushLayout(UILayout* newLayout);
+    void PushLayout(UILayout* newLayout);
 
     /**
      * Makes the UILayout, whose name is passed, as the current layout.
 	 *
 	 * @param string name of desired layout.
 	 */
-    void pushLayout(const string newLayout);
+    void PushLayout(const string newLayout);
 
     /**
      * Releases current UILayout and makes previous UILayout current one.
 	 */
-    void popLayout(void);
+    void PopLayout(void);
 
     /**
      * Adds UILayout to master list.
      *
 	 * @param new UILayout to be added.
 	 */
-    void addLayout(UILayout* newLayout);
+    void AddLayout(UILayout* newLayout);
 
     /**
      * Removes UILayout to master list.
      *
 	 * @param UILayout to be removed.
 	 */
-    void removeLayout(UILayout* removeLayout);
+    void RemoveLayout(UILayout* removeLayout);
 
 // INQUIRY (reading)
 
@@ -115,7 +116,7 @@ public:
 	 *
 	 * @return returns the current UILayout.
 	 */
-    UILayout* peekLayout(void);
+    UILayout* PeekLayout(void);
 
     /**
      * Given string name of layout, finds and returns that layout
@@ -124,7 +125,7 @@ public:
      *
 	 * @return pointer to requested layout (or NULL if doesn't exist).
 	 */
-	 UILayout* getLayout(const string layoutName);
+	 UILayout* GetLayout(const string layoutName);
 
 protected:
 // PROTECTED VARIABLES

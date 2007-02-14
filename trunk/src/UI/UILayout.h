@@ -16,6 +16,7 @@
  * Andrew Osborne, February 10 2007 | Fleshed out documentation
  * Andrew Osborne, February 11 2007 | Made UILayout inherit EventListener, added processEvent method
  * Karl Schmidt, February 13 2007 | Added typedefs instead of lots of vector<Type>
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  */
 
 #ifndef UILayout_h
@@ -39,8 +40,8 @@ using namespace std;
 // FORWARD REFERENCES
 //
 
-typedef vector<UIElement*> UIElementVec;
-typedef UIElementVec::iterator UIElementItr;
+typedef vector<UIElement*> UIElementPtrVec;
+typedef UIElementPtrVec::iterator UIElementPtrItr;
 
 class UILayout : public EventListener
 {
@@ -71,13 +72,13 @@ public:
      * Method that is run upon layout being loaded as current layout (called from UIManager)
 	 *
 	 */
-    virtual void onLoad(void);
+    virtual void OnLoad(void);
 
     /**
      * Method that is run upon layout NO LONGER being used as current layout (called from UIManager)
 	 *
 	 */
-    virtual void onClose(void);
+    virtual void OnClose(void);
 
     /**
      * Listens for Key Press from User
@@ -86,11 +87,11 @@ public:
 
 // ACCESS (writing)
 // INQUIRY (reading)
-    string getName(void);
+    string GetName(void);
 
 protected:
 // PROTECTED VARIABLES
-    UIElementVec mElements;
+    UIElementPtrVec mElements;
     EventListener* mDefaultEventListener;
     string mName;
 

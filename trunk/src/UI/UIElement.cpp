@@ -10,6 +10,7 @@
  * Karl Schmidt, February 11 2007 | Added checks that prevent game from crashing if textures are missing
  * Andrew Osborne, February 11 2007 | Added destructor
  * Karl Schmidt, February 13 2007 | Rearranged initializer list to prevent warning
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  */
 
 #include <UIElement.h>                   // class implemented
@@ -56,12 +57,12 @@ void UIElement::RenderSelf(SDL_Surface* destination)
 //============================= ACCESS     ===================================
 
 
-void UIElement::setPos(Point nPos)
+void UIElement::SetPos( const Point & nPos )
 {
     mPos = nPos;
 }
 
-void UIElement::setVisible(bool nVisible)
+void UIElement::SetVisible( const bool nVisible )
 {
     mVisible = nVisible;
 }
@@ -69,13 +70,13 @@ void UIElement::setVisible(bool nVisible)
 
 //============================= INQUIRY    ===================================
 
-Point UIElement::getPos(void)
+Point UIElement::GetPos(void)
 {
     return mPos;
 }
 
 
-bool UIElement::getVisible(void)
+bool UIElement::GetVisible(void) const
 {
     return mVisible;
 }
@@ -84,7 +85,7 @@ bool UIElement::getVisible(void)
 
 //============================= INQUIRY    ===================================
 
-SDL_Surface* UIElement::getElement(void)
+SDL_Surface* UIElement::GetElement(void)
 {
     return mElementImage;
 }

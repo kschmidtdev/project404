@@ -14,6 +14,7 @@
  * Andrew Osborne, February 8, 2007 | Added default construct
  * Mike Malyuk,    February 9, 2007 | Added comparison operator
  * Andrew Osborne, February 10, 2007 | Added set operator that takes both x and y
+ * Karl Schmidt,   February 14 2007 | Added consts
  */
 
 #ifndef Point_h
@@ -45,7 +46,7 @@ public:
     /**
      * Constructor
 	 */
-    Point(int x, int y);
+    Point( const int x, const int y );
 
     /**
      * Copy constructor.
@@ -86,29 +87,29 @@ public:
     /**
      * Set x coord
 	 */
-    void SetX(int x);
+    void SetX( const int x );
 
     /**
      * Set y coord
 	 */
-    void SetY(int y);
+    void SetY( const int y );
 
      /**
      * Set both coordinates in one call
 	 */
-    void Set(int x, int y);
+    void Set( const int x, const int y );
 
 
 // INQUIRY (reading)
     /**
      * Get x coord
 	 */
-    int GetX();
+    int GetX() const;
 
     /**
      * Get y coord
 	 */
-    int GetY();
+    int GetY() const;
 
 protected:
 // PROTECTED VARIABLES

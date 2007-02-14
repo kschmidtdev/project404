@@ -11,6 +11,7 @@
  * Andrew Osborne, February 10 2007 | Initial Creation
  * Karl Schmidt, February 10 2007 | Changed some include directory formats
  * Andrew Osborne, February 10 2007 | Filled out documentation
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  */
 
 #ifndef UIMenu_h
@@ -33,6 +34,10 @@
 // FORWARD REFERENCES
 //
 
+typedef vector<UIElement*> UIElementPtrVec;
+typedef UIElementPtrVec::iterator UIElementPtrItr;
+typedef vector<FuncObj*> FuncObjPtrVec;
+typedef FuncObjPtrVec::iterator FuncObjPtrItr;
 
 class UIMenu : public UIElement, public EventListener
 {
@@ -50,16 +55,6 @@ public:
     ~UIMenu(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    UIMenu&                     operator=(UIMenu& from);
-
 // OPERATIONS
     /**
      * Method renders menu on screen
@@ -79,15 +74,15 @@ public:
     /**
      * Changes position
     */
-    virtual void setPos(Point nPos);
+    virtual void SetPos( const Point & nPos );
 
 // INQUIRY (reading)
 
 protected:
 // PROTECTED VARIABLES
     UIElement* mCursor;
-    vector<UIElement*> mButtons;
-    vector<FuncObj*> mButtonFuncs;
+    UIElementPtrVec mButtons;
+    FuncObjPtrVec mButtonFuncs;
 
     int mCursorPos;  // Starts with 0 to max (inclusive)
     int mMaxCursorPos;

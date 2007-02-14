@@ -5,6 +5,7 @@
  *
  * Authors:
  * Andrew Osborne, February 11 2007 | Initial Creation
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  */
 #include "UITile.h"                                // class implemented
 
@@ -31,12 +32,12 @@ UITile::~UITile()
 
 //============================= OPERATIONS ===================================
 
-void UITile::addCharacter(SDL_Surface *nSur)
+void UITile::AddCharacter(SDL_Surface *nSur)
 {
     mCharacterImage = nSur;
 }
 
-void UITile::removeCharacter(void)
+void UITile::RemoveCharacter(void)
 {
     mCharacterImage = NULL;
 }
@@ -58,7 +59,7 @@ void UITile::RenderSelf(SDL_Surface* destination)
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 
-bool UITile::hasCharacter(void)
+bool UITile::HasCharacter(void)
 {
     if (mCharacterImage==NULL) {
         return false;

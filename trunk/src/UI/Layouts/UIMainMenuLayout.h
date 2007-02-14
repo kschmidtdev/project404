@@ -41,28 +41,11 @@ public:
     UIMainMenuLayout(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    UIMainMenuLayout(const UIMainMenuLayout& from);
-
-    /**
      * Destructor.
 	 */
     ~UIMainMenuLayout(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    UIMainMenuLayout&                     operator=(UIMainMenuLayout& from);
-
 // OPERATIONS
 // ACCESS (writing)
 // INQUIRY (reading)

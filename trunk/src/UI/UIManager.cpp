@@ -9,6 +9,7 @@
  * Andrew Osborne, February 11 2007 | Added GetInstance method
  * Andrew Osborne, February 11 2007 | Added Destructor, added 'm' prefix to members
  * Karl Schmidt, February 13 2007 | Added paranoia check to destructor
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  */
 
 #include <UIManager.h>                                  // class implemented
@@ -66,12 +67,12 @@ void UIManager::Initialize(void)
     LogInfo( "The UIManager initialization has started" );
 
     // Create Master List
-    addLayout( new UIBattleScreenLayout() );
-    addLayout( new UITitleScreenLayout() );
-    addLayout( new UIMainMenuLayout() );
+    AddLayout( new UIBattleScreenLayout() );
+    AddLayout( new UITitleScreenLayout() );
+    AddLayout( new UIMainMenuLayout() );
 
     // Set current (first) layout
-    pushLayout("BattleScreen");
+    PushLayout("BattleScreen");
 
     // Add all the layouts to the manager.
     LogInfo( "The UIManager has been initialized successfully." );
@@ -80,15 +81,11 @@ void UIManager::Initialize(void)
 
 void UIManager::Shutdown(void)
 {
-
     LogInfo( "The UIManager shutdown has started" );
     // Delete all the objects withing UIManager
 
     // At the moment I'm not using the UIManager master list, but I'll change this if I am
-    UILayoutItr iter;
-
-    for (iter = mLayoutMasterList.begin();
-            iter!=mLayoutMasterList.end(); iter++)
+    for ( UILayoutItr iter = mLayoutMasterList.begin(); iter!=mLayoutMasterList.end(); ++iter )
     {
         if( *iter )
         {
@@ -119,65 +116,63 @@ void UIManager::Render(void)
 //============================= ACCESS     ===================================
 
 
-void UIManager::pushLayout(UILayout* newLayout)
+void UIManager::PushLayout(UILayout* newLayout)
 {
 
     mCurrentLayoutList.push_front(newLayout);
     mCurLayout = mCurrentLayoutList.front();
-    mCurLayout->onLoad();
+    mCurLayout->OnLoad();
 
 }
 
-void UIManager::pushLayout(const string newLayout)
+void UIManager::PushLayout(const string newLayout)
 {
 
-    pushLayout( getLayout(newLayout) );
+    PushLayout( GetLayout(newLayout) );
 
 }
 
-void UIManager::popLayout(void)
+void UIManager::PopLayout(void)
 {
 
     mCurrentLayoutList.pop_front();
-    mCurLayout->onClose();
+    mCurLayout->OnClose();
     mCurLayout = mCurrentLayoutList.front();
 
 }
 
-void UIManager::addLayout(UILayout* newLayout)
+void UIManager::AddLayout(UILayout* newLayout)
 {
     mLayoutMasterList.push_back(newLayout);
 
 }
 
-void UIManager::removeLayout(UILayout* removeLayout)
+void UIManager::RemoveLayout(UILayout* removeLayout)
 {
-
-        // Do it later....
+    // Do it later....
 }
 
 //============================= INQUIRY    ===================================
 
 
-UILayout* UIManager::peekLayout(void)
+UILayout* UIManager::PeekLayout(void)
 {
     return mCurLayout;
 }
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
-UILayout* UIManager::getLayout(const string layoutName)
+UILayout* UIManager::GetLayout(const string layoutName)
 {
-    std::vector<UILayout*>::iterator iter;
     string compare;
 
-    for (iter = mLayoutMasterList.begin();
-            iter!=mLayoutMasterList.end(); iter++)
+    for ( UILayoutItr iter = mLayoutMasterList.begin(); iter!=mLayoutMasterList.end(); ++iter )
     {
-        compare = (*iter)->getName();
+        compare = (*iter)->GetName();
         if (compare==layoutName)
+        {
             return (*iter);
-
+        }
     }
 
     return NULL;

@@ -11,6 +11,7 @@
  *
  * Authors:
  * Andrew Osborne, February 11 2007, Initial Creation
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  */
 
 #ifndef UITile_h
@@ -59,7 +60,7 @@ public:
     /**
      * Remove character icon from tile
      */
-    void removeCharacter(void);
+    void RemoveCharacter(void);
 
 
 
@@ -68,13 +69,13 @@ public:
     /**
      * Adds character icon to tile (metaphorically - on top of terrain)
      */
-    void addCharacter(SDL_Surface *nSur);
+    void AddCharacter(SDL_Surface *nSur);
 // INQUIRY (reading)
 
     /**
      * Returns boolean value whether character exists on tile or not
      */
-    bool hasCharacter(void);
+    bool HasCharacter(void);
 
 
 

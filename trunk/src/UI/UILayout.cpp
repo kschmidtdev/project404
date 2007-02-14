@@ -10,6 +10,7 @@
  * Andrew Osborne, February 11, 2007 | Added Process event handling, took out renderSelf
  * Andrew Osborne, February 12, 2007 | Added getName for searching purposes
  * Karl Schmidt, February 13 2007 | Implemented typedefs for vector types, destructor modification
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  */
 
 
@@ -30,7 +31,7 @@ UILayout::UILayout(void)
 
 UILayout::~UILayout(void)
 {
-    for( UIElementItr i = mElements.begin(); i != mElements.end(); ++i )
+    for( UIElementPtrItr i = mElements.begin(); i != mElements.end(); ++i )
     {
         if( *i )
         {
@@ -53,18 +54,16 @@ UILayout::~UILayout(void)
 }*/
 
 
-void UILayout::onLoad(void)
+void UILayout::OnLoad(void)
 {
     // Iterate through elements in layout
     // and add them to renderer queue
 
-    std::vector<UIElement*>::iterator iter;
     SDLRenderer *rend = SDLRenderer::GetInstance();
 
     InputManager::GetInstance()->AddEventListener(this);
 
-    for (iter = mElements.begin();
-            iter!=mElements.end(); iter++)
+    for ( UIElementPtrItr iter = mElements.begin(); iter!=mElements.end(); ++iter)
     {
         rend->AddToRenderQueue( (*iter) );
     }
@@ -72,18 +71,16 @@ void UILayout::onLoad(void)
 
 }
 
-void UILayout::onClose(void)
+void UILayout::OnClose(void)
 {
     // Iterate through elements in layout
     // and remove them from renderer
 
-    std::vector<UIElement*>::iterator iter;
     SDLRenderer *rend = SDLRenderer::GetInstance();
 
     InputManager::GetInstance()->RemoveEventListener(this);
 
-    for (iter = mElements.begin();
-            iter!=mElements.end(); iter++)
+    for ( UIElementPtrItr iter = mElements.begin(); iter!=mElements.end(); ++iter )
     {
         rend->RemoveFromRenderQueue( (*iter) );
     }
@@ -104,7 +101,7 @@ void UILayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 
-string UILayout::getName(void)
+string UILayout::GetName(void)
 {
     return mName;
 }

@@ -7,6 +7,7 @@
  * Andrew Osborne, February 10 2007 | Initial Creation
  * Andrew Osborne, February 11 2007 | Added Event Listening
  * Andrew Osborne, February 11 2007 | Added functionality to switch between menu/grid
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs
  */
 
 #include "UIBattleScreenLayout.h"                                // class implemented
@@ -23,7 +24,7 @@ UIBattleScreenLayout::UIBattleScreenLayout()
 {
     // Add components
     mMenu = new UIMenu();
-    mMenu->setPos( Point(470, 150) );
+    mMenu->SetPos( Point(470, 150) );
     mElements.push_back( mMenu );
 
     mGrid = new UIGrid();
@@ -44,21 +45,21 @@ UIBattleScreenLayout::~UIBattleScreenLayout()
 
 //============================= OPERATIONS ===================================
 
-void UIBattleScreenLayout::onLoad( void )
+void UIBattleScreenLayout::OnLoad( void )
 {
-    UILayout::onLoad();
+    UILayout::OnLoad();
 
     // doing other initialization
 
     //mLevel = GameEngine::GetInstance()->battleInitializer();
     Level *mLevel = new Level();
-    mGrid->setLevel(mLevel);
+    mGrid->SetLevel(mLevel);
 
     // Put the characters on the screen
-    vector<Character*> party = mLevel->GetParty();
-    vector<Character*> enemies = mLevel->GetEnemies();
-    vector<Character*>::iterator piter;
-    vector<Character*>::iterator eiter;
+    CharacterPtrVec party = mLevel->GetParty();
+    CharacterPtrVec enemies = mLevel->GetEnemies();
+    CharacterPtrItr piter;
+    CharacterPtrItr eiter;
 
     piter = party.begin();
     eiter = enemies.begin();
@@ -105,7 +106,9 @@ void UIBattleScreenLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
     else if ( (mDefaultEventListener==mMenu) && (evt==InputManager::CANCEL) )
     {
         mDefaultEventListener = mGrid;
-    } else {
+    }
+    else
+    {
         mDefaultEventListener->ProcessEvent(evt);
     }
 
