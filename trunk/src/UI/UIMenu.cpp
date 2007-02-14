@@ -12,6 +12,8 @@
  */
 #include "UIMenu.h"                                // class implemented
 #include "Point.h"
+#include "UIImage.h"
+#include "UIButton.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -40,15 +42,29 @@ UIMenu::UIMenu()
     mMaxCursorPos = 2;
 
     // Create cursor
-    mCursor = new UIElement("cursor.bmp");
+    mCursor = new UIImage("cursor.bmp");
 
     // Create button
     UIElement *tempButton;
-    for (int i=0; i<3; i++)
+    /*for (int i=0; i<3; i++)
     {
-        tempButton = new UIElement("testButton.bmp");
+        //tempButton = new UIImage("testButton.bmp");
+        tempButton = new UIButton("test Text");
         mButtons.push_back( tempButton );
-    }
+    }*/
+
+    // Status button
+    tempButton = new UIButton("Status");
+    mButtons.push_back( tempButton );
+
+    // End Turn button
+    tempButton = new UIButton("End Turn");
+    mButtons.push_back( tempButton );
+
+    // Quit Button
+    tempButton = new UIButton("Quit");
+    mButtons.push_back( tempButton );
+
 
     // Set backgound
     mElementImage = ResourceManager::GetInstance()->LoadTexture("testMenu.bmp");

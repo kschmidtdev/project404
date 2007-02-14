@@ -644,6 +644,12 @@
 			<Option target="Release" />
 			<Option target="UnitTest" />
 		</Unit>
+		<Unit filename="..\src\UI\UIText.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest" />
+		</Unit>
 		<Unit filename="..\src\UI\UITile.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
