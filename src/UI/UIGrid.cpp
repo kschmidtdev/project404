@@ -711,19 +711,19 @@ SDL_Surface* UIGrid::getClassSurface(Character* c, string group)
     {
         if (temp=="Archer")
         {
-            return ResourceManager::GetInstance()->LoadTexture("archer_party.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("archer_enemy.bmp");
         }
         else if (temp=="Knight")
         {
-            return ResourceManager::GetInstance()->LoadTexture("knight_party.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("knight_enemy.bmp");
         }
         else if (temp=="Healer")
         {
-            return ResourceManager::GetInstance()->LoadTexture("healer_party.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("healer_enemy.bmp");
         }
         else if (temp=="Mage")
         {
-            return ResourceManager::GetInstance()->LoadTexture("mage_party.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("mage_enemy.bmp");
         }
         else
         {
