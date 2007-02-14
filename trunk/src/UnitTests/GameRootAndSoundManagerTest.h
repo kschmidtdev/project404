@@ -1,48 +1,48 @@
-#ifndef __SOUNDMANAGERTEST_H
-#define __SOUNDMANAGERTEST_H
+#ifndef __GAMEROOTANDSOUNDMANAGERTEST_H
+#define __GAMEROOTANDSOUNDMANAGERTEST_H
 
 #include <cxxtest/TestSuite.h>
 
-#include <SoundManager.h>
+#include <GameRoot.h>
+#include <unistd.h>
 #include <ResourceManager/ResourceManager.h>
+#include <SoundManager.h>
 
 //
-// A test suite for the SoundManager
+// A generated test suite: Just write tests!
 //
 
-class SoundManagerTest : public CxxTest::TestSuite
+class GameRootAndSoundManagerTest : public CxxTest::TestSuite
 {
+private:
+// any variables that could be shared between tests
+    GameRoot gRoot;
+
 // Unit Tests:
 public:
-
     // These static functions are required if I need code to run once before all tests,
     // and then once after all tests.
-    static SoundManagerTest *createSuite()
+    static GameRootAndSoundManagerTest *createSuite()
     {
-        return new SoundManagerTest();
+        return new GameRootAndSoundManagerTest();
     }
-    static void destroySuite( SoundManagerTest *suite )
+    static void destroySuite( GameRootAndSoundManagerTest *suite )
     {
         delete suite;
     }
 
-    SoundManagerTest()
+    GameRootAndSoundManagerTest()
     {
-        Logger::GetInstance()->Initialize();
-        ResourceManager::GetInstance()->Initialize();
-        SoundManager::GetInstance()->Initialize();
+        gRoot.Initialize();
     }
-    virtual ~SoundManagerTest()
+    virtual ~GameRootAndSoundManagerTest()
     {
-        SoundManager::GetInstance()->StopAllPlayback();
-        ResourceManager::GetInstance()->Shutdown();
-        SoundManager::GetInstance()->Shutdown();
-        Logger::GetInstance()->Shutdown();
+        gRoot.Shutdown();
     }
 
     void testMusicPlayback()
     {
-        const char* musFileName = "testMusic.mp3";
+        const char* musFileName = "testMusic.ogg";
 
         // Cannot run this unit test without the test music file
         TS_ASSERT( access( musFileName, F_OK ) == 0 );
@@ -70,5 +70,5 @@ public:
 };
 
 
-#endif // __SOUNDMANAGERTEST_H
+#endif // __GAMEROOTANDSOUNDMANAGERTEST_H
 

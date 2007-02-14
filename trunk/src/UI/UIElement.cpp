@@ -9,6 +9,7 @@
  * Andrew Osborne, February 10, 2007 | Added documentation, removed RSM/rend references
  * Karl Schmidt, February 11 2007 | Added checks that prevent game from crashing if textures are missing
  * Andrew Osborne, February 11 2007 | Added destructor
+ * Karl Schmidt, February 13 2007 | Rearranged initializer list to prevent warning
  */
 
 #include <UIElement.h>                   // class implemented
@@ -19,7 +20,7 @@
 //============================= LIFECYCLE ====================================
 
 UIElement::UIElement(void)
-: mElementImage( NULL ), mVisible( true )
+: mVisible( true ), mElementImage( NULL )
 {
 
 

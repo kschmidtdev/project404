@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 13 2007 | Added logging when loading and unloading
  * Karl Schmidt, February 10 2007 | Full functionality implemented
  * Karl Schmidt, February 9 2007 | Initial creation, stubbed
  */
@@ -27,8 +28,9 @@ SoundResource::~SoundResource()
 
 void SoundResource::Load()
 {
-    mSndData = Mix_LoadWAV( mFileName.c_str() );
+    LogInfo( string("Loading sound: ") + mFileName );
 
+    mSndData = Mix_LoadWAV( mFileName.c_str() );
     tacAssert( mSndData );
     if( !mSndData )
     {
@@ -40,6 +42,7 @@ void SoundResource::Load()
 
 void SoundResource::Unload()
 {
+    LogInfo( string("Unloading sound file: ") + mFileName );
     tacAssert( mSndData );
     Mix_FreeChunk( mSndData );
     mSndData = NULL;

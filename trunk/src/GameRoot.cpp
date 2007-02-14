@@ -4,12 +4,14 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 13 2007 | Added config file parsing, some hardcoded value cleanup, enabled all managers
  * Karl Schmidt, February 11 2007 | Added background music implementation
  * Karl Schmidt, February 11 2007 | Initial creation of implementation
  */
 #include "GameRoot.h"                                // class implemented
 
 #include <Logger.h>
+#include <util.h>
 
 #include <SecurityManager.h>
 #include <Database/DatabaseManager.h>
@@ -21,6 +23,10 @@
 #include <GameEngine/GameEngine.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
+
+const string bgMusicFileName( "Fantastic_B1-256.ogg" );
+const string logFileName( "tacLogFile.txt" );
+const string configFileName( "config.cfg" );
 
 //============================= LIFECYCLE ====================================
 
@@ -34,6 +40,10 @@ GameRoot::GameRoot()
   mGameEngine( NULL ),
   mUIManager( NULL )
 {
+    mSettings["width"] = 640;
+    mSettings["height"] = 480;
+    mSettings["depth"] = 32;
+
 }// GameRoot
 
 GameRoot::~GameRoot()
@@ -42,11 +52,13 @@ GameRoot::~GameRoot()
 
 void GameRoot::Initialize()
 {
-    Logger* logger = Logger::GetInstance( "tacLogFile.txt" );
+    Logger* logger = Logger::GetInstance( logFileName );
     logger->Initialize();
 
+    LoadConfigFileSettings( configFileName );
+
     mRenderer = SDLRenderer::GetInstance();
-    mRenderer->Initialize( 640, 480, 32 );
+    mRenderer->Initialize( mSettings["width"], mSettings["height"], mSettings["depth"] );
 
     mResManager = ResourceManager::GetInstance();
     mResManager->Initialize();
@@ -60,9 +72,8 @@ void GameRoot::Initialize()
     mSecurityManager = SecurityManager::GetInstance();
     mSecurityManager->Initialize();
 
-// TODO: Make DatabaseManager a singleton
-//    mDatabase = DatabaseManager::GetInstance();
-//    mDatabase->Initialize();
+    mDatabase = DatabaseManager::GetInstance();
+    mDatabase->Initialize();
 
     mGameEngine = GameEngine::GetInstance();
 
@@ -77,16 +88,17 @@ void GameRoot::Shutdown()
 
     mGameEngine->Shutdown();
 
-// TODO: Make DatabaseManager a singleton
-//    mDatabase->Shutdown();
+    mDatabase->Shutdown();
 
     mSecurityManager->Shutdown();
+
+    mSoundManager->StopAllPlayback();
+
+    mResManager->Shutdown();
 
     mSoundManager->Shutdown();
 
     mInput->Shutdown();
-
-    mResManager->Shutdown();
 
     mRenderer->Shutdown();
 
@@ -95,7 +107,7 @@ void GameRoot::Shutdown()
 
 void GameRoot::GameLoop()
 {
-    Mix_Music* gameMusic = mResManager->LoadMusic( "Fantastic_B1-256.mp3" );
+    Mix_Music* gameMusic = mResManager->LoadMusic( bgMusicFileName );
     if( gameMusic )
     {
         mSoundManager->PlayMusic( gameMusic, true );
@@ -134,6 +146,46 @@ void GameRoot::GameLoop()
         mRenderer->Draw();
     }
     LogInfo( "The game has ended." );
+}
+
+void GameRoot::LoadConfigFileSettings( const string fileName )
+{
+    FILE* configFileHandle = NULL;
+    configFileHandle = fopen( fileName.c_str(), "r" );
+
+    if( configFileHandle )
+    {
+        LogInfo( "Loading values from " + fileName );
+
+        char key[32];
+        int value = 0;
+        // While we're not at the end of the file...
+        while ( !feof( configFileHandle ) )
+        {
+        	// Load in a line of text formatted like "text #" (where # is some integer)
+            fscanf( configFileHandle, "%s %i\n", key, &value );
+            if( key[0] != '#' ) // Allow for "comments" in the file
+            {
+                mSettings[string(key)] = value;
+                LogInfo( string("Loaded key: ") + string(key) + string(" with value: ") + toString(value) );
+            }
+            else // Seek to the end of the line if you find a comment
+            {
+                while( fgetc( configFileHandle ) != '\n' && !feof( configFileHandle ) )
+                {
+                    fseek( configFileHandle, 1, SEEK_CUR );
+                }
+            }
+        }
+
+        fclose( configFileHandle );
+    }
+    else
+    {
+        // We should always have config.cfg present
+        tacAssert( false );
+        LogWarning( fileName + string(" file not found, using defaults") );
+    }
 }
 
 //============================= OPERATORS ====================================

@@ -5,19 +5,37 @@
  *
  * Authors:
  * Seung Woo Han, February 7 2007 | Initial design
- * Seung Woo Han, February 11 2007 | Added LaodFromFile() function which handles XML.
+ * Seung Woo Han, February 11 2007 | Added LoadFromFile() function which handles XML.
+ * Karl Schmidt, February 13 2007 | Added code to make DatabaseManager a singleton, fixed a warning
  */
 
 #include "DatabaseManager.h"
 #include <iostream> // test
 using namespace std; // test
 
-DatabaseManager::DatabaseManager()
+DatabaseManager* DatabaseManager::_instance = 0;
+
+DatabaseManager* DatabaseManager::GetInstance()
 {
+    if( !_instance )
+    {
+        _instance = new DatabaseManager();
+    }
+    return _instance;
 }
 
 DatabaseManager::~DatabaseManager()
 {
+}
+
+void DatabaseManager::Initialize()
+{
+    // stub
+}
+
+void DatabaseManager::Shutdown()
+{
+    // stub
 }
 
 int DatabaseManager::GenerateUniqueID()
@@ -116,7 +134,6 @@ DBData* DatabaseManager::CreateAttribute( TiXmlElement* thisTag )
         DBString* newString = new DBString( GenerateUniqueID(), thisTag->Attribute( "name" ), thisTag->Attribute( "value" ) );
         return newString;
     }
-
     else if ( attributeType == "int" )
     {
         int value = 0;
@@ -124,7 +141,6 @@ DBData* DatabaseManager::CreateAttribute( TiXmlElement* thisTag )
         DBInt* newInt = new DBInt( GenerateUniqueID(), thisTag->Attribute( "name" ), value );
         return newInt;
     }
-
     else if ( attributeType == "float" )
     {
         double value = 0;
@@ -132,7 +148,6 @@ DBData* DatabaseManager::CreateAttribute( TiXmlElement* thisTag )
         DBFloat* newFloat = new DBFloat( GenerateUniqueID(), thisTag->Attribute( "name" ), value );
         return newFloat;
     }
-
     else if ( attributeType == "vector2d" )
     {
         string value( thisTag->Attribute( "value" ) );
@@ -143,14 +158,22 @@ DBData* DatabaseManager::CreateAttribute( TiXmlElement* thisTag )
 
         int XY[2] = {nX, nY};
         DBVector2D * newVector2D = new DBVector2D( GenerateUniqueID(), thisTag->Attribute( "name" ), XY );
+        return newVector2D;
     }
-
     else if ( attributeType == "colour" )
     {
+        // Not implemented yet
+        return NULL;
     }
-
     else // unknown type.
     {
         return NULL;
     }
 }
+
+// PROTECTED
+
+DatabaseManager::DatabaseManager()
+{
+}
+
