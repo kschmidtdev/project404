@@ -9,6 +9,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 13 2007 | Added joystick support
  * Karl Schmidt, February 12 2007 | Added inline function for sending events to listeners
  * Karl Schmidt, February 9 2007 | Fixed minor issues (so it could compile)
  * Karl Schmidt, February 7 2007 | Initial creation of the header
@@ -133,7 +134,9 @@ protected:
 // PROTECTED VARIABLES
     static InputManager* _instance;
     int mKeys[KEYCOUNT];
+    int mJButtons[KEYCOUNT];
     EventListenerVec mRegisteredListeners;
+    SDL_Joystick* mJoyStick;
 
 private:
 // PRIVATE VARIABLES

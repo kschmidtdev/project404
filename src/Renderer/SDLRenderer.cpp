@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 13 2007 | Added joystick init to SDL parameters
  * Karl Schmidt, February 11 2007 | Disabled the mouse cursor, added custom window title, more error/info logging
  * Karl Schmidt, February 10 2007 | Added SDL_INIT_AUDIO flag to SDL_Init
  * Karl Schmidt, February 8 2007 | Initial creation of cpp file
@@ -43,7 +44,7 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
     Renderer::Initialize( xRes, yRes, colourDepth );
 
    // initialize SDL video
-    if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO ) < 0 )
+    if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK ) < 0 )
     {
         tacAssert( false ); // Always assert if this happens
         LogCritical( string("Unable to init SDL: ") + string( SDL_GetError() ) );

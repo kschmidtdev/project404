@@ -120,6 +120,9 @@ void GameRoot::GameLoop()
                 break;
 
                 // check for keypresses
+                case SDL_JOYBUTTONDOWN:
+                case SDL_JOYBUTTONUP:
+                case SDL_JOYAXISMOTION:
                 case SDL_KEYDOWN:
                 {
                     mInput->ProcessEvent( &event );

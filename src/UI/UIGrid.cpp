@@ -9,6 +9,7 @@
  * Andrew osborne, February 11 2007 | Added Destructor and documentaton
  * Andrew Osborne, February 12 2007 | Setup characters, allowed movement, created a number of helper functions
  * Karl Schmidt, February 13 2007 | Reworked destructor, noted current bug and temporary work-around
+ * Karl Schmidt, February 13 2007 | Modified hasCharacter to return a value in all cases (fixes a warning, safer)
  */
 #include "UIGrid.h"                                // class implemented
 #include "UITile.h"
@@ -647,10 +648,14 @@ bool UIGrid::validPoint(Point p)
 bool UIGrid::hasCharacter(Point p)
 {
     int index = findIndex(p);
-    if (index!=-1)
+    if( index != -1 )
     {
         //UITile* temp =
         return mTiles[index]->hasCharacter();
+    }
+    else
+    {
+        return false;
     }
 }
 /////////////////////////////// PROTECTED  ///////////////////////////////////
