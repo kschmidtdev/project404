@@ -23,6 +23,8 @@
 // PROJECT INCLUDES
 //
 #include <UIElement.h>
+#include <UIText.h>
+#include <FuncObj.h>
 
 // LOCAL INCLUDES
 //
@@ -42,19 +44,43 @@ public:
     UIButton(void);
 
     /**
+     * Default constructor.
+	 */
+	UIButton(const string text);
+
+    /**
      * Destructor.
 	 */
     ~UIButton(void);
 
 // OPERATORS
+    /**
+     * Override Renderself to allow for text to be written as well.
+	 */
+    virtual void RenderSelf(SDL_Surface* destination);
 
 
 // OPERATIONS
 // ACCESS (writing)
+
+    /**
+     * Set position of button - automatically moves and centers text with it.
+	 */
+    virtual void setPos(Point nPos);
+
+    /**
+     * specifies operation to be performed upon pressing the button.
+	 */
+    void setOperation(FuncObj* nOperation);
+
+
 // INQUIRY (reading)
 
 protected:
 // PROTECTED VARIABLES
+    UIText mText;
+    FuncObj* mOperation;
+
 private:
 // PRIVATE VARIABLES
 };

@@ -25,11 +25,11 @@ UIElement::UIElement(void)
 
 }
 
-UIElement::UIElement( const string filename)
+/*UIElement::UIElement( const string filename)
 : mElementImage( NULL ), mVisible( true )
 {
     mElementImage = ResourceManager::GetInstance()->LoadTexture(filename);
-}
+}*/
 
 
 UIElement::~UIElement(void)
@@ -80,6 +80,14 @@ bool UIElement::getVisible(void)
 }
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////
+
+//============================= INQUIRY    ===================================
+
+SDL_Surface* UIElement::getElement(void)
+{
+    return mElementImage;
+}
+
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
 

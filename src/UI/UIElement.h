@@ -50,7 +50,7 @@ public:
     /**
      * constructor involving loading bitmap file for image
 	 */
-    UIElement(const string filename);
+    //UIElement(const string filename);
 
     /**
      * Destructor.
@@ -101,6 +101,13 @@ public:
      */
     Point getPos(void);
 
+    /**
+     * Method to examine element image
+     *
+     * @return boolean value true=visible, false=invisible
+     *
+     */
+    SDL_Surface* getElement(void);
 
 protected:
 // PROTECTED VARIABLES

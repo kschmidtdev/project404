@@ -120,6 +120,7 @@ UIGrid::~UIGrid()
             delete *i;
         }
     }
+
 }// ~UIGrid
 
 
@@ -248,10 +249,12 @@ void UIGrid::confirmFunction(Point p)
 
             // Attempt to select character
             // ------------------------------------------
+            printf("I'm just before onSelect\n");
             tempChar = mLevel->OnSelect(p);
 
             // Step 1 - check to see if selected character
             // ===============
+            printf("I'm just before check\n");
             if (tempChar==NULL) {
                 // Unsuccessful, do nothing
                 printf("not a character\n");

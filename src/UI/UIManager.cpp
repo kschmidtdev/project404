@@ -81,24 +81,28 @@ void UIManager::Initialize(void)
 void UIManager::Shutdown(void)
 {
 
+    LogInfo( "The UIManager shutdown has started" );
     // Delete all the objects withing UIManager
 
     // At the moment I'm not using the UIManager master list, but I'll change this if I am
-    std::list<UILayout*>::iterator iter;
+    UILayoutItr iter;
 
-    for (iter = mCurrentLayoutList.begin();
-            iter!=mCurrentLayoutList.end(); iter++)
+    for (iter = mLayoutMasterList.begin();
+            iter!=mLayoutMasterList.end(); iter++)
     {
         if( *iter )
         {
             delete (*iter);
         }
     }
+
+    mCurrentLayoutList.clear();
     mCurLayout = NULL;
 
     // Delete this instance
     delete _instance;
     _instance = NULL;
+
     LogInfo( "The UIManager has been shut down successfully." );
 
 }
