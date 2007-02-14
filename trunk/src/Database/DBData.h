@@ -32,7 +32,6 @@ public:
     virtual string GetType() { return "DBBase"; }
     string GetName() { return mName; }
 
-
 protected:
 
 private:

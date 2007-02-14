@@ -4,7 +4,7 @@
 	<Project>
 		<Option title="Project404" />
 		<Option pch_mode="2" />
-		<Option default_target="" />
+		<Option default_target="Debug" />
 		<Option compiler="gcc" />
 		<Option virtualFolders="" />
 		<Build>
@@ -111,6 +111,20 @@
 			<Option target="UnitTest" />
 		</Unit>
 		<Unit filename="..\src\Database\DBData.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\Database\DBEngine.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\Database\DBEngine.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
