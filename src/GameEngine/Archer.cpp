@@ -37,7 +37,7 @@ Archer::Archer()
 Archer::Archer(string name, int level, WeaponItem* weapon, ArmorItem* armor)
 {
     mName = name;
-    mLevel = level;
+    mLevel = 1;
     mWeapon = weapon;
     mArmor = armor;
     mMaxHP = 15;
@@ -58,7 +58,7 @@ Archer::Archer(string name, int level, WeaponItem* weapon, ArmorItem* armor)
     {
         mAttributes[DEF] = mAttributes[DEF] + armor->GetAttr();
     }
-    for(int i = 0; i < level; i++)
+    for(int i = 1; i < level; i++)
     {
         LevelUp();
     }

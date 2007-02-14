@@ -9,6 +9,8 @@
  */
 
 #include "DBNode.h"
+#include <iostream>
+using namespace std;
 
 DBNode::DBNode(const int uniqueID, const string& name)
 : DBBase(uniqueID), mName(name), mParent(NULL)
@@ -34,6 +36,57 @@ DBNode::~DBNode()
 {
 }
 
+DBNode* DBNode::GetFirstChild()
+{
+    mChildrenIter = mChildren.begin();
+    return *mChildrenIter;
+}
+
+DBNode* DBNode::GetNextChild()
+{
+    if ( mChildrenIter != mChildren.end() )
+    {
+        mChildrenIter++;
+        return *mChildrenIter;
+    }
+
+    else
+    {
+        return NULL;
+    }
+}
+
+DBNode* DBNode::GetChild(const string& name)
+{
+    vector<DBNode*>::iterator Iter;
+    for ( Iter = mChildren.begin(); Iter != mChildren.end(); Iter++)
+    {
+        if ( (*Iter)->GetName() == name ) return *Iter;
+    }
+
+    return NULL; // no matching entry.
+}
+
+DBData* DBNode::GetFirstAttribute()
+{
+    mAttributesIter = mAttributes.begin();
+    return *mAttributesIter;
+}
+
+DBData* DBNode::GetNextAttribute()
+{
+    if ( mAttributesIter != mAttributes.end() )
+    {
+        mAttributesIter++;
+        return *mAttributesIter;
+    }
+
+    else
+    {
+        return NULL;
+    }
+}
+
 DBData* DBNode::GetAttribute(const string& name)
 {
     vector<DBData*>::iterator Iter;
@@ -47,6 +100,16 @@ DBData* DBNode::GetAttribute(const string& name)
 
 void DBNode::CheckDataType(const string& type) {
 
+
+}
+
+void DBNode::TestFunc()
+{
+    vector<DBNode*>::iterator Iter;
+    for ( Iter = mChildren.begin(); Iter != mChildren.end(); Iter++)
+    {
+        cout << (*Iter)->GetName() << endl;
+    }
 
 }
 

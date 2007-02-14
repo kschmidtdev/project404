@@ -50,11 +50,10 @@ public:
     void Shutdown();
 
     int GenerateUniqueID();
-    vector<DBNode*> Search(const string& key);
-    bool LoadFromFile(string& filename);
+    bool LoadFromFile(const string& filename);
     void SaveToFile();
     DBNode* GetRootNode() { return mRootNode; }
-    DBNode* Search(string& name);
+    DBNode* Search(const string& name);
 
 protected:
     // PROTECTED METHODS

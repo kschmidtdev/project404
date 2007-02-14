@@ -44,19 +44,21 @@ public:
     string GetName() { return mName; }
     DBNode* GetParent() { return mParent; } // *** How do I make sure that returned value (mParent) is not changing anywhere?
 
-    vector<DBNode*>::iterator GetFirstChild() { return mChildren.begin(); }
-    vector<DBNode*>::iterator GetEndChild() { return mChildren.end(); }
-    vector<DBData*>::iterator GetFirstAttribute() { return mAttributes.begin(); }
-    vector<DBData*>::iterator GetEndAttribute() { return mAttributes.end(); }
+    DBNode* GetFirstChild();
+    DBNode* GetNextChild();
+    DBNode* GetChild(const string& name); // return the specific child in the child vector.
 
-    vector<DBNode*>* GetChildren() { return &mChildren; }
-
+    DBData* GetFirstAttribute();
+    DBData* GetNextAttribute();
     DBData* GetAttribute(const string& name); // return the specific attribute in the attribute vector.
+
     void SetParent(DBNode* parent) { mParent = parent; }
     void AddChild(DBNode * child) { mChildren.push_back(child); }
     void AddAttribute(DBData* attribute) { mAttributes.push_back(attribute); }
 
     void CheckDataType(const string& type); // Determine what type of the data it is : DBInt, DBFloat, DBString, and etc.
+
+    void TestFunc();
 
 protected:
 
@@ -66,6 +68,9 @@ private:
     DBNode* mParent;
     vector<DBNode*> mChildren;
     vector<DBData*> mAttributes;
+
+    vector<DBNode*>::iterator mChildrenIter;
+    vector<DBData*>::iterator mAttributesIter;
 
 };
 

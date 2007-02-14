@@ -45,7 +45,7 @@ int DatabaseManager::GenerateUniqueID()
     return uniqueID;
 }
 
-bool DatabaseManager::LoadFromFile(string& filename)
+bool DatabaseManager::LoadFromFile(const string& filename)
 {
     TiXmlDocument Document( filename );
 	bool loadOkay = Document.LoadFile();
@@ -68,7 +68,7 @@ bool DatabaseManager::LoadFromFile(string& filename)
     }
 }
 
-DBNode* DatabaseManager::Search( string& name )
+DBNode* DatabaseManager::Search(const string& name)
 {
     vector<DBNode*>::iterator Iter;
     for ( Iter = mSearchList.begin(); Iter != mSearchList.end(); Iter++ )
