@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 13 2007 | Added joystick support
  * Karl Schmidt, February 12 2007 | Added corner direction event sending changes
  * Karl Schmidt, February 9 2007 | Initial creation, all functions stubbed
  */
@@ -11,8 +12,12 @@
 
 #include "EventListener.h"
 #include "Logger.h"
+#include <util.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
+
+// Axis movement values aren't exactly 0 when the directional pad 'moves back to the center'
+const int JOY_MOVEMENT_DAMPENING = 1000;
 
 //============================= LIFECYCLE ====================================
 
@@ -34,12 +39,36 @@ InputManager::~InputManager(void)
 
 void InputManager::Initialize()
 {
+    if( SDL_NumJoysticks() > 0 )
+    {
+        // Open joystick
+        mJoyStick = SDL_JoystickOpen(0);
+        tacAssert( mJoyStick );
+    }
+    if( mJoyStick )
+    {
+        LogInfo( string("Opened Joystick 0: Name: ") + toString(SDL_JoystickName( 0 )) +
+                 string(" Number of Axes: ") + toString(SDL_JoystickNumAxes( mJoyStick )) +
+                 string(" Number of Buttons: ") + toString(SDL_JoystickNumButtons( mJoyStick )) +
+                 string(" Number of Balls: ") + toString(SDL_JoystickNumBalls( mJoyStick )) );
+    }
+    else
+    {
+        LogInfo( "No joystick found." );
+    }
+
     SetupKeyBindings();
     LogInfo( "The InputManager has been initialized successfully." );
 }
 
 void InputManager::Shutdown()
 {
+    if( SDL_JoystickOpened(0) && mJoyStick )
+    {
+        SDL_JoystickClose( mJoyStick );
+        mJoyStick = NULL;
+    }
+
     delete _instance;
     _instance = NULL;
     LogInfo( "The InputManager has been shut down successfully." );
@@ -68,14 +97,58 @@ void InputManager::RemoveEventListener( EventListener* toRemove )
 
 void InputManager::ProcessEvent( const SDL_Event* evt )
 {
-    // translate SDLEvent into appropriate key
     int foundBoundKey = -1;
+
+    // translate Keyboard SDLEvent into appropriate key
     for( int i( 0 ); i < KEYCOUNT; ++i )
     {
         if( mKeys[i] == evt->key.keysym.sym )
         {
             foundBoundKey = i;
             break;
+        }
+    }
+
+    // If there is a joystick, translate it's events
+    if( mJoyStick )
+    {
+        // For directional movement (dampened because movement to the center
+        // is not 0
+        if( evt->jaxis.type == SDL_JOYAXISMOTION )
+        {
+            if( evt->jaxis.axis == 0 ) // X axis
+            {
+                if( evt->jaxis.value < -JOY_MOVEMENT_DAMPENING )
+                {
+                    foundBoundKey = LEFT;
+                }
+                else if( evt->jaxis.value > JOY_MOVEMENT_DAMPENING )
+                {
+                    foundBoundKey = RIGHT;
+                }
+            }
+            else if( evt->jaxis.axis == 1 ) // Y axis
+            {
+                if( evt->jaxis.value < -JOY_MOVEMENT_DAMPENING )
+                {
+                    foundBoundKey = UP;
+                }
+                else if( evt->jaxis.value > JOY_MOVEMENT_DAMPENING )
+                {
+                    foundBoundKey = DOWN;
+                }
+            }
+        }
+        else if( evt->jbutton.type == SDL_JOYBUTTONUP ) // Button presses
+        {
+            for( int i( 0 ); i < KEYCOUNT; ++i )
+            {
+                if( mJButtons[i] == evt->jbutton.button )
+                {
+                    foundBoundKey = i;
+                    break;
+                }
+            }
         }
     }
 
@@ -115,10 +188,12 @@ void InputManager::ProcessEvent( const SDL_Event* evt )
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 InputManager::InputManager(void)
+: mJoyStick( NULL )
 {
     for( int i( 0 ); i < KEYCOUNT; ++i )
     {
         mKeys[i] = 0;
+        mJButtons[i] = -1; // 0 is a valid button value for joystick buttons
     }
 }
 
@@ -139,6 +214,12 @@ void InputManager::SetupKeyBindings()
     mKeys[CONFIRM] = SDLK_RETURN;
     mKeys[CANCEL] = SDLK_BACKSPACE;
     mKeys[MENU] = SDLK_m;
+
+    mJButtons[START] = 9;
+    mJButtons[SELECT] = 8;
+    mJButtons[CONFIRM] = 2;
+    mJButtons[CANCEL] = 1;
+    mJButtons[MENU] = 3;
 }
 
 void InputManager::SendEventToListeners( const INPUTKEYS evt )
