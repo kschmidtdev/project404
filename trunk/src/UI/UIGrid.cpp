@@ -10,6 +10,7 @@
  * Andrew Osborne, February 12 2007 | Setup characters, allowed movement, created a number of helper functions
  * Karl Schmidt, February 13 2007 | Reworked destructor, noted current bug and temporary work-around
  * Karl Schmidt, February 13 2007 | Modified hasCharacter to return a value in all cases (fixes a warning, safer)
+ * Mike Malyuk,  February 14 2007 | Modified pretty much everything. Stopped newing of tiles, waste of space.
  */
 #include "UIGrid.h"                                // class implemented
 #include "UITile.h"
@@ -44,15 +45,15 @@ UIGrid::UIGrid()
     int startYoffset = mTileStart.GetY();
     mTotalTileOffset = mTileOffset + mTileWidth;
 
-    UITile *temp;
+    UITile temp;
 
     for (i=0; i<mNumColumns; i++)
     {
         //tiles[i] = new UITile[mNumRows];
         for (j=0; j<mNumRows; j++)
         {
-            temp = new UITile();
-            temp->setPos( Point(startXoffset + i*(mTotalTileOffset), startYoffset + j*(mTotalTileOffset) ) );
+            temp = UITile();
+            temp.setPos( Point(startXoffset + i*(mTotalTileOffset), startYoffset + j*(mTotalTileOffset) ) );
             //tiles[i][j] = temp;
             mTiles.push_back( temp );
         }
@@ -79,13 +80,13 @@ UIGrid::UIGrid()
 UIGrid::~UIGrid()
 {
     // Release Tiles
-    for( UITileItr i = mTiles.begin(); i != mTiles.end(); ++i )
+    /*for( UITileItr i = mTiles.begin(); i != mTiles.end(); ++i )
     {
         if( *i )
         {
             delete *i;
         }
-    }
+    }*/
 
     if( mCursor )
     {
@@ -94,7 +95,7 @@ UIGrid::~UIGrid()
     }
 
     // Move Range
-    for( UIImageItr i = mImageMoveRange.begin(); i != mImageMoveRange.end(); ++i )
+    /*for( UIImageItr i = mImageMoveRange.begin(); i != mImageMoveRange.end(); ++i )
     {
         if( *i )
         {
@@ -110,16 +111,16 @@ UIGrid::~UIGrid()
             }
             delete *i;
         }
-    }
+    }*/
 
     // Attack Range
-    for( UIImageItr i = mImageAttackRange.begin(); i != mImageAttackRange.end(); ++i )
+    /*for( UIImageItr i = mImageAttackRange.begin(); i != mImageAttackRange.end(); ++i )
     {
         if( *i )
         {
             delete *i;
         }
-    }
+    }*/
 
 }// ~UIGrid
 
@@ -140,7 +141,7 @@ void UIGrid::RenderSelf(SDL_Surface* destination)
 
     // Moveable/Attackable Ranges are rendered first
     int curState = mLevel->ReturnState();
-    std::vector<UIImage*>::iterator iIter;
+    std::vector<UIImage>::iterator iIter;
 
     if (curState==1)
     {
@@ -148,7 +149,7 @@ void UIGrid::RenderSelf(SDL_Surface* destination)
         iIter = mImageMoveRange.begin();
         while (iIter!=mImageMoveRange.end())
         {
-            (*iIter)->RenderSelf(destination);
+            (*iIter).RenderSelf(destination);
             iIter++;
         }
     }
@@ -158,7 +159,7 @@ void UIGrid::RenderSelf(SDL_Surface* destination)
         iIter = mImageAttackRange.begin();
         while (iIter!=mImageAttackRange.end())
         {
-            (*iIter)->RenderSelf(destination);
+            (*iIter).RenderSelf(destination);
             iIter++;
         }
     }
@@ -172,7 +173,7 @@ void UIGrid::RenderSelf(SDL_Surface* destination)
     for (iter = mTiles.begin();
             iter!=mTiles.end(); iter++)
     {
-        (*iter)->RenderSelf(destination);
+        (*iter).RenderSelf(destination);
     }
 
 
@@ -249,33 +250,36 @@ void UIGrid::confirmFunction(Point p)
 
             // Attempt to select character
             // ------------------------------------------
-            //printf("I'm just before onSelect\n");
+            printf("I'm just before onSelect\n");
             tempChar = mLevel->OnSelect(p);
 
             // Step 1 - check to see if selected character
             // ===============
-            //printf("I'm just before check\n");
+            printf("I'm just before check\n");
             if (tempChar==NULL) {
                 // Unsuccessful, do nothing
-                //printf("not a character\n");
+                printf("not a character\n");
             } else {
 
                 // Step 2 - select Character
                 // =============
                 mCurCharacter = tempChar;
-                //printf("character selected\n");
+                printf("character selected\n");
 
                 // Step 3 - prepare screen/UI for moveable range
                 // ==============
 
-                mMoveRange = mLevel->GetMoveArea();
-                mMoveRange = RefineMoveRange(mMoveRange);
-                AddMoveableRange(mMoveRange);
+                //mMoveRange = mLevel->GetMoveArea();
+                //mMoveRange = refineMoveArea(mMoveRange);
+                //addMoveableRange(moveArea);
 
                 // Successful, display move range
-                //vector<Point> moveArea = mLevel->GetMoveArea();
-                //AddMoveableRange( moveArea );
-                //mMoveRange = moveArea;
+                ClearMoveableRange();
+                ClearAttackRange();
+
+                vector<Point> moveArea = mLevel->GetMoveArea();
+                AddMoveableRange( moveArea );
+                mMoveRange = moveArea;
             }
             break;
         case 1:
@@ -299,6 +303,10 @@ void UIGrid::confirmFunction(Point p)
             if (p==mCurCharacter->GetPoint()) {
 
                 mLevel->OnSelect(p);
+                ClearMoveableRange();
+                ClearAttackRange();
+                AddAttackRange( mLevel->GetAttackArea() );
+
 
             } else {
 
@@ -327,31 +335,21 @@ void UIGrid::confirmFunction(Point p)
                     mCurCharacter->Move(old);
                     mLevel->OnSelect(p);
                     ClearMoveableRange();
-                    //printf("curState after move:%d\n", mLevel->ReturnState());
+                    printf("curState after move:%d\n", mLevel->ReturnState());
 
-                    curState = mLevel->ReturnState();
-                    if ( (curState==0) && (mLevel->AllExhaustedParty()) )
-                    {
-                        mLevel->TakeTurn();
-                    }
-                    else if (curState==0)
-                    {
-                        // Do nothing - no attack
-                    }
-                    else
-                    {
-                        // Prep screen for attack
-                        AddAttackRange( mLevel->GetAttackArea() );
-                    }
-
-
+                    // Prep screen for attack
+                    ClearAttackRange();
+                    AddAttackRange( mLevel->GetAttackArea() );
 
                 } else {
                     // do nothing
                     // maybe display message later....
                 }
             }
-
+            if(mLevel->AllExhaustedParty())
+            {
+                mLevel->TakeTurn();
+            }
             break;
 
         case 2:
@@ -369,7 +367,7 @@ void UIGrid::confirmFunction(Point p)
             // Step 5 - Initialize next turn
 
             // check to see if attack-range is valid
-            if ( validAction ) {
+            /*if ( validAction ) {
                 // remove icon from old spot
                 removeCharacter( mCurCharacter->GetPoint() );
 
@@ -380,16 +378,33 @@ void UIGrid::confirmFunction(Point p)
             } else {
                 // do nothing
                 // maybe display message later....
+            }*/
+            // now check if person is there
+            mLevel->OnSelect(p);
+            Character* enemy = mLevel->PointHasPerson(p);
+            if(enemy != NULL && mCurCharacter != NULL && mCurCharacter->GetPoint() != p)
+            {
+                removeCharacter(p);
             }
 
-            // now check if person is there
-            Character* target = mLevel->OnSelect(p);
-            if ( (validAction) && (target!=NULL) )
+
+            //keep game running
+            if(mLevel->AllExhaustedParty())
+            {
+                mLevel->TakeTurn();
+            }
+            ClearAttackRange();
+            if(enemy == NULL)
+            {
+                AddAttackRange( mLevel->GetAttackArea() );
+            }
+
+            /*if ( (validAction) && (target!=NULL) )
             {
 
                 // no
 
-            }
+            }*/
 
             // Check for end game
 
@@ -408,8 +423,7 @@ void UIGrid::addCharacter( Character *c)
     {
         int index = findIndex( p.GetX(), p.GetY() );
         //printf("index: %d, maxSize: %d\n", index, mTiles.size());
-        UITile* temp = mTiles[index];
-        temp->addCharacter( getClassSurface(c) );
+         mTiles[index].addCharacter( getClassSurface(c) );
     }
 }
 
@@ -421,8 +435,7 @@ void UIGrid::removeCharacter(Point p) {
     if ( validPoint(p) )
     {
         int index = findIndex( x, y );
-        UITile* temp = mTiles[index];
-        temp->removeCharacter();
+        mTiles[index].removeCharacter();
     }
 }
 
@@ -502,76 +515,50 @@ void UIGrid::AddRange( vector<Point> pointRange, vector<UIImage*> elementRange)
 
 void UIGrid::ClearMoveableRange(void) {
 
-    std::vector<UIImage*>::iterator iter;
-
-    iter = mImageMoveRange.begin();
-
-    while (iter!=mImageMoveRange.end()) {
-        (*iter)->setVisible( false );
-        iter++;
-    }
-
+    mImageMoveRange.clear();
 }
 
 
 void UIGrid::ClearAttackRange(void) {
 
-    std::vector<UIImage*>::iterator iter;
-
-    iter = mImageAttackRange.begin();
-
-    while (iter!=mImageAttackRange.end()) {
-        (*iter)->setVisible( false );
-        iter++;
-    }
+    mImageAttackRange.clear();
 
 }
 
 void UIGrid::AddAttackRange(vector<Point> attackRange)
 {
-    //AddRange( moveRange, mImageAttackRange);
+        for (vector<Point>::iterator i=attackRange.begin(); i!=attackRange.end(); i++)
+            if(validPoint((*i)))
+            {
+                mImageAttackRange.push_back( UIImage("yellowCursor.bmp") );
+            }
 
-    int numOfNeededRangeSquares = attackRange.size();
-    int numOfCurrentRangeSqaures = mImageAttackRange.size();
-    int i;
-    printf("needed: %d, current: %d\n", numOfNeededRangeSquares, numOfCurrentRangeSqaures);
-
-    // If more new Blue tiles/cursors are needed more are created
-    if (numOfNeededRangeSquares>numOfCurrentRangeSqaures) {
-        // Need more squares
-        int newSquares = numOfNeededRangeSquares - numOfCurrentRangeSqaures;
-        for (i=0; i<newSquares; i++)
-            mImageAttackRange.push_back( new UIImage("yellowCursor.bmp") );
-
-    }
 
     std::vector<Point>::iterator pointIter;
-    std::vector<UIImage*>::iterator elementIter;
+    std::vector<UIImage>::iterator elementIter;
     Point cursorPos;
     Point gridPoint;
+    Point charPoint;
+    if (mCurCharacter!=NULL)
+    {
+         charPoint = mCurCharacter->GetPoint();
+    }
 
-    pointIter = attackRange.begin();
     elementIter = mImageAttackRange.begin();
 
-    for (i=0; i<numOfNeededRangeSquares; i++)
+    for (vector<Point>::iterator i=attackRange.begin(); i!=attackRange.end(); i++)
     {
-        gridPoint = (*pointIter);
-        if (validPoint(gridPoint))
+        gridPoint = (*i);
+        printf("grid point: %d, %d\n", gridPoint.GetX(), gridPoint.GetY() );
+        if ( (validPoint(gridPoint)))
         {
             cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
-            (*elementIter)->setPos( cursorPos );
-            (*elementIter)->setVisible( true );
+            (*elementIter).setPos( cursorPos );
+            (*elementIter).setVisible( true );
             elementIter++;
         }
-        pointIter++;
     }
-
-    // for remainder of unused elements, set invisible
-    while (elementIter!=mImageAttackRange.end())
-    {
-        (*elementIter)->setVisible( false );
-        elementIter++;
-    }
+    cout<< mImageAttackRange.size() << endl;
 
 }
 
@@ -581,22 +568,17 @@ void UIGrid::AddMoveableRange(vector<Point> moveRange)
 
     //AddRange( moveRange, mImageMoveRange);
 
-    int numOfNeededRangeSquares = moveRange.size();
-    int numOfCurrentRangeSqaures = mImageMoveRange.size();
-    int i;
-    //printf("needed: %d, current: %d\n", numOfNeededRangeSquares, numOfCurrentRangeSqaures);
-
     // If more new Blue tiles/cursors are needed more are created
-    if (numOfNeededRangeSquares>numOfCurrentRangeSqaures) {
-        // Need more squares
-        int newSquares = numOfNeededRangeSquares - numOfCurrentRangeSqaures;
-        for (i=0; i<newSquares; i++)
-            mImageMoveRange.push_back( new UIImage("blueCursor.bmp") );
 
-    }
+        for (vector<Point>::iterator i=moveRange.begin(); i!=moveRange.end(); i++)
+            if(validPoint((*i)))
+            {
+                mImageMoveRange.push_back( UIImage("blueCursor.bmp") );
+            }
+
 
     std::vector<Point>::iterator pointIter;
-    std::vector<UIImage*>::iterator elementIter;
+    std::vector<UIImage>::iterator elementIter;
     Point cursorPos;
     Point gridPoint;
     Point charPoint;
@@ -605,40 +587,27 @@ void UIGrid::AddMoveableRange(vector<Point> moveRange)
          charPoint = mCurCharacter->GetPoint();
     }
 
-    pointIter = moveRange.begin();
     elementIter = mImageMoveRange.begin();
 
-    for (i=0; i<numOfNeededRangeSquares; i++)
+    for (vector<Point>::iterator i=moveRange.begin(); i!=moveRange.end(); i++)
     {
-        gridPoint = (*pointIter);
-        //printf("grid point: %d, %d\n", gridPoint.GetX(), gridPoint.GetY() );
-        //if ( (validPoint(gridPoint)) && ( (!hasCharacter(gridPoint)) || (gridPoint==charPoint) ) )
-        //{
+        gridPoint = (*i);
+        printf("grid point: %d, %d\n", gridPoint.GetX(), gridPoint.GetY() );
+        if ( (validPoint(gridPoint)) && ( (!hasCharacter(gridPoint)) || (gridPoint==charPoint) ) )
+        {
             cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
-            (*elementIter)->setPos( cursorPos );
-            (*elementIter)->setVisible( true );
+            (*elementIter).setPos( cursorPos );
+            (*elementIter).setVisible( true );
             elementIter++;
-        //}
-        pointIter++;
+        }
     }
 
-    //printf("I've made it past implementing the move squares\n");
-
-    // for remainder of unused elements, set invisible
-    int test =0;
-    bool bTest;
-    while (elementIter!=mImageMoveRange.end())
-    {
-        //printf("makes it invisible\n");
-        (*elementIter)->setVisible( false ); // This function isn't working for some reason....
-        //bTest = (*elementIter)->getVisible();
-        //if (bTest == true)
-            //test = 1;
-        //printf("Visible?: %d\n", test );
-        elementIter++;
-    }
+    printf("I've made it past implementing the move squares\n");
 
 }
+
+
+
 
 //============================= ACCESS     ===================================
 
@@ -668,7 +637,7 @@ bool UIGrid::hasCharacter(Point p)
     if( index != -1 )
     {
         //UITile* temp =
-        return mTiles[index]->hasCharacter();
+        return mTiles[index].hasCharacter();
     }
     else
     {
@@ -741,7 +710,5 @@ vector<Point> UIGrid::RefineMoveRange( vector<Point> moveRange)
     return finalVtr;
 
 }
-
-
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

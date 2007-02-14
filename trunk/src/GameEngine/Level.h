@@ -17,6 +17,7 @@
  *                                 Added GetTurn, Changed variables with <Point*> to <Point>
  * Mike Malyuk, February 12 2007 | Added getters for UI.
  * Andrew Osborne, February 12 2007 | Added mDefaultConstructor to proplerly delete items after creation
+ * Mike Malyuk, February 14, 2007 | Added function PointHasPerson to return enemy state,
  */
 
 #ifndef Level_h
@@ -126,6 +127,11 @@ enum charState
      * Checks if party is exhausted, if true, it will automatically switch turns
      */
     bool AllExhaustedParty();
+
+    /**
+     * Checks if pooint has person, return person if it does;
+     */
+    Character* PointHasPerson(Point p);
 protected:
 // PROTECTED VARIABLES
     charState mState;
