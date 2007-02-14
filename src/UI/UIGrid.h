@@ -13,6 +13,7 @@
  * Andrew Osborne, February 11 2007, Initial Creation
  * Karl Schmidt, February 13 2007, Added typedefs instead of lots of vector<Type>
  * Mike Malyuk, February 14, 2007, Was confused by typedefs, regardless moved everything away from pointers.
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  */
 
 #ifndef UIGrid_h
@@ -42,6 +43,8 @@ typedef vector<UITile> UITileVec;
 typedef UITileVec::iterator UITileItr;
 typedef vector<UIImage> UIImageVec;
 typedef UIImageVec::iterator UIImageItr;
+typedef vector<UIImage*> UIImagePtrVec;
+typedef UIImagePtrVec::iterator UIImagePtrItr;
 typedef vector<Point> PointVec;
 typedef PointVec::iterator PointItr;
 
@@ -86,12 +89,12 @@ public:
     /**
      * Removes character element from grid.
 	 */
-    virtual void removeCharacter(Point p);
+    virtual void RemoveCharacter( const Point & p );
 
     /**
      * Used for displaying the range of motion for a particular player
      */
-    void AddMoveableRange( vector<Point> moveableSpots);
+    void AddMoveableRange( PointVec moveableSpots);
 
     /**
      *  Clears the points which make up
@@ -101,7 +104,7 @@ public:
     /**
      * Used for displaying an attacking range of motion
      */
-    void AddAttackRange( vector<Point> attackableSpots);
+    void AddAttackRange( PointVec attackableSpots);
 
     /**
      * Clear the attack range that appears
@@ -111,12 +114,12 @@ public:
     /**
      * Generic Function used for adding movement/attack range
      */
-    void AddRange( vector<Point> pointRange, vector<UIImage*> elementRange);
+    void AddRange( const PointVec & pointRange, const UIImagePtrVec & elementRange);
 
     /**
      * Clear the attack range that appears
      */
-    void ClearRange( vector<UIImage*> elements );
+    void ClearRange( const UIImagePtrVec & elements );
 
 
 // ACCESS (writing)
@@ -124,19 +127,19 @@ public:
     /**
      * Allows BattleLayout to pass handle for level communication
      */
-    void setLevel(Level* l);
+    void SetLevel( Level* level );
 
 // INQUIRY (reading)
 
     /**
      * Check to see if point is 'valid' point on grid
      */
-    bool validPoint(Point p);
+    bool ValidPoint( const Point & p );
 
     /**
      *
      */
-    bool hasCharacter(Point p);
+    bool HasCharacter( const Point & p );
 
 protected:
 // PROTECTED VARIABLES
@@ -161,8 +164,8 @@ protected:
     // Gameplay-Character Movement/Attack variables
 
     // Gameplay elements
-    vector<Point> mMoveRange;
-    vector<Point> mAttackRange;
+    PointVec mMoveRange;
+    PointVec mAttackRange;
     Character* mCurCharacter;
 
     // Display/UI elements
@@ -176,11 +179,13 @@ protected:
     //GameEngine* mGameEngine;
 
 // PROTECTED METHODS
-    int findIndex(int x, int y);
-    int findIndex(Point p);
-    void confirmFunction(Point p);
-    SDL_Surface* getClassSurface(Character* c, string group);
-    Point gridToAbsoluteCoordinates(Point p);
+
+// TODO: These need correct commenting
+    int FindIndex( const int x, const int y );
+    int FindIndex( const Point & p );
+    void ConfirmFunction( const Point & p );
+    SDL_Surface* GetClassSurface( Character* c, const string group );
+    Point GridToAbsoluteCoordinates( const Point & p );
 
     /**
      * Refines point vector to ensure all points are valid and don't contain points that have other characters
@@ -188,7 +193,7 @@ protected:
      *
      *@return refined point vector
      */
-    vector<Point> RefineMoveRange( vector<Point> moveRange);
+    PointVec RefineMoveRange( PointVec moveRange);
 
 
 private:

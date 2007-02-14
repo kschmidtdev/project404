@@ -11,6 +11,7 @@
  *
  * Authors:
  * Andrew Osborne, February 10 2007 | Initial Crude Creation
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs
  */
 
 #ifndef UIBattleScreenLayout_h
@@ -32,6 +33,9 @@
 
 // FORWARD REFERENCES
 //
+
+typedef vector<Character*> CharacterPtrVec;
+typedef CharacterPtrVec::iterator CharacterPtrItr;
 
 
 class UIBattleScreenLayout : public UILayout
@@ -60,7 +64,7 @@ public:
     /**
      * Overriding OnLoad function to allow for additional communication.
 	 */
-	virtual void onLoad( void );
+	virtual void OnLoad( void );
 
 // ACCESS (writing)
 
@@ -80,7 +84,7 @@ public:
     /**
      * allows access to currently loaded level (for elements UIGrid and UIMenu)
      */
-    Level* getLevel(void);
+    Level* GetLevel(void);
 
 protected:
 // PROTECTED VARIABLES

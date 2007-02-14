@@ -5,6 +5,7 @@
  *
  * Authors:
  * Andrew Osborne, February 11 2007 | Initial Creation
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs
  */
 #include "UIButton.h"                                // class implemented
 
@@ -14,11 +15,13 @@
 //============================= LIFECYCLE ====================================
 
 UIButton::UIButton()
+: mText(""), mOperation(NULL)
 {
     mElementImage = ResourceManager::GetInstance()->LoadTexture("testButton.bmp");
 }// UIButton
 
 UIButton::UIButton(const string text)
+: mOperation( NULL )
 {
     mText.ChangeText(text);
     mElementImage = ResourceManager::GetInstance()->LoadTexture("testButton.bmp");
@@ -47,12 +50,12 @@ void UIButton::RenderSelf(SDL_Surface* destination)
 
 //============================= ACCESS     ===================================
 
-void UIButton::setPos(Point nPos)
+void UIButton::SetPos( const Point & nPos )
 {
     mPos = nPos;
     int textWidth, textHeight;
     int buttonWidth, buttonHeight;
-    SDL_Surface *textSurface = mText.getElement();
+    SDL_Surface *textSurface = mText.GetElement();
     textWidth = textSurface->w;
     textHeight = textSurface->h;
     buttonWidth = mElementImage->w;
@@ -63,11 +66,11 @@ void UIButton::setPos(Point nPos)
     yOffset = (int) (buttonHeight - textHeight) / 2;
     Point nPos2( xOffset, yOffset);
     nPos2 = nPos2 + nPos;
-    mText.setPos(nPos2);
+    mText.SetPos(nPos2);
 
 }
 
-void UIButton::setOperation(FuncObj* nOperation)
+void UIButton::SetOperation( FuncObj* nOperation)
 {
     mOperation = nOperation;
 }

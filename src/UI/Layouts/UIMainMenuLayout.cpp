@@ -19,7 +19,7 @@ UIMainMenuLayout::UIMainMenuLayout()
     mName = "MainMenu";
 
     UIMenu *temp = new UIMenu();
-    temp->setPos( Point(100,100) );
+    temp->SetPos( Point(100,100) );
     mDefaultEventListener = temp;
     mElements.push_back(temp);
 

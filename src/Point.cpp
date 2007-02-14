@@ -8,6 +8,7 @@
  * Andrew Osborne, February 8, 2007 | Added default construct
  * Mike Malyuk,    February 9, 2007 | Added comparison operator
  * Andrew Osborne, February 10 2007 | added Set(x,y) function
+ * Karl Schmidt,   February 14 2007 | Added consts
  */
 
 #include "Point.h"                                // class implemented
@@ -22,7 +23,9 @@ Point::Point()
 {
 }// Point
 
-Point::Point(int x, int y):mX(x), mY(y){}
+Point::Point( const int x, const int y)
+:mX(x), mY(y)
+{}
 
 Point::Point(const Point& from)
 {
@@ -69,28 +72,28 @@ Point Point::operator*(const int &other)const
 
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================
-void Point::SetX(int x)
+void Point::SetX( const int x )
 {
     mX = x;
 }
 
-void Point::SetY(int y)
+void Point::SetY( const int y )
 {
     mY = y;
 }
 
-void Point::Set(int x, int y)
+void Point::Set( const int x, const int y )
 {
     mX = x;
     mY = y;
 }
 
-int Point::GetX()
+int Point::GetX() const
 {
     return mX;
 }
 
-int Point::GetY()
+int Point::GetY() const
 {
     return mY;
 }

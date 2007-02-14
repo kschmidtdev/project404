@@ -13,6 +13,7 @@
  * Andrew Osborne, February 10 2007 | added bitmap constructor, added RSM and rend variable
  * Andrew Osborne, February 10 2007 | Added more documentation, removed RSM/rend
  * Karl Schmidt, February 12 2007 | Removed unnecessary copy constructor and assignment operator overload
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  */
 
 
@@ -74,7 +75,7 @@ public:
      * @param boolean value true=visible, false=invisible
      *
      */
-    void setVisible(bool nVisible);
+    void SetVisible( const bool nVisible );
 
     /**
      * Method to set the position of element relative to it's parent
@@ -82,7 +83,7 @@ public:
      * @param boolean value true=visible, false=invisible
      *
      */
-    virtual void setPos(Point nPos);
+    virtual void SetPos( const Point & nPos );
 
 // INQUIRY (reading)
     /**
@@ -91,7 +92,7 @@ public:
      * @return boolean value true=visible, false=invisible
      *
      */
-    bool getVisible(void);
+    bool GetVisible(void) const;
 
     /**
      * Method to set the position of element relative to it's parent
@@ -99,7 +100,7 @@ public:
      * @param boolean value true=visible, false=invisible
      *
      */
-    Point getPos(void);
+    Point GetPos(void);
 
     /**
      * Method to examine element image
@@ -107,7 +108,7 @@ public:
      * @return boolean value true=visible, false=invisible
      *
      */
-    SDL_Surface* getElement(void);
+    SDL_Surface* GetElement(void);
 
 protected:
 // PROTECTED VARIABLES

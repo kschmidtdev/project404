@@ -12,6 +12,7 @@
  *
  * Authors:
  * Andrew Osborne, February 11 2007 | Initial Creation
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs
  */
 
 #ifndef UIButton_h
@@ -66,12 +67,12 @@ public:
     /**
      * Set position of button - automatically moves and centers text with it.
 	 */
-    virtual void setPos(Point nPos);
+    virtual void SetPos( const Point & nPos );
 
     /**
      * specifies operation to be performed upon pressing the button.
 	 */
-    void setOperation(FuncObj* nOperation);
+    void SetOperation(FuncObj* nOperation);
 
 
 // INQUIRY (reading)

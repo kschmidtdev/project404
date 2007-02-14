@@ -14,6 +14,7 @@
  * Mike Malyuk,  February 14 2007 | Fixed obscure bug where friend standing on tile where opponent died would be
  *                                  cleared from screen if attacker clicked on it. Also allowed your character to die
  *                                  Knight on Knight
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  */
 #include "UIGrid.h"                                // class implemented
 #include "UITile.h"
@@ -21,6 +22,7 @@
 #include "UIManager.h"
 #include "InputManager.h"
 #include "GameEngine/Level.h"
+#include <Logger.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -56,7 +58,7 @@ UIGrid::UIGrid()
         for (j=0; j<mNumRows; j++)
         {
             temp = UITile();
-            temp.setPos( Point(startXoffset + i*(mTotalTileOffset), startYoffset + j*(mTotalTileOffset) ) );
+            temp.SetPos( Point(startXoffset + i*(mTotalTileOffset), startYoffset + j*(mTotalTileOffset) ) );
             //tiles[i][j] = temp;
             mTiles.push_back( temp );
         }
@@ -71,7 +73,7 @@ UIGrid::UIGrid()
     mMaxCursorPos.Set(mNumColumns - 1, mNumRows - 1);
     mCursorStart = mTileStart + Point( -mTileOffset, -mTileOffset);
     mCursor = new UICursor("tileCursor.bmp", "");
-    mCursor->setPos( mCursorStart );
+    mCursor->SetPos( mCursorStart );
 
     // Retrieve Game Engine
     //mGameEngine = GameEngine::GetInstance();
@@ -144,7 +146,7 @@ void UIGrid::RenderSelf(SDL_Surface* destination)
 
     // Moveable/Attackable Ranges are rendered first
     int curState = mLevel->ReturnState();
-    std::vector<UIImage>::iterator iIter;
+    UIImageItr iIter;
 
     if (curState==1)
     {
@@ -171,10 +173,7 @@ void UIGrid::RenderSelf(SDL_Surface* destination)
     mCursor->RenderSelf(destination);
 
     // Tiles are rendered third
-    UITileItr iter;
-
-    for (iter = mTiles.begin();
-            iter!=mTiles.end(); iter++)
+    for ( UITileItr iter = mTiles.begin(); iter!=mTiles.end(); ++iter )
     {
         (*iter).RenderSelf(destination);
     }
@@ -187,41 +186,46 @@ void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
     // Come back to this later
     Point newPos;
 
-    switch(evt) {
+    switch(evt)
+    {
         case InputManager::UP:
             // Move cursor up
-            if (mCursorPos.GetY()>0) {
+            if (mCursorPos.GetY()>0)
+            {
                 mCursorPos = mCursorPos + Point(0,-1);
                 newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
-                mCursor->setPos( newPos );
+                mCursor->SetPos( newPos );
             }
             //cursor->moveUp()
             break;
         case InputManager::DOWN:
-            if (mCursorPos.GetY()<mMaxCursorPos.GetY()) {
+            if (mCursorPos.GetY()<mMaxCursorPos.GetY())
+            {
                 mCursorPos = mCursorPos + Point(0,1);
                 newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
-                mCursor->setPos( newPos );
+                mCursor->SetPos( newPos );
             }
             break;
         case InputManager::LEFT:
             // Move cursor up
-            if (mCursorPos.GetX()>0) {
+            if (mCursorPos.GetX()>0)
+            {
                 mCursorPos = mCursorPos + Point(-1,0);
                 newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
-                mCursor->setPos( newPos );
+                mCursor->SetPos( newPos );
             }
             //cursor->moveUp()
             break;
         case InputManager::RIGHT:
-            if (mCursorPos.GetX()<mMaxCursorPos.GetX()) {
+            if (mCursorPos.GetX()<mMaxCursorPos.GetX())
+            {
                 mCursorPos = mCursorPos + Point(1,0);
                 newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
-                mCursor->setPos( newPos );
+                mCursor->SetPos( newPos );
             }
             break;
         case InputManager::CONFIRM:
-            confirmFunction(mCursorPos);
+            ConfirmFunction(mCursorPos);
             break;
         case InputManager::CANCEL:
             // Will be handled later
@@ -233,7 +237,7 @@ void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
     }
 }
 
-void UIGrid::confirmFunction(Point p)
+void UIGrid::ConfirmFunction( const Point & p )
 {
 
     //UILayout *tempLayout = UIManager::GetInstance()->getLayout("BattleScreen");
@@ -247,7 +251,8 @@ void UIGrid::confirmFunction(Point p)
     bool validAction = false;
 
     Character* tempChar;
-    switch(curState) {
+    switch(curState)
+    {
         case 0:
 
 
@@ -262,7 +267,9 @@ void UIGrid::confirmFunction(Point p)
             if (tempChar==NULL) {
                 // Unsuccessful, do nothing
                 printf("not a character\n");
-            } else {
+            }
+            else
+            {
 
                 // Step 2 - select Character
                 // =============
@@ -280,7 +287,7 @@ void UIGrid::confirmFunction(Point p)
                 ClearMoveableRange();
                 ClearAttackRange();
 
-                vector<Point> moveArea = mLevel->GetMoveArea();
+                PointVec moveArea = mLevel->GetMoveArea();
                 AddMoveableRange( moveArea );
                 mMoveRange = moveArea;
             }
@@ -303,7 +310,8 @@ void UIGrid::confirmFunction(Point p)
             // Step 6 - Prep screen/UI for Attackable Range
 
             // Check if move was cancelled
-            if (p==mCurCharacter->GetPoint()) {
+            if (p==mCurCharacter->GetPoint())
+            {
 
                 mLevel->OnSelect(p);
                 ClearMoveableRange();
@@ -311,25 +319,26 @@ void UIGrid::confirmFunction(Point p)
                 AddAttackRange( mLevel->GetAttackArea() );
 
 
-            } else {
+            }
+            else
+            {
 
                 // Check to see if valid spot for movement
-                std::vector<Point>::iterator iter;
-
-
-                for (iter = mMoveRange.begin();
-                        iter!=mMoveRange.end(); iter++)
+                for ( PointItr iter = mMoveRange.begin(); iter!=mMoveRange.end(); ++iter )
                 {
                     //printf("movePoint: %d, %d\n", (*iter).GetX(), (*iter).GetY() );
                     if (p==(*iter))
+                    {
                         validAction = true;
+                    }
                 }
 
                 //printf("Valid Move?:%d", validAction);
 
-                if ( validAction ) {
+                if ( validAction )
+                {
                     // remove icon from old spot
-                    removeCharacter( mCurCharacter->GetPoint() );
+                    RemoveCharacter( mCurCharacter->GetPoint() );
 
                     // add icon to new spot
                     Point old = mCurCharacter->GetPoint();
@@ -344,7 +353,9 @@ void UIGrid::confirmFunction(Point p)
                     ClearAttackRange();
                     AddAttackRange( mLevel->GetAttackArea() );
 
-                } else {
+                }
+                else
+                {
                     // do nothing
                     // maybe display message later....
                 }
@@ -372,7 +383,7 @@ void UIGrid::confirmFunction(Point p)
             // check to see if attack-range is valid
             /*if ( validAction ) {
                 // remove icon from old spot
-                removeCharacter( mCurCharacter->GetPoint() );
+                RemoveCharacter( mCurCharacter->GetPoint() );
 
                 // add icon to new spot
                 mCurCharacter->Move(p);
@@ -387,12 +398,12 @@ void UIGrid::confirmFunction(Point p)
             Character* enemy = mLevel->PointHasPerson(p);
             if(enemy != NULL && mCurCharacter != NULL && mCurCharacter->GetPoint() != p)
             {
-                removeCharacter(p);
+                RemoveCharacter(p);
                 enemy->Move(Point(-1,-1));
             }
             if(mCurCharacter->IsDead())
             {
-                removeCharacter(mCurCharacter->GetPoint());
+                RemoveCharacter(mCurCharacter->GetPoint());
                 mCurCharacter->Move(Point(-1,-1));
             }
 
@@ -427,11 +438,11 @@ void UIGrid::AddEnemyCharacter(Character *c)
 {
     Point p = c->GetPoint();
 
-    if ( validPoint(p)  )
+    if ( ValidPoint(p)  )
     {
-        int index = findIndex( p.GetX(), p.GetY() );
+        int index = FindIndex( p );
         //printf("index: %d, maxSize: %d\n", index, mTiles.size());
-         mTiles[index].addCharacter( getClassSurface(c, "Enemy"));
+         mTiles[index].AddCharacter( GetClassSurface(c, "Enemy"));
     }
 }
 
@@ -439,27 +450,24 @@ void UIGrid::AddPartyCharacter(Character *c)
 {
     Point p = c->GetPoint();
 
-    if ( validPoint(p)  )
+    if ( ValidPoint(p)  )
     {
-        int index = findIndex( p.GetX(), p.GetY() );
+        int index = FindIndex( p );
         //printf("index: %d, maxSize: %d\n", index, mTiles.size());
-         mTiles[index].addCharacter( getClassSurface(c, "Party"));
+         mTiles[index].AddCharacter( GetClassSurface(c, "Party"));
     }
 }
 
-void UIGrid::removeCharacter(Point p) {
-
-    int x = p.GetX();
-    int y = p.GetY();
-
-    if ( validPoint(p) )
+void UIGrid::RemoveCharacter( const Point & p)
+{
+    if ( ValidPoint(p) )
     {
-        int index = findIndex( x, y );
-        mTiles[index].removeCharacter();
+        int index = FindIndex( p );
+        mTiles[index].RemoveCharacter();
     }
 }
 
-void UIGrid::AddRange( vector<Point> pointRange, vector<UIImage*> elementRange)
+void UIGrid::AddRange( const PointVec & pointRange, const UIImagePtrVec & elementRange)
 {
 
     /*int numOfNeededRangeSquares = pointRange.size();
@@ -510,7 +518,7 @@ void UIGrid::AddRange( vector<Point> pointRange, vector<UIImage*> elementRange)
     {
         gridPoint = (*pointIter);
         cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
-        (*elementIter)->setPos( cursorPos );
+        (*elementIter)->SetPos( cursorPos );
         (*elementIter)->setVisible( true );
         elementIter++;
         pointIter++;
@@ -533,29 +541,30 @@ void UIGrid::AddRange( vector<Point> pointRange, vector<UIImage*> elementRange)
 }
 
 
-void UIGrid::ClearMoveableRange(void) {
-
+void UIGrid::ClearMoveableRange(void)
+{
     mImageMoveRange.clear();
 }
 
 
-void UIGrid::ClearAttackRange(void) {
-
+void UIGrid::ClearAttackRange(void)
+{
     mImageAttackRange.clear();
-
 }
 
-void UIGrid::AddAttackRange(vector<Point> attackRange)
+void UIGrid::AddAttackRange( PointVec attackRange )
 {
-        for (vector<Point>::iterator i=attackRange.begin(); i!=attackRange.end(); i++)
-            if(validPoint((*i)))
-            {
-                mImageAttackRange.push_back( UIImage("yellowCursor.bmp") );
-            }
+    for ( PointItr i=attackRange.begin(); i!=attackRange.end(); ++i )
+    {
+        if(ValidPoint((*i)))
+        {
+            mImageAttackRange.push_back( UIImage("yellowCursor.bmp") );
+        }
+    }
 
 
-    std::vector<Point>::iterator pointIter;
-    std::vector<UIImage>::iterator elementIter;
+    PointItr pointIter;
+    UIImageItr elementIter;
     Point cursorPos;
     Point gridPoint;
     Point charPoint;
@@ -566,15 +575,15 @@ void UIGrid::AddAttackRange(vector<Point> attackRange)
 
     elementIter = mImageAttackRange.begin();
 
-    for (vector<Point>::iterator i=attackRange.begin(); i!=attackRange.end(); i++)
+    for ( PointItr i=attackRange.begin(); i!=attackRange.end(); ++i )
     {
         gridPoint = (*i);
         printf("grid point: %d, %d\n", gridPoint.GetX(), gridPoint.GetY() );
-        if ( (validPoint(gridPoint)))
+        if ( (ValidPoint(gridPoint)))
         {
             cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
-            (*elementIter).setPos( cursorPos );
-            (*elementIter).setVisible( true );
+            (*elementIter).SetPos( cursorPos );
+            (*elementIter).SetVisible( true );
             elementIter++;
         }
     }
@@ -583,22 +592,24 @@ void UIGrid::AddAttackRange(vector<Point> attackRange)
 }
 
 
-void UIGrid::AddMoveableRange(vector<Point> moveRange)
+void UIGrid::AddMoveableRange( PointVec moveRange )
 {
 
     //AddRange( moveRange, mImageMoveRange);
 
     // If more new Blue tiles/cursors are needed more are created
 
-        for (vector<Point>::iterator i=moveRange.begin(); i!=moveRange.end(); i++)
-            if(validPoint((*i)))
-            {
-                mImageMoveRange.push_back( UIImage("blueCursor.bmp") );
-            }
+    for ( PointItr i = moveRange.begin(); i != moveRange.end(); ++i )
+    {
+        if(ValidPoint((*i)))
+        {
+            mImageMoveRange.push_back( UIImage("blueCursor.bmp") );
+        }
+    }
 
 
-    std::vector<Point>::iterator pointIter;
-    std::vector<UIImage>::iterator elementIter;
+    PointItr pointIter;
+    UIImageItr elementIter;
     Point cursorPos;
     Point gridPoint;
     Point charPoint;
@@ -609,15 +620,15 @@ void UIGrid::AddMoveableRange(vector<Point> moveRange)
 
     elementIter = mImageMoveRange.begin();
 
-    for (vector<Point>::iterator i=moveRange.begin(); i!=moveRange.end(); i++)
+    for ( PointItr i=moveRange.begin(); i!=moveRange.end(); ++i )
     {
         gridPoint = (*i);
         printf("grid point: %d, %d\n", gridPoint.GetX(), gridPoint.GetY() );
-        if ( (validPoint(gridPoint)) && ( (!hasCharacter(gridPoint)) || (gridPoint==charPoint) ) )
+        if ( (ValidPoint(gridPoint)) && ( (!HasCharacter(gridPoint)) || (gridPoint==charPoint) ) )
         {
             cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
-            (*elementIter).setPos( cursorPos );
-            (*elementIter).setVisible( true );
+            (*elementIter).SetPos( cursorPos );
+            (*elementIter).SetVisible( true );
             elementIter++;
         }
     }
@@ -631,14 +642,14 @@ void UIGrid::AddMoveableRange(vector<Point> moveRange)
 
 //============================= ACCESS     ===================================
 
-void UIGrid::setLevel(Level* l)
+void UIGrid::SetLevel( Level* level )
 {
-    mLevel = l;
+    mLevel = level;
 }
 
 //============================= INQUIRY    ===================================
 
-bool UIGrid::validPoint(Point p)
+bool UIGrid::ValidPoint( const Point & p )
 {
     int x = p.GetX();
     int y = p.GetY();
@@ -646,18 +657,20 @@ bool UIGrid::validPoint(Point p)
     if ( (x<mNumColumns) && (y<mNumRows) && (x>=0) && (y>=0) )
     {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
 
-bool UIGrid::hasCharacter(Point p)
+bool UIGrid::HasCharacter( const Point & p )
 {
-    int index = findIndex(p);
+    int index = FindIndex(p);
     if( index != -1 )
     {
         //UITile* temp =
-        return mTiles[index].hasCharacter();
+        return mTiles[index].HasCharacter();
     }
     else
     {
@@ -667,27 +680,33 @@ bool UIGrid::hasCharacter(Point p)
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 
-int UIGrid::findIndex(int x, int y)
+int UIGrid::FindIndex( const int x, const int y )
 {
-    if (validPoint( Point(x,y) )) {
+    if (ValidPoint( Point(x,y) ))
+    {
         return y + mNumRows*x;
-    } else {
+    }
+    else
+    {
         return -1;
     }
 }
 
-int UIGrid::findIndex(Point p)
+int UIGrid::FindIndex( const Point & p )
 {
-    if (validPoint( p )) {
+    if (ValidPoint( p ))
+    {
         return p.GetY() + mNumRows*p.GetX();
-    } else {
+    }
+    else
+    {
         return -1;
     }
 }
 
 
 
-SDL_Surface* UIGrid::getClassSurface(Character* c, string group)
+SDL_Surface* UIGrid::GetClassSurface(Character* c, const string group)
 {
     string temp = c->GetClassName();
     if(group=="Party")
@@ -710,11 +729,11 @@ SDL_Surface* UIGrid::getClassSurface(Character* c, string group)
         }
         else
         {
+            LogWarning( string("Class surface requested for unknown character type: ") + temp );
             // you screwed up
             return ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
         }
     }
-
     else if("Enemy")
     {
         if (temp=="Archer")
@@ -735,11 +754,11 @@ SDL_Surface* UIGrid::getClassSurface(Character* c, string group)
         }
         else
         {
+            LogWarning( string("Class surface requested for unknown character type: ") + temp );
             // you screwed up
             return ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
         }
     }
-
     else
     {
         return NULL;
@@ -747,21 +766,23 @@ SDL_Surface* UIGrid::getClassSurface(Character* c, string group)
 
 }
 
-vector<Point> UIGrid::RefineMoveRange( vector<Point> moveRange)
+PointVec UIGrid::RefineMoveRange( PointVec moveRange )
 {
-    std::vector<Point>::iterator pointIter = moveRange.begin();
-    std::vector<Point> finalVtr;
+    PointItr pointIter = moveRange.begin();
+    PointVec finalVtr;
     Point gridPoint;
     Point charPoint;
     if (mCurCharacter!=NULL)
+    {
         charPoint = mCurCharacter->GetPoint();
+    }
 
 
     while (pointIter!=moveRange.end())
     {
         gridPoint = (*pointIter);
         //printf("grid point: %d, %d\n", gridPoint.GetX(), gridPoint.GetY() );
-        if ( (validPoint(gridPoint)) && ( (!hasCharacter(gridPoint)) || (gridPoint==charPoint) ) )
+        if ( (ValidPoint(gridPoint)) && ( (!HasCharacter(gridPoint)) || (gridPoint==charPoint) ) )
         {
             finalVtr.push_back( gridPoint );
         }

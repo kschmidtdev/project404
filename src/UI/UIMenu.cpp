@@ -9,6 +9,7 @@
  * Andrew Osborne, February 11, 2007 | added 'm' to members, added input funcitonality, used Point addition/mult
  * Karl Schmidt, February 11 2007 | Added checks to prevent crashes when textures are not loaded
  * Andrew Osborne, February 11, 2007 | added destructor
+ * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  */
 #include "UIMenu.h"                                // class implemented
 #include "Point.h"
@@ -69,16 +70,13 @@ UIMenu::UIMenu()
     // Set backgound
     mElementImage = ResourceManager::GetInstance()->LoadTexture("testMenu.bmp");
 
-    setPos( Point(0,0) );
+    SetPos( Point(0,0) );
 
 }// UIMenu
 
 UIMenu::~UIMenu()
 {
-    std::vector<UIElement*>::iterator iter;
-
-    for (iter = mButtons.begin();
-            iter!=mButtons.end(); iter++)
+    for ( UIElementPtrItr iter = mButtons.begin(); iter!=mButtons.end(); ++iter )
     {
         delete (*iter);
     }
@@ -105,11 +103,10 @@ void UIMenu::RenderSelf(SDL_Surface* destination)
     mCursor->RenderSelf(destination);
 
     // Buttons are rendered second
-    std::vector<UIElement*>::iterator iter;
+    UIElementPtrItr iter;
     //int size = buttons.size();
 
-    for (iter = mButtons.begin();
-            iter!=mButtons.end(); iter++)
+    for ( iter = mButtons.begin(); iter!=mButtons.end(); ++iter )
     {
         (*iter)->RenderSelf(destination);
     }
@@ -119,28 +116,28 @@ void UIMenu::RenderSelf(SDL_Surface* destination)
 void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
     // Come back to this later
-    switch(evt) {
+    switch(evt)
+    {
         case InputManager::UP:
             // Move cursor up
-            if (mCursorPos>0) {
+            if (mCursorPos>0)
+            {
                 mCursorPos--;
-                mCursor->setPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
+                mCursor->SetPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
             }
             //cursor->moveUp()
             break;
         case InputManager::DOWN:
-            if (mCursorPos<mMaxCursorPos) {
+            if (mCursorPos<mMaxCursorPos)
+            {
                 mCursorPos++;
-                mCursor->setPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
+                mCursor->SetPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
             }
             break;
         default:
             break;
 
     }
-
-
-
 }
 
 
@@ -148,20 +145,19 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
 
 //============================= ACCESS     ===================================
 
-void UIMenu::setPos(Point nPos)
+void UIMenu::SetPos( const Point & nPos)
 {
     mPos = nPos;
 
     // Move cursor
-    mCursor->setPos( mPos + mButtonStart + mCursorOffset );
+    mCursor->SetPos( mPos + mButtonStart + mCursorOffset );
 
     // Move buttons
-    std::vector<UIElement*>::iterator iter;
+    UIElementPtrItr iter;
     int i = 0;
-    for (iter = mButtons.begin();
-            iter!=mButtons.end(); iter++)
+    for ( iter = mButtons.begin(); iter!=mButtons.end(); ++iter )
     {
-        (*iter)->setPos( mPos + mButtonStart + (mButtonOffset * i) );
+        (*iter)->SetPos( mPos + mButtonStart + (mButtonOffset * i) );
         i++;
     }
 
