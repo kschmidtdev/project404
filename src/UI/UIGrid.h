@@ -176,6 +176,15 @@ protected:
     SDL_Surface* getClassSurface(Character* c);
     Point gridToAbsoluteCoordinates(Point p);
 
+    /**
+     * Refines point vector to ensure all points are valid and don't contain points that have other characters
+     * on them
+     *
+     *@return refined point vector
+     */
+    vector<Point> RefineMoveRange( vector<Point> moveRange);
+
+
 private:
 // PRIVATE VARIABLES
 };

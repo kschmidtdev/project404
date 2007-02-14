@@ -249,33 +249,33 @@ void UIGrid::confirmFunction(Point p)
 
             // Attempt to select character
             // ------------------------------------------
-            printf("I'm just before onSelect\n");
+            //printf("I'm just before onSelect\n");
             tempChar = mLevel->OnSelect(p);
 
             // Step 1 - check to see if selected character
             // ===============
-            printf("I'm just before check\n");
+            //printf("I'm just before check\n");
             if (tempChar==NULL) {
                 // Unsuccessful, do nothing
-                printf("not a character\n");
+                //printf("not a character\n");
             } else {
 
                 // Step 2 - select Character
                 // =============
                 mCurCharacter = tempChar;
-                printf("character selected\n");
+                //printf("character selected\n");
 
                 // Step 3 - prepare screen/UI for moveable range
                 // ==============
 
-                //mMoveRange = mLevel->GetMoveArea();
-                //mMoveRange = refineMoveArea(mMoveRange);
-                //addMoveableRange(moveArea);
+                mMoveRange = mLevel->GetMoveArea();
+                mMoveRange = RefineMoveRange(mMoveRange);
+                AddMoveableRange(mMoveRange);
 
                 // Successful, display move range
-                vector<Point> moveArea = mLevel->GetMoveArea();
-                AddMoveableRange( moveArea );
-                mMoveRange = moveArea;
+                //vector<Point> moveArea = mLevel->GetMoveArea();
+                //AddMoveableRange( moveArea );
+                //mMoveRange = moveArea;
             }
             break;
         case 1:
@@ -327,10 +327,24 @@ void UIGrid::confirmFunction(Point p)
                     mCurCharacter->Move(old);
                     mLevel->OnSelect(p);
                     ClearMoveableRange();
-                    printf("curState after move:%d\n", mLevel->ReturnState());
+                    //printf("curState after move:%d\n", mLevel->ReturnState());
 
-                    // Prep screen for attack
-                    AddAttackRange( mLevel->GetAttackArea() );
+                    curState = mLevel->ReturnState();
+                    if ( (curState==0) && (mLevel->AllExhaustedParty()) )
+                    {
+                        mLevel->TakeTurn();
+                    }
+                    else if (curState==0)
+                    {
+                        // Do nothing - no attack
+                    }
+                    else
+                    {
+                        // Prep screen for attack
+                        AddAttackRange( mLevel->GetAttackArea() );
+                    }
+
+
 
                 } else {
                     // do nothing
@@ -542,10 +556,13 @@ void UIGrid::AddAttackRange(vector<Point> attackRange)
     for (i=0; i<numOfNeededRangeSquares; i++)
     {
         gridPoint = (*pointIter);
-        cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
-        (*elementIter)->setPos( cursorPos );
-        (*elementIter)->setVisible( true );
-        elementIter++;
+        if (validPoint(gridPoint))
+        {
+            cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
+            (*elementIter)->setPos( cursorPos );
+            (*elementIter)->setVisible( true );
+            elementIter++;
+        }
         pointIter++;
     }
 
@@ -567,7 +584,7 @@ void UIGrid::AddMoveableRange(vector<Point> moveRange)
     int numOfNeededRangeSquares = moveRange.size();
     int numOfCurrentRangeSqaures = mImageMoveRange.size();
     int i;
-    printf("needed: %d, current: %d\n", numOfNeededRangeSquares, numOfCurrentRangeSqaures);
+    //printf("needed: %d, current: %d\n", numOfNeededRangeSquares, numOfCurrentRangeSqaures);
 
     // If more new Blue tiles/cursors are needed more are created
     if (numOfNeededRangeSquares>numOfCurrentRangeSqaures) {
@@ -594,37 +611,34 @@ void UIGrid::AddMoveableRange(vector<Point> moveRange)
     for (i=0; i<numOfNeededRangeSquares; i++)
     {
         gridPoint = (*pointIter);
-        printf("grid point: %d, %d\n", gridPoint.GetX(), gridPoint.GetY() );
-        if ( (validPoint(gridPoint)) && ( (!hasCharacter(gridPoint)) || (gridPoint==charPoint) ) )
-        {
+        //printf("grid point: %d, %d\n", gridPoint.GetX(), gridPoint.GetY() );
+        //if ( (validPoint(gridPoint)) && ( (!hasCharacter(gridPoint)) || (gridPoint==charPoint) ) )
+        //{
             cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
             (*elementIter)->setPos( cursorPos );
             (*elementIter)->setVisible( true );
             elementIter++;
-        }
+        //}
         pointIter++;
     }
 
-    printf("I've made it past implementing the move squares\n");
+    //printf("I've made it past implementing the move squares\n");
 
     // for remainder of unused elements, set invisible
     int test =0;
     bool bTest;
     while (elementIter!=mImageMoveRange.end())
     {
-        printf("makes it invisible\n");
+        //printf("makes it invisible\n");
         (*elementIter)->setVisible( false ); // This function isn't working for some reason....
-        bTest = (*elementIter)->getVisible();
-        if (bTest == true)
-            test = 1;
-        printf("Visible?: %d\n", test );
+        //bTest = (*elementIter)->getVisible();
+        //if (bTest == true)
+            //test = 1;
+        //printf("Visible?: %d\n", test );
         elementIter++;
     }
 
 }
-
-
-
 
 //============================= ACCESS     ===================================
 
@@ -702,6 +716,32 @@ SDL_Surface* UIGrid::getClassSurface(Character* c)
     }
 
 }
+
+vector<Point> UIGrid::RefineMoveRange( vector<Point> moveRange)
+{
+    std::vector<Point>::iterator pointIter = moveRange.begin();
+    std::vector<Point> finalVtr;
+    Point gridPoint;
+    Point charPoint;
+    if (mCurCharacter!=NULL)
+        charPoint = mCurCharacter->GetPoint();
+
+
+    while (pointIter!=moveRange.end())
+    {
+        gridPoint = (*pointIter);
+        //printf("grid point: %d, %d\n", gridPoint.GetX(), gridPoint.GetY() );
+        if ( (validPoint(gridPoint)) && ( (!hasCharacter(gridPoint)) || (gridPoint==charPoint) ) )
+        {
+            finalVtr.push_back( gridPoint );
+        }
+        pointIter++;
+    }
+
+    return finalVtr;
+
+}
+
 
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
