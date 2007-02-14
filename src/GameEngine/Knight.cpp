@@ -7,6 +7,7 @@
  * Mike Malyuk, February 7 2007  | Initial design
  * Mike Malyuk, February 11 2007 | Made CalcAction return non-pointer Point vector
  *                                 Added variables for mIsDead, mExhausted and new attr DEF
+* Mike Malyuk, February 14 2007 | On level up, curHP renewed.
  */
 
 #include "Knight.h"                                // class implemented
@@ -76,6 +77,7 @@ void Knight::LevelUp()
     mAttributes[POW] = mAttributes[POW]+2;
     mAttributes[AGI] = mAttributes[AGI]+2;
     mMaxHP = mMaxHP + 5;
+    mCurHP = mMaxHP;
     mLevel++;
 }
 vector<Point> Knight::CalcAction()
