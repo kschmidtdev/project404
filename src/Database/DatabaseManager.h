@@ -14,6 +14,7 @@
  * Authors:
  * Seung Woo Han, February 7 2007 | Initial design
  * Seung Woo Han, February 11 2007 | Done for all the basic implementation
+ * Karl Schmidt, February 13 2007 | Added code to make DatabaseManager a singleton
  */
 
 #ifndef DatabaseManager_h
@@ -26,10 +27,28 @@ class DatabaseManager
 {
 public:
 
-    DatabaseManager();
+    /**
+    * Returns the instance of the DatabaseManager
+    */
+    static DatabaseManager* GetInstance();
+
+    /**
+    * Deconstructor
+    */
     ~DatabaseManager();
+
+    /**
+    * Initializes the DatabaseManager (sets up anything that must be
+    * set up before any functions can be run)
+    */
     void Initialize();
+
+    /**
+    * Shuts down the DatabaseManager, cleans up anything left
+    * open or reserved
+    */
     void Shutdown();
+
     int GenerateUniqueID();
     vector<DBNode*> Search(const string& key);
     bool LoadFromFile(string& filename);
@@ -38,8 +57,17 @@ public:
     DBNode* Search(string& name);
 
 protected:
+    // PROTECTED METHODS
+
+    /**
+    * Default constructor.
+    */
+    DatabaseManager();
+
 
     // PROTECTED VARIABLES
+
+    static DatabaseManager* _instance;
 
 private:
 

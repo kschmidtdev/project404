@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 13 2007 | Added logging when loading and unloading
  * Karl Schmidt, February 10 2007 | Initial creation, implementation
  */
 #include "MusicResource.h"                                // class implemented
@@ -26,8 +27,9 @@ MusicResource::~MusicResource()
 
 void MusicResource::Load()
 {
-    mMusData = Mix_LoadMUS( mFileName.c_str() );
+    LogInfo( string("Loading music file: ") + mFileName );
 
+    mMusData = Mix_LoadMUS( mFileName.c_str() );
     tacAssert( mMusData );
     if( !mMusData )
     {
@@ -39,6 +41,7 @@ void MusicResource::Load()
 
 void MusicResource::Unload()
 {
+    LogInfo( string("Unloading music file: ") + mFileName );
     tacAssert( mMusData );
     Mix_FreeMusic( mMusData );
     mMusData = NULL;

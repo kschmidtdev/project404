@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 13 2007 | Added logging when loading and unloading
  * Karl Schmidt, February 9 2007 | Initial creation of implementation
  */
 #include "TextureResource.h"                                // class implemented
@@ -28,6 +29,8 @@ void TextureResource::Load()
     tacAssert( mFileName != "" );
 
     // load an image
+
+    LogInfo( string("Loading image: ") + mFileName );
     mSurface = SDL_LoadBMP( mFileName.c_str() );
 
     tacAssert( mSurface );
@@ -41,6 +44,7 @@ void TextureResource::Unload()
 {
     if( mSurface )
     {
+        LogInfo( string("Unloading image: ") + mFileName );
         SDL_FreeSurface( mSurface );
         mSurface = NULL;
     }

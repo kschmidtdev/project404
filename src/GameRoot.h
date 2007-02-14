@@ -10,6 +10,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 13 2007 | Added config file support
  * Karl Schmidt, February 11 2007 | Made all the members pointers
  * Karl Schmidt, February 07 2007, Initial creation of header
  */
@@ -19,6 +20,9 @@
 
 // SYSTEM INCLUDES
 //
+#include <map>
+
+using namespace std;
 
 // PROJECT INCLUDES
 //
@@ -28,6 +32,9 @@
 
 // FORWARD REFERENCES
 //
+
+typedef map<string,int> ConfigMap;
+typedef ConfigMap::iterator ConfigItr;
 
 class SecurityManager;
 class DatabaseManager;
@@ -81,6 +88,12 @@ public:
     */
     void GameLoop();
 
+    /**
+    * Loads the given config file if it exists, and takes the
+    * the values out of it and puts them into mSettings
+    */
+    void LoadConfigFileSettings( const string fileName );
+
 // ACCESS (writing)
 // INQUIRY (reading)
 
@@ -95,6 +108,8 @@ protected:
     SoundManager*       mSoundManager;
     GameEngine*         mGameEngine;
     UIManager*          mUIManager;
+
+    ConfigMap           mSettings;
 
 private:
 // PRIVATE VARIABLES
