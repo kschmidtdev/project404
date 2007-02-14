@@ -172,7 +172,7 @@ Character* Level::OnSelect(Point p)
         {
             iter++;
         }
-        if(((*iter)) != NULL && !((*iter)->GetExhaust()) && (*iter)->GetPoint() == p)
+        if( *iter != NULL && iter != mParty.end() && !((*iter)->GetExhaust()) && (*iter)->GetPoint() == p)
         {
             cout << ((*iter))->GetPoint().GetX() << endl;
             mCurChar = (*iter);

@@ -11,6 +11,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 13 2007 | Added StopAllPlayback
  * Karl Schmidt, February 10 2007 | Initial creation of the class
  */
 
@@ -74,6 +75,12 @@ public:
      * if looping is true
 	 */
     void PlayMusic( Mix_Music* toPlay, const bool looping );
+
+    /**
+     * Plays the given music, will make it looping
+     * if looping is true
+	 */
+    void StopAllPlayback();
 
 // ACCESS (writing)
 // INQUIRY (reading)

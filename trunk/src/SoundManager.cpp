@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 13 2007 | Added StopAllPlayback, made playback functions safer
  * Karl Schmidt, February 11 2007 | Added calls to stop playing music before shutting down
  * Karl Schmidt, February 11 2007 | Correctly cleared the singleton instance in Shutdown()
  * Karl Schmidt, February 10 2007 | Initial creation of the class
@@ -36,7 +37,7 @@ SoundManager::~SoundManager()
 void SoundManager::Initialize()
 {
     LogInfo( "Beginning SoundManager initialization..." );
-    if(Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1 )
+    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1 )
     {
         LogCritical( string("Mix_OpenAudio: ") + string(Mix_GetError()) );
         tacAssert( false ); // this should never happen
@@ -54,8 +55,7 @@ void SoundManager::Shutdown()
 {
     LogInfo( "Beginning SoundManager shut down..." );
 
-    Mix_HaltChannel(-1);
-    Mix_HaltMusic();
+    StopAllPlayback();
 
     Mix_CloseAudio();
     delete _instance;
@@ -68,12 +68,34 @@ void SoundManager::Shutdown()
 
 void SoundManager::PlaySound( Mix_Chunk* toPlay, const bool looping )
 {
-    Mix_PlayChannel( -1, toPlay, looping ? -1 : 0 );
+    tacAssert( toPlay );
+    if( toPlay )
+    {
+        Mix_PlayChannel( -1, toPlay, looping ? -1 : 0 );
+    }
+    else
+    {
+        LogError( "Attempting to play invalid sound (NULL)" );
+    }
 }
 
 void SoundManager::PlayMusic( Mix_Music* toPlay, const bool looping )
 {
-    Mix_PlayMusic( toPlay, looping ? -1 : 0 );
+    tacAssert( toPlay );
+    if( toPlay )
+    {
+        Mix_PlayMusic( toPlay, looping ? -1 : 0 );
+    }
+    else
+    {
+        LogError( "Attempting to play invalid music (NULL)" );
+    }
+}
+
+void SoundManager::StopAllPlayback()
+{
+    Mix_HaltChannel(-1);
+    Mix_HaltMusic();
 }
 
 //============================= ACCESS     ===================================
