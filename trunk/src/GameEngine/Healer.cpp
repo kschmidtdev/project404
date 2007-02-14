@@ -7,6 +7,7 @@
  * Mike Malyuk, February 7 2007 | Initial design
  * Mike Malyuk, February 11 2007 | Made CalcAction return non-pointer Point vector
  *                                 Added variables for mIsDead, mExhausted and new attr DEF
+ * Mike Malyuk, February 14 2007 | On level up, curHP renewed.
  */
 
 #include "Healer.h"                                // class implemented
@@ -76,6 +77,7 @@ void Healer::LevelUp()
     mAttributes[POW] = mAttributes[POW]+1;
     mAttributes[AGI] = mAttributes[AGI]+1;
     mMaxHP = mMaxHP + 2;
+    mCurHP = mMaxHP;
     mLevel++;
 }
 vector<Point> Healer::CalcAction()

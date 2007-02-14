@@ -11,6 +11,9 @@
  * Karl Schmidt, February 13 2007 | Reworked destructor, noted current bug and temporary work-around
  * Karl Schmidt, February 13 2007 | Modified hasCharacter to return a value in all cases (fixes a warning, safer)
  * Mike Malyuk,  February 14 2007 | Modified pretty much everything. Stopped newing of tiles, waste of space.
+ * Mike Malyuk,  February 14 2007 | Fixed obscure bug where friend standing on tile where opponent died would be
+ *                                  cleared from screen if attacker clicked on it. Also allowed your character to die
+ *                                  Knight on Knight
  */
 #include "UIGrid.h"                                // class implemented
 #include "UITile.h"
@@ -385,8 +388,13 @@ void UIGrid::confirmFunction(Point p)
             if(enemy != NULL && mCurCharacter != NULL && mCurCharacter->GetPoint() != p)
             {
                 removeCharacter(p);
+                enemy->Move(Point(-1,-1));
             }
-
+            if(mCurCharacter->IsDead())
+            {
+                removeCharacter(mCurCharacter->GetPoint());
+                mCurCharacter->Move(Point(-1,-1));
+            }
 
             //keep game running
             if(mLevel->AllExhaustedParty())

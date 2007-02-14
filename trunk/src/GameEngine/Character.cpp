@@ -4,10 +4,12 @@
  * Project 404 2007
  *
  * Authors:
- * Mike Malyuk, February 7 2007 | Initial design
+ * Mike Malyuk, February 7 2007  | Initial design
  * Mike Malyuk, February 11 2007 | Added DEF attr, Made CalcAction return non-pointer Point vector,
  *                                 Added Exhaust, Invigorate, Attack, MakeDead, GetExhaust, IsDead,
  *                                 and two booleans, mExhausted and mIsDead
+ * Mike Malyuk, February 14 2007 | Changed attacking to cout important info. Changed Defence calc by dividing by 2
+ *                               | Protected against dealin "negative damage" or healing the defender.
  */
 
 #include "Character.h"                                // class implemented
@@ -50,22 +52,41 @@ void Character::MakeDead()
 }
 void Character::Attack(Character* another)
 {
+    cout << "Attacking " << GetClassName() << "'s HP:" << GetHP() << endl;
+    cout << "Defending " << GetClassName() << "'s HP:" << another->GetHP() << endl;
     bool killed = false;
     if(GetClassName() == "Knight")
     {
-        another->SetHP(another->GetHP()-mAttributes[POW]+another->GetAttr(Character::DEF));
-        if(another->GetHP() < 0)
+        if(mAttributes[POW] - (another->GetAttr(Character::DEF)/2) <= 0)
         {
-            cout << "Opponent dead" << endl;
+            cout << "Attacking " << GetClassName() << " did 0 damage" << endl;
+        }
+        else
+        {
+        another->SetHP(another->GetHP()-mAttributes[POW]+(another->GetAttr(Character::DEF)/2));
+        cout << "Attacking " << GetClassName() << " did " << mAttributes[POW]-(another->GetAttr(Character::DEF)/2) << " damage" << endl;
+        }
+        if(another->GetHP() <= 0)
+        {
+            cout << "Defender dead" << endl;
             another->MakeDead();
             another->Exhaust();
             killed = true;
         }
         else
         {
-            mCurHP = (mCurHP-another->GetAttr(Character::POW) + mAttributes[DEF]);
-            if (mCurHP < 0)
+            if(another->GetAttr(Character::POW) - (mAttributes[DEF]/2) <= 0)
             {
+                cout << "Defending " << GetClassName() << " did 0 damage" << endl;
+            }
+            else
+            {
+            cout << "Defending " << another->GetClassName() << " did " << another->GetAttr(Character::POW) - (mAttributes[DEF]/2) << " damage" << endl;
+            mCurHP = (mCurHP-another->GetAttr(Character::POW) + (mAttributes[DEF]/2));
+            }
+            if (mCurHP <= 0)
+            {
+                cout << "Attacker Dead" << endl;
                 mIsDead = true;
                 mExhausted = true;
             }
@@ -73,9 +94,18 @@ void Character::Attack(Character* another)
     }
     else
     {
-        another->SetHP(another->GetHP()-mAttributes[DEF]+another->GetAttr(DEF));
-        if(another->GetHP() < 0)
+        if(mAttributes[POW] - (another->GetAttr(Character::DEF)/2) <= 0)
         {
+            cout << "Attacking " << GetClassName() << " did 0 damage" << endl;
+        }
+        else
+        {
+        another->SetHP(another->GetHP()-mAttributes[POW]+(another->GetAttr(Character::DEF)/2));
+        cout << "Attacking " << GetClassName() << " did " << mAttributes[POW]-(another->GetAttr(Character::DEF)/2) << " damage" << endl;
+        }
+        if(another->GetHP() <= 0)
+        {
+            cout << "Defender Dead" << endl;
             another->MakeDead();
             another->Exhaust();
             killed = true;
