@@ -12,6 +12,7 @@
  * Authors:
  * Andrew Osborne, February 11 2007, Initial Creation
  * Karl Schmidt, February 13 2007, Added typedefs instead of lots of vector<Type>
+ * Mike Malyuk, February 14, 2007, Was confused by typedefs, regardless moved everything away from pointers.
  */
 
 #ifndef UIGrid_h
@@ -37,9 +38,9 @@
 // FORWARD REFERENCES
 //
 
-typedef vector<UITile*> UITileVec;
+typedef vector<UITile> UITileVec;
 typedef UITileVec::iterator UITileItr;
-typedef vector<UIImage*> UIImageVec;
+typedef vector<UIImage> UIImageVec;
 typedef UIImageVec::iterator UIImageItr;
 typedef vector<Point> PointVec;
 typedef PointVec::iterator PointItr;

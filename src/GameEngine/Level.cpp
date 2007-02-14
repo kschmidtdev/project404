@@ -9,7 +9,8 @@
  * Andrew Osborne, February 12, 2007 | Added default constructor to create test/version1 level
  * Mike Malyuk, February 12, 2007 | Added tiny fix to make sure we don't hang on empty spaces
  * Karl Schmidt, February 12 2007 | Added initializing values for some variables that weren't being set
- *									 in the current default constructor
+ *                                  in the current default constructor
+ * Mike Malyuk, February 14, 2007 | Added function PointHasPerson to return enemy state, Minor fixes.
  */
 #include "Level.h"                                // class implemented
 //#include "Character.h"
@@ -177,6 +178,7 @@ Character* Level::OnSelect(Point p)
             cout << ((*iter))->GetPoint().GetX() << endl;
             mCurChar = (*iter);
             mState = MOVE;
+            mMoveArea.clear();
             GetMovement();
             return *iter;
         }
@@ -217,6 +219,7 @@ Character* Level::OnSelect(Point p)
                     mState = ATTACK;
                     return mCurChar;
                 }
+                iter2 = attackarea.begin();
                 chariter++;
             }
             mCurChar->Exhaust();
@@ -294,6 +297,24 @@ Character* Level::OnSelect(Point p)
     {
         if(move == 0)
         {
+            vector<Character*> chars = GetEveryone();
+            vector<Character*>::iterator iter;
+            vector<Point>::iterator piter;
+            piter = mMoveArea.begin();
+            iter = chars.begin();
+            while(iter != chars.end())
+            {
+                while( ((*piter)) != ((*iter)->GetPoint()) && piter != mMoveArea.end())
+                {
+                    piter++;
+                }
+                if(((*piter)) == ((*iter)->GetPoint()) && !((*iter)->IsDead()))
+                {
+                    mMoveArea.erase(piter);
+                }
+                piter = mMoveArea.begin();
+                iter++;
+            }
             mMoveArea.push_back(Point(x,y));
             return;
         }
@@ -404,6 +425,21 @@ Character* Level::OnSelect(Point p)
             return true;
         }
         return false;
+    }
+
+    Character* Level::PointHasPerson(Point p)
+    {
+        vector<Character*>::iterator iter;
+        iter = mEnemies.begin();
+        while(iter!=mEnemies.end() && (*iter)->GetPoint() != p)
+        {
+            iter++;
+        }
+        if(iter!=mEnemies.end() && (*iter)->GetPoint() == p && (*iter)->IsDead())
+        {
+            return (*iter);
+        }
+        return NULL;
     }
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
