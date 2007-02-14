@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 13 2007, Re-added opening file handle in Initialize, needed it to clear log so we don't keeping appending after running concurrently
  * Karl Schmidt, February 12 2007, Removed opening the file handle in Initialize, unnecessary. 
  * Karl Schmidt, February 9 2007, Added full functionality
  * Karl Schmidt, February 7 2007, Created initial class definition
@@ -58,6 +59,10 @@ void Logger::Initialize()
 
     tacAssert( !mLogFileHandle ); // Shouldn't already have a file handle, means we've called Initialize twice
     tacAssert( mLogFileName != "" ); // Log filename should be valid
+
+    // Open the handle so the next message is written to the log file, and it wipes the old file
+    // after this log messages will be appended to the current log
+    mLogFileHandle = fopen( mLogFileName.c_str(), "w" );
 
 #ifdef _DEBUG
     LogMessage( INFO, "The log has started successfully for a DEBUG build" );
