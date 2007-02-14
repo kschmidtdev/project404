@@ -10,6 +10,8 @@
 
 #include "DBEngine.h"
 
+#include <util.h>
+
 DBEngine::DBEngine()
 {
 }
@@ -34,14 +36,16 @@ ArmorItem* DBEngine::CreateArmor( DBNode* ArmorNode )
 
 vector<Character*>* DBEngine::Initialize()
 {
-    // Declare Database instance.
-    DatabaseManager DB;
+    // Get Database instance.
+    DatabaseManager* DB = DatabaseManager::GetInstance();
+
+    tacAssert( DB );
 
     // Load XML file.
-    DB.LoadFromFile( "database.xml" );
+    DB->LoadFromFile( "database.xml" );
 
     // Create DBNode instances from XML file.
-    DBNode* TemplateNode = DB.Search( "Templates" );
+    DBNode* TemplateNode = DB->Search( "Templates" );
     DBNode* CharactersNode = TemplateNode->GetFirstChild(); // or GetChild("Characters");
     DBNode* Level1Node = CharactersNode->GetFirstChild(); // or GetChild("Level1");
     DBNode* ItemsNode = TemplateNode->GetNextChild(); // or GetChild("Items");
