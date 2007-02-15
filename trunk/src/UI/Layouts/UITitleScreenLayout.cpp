@@ -8,6 +8,7 @@
  * Andrew Osborne, February 10 2007 | Documentation
  * Andrew Osborne, February 14 2007 | Added ProcessEvent method
  * Andrew Osborne, February 14 2007 | Made final version for title screen
+ * Karl Schmidt, February 14 2007 | Moved the background image to the upper left corner, deleted commented code
 */
 #include "UITitleScreenLayout.h"                                // class implemented
 #include "UIImage.h"
@@ -23,9 +24,7 @@ UITitleScreenLayout::UITitleScreenLayout()
 {
     mName = "TitleScreen";
 
-    //UIImage *temp = new UIImage("nicePic.bmp");
     UIImage *temp = new UIImage("castle.bmp");
-    temp->SetPos( Point(20, 16) );
     mElements.push_back(temp);
 
     UIText *tempText = new UIText("SymTac", 100, 255, 0, 0);
