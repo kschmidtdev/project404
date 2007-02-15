@@ -11,6 +11,7 @@
  * Andrew Osborne, February 11, 2007 | added destructor
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  * Andrew Osborne, February 14, 2007 | added AddButton method
+ * Karl Schmidt, February 15 2007 | Added wrap-around for navigating upwards and downwards on menu
  */
 #include "UIMenu.h"                                // class implemented
 #include "Point.h"
@@ -111,19 +112,27 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
     {
         case InputManager::UP:
             // Move cursor up
-            if (mCursorPos>0)
+            if (mCursorPos > 0)
             {
                 mCursorPos--;
-                mCursor->SetPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
             }
+            else if( mCursorPos == 0 )
+            {
+                mCursorPos = mMaxCursorPos;
+            }
+            mCursor->SetPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
             //cursor->moveUp()
             break;
         case InputManager::DOWN:
-            if (mCursorPos<mMaxCursorPos)
+            if( mCursorPos < mMaxCursorPos )
             {
                 mCursorPos++;
-                mCursor->SetPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
             }
+            else if( mCursorPos == mMaxCursorPos )
+            {
+                mCursorPos = 0;
+            }
+            mCursor->SetPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
             break;
         case InputManager::CONFIRM:
             if (mButtonFuncs[mCursorPos])
