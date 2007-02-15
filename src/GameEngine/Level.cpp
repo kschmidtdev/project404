@@ -13,6 +13,7 @@
  * Mike Malyuk, February 14, 2007 | Added function PointHasPerson to return enemy state, Minor fixes.
  * Mike Malyuk, February 14, 2007 | Added healer specific code, fixed a few more bugs
  * Karl Schmidt, February 14, 2007 | Fixed healer crash bug/bugnonetheless
+ * Karl Schmidt, February 14 2007 | Fixed the newest constructor (gave member vars default values)
  */
 #include "Level.h"                                // class implemented
 //#include "Character.h"
@@ -139,7 +140,9 @@ Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point>
 }
 
 Level::Level(int)
+: mState(FREE), mCurChar( NULL ), mThisMap( NULL ), mMyTurn( true )
 {
+
     // Useful point variables
     Point tempPoint(0,0);
     int xStart=0;

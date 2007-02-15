@@ -7,6 +7,7 @@
  * Andrew Osborne, February 10 2007 | Initial Creation - stub
  * Andrew Osborne, February 14 2007 | Refined/Finish design, added button/menu functionality
  * Andrew Osborne, February 14 2007 | Made it pretty
+ * Karl Schmidt, February 14 2007 | Moved the image to the upper left corner
  */
 #include "UIMainMenuLayout.h"                                // class implemented
 #include "UIMenu.h"
@@ -50,7 +51,6 @@ UIMainMenuLayout::UIMainMenuLayout()
     mName = "MainMenu";
 
     UIImage *tempImg = new UIImage("castle.bmp");
-    tempImg->SetPos( Point(20, 16) );
     mElements.push_back(tempImg);
 
     UIText *tempText = new UIText("SymTac", 100, 255, 0, 0);

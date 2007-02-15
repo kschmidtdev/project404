@@ -6,6 +6,7 @@
  * Authors:
  * Seung Woo Han, February 7 2007 | Initial design
  * Seung Woo Han, February 11 2007 | Created some overloading constructors and added more functions.
+ * Karl Schmidt, February 14 2007 | Fixed some bugs that crashed on some machines (invalid iters, ptrs)
  */
 
 #include "DBNode.h"                                       // class implemented
@@ -50,12 +51,11 @@ DBNode* DBNode::GetFirstChild()
 
 DBNode* DBNode::GetNextChild()
 {
+    ++mChildrenIter;
     if ( mChildrenIter != mChildren.end() )
     {
-        mChildrenIter++;
         return *mChildrenIter;
     }
-
     else
     {
         return NULL;
@@ -76,17 +76,23 @@ DBNode* DBNode::GetChild( const string& name )
 DBData* DBNode::GetFirstAttribute()
 {
     mAttributesIter = mAttributes.begin();
-    return *mAttributesIter;
+    if( mAttributesIter != mAttributes.end() )
+    {
+        return *mAttributesIter;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 DBData* DBNode::GetNextAttribute()
 {
+    ++mAttributesIter;
     if ( mAttributesIter != mAttributes.end() )
     {
-        mAttributesIter++;
         return *mAttributesIter;
     }
-
     else
     {
         return NULL;
