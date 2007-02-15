@@ -11,7 +11,8 @@
  *
  * Authors:
  * Andrew Osborne, February 10 2007 | Initial Crude Creation
- * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs
+ * Karl Schmidt,   February 14 2007 | Updated function capitalization, block style, typedefs
+ * Mike Malyuk,    February 15 2007 | Added function to get grid
  */
 
 #ifndef UIBattleScreenLayout_h
@@ -85,6 +86,11 @@ public:
      * allows access to currently loaded level (for elements UIGrid and UIMenu)
      */
     Level* GetLevel(void);
+
+    /**
+     * allows access to currently loaded level (for elements UIGrid and UIMenu)
+     */
+    UIGrid* GetGrid(void);
 
 protected:
 // PROTECTED VARIABLES

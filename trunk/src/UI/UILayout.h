@@ -17,6 +17,7 @@
  * Andrew Osborne, February 11 2007 | Made UILayout inherit EventListener, added processEvent method
  * Karl Schmidt, February 13 2007 | Added typedefs instead of lots of vector<Type>
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Mike Malyuk, February 15 2007  | Added virtual function to get at Grid, look at this for v2
  */
 
 #ifndef UILayout_h
@@ -31,6 +32,7 @@ using namespace std;
 // PROJECT INCLUDES
 //
 #include <UIElement.h>
+#include <UIGrid.h>
 #include <EventListener.h>
 #include <InputManager.h>
 
@@ -84,6 +86,8 @@ public:
      * Listens for Key Press from User
     */
     virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
+
+    virtual UIGrid* GetGrid(){return NULL;};
 
 // ACCESS (writing)
 // INQUIRY (reading)
