@@ -247,7 +247,7 @@ void UIGrid::ConfirmFunction( const Point & p )
 
 
     int curState = mLevel->ReturnState();
-
+    cout << curState << endl;
     bool validAction = false;
 
     Character* tempChar;
@@ -370,7 +370,7 @@ void UIGrid::ConfirmFunction( const Point & p )
                     RemoveCharacter((*citer)->GetPoint());
                     AddPartyCharacter((*citer));
                 }
-                mLevel->TakeTurn();
+                mLevel->SetState(Level::AIFREE);
             }
             break;
 
@@ -402,17 +402,15 @@ void UIGrid::ConfirmFunction( const Point & p )
                 // maybe display message later....
             }*/
             // now check if person is there
-            Character* test = mLevel->OnSelect(p);
-            if(test == NULL)
+            if(mLevel->OnSelect(p) == NULL)
             {
                 RemoveCharacter(mCurCharacter->GetPoint());
                 AddExhaustedCharacter(mCurCharacter);
             }
-            Character* enemy = mLevel->PointHasPerson(p);
-            if(enemy != NULL && mCurCharacter != NULL && mCurCharacter->GetPoint() != p)
+            if(mLevel->PointHasPerson(p) != NULL && mCurCharacter != NULL && mCurCharacter->GetPoint() != p)
             {
                 RemoveCharacter(p);
-                enemy->Move(Point(-5,-5));
+                mLevel->PointHasPerson(p)->Move(Point(-5,-5));
             }
             if(mCurCharacter->IsDead())
             {
@@ -429,11 +427,209 @@ void UIGrid::ConfirmFunction( const Point & p )
                     RemoveCharacter((*citer)->GetPoint());
                     AddPartyCharacter((*citer));
                 }
-                mLevel->TakeTurn();
+                mLevel->SetState(Level::AIFREE);
             }
 
             ClearAttackRange();
-            if(enemy == NULL)
+            if(mLevel->PointHasPerson(p) == NULL)
+            {
+                AddAttackRange( mLevel->GetAttackArea() );
+            }
+
+            /*if ( (validAction) && (target!=NULL) )
+            {
+
+                // no
+
+            }*/
+
+            // Check for end game
+
+            // Check for end turn
+
+            break;
+
+        case 3:
+
+
+            // Attempt to select character
+            // ------------------------------------------
+            tempChar = mLevel->OnAISelect(p);
+
+            // Step 1 - check to see if selected character
+            // ===============
+            if (tempChar==NULL) {
+                // Unsuccessful, do nothing
+
+            }
+            else
+            {
+
+                // Step 2 - select Character
+                // =============
+                mCurCharacter = tempChar;
+
+                // Step 3 - prepare screen/UI for moveable range
+                // ==============
+
+                //mMoveRange = mLevel->GetMoveArea();
+                //mMoveRange = refineMoveArea(mMoveRange);
+                //addMoveableRange(moveArea);
+
+                // Successful, display move range
+                ClearMoveableRange();
+                ClearAttackRange();
+
+                PointVec moveArea = mLevel->GetMoveArea();
+                AddMoveableRange( moveArea );
+                mMoveRange = moveArea;
+            }
+            break;
+        case 4:
+
+            // Attempting to MOVE to new spot
+            // ----------------------------------------------
+
+            // Step 1 - check if valid point
+
+            // Step 2 - check if clicked-self
+
+            // Step 3 - Move Character
+
+            // Step 4 - acknowledge level of move
+
+            // Step 5 - Remove moveable Range from screen
+
+            // Step 6 - Prep screen/UI for Attackable Range
+
+            // Check if move was cancelled
+            if (p==mCurCharacter->GetPoint())
+            {
+
+                Character* test = mLevel->OnAISelect(p);
+                ClearMoveableRange();
+                ClearAttackRange();
+                AddAttackRange( mLevel->GetAttackArea() );
+                if(test == NULL)
+                {
+                    RemoveCharacter(p);
+                    AddExhaustedCharacter(mCurCharacter);
+                }
+
+            }
+            else
+            {
+
+                // Check to see if valid spot for movement
+                for ( PointItr iter = mMoveRange.begin(); iter!=mMoveRange.end(); ++iter )
+                {
+
+                    if (p==(*iter))
+                    {
+                        validAction = true;
+                    }
+                }
+
+                if ( validAction )
+                {
+                    // remove icon from old spot
+                    RemoveCharacter( mCurCharacter->GetPoint() );
+
+                    // add icon to new spot
+                    Point old = mCurCharacter->GetPoint();
+                    mCurCharacter->Move(p);
+                    AddEnemyCharacter( mCurCharacter );
+                    mCurCharacter->Move(old);
+                    Character* test = mLevel->OnAISelect(p);
+                    ClearMoveableRange();
+                    if(test == NULL)
+                    {
+                        RemoveCharacter(p);
+                        AddExhaustedCharacter(mCurCharacter);
+                    }
+                    // Prep screen for attack
+                    ClearAttackRange();
+                    AddAttackRange( mLevel->GetAttackArea() );
+
+                }
+                else
+                {
+                    // do nothing
+                    // maybe display message later....
+                }
+            }
+            if(mLevel->AllExhaustedEnemies())
+            {
+                vector<Character*> revigorate = mLevel->GetEnemies();
+                for(vector<Character*>::iterator citer = revigorate.begin(); citer != revigorate.end(); citer++)
+                {
+                    RemoveCharacter((*citer)->GetPoint());
+                    AddEnemyCharacter((*citer));
+                }
+                mLevel->SetState(Level::FREE);
+            }
+            break;
+
+        case 5:
+            // Attempting to attack
+            //------------------------------------------------------
+
+            // Step 1 - check for valid attack point
+
+            // Step 2 - check for self-clicked
+
+            // Step 3 - Attack other character
+
+            // Step 4 - run end turn check (is target dead, is enememy dead, is party exhausted)
+
+            // Step 5 - Initialize next turn
+
+            // check to see if attack-range is valid
+            /*if ( validAction ) {
+                // remove icon from old spot
+                RemoveCharacter( mCurCharacter->GetPoint() );
+
+                // add icon to new spot
+                mCurCharacter->Move(p);
+                addCharacter( mCurCharacter );
+
+            } else {
+                // do nothing
+                // maybe display message later....
+            }*/
+            // now check if person is there
+            Character* test = mLevel->OnAISelect(p);
+            if(test == NULL)
+            {
+                RemoveCharacter(mCurCharacter->GetPoint());
+                AddExhaustedCharacter(mCurCharacter);
+            }
+            Character* part = mLevel->AIPointHasPerson(p);
+            if(part != NULL && mCurCharacter != NULL && mCurCharacter->GetPoint() != p)
+            {
+                RemoveCharacter(p);
+                part->Move(Point(-5,-5));
+            }
+            if(mCurCharacter->IsDead())
+            {
+                RemoveCharacter(mCurCharacter->GetPoint());
+                mCurCharacter->Move(Point(-5,-5));
+            }
+
+            //keep game running
+            if(mLevel->AllExhaustedEnemies())
+            {
+                vector<Character*> revigorate = mLevel->GetEnemies();
+                for(vector<Character*>::iterator citer = revigorate.begin(); citer != revigorate.end(); citer++)
+                {
+                    RemoveCharacter((*citer)->GetPoint());
+                    AddEnemyCharacter((*citer));
+                }
+                mLevel->SetState(Level::FREE);
+            }
+
+            ClearAttackRange();
+            if(part == NULL)
             {
                 AddAttackRange( mLevel->GetAttackArea() );
             }
