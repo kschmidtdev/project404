@@ -10,10 +10,11 @@
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, February 11 2007, Initial Creation
- * Karl Schmidt, February 13 2007, Added typedefs instead of lots of vector<Type>
- * Mike Malyuk, February 14, 2007, Was confused by typedefs, regardless moved everything away from pointers.
- * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Andrew Osborne, February 11 2007   | Initial Creation
+ * Karl Schmidt,   February 13 2007   | Added typedefs instead of lots of vector<Type>
+ * Mike Malyuk,    February 14, 2007  | Was confused by typedefs, regardless moved everything away from pointers.
+ * Karl Schmidt,   February 14 2007   | Updated function capitalization, block style, typedefs, refs
+ * Mike Malyuk,    February 14 2007   | Added function AddExhaustedCharacter
  */
 
 #ifndef UIGrid_h
@@ -85,6 +86,11 @@ public:
      * Adds character element to grid.
 	 */
     virtual void AddPartyCharacter(Character *c);
+
+	/**
+     * Adds character element to grid.
+	 */
+    virtual void AddExhaustedCharacter(Character *c);
 
     /**
      * Removes character element from grid.
