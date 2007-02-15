@@ -5,16 +5,17 @@
  *
  * Authors:
  * Andrew Osborne, February 11 2007 | Initial Creation
- * Karl Schmidt, February 11 2007 | Added checks to prevent crashing if textures are not loaded
- * Andrew osborne, February 11 2007 | Added Destructor and documentaton
+ * Karl Schmidt, February 11 2007   | Added checks to prevent crashing if textures are not loaded
+ * Andrew Osborne, February 11 2007 | Added Destructor and documentaton
  * Andrew Osborne, February 12 2007 | Setup characters, allowed movement, created a number of helper functions
- * Karl Schmidt, February 13 2007 | Reworked destructor, noted current bug and temporary work-around
- * Karl Schmidt, February 13 2007 | Modified hasCharacter to return a value in all cases (fixes a warning, safer)
- * Mike Malyuk,  February 14 2007 | Modified pretty much everything. Stopped newing of tiles, waste of space.
- * Mike Malyuk,  February 14 2007 | Fixed obscure bug where friend standing on tile where opponent died would be
- *                                  cleared from screen if attacker clicked on it. Also allowed your character to die
- *                                  Knight on Knight
- * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Karl Schmidt, February 13 2007   | Reworked destructor, noted current bug and temporary work-around
+ * Karl Schmidt, February 13 2007   | Modified hasCharacter to return a value in all cases (fixes a warning, safer)
+ * Mike Malyuk,  February 14 2007   | Modified pretty much everything. Stopped newing of tiles, waste of space.
+ * Mike Malyuk,  February 14 2007   | Fixed obscure bug where friend standing on tile where opponent died would be
+ *                                    cleared from screen if attacker clicked on it. Also allowed your character to die
+ *                                    Knight on Knight
+ * Karl Schmidt, February 14 2007   | Updated function capitalization, block style, typedefs, refs
+ * Mike Malyuk,  February 14 2007   | Added function to show exhausted state, refreshes on turn.
  */
 #include "UIGrid.h"                                // class implemented
 #include "UITile.h"
@@ -245,8 +246,6 @@ void UIGrid::ConfirmFunction( const Point & p )
 
 
     int curState = mLevel->ReturnState();
-    printf("current State:%d\n", curState);
-    printf("current Point: %d, %d:\n", p.GetX(), p.GetY() );
 
     bool validAction = false;
 
@@ -258,15 +257,13 @@ void UIGrid::ConfirmFunction( const Point & p )
 
             // Attempt to select character
             // ------------------------------------------
-            printf("I'm just before onSelect\n");
             tempChar = mLevel->OnSelect(p);
 
             // Step 1 - check to see if selected character
             // ===============
-            printf("I'm just before check\n");
             if (tempChar==NULL) {
                 // Unsuccessful, do nothing
-                printf("not a character\n");
+
             }
             else
             {
@@ -274,7 +271,6 @@ void UIGrid::ConfirmFunction( const Point & p )
                 // Step 2 - select Character
                 // =============
                 mCurCharacter = tempChar;
-                printf("character selected\n");
 
                 // Step 3 - prepare screen/UI for moveable range
                 // ==============
@@ -313,11 +309,15 @@ void UIGrid::ConfirmFunction( const Point & p )
             if (p==mCurCharacter->GetPoint())
             {
 
-                mLevel->OnSelect(p);
+                Character* test = mLevel->OnSelect(p);
                 ClearMoveableRange();
                 ClearAttackRange();
                 AddAttackRange( mLevel->GetAttackArea() );
-
+                if(test == NULL)
+                {
+                    RemoveCharacter(p);
+                    AddExhaustedCharacter(mCurCharacter);
+                }
 
             }
             else
@@ -326,14 +326,12 @@ void UIGrid::ConfirmFunction( const Point & p )
                 // Check to see if valid spot for movement
                 for ( PointItr iter = mMoveRange.begin(); iter!=mMoveRange.end(); ++iter )
                 {
-                    //printf("movePoint: %d, %d\n", (*iter).GetX(), (*iter).GetY() );
+
                     if (p==(*iter))
                     {
                         validAction = true;
                     }
                 }
-
-                //printf("Valid Move?:%d", validAction);
 
                 if ( validAction )
                 {
@@ -345,10 +343,13 @@ void UIGrid::ConfirmFunction( const Point & p )
                     mCurCharacter->Move(p);
                     AddPartyCharacter( mCurCharacter );
                     mCurCharacter->Move(old);
-                    mLevel->OnSelect(p);
+                    Character* test = mLevel->OnSelect(p);
                     ClearMoveableRange();
-                    printf("curState after move:%d\n", mLevel->ReturnState());
-
+                    if(test == NULL)
+                    {
+                        RemoveCharacter(p);
+                        AddExhaustedCharacter(mCurCharacter);
+                    }
                     // Prep screen for attack
                     ClearAttackRange();
                     AddAttackRange( mLevel->GetAttackArea() );
@@ -362,6 +363,12 @@ void UIGrid::ConfirmFunction( const Point & p )
             }
             if(mLevel->AllExhaustedParty())
             {
+                vector<Character*> revigorate = mLevel->GetParty();
+                for(vector<Character*>::iterator citer = revigorate.begin(); citer != revigorate.end(); citer++)
+                {
+                    RemoveCharacter((*citer)->GetPoint());
+                    AddPartyCharacter((*citer));
+                }
                 mLevel->TakeTurn();
             }
             break;
@@ -394,7 +401,12 @@ void UIGrid::ConfirmFunction( const Point & p )
                 // maybe display message later....
             }*/
             // now check if person is there
-            mLevel->OnSelect(p);
+            Character* test = mLevel->OnSelect(p);
+            if(test == NULL)
+            {
+                RemoveCharacter(p);
+                AddExhaustedCharacter(mCurCharacter);
+            }
             Character* enemy = mLevel->PointHasPerson(p);
             if(enemy != NULL && mCurCharacter != NULL && mCurCharacter->GetPoint() != p)
             {
@@ -441,7 +453,7 @@ void UIGrid::AddEnemyCharacter(Character *c)
     if ( ValidPoint(p)  )
     {
         int index = FindIndex( p );
-        //printf("index: %d, maxSize: %d\n", index, mTiles.size());
+
          mTiles[index].AddCharacter( GetClassSurface(c, "Enemy"));
     }
 }
@@ -453,8 +465,20 @@ void UIGrid::AddPartyCharacter(Character *c)
     if ( ValidPoint(p)  )
     {
         int index = FindIndex( p );
-        //printf("index: %d, maxSize: %d\n", index, mTiles.size());
+
          mTiles[index].AddCharacter( GetClassSurface(c, "Party"));
+    }
+}
+
+void UIGrid::AddExhaustedCharacter(Character *c)
+{
+    Point p = c->GetPoint();
+
+    if ( ValidPoint(p)  )
+    {
+        int index = FindIndex( p );
+
+         mTiles[index].AddCharacter( GetClassSurface(c, "Exhausted"));
     }
 }
 
@@ -469,74 +493,6 @@ void UIGrid::RemoveCharacter( const Point & p)
 
 void UIGrid::AddRange( const PointVec & pointRange, const UIImagePtrVec & elementRange)
 {
-
-    /*int numOfNeededRangeSquares = pointRange.size();
-    int numOfCurrentRangeSqaures = elementRange.size();
-    int i;
-    bool isMoveRange;
-
-    printf("needed: %d, current: %d\n", numOfNeededRangeSquares, numOfCurrentRangeSqaures);
-
-    // If more new Blue tiles/cursors are needed more are created
-
-    if (numOfNeededRangeSquares>numOfCurrentRangeSqaures) {
-        // Need more squares
-        //printf("before condition Statement\n");
-        // Determing image file based on range
-        string imageName;
-        if (elementRange==mImageMoveRange)
-        {
-            imageName = "blueCursor.bmp";
-            isMoveRange = true;
-        }
-        else if (elementRange==mImageAttackRange)
-        {
-            imageName = "yellowCursor.bmp";
-            isMoveRange = false;
-
-        } else {
-            //printf("neither condition statisfied\n");
-        }
-        //printf("after condition statement\n");
-
-        int newSquares = numOfNeededRangeSquares - numOfCurrentRangeSqaures;
-        for (i=0; i<newSquares; i++)
-            elementRange.push_back( new UIImage(imageName) );
-
-    }
-
-    std::vector<Point>::iterator pointIter;
-    std::vector<UIImage*>::iterator elementIter;
-    Point cursorPos;
-    Point gridPoint;
-
-    pointIter = pointRange.begin();
-
-    elementIter = elementRange.begin();
-
-    for (i=0; i<numOfNeededRangeSquares; i++)
-    {
-        gridPoint = (*pointIter);
-        cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
-        (*elementIter)->SetPos( cursorPos );
-        (*elementIter)->setVisible( true );
-        elementIter++;
-        pointIter++;
-    }
-
-    // for remainder of unused elements, set invisible
-    while (elementIter!=elementRange.end())
-    {
-        (*elementIter)->setVisible( false );
-        elementIter++;
-    }
-
-    if (isMoveRange) {
-        mImageMoveRange = elementRange;
-    } else {
-        mImageAttackRange = elementRange;
-    }*/
-
 
 }
 
@@ -578,7 +534,7 @@ void UIGrid::AddAttackRange( PointVec attackRange )
     for ( PointItr i=attackRange.begin(); i!=attackRange.end(); ++i )
     {
         gridPoint = (*i);
-        printf("grid point: %d, %d\n", gridPoint.GetX(), gridPoint.GetY() );
+
         if ( (ValidPoint(gridPoint)))
         {
             cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
@@ -587,7 +543,7 @@ void UIGrid::AddAttackRange( PointVec attackRange )
             elementIter++;
         }
     }
-    cout<< mImageAttackRange.size() << endl;
+
 
 }
 
@@ -734,7 +690,7 @@ SDL_Surface* UIGrid::GetClassSurface(Character* c, const string group)
             return ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
         }
     }
-    else if("Enemy")
+    else if(group == "Enemy")
     {
         if (temp=="Archer")
         {
@@ -751,6 +707,31 @@ SDL_Surface* UIGrid::GetClassSurface(Character* c, const string group)
         else if (temp=="Mage")
         {
             return ResourceManager::GetInstance()->LoadTexture("mage_enemy.bmp");
+        }
+        else
+        {
+            LogWarning( string("Class surface requested for unknown character type: ") + temp );
+            // you screwed up
+            return ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
+        }
+    }
+    else if(group == "Exhausted")
+    {
+        if (temp=="Archer")
+        {
+            return ResourceManager::GetInstance()->LoadTexture("archer_exhaust.bmp");
+        }
+        else if (temp=="Knight")
+        {
+            return ResourceManager::GetInstance()->LoadTexture("knight_exhaust.bmp");
+        }
+        else if (temp=="Healer")
+        {
+            return ResourceManager::GetInstance()->LoadTexture("healer_exhaust.bmp");
+        }
+        else if (temp=="Mage")
+        {
+            return ResourceManager::GetInstance()->LoadTexture("mage_exhaust.bmp");
         }
         else
         {
@@ -781,7 +762,7 @@ PointVec UIGrid::RefineMoveRange( PointVec moveRange )
     while (pointIter!=moveRange.end())
     {
         gridPoint = (*pointIter);
-        //printf("grid point: %d, %d\n", gridPoint.GetX(), gridPoint.GetY() );
+
         if ( (ValidPoint(gridPoint)) && ( (!HasCharacter(gridPoint)) || (gridPoint==charPoint) ) )
         {
             finalVtr.push_back( gridPoint );
