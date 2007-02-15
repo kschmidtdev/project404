@@ -9,7 +9,8 @@
  *                                 Added Exhaust, Invigorate, Attack, MakeDead, GetExhaust, IsDead,
  *                                 and two booleans, mExhausted and mIsDead
  * Mike Malyuk, February 14 2007 | Changed attacking to cout important info. Changed Defence calc by dividing by 2
- *                               | Protected against dealin "negative damage" or healing the defender.
+ *                               | Protected against dealing "negative damage" or healing the defender.
+ * Mike Malyuk, February 14 2007 | Levelling up occurs at 100 exp now instead of greater than 100
  */
 
 #include "Character.h"                                // class implemented
@@ -114,7 +115,7 @@ void Character::Attack(Character* another)
     if(killed == true)
     {
         mExp = ((another->GetLevel()*1.0)/mLevel)*100;
-        if(mExp > 100)
+        if(mExp >= 100)
         {
             LevelUp();
             mExp = mExp-100;

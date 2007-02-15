@@ -8,6 +8,7 @@
  * Mike Malyuk, February 11 2007 | Made CalcAction return non-pointer Point vector
  *                                 Added variables for mIsDead, mExhausted and new attr DEF
  * Mike Malyuk, February 14 2007 | On level up, curHP renewed.
+ * Mike Malyuk, February 14 2007 | Levelling up is couted
  */
 
 #include "Mage.h"                                // class implemented
@@ -79,6 +80,7 @@ void Mage::LevelUp()
     mMaxHP = mMaxHP + 1;
     mCurHP = mMaxHP;
     mLevel++;
+    cout << "Mage (" << mName << ") has levelled up to level " << mLevel << endl;
 }
 vector<Point> Mage::CalcAction()
 {

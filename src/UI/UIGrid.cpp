@@ -16,6 +16,7 @@
  *                                    Knight on Knight
  * Karl Schmidt, February 14 2007   | Updated function capitalization, block style, typedefs, refs
  * Mike Malyuk,  February 14 2007   | Added function to show exhausted state, refreshes on turn.
+ * Mike Malyuk,  February 14 2007   | Added another check for partyexhaustion, move point far enough away to not be an issue.
  */
 #include "UIGrid.h"                                // class implemented
 #include "UITile.h"
@@ -411,19 +412,26 @@ void UIGrid::ConfirmFunction( const Point & p )
             if(enemy != NULL && mCurCharacter != NULL && mCurCharacter->GetPoint() != p)
             {
                 RemoveCharacter(p);
-                enemy->Move(Point(-1,-1));
+                enemy->Move(Point(-5,-5));
             }
             if(mCurCharacter->IsDead())
             {
                 RemoveCharacter(mCurCharacter->GetPoint());
-                mCurCharacter->Move(Point(-1,-1));
+                mCurCharacter->Move(Point(-5,-5));
             }
 
             //keep game running
             if(mLevel->AllExhaustedParty())
             {
+                vector<Character*> revigorate = mLevel->GetParty();
+                for(vector<Character*>::iterator citer = revigorate.begin(); citer != revigorate.end(); citer++)
+                {
+                    RemoveCharacter((*citer)->GetPoint());
+                    AddPartyCharacter((*citer));
+                }
                 mLevel->TakeTurn();
             }
+
             ClearAttackRange();
             if(enemy == NULL)
             {

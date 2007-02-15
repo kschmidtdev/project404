@@ -8,6 +8,7 @@
  * Mike Malyuk, February 11 2007 | Made CalcAction return non-pointer Point vector
  *                                 Added variables for mIsDead, mExhausted and new attr DEF
  * Mike Malyuk, February 14 2007 | On level up, curHP renewed.
+ * Mike Malyuk, February 14 2007 | On level up more verbose, also added "Heal" method.
  */
 
 #include "Healer.h"                                // class implemented
@@ -79,6 +80,7 @@ void Healer::LevelUp()
     mMaxHP = mMaxHP + 2;
     mCurHP = mMaxHP;
     mLevel++;
+    cout << "Healer (" << mName << ") has levelled up to level " << mLevel << endl;
 }
 vector<Point> Healer::CalcAction()
 {
@@ -88,6 +90,21 @@ vector<Point> Healer::CalcAction()
     points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()-1));
     points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()+1));
     return points;
+}
+
+void Healer::Heal(Character* buddy)
+{
+    if(buddy->GetMaxHP() < (buddy->GetHP() + mAttributes[POW]))
+    {
+        cout << "Healer (" << mName << ") heals " << buddy->GetClassName() << " (" << buddy->GetName() << ") for " << buddy->GetMaxHP() - buddy->GetHP() << " HP." << endl;
+        buddy->SetHP(buddy->GetMaxHP());
+    }
+    else
+    {
+                cout << "Healer (" << mName << ") heals " << buddy->GetClassName() << " (" << buddy->GetName() << ") for " << mAttributes[POW] << " HP." << endl;
+        buddy->SetHP(buddy->GetHP() + mAttributes[POW]);
+    }
+    mExhausted = true;
 }
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
