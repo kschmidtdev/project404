@@ -37,6 +37,7 @@ UIManager* UIManager::GetInstance()
 
 
  UIManager::UIManager(void)
+ : mCurLayout( NULL ), mGameShutdown( false )
  {
 
      // Constructor stuff

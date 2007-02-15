@@ -144,6 +144,10 @@ void GameRoot::GameLoop()
         } // end of message processing
 
         mRenderer->Draw();
+        if( !done )
+        {
+            done = mUIManager->GetEndGameState();
+        }
     }
     LogInfo( "The game has ended." );
 }
