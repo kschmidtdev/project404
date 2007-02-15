@@ -16,6 +16,7 @@
 
 #include <UILayout.h>                                   // class implemented
 #include <Renderer/SDLRenderer.h>
+#include <UIManager.h>
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////

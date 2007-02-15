@@ -8,6 +8,7 @@
  * Andrew Osborne, February 11 2007 | Added Event Listening
  * Andrew Osborne, February 11 2007 | Added functionality to switch between menu/grid
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs
+ * Andrew Osborne, February 14 2007 | Added button-function-objects and proper menu declaration
  */
 
 #include "UIBattleScreenLayout.h"                                // class implemented
@@ -15,6 +16,37 @@
 #include "UIGrid.h"
 #include "Logger.h"
 #include "GameEngine/Level.h"
+#include "UIManager.h"
+
+
+// Defining Function Objects for Button Operations
+
+class QuitFuntion : public FuncObj
+{
+    virtual void operator()(void)
+    {
+        UIManager::GetInstance()->SetEndGameState( true );
+    }
+};
+
+
+class StatusFunction : public FuncObj
+{
+    virtual void operator()(void)
+    {
+        // To be implemented later
+    }
+};
+
+
+class EndTurnFunction : public FuncObj
+{
+    virtual void operator()(void)
+    {
+
+    }
+};
+
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -22,10 +54,21 @@
 
 UIBattleScreenLayout::UIBattleScreenLayout()
 {
-    // Add components
+    // Add Menu
+    // -----------------------------------
     mMenu = new UIMenu();
     mMenu->SetPos( Point(470, 150) );
+
+    mMenu->AddButton("Status", new StatusFunction() );
+    mMenu->AddButton("End Turn", new EndTurnFunction() );
+    mMenu->AddButton("Quit", new QuitFuntion() );
+
     mElements.push_back( mMenu );
+
+    //UIElement *tempButton;
+
+
+
 
     mGrid = new UIGrid();
     mDefaultEventListener = mGrid;

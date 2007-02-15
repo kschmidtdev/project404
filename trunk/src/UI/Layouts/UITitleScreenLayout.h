@@ -12,6 +12,7 @@
  * Authors:
  * Andrew Osborne, February 10 2007 | Initial Creation
  * Andrew Osborne, February 10 2007 | Documentation
+ * Andrew Osborne, February 14 2007 | Added ProcessEvent handling
  */
 
 #ifndef UITitleScreenLayout_h
@@ -55,6 +56,14 @@ public:
      *
      */
     //virtual void RenderSelf( SDL_Surface* destination );
+
+    /**
+     * Method to Process input from user
+     *
+     * @param inputManager event
+     *
+     */
+    virtual void UITitleScreenLayout::ProcessEvent( const InputManager::INPUTKEYS evt );
 
 // ACCESS (writing)
 // INQUIRY (reading)
