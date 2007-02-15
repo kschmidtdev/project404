@@ -9,6 +9,7 @@
  * Andrew Osborne, February 11 2007 | Added functionality to switch between menu/grid
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs
  * Andrew Osborne, February 14 2007 | Added button-function-objects and proper menu declaration
+ * Karl Schmidt, February 15 2007 | Removed creating the level in here, added some error checking
  */
 
 #include "UIBattleScreenLayout.h"                                // class implemented
@@ -17,6 +18,8 @@
 #include "Logger.h"
 #include "GameEngine/Level.h"
 #include "UIManager.h"
+
+#include <util.h>
 
 
 // Defining Function Objects for Button Operations
@@ -94,8 +97,15 @@ void UIBattleScreenLayout::OnLoad( void )
 
     // doing other initialization
 
-    //mLevel = GameEngine::GetInstance()->battleInitializer();
-    Level *mLevel = new Level(0);
+    Level* mLevel = GameEngine::GetInstance()->GetLevel();
+
+    tacAssert( mLevel != NULL );
+    if( mLevel == NULL )
+    {
+        LogError( "Level was not set up before the UI battle screen was loaded\n" );
+        return;
+    }
+
     mGrid->SetLevel(mLevel);
 
     // Put the characters on the screen
@@ -108,8 +118,8 @@ void UIBattleScreenLayout::OnLoad( void )
     eiter = enemies.begin();
     SDL_Surface *tempIcon = ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
 
-    if (tempIcon!=NULL) {
-
+    if (tempIcon!=NULL)
+    {
         //LogInfo("Character Icon loaded successfully");
         while(piter != party.end() )
         {
@@ -125,7 +135,6 @@ void UIBattleScreenLayout::OnLoad( void )
             //mGrid->addCharacter( (*iter)->getTexture(), (*iter)->GetPoint() );
             mGrid->AddEnemyCharacter( (*eiter) );
             eiter++;
-
         }
     }
     else

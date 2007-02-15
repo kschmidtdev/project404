@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 15 2007 | Added hardcoded battle initialization for v1
  * Karl Schmidt, February 13 2007 | Added config file parsing, some hardcoded value cleanup, enabled all managers
  * Karl Schmidt, February 11 2007 | Added background music implementation
  * Karl Schmidt, February 11 2007 | Initial creation of implementation
@@ -79,6 +80,10 @@ void GameRoot::Initialize()
 
     mUIManager = UIManager::GetInstance();
     mUIManager->Initialize();
+
+	// Temporarily hardcoding this initialization (until the UI has the overmap that does this)
+    vector<Character*> partyTemp;
+    mGameEngine->BattleInit( partyTemp, GameEngine::CITYA );
 
 }
 
