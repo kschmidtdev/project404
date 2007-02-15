@@ -12,6 +12,7 @@
  *                                  in the current default constructor
  * Mike Malyuk, February 14, 2007 | Added function PointHasPerson to return enemy state, Minor fixes.
  * Mike Malyuk, February 14, 2007 | Added healer specific code, fixed a few more bugs
+ * Karl Schmidt, February 14, 2007 | Fixed healer crash bug/bugnonetheless
  */
 #include "Level.h"                                // class implemented
 //#include "Character.h"
@@ -345,28 +346,28 @@ Character* Level::OnSelect(Point p)
         else if(mCurChar->GetClassName() == "Healer")
         {
             vector<Point>::iterator iter;
-            vector<Point> healarea = mCurChar->CalcAction();
-            vector<Character*>::iterator chariter;
+            vector<Point> healArea = mCurChar->CalcAction();
+            vector<Character*>::iterator charIter;
             vector<Point>::iterator iter2;
-            iter2 = healarea.begin();
-            chariter = mParty.begin();
-            while(iter2 != healarea.end() && (*iter2) != p)
+            iter2 = healArea.begin();
+            charIter = mParty.begin();
+            while(iter2 != healArea.end() && (*iter2) != p)
             {
                 iter2++;
             }
             if((*iter2) == p)
             {
-                while(chariter != mParty.end() && (*chariter)->GetPoint() != p)
+                while(charIter != mParty.end() && (*charIter)->GetPoint() != p)
                 {
-                    chariter++;
+                    charIter++;
                 }
-                if( (*chariter) != NULL && p == ((*chariter)->GetPoint()) && !((*chariter)->IsDead()))
-                    {
+                if( (*charIter) != NULL && charIter != mParty.end() && p == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()))
+                {
                         //we know it's a healer
-                        ((Healer*)mCurChar)->Heal((*chariter));
+                        ((Healer*)mCurChar)->Heal((*charIter));
                         mState = FREE;
                         return NULL;
-                    }
+                }
                 else
                 {
                     return mCurChar;
