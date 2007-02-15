@@ -62,6 +62,11 @@ enum charState
     Level(vector<Character*> party, vector<Character*> badguys, vector<Point> start, Map* map);
 
     /**
+    * Constructor.
+    */
+    Level(int); // Contructor loads characters from Database.
+
+    /**
      * Destructor.
 	 */
     ~Level(void);

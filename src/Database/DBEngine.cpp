@@ -10,7 +10,7 @@
 
 #include "DBEngine.h"                                     // class implemented
 #include <util.h>
-
+#include <iostream>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -27,23 +27,22 @@ DBEngine::~DBEngine()
 vector<Character*>* DBEngine::Initialize()
 {
     // Get Database instance.
-    DatabaseManager* DB = DatabaseManager::GetInstance();
+    mDB = DatabaseManager::GetInstance();
 
-    tacAssert( DB );
+    tacAssert( mDB );
 
     // Load XML file.
-    DB->LoadFromFile( "database.xml" );
+    mDB->LoadFromFile( "database2.xml" );
 
     // Create DBNode instances from XML file.
-    DBNode* TemplateNode = DB->Search( "Templates" );
+    DBNode* TemplateNode = mDB->Search( "Templates" );
     DBNode* CharactersNode = TemplateNode->GetFirstChild(); // or GetChild("Characters");
-    DBNode* Level1Node = CharactersNode->GetFirstChild(); // or GetChild("Level1");
     DBNode* ItemsNode = TemplateNode->GetNextChild(); // or GetChild("Items");
     DBNode* WeaponItemNode = ItemsNode->GetFirstChild(); // or GetChild("Weapon");
     DBNode* ArmorItemNode = ItemsNode->GetNextChild(); // or GetChild("Armor");
 
     // Create Character instances.
-    DBNode* CharacterNode = Level1Node->GetFirstChild();
+    DBNode* CharacterNode = CharactersNode->GetFirstChild();
     while ( CharacterNode != NULL )
     {
         DBString* CharacterClassNode = dynamic_cast<DBString*>( CharacterNode->GetFirstAttribute() );
@@ -116,7 +115,7 @@ vector<Character*>* DBEngine::Initialize()
             // unknown CharacterClass.
         }
 
-        CharacterNode = Level1Node->GetNextChild(); // Go to next Character.
+        CharacterNode = CharactersNode->GetNextChild(); // Go to next Character.
     }
 
     return &mCharacterList;
@@ -135,4 +134,64 @@ ArmorItem* DBEngine::CreateArmor( DBNode* ArmorNode )
     DBInt* ArmorAttribute = dynamic_cast<DBInt*>( ArmorNode->GetFirstAttribute() );
     ArmorItem* newArmor = new ArmorItem( ArmorNode->GetName(), ArmorAttribute->GetData() );
     return newArmor;
+}
+
+vector<Character*>* DBEngine::LoadParty()
+{
+    vector<Character*>* PartyList = new vector<Character*>; // pointer to return.
+
+    // Load Nodes.
+    DBNode* LevelNode = mDB->Search( "Level" );
+    DBNode* Stage1Node = LevelNode->GetFirstChild();
+    DBNode* PartyNode = Stage1Node->GetFirstChild();
+
+    // Search Characters.
+    DBNode* PartyMemberNode = PartyNode->GetFirstChild(); // first member in the party.
+    DBString* PartyMemberNameData;
+    vector<Character*>::iterator Iter;
+    for (int i=0; i<4; i++) // while ( PartyMemberNode != NULL )
+    {
+        PartyMemberNameData = dynamic_cast<DBString*>( PartyMemberNode->GetFirstAttribute() );
+        for (Iter = mCharacterList.begin(); Iter != mCharacterList.end(); Iter++)
+        {
+            if ( (*Iter)->GetName() == PartyMemberNameData->GetData() )
+            {
+                PartyList->push_back( *Iter );
+                break;
+            }
+        }
+
+        PartyMemberNode = PartyNode->GetNextChild();
+    }
+
+    return PartyList;
+}
+
+vector<Character*>* DBEngine::LoadEnemies()
+{
+    vector<Character*>* EnemiesList = new vector<Character*>; // pointer to return.
+
+    // Load Nodes.
+    DBNode* EnemiesNode = mDB->Search( "Enemies" );
+
+    // Search Characters.
+    DBNode* EnemiesMemberNode = EnemiesNode->GetFirstChild(); // first member in the party.
+    DBString* EnemiesMemberNameData;
+    vector<Character*>::iterator Iter;
+    for (int i=0; i<4; i++) // while ( EnemiesMemberNode != NULL )
+    {
+        EnemiesMemberNameData = dynamic_cast<DBString*>( EnemiesMemberNode->GetFirstAttribute() );
+        for (Iter = mCharacterList.begin(); Iter != mCharacterList.end(); Iter++)
+        {
+            if ( (*Iter)->GetName() == EnemiesMemberNameData->GetData() )
+            {
+                EnemiesList->push_back( *Iter );
+                break;
+            }
+        }
+
+        EnemiesMemberNode = EnemiesNode->GetNextChild();
+    }
+
+    return EnemiesList;
 }
