@@ -18,6 +18,7 @@
  * Mike Malyuk, February 12 2007 | Added getters for UI.
  * Andrew Osborne, February 12 2007 | Added mDefaultConstructor to proplerly delete items after creation
  * Mike Malyuk, February 14, 2007 | Added function PointHasPerson to return enemy state,
+ * Mike Malyuk, February 15, 2007 | Added AI mirror functions
  */
 
 #ifndef Level_h
@@ -47,7 +48,10 @@ enum charState
 {
     FREE = 0,
     MOVE,
-    ATTACK
+    ATTACK,
+    AIFREE,
+    AIMOVE,
+    AIATTACK
 };
 // LIFECYCLE
 
@@ -82,7 +86,15 @@ enum charState
      * If character exists returns pointer, if not, returns null
 	 */
     Character* OnSelect(Point p);
+
+    /**
+     * From SetCursorBattle, controls STATE by checking position for players.
+     * If character exists returns pointer, if not, returns null
+	 */
+    Character* OnAISelect(Point p);
+
 // ACCESS (writing)
+    void SetState(charState state){mState = state;}
 // INQUIRY (reading)
 
     int ReturnState();
@@ -134,9 +146,20 @@ enum charState
     bool AllExhaustedParty();
 
     /**
+     * Checks if party is exhausted, if true, it will automatically switch turns
+     */
+    bool AllExhaustedEnemies();
+
+    /**
      * Checks if point has person, return person if it does;
      */
     Character* PointHasPerson(Point p);
+
+    /**
+     * Checks if point has person, return person if it does;
+     */
+    Character* AIPointHasPerson(Point p);
+
 
     /**
      * Return Enemies
