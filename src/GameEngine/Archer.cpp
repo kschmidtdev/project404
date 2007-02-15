@@ -77,6 +77,7 @@ void Archer::LevelUp()
 {
     mAttributes[POW] = mAttributes[POW]+1;
     mAttributes[AGI] = mAttributes[AGI]+3;
+    mAttributes[DEF] = mAttributes[DEF]+2;
     mMaxHP = mMaxHP + 3;
     mCurHP = mMaxHP;
     mLevel++;

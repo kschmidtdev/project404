@@ -75,8 +75,9 @@ Healer::~Healer()
 //============================= OPERATIONS ===================================
 void Healer::LevelUp()
 {
-    mAttributes[POW] = mAttributes[POW]+1;
+    mAttributes[POW] = mAttributes[POW]+2;
     mAttributes[AGI] = mAttributes[AGI]+1;
+    mAttributes[DEF] = mAttributes[DEF]+1;
     mMaxHP = mMaxHP + 2;
     mCurHP = mMaxHP;
     mLevel++;
