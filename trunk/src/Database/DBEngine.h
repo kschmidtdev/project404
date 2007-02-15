@@ -27,10 +27,14 @@ public:
     WeaponItem* CreateWeapon( DBNode* WeaponNode );
     ArmorItem* CreateArmor( DBNode* ArmorNode );
 
+    vector<Character*>* LoadParty();
+    vector<Character*>* LoadEnemies();
+
 protected:
 
 private:
 
+    DatabaseManager* mDB;
     vector<Character*> mCharacterList;
 
 };

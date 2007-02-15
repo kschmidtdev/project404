@@ -95,7 +95,7 @@ void UIBattleScreenLayout::OnLoad( void )
     // doing other initialization
 
     //mLevel = GameEngine::GetInstance()->battleInitializer();
-    Level *mLevel = new Level();
+    Level *mLevel = new Level(0);
     mGrid->SetLevel(mLevel);
 
     // Put the characters on the screen

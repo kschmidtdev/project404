@@ -19,6 +19,7 @@
 #include "Knight.h"
 #include "Healer.h"
 #include "Mage.h"
+#include "../Database/DBEngine.h"
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -133,6 +134,45 @@ Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point>
         piter++;
     }
 
+
+}
+
+Level::Level(int)
+{
+    // Useful point variables
+    Point tempPoint(0,0);
+    int xStart=0;
+    int yBadStart=9;
+    int yGoodStart=0;
+
+    DBEngine DBE;
+    DBE.Initialize();
+
+
+    //// Party Setting ////
+    vector<Character*>* PartyList = DBE.LoadParty(); // Get the pointer of party members in this level.
+    vector<Character*>::iterator Iter1; // Iterator.
+    for (Iter1 = PartyList->begin(); Iter1 != PartyList->end(); Iter1++)
+    {
+        tempPoint.Set( xStart, yGoodStart );
+        (*Iter1)->Move( tempPoint );
+        mParty.push_back( (*Iter1) );
+        xStart++;
+    }
+
+
+    //// Enemies Setting ////
+    xStart = 0;
+
+    vector<Character*>* EnemiesList = DBE.LoadEnemies(); // Get the pointer of enemy members in this level.
+    vector<Character*>::iterator Iter2; // Iterator.
+    for (Iter2 = EnemiesList->begin(); Iter2 != EnemiesList->end(); Iter2++)
+    {
+        tempPoint.Set( xStart, yBadStart );
+        (*Iter2)->Move( tempPoint );
+        mEnemies.push_back( (*Iter2) );
+        xStart++;
+    }
 
 }
 
