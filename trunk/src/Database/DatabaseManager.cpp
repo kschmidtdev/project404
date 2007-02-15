@@ -23,6 +23,7 @@ DatabaseManager* DatabaseManager::GetInstance()
     {
         _instance = new DatabaseManager();
     }
+
     return _instance;
 }
 
@@ -37,7 +38,25 @@ void DatabaseManager::Initialize()
 
 void DatabaseManager::Shutdown()
 {
-    // stub
+    vector<DBNode*>::iterator Iter;
+
+    for (Iter=mSearchList.begin(); Iter!=mSearchList.end(); Iter++)
+    {
+        DBData* thisAttribute = (*Iter)->GetFirstAttribute();
+        while ( thisAttribute != NULL )
+        {
+            delete thisAttribute; // delete attribute instances of each Node.
+            thisAttribute = (*Iter)->GetNextAttribute();
+        }
+
+        delete (*Iter); // delete node instances.
+    }
+
+    if( _instance )
+    {
+        delete _instance; // delete DatabaseManager instance.
+        _instance = NULL;
+    }
 }
 
 //============================= OPERATORS ====================================

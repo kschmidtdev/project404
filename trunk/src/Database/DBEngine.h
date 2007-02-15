@@ -29,6 +29,8 @@ public:
 
     vector<Character*>* LoadParty();
     vector<Character*>* LoadEnemies();
+    DBVector2D* LoadPartyStartingPoint(Character* thisCharacter);
+    DBVector2D* LoadEnemiesStartingPoint(Character* thisCharacter);
 
 protected:
 

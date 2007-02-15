@@ -32,7 +32,7 @@ vector<Character*>* DBEngine::Initialize()
     tacAssert( mDB );
 
     // Load XML file.
-    mDB->LoadFromFile( "database2.xml" );
+    mDB->LoadFromFile( "database.xml" );
 
     // Create DBNode instances from XML file.
     DBNode* TemplateNode = mDB->Search( "Templates" );
@@ -194,4 +194,52 @@ vector<Character*>* DBEngine::LoadEnemies()
     }
 
     return EnemiesList;
+}
+
+DBVector2D* DBEngine::LoadPartyStartingPoint(Character* thisCharacter)
+{
+    DBNode* PartyNode = mDB->Search( "Party" );
+
+    DBString* PartyMemberNameData;
+    vector<Character*>::iterator Iter;
+
+     // Search Characters.
+    DBNode* PartyMemberNode = PartyNode->GetFirstChild(); // first member in the party.
+    for (int i=0; i<4; i++) // while ( PartyMemberNode != NULL )
+    {
+        PartyMemberNameData = dynamic_cast<DBString*>( PartyMemberNode->GetFirstAttribute() );
+
+        if ( PartyMemberNameData->GetData() == thisCharacter->GetName() )
+        {
+            return dynamic_cast<DBVector2D*>( PartyMemberNode->GetAttribute( "Starting Point" ) );
+        }
+
+        PartyMemberNode = PartyNode->GetNextChild();
+    }
+
+    return NULL; // not found.
+}
+
+DBVector2D* DBEngine::LoadEnemiesStartingPoint(Character* thisCharacter)
+{
+    DBNode* EnemiesNode = mDB->Search( "Enemies" );
+
+    DBString* EnemiesMemberNameData;
+    vector<Character*>::iterator Iter;
+
+     // Search Characters.
+    DBNode* EnemiesMemberNode = EnemiesNode->GetFirstChild(); // first member in the party.
+    for (int i=0; i<4; i++) // while ( PartyMemberNode != NULL )
+    {
+        EnemiesMemberNameData = dynamic_cast<DBString*>( EnemiesMemberNode->GetFirstAttribute() );
+
+        if ( EnemiesMemberNameData->GetData() == thisCharacter->GetName() )
+        {
+            return dynamic_cast<DBVector2D*>( EnemiesMemberNode->GetAttribute( "Starting Point" ) );
+        }
+
+        EnemiesMemberNode = EnemiesNode->GetNextChild();
+    }
+
+    return NULL; // not found.
 }
