@@ -15,6 +15,7 @@
  * Mike Malyuk,    February 14, 2007  | Was confused by typedefs, regardless moved everything away from pointers.
  * Karl Schmidt,   February 14 2007   | Updated function capitalization, block style, typedefs, refs
  * Mike Malyuk,    February 14 2007   | Added function AddExhaustedCharacter
+ * Mike Malyuk,    February 15 2007   | Added MaxXY to get the edges of map
  */
 
 #ifndef UIGrid_h
@@ -28,7 +29,6 @@
 #include <UIElement.h>
 #include <UITile.h>
 #include <EventListener.h>
-#include <GameEngine/GameEngine.h>
 #include <UIImage.h>
 #include <GameEngine/Character.h>
 #include <GameEngine/Level.h>
@@ -147,6 +147,7 @@ public:
      */
     bool HasCharacter( const Point & p );
 
+    Point MaxXY(){ return Point(mNumColumns, mNumRows);}
 protected:
 // PROTECTED VARIABLES
     UITileVec mTiles;
@@ -189,7 +190,9 @@ protected:
 // TODO: These need correct commenting
     int FindIndex( const int x, const int y );
     int FindIndex( const Point & p );
+    public:
     void ConfirmFunction( const Point & p );
+    protected:
     SDL_Surface* GetClassSurface( Character* c, const string group );
     Point GridToAbsoluteCoordinates( const Point & p );
 

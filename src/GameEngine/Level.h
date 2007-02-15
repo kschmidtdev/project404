@@ -19,6 +19,7 @@
  * Andrew Osborne, February 12 2007 | Added mDefaultConstructor to proplerly delete items after creation
  * Mike Malyuk, February 14, 2007 | Added function PointHasPerson to return enemy state,
  * Mike Malyuk, February 15, 2007 | Added AI mirror functions
+ * Mike Malyuk, February 15, 2007 | Added GetCurCharacter
  */
 
 #ifndef Level_h
@@ -170,6 +171,11 @@ enum charState
      * Return Party
      */
      vector<Character*> GetParty();
+
+    /**
+     * Return Party
+     */
+     Character* GetCurCharacter(){return mCurChar;}
 
 protected:
 // PROTECTED VARIABLES

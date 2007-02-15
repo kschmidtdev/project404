@@ -10,6 +10,7 @@
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs
  * Andrew Osborne, February 14 2007 | Added button-function-objects and proper menu declaration
  * Karl Schmidt, February 15 2007 | Removed creating the level in here, added some error checking
+ * Mike Malyuk,  February 15 2007 | Added get for grid;
  */
 
 #include "UIBattleScreenLayout.h"                                // class implemented
@@ -187,6 +188,10 @@ void UIBattleScreenLayout::switchToGrid(void)
 {
     return mLevel;
 }*/
+UIGrid* UIBattleScreenLayout::GetGrid(void)
+{
+    return mGrid;
+}
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

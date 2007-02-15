@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Mike Malyuk,  February 15 2007 | Added looping for AI
  * Karl Schmidt, February 15 2007 | Added hardcoded battle initialization for v1
  * Karl Schmidt, February 13 2007 | Added config file parsing, some hardcoded value cleanup, enabled all managers
  * Karl Schmidt, February 11 2007 | Added background music implementation
@@ -80,10 +81,9 @@ void GameRoot::Initialize()
 
     mUIManager = UIManager::GetInstance();
     mUIManager->Initialize();
-
 	// Temporarily hardcoding this initialization (until the UI has the overmap that does this)
     vector<Character*> partyTemp;
-    mGameEngine->BattleInit( partyTemp, GameEngine::CITYA );
+    mGameEngine->BattleInit( partyTemp, GameEngine::CITYA, mUIManager->GetLayout("BattleScreen")->GetGrid()->MaxXY() );
 
 }
 
@@ -122,32 +122,39 @@ void GameRoot::GameLoop()
     while (!done)
     {
         // message processing loop
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
+        if((mGameEngine != NULL && mGameEngine->GetLevel()->GetTurn()) || mGameEngine == NULL)
         {
-            // check for messages
-            switch (event.type)
+            SDL_Event event;
+            while (SDL_PollEvent(&event))
             {
-                // exit if the window is closed
-                case SDL_QUIT:
-                done = true;
-                break;
-
-                // check for keypresses
-                case SDL_JOYBUTTONDOWN:
-                case SDL_JOYBUTTONUP:
-                case SDL_JOYAXISMOTION:
-                case SDL_KEYDOWN:
+                // check for messages
+                switch (event.type)
                 {
-                    mInput->ProcessEvent( &event );
-                    // exit if ESCAPE is pressed
-                    if (event.key.keysym.sym == SDLK_ESCAPE)
-                        done = true;
+                    // exit if the window is closed
+                    case SDL_QUIT:
+                    done = true;
                     break;
-                }
-            } // end switch
-        } // end of message processing
 
+                    // check for keypresses
+                    case SDL_JOYBUTTONDOWN:
+                    case SDL_JOYBUTTONUP:
+                    case SDL_JOYAXISMOTION:
+                    case SDL_KEYDOWN:
+                    {
+                        mInput->ProcessEvent( &event );
+                        // exit if ESCAPE is pressed
+                        if (event.key.keysym.sym == SDLK_ESCAPE)
+                            done = true;
+                        break;
+                    }
+                } // end switch
+            } // end of message processing
+        }
+        else
+        {
+           const Point inputPt = mGameEngine->GetAI()->DoAction();
+           mUIManager->GetLayout("BattleScreen")->GetGrid()->ConfirmFunction(inputPt);
+        }
         mRenderer->Draw();
         if( !done )
         {

@@ -16,6 +16,7 @@
  * Karl Schmidt, February 14 2007 | Fixed the newest constructor (gave member vars default values)
  * Mike Malyuk, February 15, 2007 | Fixed more bugs, now shouldn't crash. Runs 2p til we implement AI
  *                                | Move range and Attack range don't show up for enemies (bug)
+ * Mike Malyuk, February 15, 2007 | Fixed small bug in Healer code
  */
 #include "Level.h"                                // class implemented
 //#include "Character.h"
@@ -561,7 +562,7 @@ Character* Level::OnAISelect(Point p)
                 {
                     charIter++;
                 }
-                if( charIter != mEnemies.end() && (*charIter) != NULL && charIter != mParty.end() && p == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()))
+                if( charIter != mEnemies.end() && (*charIter) != NULL && charIter != mEnemies.end() && p == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()))
                 {
                     //we know it's a healer
                     ((Healer*)mCurChar)->Heal((*charIter));

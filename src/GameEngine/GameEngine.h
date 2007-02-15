@@ -10,6 +10,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Mike Malyuk, February 15 2007  | Added AI
  * Karl Schmidt, February 15 2007 | Changed the name of one enum, corrected a naming convention, added a GetLevel() function
  * Karl Schmidt, February 12 2007 | Fixed includes, made it a singleton, fixed some compilation errors
  * Mike Malyuk, February 8, 2007, | Initial design
@@ -28,7 +29,7 @@
 #include <GameEngine/Level.h>
 #include <GameEngine/Character.h>
 #include <GameEngine/Item.h>
-
+#include <..\src\AI\AIControl.h>
 
 // LOCAL INCLUDES
 //
@@ -75,7 +76,7 @@ enum Cities
     /**
      * Pass information to a level instance
 	 */
-    void BattleInit(vector<Character*> partyMem, Cities place);
+    void BattleInit(vector<Character*> partyMem, Cities place, Point maxPoint);
 
     /**
      * Check city for a market
@@ -113,6 +114,8 @@ enum Cities
 	 */
     void SetCursorBattle( const int x, const int y );
 
+
+    void SetAI(Level* level, Point point);
 // INQUIRY (reading)
     /**
      * Return items in a Market
@@ -129,6 +132,8 @@ enum Cities
 	 */
     Level* GetLevel() { return mCurLvl; };
 
+    AIControl* GetAI() {return mAI;}
+
 protected:
 // PROTECTED METHODS
     /**
@@ -140,6 +145,7 @@ protected:
     vector<Character*> mCharacters;
     vector<Character*> mParty;
     vector<Level*> mLevels;
+    AIControl* mAI;
 // TODO: Implement when City.h exists
 //    vector<City*> mCities;
     vector<Item*> mItems;
