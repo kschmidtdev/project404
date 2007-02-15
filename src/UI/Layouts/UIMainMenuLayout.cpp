@@ -6,10 +6,13 @@
  * Authors:
  * Andrew Osborne, February 10 2007 | Initial Creation - stub
  * Andrew Osborne, February 14 2007 | Refined/Finish design, added button/menu functionality
+ * Andrew Osborne, February 14 2007 | Made it pretty
  */
 #include "UIMainMenuLayout.h"                                // class implemented
 #include "UIMenu.h"
 #include "UIManager.h"
+#include "UIText.h"
+#include "UIImage.h"
 
 
 class NewGameFunction : public FuncObj
@@ -46,15 +49,24 @@ UIMainMenuLayout::UIMainMenuLayout()
 {
     mName = "MainMenu";
 
-    UIMenu *temp = new UIMenu();
+    UIImage *tempImg = new UIImage("castle.bmp");
+    tempImg->SetPos( Point(20, 16) );
+    mElements.push_back(tempImg);
 
-    temp->AddButton("New Game", new NewGameFunction() );
-    temp->AddButton("Set Password", new SetPasswordFunction() );
-    temp->AddButton("Quit", new QuitFuntion() );
+    UIText *tempText = new UIText("SymTac", 100, 255, 0, 0);
+    tempText->SetPos( Point(120,50) );
+    mElements.push_back(tempText);
 
-    temp->SetPos( Point(150,150) );
-    mDefaultEventListener = temp;
-    mElements.push_back(temp);
+
+    UIMenu *tempMenu = new UIMenu();
+
+    tempMenu->AddButton("New Game", new NewGameFunction() );
+    tempMenu->AddButton("Set Password", new SetPasswordFunction() );
+    tempMenu->AddButton("Quit", new QuitFuntion() );
+
+    tempMenu->SetPos( Point(245,255) );
+    mDefaultEventListener = tempMenu;
+    mElements.push_back(tempMenu);
 
 }// UIMainMenuLayout
 
