@@ -404,7 +404,7 @@ void UIGrid::ConfirmFunction( const Point & p )
             Character* test = mLevel->OnSelect(p);
             if(test == NULL)
             {
-                RemoveCharacter(p);
+                RemoveCharacter(mCurCharacter->GetPoint());
                 AddExhaustedCharacter(mCurCharacter);
             }
             Character* enemy = mLevel->PointHasPerson(p);
