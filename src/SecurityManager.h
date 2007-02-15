@@ -34,7 +34,7 @@ using namespace std;
 //
 
 typedef map<string, string> PasswordHashMap;
-typedef PasswordHashMap::iterator PasswordHashItr;
+typedef PasswordHashMap::iterator PasswordHashMapItr;
 
 class SecurityManager
 {
