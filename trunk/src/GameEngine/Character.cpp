@@ -52,23 +52,23 @@ void Character::MakeDead()
 }
 void Character::Attack(Character* another)
 {
-    cout << "Attacking " << GetClassName() << "'s HP:" << GetHP() << endl;
-    cout << "Defending " << GetClassName() << "'s HP:" << another->GetHP() << endl;
+    cout << "Attacking " << GetClassName() <<" (" << GetName() << ")'s HP:" << GetHP() << endl;
+    cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << "'s HP:" << another->GetHP() << endl;
     bool killed = false;
     if(GetClassName() == "Knight")
     {
         if(mAttributes[POW] - (another->GetAttr(Character::DEF)/2) <= 0)
         {
-            cout << "Attacking " << GetClassName() << " did 0 damage" << endl;
+            cout << "Attacking " << GetClassName() <<" (" << GetName() << ") did 0 damage" << endl;
         }
         else
         {
         another->SetHP(another->GetHP()-mAttributes[POW]+(another->GetAttr(Character::DEF)/2));
-        cout << "Attacking " << GetClassName() << " did " << mAttributes[POW]-(another->GetAttr(Character::DEF)/2) << " damage" << endl;
+        cout << "Attacking " << GetClassName() <<" (" << GetName() << ") did " << mAttributes[POW]-(another->GetAttr(Character::DEF)/2) << " damage" << endl;
         }
         if(another->GetHP() <= 0)
         {
-            cout << "Defender dead" << endl;
+            cout << "Defender " << another->GetClassName() << " (" << another->GetName() <<  ") Dead" << endl;
             another->MakeDead();
             another->Exhaust();
             killed = true;
@@ -77,16 +77,16 @@ void Character::Attack(Character* another)
         {
             if(another->GetAttr(Character::POW) - (mAttributes[DEF]/2) <= 0)
             {
-                cout << "Defending " << GetClassName() << " did 0 damage" << endl;
+                cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ") did 0 damage" << endl;
             }
             else
             {
-            cout << "Defending " << another->GetClassName() << " did " << another->GetAttr(Character::POW) - (mAttributes[DEF]/2) << " damage" << endl;
+            cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ") did " << another->GetAttr(Character::POW) - (mAttributes[DEF]/2) << " damage" << endl;
             mCurHP = (mCurHP-another->GetAttr(Character::POW) + (mAttributes[DEF]/2));
             }
             if (mCurHP <= 0)
             {
-                cout << "Attacker Dead" << endl;
+                cout << "Attacker " << GetClassName() << " (" << GetName() <<  ") Dead" << endl;
                 mIsDead = true;
                 mExhausted = true;
             }
@@ -96,16 +96,16 @@ void Character::Attack(Character* another)
     {
         if(mAttributes[POW] - (another->GetAttr(Character::DEF)/2) <= 0)
         {
-            cout << "Attacking " << GetClassName() << " did 0 damage" << endl;
+            cout << "Attacking " << GetClassName() <<" (" << GetName() << ") did 0 damage" << endl;
         }
         else
         {
         another->SetHP(another->GetHP()-mAttributes[POW]+(another->GetAttr(Character::DEF)/2));
-        cout << "Attacking " << GetClassName() << " did " << mAttributes[POW]-(another->GetAttr(Character::DEF)/2) << " damage" << endl;
+        cout << "Attacking " << GetClassName() <<" (" << GetName() << ") did " << mAttributes[POW]-(another->GetAttr(Character::DEF)/2) << " damage" << endl;
         }
         if(another->GetHP() <= 0)
         {
-            cout << "Defender Dead" << endl;
+            cout << "Defender " << another->GetClassName() << " (" << another->GetName() <<  ") Dead" << endl;
             another->MakeDead();
             another->Exhaust();
             killed = true;

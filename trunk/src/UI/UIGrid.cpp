@@ -579,7 +579,6 @@ void UIGrid::AddMoveableRange( PointVec moveRange )
     for ( PointItr i=moveRange.begin(); i!=moveRange.end(); ++i )
     {
         gridPoint = (*i);
-        printf("grid point: %d, %d\n", gridPoint.GetX(), gridPoint.GetY() );
         if ( (ValidPoint(gridPoint)) && ( (!HasCharacter(gridPoint)) || (gridPoint==charPoint) ) )
         {
             cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
@@ -588,8 +587,6 @@ void UIGrid::AddMoveableRange( PointVec moveRange )
             elementIter++;
         }
     }
-
-    printf("I've made it past implementing the move squares\n");
 
 }
 
