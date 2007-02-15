@@ -12,6 +12,7 @@
  * Authors:
  * Mike Malyuk, February 7 2007 | Initial design
  * Mike Malyuk, February 11 2007 | Made CalcAction return non-pointer Point vector
+ * Mike Malyuk, February 14 2007 | Added Heal function
  */
 
 #ifndef Healer_h
@@ -61,6 +62,12 @@ public:
      * Returns array of Points a character may have action on
 	 */
     virtual vector<Point> CalcAction();
+
+    /**
+     * Healer specific healing
+     */
+     void Heal(Character* buddy);
+
 // ACCESS
 // INQUIRY
 
@@ -68,6 +75,7 @@ public:
      * Get name of class (for UI stuff, or limiting weapons)
 	 */
     virtual string GetClassName();
+
 
 protected:
 // PROTECTED VARIABLES

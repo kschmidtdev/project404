@@ -11,6 +11,7 @@
  * Karl Schmidt, February 12 2007 | Added initializing values for some variables that weren't being set
  *                                  in the current default constructor
  * Mike Malyuk, February 14, 2007 | Added function PointHasPerson to return enemy state, Minor fixes.
+ * Mike Malyuk, February 14, 2007 | Added healer specific code, fixed a few more bugs
  */
 #include "Level.h"                                // class implemented
 //#include "Character.h"
@@ -200,30 +201,65 @@ Character* Level::OnSelect(Point p)
         {
             mCurChar->Move(p);
             cout << "Attacker " << mCurChar->GetName()  <<" (" << mCurChar->GetClassName() << ") moving to: " << mCurChar->GetPoint().GetX() << "," << mCurChar->GetPoint().GetY() << endl;
-            vector<Point> attackarea = mCurChar->CalcAction();
-            vector<Character*>::iterator chariter;
-            vector<Point>::iterator iter2;
-            iter2 = attackarea.begin();
-            chariter = mEnemies.begin();
-            //check if enemies are in range, if not exhaust character
-            while(chariter != mEnemies.end())
+            if(mCurChar->GetClassName() != "Healer")
             {
-                while( ((*iter2)) != ((*chariter)->GetPoint()) && iter2 != attackarea.end())
-                {
-                    iter2++;
-                }
-                if(((*iter2)) == ((*chariter)->GetPoint()) && !((*chariter)->IsDead()))
-                {
-                    mAttackArea = attackarea;
-                    mState = ATTACK;
-                    return mCurChar;
-                }
+                vector<Point> attackarea = mCurChar->CalcAction();
+                vector<Character*>::iterator chariter;
+                vector<Point>::iterator iter2;
                 iter2 = attackarea.begin();
-                chariter++;
+                chariter = mEnemies.begin();
+                //check if enemies are in range, if not exhaust character
+                while(chariter != mEnemies.end())
+                {
+                    while( ((*iter2)) != ((*chariter)->GetPoint()) && iter2 != attackarea.end())
+                    {
+                        iter2++;
+                    }
+                    if(((*iter2)) == ((*chariter)->GetPoint()) && !((*chariter)->IsDead()))
+                    {
+                        mAttackArea = attackarea;
+                        mState = ATTACK;
+                        return mCurChar;
+                    }
+                    iter2 = attackarea.begin();
+                    chariter++;
+                }
+                mCurChar->Exhaust();
+                mState = FREE;
+                return NULL;
             }
-            mCurChar->Exhaust();
-            mState = FREE;
-            return NULL;
+            else if (mCurChar->GetClassName() == "Healer")
+            {
+                vector<Point> healarea = mCurChar->CalcAction();
+                vector<Character*>::iterator chariter;
+                vector<Point>::iterator iter2;
+                iter2 = healarea.begin();
+                chariter = mParty.begin();
+                //check if enemies are in range, if not exhaust character
+                while(chariter != mParty.end())
+                {
+                    while( ((*iter2)) != ((*chariter)->GetPoint()) && iter2 != healarea.end())
+                    {
+                        iter2++;
+                    }
+                    if(((*iter2)) == ((*chariter)->GetPoint()) && !((*chariter)->IsDead()))
+                    {
+                        mAttackArea = healarea;
+                        mState = ATTACK;
+                        return mCurChar;
+                    }
+                    iter2 = healarea.begin();
+                    chariter++;
+                }
+                mCurChar->Exhaust();
+                mState = FREE;
+                return NULL;
+            }
+            else
+            {
+                //stub for future implementation
+            }
+
         }
         else
         {
@@ -232,28 +268,70 @@ Character* Level::OnSelect(Point p)
     }
     else
     {
-        vector<Point>::iterator iter;
-        vector<Point> attackarea = mCurChar->CalcAction();
-        vector<Character*>::iterator chariter;
-        vector<Point>::iterator iter2;
-        iter2 = attackarea.begin();
-        chariter = mEnemies.begin();
-        while(iter2 != attackarea.end() && (*iter2) != p)
+        if(mCurChar->GetClassName() != "Healer")
         {
-            iter2++;
-        }
-        if((*iter2) == p)
-        {
-            while(chariter != mEnemies.end() && (*chariter)->GetPoint() != p)
+            vector<Point>::iterator iter;
+            vector<Point> attackarea = mCurChar->CalcAction();
+            vector<Character*>::iterator chariter;
+            vector<Point>::iterator iter2;
+            iter2 = attackarea.begin();
+            chariter = mEnemies.begin();
+            while(iter2 != attackarea.end() && (*iter2) != p)
             {
-                chariter++;
+                iter2++;
             }
-            if( (*chariter) != NULL && p == ((*chariter)->GetPoint()) && !((*chariter)->IsDead()))
+            if((*iter2) == p)
+            {
+                while(chariter != mEnemies.end() && (*chariter)->GetPoint() != p)
                 {
-                    mCurChar->Attack((*chariter));
-                    mState = FREE;
-                    return NULL;
+                    chariter++;
                 }
+                if( (*chariter) != NULL && p == ((*chariter)->GetPoint()) && !((*chariter)->IsDead()))
+                    {
+                        mCurChar->Attack((*chariter));
+                        mState = FREE;
+                        return NULL;
+                    }
+                else
+                {
+                    return mCurChar;
+                }
+            }
+            else
+            {
+                return mCurChar;
+            }
+        }
+        else if(mCurChar->GetClassName() == "Healer")
+        {
+            vector<Point>::iterator iter;
+            vector<Point> healarea = mCurChar->CalcAction();
+            vector<Character*>::iterator chariter;
+            vector<Point>::iterator iter2;
+            iter2 = healarea.begin();
+            chariter = mParty.begin();
+            while(iter2 != healarea.end() && (*iter2) != p)
+            {
+                iter2++;
+            }
+            if((*iter2) == p)
+            {
+                while(chariter != mParty.end() && (*chariter)->GetPoint() != p)
+                {
+                    chariter++;
+                }
+                if( (*chariter) != NULL && p == ((*chariter)->GetPoint()) && !((*chariter)->IsDead()))
+                    {
+                        //we know it's a healer
+                        ((Healer*)mCurChar)->Heal((*chariter));
+                        mState = FREE;
+                        return NULL;
+                    }
+                else
+                {
+                    return mCurChar;
+                }
+            }
             else
             {
                 return mCurChar;
@@ -261,7 +339,7 @@ Character* Level::OnSelect(Point p)
         }
         else
         {
-            return mCurChar;
+            //stub for later implementation
         }
     }
 }
