@@ -23,7 +23,8 @@ public:
 
     DBEngine();
     virtual ~DBEngine();
-    vector<Character*>* Initialize();
+    void Initialize();
+    void Shutdown();
     WeaponItem* CreateWeapon( DBNode* WeaponNode );
     ArmorItem* CreateArmor( DBNode* ArmorNode );
 

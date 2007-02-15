@@ -9,7 +9,7 @@
 			</Node>
 			<Node name="Karl">
 				<Data type="string" name="Class" value="Mage" />
-				<Data type="int" name="Level" value="3" />
+				<Data type="int" name="Level" value="5" />
 				<Data type="string" name="Weapon" value="Staff of Wisdom" />
 				<Data type="string" name="Armor" value="Cloak of Mana" />
 			</Node>
@@ -21,7 +21,7 @@
 			</Node>
 			<Node name="Andrew">
 				<Data type="string" name="Class" value="Archer" />
-				<Data type="int" name="Level" value="7" />
+				<Data type="int" name="Level" value="6" />
 				<Data type="string" name="Weapon" value="Bow of Lightenning" />
 				<Data type="string" name="Armor" value="Armor of Feather" />
 			</Node>
@@ -40,18 +40,18 @@
 			<Node name="Enemy Type C">
 				<Data type="string" name="Class" value="Healer" />
 				<Data type="int" name="Level" value="3" />
-				<Data type="string" name="Weapon" value="Basic Sword" />
-				<Data type="string" name="Armor" value="Basic Armor" />
+				<Data type="string" name="Weapon" value="Basic Mace" />
+				<Data type="string" name="Armor" value="Basic Cloak" />
 			</Node>
 			<Node name="Enemy Type D">
 				<Data type="string" name="Class" value="Mage" />
 				<Data type="int" name="Level" value="6" />
-				<Data type="string" name="Weapon" value="Basic Sword" />
-				<Data type="string" name="Armor" value="Basic Armor" />
+				<Data type="string" name="Weapon" value="Basic Staff" />
+				<Data type="string" name="Armor" value="Basic Cloak" />
 			</Node>
 			<Node name="Enemy Boss">
 				<Data type="string" name="Class" value="Knight" />
-				<Data type="int" name="Level" value="7" />
+				<Data type="int" name="Level" value="10" />
 				<Data type="string" name="Weapon" value="Unique Sword" />
 				<Data type="string" name="Armor" value="Unique Armor" />
 			</Node>
@@ -59,30 +59,36 @@
 		<Node name="Items">
 			<Node name="Weapon">
 				<Node name="Mace of Light">
-					<Data type="int" name="Attribute" value="10" />
-				</Node>
-				<Node name="Staff of Wisdom">
-					<Data type="int" name="Attribute" value="2" />
-				</Node>
-				<Node name="Sword of Victory">
-					<Data type="int" name="Attribute" value="30" />
-				</Node>
-				<Node name="Bow of Lightenning">
-					<Data type="int" name="Attribute" value="20" />
-				</Node>
-				<Node name="Basic Sword">
 					<Data type="int" name="Attribute" value="5" />
 				</Node>
+				<Node name="Staff of Wisdom">
+					<Data type="int" name="Attribute" value="5" />
+				</Node>
+				<Node name="Sword of Victory">
+					<Data type="int" name="Attribute" value="20" />
+				</Node>
+				<Node name="Bow of Lightenning">
+					<Data type="int" name="Attribute" value="14" />
+				</Node>
+				<Node name="Basic Sword">
+					<Data type="int" name="Attribute" value="7" />
+				</Node>
 				<Node name="Basic Bow">
-					<Data type="int" name="Attribute" value="4" />
+					<Data type="int" name="Attribute" value="5" />
+				</Node>
+				<Node name="Basic Mace">
+					<Data type="int" name="Attribute" value="2" />
+				</Node>
+				<Node name="Basic Staff">
+					<Data type="int" name="Attribute" value="2" />
 				</Node>
 				<Node name="Unique Sword">
-					<Data type="int" name="Attribute" value="30" />
+					<Data type="int" name="Attribute" value="22" />
 				</Node>
 			</Node>
 			<Node name="Armor">
 				<Node name="Armor of Faith">
-					<Data type="int" name="Attribute" value="15" />
+					<Data type="int" name="Attribute" value="13" />
 				</Node>
 				<Node name="Cloak of Mana">
 					<Data type="int" name="Attribute" value="8" />
@@ -91,9 +97,12 @@
 					<Data type="int" name="Attribute" value="20" />
 				</Node>
 				<Node name="Armor of Feather">
-					<Data type="int" name="Attribute" value="6" />
+					<Data type="int" name="Attribute" value="10" />
 				</Node>
 				<Node name="Basic Armor">
+					<Data type="int" name="Attribute" value="7" />
+				</Node>
+				<Node name="Basic Cloak">
 					<Data type="int" name="Attribute" value="5" />
 				</Node>
 				<Node name="Unique Armor">

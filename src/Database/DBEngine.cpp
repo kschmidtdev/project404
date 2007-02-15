@@ -24,7 +24,7 @@ DBEngine::~DBEngine()
 {
 }
 
-vector<Character*>* DBEngine::Initialize()
+void DBEngine::Initialize()
 {
     // Get Database instance.
     mDB = DatabaseManager::GetInstance();
@@ -117,8 +117,10 @@ vector<Character*>* DBEngine::Initialize()
 
         CharacterNode = CharactersNode->GetNextChild(); // Go to next Character.
     }
+}
 
-    return &mCharacterList;
+void DBEngine::Shutdown()
+{
 
 }
 
@@ -149,7 +151,7 @@ vector<Character*>* DBEngine::LoadParty()
     DBNode* PartyMemberNode = PartyNode->GetFirstChild(); // first member in the party.
     DBString* PartyMemberNameData;
     vector<Character*>::iterator Iter;
-    for (int i=0; i<4; i++) // while ( PartyMemberNode != NULL )
+    while ( PartyMemberNode != NULL ) // for (int i=0; i<4; i++)
     {
         PartyMemberNameData = dynamic_cast<DBString*>( PartyMemberNode->GetFirstAttribute() );
         for (Iter = mCharacterList.begin(); Iter != mCharacterList.end(); Iter++)
@@ -178,7 +180,7 @@ vector<Character*>* DBEngine::LoadEnemies()
     DBNode* EnemiesMemberNode = EnemiesNode->GetFirstChild(); // first member in the party.
     DBString* EnemiesMemberNameData;
     vector<Character*>::iterator Iter;
-    for (int i=0; i<4; i++) // while ( EnemiesMemberNode != NULL )
+    while ( EnemiesMemberNode != NULL ) // for (int i=0; i<4; i++)
     {
         EnemiesMemberNameData = dynamic_cast<DBString*>( EnemiesMemberNode->GetFirstAttribute() );
         for (Iter = mCharacterList.begin(); Iter != mCharacterList.end(); Iter++)
@@ -205,7 +207,7 @@ DBVector2D* DBEngine::LoadPartyStartingPoint(Character* thisCharacter)
 
      // Search Characters.
     DBNode* PartyMemberNode = PartyNode->GetFirstChild(); // first member in the party.
-    for (int i=0; i<4; i++) // while ( PartyMemberNode != NULL )
+    while ( PartyMemberNode != NULL ) // for (int i=0; i<4; i++)
     {
         PartyMemberNameData = dynamic_cast<DBString*>( PartyMemberNode->GetFirstAttribute() );
 
@@ -229,7 +231,7 @@ DBVector2D* DBEngine::LoadEnemiesStartingPoint(Character* thisCharacter)
 
      // Search Characters.
     DBNode* EnemiesMemberNode = EnemiesNode->GetFirstChild(); // first member in the party.
-    for (int i=0; i<4; i++) // while ( PartyMemberNode != NULL )
+    while ( EnemiesMemberNode != NULL ) // for (int i=0; i<4; i++)
     {
         EnemiesMemberNameData = dynamic_cast<DBString*>( EnemiesMemberNode->GetFirstAttribute() );
 
