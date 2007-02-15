@@ -10,6 +10,7 @@
  * Andrew Osborne, February 11 2007 | Added Destructor, added 'm' prefix to members
  * Karl Schmidt, February 13 2007 | Added paranoia check to destructor
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Andrew Osborne, February 14 2007 | Refined/debugged ability to push/pop layouts
  */
 
 #include <UIManager.h>                                  // class implemented
@@ -73,7 +74,10 @@ void UIManager::Initialize(void)
     AddLayout( new UIMainMenuLayout() );
 
     // Set current (first) layout
-    PushLayout("BattleScreen");
+    //PushLayout("BattleScreen");
+    PushLayout("TitleScreen");
+    //PushLayout("MainMenu");
+
 
     // Add all the layouts to the manager.
     LogInfo( "The UIManager has been initialized successfully." );
@@ -120,16 +124,36 @@ void UIManager::Render(void)
 void UIManager::PushLayout(UILayout* newLayout)
 {
 
+    if (mCurLayout!=NULL)
+    {
+        mCurLayout->OnClose();
+    }
+    mCurLayout = NULL;
     mCurrentLayoutList.push_front(newLayout);
-    mCurLayout = mCurrentLayoutList.front();
-    mCurLayout->OnLoad();
 
+    mCurLayout = mCurrentLayoutList.front();
+    if (mCurLayout!=NULL)
+    {
+        mCurLayout->OnLoad();
+    }
+    else
+    {
+        printf("Layout failed to load: pointer\n");
+    }
 }
 
 void UIManager::PushLayout(const string newLayout)
 {
 
-    PushLayout( GetLayout(newLayout) );
+    UILayout *temp = GetLayout(newLayout);
+    if (temp!=NULL)
+    {
+        PushLayout( temp );
+    }
+    else
+    {
+        printf("Layout failed to load: string\n");
+    }
 
 }
 
@@ -137,8 +161,16 @@ void UIManager::PopLayout(void)
 {
 
     mCurrentLayoutList.pop_front();
-    mCurLayout->OnClose();
+    if (mCurLayout!=NULL)
+    {
+        mCurLayout->OnClose();
+    }
     mCurLayout = mCurrentLayoutList.front();
+    if (mCurLayout==NULL)
+    {
+        PushLayout("TitleScreen");
+    }
+
 
 }
 

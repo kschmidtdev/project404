@@ -10,11 +10,13 @@
  * Karl Schmidt, February 11 2007 | Added checks to prevent crashes when textures are not loaded
  * Andrew Osborne, February 11, 2007 | added destructor
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Andrew Osborne, February 14, 2007 | added AddButton method
  */
 #include "UIMenu.h"                                // class implemented
 #include "Point.h"
 #include "UIImage.h"
 #include "UIButton.h"
+#include "FuncObj.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -27,6 +29,8 @@
 UIMenu::UIMenu()
 : mCursor( NULL )
 {
+
+    // Formating Button offset parameters in preperation for adding buttons later
     SDL_Surface *sample = NULL;
     sample = ResourceManager::GetInstance()->LoadTexture("testButton.bmp");
 
@@ -38,39 +42,18 @@ UIMenu::UIMenu()
 	    mCursorOffset.Set(-5,-5);
     }
 
+
     // Set cursor parameters
     mCursorPos = 0;
-    mMaxCursorPos = 2;
+    mMaxCursorPos = 0;
 
     // Create cursor
     mCursor = new UIImage("cursor.bmp");
 
-    // Create button
-    UIElement *tempButton;
-    /*for (int i=0; i<3; i++)
-    {
-        //tempButton = new UIImage("testButton.bmp");
-        tempButton = new UIButton("test Text");
-        mButtons.push_back( tempButton );
-    }*/
-
-    // Status button
-    tempButton = new UIButton("Status");
-    mButtons.push_back( tempButton );
-
-    // End Turn button
-    tempButton = new UIButton("End Turn");
-    mButtons.push_back( tempButton );
-
-    // Quit Button
-    tempButton = new UIButton("Quit");
-    mButtons.push_back( tempButton );
-
-
     // Set backgound
     mElementImage = ResourceManager::GetInstance()->LoadTexture("testMenu.bmp");
 
-    SetPos( Point(0,0) );
+    //SetPos( Point(0,0) );
 
 }// UIMenu
 
@@ -81,6 +64,11 @@ UIMenu::~UIMenu()
         delete (*iter);
     }
 
+    // It is assumed button is always passed "new" in constructor
+    for ( FuncObjPtrItr iter2 = mButtonFuncs.begin(); iter2!=mButtonFuncs.end(); ++iter2 )
+    {
+        delete (*iter2);
+    }
     // Need to add function Objects... when I add them
 
     delete mCursor;
@@ -93,22 +81,25 @@ UIMenu::~UIMenu()
 
 void UIMenu::RenderSelf(SDL_Surface* destination)
 {
-    // The menu must be rendered first
-    if( mElementImage )
+    if (mVisible)
     {
-        SDLRenderer::GetInstance()->DrawImageAt(mElementImage, mPos.GetX(), mPos.GetY(), mElementImage->w, mElementImage->h, destination);
-    }
+        // The menu must be rendered first
+        if( mElementImage )
+        {
+            SDLRenderer::GetInstance()->DrawImageAt(mElementImage, mPos.GetX(), mPos.GetY(), mElementImage->w, mElementImage->h, destination);
+        }
 
-    // Cursor is rendered second
-    mCursor->RenderSelf(destination);
+        // Cursor is rendered second
+        mCursor->RenderSelf(destination);
 
-    // Buttons are rendered second
-    UIElementPtrItr iter;
-    //int size = buttons.size();
+        // Buttons are rendered second
+        UIElementPtrItr iter;
+        //int size = buttons.size();
 
-    for ( iter = mButtons.begin(); iter!=mButtons.end(); ++iter )
-    {
-        (*iter)->RenderSelf(destination);
+        for ( iter = mButtons.begin(); iter!=mButtons.end(); ++iter )
+        {
+            (*iter)->RenderSelf(destination);
+        }
     }
 
 }
@@ -132,6 +123,14 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
             {
                 mCursorPos++;
                 mCursor->SetPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
+            }
+            break;
+        case InputManager::CONFIRM:
+            if (mButtonFuncs[mCursorPos])
+            {
+                FuncObj *temp = mButtonFuncs[mCursorPos];
+                (*temp)();
+                //mButtonFuncs[mCursorPos]->();
             }
             break;
         default:
@@ -164,6 +163,15 @@ void UIMenu::SetPos( const Point & nPos)
 
 }
 
+
+void UIMenu::AddButton( const string nName, FuncObj* operation)
+{
+    UIButton *temp = new UIButton(nName);
+    mButtons.push_back(temp);
+    mButtonFuncs.push_back(operation);
+    mMaxCursorPos = mButtons.size() - 1;
+    SetPos( mPos );
+}
 
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////

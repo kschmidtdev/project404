@@ -12,6 +12,7 @@
  * Karl Schmidt, February 10 2007 | Changed some include directory formats
  * Andrew Osborne, February 10 2007 | Filled out documentation
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Andrew Osborne, February 14 2007 | Created ability to add buttons - removed from default constructor
  */
 
 #ifndef UIMenu_h
@@ -75,6 +76,17 @@ public:
      * Changes position
     */
     virtual void SetPos( const Point & nPos );
+
+
+    /**
+     * Adds button with opeation
+     */
+    virtual void AddButton( const string nName, FuncObj* operation);
+
+    /**
+     * Adds button with opeation
+     */
+    //virtual void SetCancelFunction( FuncObj* operation);
 
 // INQUIRY (reading)
 
