@@ -780,12 +780,6 @@
 			<Option link="0" />
 			<Option target="UnitTest" />
 		</Unit>
-		<Unit filename="..\src\UnitTests\LevelTest.h">
-			<Option compilerVar="CPP" />
-			<Option compile="0" />
-			<Option link="0" />
-			<Option target="UnitTest" />
-		</Unit>
 		<Unit filename="..\src\UnitTests\LoggerTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
