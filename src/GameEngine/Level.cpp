@@ -175,7 +175,6 @@ Character* Level::OnSelect(Point p)
         }
         if( *iter != NULL && iter != mParty.end() && !((*iter)->GetExhaust()) && (*iter)->GetPoint() == p)
         {
-            cout << ((*iter))->GetPoint().GetX() << endl;
             mCurChar = (*iter);
             mState = MOVE;
             mMoveArea.clear();
@@ -200,7 +199,7 @@ Character* Level::OnSelect(Point p)
         if((*iter) == p)
         {
             mCurChar->Move(p);
-
+            cout << "Attacker " << mCurChar->GetName()  <<" (" << mCurChar->GetClassName() << ") moving to: " << mCurChar->GetPoint().GetX() << "," << mCurChar->GetPoint().GetY() << endl;
             vector<Point> attackarea = mCurChar->CalcAction();
             vector<Character*>::iterator chariter;
             vector<Point>::iterator iter2;
