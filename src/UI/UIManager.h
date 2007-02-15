@@ -127,6 +127,10 @@ public:
 	 */
 	 UILayout* GetLayout(const string layoutName);
 
+	 bool GetEndGameState() { return mGameShutdown; };
+
+	 void SetEndGameState( const bool gameShutdown ) { mGameShutdown = gameShutdown; };
+
 protected:
 // PROTECTED VARIABLES
     static UIManager* _instance;
@@ -134,6 +138,7 @@ protected:
     UILayoutVec mLayoutMasterList;
     list<UILayout*> mCurrentLayoutList;
     UILayout* mCurLayout;
+    bool mGameShutdown;
 
 // PROTECTED METHODS
     /**
