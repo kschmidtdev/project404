@@ -5,6 +5,7 @@
  *
  * Authors:
  * Karl Schmidt, February 12 2007 | Initial creation of file
+ * Karl Schmidt, February 15 2007 | Added BattleInit placeholder func( loads one level )
  */
 #include "GameEngine.h"                                // class implemented
 
@@ -37,6 +38,17 @@ void GameEngine::Shutdown()
     }
 }
 
+void GameEngine::BattleInit(vector<Character*> partyMem, Cities place)
+{
+	// THIS IS IN NO WAY COMPLETE
+    if( mCurLvl )
+    {
+        // Already made a level
+        return;
+    }
+    mCurLvl = new Level(0);
+
+}
 
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================

@@ -10,6 +10,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 15 2007 | Changed the name of one enum, corrected a naming convention, added a GetLevel() function
  * Karl Schmidt, February 12 2007 | Fixed includes, made it a singleton, fixed some compilation errors
  * Mike Malyuk, February 8, 2007, | Initial design
  */
@@ -46,7 +47,7 @@ enum Cities
         CITYA = 0,
         CITYB,
         CITYC,
-        ATTR_COUNT
+        CITY_COUNT
     };
 // LIFECYCLE
 
@@ -74,7 +75,7 @@ enum Cities
     /**
      * Pass information to a level instance
 	 */
-    void BattleInit(vector<Character*> partymem, Cities place);
+    void BattleInit(vector<Character*> partyMem, Cities place);
 
     /**
      * Check city for a market
@@ -122,6 +123,11 @@ enum Cities
      * Return items in a Armory
 	 */
     vector<Item*> ReturnArmory();
+
+    /**
+     * Returns a pointer to the current battle in progress (if there is one)
+	 */
+    Level* GetLevel() { return mCurLvl; };
 
 protected:
 // PROTECTED METHODS
