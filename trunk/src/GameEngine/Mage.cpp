@@ -77,6 +77,7 @@ void Mage::LevelUp()
 {
     mAttributes[POW] = mAttributes[POW]+3;
     mAttributes[AGI] = mAttributes[AGI]+1;
+    mAttributes[DEF] = mAttributes[DEF]+1;
     mMaxHP = mMaxHP + 1;
     mCurHP = mMaxHP;
     mLevel++;

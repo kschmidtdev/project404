@@ -76,7 +76,8 @@ Knight::~Knight()
 void Knight::LevelUp()
 {
     mAttributes[POW] = mAttributes[POW]+2;
-    mAttributes[AGI] = mAttributes[AGI]+2;
+    mAttributes[AGI] = mAttributes[AGI]+1;
+    mAttributes[DEF] = mAttributes[DEF]+3;
     mMaxHP = mMaxHP + 5;
     mCurHP = mMaxHP;
     mLevel++;
