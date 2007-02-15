@@ -54,7 +54,7 @@ void Character::MakeDead()
 void Character::Attack(Character* another)
 {
     cout << "Attacking " << GetClassName() <<" (" << GetName() << ")'s HP:" << GetHP() << endl;
-    cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << "'s HP:" << another->GetHP() << endl;
+    cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ")'s HP:" << another->GetHP() << endl;
     bool killed = false;
     if(GetClassName() == "Knight")
     {
@@ -76,20 +76,23 @@ void Character::Attack(Character* another)
         }
         else
         {
-            if(another->GetAttr(Character::POW) - (mAttributes[DEF]/2) <= 0)
+            if(another->GetClassName() == "Knight")
             {
-                cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ") did 0 damage" << endl;
-            }
-            else
-            {
-            cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ") did " << another->GetAttr(Character::POW) - (mAttributes[DEF]/2) << " damage" << endl;
-            mCurHP = (mCurHP-another->GetAttr(Character::POW) + (mAttributes[DEF]/2));
-            }
-            if (mCurHP <= 0)
-            {
-                cout << "Attacker " << GetClassName() << " (" << GetName() <<  ") Dead" << endl;
-                mIsDead = true;
-                mExhausted = true;
+                if(another->GetAttr(Character::POW) - (mAttributes[DEF]/2) <= 0)
+                {
+                    cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ") did 0 damage" << endl;
+                }
+                else
+                {
+                cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ") did " << another->GetAttr(Character::POW) - (mAttributes[DEF]/2) << " damage" << endl;
+                mCurHP = (mCurHP-another->GetAttr(Character::POW) + (mAttributes[DEF]/2));
+                }
+                if (mCurHP <= 0)
+                {
+                    cout << "Attacker " << GetClassName() << " (" << GetName() <<  ") Dead" << endl;
+                    mIsDead = true;
+                    mExhausted = true;
+                }
             }
         }
     }
