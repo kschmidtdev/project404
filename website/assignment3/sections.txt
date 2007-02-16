@@ -14,3 +14,4 @@
 "Guidelines", "guidelines.txt"
 "Glossary", "glossary.txt"
 "Feature Priority", "featurepriority.txt"
+"Risk Table", "risktable.txt"
