@@ -5,6 +5,7 @@
  *
  * Authors:
  * Mike Malyuk, February 15 | Initial Implementation
+ * Mike Malyuk, February 15 | Fixed bounds so AI can't leave the grid
  */
 #include "AIControl.h"                                // class implemented
 
@@ -37,7 +38,7 @@ Point AIControl::DoAction()
             points = mLevel->GetMoveArea();
             for(vector<Point>::iterator piter = points.begin(); piter != points.end(); piter++)
             {
-                if((*piter).GetX() >= 0 && (*piter).GetY() >= 0 && (*piter).GetX() <= mMax.GetX() && (*piter).GetY() <= mMax.GetY())
+                if((*piter).GetX() >= 0 && (*piter).GetY() >= 0 && (*piter).GetX() < mMax.GetX() && (*piter).GetY() < mMax.GetY())
                 {
                     points.clear();
                     return (*piter);
