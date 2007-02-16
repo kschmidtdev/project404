@@ -31,4 +31,6 @@ Sections of this assignment include:
 <li><a href="assignment3/guidelines.html">Guidelines</a></li>
 <li><a href="assignment3/glossary.html">Glossary</a></li>
 <li><a href="assignment3/featurepriority.html">Feature Priority</a></li>
+<li><a href="assignment3/risktable.html">Updated Risk Table</a></li>
+<li><a href="http://www.sfu.ca/~aco1/UI_Test_Cases.doc">UI Test Cases Description</a></li>
 </ul>
