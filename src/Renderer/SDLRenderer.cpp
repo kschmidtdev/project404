@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 15 2007 | Added temporary renderable functionality
  * Karl Schmidt, February 13 2007 | Added joystick init to SDL parameters
  * Karl Schmidt, February 11 2007 | Disabled the mouse cursor, added custom window title, more error/info logging
  * Karl Schmidt, February 10 2007 | Added SDL_INIT_AUDIO flag to SDL_Init
@@ -107,11 +108,38 @@ void SDLRenderer::Draw()
         (*i)->RenderSelf( mScreen );
     }
 
+    Uint32 currentTime = SDL_GetTicks();
+    for( TempRenderableItr i = mTempRenderables.begin(); i != mTempRenderables.end(); ++i )
+    {
+        // If it is expired...
+        if( i->second < currentTime )
+        {
+            // Find it in the renderqueue and turf it
+            for( RenderableVecItr j = mRenderQueue.begin(); j != mRenderQueue.end(); ++j )
+            {
+                if( i->first == (*j)  )
+                {
+                    mRenderQueue.erase( j );
+                    break;
+                }
+            }
+            delete i->first;
+            i = mTempRenderables.erase( i );
+            --i;
+        }
+    }
+
     SDL_Flip(mScreen);
 }
 
 void SDLRenderer::AddToRenderQueue( SDLRenderable * toAdd )
 {
+    mRenderQueue.push_back( toAdd );
+}
+
+void SDLRenderer::AddToTempRenderQueue( SDLRenderable * toAdd, const Uint32 timeToRemove )
+{
+    mTempRenderables.push_back( TempRenderable( toAdd, timeToRemove ) );
     mRenderQueue.push_back( toAdd );
 }
 

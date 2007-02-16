@@ -17,6 +17,7 @@
  * Karl Schmidt, February 14 2007   | Updated function capitalization, block style, typedefs, refs
  * Mike Malyuk,  February 14 2007   | Added function to show exhausted state, refreshes on turn.
  * Mike Malyuk,  February 14 2007   | Added another check for partyexhaustion, move point far enough away to not be an issue.
+ * Karl Schmidt, February 15 2007   | Added action indication support for attacking/healing
  */
 #include "UIGrid.h"                                // class implemented
 #include "UITile.h"
@@ -404,6 +405,11 @@ void UIGrid::ConfirmFunction( const Point & p )
             // now check if person is there
             if(mLevel->OnSelect(p) == NULL)
             {
+            	// Draw an image to indicate action is being taken
+                UIImage* indicator = new UIImage( "testIndicator.bmp" );
+                Point toDrawAt( mCurCharacter->GetPoint().GetX() * mTileWidth, mCurCharacter->GetPoint().GetY() * mTileHeight );
+                indicator->SetPos( toDrawAt );
+                SDLRenderer::GetInstance()->AddToTempRenderQueue( indicator, SDL_GetTicks() + 400 );
                 RemoveCharacter(mCurCharacter->GetPoint());
                 AddExhaustedCharacter(mCurCharacter);
             }
