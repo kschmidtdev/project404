@@ -16,6 +16,18 @@
 
 //============================= LIFECYCLE ====================================
 
+DBEngine* DBEngine::_instance = 0;
+
+DBEngine* DBEngine::GetInstance()
+{
+    if( !_instance )
+    {
+        _instance = new DBEngine();
+    }
+
+    return _instance;
+}
+
 DBEngine::DBEngine()
 {
 }
@@ -121,20 +133,39 @@ void DBEngine::Initialize()
 
 void DBEngine::Shutdown()
 {
+    vector<Character*>::iterator CharIter;
+    vector<Item*>::iterator ItemIter;
 
+    for (CharIter=mCharacterList.begin(); CharIter!=mCharacterList.end(); CharIter++)
+    {
+        delete *CharIter;
+    }
+
+    for (ItemIter=mItemList.begin(); ItemIter!=mItemList.end(); ItemIter++)
+    {
+        delete *ItemIter;
+    }
+
+    if( _instance )
+    {
+        delete _instance; // delete DatabaseManager instance.
+        _instance = NULL;
+    }
 }
 
 WeaponItem* DBEngine::CreateWeapon( DBNode* WeaponNode )
 {
-    DBInt* WeaponAttribute = dynamic_cast<DBInt*>( WeaponNode->GetFirstAttribute() );
-    WeaponItem* newWeapon = new WeaponItem( WeaponNode->GetName(), WeaponAttribute->GetData() );
+    DBInt* WeaponAttribute = dynamic_cast<DBInt*>( WeaponNode->GetFirstAttribute() ); // Downcast the attribute of a weapon node, so, we can retrieve the value of a weapon.
+    WeaponItem* newWeapon = new WeaponItem( WeaponNode->GetName(), WeaponAttribute->GetData() ); // Create new weapon with name and its value which came from the weapon node.
+    mItemList.push_back(newWeapon); // Add this new weapon instance into the item list.
     return newWeapon;
 }
 
 ArmorItem* DBEngine::CreateArmor( DBNode* ArmorNode )
 {
-    DBInt* ArmorAttribute = dynamic_cast<DBInt*>( ArmorNode->GetFirstAttribute() );
-    ArmorItem* newArmor = new ArmorItem( ArmorNode->GetName(), ArmorAttribute->GetData() );
+    DBInt* ArmorAttribute = dynamic_cast<DBInt*>( ArmorNode->GetFirstAttribute() ); // Downcast the attribute of a armor node, so, we can retrieve the value of a armor.
+    ArmorItem* newArmor = new ArmorItem( ArmorNode->GetName(), ArmorAttribute->GetData() ); // Create new armor with its name and value which came from the armor node.
+    mItemList.push_back(newArmor); // Add this new armor instance into the item list.
     return newArmor;
 }
 
