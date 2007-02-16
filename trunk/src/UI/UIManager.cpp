@@ -11,10 +11,11 @@
  * Karl Schmidt, February 13 2007 | Added paranoia check to destructor
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  * Andrew Osborne, February 14 2007 | Refined/debugged ability to push/pop layouts
+ * Karl Schmidt, February 15 2007 | Fixed a minor odd header include path
  */
 
 #include <UIManager.h>                                  // class implemented
-#include <../Logger.h>
+#include <Logger.h>
 #include <UIBattleScreenLayout.h>
 #include <UITitleScreenLayout.h>
 #include <UIMainMenuLayout.h>

@@ -17,6 +17,7 @@
  * Mike Malyuk, February 15, 2007 | Fixed more bugs, now shouldn't crash. Runs 2p til we implement AI
  *                                | Move range and Attack range don't show up for enemies (bug)
  * Mike Malyuk, February 15, 2007 | Fixed small bug in Healer code
+ * Karl Schmidt, February 15 2007 | Fixed an odd header include path
  */
 #include "Level.h"                                // class implemented
 //#include "Character.h"
@@ -24,7 +25,7 @@
 #include "Knight.h"
 #include "Healer.h"
 #include "Mage.h"
-#include "../Database/DBEngine.h"
+#include "Database/DBEngine.h"
 #include <util.h>
 
 

@@ -11,6 +11,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 15 2007 | Added HashString function
  * Karl Schmidt, February 13 2007 | Initial creation of header
  */
 
@@ -85,6 +86,8 @@ protected:
      * Default constructor.
 	 */
     SecurityManager(void);
+
+    string HashString( const string incoming );
 
 // PROTECTED VARIABLES
     static SecurityManager* _instance;

@@ -5,17 +5,18 @@
  *
  * Authors:
  * Seung Woo Han, February 13 2007 | Initial design
+ * Karl Schmidt, February 15 2007 | Fixed some odd header paths
  */
 
 #ifndef DBEngine_h
 #define DBEngine_h
 
 #include "DatabaseManager.h"
-#include "../GameEngine/GameEngine.h"
-#include "../GameEngine/Archer.h"
-#include "../GameEngine/Healer.h"
-#include "../GameEngine/Knight.h"
-#include "../GameEngine/Mage.h"
+#include "GameEngine/GameEngine.h"
+#include "GameEngine/Archer.h"
+#include "GameEngine/Healer.h"
+#include "GameEngine/Knight.h"
+#include "GameEngine/Mage.h"
 
 class DBEngine
 {

@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 15 2007 | Added SecurityManager loading password hash file
  * Mike Malyuk,  February 15 2007 | Added looping for AI
  * Karl Schmidt, February 15 2007 | Added hardcoded battle initialization for v1
  * Karl Schmidt, February 13 2007 | Added config file parsing, some hardcoded value cleanup, enabled all managers
@@ -74,6 +75,8 @@ void GameRoot::Initialize()
     mSecurityManager = SecurityManager::GetInstance();
     mSecurityManager->Initialize();
 
+    mSecurityManager->LoadPasswordHashFile( "passwords" );
+
     mDatabase = DatabaseManager::GetInstance();
     mDatabase->Initialize();
 
@@ -95,6 +98,7 @@ void GameRoot::Shutdown()
 
     mDatabase->Shutdown();
 
+    mSecurityManager->SavePasswordHashFile( "passwords" );
     mSecurityManager->Shutdown();
 
     mSoundManager->StopAllPlayback();

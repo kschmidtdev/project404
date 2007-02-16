@@ -20,13 +20,14 @@ public:
     // Called before all unit tests in this suite, remove if not needed
     void setUp()
     {
-
+        Logger::GetInstance( "unitTestLog.txt" );
+        Logger::GetInstance()->Initialize();
     }
 
     // Called after all unit tests in this suite, remove if note needed
     void tearDown()
     {
-
+        Logger::GetInstance()->Shutdown();
     }
 
     void testLevelState()

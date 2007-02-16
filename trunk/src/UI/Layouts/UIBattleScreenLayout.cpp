@@ -11,13 +11,14 @@
  * Andrew Osborne, February 14 2007 | Added button-function-objects and proper menu declaration
  * Karl Schmidt, February 15 2007 | Removed creating the level in here, added some error checking
  * Mike Malyuk,  February 15 2007 | Added get for grid;
+ * Karl Schmidt, February 15 2007 | Added End Turn functionality to side menu
  */
 
 #include "UIBattleScreenLayout.h"                                // class implemented
 #include "UIMenu.h"
 #include "UIGrid.h"
 #include "Logger.h"
-#include "GameEngine/Level.h"
+#include "GameEngine/GameEngine.h"
 #include "UIManager.h"
 
 #include <util.h>
@@ -47,7 +48,26 @@ class EndTurnFunction : public FuncObj
 {
     virtual void operator()(void)
     {
+        Level * curLevel = GameEngine::GetInstance()->GetLevel();
+        if( curLevel )
+        {
+            vector<Character*> party = curLevel->GetParty();
+            for_each( party.begin(), party.end(), mem_fun( &Character::Exhaust ) );
+            curLevel->SetState(Level::AIFREE);
 
+            // Repeated code, should be put into one function someday
+            vector<Character*> revigorate = curLevel->GetParty();
+            UIGrid* grid = UIManager::GetInstance()->GetLayout("BattleScreen")->GetGrid();
+            if( grid )
+            {
+                for(vector<Character*>::iterator citer = revigorate.begin(); citer != revigorate.end(); ++citer)
+                {
+                    grid->RemoveCharacter((*citer)->GetPoint());
+                    grid->AddPartyCharacter((*citer));
+                }
+            }
+            curLevel->AllExhaustedParty();
+        }
     }
 };
 

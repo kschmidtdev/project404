@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 15 2007 | Added functionality for loading/saving/verifying users and passwords
  * Karl Schmidt, February 13 2007 | Initial creation of header (stubbed)
  */
 #include "SecurityManager.h"                                // class implemented
@@ -54,7 +55,7 @@ void SecurityManager::LoadPasswordHashFile( const string fileName )
         LogInfo( "Loading username/password hashes from " + fileName );
 
         char userName[32];
-        char password[64];
+        char password[1024];
         // While we're not at the end of the file...
         while ( !feof( passHashFileHandle ) )
         {
@@ -86,6 +87,12 @@ void SecurityManager::LoadPasswordHashFile( const string fileName )
 
 void SecurityManager::SavePasswordHashFile( const string fileName )
 {
+    if( mLoadedPasswords.empty() )
+    {
+        // Nothing to write
+        return;
+    }
+
     FILE* passHashFileHandle = NULL;
     passHashFileHandle = fopen( fileName.c_str(), "w" );
 
@@ -109,8 +116,14 @@ void SecurityManager::SavePasswordHashFile( const string fileName )
 
 bool SecurityManager::VerifyPassword( const string userName, const string password )
 {
-    // stub
-    return false;
+    if( HashString( userName + password ) == mLoadedPasswords[userName] )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 void SecurityManager::AddUser( const string userName, const string password )
@@ -122,7 +135,14 @@ void SecurityManager::AddUser( const string userName, const string password )
         return;
     }
 
-    mLoadedPasswords[userName] = password;
+    if( mLoadedPasswords.find( userName ) == mLoadedPasswords.end() )
+    {
+        mLoadedPasswords[userName] = HashString( userName + password );
+    }
+    else
+    {
+        LogWarning( "Attempt to add a user that already exists." );
+    }
 }
 
 void SecurityManager::DeleteUser( const string userName )
@@ -138,5 +158,16 @@ SecurityManager::SecurityManager()
 {
     // stub
 }// SecurityManager
+
+string SecurityManager::HashString( const string incoming )
+{
+    string output = "";
+    for( unsigned int i(0); i < incoming.length(); ++i )
+    {
+        int curDigit = incoming[i];
+        output += toString((curDigit * 10) % 2000);
+    }
+    return output;
+}
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
