@@ -33,14 +33,14 @@ UIMenu::UIMenu()
 
     // Formating Button offset parameters in preperation for adding buttons later
     SDL_Surface *sample = NULL;
-    sample = ResourceManager::GetInstance()->LoadTexture("testButton.bmp");
+    sample = ResourceManager::GetInstance()->LoadTexture("menu_item.bmp");
 
     if( sample )
     {
     	// Setting location parameters
 	    mButtonStart.Set(15, 15);
 	    mButtonOffset.Set(0, (sample->h+10) );
-	    mCursorOffset.Set(-5,-5);
+	    mCursorOffset.Set(-1,-1);
     }
 
 
@@ -49,10 +49,10 @@ UIMenu::UIMenu()
     mMaxCursorPos = 0;
 
     // Create cursor
-    mCursor = new UIImage("cursor.bmp");
+    mCursor = new UIImage("menu_select.bmp");
 
     // Set backgound
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("testMenu.bmp");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_back.bmp");
 
     //SetPos( Point(0,0) );
 

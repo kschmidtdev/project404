@@ -19,7 +19,7 @@ UIText::UIText()
     mGreen = 0;
     mBlue = 0;
     mText = "Nothing Specified";
-    mSize = 16;
+    mSize = 12;
 }// UIText
 
 UIText::UIText( const string text, int size, int r, int g, int b)
@@ -40,7 +40,7 @@ UIText::UIText( const string text)
     mGreen = 0;
     mBlue = 0;
     mText = text;
-    mSize = 16;
+    mSize = 12;
     mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
 }
 
