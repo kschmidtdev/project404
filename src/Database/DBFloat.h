@@ -23,15 +23,31 @@ class DBFloat : public DBData
 {
 public:
 
+    /**
+     * Constructor.
+     */
     DBFloat(const int uniqueID, const string& name, const float floatData);
+
+    /**
+     * Default Destructor.
+     */
     virtual ~DBFloat();
-    virtual string GetType() { return "DBFloat"; }
-    float GetData() { return mFloatData; }
+
+    /**
+     * Get Method. Return its class type.
+     */
+    virtual string GetType() { return "DBFloat"; } // INLINE METHOD.
+
+    /**
+     * Get Method. Return its data.
+     */
+    float GetData() { return mFloatData; } // INLINE METHOD.
 
 protected:
 
 private:
 
+    // VARIABLES
     float mFloatData;
 
 };

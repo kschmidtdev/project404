@@ -23,15 +23,31 @@ class DBInt : public DBData
 {
 public:
 
+    /**
+     * Constructor.
+     */
     DBInt(const int uniqueID, const string& name, const int intData);
+
+    /**
+     * Default Destructor.
+     */
     virtual ~DBInt(void);
-    virtual string GetType() { return "DBInt"; }
-    int GetData() { return mIntData; }
+
+    /**
+     * Get Method. Return its class type.
+     */
+    virtual string GetType() { return "DBInt"; } // INLINE METHOD.
+
+    /**
+     * Get Method. Return its data.
+     */
+    int GetData() { return mIntData; } // INLINE METHOD.
 
 protected:
 
 private:
 
+    // VARIABLES
     int mIntData;
 
 };

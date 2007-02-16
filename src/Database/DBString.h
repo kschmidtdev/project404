@@ -24,15 +24,31 @@ class DBString : public DBData
 {
 public:
 
+    /**
+     * Constructor.
+     */
     DBString(const int uniqueID, const string& name, const string& stringData);
+
+    /**
+     * Default Destructor.
+     */
     virtual ~DBString(void);
-    virtual string GetType() { return "DBString"; }
-    string GetData() { return mStringData; }
+
+    /**
+     * Get Method. Return its class type.
+     */
+    virtual string GetType() { return "DBString"; } // INLINE METHOD.
+
+    /**
+     * Get Method. Return its data.
+     */
+    string GetData() { return mStringData; } // INLINE METHOD.
 
 protected:
 
 private:
 
+    // VARIABLES
     string mStringData;
 
 };

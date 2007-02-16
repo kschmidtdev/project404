@@ -22,10 +22,21 @@ class DBBase // This is abstract base class(ABC).
 public:
 
     // No default constructor.
+
+    /**
+     * Constructor which takes a int (unique ID).
+     */
     DBBase(const int uniqueID); // constructor with 1 argument.
+
+    /**
+     * Destructor. This is a pure virtual function which makes DBBase class Abstarct Base Class.
+     */
     virtual ~DBBase(void) = 0; // destructor with a pure virtual function.
 
-    int GetUniqueID() { return mUniqueID; } // returns a unique ID of this instance.
+    /**
+     * Simple Get method. Get UniqueID of this instance.
+     */
+    int GetUniqueID() { return mUniqueID; } // INLINE METHOD : returns a unique ID of this instance.
 
 protected:
 
@@ -33,6 +44,7 @@ protected:
 
 private:
 
+    // VARIABLES
     int mUniqueID; // variable to save a unique ID of this instance.
 
 };

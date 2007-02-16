@@ -23,19 +23,47 @@ class DBColour : public DBData
 {
 public:
 
+    /**
+     * Constructor with 3 parameters.
+     */
     DBColour(const int uniqueID, const string& name, const int* colourData);
+
+    /**
+     * Default destructor.
+     */
     virtual ~DBColour();
-    virtual string GetType() { return "DBColour"; }
-    int* GetData() { return mColourData; }
-    int GetRed() { return mColourData[0]; }
-    int GetGreen() { return mColourData[1]; }
-    int GetBlue() { return mColourData[2]; }
+
+    /**
+     * Get Method. Return its class type.
+     */
+    virtual string GetType() { return "DBColour"; } // INLINE METHOD.
+
+    /**
+     * Get Method. Return the pointer of its data.
+     */
+    int* GetData() { return mColourData; } // INLINE METHOD.
+
+    /**
+     * Get Method. Return the value of Red.
+     */
+    int GetRed() { return mColourData[0]; } // INLINE METHOD.
+
+    /**
+     * Get Method. Return the value of Green.
+     */
+    int GetGreen() { return mColourData[1]; } // INLINE METHOD.
+
+    /**
+     * Get Method. Return the value of Blue.
+     */
+    int GetBlue() { return mColourData[2]; } // INLINE METHOD.
 
 protected:
 
 private:
 
-    int mColourData[3];
+    // VARIABLES
+    int mColourData[3]; // saves a colour data : Red, Green, Blue.
 
 };
 

@@ -28,54 +28,85 @@ class DatabaseManager
 public:
 
     /**
-    * Returns the instance of the DatabaseManager
-    */
+     * Returns the instance of the DatabaseManager
+     */
     static DatabaseManager* GetInstance();
 
     /**
-    * Deconstructor
-    */
+     * Deconstructor
+     */
     ~DatabaseManager();
 
     /**
-    * Initializes the DatabaseManager (sets up anything that must be
-    * set up before any functions can be run)
-    */
+     * Initializes the DatabaseManager (sets up anything that must be
+     * set up before any functions can be run)
+     */
     void Initialize();
 
     /**
-    * Shuts down the DatabaseManager, cleans up anything left
-    * open or reserved
-    */
+     * Shuts down the DatabaseManager, cleans up anything left
+     * open or reserved
+     */
     void Shutdown();
 
+    /**
+     * Load XML file and creates Nodes from that file.
+     */
     bool LoadFromFile(const string& filename);
+
+    /**
+     * Save to XML file.
+     */
     void SaveToFile(); // not implemented for version 1.
-    DBNode* GetRootNode() { return mRootNode; }
+
+    /**
+     * Get Method. Return the root node of the database.
+     */
+    DBNode* GetRootNode() { return mRootNode; } // INLINE METHOD.
+
+    /**
+     * Search a Node which is specified with a parameter.
+     */
     DBNode* Search(const string& name);
 
 protected:
-    // PROTECTED METHODS
 
+    // PROTECTED METHODS
     /**
     * Default constructor.
     */
     DatabaseManager();
 
     // PROTECTED VARIABLES
-
     static DatabaseManager* _instance;
 
 private:
 
+    // METHODS
+    /**
+     * Generate a Unique ID for each Node and Data.
+     */
     int GenerateUniqueID();
+
+    /**
+     * This is a recursive function. Which finds and creates a sibling node.
+     */
     void CreateSiblingNode( TiXmlElement* currentNode, DBNode* parent );
+
+    /**
+     * This is a recursive function. Which finds and creates a child node.
+     */
     void CreateChildNode( TiXmlElement* currentNode, DBNode* parent );
+
+    /**
+     * This is a recursive function. Which finds and creates a attribute data.
+     */
     DBData* CreateAttribute( TiXmlElement* thisTag );
 
+    // VARIABLES
     vector<DBNode*> mSearchList;
     DBNode* mRootNode;
-    int mSize;
+    int mSize; // Save a size of Nodes and Datas.
 
 };
 
