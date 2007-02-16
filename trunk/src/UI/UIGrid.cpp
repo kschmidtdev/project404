@@ -46,7 +46,6 @@ UIGrid::UIGrid()
     int i, j;
 
 
-
     // Set Tiles in place
     // --------------------------------------------------
     int startXoffset = mTileStart.GetX();
@@ -87,49 +86,11 @@ UIGrid::UIGrid()
 
 UIGrid::~UIGrid()
 {
-    // Release Tiles
-    /*for( UITileItr i = mTiles.begin(); i != mTiles.end(); ++i )
-    {
-        if( *i )
-        {
-            delete *i;
-        }
-    }*/
-
     if( mCursor )
     {
         delete mCursor;
         mCursor = NULL;
     }
-
-    // Move Range
-    /*for( UIImageItr i = mImageMoveRange.begin(); i != mImageMoveRange.end(); ++i )
-    {
-        if( *i )
-        {
-            // EXPLICITLY FINDING POINTERS THAT EXIST IN THE OTHER VECTOR THAT DELETE'S IT'S
-            // ELEMENTS IN THE FOR LOOP BELOW THIS ONE
-            // WITHOUT DOING THIS THE GAME WILL CRASH IN SOME CASES, ANDREW PLEASE FIND OUT
-            // WHY THESE VECTORS ARE ENDING UP WITH THE SAME POINTERS IN THEM SO THIS CHECKING
-            // CODE CAN BE REMOVED
-            UIImageItr dupPtrItr = find( mImageAttackRange.begin(), mImageAttackRange.end(), *i );
-            if( dupPtrItr != mImageAttackRange.end() )
-            {
-                mImageAttackRange.erase( dupPtrItr );
-            }
-            delete *i;
-        }
-    }*/
-
-    // Attack Range
-    /*for( UIImageItr i = mImageAttackRange.begin(); i != mImageAttackRange.end(); ++i )
-    {
-        if( *i )
-        {
-            delete *i;
-        }
-    }*/
-
 }// ~UIGrid
 
 

@@ -12,6 +12,7 @@
  * Karl Schmidt, February 15 2007 | Removed creating the level in here, added some error checking
  * Mike Malyuk,  February 15 2007 | Added get for grid;
  * Karl Schmidt, February 15 2007 | Added End Turn functionality to side menu
+ * Karl Schmidt, February 15 2007 | Added initialize function, destroys everything between displaying (onload/onclose)
  */
 
 #include "UIBattleScreenLayout.h"                                // class implemented
@@ -78,6 +79,17 @@ class EndTurnFunction : public FuncObj
 
 UIBattleScreenLayout::UIBattleScreenLayout()
 {
+    Initialize();
+    mName = "BattleScreen";
+
+}// UIBattleScreenLayout
+
+UIBattleScreenLayout::~UIBattleScreenLayout()
+{
+}// ~UIBattleScreenLayout
+
+void UIBattleScreenLayout::Initialize()
+{
     // Add Menu
     // -----------------------------------
     mMenu = new UIMenu();
@@ -91,22 +103,11 @@ UIBattleScreenLayout::UIBattleScreenLayout()
 
     //UIElement *tempButton;
 
-
-
-
     mGrid = new UIGrid();
     mDefaultEventListener = mGrid;
     //mGrid->setParent(this);
     mElements.push_back( mGrid );
-
-    mName = "BattleScreen";
-
-}// UIBattleScreenLayout
-
-UIBattleScreenLayout::~UIBattleScreenLayout()
-{
-}// ~UIBattleScreenLayout
-
+}
 
 //============================= OPERATORS ====================================
 
@@ -115,6 +116,11 @@ UIBattleScreenLayout::~UIBattleScreenLayout()
 void UIBattleScreenLayout::OnLoad( void )
 {
     UILayout::OnLoad();
+
+    if( mElements.empty() )
+    {
+        Initialize();
+    }
 
     // doing other initialization
 
@@ -167,6 +173,23 @@ void UIBattleScreenLayout::OnLoad( void )
 
     // Load in character textures
 
+}
+
+void UIBattleScreenLayout::OnClose(void)
+{
+    UILayout::OnClose();
+
+    for( UIElementPtrItr i = mElements.begin(); i != mElements.end(); ++i )
+    {
+        if( *i )
+        {
+            delete *i;
+        }
+    }
+    mElements.clear();
+
+    // Other parts of the code need access to some sort of working UIGrid...
+    Initialize();
 }
 
 

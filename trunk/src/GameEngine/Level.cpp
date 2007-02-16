@@ -18,6 +18,7 @@
  *                                | Move range and Attack range don't show up for enemies (bug)
  * Mike Malyuk, February 15, 2007 | Fixed small bug in Healer code
  * Karl Schmidt, February 15 2007 | Fixed an odd header include path
+ * Karl Schmidt, February 15 2007 | Fixed slight memory leak
  */
 #include "Level.h"                                // class implemented
 //#include "Character.h"
@@ -174,11 +175,11 @@ Level::Level(int)
         (*Iter2)->Move( StartingPoint );
         mEnemies.push_back( (*Iter2) );
     }
-
 }
 
 Level::~Level()
 {
+    DBEngine::GetInstance()->Shutdown();
 }// ~Level
 
 //============================= OPERATIONS ===================================
