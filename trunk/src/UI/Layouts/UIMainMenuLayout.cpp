@@ -34,7 +34,7 @@ class SetPasswordFunction : public FuncObj
 {
     virtual void operator()(void)
     {
-        //UIManager::GetInstance()->PushLayout("SetPasswordScreen");
+        UIManager::GetInstance()->PushLayout("SetPassword");
     }
 };
 

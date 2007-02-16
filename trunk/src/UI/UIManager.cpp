@@ -22,6 +22,8 @@
 #include <UIMainMenuLayout.h>
 #include <UIWinLayout.h>
 #include <UILoseLayout.h>
+#include <UIPasswordVerificationLayout.h>
+#include <UISetPasswordLayout.h>
 #include <vector>
 
 
@@ -78,11 +80,15 @@ void UIManager::Initialize(void)
     AddLayout( new UIMainMenuLayout() );
     AddLayout( new UIWinLayout() );
     AddLayout( new UILoseLayout() );
+    AddLayout( new UIPasswordVerificationLayout() );
+    AddLayout( new UISetPasswordLayout() );
+
     // Set current (first) layout
     //PushLayout("BattleScreen");
-    PushLayout("TitleScreen");
+    //PushLayout("TitleScreen");
     //PushLayout("MainMenu");
     //PushLayout("Lose");
+    PushLayout("PasswordVer");
 
     // Add all the layouts to the manager.
     LogInfo( "The UIManager has been initialized successfully." );
@@ -178,16 +184,28 @@ void UIManager::PopAllLayouts(void)
 void UIManager::PopLayout(void)
 {
 
+
     mCurrentLayoutList.pop_front();
     if (mCurLayout!=NULL)
     {
         mCurLayout->OnClose();
     }
+    else
+    {
+        printf("Current Layout had an error");
+    }
     mCurLayout = mCurrentLayoutList.front();
+
+
     if (mCurLayout==NULL)
     {
         PushLayout("TitleScreen");
     }
+    else
+    {
+        mCurLayout->OnLoad();
+    }
+
 
 
 }
