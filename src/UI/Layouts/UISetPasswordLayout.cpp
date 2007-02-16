@@ -188,21 +188,21 @@ void UISetPasswordLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
                         SecurityManager::GetInstance()->AddUser("user1", mConfirmPwd);
                         UIManager::GetInstance()->PopLayout();
                     }
-                    else
-                    {
-                        mOldPwd = "";
-                        mOldStarString = "Old Pwd:";
-                        mOldPwdUIText->ChangeText(mOldStarString);
-                        mNewPwd = "";
-                        mNewStarString = "New Pwd:";
-                        mNewPwdUIText->SetVisible(false);
-                        mNewPwdUIText->ChangeText(mNewStarString);
-                        mConfirmPwd = "";
-                        mConfirmStarString = "Confirm Pwd:";
-                        mConfirmPwdUIText->SetVisible(false);
-                        mConfirmPwdUIText->ChangeText(mConfirmStarString);
-                        mPasswordEntryState = 0;
-                    }
+                    //else
+                    //{
+                    mOldPwd = "";
+                    mOldStarString = "Old Pwd:";
+                    mOldPwdUIText->ChangeText(mOldStarString);
+                    mNewPwd = "";
+                    mNewStarString = "New Pwd:";
+                    mNewPwdUIText->SetVisible(false);
+                    mNewPwdUIText->ChangeText(mNewStarString);
+                    mConfirmPwd = "";
+                    mConfirmStarString = "Confirm Pwd:";
+                    mConfirmPwdUIText->SetVisible(false);
+                    mConfirmPwdUIText->ChangeText(mConfirmStarString);
+                    mPasswordEntryState = 0;
+                    //}
                     break;
             }
             break;
