@@ -23,6 +23,10 @@ def writeSectionHTML( sectionTitle, sectionFilename, headTxt, footTxt, sideMenuH
             line = line.replace( "\n<a href=\"", "\n<a href=\"../" )
             line = line.replace( "\n<a href=\"../http", "\n<a href=\"http" )
             line = line.replace( subsection + "/", "" )
+            if subsection == "assignment2":
+                line = line.replace( "assignment3/", "../assignment3/" )
+            elif subsection == "assignment3":
+                line = line.replace( "assignment2/", "../assignment2/" )
         thisSectionPage.write( line )
 
     sectionFile = open( sectionFilename, "r" )

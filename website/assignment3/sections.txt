@@ -8,7 +8,7 @@
 "Functional Requirements Page 8", "functionalrequirements8.txt"
 "Functional Requirements Page 9", "functionalrequirements9.txt"
 "UML Architectural Diagram", "umldiagrams.txt"
-"Architectural diagram", "architecturediagram.txt"
+"Architectural Diagram", "architecturediagram.txt"
 "Data requirements", "datarequirements.txt"
 "Non-functional requirements", "nonfunctionalreqs.txt"
 "Guidelines", "guidelines.txt"
