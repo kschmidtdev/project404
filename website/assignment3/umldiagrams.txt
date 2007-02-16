@@ -19,3 +19,7 @@
 <b>UI UML</b>
 
 <img src="http://www.sfu.ca/~karls/CMPT275/V1UML/UI_UML.jpg"/>
+
+<b>Manager Objects Helper Diagram</b>
+
+<img src="http://www.sfu.ca/~karls/CMPT275/ManagerArchitecture.jpg"/>
