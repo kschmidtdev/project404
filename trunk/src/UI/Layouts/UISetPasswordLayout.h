@@ -1,11 +1,12 @@
 /**
- * A one line description of the class.
+ * The Layout class that represents the "Set Password" Screen
  *
  * #include "UISetPasswordLayout.h"
  *
- * A longer description.
+ * The Layout class that represents the "Set Password" Screen, which allows you to set a new password
+ * This screen is accessible from the Main Menu.
  *
- * @see something
+ * @see UIMainMenuLayout
  *
  * Project 404 2007
  *

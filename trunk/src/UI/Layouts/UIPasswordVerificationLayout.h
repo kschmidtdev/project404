@@ -1,16 +1,14 @@
 /**
- * A one line description of the class.
+ * The Class that represents the "Password Verification" screen.
  *
  * #include "UIPasswordVerificationLayout.h"
  *
- * A longer description.
- *
- * @see something
+ * The Class that represents the "Password Verification" screen that you see when the program starts up.
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Andrew Osborne, February 15 2007, Initial Creation
  */
 
 #ifndef UIPasswordVerificationLayout_h

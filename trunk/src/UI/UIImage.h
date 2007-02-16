@@ -3,14 +3,12 @@
  *
  * #include "UIImage.h"
  *
- * A longer description.
- *
- * @see something
+ * An extension of UIElement that represents a single image.
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Andrew Osborne, February 11 2007 | Initial Creation
  */
 
 #ifndef UIImage_h

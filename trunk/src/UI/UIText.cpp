@@ -4,7 +4,7 @@
  * Project 404 2007
  *
  * Authors:
- * Name, Date | Work Done
+ * Andrew Osborne, February 14 2007 | Initial Creation
  */
 #include "UIText.h"                                // class implemented
 

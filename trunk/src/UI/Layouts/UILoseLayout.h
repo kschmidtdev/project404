@@ -1,16 +1,16 @@
 /**
- * A one line description of the class.
+ * The Layout that represents the "Game Over" screen.
  *
  * #include "UILoseLayout.h"
  *
- * A longer description.
+ * The Layout that represents the "Game Over" screen that you see once you lose a "battle", from the battle screen
  *
- * @see something
+ * @see UIBattleScreenLayout
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Andrew Osborne, February 15 2007 | Initial Creation
  */
 
 #ifndef UILoseLayout_h

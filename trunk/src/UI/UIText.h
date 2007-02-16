@@ -1,16 +1,16 @@
 /**
- * A one line description of the class.
+ * A class that represents lone text on the screen.
  *
  * #include "UIText.h"
  *
- * A longer description.
+ * A class that represents lone text on the screen like the text seen on the "Congradulations screen"
  *
- * @see something
+ * @see UIWinLayout
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Andrew Osborne, February 14 2007 | Initial Creation
  */
 
 #ifndef UIText_h
