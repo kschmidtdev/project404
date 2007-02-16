@@ -12,6 +12,7 @@
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  * Andrew Osborne, February 14 2007 | Refined/debugged ability to push/pop layouts
  * Karl Schmidt, February 15 2007 | Fixed a minor odd header include path
+ * Andrew Osborne, February 15 2007 | Added PopAllLayouts
  */
 
 #include <UIManager.h>                                  // class implemented
@@ -19,6 +20,8 @@
 #include <UIBattleScreenLayout.h>
 #include <UITitleScreenLayout.h>
 #include <UIMainMenuLayout.h>
+#include <UIWinLayout.h>
+#include <UILoseLayout.h>
 #include <vector>
 
 
@@ -73,12 +76,13 @@ void UIManager::Initialize(void)
     AddLayout( new UIBattleScreenLayout() );
     AddLayout( new UITitleScreenLayout() );
     AddLayout( new UIMainMenuLayout() );
-
+    AddLayout( new UIWinLayout() );
+    AddLayout( new UILoseLayout() );
     // Set current (first) layout
     //PushLayout("BattleScreen");
     PushLayout("TitleScreen");
     //PushLayout("MainMenu");
-
+    //PushLayout("Lose");
 
     // Add all the layouts to the manager.
     LogInfo( "The UIManager has been initialized successfully." );
@@ -157,6 +161,19 @@ void UIManager::PushLayout(const string newLayout)
     }
 
 }
+
+void UIManager::PopAllLayouts(void)
+{
+    if (mCurLayout)
+    {
+        mCurLayout->OnClose();
+    }
+    mCurrentLayoutList.clear();
+    PushLayout("TitleScreen");
+
+}
+
+
 
 void UIManager::PopLayout(void)
 {

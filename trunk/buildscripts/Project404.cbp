@@ -628,6 +628,12 @@
 			<Option target="Release" />
 			<Option target="UnitTest" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UILoseLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UIMainMenuLayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
@@ -652,6 +658,12 @@
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIWinLayout.cpp">
+			<Option compilerVar="CPP" />
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="UnitTest" />
