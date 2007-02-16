@@ -9,7 +9,8 @@
 #include <SoundManager.h>
 
 //
-// A generated test suite: Just write tests!
+// This tests starting up and stopping/destroying the GameRoot object.
+// This tests all managers starting up and shutting down.
 //
 
 class GameRootAndSoundManagerTest : public CxxTest::TestSuite
