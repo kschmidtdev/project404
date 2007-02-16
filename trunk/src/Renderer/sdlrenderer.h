@@ -10,6 +10,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 15 2007 | Added temporary renderable functionality
  * Karl Schmidt, February 7 2007, Initial creation of the header
  */
 
@@ -39,6 +40,9 @@ typedef vector<SDLRenderable*> RenderableVec;
 typedef RenderableVec::iterator RenderableVecItr;
 typedef map<int, TTF_Font*> FontMap;
 typedef FontMap::iterator FontMapItr;
+typedef pair<SDLRenderable*, Uint32> TempRenderable;
+typedef vector< TempRenderable > TempRenderableVec;
+typedef TempRenderableVec::iterator TempRenderableItr;
 
 class SDLRenderer : public Renderer
 {
@@ -84,6 +88,13 @@ public:
     void AddToRenderQueue( SDLRenderable * toAdd );
 
     /**
+     * Adds a SDLRenderable to the temporary render queue, that
+     * will be removed when timeToRemove becomes older than the current time
+     * THIS WILL DELETE EXPIRED RENDERABLES ITSELF
+	 */
+    void AddToTempRenderQueue( SDLRenderable * toAdd, const Uint32 timeToRemove );
+
+    /**
      * Removes a SDLRenderable from the render queue
 	 */
     void RemoveFromRenderQueue( SDLRenderable * toRemove );
@@ -116,6 +127,7 @@ protected:
     RenderableVec mRenderQueue;
     SDL_Surface* mScreen;
     FontMap mFonts;
+    TempRenderableVec mTempRenderables;
 
 private:
 // PRIVATE VARIABLES
