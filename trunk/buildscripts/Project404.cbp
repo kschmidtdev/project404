@@ -812,6 +812,12 @@
 			<Option target="Release" />
 			<Option target="UnitTest" />
 		</Unit>
+		<Unit filename="..\src\UnitTests\AIControlTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
 		<Unit filename="..\src\UnitTests\ArcherTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
@@ -939,6 +945,12 @@
 			<Option target="UnitTest" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\WeaponItemTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\sdlrendererTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
