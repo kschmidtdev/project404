@@ -4,6 +4,8 @@ Version 1 can be downloaded from <a href="http://www.sfu.ca/~karls/CMPT275/Proje
 
 The link to our coding standards document is <a href="http://www.sfu.ca/~karls/CMPT275/CppCodingStandard.html">here</a>, retrieved from <a href="http://www.possibility.com/Cpp/">here</a>.
 
+Source code documentation generated with DOxygen is available <a href="http://www.sfu.ca/~karls/CMPT275/doxygen">here</a>. 
+
 Controls are mapped as follows:
 <ul>
 <li>Keyboard directional keys - UP, LEFT, DOWN, RIGHT</li>
