@@ -1,0 +1,22 @@
+<p>Functional Requirements:</p>
+<p> [<a href="functionalrequirements1.html">1</a>],[<a href="functionalrequirements2.html">2</a>],[<a href="functionalrequirements3.html">3</a>],[<a href="functionalrequirements4.html">4</a>],[<a href="functionalrequirements5.html">5</a>],[<a href="functionalrequirements6.html">6</a>],[<a href="functionalrequirements7.html">7</a>],[<a href="functionalrequirements8.html">8</a>],[<a href="functionalrequirements9.html">9</a>]
+<hr>
+
+<p><strong>Name:</strong> Entering Battle </p><p><strong>Description:</strong> The user must navigate a map, and join (move to) a conflict denoted by a red mark. </p><p><strong>Actors:</strong> ALL </p><p><strong>Use Case:</strong> </p><h3></h3><i>Normal 1:</i><p>1. Selection: Move the cursor to toward the contested point </p><p>2. Movement: By selecting the node, the character will move to this point  </p><p><i>Abnormal 1:</i> </p><p>1. Selection: User selects node that is not contested </p><p>2. Movement: No action results, user continues movement </p><p>3. Arrival: When arriving at the correct node, the instance will start. </p><p><i>Abnormal 2:</i> </p><p>1. Selection: User selects an area on the map where no nodes or roads exist </p><p>2. Movement: No movement occurs until a valid movement is proposed. </p><p><strong>Features Used:</strong> </p><ul><li>Selection Cursor </li><li>Movement </li></ul><p><strong>Exceptions:</strong> </p><ul><li>Choosing the wrong position (movement but no instance) </li><li>Choosing an invalid position (no movement and no instance) </li></ul><p><strong>Actor:</strong> </p><p><i>Max:</i> Max knows what an instance of battle is, and he knows how to join them. It&#x27;s necessary and he&#x27;s ready to go. </p><p><i>Hubert:</i> Hubert doesn&#x27;t really understand how the battles work, but he knows where a action instance is, by the large red marker on the screen. He knows that there has to be a battle somewhere so he knows where to go. </p>
+<p><strong>Screen Mockups:</strong></p>
+<img src="http://www.sfu.ca/~rhan/img/worldmap_sel_place.png" /><br/><br/>
+<img src="http://www.sfu.ca/~rhan/img/battlemap.png" />
+
+<hr>
+
+<p><strong>Name:</strong> In Game Status </p><p><strong>Description:</strong> The user must enter the in Game Status menu(battlefield), view current statistics of units </p><p><strong>Actors:</strong> ALL </p><p><strong>Use Case:</strong> </p><h3></h3><p>1. Selection: Press the select button </p><p>2. Selection: Side menu shows listing of all characters on field with basic info. Selecting a unit brings up submenu. </p><p>3. Selection: Submenu displays further information, button press exits menu </p><p><strong>Features Used:</strong> </p><ul><li>Selection Cursor </li><li>Menu </li><li>Button </li></ul><p><strong>Exceptions:</strong> </p><blockquote>N/A 
+
+</blockquote><p><strong>Actor:</strong> </p><p><i>Max:</i> To Max the in game status is imperative to his analysis of the current in game situation. By having it easily mapped to a single button, Max can quickly scan his team&#x27;s statistics, and, if needed, get more in depth information at the click of a button. He is likely to utilize this menu extensively while planning his next move. </p><p><i>Hubert:</i> Hubert has never really needed to know too much about his units. Knowing their basic health and power was usually enough to satiate his need for tactical play. He generally prefers to use the big and powerful looking characters, and finds stats to be boring. At least the stats menu isn&#x27;t obtrusive to his game play. </p>
+<p><strong>Screen Mockups:</strong></p>
+<img src="http://www.sfu.ca/~rhan/img/battlemap_sel_status.png" /><br/><br/>
+<img src="http://www.sfu.ca/~rhan/img/partystatus.png" />
+
+<hr>
+
+<p>Functional Requirements:</p>
+<p> [<a href="functionalrequirements1.html">1</a>],[<a href="functionalrequirements2.html">2</a>],[<a href="functionalrequirements3.html">3</a>],[<a href="functionalrequirements4.html">4</a>],[<a href="functionalrequirements5.html">5</a>],[<a href="functionalrequirements6.html">6</a>],[<a href="functionalrequirements7.html">7</a>],[<a href="functionalrequirements8.html">8</a>],[<a href="functionalrequirements9.html">9</a>]

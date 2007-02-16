@@ -1,1 +1,33 @@
-Project Manager for this assignment: <b>TBA</b>.
+Project Manager for this assignment: <i>Karl Schmidt</i>.
+
+Version 1 can be downloaded from <a href="http://www.sfu.ca/~karls/CMPT275/Project404Version1.zip">here</a>. Extract and run Project404.exe. The default password is right-right-right-right.
+
+Controls are mapped as follows:
+<ul>
+<li>Keyboard directional keys - UP, LEFT, DOWN, RIGHT</li>
+<li>M - Menu</li>
+<li>Backspace - Cancel</li>
+<li>Enter - Confirm</li>
+<li>S - Start</li>
+<li>A - Select</li>
+</ul>
+
+Sections of this assignment include:
+
+<ul class="contentlist">
+<li><a href="assignment2/functionalrequirements1.html">Functional Requirements Page 1</a></li>
+<li><a href="assignment3/functionalrequirements2.html">Functional Requirements Page 2</a></li>
+<li><a href="assignment3/functionalrequirements3.html">Functional Requirements Page 3</a></li>
+<li><a href="assignment3/functionalrequirements4.html">Functional Requirements Page 4</a></li>
+<li><a href="assignment3/functionalrequirements5.html">Functional Requirements Page 5</a></li>
+<li><a href="assignment3/functionalrequirements6.html">Functional Requirements Page 6</a></li>
+<li><a href="assignment3/functionalrequirements7.html">Functional Requirements Page 7</a></li>
+<li><a href="assignment3/functionalrequirements8.html">Functional Requirements Page 8</a></li>
+<li><a href="assignment3/functionalrequirements9.html">Functional Requirements Page 9</a></li>
+<li><a href="assignment3/umldiagrams.html">UML Architectural Diagram</a></li>
+<li><a href="assignment3/datarequirements.html">Data requirements</a></li>
+<li><a href="assignment3/nonfunctionalreqs.html">Non-functional requirements</a></li>
+<li><a href="assignment3/guidelines.html">Guidelines</a></li>
+<li><a href="assignment3/glossary.html">Glossary</a></li>
+<li><a href="assignment3/featurepriority.html">Feature Priority</a></li>
+</ul>
