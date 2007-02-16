@@ -11,6 +11,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 15 2007 | Implemented DeleteUser and ChangeUserPassword
  * Karl Schmidt, February 15 2007 | Added HashString function
  * Karl Schmidt, February 13 2007 | Initial creation of header
  */
@@ -67,15 +68,41 @@ public:
 // OPERATORS
 // OPERATIONS
 
+    /**
+    * Loads a password hash file into
+    * mLoadedPasswords
+    */
     void LoadPasswordHashFile( const string fileName );
 
+    /**
+    * Saves out mLoadedPasswords
+    * to fileName
+    */
     void SavePasswordHashFile( const string fileName );
 
+    /**
+    * Hashs the incoming password and compares
+    * that to the stored password hash for the particular user.
+    * Returns true if they are equal, false if they are not
+    */
     bool VerifyPassword( const string userName, const string password );
 
+    /**
+    * Adds a user and hashs the password and stores them in
+    * mLoadedPasswords
+    */
     void AddUser( const string userName, const string password );
 
+    /**
+    * Deletes a user from mLoadedPasswords
+    */
     void DeleteUser( const string userName );
+
+    /**
+    * Changes the password of a user in
+    * mLoadedPasswords
+    */
+    void ChangeUserPassword( const string userName, const string newPassword );
 
 // ACCESS (writing)
 // INQUIRY (reading)
