@@ -50,12 +50,12 @@ UIMainMenuLayout::UIMainMenuLayout()
 {
     mName = "MainMenu";
 
-    UIImage *tempImg = new UIImage("castle.bmp");
+    UIImage *tempImg = new UIImage("castle_main.bmp");
     mElements.push_back(tempImg);
 
-    UIText *tempText = new UIText("SymTac", 100, 255, 0, 0);
-    tempText->SetPos( Point(120,50) );
-    mElements.push_back(tempText);
+    //UIText *tempText = new UIText("SymTac", 100, 255, 0, 0);
+    //tempText->SetPos( Point(120,50) );
+    //mElements.push_back(tempText);
 
 
     UIMenu *tempMenu = new UIMenu();

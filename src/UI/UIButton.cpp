@@ -17,14 +17,14 @@
 UIButton::UIButton()
 : mText(""), mOperation(NULL)
 {
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("testButton.bmp");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_item.bmp");
 }// UIButton
 
 UIButton::UIButton(const string text)
 : mOperation( NULL )
 {
     mText.ChangeText(text);
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("testButton.bmp");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_item.bmp");
 }
 
 UIButton::~UIButton()
