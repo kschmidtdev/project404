@@ -818,7 +818,55 @@
 			<Option link="0" />
 			<Option target="UnitTest" />
 		</Unit>
+		<Unit filename="..\src\UnitTests\ArmorItemTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\CharacterTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\DBColourTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
 		<Unit filename="..\src\UnitTests\DBEngineTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\DBFloatTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\DBIntTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\DBNodeTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\DBStringTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\DBVector2DTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
@@ -837,6 +885,12 @@
 			<Option target="UnitTest" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\HealerTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\ItemTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
@@ -866,7 +920,25 @@
 			<Option link="0" />
 			<Option target="UnitTest" />
 		</Unit>
+		<Unit filename="..\src\UnitTests\MapTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
 		<Unit filename="..\src\UnitTests\SecurityManagerTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\TileTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\WeaponItemTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
