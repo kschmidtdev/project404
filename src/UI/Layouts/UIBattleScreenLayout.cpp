@@ -13,6 +13,7 @@
  * Mike Malyuk,  February 15 2007 | Added get for grid;
  * Karl Schmidt, February 15 2007 | Added End Turn functionality to side menu
  * Karl Schmidt, February 15 2007 | Added initialize function, destroys everything between displaying (onload/onclose)
+ * Karl Schmidt, February 15 2007 | Added change focus to grid when you press end turn
  */
 
 #include "UIBattleScreenLayout.h"                                // class implemented
@@ -69,6 +70,8 @@ class EndTurnFunction : public FuncObj
             }
             curLevel->AllExhaustedParty();
         }
+        // Hack to switch back to the grid for input focus after ending the current turn
+        UIManager::GetInstance()->GetLayout("BattleScreen")->ProcessEvent( InputManager::CANCEL );
     }
 };
 
@@ -207,7 +210,6 @@ void UIBattleScreenLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
     {
         mDefaultEventListener->ProcessEvent(evt);
     }
-
 }
 //============================= ACCESS     ===================================
 
