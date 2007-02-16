@@ -147,29 +147,29 @@ Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point>
 Level::Level(int)
 : mState(FREE), mCurChar( NULL ), mThisMap( NULL ), mMyTurn( true )
 {
-    DBEngine DBE;
-    DBE.Initialize();
+    DBEngine* DBE = DBEngine::GetInstance();
+    DBE->Initialize();
 
     Point StartingPoint;
     DBVector2D* StartingVector;
 
     //// Party Setting ////
-    vector<Character*>* PartyList = DBE.LoadParty(); // Get the pointer of party members in this level.
+    vector<Character*>* PartyList = DBE->LoadParty(); // Get the pointer of party members in this level.
     vector<Character*>::iterator Iter1; // Iterator.
     for (Iter1 = PartyList->begin(); Iter1 != PartyList->end(); Iter1++)
     {
-        StartingVector = DBE.LoadPartyStartingPoint( *Iter1 );
+        StartingVector = DBE->LoadPartyStartingPoint( *Iter1 );
         StartingPoint.Set( StartingVector->GetX(), StartingVector->GetY() );
         (*Iter1)->Move( StartingPoint );
         mParty.push_back( (*Iter1) );
     }
 
     //// Enemies Setting ////
-    vector<Character*>* EnemiesList = DBE.LoadEnemies(); // Get the pointer of enemy members in this level.
+    vector<Character*>* EnemiesList = DBE->LoadEnemies(); // Get the pointer of enemy members in this level.
     vector<Character*>::iterator Iter2; // Iterator.
     for (Iter2 = EnemiesList->begin(); Iter2 != EnemiesList->end(); Iter2++)
     {
-        StartingVector = DBE.LoadEnemiesStartingPoint( *Iter2 );
+        StartingVector = DBE->LoadEnemiesStartingPoint( *Iter2 );
         StartingPoint.Set( StartingVector->GetX(), StartingVector->GetY() );
         (*Iter2)->Move( StartingPoint );
         mEnemies.push_back( (*Iter2) );
