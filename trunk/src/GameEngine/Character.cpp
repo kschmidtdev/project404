@@ -20,13 +20,27 @@
 
 //============================= LIFECYCLE ====================================
 
-Character::Character(){}
+Character::Character()
+:mName("GENERIC"), mLevel(1), mExp(0), mCurHP(10), mMaxHP(10),
+mMaxActRange(0), mExhausted(false), mIsDead(false), mCurPos(Point(0,0)), mArmor(NULL), mWeapon(NULL)
+{
+    mAttributes[POW] = 0;
+    mAttributes[AGI] = 0;
+    mAttributes[DEF] = 0;
+}
 Character::~Character()
 {
+
 }// ~Character
 
 //============================= OPERATIONS ===================================
-void Character::LevelUp(){}
+void Character::LevelUp()
+{
+    mAttributes[POW] = mAttributes[POW] + 1;
+    mAttributes[AGI] = mAttributes[AGI] + 1;
+    mAttributes[DEF] = mAttributes[DEF] + 1;
+    mLevel++;
+}
 vector<Point> Character::CalcAction()
 {
     vector<Point> points;
@@ -117,7 +131,7 @@ void Character::Attack(Character* another)
     }
     if(killed == true)
     {
-        mExp = ((another->GetLevel()*1.0)/mLevel)*100;
+        mExp = mExp + ((another->GetLevel()*1.0)/mLevel)*100;
         if(mExp >= 100)
         {
             LevelUp();
@@ -145,7 +159,7 @@ void Character::SetArmor(ArmorItem* item)
     }
     else
     {
-        mAttributes[DEF] = mAttributes[DEF] - mWeapon->GetAttr() + item->GetAttr();
+        mAttributes[DEF] = mAttributes[DEF] - mArmor->GetAttr() + item->GetAttr();
         mArmor = item;
     }
 }

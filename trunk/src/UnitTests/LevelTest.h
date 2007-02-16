@@ -4,7 +4,7 @@
 #include <cxxtest/TestSuite.h>
 
 #include <GameEngine/Level.h>
-
+#include <..\src\Logger.h>
 //
 // A generated test suite: Just write tests!
 //
