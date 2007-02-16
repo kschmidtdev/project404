@@ -1,0 +1,3 @@
+<b>Architectural diagram (high-level)</b>
+
+<img src="http://www.sfu.ca/~rhan/arch_diagram.jpg"/>
