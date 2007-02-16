@@ -17,6 +17,7 @@
  * Andrew Osborne, February 11 2007 | Added GetInstance method
  * Karl Schmidt, February 13 2007 | Added typedefs instead of lots of vector<Type>
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Andrew Osborne, February 15 2007 | Added PopAllLayouts
  */
 
 #ifndef UIManager_h
@@ -94,6 +95,11 @@ public:
      * Releases current UILayout and makes previous UILayout current one.
 	 */
     void PopLayout(void);
+
+    /**
+     * Releases all layouts from queue. (title page remains)
+	 */
+    void PopAllLayouts(void);
 
     /**
      * Adds UILayout to master list.

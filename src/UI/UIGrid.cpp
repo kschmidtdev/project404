@@ -373,6 +373,12 @@ void UIGrid::ConfirmFunction( const Point & p )
                 }
                 mLevel->SetState(Level::AIFREE);
             }
+
+            //Check for EndGame
+            if (mLevel->GetWinCondition())
+            {
+                UIManager::GetInstance()->PushLayout("Win");
+            }
             break;
 
         case 2:
@@ -422,7 +428,11 @@ void UIGrid::ConfirmFunction( const Point & p )
             {
                 RemoveCharacter(mCurCharacter->GetPoint());
                 mCurCharacter->Move(Point(-5,-5));
+
+
             }
+
+
 
             //keep game running
             if(mLevel->AllExhaustedParty())
@@ -452,6 +462,12 @@ void UIGrid::ConfirmFunction( const Point & p )
             // Check for end game
 
             // Check for end turn
+
+            //Check for EndGame
+            if (mLevel->GetWinCondition())
+            {
+                UIManager::GetInstance()->PushLayout("Win");
+            }
 
             break;
 
@@ -574,6 +590,11 @@ void UIGrid::ConfirmFunction( const Point & p )
                 }
                 mLevel->SetState(Level::FREE);
             }
+
+            if (mLevel->GetLoseCondition())
+            {
+                UIManager::GetInstance()->PushLayout("Lose");
+            }
             break;
 
         case 5:
@@ -650,6 +671,11 @@ void UIGrid::ConfirmFunction( const Point & p )
             // Check for end game
 
             // Check for end turn
+            //Check for "Losing" EndGame
+            if (mLevel->GetLoseCondition())
+            {
+                UIManager::GetInstance()->PushLayout("Lose");
+            }
 
             break;
 
