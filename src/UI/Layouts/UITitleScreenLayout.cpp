@@ -50,11 +50,6 @@ UITitleScreenLayout::~UITitleScreenLayout()
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================
 
-/*void UITitleScreenLayout::RenderSelf( SDL_Surface* destination )
-{
-    // stub
-}*/
-
 void UITitleScreenLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
     switch (evt)

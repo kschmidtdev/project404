@@ -34,33 +34,10 @@ UICursor::~UICursor()
 
 
 //============================= OPERATIONS ===================================
-/*
-UICursor::moveUp(void)
-{
-}
-
-UICursor::moveDown(void)
-{
-}
-
-UICursor::moveLeft(void)
-{
-}
-
-UICursor::moveRight(void)
-{
-}
-
 
 
 //============================= ACCESS     ===================================
 
-
-UICursor::setDefaultPos(Point startPos)
-{
-}
-
-UICursor::setDefaultPos*/
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 

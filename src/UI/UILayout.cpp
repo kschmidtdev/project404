@@ -47,14 +47,6 @@ UILayout::~UILayout(void)
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================
 
-
-/*void UILayout::RenderSelf(SDL_Surface* destination)
-{
-    // Needs to be overridden
-    // Display background Image
-}*/
-
-
 void UILayout::OnLoad(void)
 {
     // Iterate through elements in layout

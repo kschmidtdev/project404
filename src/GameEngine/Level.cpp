@@ -107,23 +107,6 @@ Level::Level()
     tempPoint.Set(xStart, yBadStart);
     tempChar->Move( tempPoint );
     mEnemies.push_back(tempChar);
-    //std:vector<Character*> tempBad;
-
-
-    /*vector<Character*>::iterator iter;
-    vector<Point>::iterator piter;
-
-    iter = mParty.begin();
-    piter = mStart.begin();
-
-
-    while(iter != mParty.end() && piter != mStart.end())
-    {
-        (*iter)->Move((*piter));
-        iter++;
-        piter++;
-    }*/
-
 
 
 }// Level

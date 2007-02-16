@@ -356,18 +356,7 @@ void UIGrid::ConfirmFunction( const Point & p )
             // Step 5 - Initialize next turn
 
             // check to see if attack-range is valid
-            /*if ( validAction ) {
-                // remove icon from old spot
-                RemoveCharacter( mCurCharacter->GetPoint() );
 
-                // add icon to new spot
-                mCurCharacter->Move(p);
-                addCharacter( mCurCharacter );
-
-            } else {
-                // do nothing
-                // maybe display message later....
-            }*/
             // now check if person is there
             if(mLevel->OnSelect(p) == NULL)
             {
@@ -411,13 +400,6 @@ void UIGrid::ConfirmFunction( const Point & p )
             {
                 AddAttackRange( mLevel->GetAttackArea() );
             }
-
-            /*if ( (validAction) && (target!=NULL) )
-            {
-
-                // no
-
-            }*/
 
             // Check for end game
 
@@ -572,18 +554,7 @@ void UIGrid::ConfirmFunction( const Point & p )
             // Step 5 - Initialize next turn
 
             // check to see if attack-range is valid
-            /*if ( validAction ) {
-                // remove icon from old spot
-                RemoveCharacter( mCurCharacter->GetPoint() );
 
-                // add icon to new spot
-                mCurCharacter->Move(p);
-                addCharacter( mCurCharacter );
-
-            } else {
-                // do nothing
-                // maybe display message later....
-            }*/
             // now check if person is there
             Character* test = mLevel->OnAISelect(p);
             if(test == NULL)
@@ -620,13 +591,6 @@ void UIGrid::ConfirmFunction( const Point & p )
             {
                 AddAttackRange( mLevel->GetAttackArea() );
             }
-
-            /*if ( (validAction) && (target!=NULL) )
-            {
-
-                // no
-
-            }*/
 
             // Check for end game
 
