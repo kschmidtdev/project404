@@ -248,7 +248,6 @@ void UIGrid::ConfirmFunction( const Point & p )
 
 
     int curState = mLevel->ReturnState();
-    cout << curState << endl;
     bool validAction = false;
 
     Character* tempChar;
