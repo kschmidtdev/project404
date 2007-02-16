@@ -51,7 +51,7 @@
 			</Node>
 			<Node name="Enemy Boss">
 				<Data type="string" name="Class" value="Knight" />
-				<Data type="int" name="Level" value="10" />
+				<Data type="int" name="Level" value="1" />
 				<Data type="string" name="Weapon" value="Unique Sword" />
 				<Data type="string" name="Armor" value="Unique Armor" />
 			</Node>
@@ -83,7 +83,7 @@
 					<Data type="int" name="Attribute" value="2" />
 				</Node>
 				<Node name="Unique Sword">
-					<Data type="int" name="Attribute" value="22" />
+					<Data type="int" name="Attribute" value="1" />
 				</Node>
 			</Node>
 			<Node name="Armor">
@@ -106,7 +106,7 @@
 					<Data type="int" name="Attribute" value="5" />
 				</Node>
 				<Node name="Unique Armor">
-					<Data type="int" name="Attribute" value="25" />
+					<Data type="int" name="Attribute" value="1" />
 				</Node>
 			</Node>	
 		</Node>

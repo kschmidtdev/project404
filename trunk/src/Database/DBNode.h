@@ -40,7 +40,8 @@ public:
     DBNode(const int uniqueID, const string& name, DBNode* parent, vector<DBNode*> children);
     DBNode(const int uniqueID, const string& name, DBNode* parent, vector<DBNode*> children, vector<DBData*> attributes);
     virtual ~DBNode(void);
-    // Serialization here.
+
+    // Serialization here for version 2.
     string GetName() { return mName; }
     DBNode* GetParent() { return mParent; } // *** How do I make sure that returned value (mParent) is not changing anywhere?
 

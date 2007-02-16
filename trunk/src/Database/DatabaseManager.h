@@ -50,7 +50,7 @@ public:
     void Shutdown();
 
     bool LoadFromFile(const string& filename);
-    void SaveToFile();
+    void SaveToFile(); // not implemented for version 1.
     DBNode* GetRootNode() { return mRootNode; }
     DBNode* Search(const string& name);
 

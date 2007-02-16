@@ -806,6 +806,18 @@
 			<Option link="0" />
 			<Option target="UnitTest" />
 		</Unit>
+		<Unit filename="..\src\UnitTests\DBEngineTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\DatabaseManagerTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
 		<Unit filename="..\src\UnitTests\GameRootAndSoundManagerTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />

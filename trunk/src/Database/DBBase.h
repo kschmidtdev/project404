@@ -24,7 +24,8 @@ public:
     // No default constructor.
     DBBase(const int uniqueID); // constructor with 1 argument.
     virtual ~DBBase(void) = 0; // destructor with a pure virtual function.
-    int GetUniqueID() { return mUniqueID; }
+
+    int GetUniqueID() { return mUniqueID; } // returns a unique ID of this instance.
 
 protected:
 
@@ -32,7 +33,7 @@ protected:
 
 private:
 
-    int mUniqueID;
+    int mUniqueID; // variable to save a unique ID of this instance.
 
 };
 
