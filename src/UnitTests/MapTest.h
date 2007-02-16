@@ -3,7 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <Map.h>
+#include <GameEngine/Map.h>
 
 //
 // A generated test suite: Just write tests!
