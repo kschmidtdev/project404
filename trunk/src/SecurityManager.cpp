@@ -80,7 +80,7 @@ void SecurityManager::LoadPasswordHashFile( const string fileName )
     else
     {
         // We should never try to open a file that doesn't exist
-        tacAssert( false );
+        //tacAssert( false );
         LogWarning( fileName + string(" - File not found") );
     }
 }
