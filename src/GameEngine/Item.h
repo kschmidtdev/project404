@@ -36,7 +36,9 @@ public:
     /**
      * Default constructor.
 	 */
-    Item(void){};
+    Item(void)
+    :mName("Base"), mValue(1)
+    {};
 
     /**
      * Destructor.
