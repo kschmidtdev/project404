@@ -11,6 +11,8 @@
 #include "UIImage.h"
 #include "UIText.h"
 
+#include <GameEngine/GameEngine.h>
+
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -21,7 +23,7 @@ UIWinLayout::UIWinLayout()
     UIImage *temp = new UIImage("castle.bmp");
     mElements.push_back(temp);
 
-    UIText *tempText = new UIText("Congradulations", 70, 255, 0, 0);
+    UIText *tempText = new UIText("Congratulations", 70, 255, 0, 0);
     tempText->SetPos( Point(33,50) );
     mElements.push_back(tempText);
 
@@ -54,6 +56,7 @@ void UIWinLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
         UIManager *uim = UIManager::GetInstance();
         uim->PopAllLayouts();  // automatcially adds titlescreen
         uim->PushLayout("MainMenu");
+        GameEngine::GetInstance()->BattleOver();
     }
 
 }

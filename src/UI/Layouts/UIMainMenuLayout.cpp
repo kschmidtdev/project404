@@ -15,11 +15,17 @@
 #include "UIText.h"
 #include "UIImage.h"
 
+#include <GameEngine/GameEngine.h>
+
 
 class NewGameFunction : public FuncObj
 {
     virtual void operator()(void)
     {
+        // Temporarily hardcoding this initialization (until the UI has the overmap that does this)
+        vector<Character*> partyTemp;
+        GameEngine::GetInstance()->BattleInit( partyTemp, GameEngine::CITYA, UIManager::GetInstance()->GetLayout("BattleScreen")->GetGrid()->MaxXY() );
+
         UIManager::GetInstance()->PushLayout("BattleScreen");
     }
 };

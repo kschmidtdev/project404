@@ -80,6 +80,11 @@ enum Cities
     void BattleInit(vector<Character*> partyMem, Cities place, Point maxPoint);
 
     /**
+     * Unload the current level
+    */
+    void BattleOver();
+
+    /**
      * Check city for a market
 	 */
     bool IsMarket();
