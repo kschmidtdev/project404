@@ -24,17 +24,41 @@ class DBVector2D : public DBData
 {
 public:
 
+    /**
+     * Constructor.
+     */
     DBVector2D(const int uniqueID, const string& name, const int* vector2DData);
+
+    /**
+     * Default Destructor.
+     */
     virtual ~DBVector2D();
-    virtual string GetType() { return "DBVector2D"; }
-    int* GetData() { return mVector2DData; }
-    int GetX() { return mVector2DData[0]; }
-    int GetY() { return mVector2DData[1]; }
+
+    /**
+     * Get Method. Return its class type.
+     */
+    virtual string GetType() { return "DBVector2D"; } // INLINE METHOD.
+
+    /**
+     * Get Method. Return the pointer of its data.
+     */
+    int* GetData() { return mVector2DData; } // INLINE METHOD.
+
+    /**
+     * Get Method. Return the value of X-coordinate.
+     */
+    int GetX() { return mVector2DData[0]; } // INLINE METHOD.
+
+    /**
+     * Get Method. Return the value of Y-coordinate.
+     */
+    int GetY() { return mVector2DData[1]; } // INLINE METHOD.
 
 protected:
 
 private:
 
+    // VARIABLES
     int mVector2DData[2];
 
 };

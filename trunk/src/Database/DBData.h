@@ -27,16 +27,32 @@ class DBData : public DBBase // ABS.
 {
 public:
 
+    /**
+     * Constructor with two parameters.
+     */
     DBData(const int uniqueID, const string& name);
+
+    /**
+     * Destructor. This is a pure virtual function.
+     */
     virtual ~DBData(void) = 0;
-    virtual string GetType() { return "DBBase"; }
-    string GetName() { return mName; }
+
+    /**
+     * Get Method. Return its class type.
+     */
+    virtual string GetType() { return "DBBase"; } // INLINE METHOD.
+
+    /**
+     * Get Method. Return the name of this instance.
+     */
+    string GetName() { return mName; } // INLINE METHOD.
 
 protected:
 
 private:
 
-    string mName;
+    // VARIABLES
+    string mName; // save the name of this instance.
 
 };
 

@@ -28,10 +28,6 @@ DBEngine* DBEngine::GetInstance()
     return _instance;
 }
 
-DBEngine::DBEngine()
-{
-}
-
 DBEngine::~DBEngine()
 {
 }
@@ -153,6 +149,8 @@ void DBEngine::Shutdown()
     }
 }
 
+//============================= OPERATORS ====================================
+//============================= OPERATIONS ===================================
 WeaponItem* DBEngine::CreateWeapon( DBNode* WeaponNode )
 {
     DBInt* WeaponAttribute = dynamic_cast<DBInt*>( WeaponNode->GetFirstAttribute() ); // Downcast the attribute of a weapon node, so, we can retrieve the value of a weapon.
@@ -276,3 +274,12 @@ DBVector2D* DBEngine::LoadEnemiesStartingPoint(Character* thisCharacter)
 
     return NULL; // not found.
 }
+
+//============================= ACCESS     ===================================
+//============================= INQUIRY    ===================================
+/////////////////////////////// PROTECTED  ///////////////////////////////////
+DBEngine::DBEngine()
+{
+}
+
+/////////////////////////////// PRIVATE    ///////////////////////////////////
