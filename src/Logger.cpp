@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 15 2007 | Corrected setting a pointer to false instead of NULL
  * Karl Schmidt, February 13 2007, Re-added opening file handle in Initialize, needed it to clear log so we don't keeping appending after running concurrently
  * Karl Schmidt, February 12 2007, Removed opening the file handle in Initialize, unnecessary. 
  * Karl Schmidt, February 9 2007, Added full functionality
@@ -101,7 +102,7 @@ void Logger::LogMessage( const EMESSAGE_TYPE type, const string msg )
     fprintf( mLogFileHandle, "%s: %s\n", mMsgTypeText[type], msg.c_str() );
 
     fclose( mLogFileHandle );
-    mLogFileHandle = false;
+    mLogFileHandle = NULL;
 }
 
 void Logger::LogMessage( const EMESSAGE_TYPE type, const string msg, const string srcFileName, const int lineNum )

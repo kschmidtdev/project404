@@ -10,6 +10,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 15 2007 | Fixed an odd header include path
  * Mike Malyuk, February 15 2007  | Added AI
  * Karl Schmidt, February 15 2007 | Changed the name of one enum, corrected a naming convention, added a GetLevel() function
  * Karl Schmidt, February 12 2007 | Fixed includes, made it a singleton, fixed some compilation errors
@@ -29,7 +30,7 @@
 #include <GameEngine/Level.h>
 #include <GameEngine/Character.h>
 #include <GameEngine/Item.h>
-#include <..\src\AI\AIControl.h>
+#include <AI/AIControl.h>
 
 // LOCAL INCLUDES
 //

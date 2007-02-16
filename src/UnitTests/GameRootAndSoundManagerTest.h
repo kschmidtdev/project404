@@ -50,7 +50,7 @@ public:
         TS_ASSERT( musicToPlay );
 
         SoundManager::GetInstance()->PlayMusic( musicToPlay, false );
-        TS_WARN( "Playing music for 2 seconds, you should hear it" );
+        TS_TRACE( "Playing music for 2 seconds, you should hear it\n" );
         SDL_Delay( 2000 );
     }
 
@@ -64,7 +64,7 @@ public:
         TS_ASSERT( soundToPlay );
 
         SoundManager::GetInstance()->PlaySound( soundToPlay, false );
-        TS_WARN( "Playing sound for 1 second, you should hear it" );
+        TS_TRACE( "Playing sound for 1 second, you should hear it\n" );
         SDL_Delay( 1000 );
     }
 };
