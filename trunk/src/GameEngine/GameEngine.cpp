@@ -32,6 +32,7 @@ GameEngine::~GameEngine()
 
 void GameEngine::Shutdown()
 {
+    BattleOver();
     if( _instance )
     {
         delete _instance;
@@ -52,6 +53,20 @@ void GameEngine::BattleInit(vector<Character*> partyMem, Cities place, Point max
 
 }
 
+void GameEngine::BattleOver()
+{
+    if( mCurLvl )
+    {
+        delete mCurLvl;
+        mCurLvl = NULL;
+    }
+    if( mAI )
+    {
+        delete mAI;
+        mAI = NULL;
+    }
+}
+
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================
@@ -65,7 +80,8 @@ void GameEngine::SetAI(Level* level, Point point)
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 GameEngine::GameEngine()
-: mCurLvl( NULL ),
+: mAI( NULL ),
+  mCurLvl( NULL ),
   mCurTile( NULL ),
   mCurChar( NULL )
 {

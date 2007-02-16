@@ -84,10 +84,6 @@ void GameRoot::Initialize()
 
     mUIManager = UIManager::GetInstance();
     mUIManager->Initialize();
-	// Temporarily hardcoding this initialization (until the UI has the overmap that does this)
-    vector<Character*> partyTemp;
-    mGameEngine->BattleInit( partyTemp, GameEngine::CITYA, mUIManager->GetLayout("BattleScreen")->GetGrid()->MaxXY() );
-
 }
 
 void GameRoot::Shutdown()
@@ -126,7 +122,8 @@ void GameRoot::GameLoop()
     while (!done)
     {
         // message processing loop
-        if((mGameEngine != NULL && mGameEngine->GetLevel()->GetTurn()) || mGameEngine == NULL)
+        if((mGameEngine != NULL && mGameEngine->GetLevel() && mGameEngine->GetLevel()->GetTurn()) ||
+          ( mGameEngine != NULL && mGameEngine->GetLevel() == NULL ) )
         {
             SDL_Event event;
             while (SDL_PollEvent(&event))
@@ -156,8 +153,11 @@ void GameRoot::GameLoop()
         }
         else
         {
-           const Point inputPt = mGameEngine->GetAI()->DoAction();
-           mUIManager->GetLayout("BattleScreen")->GetGrid()->ConfirmFunction(inputPt);
+            if( mGameEngine->GetAI() )
+            {
+                const Point inputPt = mGameEngine->GetAI()->DoAction();
+                mUIManager->GetLayout("BattleScreen")->GetGrid()->ConfirmFunction(inputPt);
+            }
         }
         mRenderer->Draw();
         if( !done )

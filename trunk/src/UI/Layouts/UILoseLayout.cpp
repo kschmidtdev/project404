@@ -11,6 +11,8 @@
 #include "UIImage.h"
 #include "UIManager.h"
 
+#include <GameEngine/GameEngine.h>
+
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
@@ -53,6 +55,7 @@ void UILoseLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
         UIManager *uim = UIManager::GetInstance();
         uim->PopAllLayouts();  // automatcially adds titlescreen
         uim->PushLayout("MainMenu");
+        GameEngine::GetInstance()->BattleOver();
     }
 
 }
