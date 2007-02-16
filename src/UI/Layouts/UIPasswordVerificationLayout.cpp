@@ -4,7 +4,7 @@
  * Project 404 2007
  *
  * Authors:
- * Name, Date | Work Done
+ * Andrew Osborne, February 15 2007 | Initial Creation
  */
 #include "UIPasswordVerificationLayout.h"                                // class implemented
 #include "UIManager.h"

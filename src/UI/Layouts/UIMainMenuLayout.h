@@ -1,16 +1,17 @@
 /**
- * A one line description of the class.
+ * The class that represents the "Main Menu" screen.
  *
  * #include "UIMainMenuLayout.h"
  *
- * A longer description.
+ * The class that represents the "Main Menu" screen that you see after pressing confirm at the title screen.
+ * There are three options on the Main Menu: "New Game", "Set Password", and "Quit"
  *
- * @see something
+ * @see UITitleScreenLayout, UIBattleScreenLayout, UISetPasswordLayout
  *
  * Project 404 2007
  *
  * Authors:
- * Name, Date (Month Day Year), What was done
+ * Andrew Osborne, February 10 2007, Initial Creation
  */
 
 #ifndef UIMainMenuLayout_h

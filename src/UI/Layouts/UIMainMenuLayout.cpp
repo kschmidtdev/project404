@@ -8,6 +8,7 @@
  * Andrew Osborne, February 14 2007 | Refined/Finish design, added button/menu functionality
  * Andrew Osborne, February 14 2007 | Made it pretty
  * Karl Schmidt, February 14 2007 | Moved the image to the upper left corner
+ * Andrew Osborne, February 14 2007 | Added "Set Password" operation - finalized implementation
  */
 #include "UIMainMenuLayout.h"                                // class implemented
 #include "UIMenu.h"

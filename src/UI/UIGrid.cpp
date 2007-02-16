@@ -787,6 +787,14 @@ void UIGrid::AddMoveableRange( PointVec moveRange )
 }
 
 
+void UIGrid::ClearCharacters( void )
+{
+    for (UITileItr iter = mTiles.begin(); iter !=mTiles.end(); ++iter)
+    {
+        (*iter).RemoveCharacter();
+    }
+
+}
 
 
 //============================= ACCESS     ===================================

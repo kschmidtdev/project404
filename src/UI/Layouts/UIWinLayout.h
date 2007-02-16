@@ -1,16 +1,16 @@
 /**
- * A one line description of the class.
+ * The layout class that represents the "Congradulations" screen
  *
  * #include "UIWinLayout.h"
  *
- * A longer description.
+ * The layout class that represents the "Congradulations" screen that you see when you win a battle.
  *
- * @see something
+ * @see UILayout, UIBattleScreenLayout
  *
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, February 15 2007, Initial Creations
+ * Andrew Osborne, February 15 2007, Initial Creation
  */
 
 #ifndef UIWinLayout_h

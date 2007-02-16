@@ -127,6 +127,11 @@ public:
      */
     void ClearRange( const UIImagePtrVec & elements );
 
+    /**
+     * Clear the character on the grid
+     */
+    void ClearCharacters( void );
+
 
 // ACCESS (writing)
 
