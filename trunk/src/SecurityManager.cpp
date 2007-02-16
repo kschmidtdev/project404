@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, February 15 2007 | Implemented DeleteUser and ChangeUserPassword
  * Karl Schmidt, February 15 2007 | Added functionality for loading/saving/verifying users and passwords
  * Karl Schmidt, February 13 2007 | Initial creation of header (stubbed)
  */
@@ -147,7 +148,41 @@ void SecurityManager::AddUser( const string userName, const string password )
 
 void SecurityManager::DeleteUser( const string userName )
 {
-    // stub
+    tacAssert( userName != "" );
+    if( userName == "" )
+    {
+        LogError( "Trying to delete a user with a blank username" );
+        return;
+    }
+
+    PasswordHashMapItr itr = mLoadedPasswords.find( userName );
+    if( itr == mLoadedPasswords.end() )
+    {
+        LogWarning( "Attempt to delete a user that doesn't exist." );
+    }
+    else
+    {
+        mLoadedPasswords.erase( itr );
+    }
+}
+
+void SecurityManager::ChangeUserPassword( const string userName, const string newPassword )
+{
+    tacAssert( userName != "" && newPassword != "" );
+    if( userName == "" || newPassword == "" )
+    {
+        LogError( "Trying to add a change a password with a blank username or password" );
+        return;
+    }
+
+    if( mLoadedPasswords.find( userName ) == mLoadedPasswords.end() )
+    {
+        LogWarning( "Attempt to change a user's password for a user that doesn't exist." );
+    }
+    else
+    {
+        mLoadedPasswords[userName] = HashString( userName + newPassword );
+    }
 }
 
 //============================= ACCESS     ===================================
