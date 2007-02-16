@@ -206,6 +206,21 @@ void UISetPasswordLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
                     break;
             }
             break;
+        case InputManager::CANCEL:
+            mOldPwd = "";
+            mOldStarString = "Old Pwd:";
+            mOldPwdUIText->ChangeText(mOldStarString);
+            mNewPwd = "";
+            mNewStarString = "New Pwd:";
+            mNewPwdUIText->SetVisible(false);
+            mNewPwdUIText->ChangeText(mNewStarString);
+            mConfirmPwd = "";
+            mConfirmStarString = "Confirm Pwd:";
+            mConfirmPwdUIText->SetVisible(false);
+            mConfirmPwdUIText->ChangeText(mConfirmStarString);
+            mPasswordEntryState = 0;
+            UIManager::GetInstance()->PopLayout();
+            break;
 
         default:
             break;
