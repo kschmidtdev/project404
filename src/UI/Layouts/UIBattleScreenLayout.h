@@ -13,6 +13,7 @@
  * Andrew Osborne, February 10 2007 | Initial Crude Creation
  * Karl Schmidt,   February 14 2007 | Updated function capitalization, block style, typedefs
  * Mike Malyuk,    February 15 2007 | Added function to get grid
+ * Karl Schmidt, February 15 2007 | Added Initialize and OnClose override
  */
 
 #ifndef UIBattleScreenLayout_h
@@ -54,6 +55,11 @@ public:
 	 */
     ~UIBattleScreenLayout(void);
 
+    /**
+     * Creates UIGrid and other elements for this layout
+	 */
+    void Initialize();
+
 // OPERATORS
 // OPERATIONS
 
@@ -66,6 +72,11 @@ public:
      * Overriding OnLoad function to allow for additional communication.
 	 */
 	virtual void OnLoad( void );
+
+    /**
+     * Overriding OnLoad function to allow for additional communication.
+	 */
+	virtual void OnClose( void );
 
 // ACCESS (writing)
 
@@ -88,7 +99,7 @@ public:
     Level* GetLevel(void);
 
     /**
-     * allows access to currently loaded level (for elements UIGrid and UIMenu)
+     * allows access to currently loaded grid
      */
     UIGrid* GetGrid(void);
 
