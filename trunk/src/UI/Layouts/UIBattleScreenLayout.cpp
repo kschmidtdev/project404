@@ -214,25 +214,8 @@ void UIBattleScreenLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 //============================= ACCESS     ===================================
 
 
-
-/*void UIBattleScreenLayout::switchToMenu(void)
-{
-    mDefaultEventListener = mMenu;
-}
-
-
-void UIBattleScreenLayout::switchToGrid(void)
-{
-    mDefaultEventListener = mGrid;
-}*/
-
-
 //============================= INQUIRY    ===================================
 
-/*Level* UIBattleScreenLayout::getLevel(void)
-{
-    return mLevel;
-}*/
 UIGrid* UIBattleScreenLayout::GetGrid(void)
 {
     return mGrid;

@@ -27,12 +27,6 @@ UIElement::UIElement(void)
 
 }
 
-/*UIElement::UIElement( const string filename)
-: mElementImage( NULL ), mVisible( true )
-{
-    mElementImage = ResourceManager::GetInstance()->LoadTexture(filename);
-}*/
-
 
 UIElement::~UIElement(void)
 {
