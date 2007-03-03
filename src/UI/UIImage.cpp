@@ -6,6 +6,10 @@
  * Authors:
  * Andrew Osborne, February 11 2007 | Initial Creation
  */
+
+#include <util.h>
+
+
 #include "UIImage.h"                                // class implemented
 
 

@@ -6,6 +6,10 @@
  * Authors:
  * Andrew Osborne, February 15 2007 | Initial Creation
  */
+
+#include <util.h>
+
+
 #include "UISetPasswordLayout.h"                                // class implemented
 #include "UIManager.h"
 #include "SecurityManager.h"

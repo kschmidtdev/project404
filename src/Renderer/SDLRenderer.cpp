@@ -10,12 +10,13 @@
  * Karl Schmidt, February 10 2007 | Added SDL_INIT_AUDIO flag to SDL_Init
  * Karl Schmidt, February 8 2007 | Initial creation of cpp file
  */
+
+#include <util.h>
+
 #include "SDLRenderer.h"                                // class implemented
 
 #include "SDLRenderable.h"
 #include "Logger.h"
-
-#include <util.h>
 
 SDLRenderer* SDLRenderer::_instance = 0;
 

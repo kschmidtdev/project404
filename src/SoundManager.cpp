@@ -9,10 +9,13 @@
  * Karl Schmidt, February 11 2007 | Correctly cleared the singleton instance in Shutdown()
  * Karl Schmidt, February 10 2007 | Initial creation of the class
  */
+
+#include <util.h>
+
+
 #include "SoundManager.h"                                // class implemented
 
 #include <Logger.h>
-#include <util.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 

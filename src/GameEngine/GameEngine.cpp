@@ -8,6 +8,9 @@
  * Karl Schmidt, February 15 2007 | Added BattleInit placeholder func( loads one level )
  * Mike Malyuk,  February 15 2007 | Added AI
  */
+
+#include <util.h>
+
 #include "GameEngine.h"                                // class implemented
 
 

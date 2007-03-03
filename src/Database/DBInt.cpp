@@ -8,6 +8,9 @@
  * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  */
 
+#include <util.h>
+
+
 #include "DBInt.h"                                        // class implemented
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////

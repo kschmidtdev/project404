@@ -10,6 +10,10 @@
  * Karl Schmidt, February 14 2007 | Moved the image to the upper left corner
  * Andrew Osborne, February 14 2007 | Added "Set Password" operation - finalized implementation
  */
+
+#include <util.h>
+
+
 #include "UIMainMenuLayout.h"                                // class implemented
 #include "UIMenu.h"
 #include "UIManager.h"

@@ -19,6 +19,9 @@
  * Mike Malyuk,  February 14 2007   | Added another check for partyexhaustion, move point far enough away to not be an issue.
  * Karl Schmidt, February 15 2007   | Added action indication support for attacking/healing
  */
+
+#include <util.h>
+
 #include "UIGrid.h"                                // class implemented
 #include "UITile.h"
 #include "UICursor.h"

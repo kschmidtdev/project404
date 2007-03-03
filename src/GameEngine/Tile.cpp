@@ -6,6 +6,9 @@
  * Authors:
  * Mike Malyuk, February 9, 2007 | Initial design
  */
+
+#include <util.h>
+
 #include "Tile.h"                                // class implemented
 
 

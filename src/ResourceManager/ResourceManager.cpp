@@ -7,6 +7,9 @@
  * Karl Schmidt, February 10 2007 | Added support for sound and music resources, added some assertions
  * Karl Schmidt, February 9 2007 | Initial creation and stubbing out of methods
  */
+
+#include <util.h>
+
 #include "ResourceManager.h"                                // class implemented
 
 #include "Resource.h"
@@ -15,7 +18,6 @@
 #include "MusicResource.h"
 
 #include "Logger.h"
-#include "util.h"
 
 ResourceManager* ResourceManager::_instance = 0;
 

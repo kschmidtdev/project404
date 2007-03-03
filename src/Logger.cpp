@@ -6,14 +6,15 @@
  * Authors:
  * Karl Schmidt, February 15 2007 | Corrected setting a pointer to false instead of NULL
  * Karl Schmidt, February 13 2007, Re-added opening file handle in Initialize, needed it to clear log so we don't keeping appending after running concurrently
- * Karl Schmidt, February 12 2007, Removed opening the file handle in Initialize, unnecessary. 
+ * Karl Schmidt, February 12 2007, Removed opening the file handle in Initialize, unnecessary.
  * Karl Schmidt, February 9 2007, Added full functionality
  * Karl Schmidt, February 7 2007, Created initial class definition
  */
 
+
+#include <util.h>
+
 #include "Logger.h"
-#include "util.h"
-#include <sstream>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 

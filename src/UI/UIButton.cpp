@@ -7,6 +7,10 @@
  * Andrew Osborne, February 11 2007 | Initial Creation
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs
  */
+
+#include <util.h>
+
+
 #include "UIButton.h"                                // class implemented
 
 
@@ -56,8 +60,11 @@ void UIButton::SetPos( const Point & nPos )
     int textWidth, textHeight;
     int buttonWidth, buttonHeight;
     SDL_Surface *textSurface = mText.GetElement();
-    textWidth = textSurface->w;
-    textHeight = textSurface->h;
+    if( textSurface )
+    {
+        textWidth = textSurface->w;
+        textHeight = textSurface->h;
+    }
     buttonWidth = mElementImage->w;
     buttonHeight = mElementImage->h;
     int xOffset, yOffset;

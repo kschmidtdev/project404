@@ -13,6 +13,9 @@
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  */
 
+#include <util.h>
+
+
 #include <UIElement.h>                   // class implemented
 
 
@@ -41,7 +44,6 @@ UIElement::~UIElement(void)
 void UIElement::RenderSelf(SDL_Surface* destination)
 {
     if ( ( mElementImage ) && ( mVisible ) )
-    //if ( mElementImage )
     {
         SDLRenderer::GetInstance()->DrawImageAt(mElementImage, mPos.GetX(), mPos.GetY(), mElementImage->w, mElementImage->h, destination);
     }

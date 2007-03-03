@@ -8,6 +8,9 @@
  * Seung Woo Han, February 13 2007 | Done for all the basic implementation
  */
 
+#include <util.h>
+
+
 #include "DBEngine.h"                                     // class implemented
 #include <util.h>
 #include <iostream>

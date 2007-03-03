@@ -6,6 +6,10 @@
  * Authors:
  * Andrew Osborne, February 15 2007 | Initial Creation
  */
+
+#include <util.h>
+
+
 #include "UILoseLayout.h"                                // class implemented
 #include "UIText.h"
 #include "UIImage.h"

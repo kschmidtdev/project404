@@ -28,6 +28,7 @@ string toString( const T& toConvert )
 }
 
 #ifdef _DEBUG
+    #include <mmgr/mmgr.h>
     #define tacAssert( exp ) assert( exp );
 #else
     #define tacAssert( exp )

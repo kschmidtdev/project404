@@ -13,6 +13,11 @@
  * Andrew Osborne, February 14, 2007 | added AddButton method
  * Karl Schmidt, February 15 2007 | Added wrap-around for navigating upwards and downwards on menu
  */
+
+
+#include <util.h>
+
+
 #include "UIMenu.h"                                // class implemented
 #include "Point.h"
 #include "UIImage.h"

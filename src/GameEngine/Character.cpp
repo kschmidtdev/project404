@@ -13,6 +13,9 @@
  * Mike Malyuk, February 14 2007 | Levelling up occurs at 100 exp now instead of greater than 100
  */
 
+#include <util.h>
+
+
 #include "Character.h"                                // class implemented
 
 
