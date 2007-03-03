@@ -7,10 +7,12 @@
  * Karl Schmidt, February 13 2007 | Added logging when loading and unloading
  * Karl Schmidt, February 9 2007 | Initial creation of implementation
  */
+
+#include <util.h>
+
 #include "TextureResource.h"                                // class implemented
 
 #include <Logger.h>
-#include <util.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 

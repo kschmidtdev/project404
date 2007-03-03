@@ -11,6 +11,9 @@
  * Mike Malyuk, February 14 2007 | Levelling up is couted
  */
 
+#include <util.h>
+
+
 #include "Mage.h"                                // class implemented
 
 

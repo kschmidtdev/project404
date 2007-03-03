@@ -11,6 +11,9 @@
  * Mike Malyuk, February 14 2007 | On level up more verbose, also added "Heal" method.
  */
 
+#include <util.h>
+
+
 #include "Healer.h"                                // class implemented
 
 

@@ -7,6 +7,9 @@
  * Mike Malyuk, February 9, 2007 | Initial design
  * Mike Malyuk, February 11 2007 | Removed unused code
  */
+
+#include <util.h>
+
 #include "Map.h"                                // class implemented
 
 

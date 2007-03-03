@@ -76,6 +76,10 @@
 			<Add library="SDL_ttf" />
 			<Add directory="..\external\lib" />
 		</Linker>
+		<Unit filename="..\external\include\mmgr\mmgr.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+		</Unit>
 		<Unit filename="..\src\AI\AIControl.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />

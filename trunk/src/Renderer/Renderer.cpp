@@ -6,6 +6,9 @@
  * Authors:
  * Karl Schmidt, February 8 2007 | Initial creation of renderer
  */
+
+#include <util.h>
+
 #include "Renderer.h"                                // class implemented
 
 

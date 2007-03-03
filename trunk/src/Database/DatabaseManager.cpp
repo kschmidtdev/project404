@@ -9,6 +9,9 @@
  * Karl Schmidt, February 13 2007 | Added code to make DatabaseManager a singleton, fixed a warning
  */
 
+#include <util.h>
+
+
 #include "DatabaseManager.h"                              // class implemented
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////

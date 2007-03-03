@@ -11,6 +11,9 @@
  * Karl Schmidt,   February 14 2007 | Added consts
  */
 
+#include <util.h>
+
+
 #include "Point.h"                                // class implemented
 
 

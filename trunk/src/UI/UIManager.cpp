@@ -15,6 +15,9 @@
  * Andrew Osborne, February 15 2007 | Added PopAllLayouts
  */
 
+#include <util.h>
+
+
 #include <UIManager.h>                                  // class implemented
 #include <Logger.h>
 #include <UIBattleScreenLayout.h>

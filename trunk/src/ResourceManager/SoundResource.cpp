@@ -8,10 +8,12 @@
  * Karl Schmidt, February 10 2007 | Full functionality implemented
  * Karl Schmidt, February 9 2007 | Initial creation, stubbed
  */
+
+#include <util.h>
+
 #include "SoundResource.h"                                // class implemented
 
 #include <Logger.h>
-#include <util.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 

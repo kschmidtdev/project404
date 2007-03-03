@@ -8,10 +8,12 @@
  * Karl Schmidt, February 15 2007 | Added functionality for loading/saving/verifying users and passwords
  * Karl Schmidt, February 13 2007 | Initial creation of header (stubbed)
  */
+
+#include <util.h>
+
 #include "SecurityManager.h"                                // class implemented
 
 #include <Logger.h>
-#include <util.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -40,7 +42,11 @@ void SecurityManager::Initialize()
 
 void SecurityManager::Shutdown()
 {
-
+    if( _instance )
+    {
+        delete _instance;
+        _instance = NULL;
+    }
 }
 
 //============================= OPERATORS ====================================

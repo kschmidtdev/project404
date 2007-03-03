@@ -10,6 +10,10 @@
  * Andrew Osborne, February 14 2007 | Made final version for title screen
  * Karl Schmidt, February 14 2007 | Moved the background image to the upper left corner, deleted commented code
 */
+
+#include <util.h>
+
+
 #include "UITitleScreenLayout.h"                                // class implemented
 #include "UIImage.h"
 #include "UIManager.h"

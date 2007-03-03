@@ -16,15 +16,15 @@
  * Karl Schmidt, February 15 2007 | Added change focus to grid when you press end turn
  */
 
+
+#include <util.h>
+
 #include "UIBattleScreenLayout.h"                                // class implemented
 #include "UIMenu.h"
 #include "UIGrid.h"
 #include "Logger.h"
 #include "GameEngine/GameEngine.h"
 #include "UIManager.h"
-
-#include <util.h>
-
 
 // Defining Function Objects for Button Operations
 

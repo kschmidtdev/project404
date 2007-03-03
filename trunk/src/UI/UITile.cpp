@@ -7,6 +7,11 @@
  * Andrew Osborne, February 11 2007 | Initial Creation
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  */
+
+
+#include <util.h>
+
+
 #include "UITile.h"                                // class implemented
 
 

@@ -7,6 +7,9 @@
  * Mike Malyuk, February 15 | Initial Implementation
  * Mike Malyuk, February 15 | Fixed bounds so AI can't leave the grid
  */
+
+#include <util.h>
+
 #include "AIControl.h"                                // class implemented
 
 

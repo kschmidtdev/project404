@@ -20,6 +20,9 @@
  * Karl Schmidt, February 15 2007 | Fixed an odd header include path
  * Karl Schmidt, February 15 2007 | Fixed slight memory leak
  */
+
+#include <util.h>
+
 #include "Level.h"                                // class implemented
 //#include "Character.h"
 #include "Archer.h"

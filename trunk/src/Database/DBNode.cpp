@@ -9,6 +9,9 @@
  * Karl Schmidt, February 14 2007 | Fixed some bugs that crashed on some machines (invalid iters, ptrs)
  */
 
+#include <util.h>
+
+
 #include "DBNode.h"                                       // class implemented
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 

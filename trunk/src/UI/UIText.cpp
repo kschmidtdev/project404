@@ -6,6 +6,11 @@
  * Authors:
  * Andrew Osborne, February 14 2007 | Initial Creation
  */
+
+
+#include <util.h>
+
+
 #include "UIText.h"                                // class implemented
 
 
@@ -14,6 +19,7 @@
 //============================= LIFECYCLE ====================================
 
 UIText::UIText()
+: UIElement()
 {
     mRed = 0;
     mGreen = 0;
@@ -23,8 +29,8 @@ UIText::UIText()
 }// UIText
 
 UIText::UIText( const string text, int size, int r, int g, int b)
+: UIElement()
 {
-    UIElement::UIElement();
     mRed = r;
     mGreen = g;
     mBlue = b;
@@ -34,8 +40,8 @@ UIText::UIText( const string text, int size, int r, int g, int b)
 }
 
 UIText::UIText( const string text)
+: UIElement()
 {
-    UIElement::UIElement();
     mRed = 0;
     mGreen = 0;
     mBlue = 0;
@@ -45,9 +51,13 @@ UIText::UIText( const string text)
 }
 
 
-void UIText::ChangeText(const string newText) {
+void UIText::ChangeText(const string newText)
+{
     mText = newText;
-    delete mElementImage;
+    if( mElementImage )
+    {
+        SDL_FreeSurface( mElementImage );
+    }
     mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
 }
 
@@ -57,14 +67,21 @@ void UIText::SetColour(int r, int g, int b)
     mRed = r;
     mGreen = g;
     mBlue = b;
-    delete mElementImage;
+    if( mElementImage )
+    {
+        SDL_FreeSurface( mElementImage );
+    }
     mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
 }
 
 
 UIText::~UIText()
 {
-    delete mElementImage;
+    if( mElementImage )
+    {
+        SDL_FreeSurface( mElementImage );
+    }
+    mElementImage = NULL;
 }// ~UIText
 
 

@@ -8,11 +8,14 @@
  * Karl Schmidt, February 12 2007 | Added corner direction event sending changes
  * Karl Schmidt, February 9 2007 | Initial creation, all functions stubbed
  */
+
+#include <util.h>
+
+
 #include "InputManager.h"                                // class implemented
 
 #include "EventListener.h"
 #include "Logger.h"
-#include <util.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 

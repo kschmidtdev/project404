@@ -7,6 +7,8 @@
  * Karl Schmidt, February 11 2007 | Added C call to make console output work
  */
 
+#include <util.h>
+
 #include <GameRoot.h>
 #include <stdio.h>
 
