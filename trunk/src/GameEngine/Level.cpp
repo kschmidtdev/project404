@@ -19,6 +19,7 @@
  * Mike Malyuk, February 15, 2007 | Fixed small bug in Healer code
  * Karl Schmidt, February 15 2007 | Fixed an odd header include path
  * Karl Schmidt, February 15 2007 | Fixed slight memory leak
+ * Karl Schmidt, March 04 2007 | Fixed another slight memory leak
  */
 
 #include <util.h>
@@ -161,6 +162,9 @@ Level::Level(int)
         (*Iter2)->Move( StartingPoint );
         mEnemies.push_back( (*Iter2) );
     }
+
+    delete PartyList;
+    delete EnemiesList;
 }
 
 Level::~Level()
