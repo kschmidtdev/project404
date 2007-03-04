@@ -7,13 +7,14 @@
  * Andrew Osborne, February 10 2007 | Initial Creation
  * Andrew Osborne, February 11 2007 | Added Event Listening
  * Andrew Osborne, February 11 2007 | Added functionality to switch between menu/grid
- * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs
+ * Karl Schmidt,   February 14 2007 | Updated function capitalization, block style, typedefs
  * Andrew Osborne, February 14 2007 | Added button-function-objects and proper menu declaration
- * Karl Schmidt, February 15 2007 | Removed creating the level in here, added some error checking
- * Mike Malyuk,  February 15 2007 | Added get for grid;
- * Karl Schmidt, February 15 2007 | Added End Turn functionality to side menu
- * Karl Schmidt, February 15 2007 | Added initialize function, destroys everything between displaying (onload/onclose)
- * Karl Schmidt, February 15 2007 | Added change focus to grid when you press end turn
+ * Karl Schmidt,   February 15 2007 | Removed creating the level in here, added some error checking
+ * Mike Malyuk,    February 15 2007 | Added get for grid;
+ * Karl Schmidt,   February 15 2007 | Added End Turn functionality to side menu
+ * Karl Schmidt,   February 15 2007 | Added initialize function, destroys everything between displaying (onload/onclose)
+ * Karl Schmidt,   February 15 2007 | Added change focus to grid when you press end turn
+ * Mike Malyuk,    March 4 2007     | Changed method QuitFuntion to QuitFunction
  */
 
 
@@ -28,7 +29,7 @@
 
 // Defining Function Objects for Button Operations
 
-class QuitFuntion : public FuncObj
+class QuitFunction : public FuncObj
 {
     virtual void operator()(void)
     {
@@ -100,7 +101,7 @@ void UIBattleScreenLayout::Initialize()
 
     //mMenu->AddButton("Status", new StatusFunction() );
     mMenu->AddButton("End Turn", new EndTurnFunction() );
-    mMenu->AddButton("Quit", new QuitFuntion() );
+    mMenu->AddButton("Quit", new QuitFunction() );
 
     mElements.push_back( mMenu );
 
