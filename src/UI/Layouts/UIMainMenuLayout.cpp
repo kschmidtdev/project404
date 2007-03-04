@@ -7,8 +7,9 @@
  * Andrew Osborne, February 10 2007 | Initial Creation - stub
  * Andrew Osborne, February 14 2007 | Refined/Finish design, added button/menu functionality
  * Andrew Osborne, February 14 2007 | Made it pretty
- * Karl Schmidt, February 14 2007 | Moved the image to the upper left corner
+ * Karl Schmidt,   February 14 2007 | Moved the image to the upper left corner
  * Andrew Osborne, February 14 2007 | Added "Set Password" operation - finalized implementation
+ * Mike Malyuk,    March 4 2007     | Changed method QuitFuntion to QuitFunction
  */
 
 #include <util.h>
@@ -43,7 +44,7 @@ class SetPasswordFunction : public FuncObj
     }
 };
 
-class QuitFuntion : public FuncObj
+class QuitFunction : public FuncObj
 {
     virtual void operator()(void)
     {
@@ -73,7 +74,7 @@ UIMainMenuLayout::UIMainMenuLayout()
 
     tempMenu->AddButton("New Game", new NewGameFunction() );
     tempMenu->AddButton("Set Password", new SetPasswordFunction() );
-    tempMenu->AddButton("Quit", new QuitFuntion() );
+    tempMenu->AddButton("Quit", new QuitFunction() );
 
     tempMenu->SetPos( Point(245,255) );
     mDefaultEventListener = tempMenu;
