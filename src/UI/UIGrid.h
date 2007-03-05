@@ -16,6 +16,7 @@
  * Karl Schmidt,   February 14 2007   | Updated function capitalization, block style, typedefs, refs
  * Mike Malyuk,    February 14 2007   | Added function AddExhaustedCharacter
  * Mike Malyuk,    February 15 2007   | Added MaxXY to get the edges of map
+ * Mike Malyuk,    March 4 2007       | Removed variables mMoveRange, mAttackRange, unused
  */
 
 #ifndef UIGrid_h
@@ -176,8 +177,6 @@ protected:
     // Gameplay-Character Movement/Attack variables
 
     // Gameplay elements
-    PointVec mMoveRange;
-    PointVec mAttackRange;
     Character* mCurCharacter;
 
     // Display/UI elements
