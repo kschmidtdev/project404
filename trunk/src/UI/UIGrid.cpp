@@ -4,20 +4,22 @@
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, February 11 2007 | Initial Creation
- * Karl Schmidt, February 11 2007   | Added checks to prevent crashing if textures are not loaded
- * Andrew Osborne, February 11 2007 | Added Destructor and documentaton
- * Andrew Osborne, February 12 2007 | Setup characters, allowed movement, created a number of helper functions
- * Karl Schmidt, February 13 2007   | Reworked destructor, noted current bug and temporary work-around
- * Karl Schmidt, February 13 2007   | Modified hasCharacter to return a value in all cases (fixes a warning, safer)
- * Mike Malyuk,  February 14 2007   | Modified pretty much everything. Stopped newing of tiles, waste of space.
- * Mike Malyuk,  February 14 2007   | Fixed obscure bug where friend standing on tile where opponent died would be
- *                                    cleared from screen if attacker clicked on it. Also allowed your character to die
- *                                    Knight on Knight
- * Karl Schmidt, February 14 2007   | Updated function capitalization, block style, typedefs, refs
- * Mike Malyuk,  February 14 2007   | Added function to show exhausted state, refreshes on turn.
- * Mike Malyuk,  February 14 2007   | Added another check for partyexhaustion, move point far enough away to not be an issue.
- * Karl Schmidt, February 15 2007   | Added action indication support for attacking/healing
+ * Andrew Osborne, February 11 2007   | Initial Creation
+ * Karl Schmidt,   February 11 2007   | Added checks to prevent crashing if textures are not loaded
+ * Andrew Osborne, February 11 2007   | Added Destructor and documentaton
+ * Andrew Osborne, February 12 2007   | Setup characters, allowed movement, created a number of helper functions
+ * Karl Schmidt,   February 13 2007   | Reworked destructor, noted current bug and temporary work-around
+ * Karl Schmidt,   February 13 2007   | Modified hasCharacter to return a value in all cases (fixes a warning, safer)
+ * Mike Malyuk,    February 14 2007   | Modified pretty much everything. Stopped newing of tiles, waste of space.
+ * Mike Malyuk,    February 14 2007   | Fixed obscure bug where friend standing on tile where opponent died would be
+ *                                      cleared from screen if attacker clicked on it. Also allowed your character to die
+ *                                      Knight on Knight
+ * Karl Schmidt,   February 14 2007   | Updated function capitalization, block style, typedefs, refs
+ * Mike Malyuk,    February 14 2007   | Added function to show exhausted state, refreshes on turn.
+ * Mike Malyuk,    February 14 2007   | Added another check for partyexhaustion, move point far enough away to not be an issue.
+ * Karl Schmidt,   February 15 2007   | Added action indication support for attacking/healing
+ * Mike Malyuk,    March 4 2007       | Reworked ConfirmFunction, removed a lot of redundant code, removed
+ *                                      our dependence on NULL, instead using state. Removed use of mMoveRange
  */
 
 #include <util.h>
@@ -206,15 +208,8 @@ void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
 
 void UIGrid::ConfirmFunction( const Point & p )
 {
-
-    //UILayout *tempLayout = UIManager::GetInstance()->getLayout("BattleScreen");
-    //Level *mLevel = NULL;
-
-
     int curState = mLevel->ReturnState();
-    bool validAction = false;
-
-    Character* tempChar;
+    Point old;
     switch(curState)
     {
         case 0:
@@ -222,37 +217,24 @@ void UIGrid::ConfirmFunction( const Point & p )
 
             // Attempt to select character
             // ------------------------------------------
-            tempChar = mLevel->OnSelect(p);
+            mCurCharacter = mLevel->OnSelect(p);
 
             // Step 1 - check to see if selected character
             // ===============
-            if (tempChar==NULL) {
+            if ( mLevel->ReturnState() == 0)
+            {
                 // Unsuccessful, do nothing
-
             }
+
             else
             {
 
-                // Step 2 - select Character
-                // =============
-                mCurCharacter = tempChar;
-
-                // Step 3 - prepare screen/UI for moveable range
+                // Step 2 - prepare screen/UI for moveable range
                 // ==============
-
-                //mMoveRange = mLevel->GetMoveArea();
-                //mMoveRange = refineMoveArea(mMoveRange);
-                //addMoveableRange(moveArea);
-
-                // Successful, display move range
-                ClearMoveableRange();
-                ClearAttackRange();
-
-                PointVec moveArea = mLevel->GetMoveArea();
-                AddMoveableRange( moveArea );
-                mMoveRange = moveArea;
+                AddMoveableRange( mLevel->GetMoveArea());
             }
             break;
+
         case 1:
 
             // Attempting to MOVE to new spot
@@ -270,62 +252,40 @@ void UIGrid::ConfirmFunction( const Point & p )
 
             // Step 6 - Prep screen/UI for Attackable Range
 
-            // Check if move was cancelled
-            if (p==mCurCharacter->GetPoint())
-            {
+            old = mCurCharacter->GetPoint();
+            mLevel->OnSelect(p);
 
-                Character* test = mLevel->OnSelect(p);
-                ClearMoveableRange();
-                ClearAttackRange();
-                AddAttackRange( mLevel->GetAttackArea() );
-                if(test == NULL)
+            if ( mLevel->ReturnState() == 2 || mLevel->ReturnState() == 0 || mLevel->ReturnState() == 3)
+            {
+                // remove icon from old spot
+                RemoveCharacter( old);
+
+                // add icon to new spot
+
+                mCurCharacter->Move(p);
+                AddPartyCharacter( mCurCharacter );
+
+                if( mLevel->ReturnState() == 0 || mLevel->ReturnState() == 3 )
                 {
                     RemoveCharacter(p);
                     AddExhaustedCharacter(mCurCharacter);
-                }
-
-            }
-            else
-            {
-
-                // Check to see if valid spot for movement
-                for ( PointItr iter = mMoveRange.begin(); iter!=mMoveRange.end(); ++iter )
-                {
-
-                    if (p==(*iter))
-                    {
-                        validAction = true;
-                    }
-                }
-
-                if ( validAction )
-                {
-                    // remove icon from old spot
-                    RemoveCharacter( mCurCharacter->GetPoint() );
-
-                    // add icon to new spot
-                    Point old = mCurCharacter->GetPoint();
-                    mCurCharacter->Move(p);
-                    AddPartyCharacter( mCurCharacter );
-                    mCurCharacter->Move(old);
-                    Character* test = mLevel->OnSelect(p);
-                    ClearMoveableRange();
-                    if(test == NULL)
-                    {
-                        RemoveCharacter(p);
-                        AddExhaustedCharacter(mCurCharacter);
-                    }
-                    // Prep screen for attack
-                    ClearAttackRange();
-                    AddAttackRange( mLevel->GetAttackArea() );
 
                 }
+
+                // Prep screen for attack
                 else
                 {
-                    // do nothing
-                    // maybe display message later....
+                    AddAttackRange( mLevel->GetAttackArea() );
                 }
+                ClearMoveableRange();
             }
+
+            else
+            {
+                // do nothing
+                // maybe display message later....
+            }
+
             if(mLevel->AllExhaustedParty())
             {
                 vector<Character*> revigorate = mLevel->GetParty();
@@ -342,6 +302,7 @@ void UIGrid::ConfirmFunction( const Point & p )
             {
                 UIManager::GetInstance()->PushLayout("Win");
             }
+
             break;
 
         case 2:
@@ -361,7 +322,8 @@ void UIGrid::ConfirmFunction( const Point & p )
             // check to see if attack-range is valid
 
             // now check if person is there
-            if(mLevel->OnSelect(p) == NULL)
+            mLevel->OnSelect(p);
+            if(mLevel->ReturnState() == 0 || mLevel->ReturnState() == 3)
             {
             	// Draw an image to indicate action is being taken
                 UIImage* indicator = new UIImage( "testIndicator.bmp" );
@@ -370,21 +332,20 @@ void UIGrid::ConfirmFunction( const Point & p )
                 SDLRenderer::GetInstance()->AddToTempRenderQueue( indicator, SDL_GetTicks() + 400 );
                 RemoveCharacter(mCurCharacter->GetPoint());
                 AddExhaustedCharacter(mCurCharacter);
+                ClearAttackRange();
             }
+
             if(mLevel->PointHasPerson(p) != NULL && mCurCharacter != NULL && mCurCharacter->GetPoint() != p)
             {
                 RemoveCharacter(p);
                 mLevel->PointHasPerson(p)->Move(Point(-5,-5));
             }
+
             if(mCurCharacter->IsDead())
             {
                 RemoveCharacter(mCurCharacter->GetPoint());
                 mCurCharacter->Move(Point(-5,-5));
-
-
             }
-
-
 
             //keep game running
             if(mLevel->AllExhaustedParty())
@@ -396,12 +357,6 @@ void UIGrid::ConfirmFunction( const Point & p )
                     AddPartyCharacter((*citer));
                 }
                 mLevel->SetState(Level::AIFREE);
-            }
-
-            ClearAttackRange();
-            if(mLevel->PointHasPerson(p) == NULL)
-            {
-                AddAttackRange( mLevel->GetAttackArea() );
             }
 
             // Check for end game
@@ -421,37 +376,23 @@ void UIGrid::ConfirmFunction( const Point & p )
 
             // Attempt to select character
             // ------------------------------------------
-            tempChar = mLevel->OnAISelect(p);
+            mCurCharacter = mLevel->OnAISelect(p);
 
             // Step 1 - check to see if selected character
             // ===============
-            if (tempChar==NULL) {
+            if (mLevel->ReturnState() == 4)
+            {
                 // Unsuccessful, do nothing
-
             }
             else
             {
-
-                // Step 2 - select Character
-                // =============
-                mCurCharacter = tempChar;
-
-                // Step 3 - prepare screen/UI for moveable range
+                // Step 2 - prepare screen/UI for moveable range
                 // ==============
-
-                //mMoveRange = mLevel->GetMoveArea();
-                //mMoveRange = refineMoveArea(mMoveRange);
-                //addMoveableRange(moveArea);
-
-                // Successful, display move range
-                ClearMoveableRange();
-                ClearAttackRange();
-
-                PointVec moveArea = mLevel->GetMoveArea();
-                AddMoveableRange( moveArea );
-                mMoveRange = moveArea;
+                AddMoveableRange( mLevel->GetMoveArea() );
             }
+
             break;
+
         case 4:
 
             // Attempting to MOVE to new spot
@@ -470,61 +411,35 @@ void UIGrid::ConfirmFunction( const Point & p )
             // Step 6 - Prep screen/UI for Attackable Range
 
             // Check if move was cancelled
-            if (p==mCurCharacter->GetPoint())
-            {
+            old = mCurCharacter->GetPoint();
+            mLevel->OnAISelect(p);
 
-                Character* test = mLevel->OnAISelect(p);
-                ClearMoveableRange();
-                ClearAttackRange();
-                AddAttackRange( mLevel->GetAttackArea() );
-                if(test == NULL)
+            if ( mLevel->ReturnState() == 3 || mLevel->ReturnState() == 5 || mLevel->ReturnState() == 0 )
+            {
+                // remove icon from old spot
+                RemoveCharacter( old);
+
+                // add icon to new spot
+
+                mCurCharacter->Move(p);
+                AddEnemyCharacter( mCurCharacter );
+
+                if( mLevel->ReturnState() == 0 || mLevel->ReturnState() == 3)
                 {
                     RemoveCharacter(p);
                     AddExhaustedCharacter(mCurCharacter);
-                }
 
+                }
+                // Prep screen for attack
+                ClearMoveableRange();
             }
+
             else
             {
-
-                // Check to see if valid spot for movement
-                for ( PointItr iter = mMoveRange.begin(); iter!=mMoveRange.end(); ++iter )
-                {
-
-                    if (p==(*iter))
-                    {
-                        validAction = true;
-                    }
-                }
-
-                if ( validAction )
-                {
-                    // remove icon from old spot
-                    RemoveCharacter( mCurCharacter->GetPoint() );
-
-                    // add icon to new spot
-                    Point old = mCurCharacter->GetPoint();
-                    mCurCharacter->Move(p);
-                    AddEnemyCharacter( mCurCharacter );
-                    mCurCharacter->Move(old);
-                    Character* test = mLevel->OnAISelect(p);
-                    ClearMoveableRange();
-                    if(test == NULL)
-                    {
-                        RemoveCharacter(p);
-                        AddExhaustedCharacter(mCurCharacter);
-                    }
-                    // Prep screen for attack
-                    ClearAttackRange();
-                    AddAttackRange( mLevel->GetAttackArea() );
-
-                }
-                else
-                {
-                    // do nothing
-                    // maybe display message later....
-                }
+                // do nothing
+                // maybe display message later....
             }
+
             if(mLevel->AllExhaustedEnemies())
             {
                 vector<Character*> revigorate = mLevel->GetEnemies();
@@ -540,6 +455,7 @@ void UIGrid::ConfirmFunction( const Point & p )
             {
                 UIManager::GetInstance()->PushLayout("Lose");
             }
+
             break;
 
         case 5:
@@ -559,18 +475,21 @@ void UIGrid::ConfirmFunction( const Point & p )
             // check to see if attack-range is valid
 
             // now check if person is there
-            Character* test = mLevel->OnAISelect(p);
-            if(test == NULL)
+            mLevel->OnAISelect(p);
+
+            if(mLevel->ReturnState() == 0 || mLevel->ReturnState() == 3)
             {
                 RemoveCharacter(mCurCharacter->GetPoint());
                 AddExhaustedCharacter(mCurCharacter);
             }
             Character* part = mLevel->AIPointHasPerson(p);
+
             if(part != NULL && mCurCharacter != NULL && mCurCharacter->GetPoint() != p)
             {
                 RemoveCharacter(p);
                 part->Move(Point(-5,-5));
             }
+
             if(mCurCharacter->IsDead())
             {
                 RemoveCharacter(mCurCharacter->GetPoint());
@@ -589,11 +508,6 @@ void UIGrid::ConfirmFunction( const Point & p )
                 mLevel->SetState(Level::FREE);
             }
 
-            ClearAttackRange();
-            if(part == NULL)
-            {
-                AddAttackRange( mLevel->GetAttackArea() );
-            }
 
             // Check for end game
 
