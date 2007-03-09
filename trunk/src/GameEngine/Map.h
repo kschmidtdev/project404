@@ -9,6 +9,7 @@
  *
  * Authors:
  * Mike Malyuk, February 9, 2007 | Initial design
+ * Mike Malyuk, March 9, 2007    | Added GetTiles()
  */
 
 #ifndef Map_h
@@ -41,7 +42,7 @@ public:
     /**
      * Constructor
 	 */
-    Map(vector<Tile*> tiles);
+    Map(vector<Tile> tiles);
 
     /**
      * Destructor.
@@ -50,11 +51,12 @@ public:
 
 // OPERATIONS
 // ACCESS (writing)
-    void AddTiles(Tile* tile);
+    void AddTiles(Tile tile);
 // INQUIRY (reading)
-    Tile* GetTile(Point p);
+    Tile GetTile(Point p);
+    vector<Tile> GetTiles();
 protected:
-    vector<Tile*> mTiles;
+    vector<Tile> mTiles;
 private:
 // PRIVATE VARIABLES
 };

@@ -10,13 +10,14 @@
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, February 11 2007   | Initial Creation
- * Karl Schmidt,   February 13 2007   | Added typedefs instead of lots of vector<Type>
+ * Andrew Osborne, February 11, 2007  | Initial Creation
+ * Karl Schmidt,   February 13, 2007  | Added typedefs instead of lots of vector<Type>
  * Mike Malyuk,    February 14, 2007  | Was confused by typedefs, regardless moved everything away from pointers.
- * Karl Schmidt,   February 14 2007   | Updated function capitalization, block style, typedefs, refs
- * Mike Malyuk,    February 14 2007   | Added function AddExhaustedCharacter
- * Mike Malyuk,    February 15 2007   | Added MaxXY to get the edges of map
- * Mike Malyuk,    March 4 2007       | Removed variables mMoveRange, mAttackRange, unused
+ * Karl Schmidt,   February 14, 2007  | Updated function capitalization, block style, typedefs, refs
+ * Mike Malyuk,    February 14, 2007  | Added function AddExhaustedCharacter
+ * Mike Malyuk,    February 15, 2007  | Added MaxXY to get the edges of map
+ * Mike Malyuk,    March 4, 2007      | Removed variables mMoveRange, mAttackRange, unused
+ * Mike Malyuk,    March 9, 2007      | Added variable for Map
  */
 
 #ifndef UIGrid_h
@@ -173,6 +174,9 @@ protected:
     int mTileOffset;  // This variable assumes square tiles
     int mTotalTileOffset;
     UIElement* mCursor;
+
+    //Map
+    Map mMap;
 
     // Gameplay-Character Movement/Attack variables
 
