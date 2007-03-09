@@ -32,7 +32,16 @@ class NewGameFunction : public FuncObj
         vector<Character*> partyTemp;
         GameEngine::GetInstance()->BattleInit( partyTemp, GameEngine::CITYA, UIManager::GetInstance()->GetLayout("BattleScreen")->GetGrid()->MaxXY() );
 
-        UIManager::GetInstance()->PushLayout("BattleScreen");
+        //UIManager::GetInstance()->PushLayout("BattleScreen");
+        UIManager::GetInstance()->PushLayout("OverMap");
+    }
+};
+
+class LoadGameFunction : public FuncObj
+{
+    virtual void operator()(void)
+    {
+        //GameEngine::GetInstance()->LoadGame();
     }
 };
 
@@ -73,6 +82,7 @@ UIMainMenuLayout::UIMainMenuLayout()
     UIMenu *tempMenu = new UIMenu();
 
     tempMenu->AddButton("New Game", new NewGameFunction() );
+    tempMenu->AddButton("Load Game", new LoadGameFunction()  );
     tempMenu->AddButton("Set Password", new SetPasswordFunction() );
     tempMenu->AddButton("Quit", new QuitFunction() );
 

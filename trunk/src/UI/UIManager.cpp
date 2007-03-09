@@ -27,6 +27,7 @@
 #include <UILoseLayout.h>
 #include <UIPasswordVerificationLayout.h>
 #include <UISetPasswordLayout.h>
+#include <UIOverMapLayout.h>
 #include <vector>
 
 
@@ -85,6 +86,7 @@ void UIManager::Initialize(void)
     AddLayout( new UILoseLayout() );
     AddLayout( new UIPasswordVerificationLayout() );
     AddLayout( new UISetPasswordLayout() );
+    AddLayout( new UIOverMapLayout() );
 
     // Set current (first) layout
     //PushLayout("BattleScreen");
