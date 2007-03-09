@@ -5,7 +5,8 @@
  *
  * Authors:
  * Andrew Osborne, February 11 2007 | Initial Creation
- * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Karl Schmidt,   February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Mike Malyuk,     March 8 2007    | Added UITile constructor taking Tile in preparation for use of map
  */
 
 
@@ -26,6 +27,13 @@ UITile::UITile()
     //mVisible = true;
 }// UITile
 
+UITile::UITile(Tile t)
+: UIElement(), mCharacterImage( NULL )
+{
+    mElementImage = ResourceManager::GetInstance()->LoadTexture(t.GetPic());
+    int mTotalOffset = 2 + mElementImage->w;
+    mPos = Point (10 + t.GetPoint().GetX()*mTotalOffset, 10 + t.GetPoint().GetY()*mTotalOffset);
+}
 
 UITile::~UITile()
 {
