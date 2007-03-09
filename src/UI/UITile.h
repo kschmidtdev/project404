@@ -10,8 +10,9 @@
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, February 11 2007, Initial Creation
- * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Andrew Osborne, February 11 2007 | Initial Creation
+ * Karl Schmidt,   February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Mike Malyuk,    March 8 2007     | Added UITile constructor taking Tile in preparation for use of map
  */
 
 #ifndef UITile_h
@@ -23,7 +24,7 @@
 // PROJECT INCLUDES
 //
 #include <UIElement.h>
-
+#include <../GameEngine/Tile.h>
 // LOCAL INCLUDES
 //
 
@@ -41,6 +42,7 @@ public:
 	 */
     UITile(void);
 
+    UITile(Tile t);
 
     /**
      * Destructor.

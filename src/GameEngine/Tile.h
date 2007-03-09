@@ -49,10 +49,12 @@ public:
     Point GetPoint();
     int GetWeight();
     string GetType();
+    string GetPic();
 protected:
 // PROTECTED VARIABLES
    Point mTilePoint;
    string mType;
+   string mPic;
    int mWeight;
 private:
 // PRIVATE VARIABLES
