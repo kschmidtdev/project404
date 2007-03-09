@@ -154,12 +154,27 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
 }
 
 
+void UIMenu::HideButton(int n)
+{
+    mButtons[n]->SetVisible(false);
+}
+
+void UIMenu::ShowButton(int n)
+{
+    mButtons[n]->SetVisible(true);
+}
+
+void UIMenu::UpdateOrder(void)
+{
+    //for (int i=0; i<=mMaxCursorPos; i++)
+}
 
 
 //============================= ACCESS     ===================================
 
 void UIMenu::SetPos( const Point & nPos)
 {
+
     mPos = nPos;
 
     // Move cursor
@@ -173,7 +188,6 @@ void UIMenu::SetPos( const Point & nPos)
         (*iter)->SetPos( mPos + mButtonStart + (mButtonOffset * i) );
         i++;
     }
-
 
 }
 
