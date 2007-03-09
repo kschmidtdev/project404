@@ -38,7 +38,11 @@ public:
 	 */
     Tile(void);
 
+    /**
+     * Tile Constructor
+     */
     Tile(Point p, string type);
+
     /**
      * Destructor.
 	 */

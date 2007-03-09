@@ -20,6 +20,7 @@
  * Karl Schmidt,   February 15 2007   | Added action indication support for attacking/healing
  * Mike Malyuk,    March 4 2007       | Reworked ConfirmFunction, removed a lot of redundant code, removed
  *                                      our dependence on NULL, instead using state. Removed use of mMoveRange
+ * Mike Malyuk,    March 9 2007       | Finally implemented starting version of Map. Grid now drawn from Map.
  */
 
 #include <util.h>
@@ -37,7 +38,7 @@
 //============================= LIFECYCLE ====================================
 
 UIGrid::UIGrid()
-: mNumRows( 10 ), mNumColumns( 10 ), mCursorPos( Point(0,0) ), mTileStart( Point(10,10) ), mTileOffset( 2 )
+: mNumRows( 10 ), mNumColumns( 10 ), mCursorPos( Point(0,0) ), mTileStart( Point(10,10) ), mTileOffset( 2 ), mMap(Map())
 {
     // Add all elements
     SDL_Surface *sample = ResourceManager::GetInstance()->LoadTexture("defaultTile.bmp");
@@ -47,28 +48,11 @@ UIGrid::UIGrid()
         mTileHeight = sample->h;
         mTileWidth = sample->w;
     }
-
-    int i, j;
-
-
-    // Set Tiles in place
-    // --------------------------------------------------
-    int startXoffset = mTileStart.GetX();
-    int startYoffset = mTileStart.GetY();
-    mTotalTileOffset = mTileOffset + mTileWidth;
-
-    UITile temp;
-
-    for (i=0; i<mNumColumns; i++)
+    mTotalTileOffset = 2 + mTileWidth;
+    vector<Tile> storage = mMap.GetTiles();
+    for(vector<Tile>::iterator iter = storage.begin(); iter != storage.end(); iter++)
     {
-        //tiles[i] = new UITile[mNumRows];
-        for (j=0; j<mNumRows; j++)
-        {
-            temp = UITile();
-            temp.SetPos( Point(startXoffset + i*(mTotalTileOffset), startYoffset + j*(mTotalTileOffset) ) );
-            //tiles[i][j] = temp;
-            mTiles.push_back( temp );
-        }
+        mTiles.push_back(UITile((*iter)));
     }
 
     // Assign self an image
