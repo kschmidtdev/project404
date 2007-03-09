@@ -7,6 +7,7 @@
  *
  * Authors:
  * Mike Malyuk, February 9, 2007 | Initial design
+ * Mike Malyuk, March 8 2007     | Added Tile mPic string and getter, allows UI to create easier
  */
 
 #ifndef Tile_h
