@@ -5,6 +5,7 @@
  *
  * Authors:
  * Andrew Osborne, March 4, 2007 | Initial Creation
+ * Karl Schmidt, March 9 2007	 | Changed textures to png
  */
 #include "UIOverMap.h"                                // class implemented
 #include "UIManager.h"
@@ -28,7 +29,7 @@ UIOverMap::UIOverMap()
     mMapTiles[2].SetLeft( &mMapTiles[1] );
     mMapTiles[2].SetDown( &mMapTiles[1] );
 
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("castle_title.bmp");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("castle_title.png");
 
     mPos.Set(30, 30);
     SetPos(mPos);

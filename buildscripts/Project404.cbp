@@ -43,6 +43,7 @@
 				<Option object_output="..\obj\UnitTest\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="unitTests.txt" />
 				<Linker>
 					<Add option="-s" />
 				</Linker>
@@ -74,6 +75,7 @@
 			<Add library="..\bin\SDL_mixer.dll" />
 			<Add library="libtinyxml_STL" />
 			<Add library="SDL_ttf" />
+			<Add library="..\bin\SDL_image.dll" />
 			<Add directory="..\external\lib" />
 		</Linker>
 		<Unit filename="..\external\include\mmgr\mmgr.cpp">

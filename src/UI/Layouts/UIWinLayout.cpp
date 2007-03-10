@@ -5,6 +5,7 @@
  *
  * Authors:
  * Andrew Osborne, February 15 2007 | Initial Creation
+ * Karl Schmidt, March 9 2007	 	| Changed textures to png
  */
 
 #include <util.h>
@@ -24,7 +25,7 @@
 
 UIWinLayout::UIWinLayout()
 {
-    UIImage *temp = new UIImage("screen_win.bmp");
+    UIImage *temp = new UIImage("screen_win.png");
     mElements.push_back(temp);
 
     //UIText *tempText = new UIText("Congratulations", 70, 255, 0, 0);

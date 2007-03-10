@@ -6,13 +6,14 @@
  * Authors:
  * Mike Malyuk, February 15 | Initial Implementation
  * Mike Malyuk, February 15 | Fixed bounds so AI can't leave the grid
+ * Karl Schmidt, March 9 	| Added proper enum usage, and faked AI 'thinking' pauses
  */
 
 #include <util.h>
 
 #include "AIControl.h"                                // class implemented
 
-
+const int AI_FAKE_TIME_WAIT = 500;
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
@@ -27,17 +28,18 @@ Point AIControl::DoAction()
     vector<Point> points;
     switch(curState)
     {
-        case 3:
+        case Level::AIFREE:
             enemies = mLevel->GetEnemies();
             for(vector<Character*>::iterator eiter = enemies.begin(); eiter != enemies.end(); eiter++)
             {
                 if((*eiter)->GetExhaust() == false)
                 {
+                    SDL_Delay( AI_FAKE_TIME_WAIT );
                     return (*eiter)->GetPoint();
                 }
             }
             return Point(-30,-30);
-        case 4:
+        case Level::AIMOVE:
             points = mLevel->GetMoveArea();
             for(vector<Point>::iterator piter = points.begin(); piter != points.end(); piter++)
             {
@@ -48,7 +50,7 @@ Point AIControl::DoAction()
                 }
             }
             return Point(-30, -30);
-        case 5:
+        case Level::AIATTACK:
             vector<Point> points = mLevel->GetAttackArea();
             Character* curChar = mLevel->GetCurCharacter();
             if(curChar->GetClassName() != "Healer")

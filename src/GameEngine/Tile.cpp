@@ -6,6 +6,7 @@
  * Authors:
  * Mike Malyuk, February 9, 2007 | Initial design
  * Mike Malyuk, March 8 2007     | Added Tile mPic getter, allows UI to create easier
+ * Karl Schmidt, March 9 2007	 | Changed textures to png
  */
 
 #include <util.h>
@@ -28,23 +29,23 @@ Tile::Tile(Point p, string type)
     if(type.compare("GRASS") == 0)
     {
        mWeight = 2;
-       mPic = "grass.bmp";
+       mPic = "grass.png";
     }
     //list types here
     else if(type.compare("WATER") == 0)
     {
         mWeight = 3;
-        mPic = "water.bmp";
+        mPic = "water.png";
     }
     else if(type.compare("ROAD") == 0)
     {
         mWeight = 1;
-        mPic = "road.bmp";
+        mPic = "road.png";
     }
     else
     {
         mWeight = 2;
-        mPic = "defaultTile.bmp";
+        mPic = "defaultTile.png";
     }
 }
 

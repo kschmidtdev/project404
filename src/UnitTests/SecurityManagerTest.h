@@ -3,6 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 
+#include <Logger.h>
 #include <SecurityManager.h>
 #include <unistd.h>
 

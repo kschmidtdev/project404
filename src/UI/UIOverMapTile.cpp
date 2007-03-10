@@ -5,6 +5,7 @@
  *
  * Authors:
  * Andrew Osborne, March 4, 2007 | Initial Creation
+ * Karl Schmidt, March 9 2007	 | Changed textures to png
  */
 #include "UIOverMapTile.h"                                // class implemented
 
@@ -17,14 +18,14 @@ UIOverMapTile::UIOverMapTile()
 : mLeftTile( NULL ), mRightTile( NULL ), mUpTile( NULL ), mDownTile( NULL ), mMapOffset( Point(0,0) )
 {
     // Default image for now, should change later
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("charTile.png");
 }// UIOverMapTile
 
 UIOverMapTile::UIOverMapTile(int x, int y)
 : mLeftTile( NULL ), mRightTile( NULL ), mUpTile( NULL ), mDownTile( NULL ), mMapOffset( Point(0,0) )
 {
     // Default image for now, should change later
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("charTile.png");
     mMapOffset.Set(x,y);
 
 }// UIOverMapTile

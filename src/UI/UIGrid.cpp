@@ -21,6 +21,7 @@
  * Mike Malyuk,    March 4 2007       | Reworked ConfirmFunction, removed a lot of redundant code, removed
  *                                      our dependence on NULL, instead using state. Removed use of mMoveRange
  * Mike Malyuk,    March 9 2007       | Finally implemented starting version of Map. Grid now drawn from Map.
+ * Karl Schmidt, March 9 2007	 	  | Changed textures to png, re-arranged render order, took out magic offset number
  */
 
 #include <util.h>
@@ -38,17 +39,17 @@
 //============================= LIFECYCLE ====================================
 
 UIGrid::UIGrid()
-: mNumRows( 10 ), mNumColumns( 10 ), mCursorPos( Point(0,0) ), mTileStart( Point(10,10) ), mTileOffset( 2 ), mMap(Map())
+: mNumRows( 10 ), mNumColumns( 10 ), mCursorPos( Point(0,0) ), mTileStart( Point(10,10) ), mTileOffset( 0 ), mMap(Map())
 {
     // Add all elements
-    SDL_Surface *sample = ResourceManager::GetInstance()->LoadTexture("defaultTile.bmp");
+    SDL_Surface *sample = ResourceManager::GetInstance()->LoadTexture("defaultTile.png");
 
     if( sample )
     {
         mTileHeight = sample->h;
         mTileWidth = sample->w;
     }
-    mTotalTileOffset = 2 + mTileWidth;
+    mTotalTileOffset = mTileWidth;
     vector<Tile> storage = mMap.GetTiles();
     for(vector<Tile>::iterator iter = storage.begin(); iter != storage.end(); iter++)
     {
@@ -57,13 +58,13 @@ UIGrid::UIGrid()
 
     // Assign self an image
     // ----------------------------------------------------
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("testMenu.bmp");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("testMenu.png");
 
     // Assign Cursor its place
     // ----------------------------------------------------
     mMaxCursorPos.Set(mNumColumns - 1, mNumRows - 1);
     mCursorStart = mTileStart + Point( -mTileOffset, -mTileOffset);
-    mCursor = new UICursor("tileCursor.bmp", "");
+    mCursor = new UICursor("tileCursor.png", "");
     mCursor->SetPos( mCursorStart );
 
     // Retrieve Game Engine
@@ -91,17 +92,16 @@ UIGrid::~UIGrid()
 
 void UIGrid::RenderSelf(SDL_Surface* destination)
 {
-    if( mElementImage )
+    // Tiles are rendered first (bottom)
+    for ( UITileItr iter = mTiles.begin(); iter!=mTiles.end(); ++iter )
     {
-        // The menu must be rendered first
-        //SDLRenderer::GetInstance()->DrawImageAt(mElementImage, mPos.GetX(), mPos.GetY(), mElementImage->w, mElementImage->h, destination);
+        (*iter).RenderSelf(destination);
     }
 
-    // Moveable/Attackable Ranges are rendered first
+    // Movement ranges are rendered second (middle)
     int curState = mLevel->ReturnState();
     UIImageItr iIter;
-
-    if (curState==1)
+    if( curState == Level::MOVE )
     {
         // View Moveable Tiles
         iIter = mImageMoveRange.begin();
@@ -111,9 +111,9 @@ void UIGrid::RenderSelf(SDL_Surface* destination)
             iIter++;
         }
     }
-    else if (curState==2)
+    else if( curState == Level::ATTACK )
     {
-        // Vies Attackable Tiles
+        // View Attackable Tiles
         iIter = mImageAttackRange.begin();
         while (iIter!=mImageAttackRange.end())
         {
@@ -122,16 +122,8 @@ void UIGrid::RenderSelf(SDL_Surface* destination)
         }
     }
 
-    // Cursor is rendered second
+    // Cursor is rendered last (top)
     mCursor->RenderSelf(destination);
-
-    // Tiles are rendered third
-    for ( UITileItr iter = mTiles.begin(); iter!=mTiles.end(); ++iter )
-    {
-        (*iter).RenderSelf(destination);
-    }
-
-
 }
 
 void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
@@ -310,7 +302,7 @@ void UIGrid::ConfirmFunction( const Point & p )
             if(mLevel->ReturnState() == 0 || mLevel->ReturnState() == 3)
             {
             	// Draw an image to indicate action is being taken
-                UIImage* indicator = new UIImage( "testIndicator.bmp" );
+                UIImage* indicator = new UIImage( "testIndicator.png" );
                 Point toDrawAt( mCurCharacter->GetPoint().GetX() * mTileWidth, mCurCharacter->GetPoint().GetY() * mTileHeight );
                 indicator->SetPos( toDrawAt );
                 SDLRenderer::GetInstance()->AddToTempRenderQueue( indicator, SDL_GetTicks() + 400 );
@@ -575,7 +567,7 @@ void UIGrid::AddAttackRange( PointVec attackRange )
     {
         if(ValidPoint((*i)))
         {
-            mImageAttackRange.push_back( UIImage("yellowCursor.bmp") );
+            mImageAttackRange.push_back( UIImage("yellowCursor.png") );
         }
     }
 
@@ -620,7 +612,7 @@ void UIGrid::AddMoveableRange( PointVec moveRange )
     {
         if(ValidPoint((*i)))
         {
-            mImageMoveRange.push_back( UIImage("blueCursor.bmp") );
+            mImageMoveRange.push_back( UIImage("blueCursor.png") );
         }
     }
 
@@ -735,75 +727,75 @@ SDL_Surface* UIGrid::GetClassSurface(Character* c, const string group)
     {
         if (temp=="Archer")
         {
-            return ResourceManager::GetInstance()->LoadTexture("archer_party.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("archer_party.png");
         }
         else if (temp=="Knight")
         {
-            return ResourceManager::GetInstance()->LoadTexture("knight_party.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("knight_party.png");
         }
         else if (temp=="Healer")
         {
-            return ResourceManager::GetInstance()->LoadTexture("healer_party.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("healer_party.png");
         }
         else if (temp=="Mage")
         {
-            return ResourceManager::GetInstance()->LoadTexture("mage_party.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("mage_party.png");
         }
         else
         {
             LogWarning( string("Class surface requested for unknown character type: ") + temp );
             // you screwed up
-            return ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("charTile.png");
         }
     }
     else if(group == "Enemy")
     {
         if (temp=="Archer")
         {
-            return ResourceManager::GetInstance()->LoadTexture("archer_enemy.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("archer_enemy.png");
         }
         else if (temp=="Knight")
         {
-            return ResourceManager::GetInstance()->LoadTexture("knight_enemy.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("knight_enemy.png");
         }
         else if (temp=="Healer")
         {
-            return ResourceManager::GetInstance()->LoadTexture("healer_enemy.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("healer_enemy.png");
         }
         else if (temp=="Mage")
         {
-            return ResourceManager::GetInstance()->LoadTexture("mage_enemy.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("mage_enemy.png");
         }
         else
         {
             LogWarning( string("Class surface requested for unknown character type: ") + temp );
             // you screwed up
-            return ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("charTile.png");
         }
     }
     else if(group == "Exhausted")
     {
         if (temp=="Archer")
         {
-            return ResourceManager::GetInstance()->LoadTexture("archer_exhaust.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("archer_exhaust.png");
         }
         else if (temp=="Knight")
         {
-            return ResourceManager::GetInstance()->LoadTexture("knight_exhaust.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("knight_exhaust.png");
         }
         else if (temp=="Healer")
         {
-            return ResourceManager::GetInstance()->LoadTexture("healer_exhaust.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("healer_exhaust.png");
         }
         else if (temp=="Mage")
         {
-            return ResourceManager::GetInstance()->LoadTexture("mage_exhaust.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("mage_exhaust.png");
         }
         else
         {
             LogWarning( string("Class surface requested for unknown character type: ") + temp );
             // you screwed up
-            return ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
+            return ResourceManager::GetInstance()->LoadTexture("charTile.png");
         }
     }
     else

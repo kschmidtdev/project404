@@ -5,6 +5,7 @@
  *
  * Authors:
  * Andrew Osborne, March 4, 2007 | Initial Creation
+ * Karl Schmidt, March 9 2007	 | Changed textures to png
  */
 #include "UIOverMapCursor.h"                                // class implemented
 
@@ -16,7 +17,7 @@
 UIOverMapCursor::UIOverMapCursor()
 : mOffset( Point(-2,-2) )
 {
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("tileCursor.bmp");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("tileCursor.png");
 }// UIOverMapCursor
 
 

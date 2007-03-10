@@ -10,6 +10,7 @@
  * Karl Schmidt,   February 14 2007 | Moved the image to the upper left corner
  * Andrew Osborne, February 14 2007 | Added "Set Password" operation - finalized implementation
  * Mike Malyuk,    March 4 2007     | Changed method QuitFuntion to QuitFunction
+ * Karl Schmidt, March 9 2007	 	| Changed textures to png
  */
 
 #include <util.h>
@@ -71,7 +72,7 @@ UIMainMenuLayout::UIMainMenuLayout()
 {
     mName = "MainMenu";
 
-    UIImage *tempImg = new UIImage("castle_main.bmp");
+    UIImage *tempImg = new UIImage("castle_main.png");
     mElements.push_back(tempImg);
 
     //UIText *tempText = new UIText("SymTac", 100, 255, 0, 0);
