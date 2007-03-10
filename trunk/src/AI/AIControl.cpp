@@ -4,9 +4,10 @@
  * Project 404 2007
  *
  * Authors:
- * Mike Malyuk, February 15 | Initial Implementation
- * Mike Malyuk, February 15 | Fixed bounds so AI can't leave the grid
- * Karl Schmidt, March 9 	| Added proper enum usage, and faked AI 'thinking' pauses
+ * Mike Malyuk, February 15, 2007 | Initial Implementation
+ * Mike Malyuk, February 15, 2007 | Fixed bounds so AI can't leave the grid
+ * Karl Schmidt, March 9, 2007	  | Added proper enum usage, and faked AI 'thinking' pauses
+ * Mike Malyuk, March 10, 2007    | Added map to calculate movement
  */
 
 #include <util.h>
@@ -18,7 +19,7 @@ const int AI_FAKE_TIME_WAIT = 500;
 
 //============================= LIFECYCLE ====================================
 
-AIControl::AIControl(Level* level, Point maxMap):mMax(maxMap), mLevel(level)
+AIControl::AIControl(Level* level, Map map):mMap(map), mLevel(level)
 {
 }// AIControl
 Point AIControl::DoAction()
@@ -26,6 +27,7 @@ Point AIControl::DoAction()
     int curState = mLevel->ReturnState();
     vector<Character*> enemies;
     vector<Point> points;
+    Point p;
     switch(curState)
     {
         case Level::AIFREE:
@@ -40,16 +42,11 @@ Point AIControl::DoAction()
             }
             return Point(-30,-30);
         case Level::AIMOVE:
-            points = mLevel->GetMoveArea();
-            for(vector<Point>::iterator piter = points.begin(); piter != points.end(); piter++)
-            {
-                if((*piter).GetX() >= 0 && (*piter).GetY() >= 0 && (*piter).GetX() < mMax.GetX() && (*piter).GetY() < mMax.GetY())
-                {
-                    points.clear();
-                    return (*piter);
-                }
-            }
-            return Point(-30, -30);
+            points = mMap.GetMovementRange(mLevel->GetEveryone(), mLevel->GetCurCharacter());
+            p = *(points.begin());
+            points.clear();
+            return p;
+
         case Level::AIATTACK:
             vector<Point> points = mLevel->GetAttackArea();
             Character* curChar = mLevel->GetCurCharacter();

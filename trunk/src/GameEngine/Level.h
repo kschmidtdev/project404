@@ -20,6 +20,7 @@
  * Mike Malyuk, February 14, 2007 | Added function PointHasPerson to return enemy state,
  * Mike Malyuk, February 15, 2007 | Added AI mirror functions
  * Mike Malyuk, February 15, 2007 | Added GetCurCharacter
+ * Mike Malyuk, March 10, 2007    | Removed mMap and move methods, now that map does this
  */
 
 #ifndef Level_h
@@ -64,7 +65,7 @@ enum charState
     /**
      * Constructor.
 	 */
-    Level(vector<Character*> party, vector<Character*> badguys, vector<Point> start, Map* map);
+    Level(vector<Character*> party, vector<Character*> badguys, vector<Point> start);
 
     /**
     * Constructor.
@@ -99,17 +100,6 @@ enum charState
 // INQUIRY (reading)
 
     int ReturnState();
-    /**
-     * Get movement possibilities
-	 */
-    void GetMovement();
-
-    void GetMovementHelp(int move, int x, int y);
-
-    /**
-     * Get Map for Renderer
-     */
-    Map* GetMap();
 
     /**
      * Get Turn (true ours, false theirs)
@@ -130,11 +120,6 @@ enum charState
      * Return all characters in level (for UI)
      */
     vector<Character*> GetEveryone();
-
-    /**
-     * Return all points in movement area (state = 1)
-     */
-    vector<Point> GetMoveArea();
 
     /**
      * Return all points in attack area (state = 2)
@@ -182,11 +167,9 @@ protected:
     charState mState;
     vector<Character*> mParty;
     vector<Character*> mEnemies;
-    vector<Point> mMoveArea;
     vector<Point> mAttackArea;
     vector<Point> mStart;
     Character* mCurChar;
-    Map* mThisMap;
     bool mMyTurn;
 
     // For testing/version1

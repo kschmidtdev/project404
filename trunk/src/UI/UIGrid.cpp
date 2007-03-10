@@ -22,6 +22,7 @@
  *                                      our dependence on NULL, instead using state. Removed use of mMoveRange
  * Mike Malyuk,    March 9 2007       | Finally implemented starting version of Map. Grid now drawn from Map.
  * Karl Schmidt, March 9 2007	 	  | Changed textures to png, re-arranged render order, took out magic offset number
+ * Mike Malyuk,  March 10 2007        | Changed implementations to remove Level move info and insert Map move info
  */
 
 #include <util.h>
@@ -186,6 +187,8 @@ void UIGrid::ConfirmFunction( const Point & p )
 {
     int curState = mLevel->ReturnState();
     Point old;
+    bool pointexists = false;
+    vector<Point> movement;
     switch(curState)
     {
         case 0:
@@ -207,7 +210,7 @@ void UIGrid::ConfirmFunction( const Point & p )
 
                 // Step 2 - prepare screen/UI for moveable range
                 // ==============
-                AddMoveableRange( mLevel->GetMoveArea());
+                AddMoveableRange( mLevel->GetEveryone(), mCurCharacter);
             }
             break;
 
@@ -229,56 +232,66 @@ void UIGrid::ConfirmFunction( const Point & p )
             // Step 6 - Prep screen/UI for Attackable Range
 
             old = mCurCharacter->GetPoint();
-            mLevel->OnSelect(p);
-
-            if ( mLevel->ReturnState() == 2 || mLevel->ReturnState() == 0 || mLevel->ReturnState() == 3)
+            movement = mMap.GetMovementRange(mLevel->GetEveryone(), mCurCharacter);
+            for(vector<Point>::iterator piter = movement.begin(); piter != movement.end(); piter++)
             {
-                // remove icon from old spot
-                RemoveCharacter( old);
-
-                // add icon to new spot
-
-                mCurCharacter->Move(p);
-                AddPartyCharacter( mCurCharacter );
-
-                if( mLevel->ReturnState() == 0 || mLevel->ReturnState() == 3 )
+                if((*piter) == p)
                 {
-                    RemoveCharacter(p);
-                    AddExhaustedCharacter(mCurCharacter);
+                    pointexists = true;
+                }
+            }
+            if(pointexists)
+            {
+                mLevel->OnSelect(p);
 
+                if ( mLevel->ReturnState() == 2 || mLevel->ReturnState() == 0 || mLevel->ReturnState() == 3)
+                {
+                    // remove icon from old spot
+                    RemoveCharacter( old);
+
+                    // add icon to new spot
+
+                    mCurCharacter->Move(p);
+                    AddPartyCharacter( mCurCharacter );
+
+                    if( mLevel->ReturnState() == 0 || mLevel->ReturnState() == 3 )
+                    {
+                        RemoveCharacter(p);
+                        AddExhaustedCharacter(mCurCharacter);
+
+                    }
+
+                    // Prep screen for attack
+                    else
+                    {
+                        AddAttackRange( mLevel->GetAttackArea() );
+                    }
+                    ClearMoveableRange();
                 }
 
-                // Prep screen for attack
                 else
                 {
-                    AddAttackRange( mLevel->GetAttackArea() );
+                    // do nothing
+                    // maybe display message later....
                 }
-                ClearMoveableRange();
-            }
 
-            else
-            {
-                // do nothing
-                // maybe display message later....
-            }
-
-            if(mLevel->AllExhaustedParty())
-            {
-                vector<Character*> revigorate = mLevel->GetParty();
-                for(vector<Character*>::iterator citer = revigorate.begin(); citer != revigorate.end(); citer++)
+                if(mLevel->AllExhaustedParty())
                 {
-                    RemoveCharacter((*citer)->GetPoint());
-                    AddPartyCharacter((*citer));
+                    vector<Character*> revigorate = mLevel->GetParty();
+                    for(vector<Character*>::iterator citer = revigorate.begin(); citer != revigorate.end(); citer++)
+                    {
+                        RemoveCharacter((*citer)->GetPoint());
+                        AddPartyCharacter((*citer));
+                    }
+                    mLevel->SetState(Level::AIFREE);
                 }
-                mLevel->SetState(Level::AIFREE);
-            }
 
-            //Check for EndGame
-            if (mLevel->GetWinCondition())
-            {
-                UIManager::GetInstance()->PushLayout("Win");
+                //Check for EndGame
+                if (mLevel->GetWinCondition())
+                {
+                    UIManager::GetInstance()->PushLayout("Win");
+                }
             }
-
             break;
 
         case 2:
@@ -364,7 +377,7 @@ void UIGrid::ConfirmFunction( const Point & p )
             {
                 // Step 2 - prepare screen/UI for moveable range
                 // ==============
-                AddMoveableRange( mLevel->GetMoveArea() );
+                AddMoveableRange( mLevel->GetEveryone(), mCurCharacter );
             }
 
             break;
@@ -388,50 +401,60 @@ void UIGrid::ConfirmFunction( const Point & p )
 
             // Check if move was cancelled
             old = mCurCharacter->GetPoint();
-            mLevel->OnAISelect(p);
-
-            if ( mLevel->ReturnState() == 3 || mLevel->ReturnState() == 5 || mLevel->ReturnState() == 0 )
+            movement = mMap.GetMovementRange(mLevel->GetEveryone(), mCurCharacter);
+            for(vector<Point>::iterator piter = movement.begin(); piter != movement.end(); piter++)
             {
-                // remove icon from old spot
-                RemoveCharacter( old);
-
-                // add icon to new spot
-
-                mCurCharacter->Move(p);
-                AddEnemyCharacter( mCurCharacter );
-
-                if( mLevel->ReturnState() == 0 || mLevel->ReturnState() == 3)
+                if((*piter) == p)
                 {
-                    RemoveCharacter(p);
-                    AddExhaustedCharacter(mCurCharacter);
-
+                    pointexists = true;
                 }
-                // Prep screen for attack
-                ClearMoveableRange();
             }
-
-            else
+            if(pointexists)
             {
-                // do nothing
-                // maybe display message later....
-            }
+                mLevel->OnAISelect(p);
 
-            if(mLevel->AllExhaustedEnemies())
-            {
-                vector<Character*> revigorate = mLevel->GetEnemies();
-                for(vector<Character*>::iterator citer = revigorate.begin(); citer != revigorate.end(); citer++)
+                if ( mLevel->ReturnState() == 3 || mLevel->ReturnState() == 5 || mLevel->ReturnState() == 0 )
                 {
-                    RemoveCharacter((*citer)->GetPoint());
-                    AddEnemyCharacter((*citer));
+                    // remove icon from old spot
+                    RemoveCharacter( old);
+
+                    // add icon to new spot
+
+                    mCurCharacter->Move(p);
+                    AddEnemyCharacter( mCurCharacter );
+
+                    if( mLevel->ReturnState() == 0 || mLevel->ReturnState() == 3)
+                    {
+                        RemoveCharacter(p);
+                        AddExhaustedCharacter(mCurCharacter);
+
+                    }
+                    // Prep screen for attack
+                    ClearMoveableRange();
                 }
-                mLevel->SetState(Level::FREE);
-            }
 
-            if (mLevel->GetLoseCondition())
-            {
-                UIManager::GetInstance()->PushLayout("Lose");
-            }
+                else
+                {
+                    // do nothing
+                    // maybe display message later....
+                }
 
+                if(mLevel->AllExhaustedEnemies())
+                {
+                    vector<Character*> revigorate = mLevel->GetEnemies();
+                    for(vector<Character*>::iterator citer = revigorate.begin(); citer != revigorate.end(); citer++)
+                    {
+                        RemoveCharacter((*citer)->GetPoint());
+                        AddEnemyCharacter((*citer));
+                    }
+                    mLevel->SetState(Level::FREE);
+                }
+
+                if (mLevel->GetLoseCondition())
+                {
+                    UIManager::GetInstance()->PushLayout("Lose");
+                }
+            }
             break;
 
         case 5:
@@ -601,19 +624,14 @@ void UIGrid::AddAttackRange( PointVec attackRange )
 }
 
 
-void UIGrid::AddMoveableRange( PointVec moveRange )
+void UIGrid::AddMoveableRange( vector<Character*> everyone, Character* you )
 {
 
-    //AddRange( moveRange, mImageMoveRange);
-
-    // If more new Blue tiles/cursors are needed more are created
+    PointVec moveRange = mMap.GetMovementRange(everyone, you);
 
     for ( PointItr i = moveRange.begin(); i != moveRange.end(); ++i )
     {
-        if(ValidPoint((*i)))
-        {
-            mImageMoveRange.push_back( UIImage("blueCursor.png") );
-        }
+        mImageMoveRange.push_back( UIImage("blueCursor.png") );
     }
 
 
@@ -622,23 +640,16 @@ void UIGrid::AddMoveableRange( PointVec moveRange )
     Point cursorPos;
     Point gridPoint;
     Point charPoint;
-    if (mCurCharacter!=NULL)
-    {
-         charPoint = mCurCharacter->GetPoint();
-    }
 
     elementIter = mImageMoveRange.begin();
 
     for ( PointItr i=moveRange.begin(); i!=moveRange.end(); ++i )
     {
         gridPoint = (*i);
-        if ( (ValidPoint(gridPoint)) && ( (!HasCharacter(gridPoint)) || (gridPoint==charPoint) ) )
-        {
-            cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
-            (*elementIter).SetPos( cursorPos );
-            (*elementIter).SetVisible( true );
-            elementIter++;
-        }
+        cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
+        (*elementIter).SetPos( cursorPos );
+        (*elementIter).SetVisible( true );
+        elementIter++;
     }
 
 }
@@ -690,6 +701,11 @@ bool UIGrid::HasCharacter( const Point & p )
     {
         return false;
     }
+}
+
+Map UIGrid::GetMap()
+{
+    return mMap;
 }
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 

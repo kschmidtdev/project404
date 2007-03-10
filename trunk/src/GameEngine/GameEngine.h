@@ -10,11 +10,13 @@
  * Project 404 2007
  *
  * Authors:
- * Karl Schmidt, February 15 2007 | Fixed an odd header include path
- * Mike Malyuk, February 15 2007  | Added AI
- * Karl Schmidt, February 15 2007 | Changed the name of one enum, corrected a naming convention, added a GetLevel() function
- * Karl Schmidt, February 12 2007 | Fixed includes, made it a singleton, fixed some compilation errors
+ *
  * Mike Malyuk, February 8, 2007, | Initial design
+ * Karl Schmidt, February 12 2007 | Fixed includes, made it a singleton, fixed some compilation errors
+ * Karl Schmidt, February 15 2007 | Changed the name of one enum, corrected a naming convention, added a GetLevel() function
+ * Mike Malyuk, February 15 2007  | Added AI
+ * Karl Schmidt, February 15 2007 | Fixed an odd header include path
+ * Mike Malyuk, March 10, 2007    | Removed point, implemented map
  */
 
 #ifndef GameEngine_h
@@ -77,7 +79,7 @@ enum Cities
     /**
      * Pass information to a level instance
 	 */
-    void BattleInit(vector<Character*> partyMem, Cities place, Point maxPoint);
+    void BattleInit(vector<Character*> partyMem, Cities place, Map map);
 
     /**
      * Unload the current level
@@ -121,7 +123,7 @@ enum Cities
     void SetCursorBattle( const int x, const int y );
 
 
-    void SetAI(Level* level, Point point);
+    void SetAI(Level* level);
 // INQUIRY (reading)
     /**
      * Return items in a Market

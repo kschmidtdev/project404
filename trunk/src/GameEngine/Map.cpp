@@ -7,6 +7,7 @@
  * Mike Malyuk, February 9, 2007 | Initial design
  * Mike Malyuk, February 11 2007 | Removed unused code
  * Mike Malyuk, March 9, 2007    | Added default constructor implementation and GetTiles()
+ * Mike Malyuk, March 10, 2007   | Added dijkstras method, added node struct
  */
 
 #include <util.h>
@@ -17,6 +18,14 @@
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
+struct Node
+{
+    Point p;
+    int weight;
+    int pathweight;
+    Point lp;
+    bool checked;
+};
 
 Map::Map()
 {
@@ -120,6 +129,8 @@ Map::Map()
     mTiles.push_back( Tile(Point(9,7), "GRASS"));
     mTiles.push_back( Tile(Point(9,8), "GRASS"));
     mTiles.push_back( Tile(Point(9,9), "GRASS"));
+    mMaxX = 10;
+    mMaxY = 10;
 }// Map
 Map::Map(vector<Tile> tiles)
 :mTiles(tiles)
@@ -160,6 +171,147 @@ vector<Tile> Map::GetTiles()
 {
     return mTiles;
 }
+
+vector<Point> Map::GetMovementRange(vector<Character*> everyone, Character* guy)
+{
+    Node* nodes = new Node[mTiles.size()];
+    Node* checked = new Node[mTiles.size()];
+    vector<Point> possiblepoints;
+
+    Node something;
+    int b = 0;
+    for(vector<Tile>::iterator iter = mTiles.begin(); iter != mTiles.end(); iter++)
+    {
+        something.p = (*iter).GetPoint();
+        something.weight = (*iter).GetWeight();
+        something.pathweight = -1;
+        something.checked = false;
+        nodes[b] = something;
+        b++;
+    }
+
+    nodes[guy->GetPoint().GetX()*mMaxX + guy->GetPoint().GetY()].pathweight = 0;
+    nodes[guy->GetPoint().GetX()*mMaxX + guy->GetPoint().GetY()].checked = true;
+    Node currentNode = nodes[guy->GetPoint().GetX()*mMaxX + guy->GetPoint().GetY()];
+    checked[0] = currentNode;
+    int indexed = 2;
+    for(int i = 0; i < (int)mTiles.size(); i++)
+    {
+        indexed = indexed - 1;
+        int up;
+        int down;
+        if(checked[i].p.GetY() == 0)
+        {
+            up = -1;
+        }
+        else
+        {
+            up =  ((checked[i].p.GetX())*10 + checked[i].p.GetY() - 1);
+        }
+        if(checked[i].p.GetY() == 9)
+        {
+            down = mTiles.size();
+        }
+        else
+        {
+            down = ((checked[i].p.GetX())*10 + checked[i].p.GetY() + 1);
+        }
+        int curpathweight =nodes[((checked[i].p.GetX())*10 + checked[i].p.GetY())].pathweight;
+        int left =  ((checked[i].p.GetX())*10 + checked[i].p.GetY() - mMaxX);
+        int right =  ((checked[i].p.GetX())*10 + checked[i].p.GetY() + mMaxX);
+        //cout << "CurPoint: " << checked[i].p.GetX() << ", " << checked[i].p.GetY() << endl;
+        //cout << "CurWeight: " << nodes[((checked[i].p.GetX())*10 + checked[i].p.GetY())].pathweight << endl;
+        if(up >= 0)
+        {
+            if(((curpathweight + nodes[up].weight) < nodes[up].pathweight) || ((curpathweight + nodes[up].weight) > 0 && nodes[up].pathweight == -1))
+            {
+                int needknow = nodes[up].pathweight;
+                nodes[up].pathweight = curpathweight + nodes[up].weight;
+                needknow = nodes[up].pathweight;
+                nodes[up].lp = checked[i].p;
+                if(nodes[up].checked == false)
+                {
+                    nodes[up].checked = true;
+                    checked[i + indexed] = nodes[up];
+                    indexed++;
+                }
+            }
+        }
+        if(down < (int)mTiles.size())
+        {
+            if(((curpathweight + nodes[down].weight) < nodes[down].pathweight) || ((curpathweight + nodes[down].weight) > 0 && nodes[down].pathweight == -1))
+            {
+                int needknow = nodes[down].weight;
+                nodes[down].pathweight = curpathweight + nodes[down].weight;
+                needknow = nodes[down].pathweight;
+                nodes[down].lp = checked[i].p;
+                if(nodes[down].checked == false)
+                {
+                    nodes[down].checked = true;
+                    checked[i + indexed] = nodes[down];
+                    indexed++;
+                }
+            }
+
+        }
+        if(left >= 0)
+        {
+            if(((curpathweight + nodes[left].weight) < nodes[left].pathweight) || ((curpathweight + nodes[left].weight) > 0 && nodes[left].pathweight == -1))
+            {
+                int needknow = nodes[left].pathweight;
+                nodes[left].pathweight = curpathweight + nodes[left].weight;
+                needknow = nodes[left].pathweight;
+                nodes[left].lp = checked[i].p;
+                if(nodes[left].checked == false)
+                {
+                    nodes[left].checked = true;
+                    checked[i + indexed] = nodes[left];
+                    indexed++;
+                }
+            }
+        }
+        if(right < (int)mTiles.size())
+        {
+            if(((curpathweight + nodes[right].weight) < nodes[right].pathweight) || ((curpathweight + nodes[right].weight) > 0 && nodes[right].pathweight == -1))
+            {
+                int needknow = nodes[right].pathweight;
+                nodes[right].pathweight = curpathweight + nodes[right].weight;
+                needknow = nodes[right].pathweight;
+                nodes[right].lp = checked[i].p;
+                if(nodes[right].checked == false)
+                {
+                    nodes[right].checked = true;
+                    checked[i + indexed] = nodes[right];
+                    indexed++;
+                }
+            }
+        }
+    }
+    cout << "Character Move: " << guy->GetAttr(Character::AGI)/2 << endl;
+    for(int i = 0; i < (int)mTiles.size(); i++)
+    {
+        if(nodes[i].pathweight <= (guy->GetAttr(Character::AGI)/2))
+        {
+            //cout << nodes[i].pathweight << endl;
+            bool valid = true;
+            for(vector<Character*>::iterator eiter = everyone.begin(); eiter != everyone.end(); eiter++)
+            {
+                if(nodes[i].p == (*eiter)->GetPoint() && nodes[i].p != guy->GetPoint())
+                {
+                    valid = false;
+                }
+            }
+            if(valid)
+            {
+                possiblepoints.push_back(nodes[i].p);
+            }
+        }
+    }
+
+    return possiblepoints;
+
+}
+
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

@@ -10,6 +10,7 @@
  * Authors:
  * Mike Malyuk, February 9, 2007 | Initial design
  * Mike Malyuk, March 9, 2007    | Added GetTiles()
+ * Mike Malyuk, March 10, 2007   | Added Character include and Map movement finder
  */
 
 #ifndef Map_h
@@ -22,6 +23,7 @@
 //
 #include "Tile.h"
 #include "Point.h"
+#include "Character.h"
 // LOCAL INCLUDES
 //
 
@@ -55,8 +57,11 @@ public:
 // INQUIRY (reading)
     Tile GetTile(Point p);
     vector<Tile> GetTiles();
+    vector<Point> GetMovementRange(vector<Character*> everyone, Character* guy);
 protected:
     vector<Tile> mTiles;
+    int mMaxX;
+    int mMaxY;
 private:
 // PRIVATE VARIABLES
 };

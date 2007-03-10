@@ -18,6 +18,7 @@
  * Mike Malyuk,    February 15, 2007  | Added MaxXY to get the edges of map
  * Mike Malyuk,    March 4, 2007      | Removed variables mMoveRange, mAttackRange, unused
  * Mike Malyuk,    March 9, 2007      | Added variable for Map
+ * Mike Malyuk,    March 10, 2007     | Added info for Map, changed add moveable range to use map
  */
 
 #ifndef UIGrid_h
@@ -102,7 +103,7 @@ public:
     /**
      * Used for displaying the range of motion for a particular player
      */
-    void AddMoveableRange( PointVec moveableSpots);
+    void AddMoveableRange( vector<Character*> enemies, Character* you);
 
     /**
      *  Clears the points which make up
@@ -154,6 +155,7 @@ public:
      */
     bool HasCharacter( const Point & p );
 
+    Map GetMap();
     Point MaxXY(){ return Point(mNumColumns, mNumRows);}
 protected:
 // PROTECTED VARIABLES
