@@ -11,6 +11,7 @@
  * Mike Malyuk, February 14 2007 | Changed attacking to cout important info. Changed Defence calc by dividing by 2
  *                               | Protected against dealing "negative damage" or healing the defender.
  * Mike Malyuk, February 14 2007 | Levelling up occurs at 100 exp now instead of greater than 100
+ * Mike Malyuk, March 10 2007    | Added explicit cast so no warning, the int cutting is intentional
  */
 
 #include <util.h>
@@ -134,7 +135,7 @@ void Character::Attack(Character* another)
     }
     if(killed == true)
     {
-        mExp = mExp + ((another->GetLevel()*1.0)/mLevel)*100;
+        mExp = (int)(mExp + ((another->GetLevel()*1.0)/mLevel)*100);
         if(mExp >= 100)
         {
             LevelUp();

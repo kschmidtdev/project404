@@ -10,6 +10,7 @@
  *
  * Authors:
  * Mike Malyuk, February 15 2007 | Initial Design
+ * Mike Malyuk, March 10, 2007   | Added map to AI removed point
  */
 
 #ifndef AIControl_h
@@ -24,6 +25,7 @@
 #include <..\src\UI\UIGrid.h>
 #include <..\src\Point.h>
 #include <..\src\GameEngine\Level.h>
+#include <..\src\GameEngine\Map.h>
 // LOCAL INCLUDES
 //
 
@@ -39,7 +41,7 @@ public:
     /**
      * Default constructor.
 	 */
-    AIControl(Level* level, Point maxMap);
+    AIControl(Level* level, Map map);
 
     /**
      * Destructor.
@@ -49,13 +51,11 @@ public:
 // OPERATIONS
 Point DoAction();
 // ACCESS (writing)
-void SetLevel(Level* level){mLevel = level;}
-void SetMax(Point p){mMax = p;}
-// INQUIRY (reading)
+void SetLevel(Level* level){mLevel = level;}// INQUIRY (reading)
 
 protected:
 // PROTECTED VARIABLES
-    Point mMax;
+    Map mMap;
     Level* mLevel;
 private:
 // PRIVATE VARIABLES

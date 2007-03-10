@@ -12,14 +12,15 @@
  *                                  in the current default constructor
  * Mike Malyuk, February 14, 2007 | Added function PointHasPerson to return enemy state, Minor fixes.
  * Mike Malyuk, February 14, 2007 | Added healer specific code, fixed a few more bugs
- * Karl Schmidt, February 14, 2007 | Fixed healer crash bug/bugnonetheless
+ * Karl Schmidt, February 14 2007 | Fixed healer crash bug/bugnonetheless
  * Karl Schmidt, February 14 2007 | Fixed the newest constructor (gave member vars default values)
  * Mike Malyuk, February 15, 2007 | Fixed more bugs, now shouldn't crash. Runs 2p til we implement AI
  *                                | Move range and Attack range don't show up for enemies (bug)
  * Mike Malyuk, February 15, 2007 | Fixed small bug in Healer code
  * Karl Schmidt, February 15 2007 | Fixed an odd header include path
  * Karl Schmidt, February 15 2007 | Fixed slight memory leak
- * Karl Schmidt, March 04 2007 | Fixed another slight memory leak
+ * Karl Schmidt, March 04 2007    | Fixed another slight memory leak
+ * Mike Malyuk, March 10 2007     | Removed move methods now in Map, cleared things out to work with new method
  */
 
 #include <util.h>
@@ -115,8 +116,8 @@ Level::Level()
 
 }// Level
 
-Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point> start, Map* map)
-: mState(FREE), mParty(party), mEnemies(badguys), mStart(start), mCurChar(NULL), mThisMap(map), mMyTurn(true), mDefaultConstructor( false )
+Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point> start)
+: mState(FREE), mParty(party), mEnemies(badguys), mStart(start), mCurChar(NULL),  mMyTurn(true), mDefaultConstructor( false )
 {
     vector<Character*>::iterator iter;
     vector<Point>::iterator piter;
@@ -133,7 +134,7 @@ Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point>
 }
 
 Level::Level(int)
-: mState(FREE), mCurChar( NULL ), mThisMap( NULL ), mMyTurn( true )
+: mState(FREE), mCurChar( NULL ), mMyTurn( true )
 {
     DBEngine* DBE = DBEngine::GetInstance();
     DBE->Initialize();
@@ -220,8 +221,6 @@ Character* Level::OnSelect(Point p)
         {
             mCurChar = (*iter);
             mState = MOVE;
-            mMoveArea.clear();
-            GetMovement();
             return *iter;
         }
         else
@@ -232,15 +231,7 @@ Character* Level::OnSelect(Point p)
     //Need to move
     else if(mState == MOVE)
     {
-        vector<Point>::iterator iter;
-        iter = mMoveArea.begin();
-        while( (*iter) != p && iter != mMoveArea.end())
-        {
-            iter++;
-        }
 
-        if(iter != mMoveArea.end() && (*iter) == p)
-        {
             mCurChar->Move(p);
             cout << "Attacker " << mCurChar->GetName()  <<" (" << mCurChar->GetClassName() << ") moving to: " << mCurChar->GetPoint().GetX() << "," << mCurChar->GetPoint().GetY() << endl;
             if(mCurChar->GetClassName() != "Healer")
@@ -303,13 +294,6 @@ Character* Level::OnSelect(Point p)
             	return NULL;
                 //stub for future implementation
             }
-
-        }
-        else
-        {
-            return mCurChar;
-        }
-        mMoveArea.clear();
     }
     else
     {
@@ -408,8 +392,6 @@ Character* Level::OnAISelect(Point p)
         {
             mCurChar = (*iter);
             mState = AIMOVE;
-            mMoveArea.clear();
-            GetMovement();
             return *iter;
         }
         else
@@ -420,15 +402,6 @@ Character* Level::OnAISelect(Point p)
     //Need to move
     else if(mState == AIMOVE)
     {
-        vector<Point>::iterator iter;
-        iter = mMoveArea.begin();
-        while( (*iter) != p && iter != mMoveArea.end())
-        {
-            iter++;
-        }
-
-        if(iter!= mMoveArea.end() && (*iter) == p)
-        {
             mCurChar->Move(p);
             cout << "Attacker " << mCurChar->GetName()  <<" (" << mCurChar->GetClassName() << ") moving to: " << mCurChar->GetPoint().GetX() << "," << mCurChar->GetPoint().GetY() << endl;
             if(mCurChar->GetClassName() != "Healer")
@@ -491,14 +464,6 @@ Character* Level::OnAISelect(Point p)
             	return NULL;
                 //stub for future implementation
             }
-
-        }
-
-        else
-        {
-            return mCurChar;
-        }
-        mMoveArea.clear();
     }
     else
     {
@@ -586,73 +551,6 @@ Character* Level::OnAISelect(Point p)
         return mState;
     }
 
-    void Level::GetMovement()
-    {
-        int move = (mCurChar->GetAttr(Character::AGI))/2;
-        int x = mCurChar->GetPoint().GetX();
-        int y = mCurChar->GetPoint().GetY();
-        for(int i = move; i >=0; i--)
-        {
-            mMoveArea.push_back(Point(x+(move-i), y+i));
-            mMoveArea.push_back(Point(x-(move-i),y-i));
-            if(i != move && i != 0)
-            {
-                mMoveArea.push_back(Point(x+(move-i), y-i));
-                mMoveArea.push_back(Point(x-(move-i),y+i));
-            }
-
-        }
-
-        GetMovementHelp(move-1, x, y);
-    }
-
-    void Level::GetMovementHelp(int move, int x, int y)
-    {
-        if(move == 0)
-        {
-            vector<Character*> chars = GetEveryone();
-            vector<Character*>::iterator iter;
-            vector<Point>::iterator piter;
-            piter = mMoveArea.begin();
-            iter = chars.begin();
-            while(iter != chars.end())
-            {
-                while( ((*piter)) != ((*iter)->GetPoint()) && piter != mMoveArea.end())
-                {
-                    piter++;
-                }
-                if(piter != mMoveArea.end() && ((*piter)) == ((*iter)->GetPoint()) && !((*iter)->IsDead()))
-                {
-                    mMoveArea.erase(piter);
-                }
-                piter = mMoveArea.begin();
-                iter++;
-            }
-            mMoveArea.push_back(Point(x,y));
-            return;
-        }
-        else
-        {
-
-            for(int i = move; i >=0; i--)
-            {
-                mMoveArea.push_back(Point(x+(move-i), y+i));
-                mMoveArea.push_back(Point(x-(move-i),y-i));
-                if(i != move && i != 0)
-                {
-                    mMoveArea.push_back(Point(x+(move-i), y-i));
-                    mMoveArea.push_back(Point(x-(move-i),y+i));
-                }
-            }
-            GetMovementHelp(move-1, x, y);
-        }
-    }
-
-    Map* Level::GetMap()
-    {
-        return mThisMap;
-    }
-
     bool Level::GetTurn()
     {
         return mMyTurn;
@@ -707,11 +605,6 @@ Character* Level::OnAISelect(Point p)
         vector<Character*> temp = mParty;
         temp.insert(temp.end(),mEnemies.begin(),mEnemies.end());
         return temp;
-    }
-
-    vector<Point> Level::GetMoveArea()
-    {
-        return mMoveArea;
     }
 
     vector<Point> Level::GetAttackArea()

@@ -7,6 +7,7 @@
  * Karl Schmidt, February 12 2007 | Initial creation of file
  * Karl Schmidt, February 15 2007 | Added BattleInit placeholder func( loads one level )
  * Mike Malyuk,  February 15 2007 | Added AI
+ * Mike Malyuk,  March 10, 2007   | Replaced point with map for BattleInit
  */
 
 #include <util.h>
@@ -43,7 +44,7 @@ void GameEngine::Shutdown()
     }
 }
 
-void GameEngine::BattleInit(vector<Character*> partyMem, Cities place, Point maxPoint)
+void GameEngine::BattleInit(vector<Character*> partyMem, Cities place, Map map)
 {
 	// THIS IS IN NO WAY COMPLETE
     if( mCurLvl )
@@ -52,7 +53,7 @@ void GameEngine::BattleInit(vector<Character*> partyMem, Cities place, Point max
         return;
     }
     mCurLvl = new Level(0);
-    mAI = new AIControl(mCurLvl, maxPoint);
+    mAI = new AIControl(mCurLvl, map);
 
 }
 
@@ -74,10 +75,9 @@ void GameEngine::BattleOver()
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================
 
-void GameEngine::SetAI(Level* level, Point point)
+void GameEngine::SetAI(Level* level)
 {
     mAI->SetLevel(level);
-    mAI->SetMax(point);
 }
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////

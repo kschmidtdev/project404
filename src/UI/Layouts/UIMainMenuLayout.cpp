@@ -11,6 +11,7 @@
  * Andrew Osborne, February 14 2007 | Added "Set Password" operation - finalized implementation
  * Mike Malyuk,    March 4 2007     | Changed method QuitFuntion to QuitFunction
  * Karl Schmidt, March 9 2007	 	| Changed textures to png
+ * Mike Malyuk, March 10, 2007      | Changed battleinit init to be compatible with map
  */
 
 #include <util.h>
@@ -31,7 +32,7 @@ class NewGameFunction : public FuncObj
     {
         // Temporarily hardcoding this initialization (until the UI has the overmap that does this)
         vector<Character*> partyTemp;
-        GameEngine::GetInstance()->BattleInit( partyTemp, GameEngine::CITYA, UIManager::GetInstance()->GetLayout("BattleScreen")->GetGrid()->MaxXY() );
+        GameEngine::GetInstance()->BattleInit( partyTemp, GameEngine::CITYA, UIManager::GetInstance()->GetLayout("BattleScreen")->GetGrid()->GetMap() );
 
         //UIManager::GetInstance()->PushLayout("BattleScreen");
         UIManager::GetInstance()->PushLayout("OverMap");
