@@ -7,11 +7,12 @@
  * Andrew Osborne, February 10, 2007 | Initial creation and testing
  * Andrew Osborne, February 10, 2007 | Added some comments, deleted inputFunction
  * Andrew Osborne, February 11, 2007 | added 'm' to members, added input funcitonality, used Point addition/mult
- * Karl Schmidt, February 11 2007 | Added checks to prevent crashes when textures are not loaded
+ * Karl Schmidt, February 11 2007	 | Added checks to prevent crashes when textures are not loaded
  * Andrew Osborne, February 11, 2007 | added destructor
- * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Karl Schmidt, February 14 2007 	 | Updated function capitalization, block style, typedefs, refs
  * Andrew Osborne, February 14, 2007 | added AddButton method
- * Karl Schmidt, February 15 2007 | Added wrap-around for navigating upwards and downwards on menu
+ * Karl Schmidt, February 15 2007 	 | Added wrap-around for navigating upwards and downwards on menu
+ * Karl Schmidt, March 9 2007	 	 | Changed textures to png
  */
 
 
@@ -38,7 +39,7 @@ UIMenu::UIMenu()
 
     // Formating Button offset parameters in preperation for adding buttons later
     SDL_Surface *sample = NULL;
-    sample = ResourceManager::GetInstance()->LoadTexture("menu_item.bmp");
+    sample = ResourceManager::GetInstance()->LoadTexture("menu_item.png");
 
     if( sample )
     {
@@ -54,10 +55,10 @@ UIMenu::UIMenu()
     mMaxCursorPos = 0;
 
     // Create cursor
-    mCursor = new UIImage("menu_select.bmp");
+    mCursor = new UIImage("menu_select.png");
 
     // Set backgound
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_back.bmp");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_back.png");
 
     //SetPos( Point(0,0) );
 

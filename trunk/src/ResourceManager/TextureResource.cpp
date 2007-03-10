@@ -6,13 +6,17 @@
  * Authors:
  * Karl Schmidt, February 13 2007 | Added logging when loading and unloading
  * Karl Schmidt, February 9 2007 | Initial creation of implementation
+ * Karl Schmidt, March 9 2007	 | Added SDL_image implementation to support other texture file formats
  */
 
 #include <util.h>
+#include <SDL_image.h>
 
 #include "TextureResource.h"                                // class implemented
 
 #include <Logger.h>
+
+const string IMG_DIR( "img/" );
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -33,12 +37,13 @@ void TextureResource::Load()
     // load an image
 
     LogInfo( string("Loading image: ") + mFileName );
-    mSurface = SDL_LoadBMP( mFileName.c_str() );
+    //mSurface = SDL_LoadBMP( mFileName.c_str() );
+    mSurface = IMG_Load( (IMG_DIR + mFileName).c_str() );
 
     tacAssert( mSurface );
     if ( !mSurface )
     {
-        LogError( string("Unable to load bitmap: ") + mFileName + string(" SDL error: ") + string( SDL_GetError() ) );
+        LogError( string("Unable to load bitmap: ") + mFileName + string(" SDL_image error: ") + string( IMG_GetError() ) );
     }
 }
 

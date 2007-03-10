@@ -15,6 +15,7 @@
  * Karl Schmidt,   February 15 2007 | Added initialize function, destroys everything between displaying (onload/onclose)
  * Karl Schmidt,   February 15 2007 | Added change focus to grid when you press end turn
  * Mike Malyuk,    March 4 2007     | Changed method QuitFuntion to QuitFunction
+ * Karl Schmidt, March 9 2007	 	| Changed textures to png
  */
 
 
@@ -147,7 +148,7 @@ void UIBattleScreenLayout::OnLoad( void )
 
     piter = party.begin();
     eiter = enemies.begin();
-    SDL_Surface *tempIcon = ResourceManager::GetInstance()->LoadTexture("charTile.bmp");
+    SDL_Surface *tempIcon = ResourceManager::GetInstance()->LoadTexture("charTile.png");
 
     if (tempIcon!=NULL)
     {

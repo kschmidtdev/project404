@@ -5,7 +5,8 @@
  *
  * Authors:
  * Andrew Osborne, February 11 2007 | Initial Creation
- * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs
+ * Karl Schmidt, February 14 2007 	| Updated function capitalization, block style, typedefs
+ * Karl Schmidt, March 9 2007	 	| Changed textures to png, fixed a warning
  */
 
 #include <util.h>
@@ -21,14 +22,14 @@
 UIButton::UIButton()
 : mText(""), mOperation(NULL)
 {
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_item.bmp");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_item.png");
 }// UIButton
 
 UIButton::UIButton(const string text)
 : mOperation( NULL )
 {
     mText.ChangeText(text);
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_item.bmp");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_item.png");
 }
 
 UIButton::~UIButton()
@@ -44,7 +45,6 @@ UIButton::~UIButton()
 void UIButton::RenderSelf(SDL_Surface* destination)
 {
     if ( ( mElementImage ) && ( mVisible ) )
-    //if ( mElementImage )
     {
         SDLRenderer::GetInstance()->DrawImageAt(mElementImage, mPos.GetX(), mPos.GetY(), mElementImage->w, mElementImage->h, destination);
         mText.RenderSelf(destination);
@@ -58,6 +58,7 @@ void UIButton::SetPos( const Point & nPos )
 {
     mPos = nPos;
     int textWidth, textHeight;
+    textWidth = textHeight = 0;
     int buttonWidth, buttonHeight;
     SDL_Surface *textSurface = mText.GetElement();
     if( textSurface )

@@ -8,7 +8,8 @@
  * Andrew Osborne, February 10 2007 | Documentation
  * Andrew Osborne, February 14 2007 | Added ProcessEvent method
  * Andrew Osborne, February 14 2007 | Made final version for title screen
- * Karl Schmidt, February 14 2007 | Moved the background image to the upper left corner, deleted commented code
+ * Karl Schmidt, February 14 2007 	| Moved the background image to the upper left corner, deleted commented code
+ * Karl Schmidt, March 9 2007	 	| Changed textures to png
 */
 
 #include <util.h>
@@ -28,7 +29,7 @@ UITitleScreenLayout::UITitleScreenLayout()
 {
     mName = "TitleScreen";
 
-    UIImage *temp = new UIImage("castle_title.bmp");
+    UIImage *temp = new UIImage("castle_title.png");
     mElements.push_back(temp);
 
     //UIText *tempText = new UIText("SymTac", 100, 255, 0, 0);

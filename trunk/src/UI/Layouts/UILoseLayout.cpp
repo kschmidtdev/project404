@@ -5,6 +5,7 @@
  *
  * Authors:
  * Andrew Osborne, February 15 2007 | Initial Creation
+ * Karl Schmidt, March 9 2007	 	| Changed textures to png
  */
 
 #include <util.h>
@@ -23,7 +24,7 @@
 
 UILoseLayout::UILoseLayout()
 {
-    UIImage *temp = new UIImage("castle.bmp");
+    UIImage *temp = new UIImage("castle.png");
     mElements.push_back(temp);
 
     UIText *tempText = new UIText("Game Over", 70, 255, 0, 0);

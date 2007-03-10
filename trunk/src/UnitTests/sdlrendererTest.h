@@ -5,6 +5,7 @@
 
 #include <Renderer/sdlrenderer.h>
 #include <Renderer/ExampleRenderable.h>
+#include <ResourceManager/ResourceManager.h>
 
 //
 // A generated test suite: Just write tests!
@@ -40,7 +41,7 @@ public:
     void testRenderTexture()
     {
         // SDLRenderer::DrawImageAt is tested within the ExampleRenderable
-        SDL_Surface* texture = ResourceManager::GetInstance()->LoadTexture( "archer_party.bmp" );
+        SDL_Surface* texture = ResourceManager::GetInstance()->LoadTexture( "archer_party.png" );
         TS_ASSERT( texture );
         exTextureRenderable.SetTexture( texture );
         SDLRenderer::GetInstance()->AddToRenderQueue( &exTextureRenderable );
