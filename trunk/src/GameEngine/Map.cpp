@@ -8,6 +8,7 @@
  * Mike Malyuk, February 11 2007 | Removed unused code
  * Mike Malyuk, March 9, 2007    | Added default constructor implementation and GetTiles()
  * Mike Malyuk, March 10, 2007   | Added dijkstras method, added node struct
+ * Karl Schmidt, March 10, 2007  | Fixed memory leaks
  */
 
 #include <util.h>
@@ -307,6 +308,9 @@ vector<Point> Map::GetMovementRange(vector<Character*> everyone, Character* guy)
             }
         }
     }
+
+    delete[] nodes;
+    delete[] checked;
 
     return possiblepoints;
 
