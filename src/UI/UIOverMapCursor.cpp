@@ -15,7 +15,7 @@
 //============================= LIFECYCLE ====================================
 
 UIOverMapCursor::UIOverMapCursor()
-: mOffset( Point(-2,-2) )
+: mOffset( Point(0,0) )
 {
     mElementImage = ResourceManager::GetInstance()->LoadTexture("tileCursor.png");
 }// UIOverMapCursor

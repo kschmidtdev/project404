@@ -11,6 +11,7 @@
  *
  * Authors:
  * Andrew Osborne, February 14 2007 | Initial Creation
+ * Andrew Osborne, March 9 2007 | Added new ChangeText command that allows you to change all parameters
  */
 
 #ifndef UIText_h
@@ -67,9 +68,21 @@ public:
     void ChangeText(const string newText);
 
     /**
+     * New Text (with parameters)
+     */
+    void ChangeText(const string newText, int s, int r, int g, int b);
+
+    /**
      * Change Colour.
 	 */
     void SetColour(int r, int g, int b);
+
+    /**
+     * Change Size.
+	 */
+    void SetColour(int s);
+
+
 
 // INQUIRY (reading)
 
@@ -80,6 +93,7 @@ protected:
     int mBlue;
     int mSize;
     string mText;
+
 private:
 // PRIVATE VARIABLES
 };

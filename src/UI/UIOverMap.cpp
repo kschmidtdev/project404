@@ -114,9 +114,6 @@ void UIOverMap::RenderSelf(SDL_Surface* destination)
 
     if (mVisible)
     {
-        // Draw cursor first
-        mCursor.RenderSelf(destination);
-
         MapTileItr iter;
 
         // Move points in OverMap to relative position
@@ -126,6 +123,9 @@ void UIOverMap::RenderSelf(SDL_Surface* destination)
             (*iter).RenderSelf(destination);
             iter++;
         }
+
+        // Draw cursor on top
+        mCursor.RenderSelf(destination);
     }
 
 
