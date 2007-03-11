@@ -80,10 +80,18 @@ public:
     /**
      * Method to set the position of element relative to it's parent
      *
-     * @param boolean value true=visible, false=invisible
+     * @param Point data type
      *
      */
     virtual void SetPos( const Point & nPos );
+
+    /**
+     * Method to set the position of element relative to it's parent
+     *
+     * @param x - x value, y - y value
+     *
+     */
+    virtual void SetPos( const int x, const int y );
 
 // INQUIRY (reading)
     /**

@@ -27,6 +27,7 @@
 #include "Logger.h"
 #include "GameEngine/GameEngine.h"
 #include "UIManager.h"
+#include "UICharWindow.h"
 
 // Defining Function Objects for Button Operations
 
@@ -112,6 +113,12 @@ void UIBattleScreenLayout::Initialize()
     mDefaultEventListener = mGrid;
     //mGrid->setParent(this);
     mElements.push_back( mGrid );
+
+    // Character Window
+    UIElement *charWindow = new UICharWindow();
+    charWindow->SetPos(420, 10);
+    mElements.push_back( charWindow );
+
 }
 
 //============================= OPERATORS ====================================

@@ -58,6 +58,12 @@ void UIElement::SetPos( const Point & nPos )
     mPos = nPos;
 }
 
+void UIElement::SetPos( const int x, const int y )
+{
+    mPos.Set(x, y);
+    this->SetPos(mPos);
+}
+
 void UIElement::SetVisible( const bool nVisible )
 {
     mVisible = nVisible;

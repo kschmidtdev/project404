@@ -5,6 +5,7 @@
  *
  * Authors:
  * Andrew Osborne, February 14 2007 | Initial Creation
+ * Andrew Osborne, March 9 2007 | Added new ChangeText command that allows you to change all parameters
  */
 
 
@@ -50,10 +51,41 @@ UIText::UIText( const string text)
     mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
 }
 
+UIText::~UIText()
+{
+    if( mElementImage )
+    {
+        SDL_FreeSurface( mElementImage );
+    }
+    mElementImage = NULL;
+}// ~UIText
+
+
+
+
+//============================= OPERATORS ====================================
+
+
+//============================= OPERATIONS ===================================
+//============================= ACCESS     ===================================
 
 void UIText::ChangeText(const string newText)
 {
     mText = newText;
+    if( mElementImage )
+    {
+        SDL_FreeSurface( mElementImage );
+    }
+    mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
+}
+
+void UIText::ChangeText(const string newText, int s, int r, int g, int b)
+{
+    mText = newText;
+    mSize = s;
+    mRed = r;
+    mGreen = g;
+    mBlue = b;
     if( mElementImage )
     {
         SDL_FreeSurface( mElementImage );
@@ -74,22 +106,15 @@ void UIText::SetColour(int r, int g, int b)
     mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
 }
 
-
-UIText::~UIText()
+void UIText::SetColour(int s)
 {
+    mSize = s;
     if( mElementImage )
     {
         SDL_FreeSurface( mElementImage );
     }
-    mElementImage = NULL;
-}// ~UIText
-
-
-//============================= OPERATORS ====================================
-
-
-//============================= OPERATIONS ===================================
-//============================= ACCESS     ===================================
+    mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
+}
 
 
 //============================= INQUIRY    ===================================
