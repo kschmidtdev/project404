@@ -103,6 +103,7 @@ public:
 
             secMgr->AddUser( userName, passWord );
         }*/
+    }
 
 };
 
