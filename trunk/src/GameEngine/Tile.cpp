@@ -19,7 +19,7 @@
 //============================= LIFECYCLE ====================================
 
 Tile::Tile()
-: mTilePoint(Point(0,0)), mType("GRASS"), mWeight(1)
+: mTilePoint(Point(0,0)), mType("GRASS"), mWeight(2)
 {
 }// Tile
 

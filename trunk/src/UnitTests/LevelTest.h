@@ -37,19 +37,19 @@ public:
     {
         // Testing these enum values is bad if they are changed, but then the unit tests
         // should
-        /*Level levelDefaultConstructor;
+        Level levelDefaultConstructor;
         TS_ASSERT_LESS_THAN_EQUALS( levelDefaultConstructor.ReturnState(), Level::ATTACK );
         TS_ASSERT_LESS_THAN_EQUALS( 0, levelDefaultConstructor.ReturnState() );
 
         vector<Character*> party;
         vector<Point> start;
-        Level levelBigConstructor( party, party, start, NULL );
+        Level levelBigConstructor( party, party, start);
         TS_ASSERT_LESS_THAN_EQUALS( levelBigConstructor.ReturnState(), Level::ATTACK );
         TS_ASSERT_LESS_THAN_EQUALS( 0, levelBigConstructor.ReturnState() );
 
         Level levelDatabaseLoading( 0 );
         TS_ASSERT_LESS_THAN_EQUALS( levelDatabaseLoading.ReturnState(), Level::ATTACK );
-        TS_ASSERT_LESS_THAN_EQUALS( 0, levelDatabaseLoading.ReturnState() );*/
+        TS_ASSERT_LESS_THAN_EQUALS( 0, levelDatabaseLoading.ReturnState() );
     }
 
     void testBasicOperations()
@@ -119,7 +119,7 @@ public:
 
     void testUsageCase()
     {
-        /*Level level( 0 );
+        Level level( 0 );
         //check we are in free state
         TS_ASSERT_EQUALS(level.ReturnState(), Level::FREE);
 
@@ -133,40 +133,6 @@ public:
         //into move state
         TS_ASSERT_EQUALS(level.ReturnState(), Level::MOVE);
 
-        //Test outside move range (should not change state)
-        //OnSelect bounded by UIGrid calls, cannot exit grid
-        //Also bounded on where it can move (not over units)
-        //Tests returning points and tests GetMovement()
-        level.OnSelect(Point(9,9));
-        TS_ASSERT_EQUALS(level.ReturnState(), Level::MOVE);
-        vector<Point> points = level.GetMoveArea();
-        vector<Point>::iterator piter;
-        piter = points.begin();
-        TS_ASSERT_EQUALS((*piter), Point(0,2))
-        piter++;
-        TS_ASSERT_EQUALS((*piter), Point(0,-2))
-        piter++;
-        TS_ASSERT_EQUALS((*piter), Point(1,1))
-        piter++;
-        TS_ASSERT_EQUALS((*piter), Point(-1,-1));
-        piter++;
-        TS_ASSERT_EQUALS((*piter), Point(1, -1));
-        piter++;
-        TS_ASSERT_EQUALS((*piter), Point(-1, 1));
-        piter++;
-        TS_ASSERT_EQUALS((*piter), Point(-2,0));
-        piter++;
-        TS_ASSERT_EQUALS((*piter), Point(0,1));
-        piter++;
-        TS_ASSERT_EQUALS((*piter), Point(0,-1));
-        piter++;
-        TS_ASSERT_EQUALS((*piter), Point(-1,0));
-        piter++;
-        // 1,0 not valid, person
-        TS_ASSERT_EQUALS((*piter), Point(0,0));
-        piter++;
-        TS_ASSERT_EQUALS(piter, points.end());
-
         //Valid move
         //Nothing near to attack, set to free state
         level.OnSelect(Point(0,1));
@@ -178,9 +144,6 @@ public:
 
         //lets cheat a bit for an attack
         level.OnSelect(Point(1,0));
-        level.GetCurCharacter()->Move(Point(8,9));
-        //set movement up
-        level.GetMovement();
 
         //stand still should move to attack
         level.OnSelect(Point(8,9));
@@ -238,17 +201,12 @@ public:
         //Show ranges of others
 
         level.OnSelect(Point(2,0));
-
-        level.GetCurCharacter()->Move(Point(8,8));
-        level.GetMovement();
         level.OnSelect(Point(8,8));
         //cannot attack, only attacks adjacent
         TS_ASSERT_EQUALS(level.ReturnState(), Level::FREE);
         //Test party stuff lose cond win cond all exhausted
 
         level.OnSelect(Point(3,0));
-        level.GetCurCharacter()->Move(Point(9,8));
-        level.GetMovement();
         level.OnSelect(Point(9,8));
 
         //cannot attack adjacent, as an archer
@@ -302,14 +260,14 @@ public:
         TS_ASSERT(level.PointHasPerson(Point(9,9)) != NULL);
 
         //they are dead so they are exhausted
-        TS_ASSERT_EQUALS(level.AllExhaustedEnemies(), true);*/
+        TS_ASSERT_EQUALS(level.AllExhaustedEnemies(), true);
     }
 
     //all functions tested in usage case, this will show off the AI briefly(mirror class)
     //proves attacks and moves work for both sides
     void testOnAISelect()
     {
-        /*Level level( 0 );
+        Level level( 0 );
         level.OnSelect(Point(0,0));
         level.OnSelect(Point(0,0));
         level.OnSelect(Point(1,0));
@@ -326,23 +284,17 @@ public:
         TS_ASSERT_EQUALS(level.ReturnState(), Level::AIFREE);
         level.OnAISelect(Point(9,9));
 
-        //illegal move
-        level.OnAISelect(Point(0,0));
-        TS_ASSERT_EQUALS(level.ReturnState(), Level::AIMOVE);
-
         //legit reset
         level.OnAISelect(Point(8,9));
-        TS_ASSERT_EQUALS(level.ReturnState(), Level::AIFREE);
+        TS_ASSERT_EQUALS(level.ReturnState(), (int)Level::AIFREE);
 
         //cheat over
         level.OnAISelect(Point(0,9));
-        level.GetCurCharacter()->Move(Point(0,1));
-        level.GetMovement();
         level.OnAISelect(Point(0,1));
         //attackable
         TS_ASSERT_EQUALS(level.ReturnState(), Level::AIATTACK);
         level.OnAISelect(Point(0,0));
-        TS_ASSERT_EQUALS(level.ReturnState(), Level::AIFREE);*/
+        TS_ASSERT_EQUALS(level.ReturnState(), (int)Level::AIFREE);
     }
 };
 
