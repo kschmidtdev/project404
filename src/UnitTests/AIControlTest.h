@@ -33,7 +33,7 @@ public:
 
     void testAI()
     {
-        Level* level = new Level( 0 );
+        /*Level* level = new Level( 0 );
         Point p(9,9);
         AIControl ai(level, p);
         level->SetState(Level::AIFREE);
@@ -89,7 +89,7 @@ public:
             iterer++;
         }
         //it exists in list
-        TS_ASSERT_EQUALS((*iterer)->GetPoint(), spotted);
+        TS_ASSERT_EQUALS((*iterer)->GetPoint(), spotted);*/
 
     }
 
