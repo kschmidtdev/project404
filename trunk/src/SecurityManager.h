@@ -14,6 +14,7 @@
  * Karl Schmidt, February 15 2007 | Implemented DeleteUser and ChangeUserPassword
  * Karl Schmidt, February 15 2007 | Added HashString function
  * Karl Schmidt, February 13 2007 | Initial creation of header
+ * Karl Schmidt, March 11 2007	  | Added file encryption/decryption routines
  */
 
 #ifndef SecurityManager_h
@@ -103,6 +104,22 @@ public:
     * mLoadedPasswords
     */
     void ChangeUserPassword( const string userName, const string newPassword );
+
+    /**
+    * Encrypts the incoming file's contents (based on the filename) if it can
+    * access the file, and if the outFileName is not specified it will overwrite
+    * the incoming file's contents with the encrypted version.
+    * It returns the filename of the file it ended up writing the encrypted version to.
+    */
+    string EncryptFile( const string fileNameToEncrypt, const string hash, const string outFileName = "" );
+
+    /**
+    * Decrypts the incoming file's contents (based on the filename) if it can
+    * access the file, and if the outFileName is not specified it will overwrite
+    * the incoming file's contents with the decrypted version.
+    * It returns the filename of the file it ended up writing the decrypted version to.
+    */
+    string DecryptFile( const string fileNameToDecrypt, const string hash, const string outFileName = "" );
 
 // ACCESS (writing)
 // INQUIRY (reading)

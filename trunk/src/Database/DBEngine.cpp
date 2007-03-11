@@ -12,7 +12,6 @@
 
 
 #include "DBEngine.h"                                     // class implemented
-#include <util.h>
 #include <iostream>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
