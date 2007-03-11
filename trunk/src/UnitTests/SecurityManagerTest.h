@@ -7,6 +7,14 @@
 #include <SecurityManager.h>
 #include <unistd.h>
 
+#include <set>
+#include <string>
+
+using namespace std;
+
+typedef pair< string, string > UserPair;
+typedef set< UserPair > UserSet;
+
 //
 // A generated test suite: Just write tests!
 //
@@ -23,6 +31,8 @@ public:
     // Called before all unit tests in this suite, remove if not needed
     void setUp()
     {
+        srand( time(0) );
+
         Logger::GetInstance( "unitTestLog.txt" );
         Logger::GetInstance()->Initialize();
 
@@ -67,6 +77,32 @@ public:
         TS_ASSERT( SecurityManager::GetInstance()->VerifyPassword( "unitTestUser1", "blah" ) );
         TS_ASSERT( SecurityManager::GetInstance()->VerifyPassword( "unitTestUser2", "blah2" ) );
     }
+
+    void testLargeAmountOfRandomPasswords()
+    {
+        SecurityManager* secMgr = SecurityManager::GetInstance();
+        TS_ASSERT( secMgr != NULL );
+
+        /*const int NUM_OF_TESTS = 1000;
+        constn int LEN_OF_USERNAME_MAX = 32;
+
+        UserSet users;
+        string userName("");
+        string passWord("");
+        for( int i = 0; i < NUM_OF_TESTS; ++i )
+        {
+            int len = (rand() % LEN_OF_USERNAME_MAX-1 ) + 1;
+            do
+            {
+                for( int j = 0; j < len; ++j )
+                {
+                    userName += static_cast<char>( (rand()%254) + 1 );
+                }
+            }
+            while( users
+
+            secMgr->AddUser( userName, passWord );
+        }*/
 
 };
 
