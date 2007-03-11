@@ -3,6 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 
+#include <Logger.h>
 #include <Renderer/sdlrenderer.h>
 #include <Renderer/ExampleRenderable.h>
 #include <ResourceManager/ResourceManager.h>
