@@ -33,9 +33,10 @@ public:
 
     void testAI()
     {
-        /*Level* level = new Level( 0 );
+        Map map;
+        Level* level = new Level( 0 );
         Point p(9,9);
-        AIControl ai(level, p);
+        AIControl ai(level, map);
         level->SetState(Level::AIFREE);
         //test point retrieval
         Point spot = ai.DoAction();
@@ -56,7 +57,7 @@ public:
         TS_ASSERT_EQUALS(level->ReturnState(), Level::AIMOVE);
 
         Point another = ai.DoAction();
-        vector<Point> points = level->GetMoveArea();
+        vector<Point> points = map.GetMovementRange(level->GetEveryone(), level->GetCurCharacter());
         vector<Point>::iterator ppiter;
         ppiter = points.begin();
         while(ppiter != points.end())
@@ -69,10 +70,8 @@ public:
         }
         //it exists in list
         TS_ASSERT_EQUALS((*ppiter), another);
-        level->OnAISelect(Point(0,9));
         level->GetCurCharacter()->Move(Point(0,1));
         TS_ASSERT_EQUALS(level->ReturnState(), Level::AIMOVE);
-        level->GetMovement();
         level->OnAISelect(Point(0,1));
 
 
@@ -89,8 +88,7 @@ public:
             iterer++;
         }
         //it exists in list
-        TS_ASSERT_EQUALS((*iterer)->GetPoint(), spotted);*/
-
+        TS_ASSERT_EQUALS((*iterer)->GetPoint(), spotted);
     }
 
 };
