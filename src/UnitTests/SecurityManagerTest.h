@@ -105,6 +105,42 @@ public:
         }*/
     }
 
+    void testEncryptionDecryptionBasic()
+    {
+        const char* dbEncryptedFileName = "databaseUnitTestEncrypted.xml";
+        const char* dbDecryptedFileName = "databaseUnitTestDecrypted.xml";
+
+        string result = SecurityManager::GetInstance()->EncryptFile( "database.xml", "TESTHASH", dbEncryptedFileName );
+        TS_ASSERT( result.size() != 0 );
+        TS_ASSERT_SAME_DATA( result.c_str(), dbEncryptedFileName, result.size() );
+
+        result = SecurityManager::GetInstance()->DecryptFile( dbEncryptedFileName, "TESTHASH", dbDecryptedFileName );
+        TS_ASSERT( result.size() != 0 );
+        TS_ASSERT_SAME_DATA( result.c_str(), dbDecryptedFileName, result.size() );
+    }
+
+    void testEncryptionDecryptionOneElementLongHash()
+    {
+        const char* dbEncryptedFileName = "databaseUnitTestEncrypted.xml";
+        const char* dbDecryptedFileName = "databaseUnitTestDecrypted.xml";
+
+        string result = SecurityManager::GetInstance()->EncryptFile( "database.xml", "a", dbEncryptedFileName );
+        TS_ASSERT( result.size() != 0 );
+        TS_ASSERT_SAME_DATA( result.c_str(), dbEncryptedFileName, result.size() );
+
+        result = SecurityManager::GetInstance()->DecryptFile( dbEncryptedFileName, "a", dbDecryptedFileName );
+        TS_ASSERT( result.size() != 0 );
+        TS_ASSERT_SAME_DATA( result.c_str(), dbDecryptedFileName, result.size() );
+
+        result = SecurityManager::GetInstance()->EncryptFile( "database.xml", "b", dbEncryptedFileName );
+        TS_ASSERT( result.size() != 0 );
+        TS_ASSERT_SAME_DATA( result.c_str(), dbEncryptedFileName, result.size() );
+
+        result = SecurityManager::GetInstance()->DecryptFile( dbEncryptedFileName, "b", dbDecryptedFileName );
+        TS_ASSERT( result.size() != 0 );
+        TS_ASSERT_SAME_DATA( result.c_str(), dbDecryptedFileName, result.size() );
+    }
+
 };
 
 
