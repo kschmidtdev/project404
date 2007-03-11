@@ -206,7 +206,7 @@ string SecurityManager::HashString( const string incoming )
     for( unsigned int i(0); i < incoming.length(); ++i )
     {
         int curDigit = incoming[i];
-        output += toString((curDigit * 10) % 2000);
+        output += toString((curDigit * (1 + i + curDigit/2)) % 2000);
     }
     return output;
 }
