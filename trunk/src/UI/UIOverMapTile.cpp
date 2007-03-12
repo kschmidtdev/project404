@@ -6,6 +6,7 @@
  * Authors:
  * Andrew Osborne, March 4, 2007 | Initial Creation
  * Karl Schmidt, March 9 2007	 | Changed textures to png
+ * Andrew Osborne, March 11 2007 | Added next/previous notion to tiles (with LevelDefeated method)
  */
 #include "UIOverMapTile.h"                                // class implemented
 
@@ -15,14 +16,16 @@
 //============================= LIFECYCLE ====================================
 
 UIOverMapTile::UIOverMapTile()
-: mLeftTile( NULL ), mRightTile( NULL ), mUpTile( NULL ), mDownTile( NULL ), mMapOffset( Point(0,0) )
+: mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
+mUpTile( NULL ), mDownTile( NULL )
 {
     // Default image for now, should change later
     mElementImage = ResourceManager::GetInstance()->LoadTexture("charTile.png");
 }// UIOverMapTile
 
 UIOverMapTile::UIOverMapTile(int x, int y)
-: mLeftTile( NULL ), mRightTile( NULL ), mUpTile( NULL ), mDownTile( NULL ), mMapOffset( Point(0,0) )
+: mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
+mUpTile( NULL ), mDownTile( NULL )
 {
     // Default image for now, should change later
     mElementImage = ResourceManager::GetInstance()->LoadTexture("charTile.png");
@@ -31,7 +34,8 @@ UIOverMapTile::UIOverMapTile(int x, int y)
 }// UIOverMapTile
 
 UIOverMapTile::UIOverMapTile(int x, int y, string fileName)
-: mLeftTile( NULL ), mRightTile( NULL ), mUpTile( NULL ), mDownTile( NULL ), mMapOffset( Point(0,0) )
+: mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
+mUpTile( NULL ), mDownTile( NULL )
 {
     // Default image for now, should change later
     mElementImage = ResourceManager::GetInstance()->LoadTexture(fileName);
@@ -53,6 +57,16 @@ UIOverMapTile::~UIOverMapTile()
 
 
 //============================= OPERATIONS ===================================
+
+
+void UIOverMapTile::LevelDefeated(void)
+{
+    EnableNextMove();
+    mNextTile->EnablePrevMove();
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("victory.png");
+}
+
+
 //============================= ACCESS     ===================================
 
 
@@ -76,6 +90,12 @@ void UIOverMapTile::SetUp(UIOverMapTile* u)
 void UIOverMapTile::SetDown(UIOverMapTile* d)
 {
     mDownTile = d;
+}
+
+void UIOverMapTile::SetNextPrev(UIOverMapTile* next, UIOverMapTile* prev)
+{
+    mNextTile = next;
+    mPrevTile = prev;
 }
 
 
@@ -113,5 +133,19 @@ Point UIOverMapTile::GetMapOffset(void)
 }
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////
+
+
+void UIOverMapTile::EnableNextMove(void)
+{
+    SetLeft(mNextTile);
+    SetUp(mNextTile);
+}
+
+
+void UIOverMapTile::EnablePrevMove(void)
+{
+    SetRight(mPrevTile);
+    SetDown(mPrevTile);
+}
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

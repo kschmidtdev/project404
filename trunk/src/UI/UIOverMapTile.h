@@ -76,7 +76,11 @@ public:
 // OPERATIONS
 
 
-
+    /**
+     * Signifies to tile that the "level" the tile represents has been defeated
+     * and progression to the next Level is allowed
+     */
+    void LevelDefeated(void);
 
 
 
@@ -103,6 +107,11 @@ public:
      * Setting what city is to the "Down" Direction
      */
     void SetDown(UIOverMapTile* d);
+
+    /**
+     * Sets what the next and previos locations (tiles) are
+     */
+    void SetNextPrev(UIOverMapTile* next, UIOverMapTile* prev);
 
 
 // INQUIRY (reading)
@@ -134,12 +143,35 @@ public:
 
 protected:
 // PROTECTED VARIABLES
+
+    // Progression pointers
+    UIOverMapTile* mNextTile;
+    UIOverMapTile* mPrevTile;
+
+    // Directional pointers (used for higher abstraction)
     UIOverMapTile* mLeftTile;
     UIOverMapTile* mRightTile;
     UIOverMapTile* mUpTile;
     UIOverMapTile* mDownTile;
+
     Point mMapOffset;
 
+    //string mBattleImageFilename;
+    //string mConqueredImageFilename;
+    //SDL_Surface* mBattleImage;
+    //SDL_Surface* mConqueredImage;
+
+// PROTECTED OPERATIONS
+
+    /**
+     * Enables movement (left,up) to the next level
+     */
+    void EnableNextMove(void);
+
+    /**
+     * Enables movement (right, down) to the previous level
+     */
+    void EnablePrevMove(void);
 
 private:
 // PRIVATE VARIABLES

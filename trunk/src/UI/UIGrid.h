@@ -19,6 +19,7 @@
  * Mike Malyuk,    March 4, 2007      | Removed variables mMoveRange, mAttackRange, unused
  * Mike Malyuk,    March 9, 2007      | Added variable for Map
  * Mike Malyuk,    March 10, 2007     | Added info for Map, changed add moveable range to use map
+ * Andrew Osborne, March 11, 2007     | Added mCharWindow & added CursorUpdate method
  */
 
 #ifndef UIGrid_h
@@ -33,6 +34,7 @@
 #include <UITile.h>
 #include <EventListener.h>
 #include <UIImage.h>
+#include <UICharWindow.h>
 #include <GameEngine/Character.h>
 #include <GameEngine/Level.h>
 
@@ -135,6 +137,11 @@ public:
      */
     void ClearCharacters( void );
 
+    /**
+     * Updates position of cursor and Character Window
+     */
+    void UpdateCursor(void);
+
 
 // ACCESS (writing)
 
@@ -142,6 +149,11 @@ public:
      * Allows BattleLayout to pass handle for level communication
      */
     void SetLevel( Level* level );
+
+    /**
+     * Allows BattleLayout to pass handle for Character Window Communication
+     */
+    void SetCharWindow( UICharWindow* charWindow);
 
 // INQUIRY (reading)
 
@@ -157,16 +169,17 @@ public:
 
     Map GetMap();
     Point MaxXY(){ return Point(mNumColumns, mNumRows);}
+
 protected:
 // PROTECTED VARIABLES
+
+    // Tile Info
     UITileVec mTiles;
     int mTileWidth;
     int mTileHeight;
     int mNumRows;
     int mNumColumns;
 
-    // Parent
-    //UIBattleScreenLayout *mBattleLayout;
 
     // Cursor values
     Point mCursorPos;
@@ -176,6 +189,11 @@ protected:
     int mTileOffset;  // This variable assumes square tiles
     int mTotalTileOffset;
     UIElement* mCursor;
+
+    // Other elements on the screen under Grid's control (or influence)
+
+    // Character Window
+    UICharWindow* mCharWindow;
 
     //Map
     Map mMap;
@@ -205,6 +223,8 @@ protected:
     protected:
     SDL_Surface* GetClassSurface( Character* c, const string group );
     Point GridToAbsoluteCoordinates( const Point & p );
+
+
 
     /**
      * Refines point vector to ensure all points are valid and don't contain points that have other characters

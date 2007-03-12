@@ -167,10 +167,12 @@ void UICharWindow::SetCharacter(Character *c)
         // Character's HP
         oss << mCurCharacter->GetHP();
         mHP.ChangeText( oss.str() );
+        oss.str("");
 
         // Character's HP max
         oss << mCurCharacter->GetMaxHP();
         mHPMax.ChangeText( oss.str() );
+        oss.str("");
 
         // Character's MP
         //oss << mCurCharacter->GetMP();
@@ -183,13 +185,20 @@ void UICharWindow::SetCharacter(Character *c)
         // Character's Strength
         oss << mCurCharacter->GetAttr(Character::POW);
         mCharStr.ChangeText( oss.str() );
+        oss.str("");
 
         // Character's Defense
         oss << mCurCharacter->GetAttr(Character::DEF);
         mCharDef.ChangeText( oss.str() );
+        oss.str("");
 
         mCharacterView = true;
 
+    }
+    else
+    {
+        mCharName.ChangeText("NULL");
+        mCharacterView = true;
     }
 
 }

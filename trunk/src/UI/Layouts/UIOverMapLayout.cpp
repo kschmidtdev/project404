@@ -39,6 +39,7 @@ UIOverMapLayout::UIOverMapLayout()
     mName = "OverMap";
 
     mOverMap = new UIOverMap();
+    mOverMap->SetPos( Point(10,10) );
     mElements.push_back( mOverMap );
 
     mMenu = new UIMenu();
