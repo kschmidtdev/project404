@@ -79,6 +79,11 @@ public:
 	 */
     virtual void RenderSelf(SDL_Surface* destination);
 
+    /**
+     * Ensures proper level/map progression
+     */
+     void SetMapProgression(int newLevel);
+
 // ACCESS (writing)
 
     /**
@@ -96,6 +101,10 @@ protected:
     MapTileVec mMapTiles;
     UIOverMapCursor mCursor;
     UIOverMapTile *mDefaultTile;
+
+    // Level Progression info
+    int mCurrentLevelProgression;
+
 
 private:
 // PRIVATE VARIABLES

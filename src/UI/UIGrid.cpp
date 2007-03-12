@@ -23,6 +23,8 @@
  * Mike Malyuk,    March 9 2007       | Finally implemented starting version of Map. Grid now drawn from Map.
  * Karl Schmidt, March 9 2007	 	  | Changed textures to png, re-arranged render order, took out magic offset number
  * Mike Malyuk,  March 10 2007        | Changed implementations to remove Level move info and insert Map move info
+ * Andrew Osborne, March 11 2007      | Added CharWindow functionality to respond to cursor movement - added CursorUpdate method
+ *                                    | & setCharWindow
  */
 
 #include <util.h>
@@ -40,7 +42,8 @@
 //============================= LIFECYCLE ====================================
 
 UIGrid::UIGrid()
-: mNumRows( 10 ), mNumColumns( 10 ), mCursorPos( Point(0,0) ), mTileStart( Point(10,10) ), mTileOffset( 0 ), mMap(Map())
+: mNumRows( 10 ), mNumColumns( 10 ), mCursorPos( Point(0,0) ), mTileStart( Point(10,10) ), mTileOffset( 0 ),
+mCharWindow( NULL )
 {
     // Add all elements
     SDL_Surface *sample = ResourceManager::GetInstance()->LoadTexture("defaultTile.png");
@@ -139,8 +142,9 @@ void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
             if (mCursorPos.GetY()>0)
             {
                 mCursorPos = mCursorPos + Point(0,-1);
-                newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
-                mCursor->SetPos( newPos );
+                UpdateCursor();
+                //newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
+                //mCursor->SetPos( newPos );
             }
             //cursor->moveUp()
             break;
@@ -148,8 +152,9 @@ void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
             if (mCursorPos.GetY()<mMaxCursorPos.GetY())
             {
                 mCursorPos = mCursorPos + Point(0,1);
-                newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
-                mCursor->SetPos( newPos );
+                UpdateCursor();
+                //newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
+                //mCursor->SetPos( newPos );
             }
             break;
         case InputManager::LEFT:
@@ -157,8 +162,9 @@ void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
             if (mCursorPos.GetX()>0)
             {
                 mCursorPos = mCursorPos + Point(-1,0);
-                newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
-                mCursor->SetPos( newPos );
+                UpdateCursor();
+                //newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
+                //mCursor->SetPos( newPos );
             }
             //cursor->moveUp()
             break;
@@ -166,8 +172,9 @@ void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
             if (mCursorPos.GetX()<mMaxCursorPos.GetX())
             {
                 mCursorPos = mCursorPos + Point(1,0);
-                newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
-                mCursor->SetPos( newPos );
+                UpdateCursor();
+                //newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
+                //mCursor->SetPos( newPos );
             }
             break;
         case InputManager::CONFIRM:
@@ -672,6 +679,11 @@ void UIGrid::SetLevel( Level* level )
     mLevel = level;
 }
 
+void UIGrid::SetCharWindow( UICharWindow* charWindow)
+{
+    mCharWindow = charWindow;
+}
+
 //============================= INQUIRY    ===================================
 
 bool UIGrid::ValidPoint( const Point & p )
@@ -707,6 +719,57 @@ Map UIGrid::GetMap()
 {
     return mMap;
 }
+
+void UIGrid::UpdateCursor(void)
+{
+    // This function assumes no cursor offset (needs to be mCursorOffset for it to work properly)
+    Point mCursorOffset(0,0);
+
+    if (ValidPoint(mCursorPos))
+    {
+
+        // Update cursor position
+        mCursor->SetPos( mTiles[ FindIndex(mCursorPos) ].GetPos() + mCursorOffset);
+
+        // Find whether current point has character
+        vector<Character*> everyoneVector = mLevel->GetEveryone();
+        vector<Character*>::iterator iter = everyoneVector.begin();
+        Character *tempChar = NULL;
+
+        while ( (iter != everyoneVector.end()) && (tempChar==NULL) )
+        {
+
+             if((*iter)->GetPoint() == mCursorPos)
+             {
+                   tempChar = (*iter);
+             }
+            iter++;
+
+        }
+
+        // Put that character on display
+        if (mCharWindow)
+        {
+            if (tempChar!=NULL)
+            {
+                mCharWindow->SetCharacter(tempChar);
+            }
+            else
+            {
+                mCharWindow->ClearCharacter();
+            }
+        }
+    }
+    else
+    {
+        // Something is seriously wrong....the cursor has gone off the screen
+    }
+
+
+}
+
+
+
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 
@@ -820,6 +883,7 @@ SDL_Surface* UIGrid::GetClassSurface(Character* c, const string group)
     }
 
 }
+
 
 PointVec UIGrid::RefineMoveRange( PointVec moveRange )
 {

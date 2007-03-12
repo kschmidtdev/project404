@@ -17,21 +17,30 @@
 UIOverMap::UIOverMap()
 : mDefaultTile( NULL )
 {
+
+    // Simulate input from cities
+    // blah, blah, blah
+
     // Create Tile elements
-    mMapTiles.push_back( UIOverMapTile(20,230) );
-    mMapTiles.push_back( UIOverMapTile(170,130) );
-    mMapTiles.push_back( UIOverMapTile(250,30) );
+    mMapTiles.push_back( UIOverMapTile(20,400) );
+    mMapTiles.push_back( UIOverMapTile(130,350) );
+    mMapTiles.push_back( UIOverMapTile(180,270) );
+    mMapTiles.push_back( UIOverMapTile(250,170) );
+    mMapTiles.push_back( UIOverMapTile(390,70) );
 
-    mMapTiles[0].SetRight( &mMapTiles[1] );
-    mMapTiles[1].SetLeft( &mMapTiles[0] );
-    mMapTiles[1].SetRight( &mMapTiles[2] );
-    mMapTiles[1].SetUp( &mMapTiles[2] );
-    mMapTiles[2].SetLeft( &mMapTiles[1] );
-    mMapTiles[2].SetDown( &mMapTiles[1] );
+    UIOverMapTile* dummy = NULL;
 
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("castle_title.png");
+    mMapTiles[0].SetNextPrev( NULL , &mMapTiles[1]);
+    mMapTiles[1].SetNextPrev( &mMapTiles[0], &mMapTiles[2]);
+    mMapTiles[2].SetNextPrev( &mMapTiles[1], &mMapTiles[3]);
+    mMapTiles[3].SetNextPrev( &mMapTiles[2], &mMapTiles[4]);
+    mMapTiles[4].SetNextPrev( &mMapTiles[3], dummy );
 
-    mPos.Set(30, 30);
+
+
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("castle_main.png");
+
+    //mPos.Set(30, 30);
     SetPos(mPos);
 
     mCursor.SetCurTile( &mMapTiles[0] );
@@ -132,6 +141,13 @@ void UIOverMap::RenderSelf(SDL_Surface* destination)
 
 }
 
+void UIOverMap::SetMapProgression(int newLevel)
+{
+    //if (newLevel>mCurrentLevelProgression)
+        //for (int i=mCurrentLevelProgression; i<=newLevel; i++)
+
+
+}
 
 //============================= ACCESS     ===================================
 

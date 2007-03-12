@@ -115,9 +115,10 @@ void UIBattleScreenLayout::Initialize()
     mElements.push_back( mGrid );
 
     // Character Window
-    UIElement *charWindow = new UICharWindow();
-    charWindow->SetPos(420, 10);
+    UICharWindow *charWindow = new UICharWindow();
+    charWindow->SetPos( Point(420, 10) );
     mElements.push_back( charWindow );
+    mGrid->SetCharWindow( charWindow );
 
 }
 
@@ -184,6 +185,9 @@ void UIBattleScreenLayout::OnLoad( void )
     // Load in map textures
 
     // Load in character textures
+
+    // UpdateCursor
+    mGrid->UpdateCursor();
 
 }
 
