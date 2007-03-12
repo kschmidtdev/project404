@@ -337,7 +337,7 @@ void UIGrid::ConfirmFunction( const Point & p )
                 RemoveCharacter(p);
                 mLevel->PointHasPerson(p)->Move(Point(-5,-5));
             }
-
+            UpdateCursor();
             if(mCurCharacter->IsDead())
             {
                 RemoveCharacter(mCurCharacter->GetPoint());
