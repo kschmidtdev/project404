@@ -25,6 +25,7 @@
  * Mike Malyuk,  March 10 2007        | Changed implementations to remove Level move info and insert Map move info
  * Andrew Osborne, March 11 2007      | Added CharWindow functionality to respond to cursor movement - added CursorUpdate method
  *                                    | & setCharWindow
+ * Karl Schmidt,	March 11 2007	  | Added a hacky fix to a rare crash bug. (see a big comment block at around line 364
  */
 
 #include <util.h>
@@ -362,6 +363,12 @@ void UIGrid::ConfirmFunction( const Point & p )
             //Check for EndGame
             if (mLevel->GetWinCondition())
             {
+                // The following line is a fix for a horrible hack where
+                // if you take your last turn killing the enemy, the game will still attempt
+                // to do an AI turn and thus will ask the level for the current state, which will crash
+                // because level has been turfed. Not sure exactly what is wrong, but by doing this it thinks
+                // the next turn is the player's, and it fixes the problem.
+                mLevel->TakeTurn();
                 UIManager::GetInstance()->PushLayout("Win");
             }
 
