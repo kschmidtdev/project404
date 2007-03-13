@@ -23,6 +23,7 @@
 #include <UIOverMap.h>
 #include <UILayout.h>
 #include <UIMenu.h>
+#include <UIScrollText.h>
 
 // LOCAL INCLUDES
 //
@@ -71,6 +72,11 @@ public:
      */
     virtual void OnLoad( void );
 
+    /**
+     * Listens for Key Press from User
+    */
+    virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
+
 // ACCESS (writing)
 // INQUIRY (reading)
 
@@ -78,6 +84,10 @@ protected:
 // PROTECTED VARIABLES
     UIOverMap* mOverMap;
     UIMenu* mMenu;
+    UIScrollText* mScrollBox;
+    bool mScrollBoxEnabled;
+
+
 
 private:
 // PRIVATE VARIABLES
