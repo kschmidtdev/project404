@@ -6,6 +6,7 @@
  * Authors:
  * Andrew Osborne, February 15 2007 | Initial Creation
  * Karl Schmidt, March 9 2007	 	| Changed textures to png
+ * Karl Schmidt, March 12 2007		| Cleaned up ProcessEvent so it goes to the Overmap correctly
  */
 
 #include <util.h>
@@ -57,15 +58,9 @@ void UILoseLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
     if (evt==InputManager::CONFIRM)
     {
-
-
         UIManager *uim = UIManager::GetInstance();
-        // Pop the battle layout and this win layout
-        //uim->PopLayout();
-        //uim->PopLayout();
         uim->PopAllLayouts();  // automatcially adds titlescreen
-        uim->PushLayout("MainMenu");
-        //uim->PushLayout("OverMap");
+        uim->PushLayout("OverMap");
 
         GameEngine::GetInstance()->BattleOver();
     }

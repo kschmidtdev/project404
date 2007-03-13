@@ -163,6 +163,10 @@ void GameRoot::GameLoop()
         if( !done )
         {
             done = mUIManager->GetEndGameState();
+            if( done )
+            {
+                printf("done!");
+            }
         }
     }
     LogInfo( "The game has ended." );

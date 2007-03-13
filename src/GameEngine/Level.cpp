@@ -21,6 +21,8 @@
  * Karl Schmidt, February 15 2007 | Fixed slight memory leak
  * Karl Schmidt, March 04 2007    | Fixed another slight memory leak
  * Mike Malyuk, March 10 2007     | Removed move methods now in Map, cleared things out to work with new method
+ * Karl Schmidt, March 12 2007	  | Turfed default constructor body since it's not really used anymore, and
+ 									is used in one area temporarily so it's causing memory leaks
  */
 
 #include <util.h>
@@ -42,78 +44,6 @@
 Level::Level()
 : mState( FREE ), mMyTurn( true )
 {
-    // Useful point variables
-    Point tempPoint(0,0);
-    int xStart=0;
-    int yBadStart=9;
-    int yGoodStart=0;
-
-    // Load party (player - good guys)
-    //----------------------------------------------------------
-    Character* tempChar;
-    //std:vector<Character*> tempParty;
-
-    // Archer
-    tempChar = new Archer();
-    tempPoint.Set(xStart, yGoodStart);
-    tempChar->Move( tempPoint );
-    mParty.push_back(tempChar);
-    xStart++;
-
-    // Knight
-    tempChar = new Knight();
-    tempPoint.Set(xStart, yGoodStart);
-    tempChar->Move( tempPoint );
-    mParty.push_back(tempChar);
-    xStart++;
-
-    // Healer
-    tempChar = new Healer();
-    tempPoint.Set(xStart, yGoodStart);
-    tempChar->Move( tempPoint );
-    mParty.push_back(tempChar);
-    xStart++;
-
-    // Mage
-    tempChar = new Mage();
-    tempPoint.Set(xStart, yGoodStart);
-    tempChar->Move( tempPoint );
-    mParty.push_back(tempChar);
-
-    xStart = 0;
-
-    // Create bad guys
-    // ---------------------------------------------------
-    //std:vector<Character*> tempBadGuys;
-
-    // Archer
-    tempChar = new Archer();
-    tempPoint.Set(xStart, yBadStart);
-    tempChar->Move( tempPoint );
-    mEnemies.push_back(tempChar);
-    xStart++;
-
-    // Knight
-    tempChar = new Knight();
-    tempPoint.Set(xStart, yBadStart);
-    tempChar->Move( tempPoint );
-    mEnemies.push_back(tempChar);
-    xStart++;
-
-    // Healer
-    tempChar = new Healer();
-    tempPoint.Set(xStart, yBadStart);
-    tempChar->Move( tempPoint );
-    mEnemies.push_back(tempChar);
-    xStart++;
-
-    // Mage
-    tempChar = new Mage();
-    tempPoint.Set(xStart, yBadStart);
-    tempChar->Move( tempPoint );
-    mEnemies.push_back(tempChar);
-
-
 }// Level
 
 Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point> start)

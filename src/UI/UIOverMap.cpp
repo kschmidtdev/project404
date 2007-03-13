@@ -7,6 +7,7 @@
  * Andrew Osborne, March 4, 2007 | Initial Creation
  * Karl Schmidt, March 9 2007	 | Changed textures to png
  * Andrew Osborne, March 12, 2007 | Added "UpdateMap"
+ * Karl Schmidt, March 12 2007	 | Added battle initialization to starting a new level
  */
 #include "UIOverMap.h"                                // class implemented
 #include "UIManager.h"
@@ -105,8 +106,15 @@ void UIOverMap::ProcessEvent( const InputManager::INPUTKEYS evt )
             }
             break;
         case InputManager::CONFIRM:
+        {
             // Temporary until true functionality is added
+
+            // Temporarily hardcoding this initialization (until the UI has the overmap that does this)
+            vector<Character*> partyTemp;
+            GameEngine::GetInstance()->BattleInit( partyTemp, GameEngine::CITYA, UIManager::GetInstance()->GetLayout("BattleScreen")->GetGrid()->GetMap() );
+
             UIManager::GetInstance()->PushLayout("BattleScreen");
+        }
             break;
         default:
             // Do nothing
