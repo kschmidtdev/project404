@@ -7,8 +7,9 @@
  * Karl Schmidt, February 15 2007 | Implemented DeleteUser and ChangeUserPassword
  * Karl Schmidt, February 15 2007 | Added functionality for loading/saving/verifying users and passwords
  * Karl Schmidt, February 13 2007 | Initial creation of header (stubbed)
- * Karl Schmidt, March 11 2007	   | Added file encryption/decryption routines
+ * Karl Schmidt, March 11 2007	  | Added file encryption/decryption routines
  * Karl Schmidt, March 12 2007    | Added DecryptFileToString
+ * Karl Schmidt, March 13 2007	  | Added more error checking so it passes unit tests, doesn't infinite loop upon bad input (WHOOPS)
  */
 
 #include <util.h>
@@ -199,6 +200,17 @@ string SecurityManager::EncryptFile( const string fileNameToEncrypt, const strin
     tacAssert( fileNameToEncrypt != "" );
     tacAssert( hash != "" );
 
+    if( hash.empty() )
+    {
+        LogError("Cannot encrypt a file with a blank hash");
+        return "";
+    }
+    if( fileNameToEncrypt.empty() )
+    {
+        LogError("Cannot encrypt a file that has a blank fileName");
+        return "";
+    }
+
     // If an outOutFileName was not specified or is blank, then make the output
     // file result in the same file we are reading from
     string resultOutFileName("");
@@ -310,6 +322,17 @@ string SecurityManager::DecryptFile( const string fileNameToDecrypt, const strin
     // Make sure we're not trying to open clearly invalid files
     tacAssert( fileNameToDecrypt != "" );
     tacAssert( hash != "" );
+
+    if( hash.empty() )
+    {
+        LogError("Cannot decrypt a file with a blank hash");
+        return "";
+    }
+    if( fileNameToDecrypt.empty() )
+    {
+        LogError("Cannot decrypt a file that has a blank fileName");
+        return "";
+    }
 
     // If an outOutFileName was not specified or is blank, then make the output
     // file result in the same file we are reading from
@@ -436,6 +459,17 @@ string SecurityManager::DecryptFileToString( const string fileNameToDecrypt, con
     // Make sure we're not trying to open clearly invalid files
     tacAssert( fileNameToDecrypt != "" );
     tacAssert( hash != "" );
+
+    if( hash.empty() )
+    {
+        LogError("Cannot decrypt a file with a blank hash");
+        return "";
+    }
+    if( fileNameToDecrypt.empty() )
+    {
+        LogError("Cannot decrypt a file that has a blank fileName");
+        return "";
+    }
 
     // Our buffer that will hold the entire file's contents for decrypting
     char* buffer = NULL;
