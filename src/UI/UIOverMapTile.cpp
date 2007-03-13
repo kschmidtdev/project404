@@ -153,14 +153,14 @@ Point UIOverMapTile::GetMapOffset(void)
 
 void UIOverMapTile::EnableNextMove(void)
 {
-    SetLeft(mNextTile);
+    SetRight(mNextTile);
     SetUp(mNextTile);
 }
 
 
 void UIOverMapTile::EnablePrevMove(void)
 {
-    SetRight(mPrevTile);
+    SetLeft(mPrevTile);
     SetDown(mPrevTile);
 }
 

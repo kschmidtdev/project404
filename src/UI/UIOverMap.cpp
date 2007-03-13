@@ -31,13 +31,14 @@ UIOverMap::UIOverMap()
     mMapTiles.push_back( UIOverMapTile(250,170) );
     mMapTiles.push_back( UIOverMapTile(390,70) );
 
-    mMapTiles[0].SetNextPrev( NULL , &mMapTiles[1]);
-    mMapTiles[1].SetNextPrev( &mMapTiles[0], &mMapTiles[2]);
-    mMapTiles[2].SetNextPrev( &mMapTiles[1], &mMapTiles[3]);
-    mMapTiles[3].SetNextPrev( &mMapTiles[2], &mMapTiles[4]);
-    mMapTiles[4].SetNextPrev( &mMapTiles[3], NULL );
+    mMapTiles[0].SetNextPrev( &mMapTiles[1] , NULL);
+    mMapTiles[1].SetNextPrev( &mMapTiles[2], &mMapTiles[0]);
+    mMapTiles[2].SetNextPrev( &mMapTiles[3], &mMapTiles[1]);
+    mMapTiles[3].SetNextPrev( &mMapTiles[4], &mMapTiles[2]);
+    mMapTiles[4].SetNextPrev( NULL, &mMapTiles[3]);
 
-
+    // Some Debug
+    mMapTiles[0].LevelDefeated();
 
     mElementImage = ResourceManager::GetInstance()->LoadTexture("castle_main.png");
 

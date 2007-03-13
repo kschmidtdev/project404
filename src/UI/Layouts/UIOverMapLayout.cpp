@@ -70,7 +70,7 @@ UIOverMapLayout::UIOverMapLayout()
     mElements.push_back( mScrollBox );
 
 
-    // *** Don't forget to fix SetPos on Scroll Text
+
 
 
     mDefaultEventListener = mOverMap;
