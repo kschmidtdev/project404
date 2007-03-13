@@ -13,6 +13,7 @@
  * Authors:
  * Karl Schmidt, February 13 2007 | Added StopAllPlayback
  * Karl Schmidt, February 10 2007 | Initial creation of the class
+ * Karl Schmidt, March 13 2007    | Added support for sound subsystem disabling
  */
 
 #ifndef SoundManager_h
@@ -50,9 +51,9 @@ public:
     /**
     * Initializes SDL_Mixer,
     * prepares system for loading
-    * and playing back of audio
+    * and playing back of audio, will disable the sound manager if isEnabled is false
     */
-    void Initialize();
+    void Initialize( const bool isEnabled = true );
 
     /**
     * Shuts the sound manager down,
@@ -85,6 +86,11 @@ public:
 // ACCESS (writing)
 // INQUIRY (reading)
 
+    /**
+     * Returns true if sound is enabled
+	 */
+    bool GetIsEnabled() { return mIsEnabled; };
+
 protected:
 // PROTECTED METHODS
 
@@ -96,6 +102,8 @@ protected:
 // PROTECTED VARIABLES
 
     static SoundManager* _instance;
+
+    bool mIsEnabled;
 
 private:
 // PRIVATE VARIABLES

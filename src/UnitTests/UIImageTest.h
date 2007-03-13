@@ -5,6 +5,7 @@
 
 #include <UIImage.h>
 #include <UIUnitTestHelp.h>
+#include <Logger.h>
 
 //
 // A generated test suite: Just write tests!
