@@ -9,6 +9,7 @@
  *
  * Authors:
  * Andrew Osborne, March 4, 2007, Initial Creation
+ * Andrew Osborne, March 12, 2007, Added OnLoad to allow for OverMap updating.
  */
 
 #ifndef UIOverMapLayout_h
@@ -65,6 +66,10 @@ public:
 
 // OPERATIONS
 
+    /**
+     * Override OnLoad to allow for map updates
+     */
+    virtual void OnLoad( void );
 
 // ACCESS (writing)
 // INQUIRY (reading)

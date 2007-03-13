@@ -16,6 +16,7 @@
  * Karl Schmidt,   February 15 2007 | Added change focus to grid when you press end turn
  * Mike Malyuk,    March 4 2007     | Changed method QuitFuntion to QuitFunction
  * Karl Schmidt, March 9 2007	 	| Changed textures to png
+ * Andrew Osborne, March 12 2007    | Added Chuck-Norris and "Easy Win" option to Battle Layout for debug purposes
  */
 
 
@@ -28,6 +29,7 @@
 #include "GameEngine/GameEngine.h"
 #include "UIManager.h"
 #include "UICharWindow.h"
+#include "GameEngine/Knight.h"
 
 // Defining Function Objects for Button Operations
 
@@ -79,6 +81,56 @@ class EndTurnFunction : public FuncObj
 };
 
 
+class EasyWinFunction : public FuncObj
+{
+
+public:
+    //EasyWinFunction(UIGrid *g)
+    EasyWinFunction(void)
+    //: mGrid( NULL )
+    {
+        //mGrid = g;
+    }
+
+    virtual void operator()(void)
+    {
+        //UIManager::GetInstance()->SetEndGameState( true );
+        //Level* mLevel = NULL;
+        //if (mGrid)
+        Level* mLevel = GameEngine::GetInstance()->GetLevel();
+
+        if (mLevel)
+        {
+            // Chuck Norris don't need no armour....  or weapons....
+            Character* ChuckNorris = new Knight("ChuckNorris", 0, NULL, NULL);
+            for (int i=0; i<30; i++)
+                ChuckNorris->LevelUp();
+
+
+
+            vector<Character*> enemies = mLevel->GetEnemies();
+            vector<Character*>::iterator iter;
+
+            for (iter = enemies.begin(); iter!=enemies.end(); ++iter)
+            {
+                cout << "The chief export of Chuck Norris is pain."
+                ChuckNorris->Attack((*iter));
+
+            }
+            if (mLevel->GetWinCondition())
+                UIManager::GetInstance()->PushLayout("Win");
+
+        }
+
+    }
+
+    protected:
+    //UIGrid *mGrid;
+};
+
+
+
+
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
@@ -96,6 +148,25 @@ UIBattleScreenLayout::~UIBattleScreenLayout()
 
 void UIBattleScreenLayout::Initialize()
 {
+
+
+    // Add Grid
+    // --------------------------------
+    mGrid = new UIGrid();
+    mDefaultEventListener = mGrid;
+    //mGrid->setParent(this);
+    mElements.push_back( mGrid );
+
+
+
+    // Add Character Window
+    // -----------------------------------
+    UICharWindow *charWindow = new UICharWindow();
+    charWindow->SetPos( Point(420, 10) );
+    mElements.push_back( charWindow );
+    mGrid->SetCharWindow( charWindow );
+
+
     // Add Menu
     // -----------------------------------
     mMenu = new UIMenu();
@@ -104,21 +175,11 @@ void UIBattleScreenLayout::Initialize()
     //mMenu->AddButton("Status", new StatusFunction() );
     mMenu->AddButton("End Turn", new EndTurnFunction() );
     mMenu->AddButton("Quit", new QuitFunction() );
+    mMenu->AddButton("Easy Win", new EasyWinFunction() );
 
     mElements.push_back( mMenu );
 
-    //UIElement *tempButton;
 
-    mGrid = new UIGrid();
-    mDefaultEventListener = mGrid;
-    //mGrid->setParent(this);
-    mElements.push_back( mGrid );
-
-    // Character Window
-    UICharWindow *charWindow = new UICharWindow();
-    charWindow->SetPos( Point(420, 10) );
-    mElements.push_back( charWindow );
-    mGrid->SetCharWindow( charWindow );
 
 }
 

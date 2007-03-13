@@ -156,6 +156,8 @@ protected:
 
     Point mMapOffset;
 
+    bool mDefeated;
+
     //string mBattleImageFilename;
     //string mConqueredImageFilename;
     //SDL_Surface* mBattleImage;

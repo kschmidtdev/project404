@@ -6,16 +6,18 @@
  * Authors:
  * Andrew Osborne, March 4, 2007 | Initial Creation
  * Karl Schmidt, March 9 2007	 | Changed textures to png
+ * Andrew Osborne, March 12, 2007 | Added "UpdateMap"
  */
 #include "UIOverMap.h"                                // class implemented
 #include "UIManager.h"
+#include "GameEngine/GameEngine.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
 UIOverMap::UIOverMap()
-: mDefaultTile( NULL )
+: mDefaultTile( NULL ), mCurrentLevelProgression( 0 )
 {
 
     // Simulate input from cities
@@ -28,13 +30,11 @@ UIOverMap::UIOverMap()
     mMapTiles.push_back( UIOverMapTile(250,170) );
     mMapTiles.push_back( UIOverMapTile(390,70) );
 
-    UIOverMapTile* dummy = NULL;
-
     mMapTiles[0].SetNextPrev( NULL , &mMapTiles[1]);
     mMapTiles[1].SetNextPrev( &mMapTiles[0], &mMapTiles[2]);
     mMapTiles[2].SetNextPrev( &mMapTiles[1], &mMapTiles[3]);
     mMapTiles[3].SetNextPrev( &mMapTiles[2], &mMapTiles[4]);
-    mMapTiles[4].SetNextPrev( &mMapTiles[3], dummy );
+    mMapTiles[4].SetNextPrev( &mMapTiles[3], NULL );
 
 
 
@@ -135,19 +135,43 @@ void UIOverMap::RenderSelf(SDL_Surface* destination)
 
         // Draw cursor on top
         mCursor.RenderSelf(destination);
+
     }
 
 
 
 }
 
-void UIOverMap::SetMapProgression(int newLevel)
+void UIOverMap::UpdateMap(void)
 {
-    //if (newLevel>mCurrentLevelProgression)
-        //for (int i=mCurrentLevelProgression; i<=newLevel; i++)
+
+    int iterLevel = 1;
+    int progressionLevel = 0;
+    vector<Level*> allLevels = GameEngine::GetInstance()->GetLevels();
+    vector<Level*>::iterator iter;
+
+    for (iter = allLevels.begin(); iter != allLevels.end(); ++iter)
+    {
+        /*if ( (*iter)->GetWinCondition() )
+        {
+            progressionLevel = iterLevel;
+        }*/
+        iterLevel++;
+    }
+
+    // At the result the progressionLevel will be the "largest" level that has been defeated.
+
+    // Advance to That level
+    int progressionIndex = progressionLevel - 1;
+
+    for (int i=0; i<=progressionIndex; i++)
+    {
+        mMapTiles[i].LevelDefeated();
+    }
 
 
 }
+
 
 //============================= ACCESS     ===================================
 

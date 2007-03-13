@@ -88,6 +88,12 @@ GameEngine::GameEngine()
   mCurTile( NULL ),
   mCurChar( NULL )
 {
+    mLevels.push_back( new Level() );
+    mLevels.push_back( new Level() );
+    mLevels.push_back( new Level() );
+    mLevels.push_back( new Level() );
+    mLevels.push_back( new Level() );
+
 }// GameEngine
 
 
