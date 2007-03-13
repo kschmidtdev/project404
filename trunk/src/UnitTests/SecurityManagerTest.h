@@ -19,6 +19,10 @@ typedef UserMap::iterator UserMapItr;
 // A generated test suite: Just write tests!
 //
 
+const char* dbEncryptedFileName = "databaseUnitTestEncrypted.xml";
+const char* dbDecryptedFileName = "databaseUnitTestDecrypted.xml";
+
+
 class SecurityManagerTest : public CxxTest::TestSuite
 {
 private:
@@ -122,9 +126,6 @@ public:
 
     void testEncryptionDecryptionBasic()
     {
-        const char* dbEncryptedFileName = "databaseUnitTestEncrypted.xml";
-        const char* dbDecryptedFileName = "databaseUnitTestDecrypted.xml";
-
         string result = SecurityManager::GetInstance()->EncryptFile( "database.xml", "TESTHASH", dbEncryptedFileName );
         TS_ASSERT( result.size() != 0 );
         TS_ASSERT_SAME_DATA( result.c_str(), dbEncryptedFileName, result.size() );
@@ -136,9 +137,6 @@ public:
 
     void testEncryptionDecryptionOneElementLongHash()
     {
-        const char* dbEncryptedFileName = "databaseUnitTestEncrypted.xml";
-        const char* dbDecryptedFileName = "databaseUnitTestDecrypted.xml";
-
         string result = SecurityManager::GetInstance()->EncryptFile( "database.xml", "a", dbEncryptedFileName );
         TS_ASSERT( result.size() > 0 );
         TS_ASSERT_SAME_DATA( result.c_str(), dbEncryptedFileName, result.size() );
@@ -154,6 +152,30 @@ public:
         result = SecurityManager::GetInstance()->DecryptFile( dbEncryptedFileName, "b", dbDecryptedFileName );
         TS_ASSERT( result.size() > 0 );
         TS_ASSERT_SAME_DATA( result.c_str(), dbDecryptedFileName, result.size() );
+    }
+
+    void testEncryptionBlankHash()
+    {
+        string result = SecurityManager::GetInstance()->EncryptFile( "database.xml", "", dbEncryptedFileName );
+        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
+    }
+
+    void testDecryptionBlankHash()
+    {
+        string result = SecurityManager::GetInstance()->DecryptFile( "database.xml", "", dbDecryptedFileName );
+        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
+    }
+
+    void testEncryptionBlankFileName()
+    {
+        string result = SecurityManager::GetInstance()->EncryptFile( "", "TEST_HASH", dbEncryptedFileName );
+        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
+    }
+
+    void testDecryptionBlankFileName()
+    {
+        string result = SecurityManager::GetInstance()->DecryptFile( "", "TEST_HASH", dbDecryptedFileName );
+        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
     }
 
     void testDecryptionToAString()
@@ -174,6 +196,18 @@ public:
         string resultString = SecurityManager::GetInstance()->DecryptFileToString( fileName, hashToUse );
         TS_ASSERT( resultString.size() > 0 );
         TS_ASSERT_SAME_DATA( resultString.c_str(), fileContents.c_str(), resultString.size() );
+    }
+
+    void testDecryptionToAStringBlankHash()
+    {
+        string result = SecurityManager::GetInstance()->DecryptFileToString( "database.xml", "" );
+        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
+    }
+
+    void testDecryptionToAStringBlankFileName()
+    {
+        string result = SecurityManager::GetInstance()->DecryptFileToString( "", "TEST_HASH" );
+        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
     }
 
 };
