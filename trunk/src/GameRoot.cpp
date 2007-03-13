@@ -10,6 +10,7 @@
  * Karl Schmidt, February 13 2007 | Added config file parsing, some hardcoded value cleanup, enabled all managers
  * Karl Schmidt, February 11 2007 | Added background music implementation
  * Karl Schmidt, February 11 2007 | Initial creation of implementation
+ * Karl Schmidt, March 13 2007    | Added sound system disabling, mainly for unit tests
  */
 #include "GameRoot.h"                                // class implemented
 
@@ -46,6 +47,7 @@ GameRoot::GameRoot()
     mSettings["width"] = 640;
     mSettings["height"] = 480;
     mSettings["depth"] = 32;
+    mSettings["soundEnabled"] = 1;
 
 }// GameRoot
 
@@ -53,7 +55,7 @@ GameRoot::~GameRoot()
 {
 }// ~GameRoot
 
-void GameRoot::Initialize()
+void GameRoot::Initialize( const bool soundEnabled )
 {
     Logger* logger = Logger::GetInstance( logFileName );
     logger->Initialize();
@@ -69,8 +71,12 @@ void GameRoot::Initialize()
     mInput = InputManager::GetInstance();
     mInput->Initialize();
 
+    if( !soundEnabled )
+    {
+        mSettings["soundEnabled"] = 0;
+    }
     mSoundManager = SoundManager::GetInstance();
-    mSoundManager->Initialize();
+    mSoundManager->Initialize( static_cast<bool>( mSettings["soundEnabled"] ) );
 
     mSecurityManager = SecurityManager::GetInstance();
     mSecurityManager->Initialize();
@@ -163,10 +169,6 @@ void GameRoot::GameLoop()
         if( !done )
         {
             done = mUIManager->GetEndGameState();
-            if( done )
-            {
-                printf("done!");
-            }
         }
     }
     LogInfo( "The game has ended." );

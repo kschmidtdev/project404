@@ -12,7 +12,8 @@
  * Authors:
  * Karl Schmidt, February 13 2007 | Added config file support
  * Karl Schmidt, February 11 2007 | Made all the members pointers
- * Karl Schmidt, February 07 2007, Initial creation of header
+ * Karl Schmidt, February 07 2007 | Initial creation of header
+ * Karl Schmidt, March 13 2007	  | Added parameter to Initialize for disabling the sound system
  */
 
 #ifndef GameRoot_h
@@ -63,9 +64,10 @@ public:
     /**
     * Goes through and initializes
     * variables and objects, must be called
-    * before calling GameLoop()
+    * before calling GameLoop(), pass in a different value for soundEnabled
+    * to disable sound
     */
-    void Initialize();
+    void Initialize( const bool soundEnabled = true );
 
     /**
     * Goes through and shuts down

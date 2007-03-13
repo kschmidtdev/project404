@@ -72,7 +72,7 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
         return;
     }
 
-    SDL_WM_SetCaption( "SymTac Alpha 1", NULL );
+    SDL_WM_SetCaption( "SymTac Alpha 2", NULL );
 
     LogInfo( string("Set video mode: ") + toString(xRes) + string(" ") + toString(yRes) );
     LogInfo( "The SDLRenderer has been initialized successfully." );

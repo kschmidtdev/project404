@@ -8,6 +8,7 @@
  * Karl Schmidt, February 11 2007 | Added calls to stop playing music before shutting down
  * Karl Schmidt, February 11 2007 | Correctly cleared the singleton instance in Shutdown()
  * Karl Schmidt, February 10 2007 | Initial creation of the class
+ * Karl Schmidt, March 13 2007    | Added support for sound subsystem disabling
  */
 
 #include <util.h>
@@ -37,33 +38,45 @@ SoundManager::~SoundManager()
     // stub
 }// ~SoundManager
 
-void SoundManager::Initialize()
+void SoundManager::Initialize( const bool isEnabled )
 {
-    LogInfo( "Beginning SoundManager initialization..." );
-    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1 )
+    mIsEnabled = isEnabled;
+    if( mIsEnabled )
     {
-        LogCritical( string("Mix_OpenAudio: ") + string(Mix_GetError()) );
-        tacAssert( false ); // this should never happen
-        return;
+        LogInfo( "Beginning SoundManager initialization..." );
+        if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1 )
+        {
+            LogCritical( string("Mix_OpenAudio: ") + string(Mix_GetError()) );
+            tacAssert( false ); // this should never happen
+            return;
+        }
+
+        // TODO: Make functions for this or something
+        Mix_AllocateChannels( 1 );
+        Mix_Volume( -1, MIX_MAX_VOLUME /2 );
+
+        LogInfo( "SoundManager initialized successfully." );
     }
-
-    // TODO: Make functions for this or something
-    Mix_AllocateChannels( 1 );
-    Mix_Volume( -1, MIX_MAX_VOLUME /2 );
-
-    LogInfo( "SoundManager initialized successfully." );
 }
 
 void SoundManager::Shutdown()
 {
-    LogInfo( "Beginning SoundManager shut down..." );
+    if( mIsEnabled )
+    {
+        LogInfo( "Beginning SoundManager shut down..." );
 
-    StopAllPlayback();
+        StopAllPlayback();
 
-    Mix_CloseAudio();
+        Mix_CloseAudio();
+    }
+
     delete _instance;
     _instance = NULL;
-    LogInfo( "SoundManager shut down successfully." );
+
+    if( mIsEnabled )
+    {
+        LogInfo( "SoundManager shut down successfully." );
+    }
 }
 
 //============================= OPERATORS ====================================
@@ -71,34 +84,43 @@ void SoundManager::Shutdown()
 
 void SoundManager::PlaySound( Mix_Chunk* toPlay, const bool looping )
 {
-    tacAssert( toPlay );
-    if( toPlay )
+    if( mIsEnabled )
     {
-        Mix_PlayChannel( -1, toPlay, looping ? -1 : 0 );
-    }
-    else
-    {
-        LogError( "Attempting to play invalid sound (NULL)" );
+        tacAssert( toPlay );
+        if( toPlay )
+        {
+            Mix_PlayChannel( -1, toPlay, looping ? -1 : 0 );
+        }
+        else
+        {
+            LogError( "Attempting to play invalid sound (NULL)" );
+        }
     }
 }
 
 void SoundManager::PlayMusic( Mix_Music* toPlay, const bool looping )
 {
-    tacAssert( toPlay );
-    if( toPlay )
+    if( mIsEnabled )
     {
-        Mix_PlayMusic( toPlay, looping ? -1 : 0 );
-    }
-    else
-    {
-        LogError( "Attempting to play invalid music (NULL)" );
+        tacAssert( toPlay );
+        if( toPlay )
+        {
+            Mix_PlayMusic( toPlay, looping ? -1 : 0 );
+        }
+        else
+        {
+            LogError( "Attempting to play invalid music (NULL)" );
+        }
     }
 }
 
 void SoundManager::StopAllPlayback()
 {
-    Mix_HaltChannel(-1);
-    Mix_HaltMusic();
+    if( mIsEnabled )
+    {
+        Mix_HaltChannel(-1);
+        Mix_HaltMusic();
+    }
 }
 
 //============================= ACCESS     ===================================
@@ -106,6 +128,7 @@ void SoundManager::StopAllPlayback()
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 SoundManager::SoundManager(void)
+: mIsEnabled( true )
 {
     // stub
 }
