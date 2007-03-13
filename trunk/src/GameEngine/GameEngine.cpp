@@ -8,6 +8,7 @@
  * Karl Schmidt, February 15 2007 | Added BattleInit placeholder func( loads one level )
  * Mike Malyuk,  February 15 2007 | Added AI
  * Mike Malyuk,  March 10, 2007   | Replaced point with map for BattleInit
+ * Karl Schmidt, March 12, 2007	  | Fixed a memory leak (deleting levels on Shutdown now)
  */
 
 #include <util.h>
@@ -37,6 +38,13 @@ GameEngine::~GameEngine()
 void GameEngine::Shutdown()
 {
     BattleOver();
+
+    for( LevelPtrItr i = mLevels.begin(); i != mLevels.end(); ++i )
+    {
+        delete *i;
+    }
+    mLevels.clear();
+
     if( _instance )
     {
         delete _instance;

@@ -137,6 +137,12 @@ public:
 
 	 void SetEndGameState( const bool gameShutdown ) { mGameShutdown = gameShutdown; };
 
+    /**
+     * Destructor.
+	 */
+    ~UIManager(void);
+
+
 protected:
 // PROTECTED VARIABLES
     static UIManager* _instance;
@@ -151,13 +157,6 @@ protected:
      * Default constructor.
 	 */
     UIManager(void);
-
-    /**
-     * Destructor.
-	 */
-    ~UIManager(void);
-
-
 
 private:
 // PRIVATE VARIABLES

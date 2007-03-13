@@ -12,6 +12,7 @@
  * Mike Malyuk,    March 4 2007     | Changed method QuitFuntion to QuitFunction
  * Karl Schmidt, March 9 2007	 	| Changed textures to png
  * Mike Malyuk, March 10, 2007      | Changed battleinit init to be compatible with map
+ * Karl Schmidt, March 12 2007		| Cleaned up the NewGameFunction because the OverMap does what it was doing now
  */
 
 #include <util.h>
@@ -30,11 +31,6 @@ class NewGameFunction : public FuncObj
 {
     virtual void operator()(void)
     {
-        // Temporarily hardcoding this initialization (until the UI has the overmap that does this)
-        vector<Character*> partyTemp;
-        GameEngine::GetInstance()->BattleInit( partyTemp, GameEngine::CITYA, UIManager::GetInstance()->GetLayout("BattleScreen")->GetGrid()->GetMap() );
-
-        //UIManager::GetInstance()->PushLayout("BattleScreen");
         UIManager::GetInstance()->PushLayout("OverMap");
     }
 };
@@ -55,7 +51,7 @@ class SetPasswordFunction : public FuncObj
     }
 };
 
-class QuitFunction : public FuncObj
+class MainMenuQuitFunction : public FuncObj
 {
     virtual void operator()(void)
     {
@@ -86,7 +82,7 @@ UIMainMenuLayout::UIMainMenuLayout()
     tempMenu->AddButton("New Game", new NewGameFunction() );
     tempMenu->AddButton("Load Game", new LoadGameFunction()  );
     tempMenu->AddButton("Set Password", new SetPasswordFunction() );
-    tempMenu->AddButton("Quit", new QuitFunction() );
+    tempMenu->AddButton("Quit", new MainMenuQuitFunction() );
 
     tempMenu->SetPos( Point(245,255) );
     mDefaultEventListener = tempMenu;

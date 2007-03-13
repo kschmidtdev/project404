@@ -15,8 +15,10 @@
  * Karl Schmidt,   February 15 2007 | Added initialize function, destroys everything between displaying (onload/onclose)
  * Karl Schmidt,   February 15 2007 | Added change focus to grid when you press end turn
  * Mike Malyuk,    March 4 2007     | Changed method QuitFuntion to QuitFunction
- * Karl Schmidt, March 9 2007	 	| Changed textures to png
+ * Karl Schmidt,   March 9 2007	 	| Changed textures to png
  * Andrew Osborne, March 12 2007    | Added Chuck-Norris and "Easy Win" option to Battle Layout for debug purposes
+ * Karl Schmidt,   March 12 2007 	| Made the QuitFunction quit to the Main Menu, also made the Easy win function
+ 									  act correctly and not leak memory
  */
 
 
@@ -33,11 +35,14 @@
 
 // Defining Function Objects for Button Operations
 
-class QuitFunction : public FuncObj
+class BattleScreenQuitFunction : public FuncObj
 {
     virtual void operator()(void)
     {
-        UIManager::GetInstance()->SetEndGameState( true );
+        UIManager::GetInstance()->PopAllLayouts();  // automatically adds titlescreen
+        UIManager::GetInstance()->PushLayout("MainMenu");
+
+        GameEngine::GetInstance()->BattleOver();
     }
 };
 
@@ -83,20 +88,8 @@ class EndTurnFunction : public FuncObj
 
 class EasyWinFunction : public FuncObj
 {
-
-public:
-    //EasyWinFunction(UIGrid *g)
-    EasyWinFunction(void)
-    //: mGrid( NULL )
-    {
-        //mGrid = g;
-    }
-
     virtual void operator()(void)
     {
-        //UIManager::GetInstance()->SetEndGameState( true );
-        //Level* mLevel = NULL;
-        //if (mGrid)
         Level* mLevel = GameEngine::GetInstance()->GetLevel();
 
         if (mLevel)
@@ -106,8 +99,6 @@ public:
             for (int i=0; i<30; i++)
                 ChuckNorris->LevelUp();
 
-
-
             vector<Character*> enemies = mLevel->GetEnemies();
             vector<Character*>::iterator iter;
 
@@ -115,17 +106,17 @@ public:
             {
                 cout << "The chief export of Chuck Norris is pain.";
                 ChuckNorris->Attack((*iter));
-
             }
-            if (mLevel->GetWinCondition())
-                UIManager::GetInstance()->PushLayout("Win");
 
+            if (mLevel->GetWinCondition())
+            {
+                UIManager::GetInstance()->PushLayout("Win");
+            }
+
+            delete ChuckNorris;
         }
 
     }
-
-    protected:
-    //UIGrid *mGrid;
 };
 
 
@@ -174,7 +165,7 @@ void UIBattleScreenLayout::Initialize()
 
     //mMenu->AddButton("Status", new StatusFunction() );
     mMenu->AddButton("End Turn", new EndTurnFunction() );
-    mMenu->AddButton("Quit", new QuitFunction() );
+    mMenu->AddButton("Quit", new BattleScreenQuitFunction() );
     mMenu->AddButton("Easy Win", new EasyWinFunction() );
 
     mElements.push_back( mMenu );
