@@ -61,10 +61,11 @@ void UILoseLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 
         UIManager *uim = UIManager::GetInstance();
         // Pop the battle layout and this win layout
-        uim->PopLayout();
-        uim->PopLayout();
-        //uim->PopAllLayouts();  // automatcially adds titlescreen
-        //uim->PushLayout("MainMenu");
+        //uim->PopLayout();
+        //uim->PopLayout();
+        uim->PopAllLayouts();  // automatcially adds titlescreen
+        uim->PushLayout("MainMenu");
+        //uim->PushLayout("OverMap");
 
         GameEngine::GetInstance()->BattleOver();
     }

@@ -113,7 +113,7 @@ public:
 
             for (iter = enemies.begin(); iter!=enemies.end(); ++iter)
             {
-                cout << "The chief export of Chuck Norris is pain."
+                cout << "The chief export of Chuck Norris is pain.";
                 ChuckNorris->Attack((*iter));
 
             }
