@@ -41,6 +41,9 @@
 //
 
 
+typedef vector<Level*> LevelPtrVec;
+typedef LevelPtrVec::iterator LevelPtrItr;
+
 class GameEngine
 {
 public:
@@ -139,6 +142,11 @@ enum Cities
      * Returns a pointer to the current battle in progress (if there is one)
 	 */
     Level* GetLevel() { return mCurLvl; };
+
+    /**
+     * Returns a vector of all the levels in the game
+	 */
+    LevelPtrVec GetLevels() { return mLevels; };
 
     AIControl* GetAI() {return mAI;}
 

@@ -17,7 +17,7 @@
 
 UIOverMapTile::UIOverMapTile()
 : mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
-mUpTile( NULL ), mDownTile( NULL )
+mUpTile( NULL ), mDownTile( NULL ), mDefeated( false )
 {
     // Default image for now, should change later
     mElementImage = ResourceManager::GetInstance()->LoadTexture("charTile.png");
@@ -25,7 +25,7 @@ mUpTile( NULL ), mDownTile( NULL )
 
 UIOverMapTile::UIOverMapTile(int x, int y)
 : mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
-mUpTile( NULL ), mDownTile( NULL )
+mUpTile( NULL ), mDownTile( NULL ), mDefeated( false )
 {
     // Default image for now, should change later
     mElementImage = ResourceManager::GetInstance()->LoadTexture("charTile.png");
@@ -35,7 +35,7 @@ mUpTile( NULL ), mDownTile( NULL )
 
 UIOverMapTile::UIOverMapTile(int x, int y, string fileName)
 : mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
-mUpTile( NULL ), mDownTile( NULL )
+mUpTile( NULL ), mDownTile( NULL ), mDefeated( false )
 {
     // Default image for now, should change later
     mElementImage = ResourceManager::GetInstance()->LoadTexture(fileName);
@@ -61,9 +61,25 @@ UIOverMapTile::~UIOverMapTile()
 
 void UIOverMapTile::LevelDefeated(void)
 {
-    EnableNextMove();
-    mNextTile->EnablePrevMove();
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("victory.png");
+    if (!mDefeated)
+    {
+
+        // Allow advancement if such advancement exists
+        if (mNextTile)
+        {
+            mNextTile->EnablePrevMove();
+            EnableNextMove();
+        }
+
+        // Change current picture to that of a "victory" flag
+        SDL_Surface* temp = ResourceManager::GetInstance()->LoadTexture("victory.png");
+        if (temp)
+            mElementImage = temp;
+
+        // Declare level defeated
+        mDefeated = true;
+
+    }
 }
 
 

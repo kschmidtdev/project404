@@ -11,6 +11,7 @@
  *
  * Authors:
  * Andrew Osborne, March 4, 2007, Initial Creation
+ * Andrew Osborne, March 12, 2007, Added Update Map
  */
 
 #ifndef UIOverMap_h
@@ -22,6 +23,7 @@
 // PROJECT INCLUDES
 //
 #include <UIElement.h>
+#include <UIText.h>
 #include <UIOverMapTile.h>
 #include <UIOverMapCursor.h>
 #include <EventListener.h>
@@ -72,6 +74,9 @@ public:
 
 // OPERATIONS
 
+    /**
+     * Listens for Key Press from User
+    */
     virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
 
     /**
@@ -82,7 +87,7 @@ public:
     /**
      * Ensures proper level/map progression
      */
-     void SetMapProgression(int newLevel);
+     void UpdateMap(void);
 
 // ACCESS (writing)
 
@@ -101,6 +106,7 @@ protected:
     MapTileVec mMapTiles;
     UIOverMapCursor mCursor;
     UIOverMapTile *mDefaultTile;
+
 
     // Level Progression info
     int mCurrentLevelProgression;
