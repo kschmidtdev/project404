@@ -14,7 +14,8 @@
  * Karl Schmidt, February 15 2007 | Implemented DeleteUser and ChangeUserPassword
  * Karl Schmidt, February 15 2007 | Added HashString function
  * Karl Schmidt, February 13 2007 | Initial creation of header
- * Karl Schmidt, March 11 2007	  | Added file encryption/decryption routines
+ * Karl Schmidt, March 11 2007	   | Added file encryption/decryption routines
+ * Karl Schmidt, March 12 2007    | Added DecryptFileToString
  */
 
 #ifndef SecurityManager_h
@@ -120,6 +121,13 @@ public:
     * It returns the filename of the file it ended up writing the decrypted version to.
     */
     string DecryptFile( const string fileNameToDecrypt, const string hash, const string outFileName = "" );
+
+    /**
+    * Decrypts the incoming file's contents (based on the filename) if it can
+    * access the file.
+    * It returns the contents of the file in a decrypted form.
+    */
+    string DecryptFileToString( const string fileNameToDecrypt, const string hash );
 
 // ACCESS (writing)
 // INQUIRY (reading)

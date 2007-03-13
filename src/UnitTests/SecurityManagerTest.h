@@ -12,8 +12,8 @@
 
 using namespace std;
 
-typedef pair< string, string > UserPair;
-typedef set< UserPair > UserSet;
+typedef map< string, string > UserMap;
+typedef UserMap::iterator UserMapItr;
 
 //
 // A generated test suite: Just write tests!
@@ -31,9 +31,7 @@ public:
     // Called before all unit tests in this suite, remove if not needed
     void setUp()
     {
-        srand( time(0) );
-
-        Logger::GetInstance( "unitTestLog.txt" );
+        Logger::GetInstance( "secManagerUnitTestLog.txt" );
         Logger::GetInstance()->Initialize();
 
         testPasswordFileName = "unitTestPasswordHash";
@@ -83,26 +81,43 @@ public:
         SecurityManager* secMgr = SecurityManager::GetInstance();
         TS_ASSERT( secMgr != NULL );
 
-        /*const int NUM_OF_TESTS = 1000;
-        constn int LEN_OF_USERNAME_MAX = 32;
+        srand( 7775 ); // Seeding by same value so we don't get a resultset that fails sometimes, and not others
 
-        UserSet users;
+        const int NUM_OF_TESTS = 1000;
+        const int LEN_OF_USERNAME_MAX = 32;
+
+        UserMap users;
         string userName("");
         string passWord("");
         for( int i = 0; i < NUM_OF_TESTS; ++i )
         {
+            // Get a random length for the username
             int len = (rand() % LEN_OF_USERNAME_MAX-1 ) + 1;
-            do
+            do // Keep generating names, if it already exists then make another and try again
             {
+                userName = "";
                 for( int j = 0; j < len; ++j )
                 {
-                    userName += static_cast<char>( (rand()%254) + 1 );
+                    userName += static_cast<char>( (rand()%255) );
                 }
             }
-            while( users
+            while( users.find( userName ) != users.end() );
+
+            // Get a random length for the password
+            len = (rand() % LEN_OF_USERNAME_MAX-1 ) + 1;
+            for( int j = 0; j < len; ++j )
+            {
+                userName += static_cast<char>( (rand()%255) );
+            }
 
             secMgr->AddUser( userName, passWord );
-        }*/
+        }
+
+        for( UserMapItr i = users.begin(); i != users.end(); ++i )
+        {
+            // Test that they all verify against what they were set to
+            TS_ASSERT( secMgr->VerifyPassword( i->first, i->second ) );
+        }
     }
 
     void testEncryptionDecryptionBasic()
@@ -125,20 +140,40 @@ public:
         const char* dbDecryptedFileName = "databaseUnitTestDecrypted.xml";
 
         string result = SecurityManager::GetInstance()->EncryptFile( "database.xml", "a", dbEncryptedFileName );
-        TS_ASSERT( result.size() != 0 );
+        TS_ASSERT( result.size() > 0 );
         TS_ASSERT_SAME_DATA( result.c_str(), dbEncryptedFileName, result.size() );
 
         result = SecurityManager::GetInstance()->DecryptFile( dbEncryptedFileName, "a", dbDecryptedFileName );
-        TS_ASSERT( result.size() != 0 );
+        TS_ASSERT( result.size() > 0 );
         TS_ASSERT_SAME_DATA( result.c_str(), dbDecryptedFileName, result.size() );
 
         result = SecurityManager::GetInstance()->EncryptFile( "database.xml", "b", dbEncryptedFileName );
-        TS_ASSERT( result.size() != 0 );
+        TS_ASSERT( result.size() > 0 );
         TS_ASSERT_SAME_DATA( result.c_str(), dbEncryptedFileName, result.size() );
 
         result = SecurityManager::GetInstance()->DecryptFile( dbEncryptedFileName, "b", dbDecryptedFileName );
-        TS_ASSERT( result.size() != 0 );
+        TS_ASSERT( result.size() > 0 );
         TS_ASSERT_SAME_DATA( result.c_str(), dbDecryptedFileName, result.size() );
+    }
+
+    void testDecryptionToAString()
+    {
+        const char* fileName = "unitTestDecryptToMem.xml";
+        string fileContents = "TEST FILE ONE TWO THREE 1 2 3";
+        const char* hashToUse = "DECRYPTION_TO_STRING_TEST_HASH_STRING";
+
+        FILE* testFile = fopen( fileName, "wb" );
+        TS_ASSERT( testFile != NULL );
+        TS_ASSERT( fwrite( fileContents.c_str(), sizeof(char), fileContents.size(), testFile ) == fileContents.size() );
+        fclose( testFile );
+
+        string result = SecurityManager::GetInstance()->EncryptFile( fileName, hashToUse );
+        TS_ASSERT( result.size() > 0 );
+        TS_ASSERT_SAME_DATA( result.c_str(), fileName, result.size() );
+
+        string resultString = SecurityManager::GetInstance()->DecryptFileToString( fileName, hashToUse );
+        TS_ASSERT( resultString.size() > 0 );
+        TS_ASSERT_SAME_DATA( resultString.c_str(), fileContents.c_str(), resultString.size() );
     }
 
 };
