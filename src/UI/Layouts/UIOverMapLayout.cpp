@@ -59,11 +59,15 @@ UIOverMapLayout::UIOverMapLayout()
     mScrollBox->SetPos( Point(10, 350) );
 
     // Debug
-    mScrollBox->AddLine("Line of Text 1");
-    mScrollBox->AddLine("Line of Text 2");
-    mScrollBox->AddLine("Line of Text 3");
-    mScrollBox->AddLine("Line of Text 4");
-    mScrollBox->AddLine("Line of Text 5");
+    //Text can go no further than the end of this line============
+    mScrollBox->AddLine("This is our story.");
+    mScrollBox->AddLine(" ");
+    mScrollBox->AddLine("After years and years of being ");
+    mScrollBox->AddLine("supressed by the empire... they were ");
+    mScrollBox->AddLine("finally defeated. ");
+    mScrollBox->AddLine(" ");
+    mScrollBox->AddLine("We decided to journey on....");
+
     mScrollBox->SetVisible(true);
     mScrollBoxEnabled = true;
 
