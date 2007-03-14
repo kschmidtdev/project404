@@ -121,8 +121,6 @@ void UIOverMap::ProcessEvent( const InputManager::INPUTKEYS evt )
 
             // Temporarily hardcoding this initialization (until the UI has the overmap that does this)
             vector<Character*> partyTemp;
-            //GameEngine::GetInstance()->BattleInit( partyTemp, GameEngine::CITYA, UIManager::GetInstance()->GetLayout("BattleScreen")->GetGrid()->GetMap() );
-            //GameEngine::GetInstance()->BattleInit( partyTemp, NULL, UIManager::GetInstance()->GetLayout("BattleScreen")->GetGrid()->GetMap() );
             mCursor.GetCurTile()->BattleInit();
 
             UIManager::GetInstance()->PushLayout("BattleScreen");

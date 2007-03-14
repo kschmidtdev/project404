@@ -5,9 +5,11 @@
  *
  * Authors:
  * Andrew Osborne, March 13 2007 | Initial Creation
+ * Karl Schmidt, March 14 2007   | Added city ID auto-increment, removed default constructor (unused)
  */
 #include "City.h"                                // class implemented
 
+int City::_idCount = 1;
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -15,17 +17,14 @@
 
 // Cities will probably be created by DBEngine
 
-City::City()
-: mBattleMap( NULL ), mDefeated( false )
-{
-    mImageFilename = "victory.png";
-}// City
-
 City::City(Point p, string fileName)
 : mBattleMap( NULL ), mDefeated( false )
 {
     mMapPos = p;
     mImageFilename = fileName;
+
+    mID = _idCount;
+    ++_idCount;
 }
 
 City::~City()

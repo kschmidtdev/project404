@@ -20,7 +20,7 @@ public:
     void testGameRoot()
     {
         GameRoot gRoot;
-        gRoot.Initialize( false );
+        gRoot.Initialize( 0, NULL, false );
         TS_TRACE("Game root test");
         gRoot.Shutdown();
     }

@@ -13,6 +13,7 @@
  * Karl Schmidt, February 12 2007 | Added inline function for sending events to listeners
  * Karl Schmidt, February 9 2007 | Fixed minor issues (so it could compile)
  * Karl Schmidt, February 7 2007 | Initial creation of the header
+ * Karl Schmidt, March 14 2007    | Added event recording/playback support
  */
 
 #ifndef InputManager_h
@@ -61,6 +62,16 @@ enum INPUTKEYS
     KEYCOUNT
 };
 
+typedef vector<INPUTKEYS> KeyVec;
+typedef KeyVec::iterator KeyVecItr;
+
+enum INPUT_MODE
+{
+    NORMAL = 0,
+    RECORDING,
+    PLAYBACK
+};
+
 // LIFECYCLE
 
     /**
@@ -79,7 +90,7 @@ enum INPUTKEYS
     * after instantiation and before
     * other methods
     */
-    void Initialize();
+    void Initialize( const INPUT_MODE mode = NORMAL, const string mRecPlayFileName = "" );
 
     /**
     * Shuts the input manager down,
@@ -108,6 +119,17 @@ enum INPUTKEYS
     */
     void ProcessEvent( const SDL_Event* evt );
 
+    /**
+    * Called every game loop, is only used for
+    * fake event playback debugging tool right now
+    */
+    void Update();
+
+	/**
+	* Returns the current mode of the input manager
+	*/
+    int GetMode() { return mMode; };
+
 // ACCESS (writing)
 // INQUIRY (reading)
 
@@ -131,12 +153,32 @@ protected:
     */
     inline void SendEventToListeners( const INPUTKEYS evt );
 
+	/**
+	* Loads recorded keys from fileName into mKeyList
+	*/
+    void LoadKeyListFromFile( const string & fileName );
+
+	/**
+	* Saves keys in mKeyList to fileName
+	*/
+    void SaveKeyListToFile( const string & fileName );
+
+	/**
+	* Saves a single key (appends after clearing the file once) to
+	* fileName
+	*/
+    void SaveKeyToFile( const string & fileName, const INPUTKEYS key );
+
 // PROTECTED VARIABLES
     static InputManager* _instance;
     int mKeys[KEYCOUNT];
     int mJButtons[KEYCOUNT];
     EventListenerVec mRegisteredListeners;
     SDL_Joystick* mJoyStick;
+
+    INPUT_MODE mMode;
+    string mRecPlayFileName;
+    KeyVec mKeyList;
 
 private:
 // PRIVATE VARIABLES

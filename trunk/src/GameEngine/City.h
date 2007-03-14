@@ -10,6 +10,7 @@
  * Authors:
  * Andrew Osborne, March 13, 2007, Initial Creation
  * Andrew Osborne, March 13, 2007, Note: a lot of list methods are not fleshed out in .cpp
+ * Karl Schmidt, March 14 2007 | Added city ID, removed default constructor (unused)
  */
 
 #ifndef City_h
@@ -39,37 +40,14 @@ public:
 // LIFECYCLE
 
     /**
-     * Default constructor.
-	 */
-    City(void);
-
-    /**
      * Real constructor (more things to be added later)
 	 */
     City(Point p, string fileName);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    //City(const City& from);
-
-    /**
      * Destructor.
 	 */
     ~City(void);
-
-// OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    //City&                     operator=(City& from);
 
 // OPERATIONS
 // ACCESS (writing)
@@ -137,6 +115,11 @@ public:
      */
     bool IsDefeated(void);
 
+    /**
+     * Return the ID generated for the City
+     */
+    int GetID() { return mID; };
+
 protected:
 // PROTECTED VARIABLES
 
@@ -155,6 +138,10 @@ protected:
     // UI Properties
     Point mMapPos;
     string mImageFilename;
+
+    static int _idCount;
+
+    int mID;
 
 private:
 // PRIVATE VARIABLES
