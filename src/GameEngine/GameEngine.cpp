@@ -16,7 +16,7 @@
 #include <util.h>
 
 #include "GameEngine.h"                                // class implemented
-
+#include "../Database/DBEngine.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -84,8 +84,11 @@ void GameEngine::Shutdown()
 //void GameEngine::BattleInit(vector<Character*> partyMem, City *c, Map* map)
 void GameEngine::BattleInit(City *c)
 {
+    DBEngine* DBE = DBEngine::GetInstance();
+    DBE->Initialize();
+    Map map( DBE->LoadBattleMap( 1 ) );
 
-    Map map;
+    // Map map;
 
     // Set current city
     mCurCity = c;

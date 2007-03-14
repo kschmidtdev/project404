@@ -78,7 +78,7 @@ void UIPasswordVerificationLayout::ProcessEvent( const InputManager::INPUTKEYS e
             }
             else
             {
-                mStarString = "Pwd:";
+                mStarString = " ";
                 mPwdString = "";
                 mPasswordText->ChangeText(mStarString);
             }
