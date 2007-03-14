@@ -27,6 +27,7 @@
  *                                    | & setCharWindow
  * Karl Schmidt,	March 11 2007	  | Added a hacky fix to a rare crash bug. (see a big comment block at around line 364
  * Mike Malyuk,     March 14 2007     | Added new params to GetMovementRange in Map, fixed.
+ * Karl Schmidt,	March 14 2007	  | Removed previous hacky fix, moved to elsewhere
  */
 
 #include <util.h>
@@ -364,12 +365,6 @@ void UIGrid::ConfirmFunction( const Point & p )
             //Check for EndGame
             if (mLevel->GetWinCondition())
             {
-                // The following line is a fix for a horrible hack where
-                // if you take your last turn killing the enemy, the game will still attempt
-                // to do an AI turn and thus will ask the level for the current state, which will crash
-                // because level has been turfed. Not sure exactly what is wrong, but by doing this it thinks
-                // the next turn is the player's, and it fixes the problem.
-                mLevel->TakeTurn();
                 UIManager::GetInstance()->PushLayout("Win");
             }
 

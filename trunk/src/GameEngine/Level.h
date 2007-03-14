@@ -21,6 +21,7 @@
  * Mike Malyuk, February 15, 2007 | Added AI mirror functions
  * Mike Malyuk, February 15, 2007 | Added GetCurCharacter
  * Mike Malyuk, March 10, 2007    | Removed mMap and move methods, now that map does this
+ * Karl Schmidt, March 14, 2007   | Added a hack to force the current turn to the players to solve a bug
  */
 
 #ifndef Level_h
@@ -161,6 +162,8 @@ enum charState
      * Return Party
      */
      Character* GetCurCharacter(){return mCurChar;}
+
+     void SetPlayerTurn() { mMyTurn = true; };
 
 protected:
 // PROTECTED VARIABLES
