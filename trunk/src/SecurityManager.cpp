@@ -10,6 +10,7 @@
  * Karl Schmidt, March 11 2007	  | Added file encryption/decryption routines
  * Karl Schmidt, March 12 2007    | Added DecryptFileToString
  * Karl Schmidt, March 13 2007	  | Added more error checking so it passes unit tests, doesn't infinite loop upon bad input (WHOOPS)
+ * Karl Schmidt, March 14 2007	  | Removed usage of toString for DecryptFileToString, inconsistent length behaviour across different platforms
  */
 
 #include <util.h>
@@ -540,6 +541,7 @@ string SecurityManager::DecryptFileToString( const string fileNameToDecrypt, con
     // I am just doing this because it is probably faster
     const char * hashBuffer = hash.c_str();
 
+    string toReturn = "";
     // Go through all the elements, and XOR each with an element in the hash
     // Skip through the buffer by the size of the hash
     for( int i = 0; i < bufferSize; i += hashLength )
@@ -551,11 +553,9 @@ string SecurityManager::DecryptFileToString( const string fileNameToDecrypt, con
         {
             // This commented code was used as a debugging tool
             //LogInfo( string("Turning: ") + toString(buffer[i+j]) + string(" into: ") + toString(static_cast<char>(buffer[i+j] xor hashBuffer[j])) + string(" (hashing against: ") + toString( hashBuffer[j] ) );
-            buffer[i+j] = buffer[i+j] xor hashBuffer[j];
+            toReturn += buffer[i+j] xor hashBuffer[j];
         }
     }
-
-    string toReturn = toString( buffer );
 
     delete[] buffer;
 

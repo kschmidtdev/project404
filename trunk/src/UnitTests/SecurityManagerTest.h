@@ -186,7 +186,7 @@ public:
 
         FILE* testFile = fopen( fileName, "wb" );
         TS_ASSERT( testFile != NULL );
-        TS_ASSERT( fwrite( fileContents.c_str(), sizeof(char), fileContents.size(), testFile ) == fileContents.size() );
+        TS_ASSERT_EQUALS( fwrite( fileContents.c_str(), sizeof(char), fileContents.size(), testFile ), fileContents.size() );
         fclose( testFile );
 
         string result = SecurityManager::GetInstance()->EncryptFile( fileName, hashToUse );
@@ -195,6 +195,8 @@ public:
 
         string resultString = SecurityManager::GetInstance()->DecryptFileToString( fileName, hashToUse );
         TS_ASSERT( resultString.size() > 0 );
+
+        TS_ASSERT_EQUALS( resultString.size(), fileContents.size() );
         TS_ASSERT_SAME_DATA( resultString.c_str(), fileContents.c_str(), resultString.size() );
     }
 
