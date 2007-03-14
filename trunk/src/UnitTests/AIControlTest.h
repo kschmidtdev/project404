@@ -57,7 +57,7 @@ public:
         TS_ASSERT_EQUALS(level->ReturnState(), Level::AIMOVE);
 
         Point another = ai.DoAction();
-        vector<Point> points = map.GetMovementRange(level->GetEveryone(), level->GetCurCharacter());
+        vector<Point> points = map.GetMovementRange(level->GetEveryone(), level->GetEnemies(), level->GetCurCharacter());
         vector<Point>::iterator ppiter;
         ppiter = points.begin();
         while(ppiter != points.end())
