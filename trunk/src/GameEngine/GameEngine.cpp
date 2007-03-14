@@ -86,7 +86,7 @@ void GameEngine::BattleInit(City *c)
 {
     DBEngine* DBE = DBEngine::GetInstance();
     DBE->Initialize();
-    Map map( DBE->LoadBattleMap( 1 ) );
+    Map map ( DBE->LoadBattleMap( 1 ) );
 
     // Map map;
 
