@@ -137,6 +137,8 @@ Map::Map()
 Map::Map(vector<Tile> tiles)
 :mTiles(tiles)
 {
+    mMaxX = 10;
+    mMaxY = 10;
 }
 Map::~Map()
 {

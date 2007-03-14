@@ -17,6 +17,7 @@
 #include "GameEngine/Healer.h"
 #include "GameEngine/Knight.h"
 #include "GameEngine/Mage.h"
+#include "GameEngine/Tile.h"
 
 class DBEngine
 {
@@ -61,6 +62,11 @@ public:
      * Load a starting point of AI's character in the battle.
      */
     DBVector2D* LoadEnemiesStartingPoint(Character* thisCharacter);
+
+    /**
+     * Load a Battle Map (set of tiles).
+     */
+    vector<Tile> LoadBattleMap( int battleNumber );
 
     /**
      * Get Method. Return the pointer of the list of all the characters in the game.

@@ -96,13 +96,9 @@ void UIOverMapTile::LevelDefeated(void)
 
 void UIOverMapTile::BattleInit(void)
 {
-    //vector<Character*> empty;
-    Map map;
-
     // Battle init currently doesn't use characters...
     // And currently there's only one map....
     GameEngine::GetInstance()->BattleInit(mCity);
-
 }
 
 void UIOverMapTile::Update(void)

@@ -13,7 +13,7 @@
 
 #include "DBEngine.h"                                     // class implemented
 #include <iostream>
-
+using namespace std;
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
@@ -277,6 +277,59 @@ DBVector2D* DBEngine::LoadEnemiesStartingPoint(Character* thisCharacter)
     return NULL; // not found.
 }
 
+vector<Tile> DBEngine::LoadBattleMap( int battleNumber )
+{
+    vector<Tile> BattleMap; // pointer to return.
+
+    // Load Nodes.
+    DBNode* BattleMapNode = mDB->Search( "Map" ); // will be modified to choose among many different maps.
+    cout << BattleMapNode->GetName() << endl;
+
+    // Search Characters.
+    DBNode* TileSetNode = BattleMapNode->GetFirstChild(); // first member in the party.
+
+    // Variables.
+    DBString* TileType;
+    DBVector2D* StartCoor;
+    DBVector2D* EndCoor;
+    int numTiles = 0;
+    const int xSize = 10; // should be various later.
+    int xCoor = 0;
+    int yCoor = 0;
+
+    // Create Tile instances and store them into BattleMap vector.
+    while ( TileSetNode != NULL )
+    {
+        TileType = dynamic_cast<DBString*>( TileSetNode->GetFirstAttribute() );
+        StartCoor = dynamic_cast<DBVector2D*>( TileSetNode->GetNextAttribute() );
+        EndCoor = dynamic_cast<DBVector2D*>( TileSetNode->GetNextAttribute() );
+
+        numTiles = ( EndCoor->GetX() * xSize + EndCoor->GetY() ) - ( StartCoor->GetX() * xSize + StartCoor->GetY() ) + 1;
+
+        xCoor = StartCoor->GetX();
+        yCoor = StartCoor->GetY();
+        for (int i=0; i<numTiles; i++)
+        {
+            Point newPoint = Point( xCoor, yCoor );
+            Tile newTile = Tile( newPoint, TileType->GetData() );
+            BattleMap.push_back( newTile );
+
+            xCoor++;
+            yCoor++;
+        }
+
+        TileSetNode = BattleMapNode->GetNextChild();
+    }
+
+    vector<Tile>::iterator Iter;
+    for (Iter=BattleMap.begin(); Iter!=BattleMap.end(); Iter++)
+    {
+        cout << &(*Iter) << endl;
+    }
+
+    return BattleMap;
+
+}
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
