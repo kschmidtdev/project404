@@ -11,6 +11,7 @@
  * Karl Schmidt, February 11 2007 | Added background music implementation
  * Karl Schmidt, February 11 2007 | Initial creation of implementation
  * Karl Schmidt, March 13 2007    | Added sound system disabling, mainly for unit tests
+ * Karl Schmidt, March 14 2007    | Added event recording/playback support
  */
 #include "GameRoot.h"                                // class implemented
 
@@ -42,25 +43,36 @@ GameRoot::GameRoot()
   mResManager( NULL ),
   mSoundManager( NULL ),
   mGameEngine( NULL ),
-  mUIManager( NULL )
+  mUIManager( NULL ),
+  mRecordFileName(""),
+  mPlaybackFileName("")
 {
     mSettings["width"] = 640;
     mSettings["height"] = 480;
     mSettings["depth"] = 32;
     mSettings["soundEnabled"] = 1;
-
 }// GameRoot
 
 GameRoot::~GameRoot()
 {
 }// ~GameRoot
 
-void GameRoot::Initialize( const bool soundEnabled )
+void GameRoot::Initialize( const int argc, char** argv, const bool soundEnabled )
 {
     Logger* logger = Logger::GetInstance( logFileName );
     logger->Initialize();
 
     LoadConfigFileSettings( configFileName );
+    ProcessCommandLine( argc, argv );
+
+    // If they both are not empty
+    tacAssert( !(!mRecordFileName.empty() && !mPlaybackFileName.empty()) );
+
+    if( (!mRecordFileName.empty() && !mPlaybackFileName.empty()) )
+    {
+        LogWarning( "You cannot set playback mode AND record mode, over-writing to playback mode" );
+        mRecordFileName = "";
+    }
 
     mRenderer = SDLRenderer::GetInstance();
     mRenderer->Initialize( mSettings["width"], mSettings["height"], mSettings["depth"] );
@@ -69,12 +81,25 @@ void GameRoot::Initialize( const bool soundEnabled )
     mResManager->Initialize();
 
     mInput = InputManager::GetInstance();
-    mInput->Initialize();
+
+    if( !mRecordFileName.empty() )
+    {
+        mInput->Initialize( InputManager::RECORDING, mRecordFileName );
+    }
+    else if( !mPlaybackFileName.empty() )
+    {
+        mInput->Initialize( InputManager::PLAYBACK, mPlaybackFileName );
+    }
+    else
+    {
+        mInput->Initialize();
+    }
 
     if( !soundEnabled )
     {
         mSettings["soundEnabled"] = 0;
     }
+
     mSoundManager = SoundManager::GetInstance();
     mSoundManager->Initialize( static_cast<bool>( mSettings["soundEnabled"] ) );
 
@@ -165,6 +190,7 @@ void GameRoot::GameLoop()
                 mUIManager->GetLayout("BattleScreen")->GetGrid()->ConfirmFunction(inputPt);
             }
         }
+        mInput->Update();
         mRenderer->Draw();
         if( !done )
         {
@@ -211,6 +237,37 @@ void GameRoot::LoadConfigFileSettings( const string fileName )
         // We should always have config.cfg present
         tacAssert( false );
         LogWarning( fileName + string(" file not found, using defaults") );
+    }
+}
+
+void GameRoot::ProcessCommandLine( const int argc, char** argv )
+{
+    for( int i = 0; i < argc; ++i )
+    {
+        if( strcmp( argv[i], "-record") == 0 )
+        {
+            if( argv[i+1] != NULL && (argv[i+1])[0] != '-' )
+            {
+                mRecordFileName = argv[i+1];
+                ++i;
+            }
+            else
+            {
+                LogError( "-record was passed with no filename" );
+            }
+        }
+        else if( strcmp( argv[i], "-playback") == 0 )
+        {
+            if( argv[i+1] != NULL && (argv[i+1])[0] != '-' )
+            {
+                mPlaybackFileName = argv[i+1];
+                ++i;
+            }
+            else
+            {
+                LogError( "-playback was passed with no filename" );
+            }
+        }
     }
 }
 

@@ -30,6 +30,7 @@
  * Karl Schmidt,	March 14 2007	  | Removed previous hacky fix, moved to elsewhere
  * Mike Malyuk,     March 14 2007     |Added Initialize, set more pointers to NULL, removed old methods,
  *                                     optimized movement by only making one call to Map for movement per player vs 2
+ * Karl Schmidt, 	March 14 2007	  | Added and re-arranged initialize list so more pointers are set to NULL on construction (safer)
  */
 
 #include <util.h>
@@ -48,7 +49,7 @@
 
 UIGrid::UIGrid()
 : mNumRows( 10 ), mNumColumns( 10 ), mCursorPos( Point(0,0) ), mTileStart( Point(10,10) ), mTileOffset( 0 ),
-mCharWindow( NULL ), mLevel( NULL ), mCursor(NULL)
+  mCursor(NULL), mCharWindow( NULL ), mMap( NULL ), mCurCharacter( NULL ), mLevel( NULL )
 {
     // Retrieve Game Engine
     //mGameEngine = GameEngine::GetInstance();

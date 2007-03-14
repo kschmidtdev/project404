@@ -14,6 +14,7 @@
  * Karl Schmidt, February 11 2007 | Made all the members pointers
  * Karl Schmidt, February 07 2007 | Initial creation of header
  * Karl Schmidt, March 13 2007	  | Added parameter to Initialize for disabling the sound system
+ * Karl Schmidt, March 14 2007    | Added event recording/playback support
  */
 
 #ifndef GameRoot_h
@@ -22,6 +23,7 @@
 // SYSTEM INCLUDES
 //
 #include <map>
+#include <string>
 
 using namespace std;
 
@@ -67,7 +69,7 @@ public:
     * before calling GameLoop(), pass in a different value for soundEnabled
     * to disable sound
     */
-    void Initialize( const bool soundEnabled = true );
+    void Initialize( const int argc = 0, char** argv = NULL, const bool soundEnabled = true );
 
     /**
     * Goes through and shuts down
@@ -90,16 +92,23 @@ public:
     */
     void GameLoop();
 
+// ACCESS (writing)
+// INQUIRY (reading)
+
+protected:
+
     /**
     * Loads the given config file if it exists, and takes the
     * the values out of it and puts them into mSettings
     */
     void LoadConfigFileSettings( const string fileName );
 
-// ACCESS (writing)
-// INQUIRY (reading)
+    /**
+    * Processes the command line and sets certain options
+    * based on the input (this is mainly used for the debugging tools for recording + playback of events)
+    */
+    void ProcessCommandLine( const int argc, char** argv );
 
-protected:
 // PROTECTED VARIABLES
 
     SecurityManager*    mSecurityManager;
@@ -112,6 +121,9 @@ protected:
     UIManager*          mUIManager;
 
     ConfigMap           mSettings;
+
+    string              mRecordFileName;
+    string              mPlaybackFileName;
 
 private:
 // PRIVATE VARIABLES

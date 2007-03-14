@@ -12,6 +12,7 @@
  * Karl Schmidt, March 12, 2007	  | Fixed a memory leak (deleting levels on Shutdown now)
  * Andrew Osborne, March 13 2007  | Added GetCities, and changed BattleInit
  * Mike Malyuk,    March 14 2007  | Set AIController with proper map
+ * Karl Schmidt,   March 14 2007  | Level is now loaded depending on city ID
  */
 
 #include <util.h>
@@ -85,12 +86,6 @@ void GameEngine::Shutdown()
 //void GameEngine::BattleInit(vector<Character*> partyMem, City *c, Map* map)
 void GameEngine::BattleInit(City *c)
 {
-    DBEngine* DBE = DBEngine::GetInstance();
-    DBE->Initialize();
-    Map map ( DBE->LoadBattleMap( 1 ) );
-
-    //Map map;
-
     // Set current city
     mCurCity = c;
 
@@ -100,7 +95,9 @@ void GameEngine::BattleInit(City *c)
         // Already made a level
         return;
     }
-    mCurLvl = new Level( 2 );
+
+    LogInfo( "Loading Level #" + toString(c->GetID()) );
+    mCurLvl = new Level( c->GetID() );
 
     // Initialize AI
     mAI = new AIControl(mCurLvl, *(mCurLvl->GetMap()));

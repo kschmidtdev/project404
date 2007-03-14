@@ -7,6 +7,7 @@
  * Karl Schmidt, February 13 2007 | Added joystick support
  * Karl Schmidt, February 12 2007 | Added corner direction event sending changes
  * Karl Schmidt, February 9 2007 | Initial creation, all functions stubbed
+ * Karl Schmidt, March 14 2007    | Added event recording/playback support
  */
 
 #include <util.h>
@@ -40,7 +41,7 @@ InputManager::~InputManager(void)
     // stub
 }
 
-void InputManager::Initialize()
+void InputManager::Initialize( const INPUT_MODE mode, const string recPlayFileName )
 {
     if( SDL_NumJoysticks() > 0 )
     {
@@ -61,6 +62,17 @@ void InputManager::Initialize()
     }
 
     SetupKeyBindings();
+
+    mMode = mode;
+    if( mMode != NORMAL )
+    {
+        mRecPlayFileName = recPlayFileName;
+        if( mMode == PLAYBACK )
+        {
+            LoadKeyListFromFile( mRecPlayFileName );
+        }
+    }
+
     LogInfo( "The InputManager has been initialized successfully." );
 }
 
@@ -70,6 +82,11 @@ void InputManager::Shutdown()
     {
         SDL_JoystickClose( mJoyStick );
         mJoyStick = NULL;
+    }
+
+    if( mMode == RECORDING )
+    {
+        SaveKeyListToFile( mRecPlayFileName );
     }
 
     delete _instance;
@@ -182,6 +199,28 @@ void InputManager::ProcessEvent( const SDL_Event* evt )
         else // the usual
         {
             SendEventToListeners( INPUTKEYS( foundBoundKey ) );
+            if( mMode == RECORDING )
+            {
+                mKeyList.push_back( INPUTKEYS( foundBoundKey ) );
+            }
+        }
+    }
+}
+
+void InputManager::Update()
+{
+    if( mMode == PLAYBACK )
+    {
+        static KeyVecItr currentKey = mKeyList.begin();
+
+        if( currentKey != mKeyList.end() )
+        {
+            SendEventToListeners( *currentKey );
+            ++currentKey;
+        }
+        else
+        {
+            LogInfo("Key playback over.");
         }
     }
 }
@@ -191,7 +230,7 @@ void InputManager::ProcessEvent( const SDL_Event* evt )
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 InputManager::InputManager(void)
-: mJoyStick( NULL )
+: mJoyStick( NULL ), mMode( NORMAL ), mRecPlayFileName( "" )
 {
     for( int i( 0 ); i < KEYCOUNT; ++i )
     {
@@ -230,6 +269,87 @@ void InputManager::SendEventToListeners( const INPUTKEYS evt )
     for( EventListenerItr i = mRegisteredListeners.begin(); i != mRegisteredListeners.end(); ++i )
     {
         (*i)->ProcessEvent( evt );
+    }
+}
+
+void InputManager::LoadKeyListFromFile( const string & fileName )
+{
+    FILE* keyListFileHandle = NULL;
+    keyListFileHandle = fopen( fileName.c_str(), "r" );
+
+    if( keyListFileHandle )
+    {
+        LogInfo( "Loading keys from " + fileName );
+
+        int value = 0;
+        // While we're not at the end of the file...
+        while ( !feof( keyListFileHandle ) )
+        {
+        	// Load in a line of text formatted like "text #" (where # is some integer)
+            fscanf( keyListFileHandle, "%i\n", &value );
+            mKeyList.push_back( INPUTKEYS( value ) );
+            LogInfo( string("Loaded recorded key with value: ") + toString(value) );
+        }
+
+        fclose( keyListFileHandle );
+    }
+    else
+    {
+        tacAssert( false );
+        LogWarning( fileName + string(" file not found, no keys to playback") );
+    }
+}
+
+void InputManager::SaveKeyListToFile( const string & fileName )
+{
+    if( mKeyList.empty() )
+    {
+        // Nothing to write
+        return;
+    }
+
+    FILE* keyListFileHandle = NULL;
+    keyListFileHandle = fopen( fileName.c_str(), "w" );
+
+    if( keyListFileHandle )
+    {
+        LogInfo( "Saving recorded keys to " + fileName );
+        for( KeyVecItr i = mKeyList.begin(); i != mKeyList.end(); ++i )
+        {
+            fprintf( keyListFileHandle, "%i\n", *i );
+        }
+
+        fclose( keyListFileHandle );
+    }
+    else
+    {
+        // Unable to write to file for some reason
+        tacAssert( false );
+        LogWarning( fileName + string(": Unable to write to key list file") );
+    }
+}
+
+void InputManager::SaveKeyToFile( const string & fileName, const INPUTKEYS key )
+{
+    static bool firstTime = true;
+
+    FILE* keyListFileHandle = NULL;
+    if( firstTime )
+    {
+        keyListFileHandle = fopen( fileName.c_str(), "a" );
+        firstTime = false;
+    }
+
+    if( keyListFileHandle )
+    {
+        fprintf( keyListFileHandle, "%i\n", key );
+        fclose( keyListFileHandle );
+    }
+    else
+    {
+        // Unable to write to file for some reason
+        tacAssert( false );
+        LogWarning( fileName + string(": Unable to write to key list file") );
     }
 }
 
