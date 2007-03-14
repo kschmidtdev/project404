@@ -22,7 +22,8 @@
  * Karl Schmidt, March 04 2007    | Fixed another slight memory leak
  * Mike Malyuk, March 10 2007     | Removed move methods now in Map, cleared things out to work with new method
  * Karl Schmidt, March 12 2007	  | Turfed default constructor body since it's not really used anymore, and
- 									is used in one area temporarily so it's causing memory leaks
+ *									is used in one area temporarily so it's causing memory leaks
+ * Mike Malyuk, March 14 2007     | Set map in Level for evil Overlord
  */
 
 #include <util.h>
@@ -44,11 +45,13 @@
 Level::Level()
 : mState( FREE ), mMyTurn( true )
 {
+    Map mMap;
 }// Level
 
 Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point> start)
 : mState(FREE), mParty(party), mEnemies(badguys), mStart(start), mCurChar(NULL),  mMyTurn(true), mDefaultConstructor( false )
 {
+    Map mMap;
     vector<Character*>::iterator iter;
     vector<Point>::iterator piter;
     iter = mParty.begin();
@@ -66,6 +69,7 @@ Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point>
 Level::Level(int)
 : mState(FREE), mCurChar( NULL ), mMyTurn( true )
 {
+    Map mMap;
     DBEngine* DBE = DBEngine::GetInstance();
     DBE->Initialize();
 

@@ -18,7 +18,8 @@
  * Karl Schmidt,   March 9 2007	 	| Changed textures to png
  * Andrew Osborne, March 12 2007    | Added Chuck-Norris and "Easy Win" option to Battle Layout for debug purposes
  * Karl Schmidt,   March 12 2007 	| Made the QuitFunction quit to the Main Menu, also made the Easy win function
- 									  act correctly and not leak memory
+ *  								  act correctly and not leak memory
+ * Mike Malyuk,    March 14 2007    | Added intializers for Grid
  */
 
 
@@ -144,6 +145,7 @@ void UIBattleScreenLayout::Initialize()
     // Add Grid
     // --------------------------------
     mGrid = new UIGrid();
+    mGrid->Initialize();
     mDefaultEventListener = mGrid;
     //mGrid->setParent(this);
     mElements.push_back( mGrid );
@@ -199,7 +201,7 @@ void UIBattleScreenLayout::OnLoad( void )
     }
 
     mGrid->SetLevel(mLevel);
-
+    mGrid->Initialize();
     // Put the characters on the screen
     CharacterPtrVec party = mLevel->GetParty();
     CharacterPtrVec enemies = mLevel->GetEnemies();

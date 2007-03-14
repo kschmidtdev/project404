@@ -28,6 +28,8 @@
  * Karl Schmidt,	March 11 2007	  | Added a hacky fix to a rare crash bug. (see a big comment block at around line 364
  * Mike Malyuk,     March 14 2007     | Added new params to GetMovementRange in Map, fixed.
  * Karl Schmidt,	March 14 2007	  | Removed previous hacky fix, moved to elsewhere
+ * Mike Malyuk,     March 14 2007     |Added Initialize, set more pointers to NULL, removed old methods,
+ *                                     optimized movement by only making one call to Map for movement per player vs 2
  */
 
 #include <util.h>
@@ -46,34 +48,8 @@
 
 UIGrid::UIGrid()
 : mNumRows( 10 ), mNumColumns( 10 ), mCursorPos( Point(0,0) ), mTileStart( Point(10,10) ), mTileOffset( 0 ),
-mCharWindow( NULL )
+mCharWindow( NULL ), mLevel( NULL ), mCursor(NULL)
 {
-    // Add all elements
-    SDL_Surface *sample = ResourceManager::GetInstance()->LoadTexture("defaultTile.png");
-
-    if( sample )
-    {
-        mTileHeight = sample->h;
-        mTileWidth = sample->w;
-    }
-    mTotalTileOffset = mTileWidth;
-    vector<Tile> storage = mMap.GetTiles();
-    for(vector<Tile>::iterator iter = storage.begin(); iter != storage.end(); iter++)
-    {
-        mTiles.push_back(UITile((*iter)));
-    }
-
-    // Assign self an image
-    // ----------------------------------------------------
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("testMenu.png");
-
-    // Assign Cursor its place
-    // ----------------------------------------------------
-    mMaxCursorPos.Set(mNumColumns - 1, mNumRows - 1);
-    mCursorStart = mTileStart + Point( -mTileOffset, -mTileOffset);
-    mCursor = new UICursor("tileCursor.png", "");
-    mCursor->SetPos( mCursorStart );
-
     // Retrieve Game Engine
     //mGameEngine = GameEngine::GetInstance();
     //mGameEngine = NULL;
@@ -242,8 +218,7 @@ void UIGrid::ConfirmFunction( const Point & p )
             // Step 6 - Prep screen/UI for Attackable Range
 
             old = mCurCharacter->GetPoint();
-            movement = mMap.GetMovementRange(mLevel->GetEveryone(), mLevel->GetEnemies(), mCurCharacter);
-            for(vector<Point>::iterator piter = movement.begin(); piter != movement.end(); piter++)
+            for(vector<Point>::iterator piter = mMovePoints.begin(); piter != mMovePoints.end(); piter++)
             {
                 if((*piter) == p)
                 {
@@ -379,7 +354,7 @@ void UIGrid::ConfirmFunction( const Point & p )
 
             // Step 1 - check to see if selected character
             // ===============
-            if (mLevel->ReturnState() == 4)
+            if (mLevel->ReturnState() == 3)
             {
                 // Unsuccessful, do nothing
             }
@@ -387,7 +362,7 @@ void UIGrid::ConfirmFunction( const Point & p )
             {
                 // Step 2 - prepare screen/UI for moveable range
                 // ==============
-                AddMoveableRange( mLevel->GetEveryone(), mLevel->GetEnemies(), mCurCharacter );
+                AddMoveableRange( mLevel->GetEveryone(), mLevel->GetParty(), mCurCharacter );
             }
 
             break;
@@ -411,8 +386,7 @@ void UIGrid::ConfirmFunction( const Point & p )
 
             // Check if move was cancelled
             old = mCurCharacter->GetPoint();
-            movement = mMap.GetMovementRange(mLevel->GetEveryone(), mLevel->GetParty(), mCurCharacter);
-            for(vector<Point>::iterator piter = movement.begin(); piter != movement.end(); piter++)
+            for(vector<Point>::iterator piter = mMovePoints.begin(); piter != mMovePoints.end(); piter++)
             {
                 if((*piter) == p)
                 {
@@ -577,11 +551,6 @@ void UIGrid::RemoveCharacter( const Point & p)
     }
 }
 
-void UIGrid::AddRange( const PointVec & pointRange, const UIImagePtrVec & elementRange)
-{
-
-}
-
 
 void UIGrid::ClearMoveableRange(void)
 {
@@ -637,9 +606,9 @@ void UIGrid::AddAttackRange( PointVec attackRange )
 void UIGrid::AddMoveableRange( vector<Character*> everyone, vector<Character*> enemies, Character* you )
 {
 
-    PointVec moveRange = mMap.GetMovementRange(everyone, enemies, you);
+    mMovePoints = mMap->GetMovementRange(everyone, enemies, you);
 
-    for ( PointItr i = moveRange.begin(); i != moveRange.end(); ++i )
+    for ( PointItr i = mMovePoints.begin(); i != mMovePoints.end(); ++i )
     {
         mImageMoveRange.push_back( UIImage("blueCursor.png") );
     }
@@ -653,7 +622,7 @@ void UIGrid::AddMoveableRange( vector<Character*> everyone, vector<Character*> e
 
     elementIter = mImageMoveRange.begin();
 
-    for ( PointItr i=moveRange.begin(); i!=moveRange.end(); ++i )
+    for ( PointItr i=mMovePoints.begin(); i!=mMovePoints.end(); ++i )
     {
         gridPoint = (*i);
         cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
@@ -718,11 +687,6 @@ bool UIGrid::HasCharacter( const Point & p )
     }
 }
 
-Map UIGrid::GetMap()
-{
-    return mMap;
-}
-
 void UIGrid::UpdateCursor(void)
 {
     // This function assumes no cursor offset (needs to be mCursorOffset for it to work properly)
@@ -771,6 +735,40 @@ void UIGrid::UpdateCursor(void)
 
 }
 
+void UIGrid::Initialize()
+{
+    if(mLevel == NULL)
+    {
+        return;
+    }
+    // Add all elements
+    SDL_Surface *sample = ResourceManager::GetInstance()->LoadTexture("defaultTile.png");
+    mMap = mLevel->GetMap();
+    if( sample )
+    {
+        mTileHeight = sample->h;
+        mTileWidth = sample->w;
+    }
+    mTotalTileOffset = mTileWidth;
+    vector<Tile> storage = mMap->GetTiles();
+    for(vector<Tile>::iterator iter = storage.begin(); iter != storage.end(); iter++)
+    {
+        mTiles.push_back(UITile((*iter)));
+    }
+
+    // Assign self an image
+    // ----------------------------------------------------
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("testMenu.png");
+
+    // Assign Cursor its place
+    // ----------------------------------------------------
+    mMaxCursorPos.Set(mNumColumns - 1, mNumRows - 1);
+    mCursorStart = mTileStart + Point( -mTileOffset, -mTileOffset);
+    mCursor = new UICursor("tileCursor.png", "");
+    mCursor->SetPos( mCursorStart );
+
+
+}
 
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////
@@ -884,34 +882,6 @@ SDL_Surface* UIGrid::GetClassSurface(Character* c, const string group)
     {
         return NULL;
     }
-
-}
-
-
-PointVec UIGrid::RefineMoveRange( PointVec moveRange )
-{
-    PointItr pointIter = moveRange.begin();
-    PointVec finalVtr;
-    Point gridPoint;
-    Point charPoint;
-    if (mCurCharacter!=NULL)
-    {
-        charPoint = mCurCharacter->GetPoint();
-    }
-
-
-    while (pointIter!=moveRange.end())
-    {
-        gridPoint = (*pointIter);
-
-        if ( (ValidPoint(gridPoint)) && ( (!HasCharacter(gridPoint)) || (gridPoint==charPoint) ) )
-        {
-            finalVtr.push_back( gridPoint );
-        }
-        pointIter++;
-    }
-
-    return finalVtr;
 
 }
 

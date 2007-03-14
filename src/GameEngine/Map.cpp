@@ -10,6 +10,7 @@
  * Mike Malyuk, March 10, 2007   | Added dijkstras method, added node struct
  * Karl Schmidt, March 10, 2007  | Fixed memory leaks
  * Mike Malyuk, March 14, 2007   | Lazy man's immovables added!
+ * Mike Malyuk, March 14, 2007   | Optimized one loop
  */
 
 #include <util.h>
@@ -210,12 +211,9 @@ vector<Point> Map::GetMovementRange(vector<Character*> everyone, vector<Characte
     }
     for(vector<Character*>::iterator citer = enemies.begin(); citer != enemies.end(); citer++)
     {
-        for(int i = 0; i < mTiles.size(); i++)
+        if(!((*citer)->IsDead()))
         {
-            if(nodes[i].p == (*citer)->GetPoint())
-            {
-                nodes[i].weight = maxMove;
-            }
+            nodes[(*citer)->GetPoint().GetX()*mMaxX + (*citer)->GetPoint().GetY()].weight = maxMove;
         }
     }
     nodes[guy->GetPoint().GetX()*mMaxX + guy->GetPoint().GetY()].pathweight = 0;
