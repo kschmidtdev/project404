@@ -59,6 +59,8 @@ void UIWinLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
     if (evt==InputManager::CONFIRM)
     {
+        GameEngine::GetInstance()->CityDefeated();
+
         UIManager *uim = UIManager::GetInstance();
         uim->PopAllLayouts();  // automatically adds titlescreen
         uim->PushLayout("OverMap");

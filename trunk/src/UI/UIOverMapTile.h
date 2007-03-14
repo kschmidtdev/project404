@@ -125,6 +125,11 @@ public:
      */
     void SetNextPrev(UIOverMapTile* next, UIOverMapTile* prev);
 
+    /**
+     * Updates Tile if Level has been defeated
+     */
+    void Update(void);
+
 
 // INQUIRY (reading)
 

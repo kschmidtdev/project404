@@ -165,29 +165,13 @@ void UIOverMap::RenderSelf(SDL_Surface* destination)
 void UIOverMap::UpdateMap(void)
 {
 
-    int iterLevel = 1;
-    int progressionLevel = 0;
-    /*vector<Level*> allLevels = GameEngine::GetInstance()->GetLevels();
-    vector<Level*>::iterator iter;
 
-    for (iter = allLevels.begin(); iter != allLevels.end(); ++iter)
+    for(MapTileItr iter = mMapTiles.begin(); iter !=mMapTiles.end(); ++iter)
     {
-        if ( (*iter)->GetWinCondition() )
-        {
-            progressionLevel = iterLevel;
-        }
-        iterLevel++;
-    }*/
+        (*iter).Update();
+    }
 
-    // At the result the progressionLevel will be the "largest" level that has been defeated.
 
-    // Advance to That level
-    /*int progressionIndex = progressionLevel - 1;
-
-    for (int i=0; i<=progressionIndex; i++)
-    {
-        mMapTiles[i].LevelDefeated();
-    }*/
 
 
 }
