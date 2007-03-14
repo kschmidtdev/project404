@@ -8,6 +8,7 @@
  * Karl Schmidt, March 9 2007	 | Changed textures to png
  * Andrew Osborne, March 12, 2007 | Added "UpdateMap"
  * Karl Schmidt, March 12 2007	 | Added battle initialization to starting a new level
+ * Andrew Osborne, March 13 2007 | OverMapTile now calls BattleInit
  */
 #include "UIOverMap.h"                                // class implemented
 #include "UIManager.h"
@@ -25,11 +26,19 @@ UIOverMap::UIOverMap()
     // blah, blah, blah
 
     // Create Tile elements
-    mMapTiles.push_back( UIOverMapTile(20,400) );
-    mMapTiles.push_back( UIOverMapTile(130,350) );
-    mMapTiles.push_back( UIOverMapTile(180,270) );
-    mMapTiles.push_back( UIOverMapTile(250,170) );
-    mMapTiles.push_back( UIOverMapTile(390,70) );
+    vector<City*>* cityVector = GameEngine::GetInstance()->GetCities();
+    vector<City*>::iterator iter;
+
+    for (iter = cityVector->begin(); iter != cityVector->end(); ++iter)
+    {
+            mMapTiles.push_back( UIOverMapTile( (*iter) ) );
+    }
+
+
+    //mMapTiles.push_back( UIOverMapTile(130,350) );
+    //mMapTiles.push_back( UIOverMapTile(180,270) );
+    //mMapTiles.push_back( UIOverMapTile(250,170) );
+    //mMapTiles.push_back( UIOverMapTile(390,70) );
 
     mMapTiles[0].SetNextPrev( &mMapTiles[1] , NULL);
     mMapTiles[1].SetNextPrev( &mMapTiles[2], &mMapTiles[0]);
@@ -38,7 +47,7 @@ UIOverMap::UIOverMap()
     mMapTiles[4].SetNextPrev( NULL, &mMapTiles[3]);
 
     // Some Debug
-    mMapTiles[0].LevelDefeated();
+    //mMapTiles[0].LevelDefeated();
 
     mElementImage = ResourceManager::GetInstance()->LoadTexture("castle_main.png");
 
@@ -112,7 +121,9 @@ void UIOverMap::ProcessEvent( const InputManager::INPUTKEYS evt )
 
             // Temporarily hardcoding this initialization (until the UI has the overmap that does this)
             vector<Character*> partyTemp;
-            GameEngine::GetInstance()->BattleInit( partyTemp, GameEngine::CITYA, UIManager::GetInstance()->GetLayout("BattleScreen")->GetGrid()->GetMap() );
+            //GameEngine::GetInstance()->BattleInit( partyTemp, GameEngine::CITYA, UIManager::GetInstance()->GetLayout("BattleScreen")->GetGrid()->GetMap() );
+            //GameEngine::GetInstance()->BattleInit( partyTemp, NULL, UIManager::GetInstance()->GetLayout("BattleScreen")->GetGrid()->GetMap() );
+            mCursor.GetCurTile()->BattleInit();
 
             UIManager::GetInstance()->PushLayout("BattleScreen");
         }
@@ -156,27 +167,27 @@ void UIOverMap::UpdateMap(void)
 
     int iterLevel = 1;
     int progressionLevel = 0;
-    vector<Level*> allLevels = GameEngine::GetInstance()->GetLevels();
+    /*vector<Level*> allLevels = GameEngine::GetInstance()->GetLevels();
     vector<Level*>::iterator iter;
 
     for (iter = allLevels.begin(); iter != allLevels.end(); ++iter)
     {
-        /*if ( (*iter)->GetWinCondition() )
+        if ( (*iter)->GetWinCondition() )
         {
             progressionLevel = iterLevel;
-        }*/
+        }
         iterLevel++;
-    }
+    }*/
 
     // At the result the progressionLevel will be the "largest" level that has been defeated.
 
     // Advance to That level
-    int progressionIndex = progressionLevel - 1;
+    /*int progressionIndex = progressionLevel - 1;
 
     for (int i=0; i<=progressionIndex; i++)
     {
         mMapTiles[i].LevelDefeated();
-    }
+    }*/
 
 
 }

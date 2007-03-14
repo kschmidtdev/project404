@@ -294,6 +294,12 @@
 			<Option target="Release" />
 			<Option target="UnitTest" />
 		</Unit>
+		<Unit filename="..\src\GameEngine\City.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest" />
+		</Unit>
 		<Unit filename="..\src\GameEngine\GameEngine.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
@@ -930,7 +936,7 @@
 			<Option link="0" />
 			<Option target="UnitTest" />
 		</Unit>
-		<Unit filename="..\src\UnitTests\GameRootTest.h">
+		<Unit filename="..\src\UnitTests\GameRootAndSoundManagerTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
@@ -984,25 +990,7 @@
 			<Option link="0" />
 			<Option target="UnitTest" />
 		</Unit>
-		<Unit filename="..\src\UnitTests\SoundManagerTest.h">
-			<Option compilerVar="CPP" />
-			<Option compile="0" />
-			<Option link="0" />
-			<Option target="UnitTest" />
-		</Unit>
 		<Unit filename="..\src\UnitTests\TileTest.h">
-			<Option compilerVar="CPP" />
-			<Option compile="0" />
-			<Option link="0" />
-			<Option target="UnitTest" />
-		</Unit>
-		<Unit filename="..\src\UnitTests\UIElementTest.h">
-			<Option compilerVar="CPP" />
-			<Option compile="0" />
-			<Option link="0" />
-			<Option target="UnitTest" />
-		</Unit>
-		<Unit filename="..\src\UnitTests\UIImageTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />

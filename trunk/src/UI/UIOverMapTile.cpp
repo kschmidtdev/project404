@@ -7,9 +7,10 @@
  * Andrew Osborne, March 4, 2007 | Initial Creation
  * Karl Schmidt, March 9 2007	 | Changed textures to png
  * Andrew Osborne, March 11 2007 | Added next/previous notion to tiles (with LevelDefeated method)
+ * Andrew Osborne, March 13 2007 | Added BattleInit funcitonality
  */
 #include "UIOverMapTile.h"                                // class implemented
-
+#include "GameEngine/GameEngine.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -17,7 +18,7 @@
 
 UIOverMapTile::UIOverMapTile()
 : mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
-mUpTile( NULL ), mDownTile( NULL ), mDefeated( false )
+mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL )
 {
     // Default image for now, should change later
     mElementImage = ResourceManager::GetInstance()->LoadTexture("charTile.png");
@@ -25,7 +26,7 @@ mUpTile( NULL ), mDownTile( NULL ), mDefeated( false )
 
 UIOverMapTile::UIOverMapTile(int x, int y)
 : mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
-mUpTile( NULL ), mDownTile( NULL ), mDefeated( false )
+mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL )
 {
     // Default image for now, should change later
     mElementImage = ResourceManager::GetInstance()->LoadTexture("charTile.png");
@@ -35,13 +36,24 @@ mUpTile( NULL ), mDownTile( NULL ), mDefeated( false )
 
 UIOverMapTile::UIOverMapTile(int x, int y, string fileName)
 : mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
-mUpTile( NULL ), mDownTile( NULL ), mDefeated( false )
+mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL )
 {
     // Default image for now, should change later
     mElementImage = ResourceManager::GetInstance()->LoadTexture(fileName);
     mMapOffset.Set(x,y);
 
 }// UIOverMapTile
+
+UIOverMapTile::UIOverMapTile(City *c)
+: mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
+mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL )
+{
+    // Default image for now, should change later
+    mCity = c;
+    mElementImage = ResourceManager::GetInstance()->LoadTexture( "charTile.png" );
+    mMapOffset = c->GetMapPos();
+}
+
 
 UIOverMapTile::~UIOverMapTile()
 {
@@ -80,6 +92,17 @@ void UIOverMapTile::LevelDefeated(void)
         mDefeated = true;
 
     }
+}
+
+void UIOverMapTile::BattleInit(void)
+{
+    //vector<Character*> empty;
+    Map map;
+
+    // Battle init currently doesn't use characters...
+    // And currently there's only one map....
+    GameEngine::GetInstance()->BattleInit(mCity);
+
 }
 
 
