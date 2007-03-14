@@ -100,7 +100,7 @@ void GameEngine::BattleInit(City *c)
         // Already made a level
         return;
     }
-    mCurLvl = new Level(0);
+    mCurLvl = new Level( 2 );
 
     // Initialize AI
     mAI = new AIControl(mCurLvl, *(mCurLvl->GetMap()));

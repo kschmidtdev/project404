@@ -46,22 +46,22 @@ public:
     /**
      * Load Player's characters in the battle.
      */
-    vector<Character*>* LoadParty();
+    vector<Character*>* LoadParty( int battleNumber );
 
     /**
      * Load AI's characters in the battle.
      */
-    vector<Character*>* LoadEnemies();
+    vector<Character*>* LoadEnemies( int battleNumber );
 
     /**
      * Load a starting point of player's character in the battle.
      */
-    DBVector2D* LoadPartyStartingPoint(Character* thisCharacter);
+    DBVector2D* LoadPartyStartingPoint( int battleNumber, Character* thisCharacter );
 
     /**
      * Load a starting point of AI's character in the battle.
      */
-    DBVector2D* LoadEnemiesStartingPoint(Character* thisCharacter);
+    DBVector2D* LoadEnemiesStartingPoint( int battleNumber, Character* thisCharacter );
 
     /**
      * Load a Battle Map (set of tiles).
