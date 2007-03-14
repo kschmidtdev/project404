@@ -108,7 +108,18 @@
 				<Node name="Unique Armor">
 					<Data type="int" name="Attribute" value="1" />
 				</Node>
-			</Node>	
+			</Node>
+		</Node>
+		<Node name="Dialog">
+			<Node name="D001">
+				<Data type="string" name="Sentence" value="This is our story." />
+				<Data type="string" name="Sentence" value=" " />
+				<Data type="string" name="Sentence" value="After years and years of being" />
+				<Data type="string" name="Sentence" value="supressed by the empire... they were" />
+				<Data type="string" name="Sentence" value="finally defeated." />
+				<Data type="string" name="Sentence" value=" " />
+				<Data type="string" name="Sentence" value="We decided to journey on..." />
+			</Node>		
 		</Node>
 	</Node>
 	<Node name="Level">

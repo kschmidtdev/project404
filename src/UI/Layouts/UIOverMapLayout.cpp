@@ -9,6 +9,9 @@
 #include "UIOverMapLayout.h"                                // class implemented
 #include "FuncObj.h"
 #include "UIManager.h"
+#include <../Database/DatabaseManager.h>
+#include <iostream>
+using namespace std;
 
 class SaveFunction : public FuncObj
 {
@@ -60,22 +63,23 @@ UIOverMapLayout::UIOverMapLayout()
 
     // Debug
     //Text can go no further than the end of this line============
-    mScrollBox->AddLine("This is our story.");
-    mScrollBox->AddLine(" ");
-    mScrollBox->AddLine("After years and years of being ");
-    mScrollBox->AddLine("supressed by the empire... they were ");
-    mScrollBox->AddLine("finally defeated. ");
-    mScrollBox->AddLine(" ");
-    mScrollBox->AddLine("We decided to journey on....");
+    DatabaseManager* DBM = DatabaseManager::GetInstance();
+    DBM->LoadFromFile( "database.xml" );
+    DBNode* Dialog001 = DBM->Search( "D001" );
+
+    DBM->SaveToFile( "Save001.xml" );
+
+    DBString* thisLine = dynamic_cast<DBString*>( Dialog001->GetFirstAttribute() );
+    while ( thisLine != NULL )
+    {
+        mScrollBox->AddLine( thisLine->GetData() );
+        thisLine = dynamic_cast<DBString*>( Dialog001->GetNextAttribute() );
+    }
 
     mScrollBox->SetVisible(true);
     mScrollBoxEnabled = true;
 
     mElements.push_back( mScrollBox );
-
-
-
-
 
     mDefaultEventListener = mOverMap;
 

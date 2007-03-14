@@ -43,6 +43,11 @@ public:
      */
     int GetData() { return mIntData; } // INLINE METHOD.
 
+    /**
+     * Set Method.
+     */
+     void SetData(int data) { mIntData = data; } // INLINE METHOD.
+
 protected:
 
 private:

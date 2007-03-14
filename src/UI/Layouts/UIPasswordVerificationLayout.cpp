@@ -21,33 +21,20 @@
 
 UIPasswordVerificationLayout::UIPasswordVerificationLayout()
 {
-    //UIImage *temp = new UIImage("castle.png");
-    //mElements.push_back(temp);
-
     // Create default Password
-    SecurityManager::GetInstance()->AddUser("user1", "rrrr");
+    SecurityManager::GetInstance()->AddUser( "user1", "rrrr" );
 
-    UIText *tempText = new UIText("Please Enter Password", 40, 255, 0, 0);
-    //SDL_Surface *tempSur = tempText->GetElement();
-    //printf("width: %d, height:%d\n", tempSur->w, tempSur->h);
-    tempText->SetPos( Point(98,50) );
-    mElements.push_back(tempText);
+    UIImage *temp = new UIImage( "menu_password.png" );
+    mElements.push_back(temp);
 
-    mStarString = "Pwd:";
-    mPasswordText = new UIText(mStarString, 30, 255, 0, 0);
-    //tempSur = mPasswordText->GetElement();
-    //printf("width: %d, height:%d\n", tempSur->w, tempSur->h);
-    mPasswordText->SetPos( Point(175,145) );
+    mStarString = " ";
+    mPasswordText = new UIText( mStarString, 30, 255, 0, 0 );
+
+    mPasswordText->SetPos( Point(285,195) );
     mElements.push_back(mPasswordText);
 
-    tempText = new UIText("Press CONFIRM to finish PWD entry", 24, 255, 0, 0);
-    //tempSur = tempText->GetElement();
-    //printf("width: %d, height:%d\n", tempSur->w, tempSur->h);
-    tempText->SetPos( Point(115, 390) );
-    mElements.push_back(tempText);
 
     mName = "PasswordVer";
-
 
 }// UIPasswordVerificationLayout
 

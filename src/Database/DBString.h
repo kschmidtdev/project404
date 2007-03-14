@@ -44,6 +44,11 @@ public:
      */
     string GetData() { return mStringData; } // INLINE METHOD.
 
+    /**
+     * Set Method.
+     */
+     void SetData(const string& data) { mStringData = data; } // INLINE METHOD.
+
 protected:
 
 private:

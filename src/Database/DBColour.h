@@ -58,6 +58,21 @@ public:
      */
     int GetBlue() { return mColourData[2]; } // INLINE METHOD.
 
+    /**
+     * Set Method.
+     */
+     void SetRed(int red) { mColourData[0] = red; }
+
+    /**
+     * Set Method.
+     */
+     void SetGreen(int green) { mColourData[1] = green; }
+
+    /**
+     * Set Method.
+     */
+     void SetBlue(int blue) { mColourData[2] = blue; }
+
 protected:
 
 private:

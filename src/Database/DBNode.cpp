@@ -49,7 +49,31 @@ DBNode::~DBNode()
 DBNode* DBNode::GetFirstChild()
 {
     mChildrenIter = mChildren.begin();
-    return *mChildrenIter;
+    if( mChildrenIter != mChildren.end() )
+    {
+        return *mChildrenIter;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+DBNode* DBNode::GetRightSibling()
+{
+    vector<DBNode*>::iterator Iter;
+    vector<DBNode*>* Children = this->GetParent()->GetChildren();
+
+    for ( Iter = Children->begin(); Iter != Children->end(); Iter++ )
+    {
+        if ( *Iter == this )
+        {
+            if ( ++Iter != Children->end() ) return *Iter;
+            else return NULL; // no Right Sibling Node.
+        }
+    }
+
+    return NULL; // no Right Sibling Node.
 }
 
 DBNode* DBNode::GetNextChild()
@@ -74,6 +98,11 @@ DBNode* DBNode::GetChild( const string& name )
     }
 
     return NULL; // no matching entry.
+}
+
+vector<DBNode*>* DBNode::GetChildren()
+{
+    return &mChildren;
 }
 
 DBData* DBNode::GetFirstAttribute()
