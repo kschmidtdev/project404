@@ -283,7 +283,6 @@ vector<Tile> DBEngine::LoadBattleMap( int battleNumber )
 
     // Load Nodes.
     DBNode* BattleMapNode = mDB->Search( "Map" ); // will be modified to choose among many different maps.
-    cout << BattleMapNode->GetName() << endl;
 
     // Search Characters.
     DBNode* TileSetNode = BattleMapNode->GetFirstChild(); // first member in the party.
@@ -314,8 +313,8 @@ vector<Tile> DBEngine::LoadBattleMap( int battleNumber )
             Tile newTile = Tile( newPoint, TileType->GetData() );
             BattleMap.push_back( newTile );
 
-            xCoor++;
             yCoor++;
+            if ( yCoor > 9 ) { yCoor = 0; xCoor++; }
         }
 
         TileSetNode = BattleMapNode->GetNextChild();
@@ -324,7 +323,7 @@ vector<Tile> DBEngine::LoadBattleMap( int battleNumber )
     vector<Tile>::iterator Iter;
     for (Iter=BattleMap.begin(); Iter!=BattleMap.end(); Iter++)
     {
-        cout << &(*Iter) << endl;
+        cout << (*Iter).GetType() << "    " << (*Iter).GetPoint().GetX() << ":" << (*Iter).GetPoint().GetY() << endl;
     }
 
     return BattleMap;
