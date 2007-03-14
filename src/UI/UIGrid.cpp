@@ -26,6 +26,7 @@
  * Andrew Osborne, March 11 2007      | Added CharWindow functionality to respond to cursor movement - added CursorUpdate method
  *                                    | & setCharWindow
  * Karl Schmidt,	March 11 2007	  | Added a hacky fix to a rare crash bug. (see a big comment block at around line 364
+ * Mike Malyuk,     March 14 2007     | Added new params to GetMovementRange in Map, fixed.
  */
 
 #include <util.h>
@@ -218,7 +219,7 @@ void UIGrid::ConfirmFunction( const Point & p )
 
                 // Step 2 - prepare screen/UI for moveable range
                 // ==============
-                AddMoveableRange( mLevel->GetEveryone(), mCurCharacter);
+                AddMoveableRange( mLevel->GetEveryone(), mLevel->GetEnemies(), mCurCharacter);
             }
             break;
 
@@ -240,7 +241,7 @@ void UIGrid::ConfirmFunction( const Point & p )
             // Step 6 - Prep screen/UI for Attackable Range
 
             old = mCurCharacter->GetPoint();
-            movement = mMap.GetMovementRange(mLevel->GetEveryone(), mCurCharacter);
+            movement = mMap.GetMovementRange(mLevel->GetEveryone(), mLevel->GetEnemies(), mCurCharacter);
             for(vector<Point>::iterator piter = movement.begin(); piter != movement.end(); piter++)
             {
                 if((*piter) == p)
@@ -391,7 +392,7 @@ void UIGrid::ConfirmFunction( const Point & p )
             {
                 // Step 2 - prepare screen/UI for moveable range
                 // ==============
-                AddMoveableRange( mLevel->GetEveryone(), mCurCharacter );
+                AddMoveableRange( mLevel->GetEveryone(), mLevel->GetEnemies(), mCurCharacter );
             }
 
             break;
@@ -415,7 +416,7 @@ void UIGrid::ConfirmFunction( const Point & p )
 
             // Check if move was cancelled
             old = mCurCharacter->GetPoint();
-            movement = mMap.GetMovementRange(mLevel->GetEveryone(), mCurCharacter);
+            movement = mMap.GetMovementRange(mLevel->GetEveryone(), mLevel->GetParty(), mCurCharacter);
             for(vector<Point>::iterator piter = movement.begin(); piter != movement.end(); piter++)
             {
                 if((*piter) == p)
@@ -638,10 +639,10 @@ void UIGrid::AddAttackRange( PointVec attackRange )
 }
 
 
-void UIGrid::AddMoveableRange( vector<Character*> everyone, Character* you )
+void UIGrid::AddMoveableRange( vector<Character*> everyone, vector<Character*> enemies, Character* you )
 {
 
-    PointVec moveRange = mMap.GetMovementRange(everyone, you);
+    PointVec moveRange = mMap.GetMovementRange(everyone, enemies, you);
 
     for ( PointItr i = moveRange.begin(); i != moveRange.end(); ++i )
     {

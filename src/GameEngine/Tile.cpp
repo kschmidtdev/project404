@@ -7,6 +7,7 @@
  * Mike Malyuk, February 9, 2007 | Initial design
  * Mike Malyuk, March 8 2007     | Added Tile mPic getter, allows UI to create easier
  * Karl Schmidt, March 9 2007	 | Changed textures to png
+ * Mike Malyuk, March 14 2007    | Added rock
  */
 
 #include <util.h>
@@ -41,6 +42,11 @@ Tile::Tile(Point p, string type)
     {
         mWeight = 1;
         mPic = "road.png";
+    }
+    else if(type.compare("ROCK") == 0)
+    {
+        mWeight = INT_MAX;
+        mPic = "rock.png";
     }
     else
     {
