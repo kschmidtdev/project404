@@ -11,6 +11,7 @@
  *
  * Authors:
  * Andrew Osborne, March 4, 2007, Initial Creation
+ * Andrew Osborne, March 13 2007, Added BattleInit operation and mCity (ptr) variable
  */
 
 #ifndef UIOverMapTile_h
@@ -22,6 +23,7 @@
 // PROJECT INCLUDES
 //
 #include <UIElement.h>
+#include <GameEngine/City.h>
 
 // LOCAL INCLUDES
 //
@@ -49,6 +51,13 @@ public:
      * Position and image file name constructor
      */
     UIOverMapTile(int x, int y, string fileName);
+
+
+    /**
+     * City, position and image file name constructor (though may eventually be the same
+     */
+    UIOverMapTile(City *c);
+
 
     /**
      * Copy constructor.
@@ -82,7 +91,10 @@ public:
      */
     void LevelDefeated(void);
 
-
+    /**
+     * Initializes the battle that in the place that this tile represents
+     */
+    void BattleInit(void);
 
 
 
@@ -156,7 +168,11 @@ protected:
 
     Point mMapOffset;
 
+    // Helper boolean - not true definition of defeated...
     bool mDefeated;
+
+    // City that tile represents
+    City* mCity;
 
     //string mBattleImageFilename;
     //string mConqueredImageFilename;

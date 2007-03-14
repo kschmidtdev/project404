@@ -17,6 +17,7 @@
  * Mike Malyuk, February 15 2007  | Added AI
  * Karl Schmidt, February 15 2007 | Fixed an odd header include path
  * Mike Malyuk, March 10, 2007    | Removed point, implemented map
+ * Andrew Osborne, March 13 2007  | Changed BattleInit, and initiated the city member variables
  */
 
 #ifndef GameEngine_h
@@ -32,6 +33,7 @@
 #include <GameEngine/Level.h>
 #include <GameEngine/Character.h>
 #include <GameEngine/Item.h>
+#include <GameEngine/City.h>
 #include <AI/AIControl.h>
 
 // LOCAL INCLUDES
@@ -43,6 +45,8 @@
 
 typedef vector<Level*> LevelPtrVec;
 typedef LevelPtrVec::iterator LevelPtrItr;
+typedef vector<City*> CityPtrVec;
+typedef CityPtrVec::iterator CityPtrItr;
 
 class GameEngine
 {
@@ -82,7 +86,8 @@ enum Cities
     /**
      * Pass information to a level instance
 	 */
-    void BattleInit(vector<Character*> partyMem, Cities place, Map map);
+    //void BattleInit(vector<Character*> partyMem, City *c, Map map);
+    void BattleInit(City *c);
 
     /**
      * Unload the current level
@@ -125,6 +130,11 @@ enum Cities
 	 */
     void SetCursorBattle( const int x, const int y );
 
+    /**
+     * Sets the current city as being defeated
+     */
+    void CityDefeated(void);
+
 
     void SetAI(Level* level);
 // INQUIRY (reading)
@@ -144,9 +154,9 @@ enum Cities
     Level* GetLevel() { return mCurLvl; };
 
     /**
-     * Returns a vector of all the levels in the game
+     * Returns a vector of all the cities in the game
 	 */
-    LevelPtrVec GetLevels() { return mLevels; };
+    CityPtrVec* GetCities() { return &mCities; };
 
     AIControl* GetAI() {return mAI;}
 
@@ -158,16 +168,24 @@ protected:
     GameEngine(void);
 
 // PROTECTED VARIABLES
+
+    // Character/Party information
     vector<Character*> mCharacters;
     vector<Character*> mParty;
-    vector<Level*> mLevels;
-    AIControl* mAI;
-// TODO: Implement when City.h exists
-//    vector<City*> mCities;
     vector<Item*> mItems;
+
+    // Level information
+    vector<Level*> mLevels;
     Level* mCurLvl;
-// TODO: Implement when City.h exists
-//    City* mCurCity;
+
+    // AI
+    AIControl* mAI;
+
+    // City information
+    vector<City*> mCities;
+    City* mCurCity;
+
+    // ????
     Point* mCurTile;
     Character* mCurChar;
 
