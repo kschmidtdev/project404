@@ -72,7 +72,7 @@ enum charState
     /**
     * Constructor.
     */
-    Level(int); // Contructor loads characters from Database.
+    Level(int battleNumber); // Contructor loads characters from Database.
 
     /**
      * Destructor.

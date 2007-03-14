@@ -6,6 +6,9 @@
  * Authors:
  * Seung Woo Han, February 13 2007 | Initial design
  * Seung Woo Han, February 13 2007 | Done for all the basic implementation
+ * Seung Woo Han, March 14 2007    | LoadBattleMap has been added.
+ *                                   LoadParty, LoadEnemies, LoadPartyStartingPoint, LoadEnemiesStartringPoint
+ *                                   takes a parameter(battle number) now.
  */
 
 #include <util.h>
@@ -169,14 +172,21 @@ ArmorItem* DBEngine::CreateArmor( DBNode* ArmorNode )
     return newArmor;
 }
 
-vector<Character*>* DBEngine::LoadParty()
+vector<Character*>* DBEngine::LoadParty( int battleNumber )
 {
     vector<Character*>* PartyList = new vector<Character*>; // pointer to return.
 
     // Load Nodes.
     DBNode* LevelNode = mDB->Search( "Level" );
-    DBNode* Stage1Node = LevelNode->GetFirstChild();
-    DBNode* PartyNode = Stage1Node->GetFirstChild();
+
+    // Find Correct Battle Stage.
+    DBNode* StageNode = LevelNode->GetFirstChild();
+    for (int i=1; i<battleNumber; i++)
+    {
+        StageNode = LevelNode->GetNextChild();
+    }
+
+    DBNode* PartyNode = StageNode->GetChild( "Party" );
 
     // Search Characters.
     DBNode* PartyMemberNode = PartyNode->GetFirstChild(); // first member in the party.
@@ -200,12 +210,22 @@ vector<Character*>* DBEngine::LoadParty()
     return PartyList;
 }
 
-vector<Character*>* DBEngine::LoadEnemies()
+vector<Character*>* DBEngine::LoadEnemies( int battleNumber )
 {
     vector<Character*>* EnemiesList = new vector<Character*>; // pointer to return.
 
     // Load Nodes.
-    DBNode* EnemiesNode = mDB->Search( "Enemies" );
+    DBNode* LevelNode = mDB->Search( "Level" );
+
+    // Find Correct Battle Stage.
+    DBNode* StageNode = LevelNode->GetFirstChild();
+    for (int i=1; i<battleNumber; i++)
+    {
+        StageNode = LevelNode->GetNextChild();
+    }
+
+    // Load Nodes.
+    DBNode* EnemiesNode = StageNode->GetChild( "Enemies" );
 
     // Search Characters.
     DBNode* EnemiesMemberNode = EnemiesNode->GetFirstChild(); // first member in the party.
@@ -229,9 +249,19 @@ vector<Character*>* DBEngine::LoadEnemies()
     return EnemiesList;
 }
 
-DBVector2D* DBEngine::LoadPartyStartingPoint(Character* thisCharacter)
+DBVector2D* DBEngine::LoadPartyStartingPoint( int battleNumber, Character* thisCharacter )
 {
-    DBNode* PartyNode = mDB->Search( "Party" );
+    // Load Nodes.
+    DBNode* LevelNode = mDB->Search( "Level" );
+
+    // Find Correct Battle Stage.
+    DBNode* StageNode = LevelNode->GetFirstChild();
+    for (int i=1; i<battleNumber; i++)
+    {
+        StageNode = LevelNode->GetNextChild();
+    }
+
+    DBNode* PartyNode = StageNode->GetChild( "Party" );
 
     DBString* PartyMemberNameData;
     vector<Character*>::iterator Iter;
@@ -253,9 +283,20 @@ DBVector2D* DBEngine::LoadPartyStartingPoint(Character* thisCharacter)
     return NULL; // not found.
 }
 
-DBVector2D* DBEngine::LoadEnemiesStartingPoint(Character* thisCharacter)
+DBVector2D* DBEngine::LoadEnemiesStartingPoint( int battleNumber, Character* thisCharacter )
 {
-    DBNode* EnemiesNode = mDB->Search( "Enemies" );
+    // Load Nodes.
+    DBNode* LevelNode = mDB->Search( "Level" );
+
+    // Find Correct Battle Stage.
+    DBNode* StageNode = LevelNode->GetFirstChild();
+    for (int i=1; i<battleNumber; i++)
+    {
+        StageNode = LevelNode->GetNextChild();
+    }
+
+    // Load Nodes.
+    DBNode* EnemiesNode = StageNode->GetChild( "Enemies" );
 
     DBString* EnemiesMemberNameData;
     vector<Character*>::iterator Iter;
@@ -282,7 +323,17 @@ vector<Tile> DBEngine::LoadBattleMap( int battleNumber )
     vector<Tile> BattleMap; // pointer to return.
 
     // Load Nodes.
-    DBNode* BattleMapNode = mDB->Search( "Map" ); // will be modified to choose among many different maps.
+    DBNode* LevelNode = mDB->Search( "Level" );
+
+    // Find Correct Battle Stage.
+    DBNode* StageNode = LevelNode->GetFirstChild();
+    for (int i=1; i<battleNumber; i++)
+    {
+        StageNode = LevelNode->GetNextChild();
+    }
+
+    // Load Nodes.
+    DBNode* BattleMapNode = StageNode->GetChild( "Map" ); // will be modified to choose among many different maps.
 
     // Search Characters.
     DBNode* TileSetNode = BattleMapNode->GetFirstChild(); // first member in the party.

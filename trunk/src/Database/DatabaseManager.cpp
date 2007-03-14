@@ -7,6 +7,7 @@
  * Seung Woo Han, February 7 2007 | Initial design
  * Seung Woo Han, February 11 2007 | Added LoadFromFile() function which handles XML.
  * Karl Schmidt, February 13 2007 | Added code to make DatabaseManager a singleton, fixed a warning
+ * Seung Woo Han, March 14 2007 | SaveToFile and protected methods related to this is implemented.
  */
 
 #include <util.h>

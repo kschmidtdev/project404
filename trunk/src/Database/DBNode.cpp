@@ -7,6 +7,7 @@
  * Seung Woo Han, February 7 2007 | Initial design
  * Seung Woo Han, February 11 2007 | Created some overloading constructors and added more functions.
  * Karl Schmidt, February 14 2007 | Fixed some bugs that crashed on some machines (invalid iters, ptrs)
+ * Seung Woo Han, March 13 2007 | New method called GetRightSibling is created. Minor bugs were fixed.
  */
 
 #include <util.h>

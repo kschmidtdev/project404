@@ -21,15 +21,16 @@
  * Karl Schmidt, February 15 2007 | Fixed slight memory leak
  * Karl Schmidt, March 04 2007    | Fixed another slight memory leak
  * Mike Malyuk, March 10 2007     | Removed move methods now in Map, cleared things out to work with new method
- * Karl Schmidt, March 12 2007	  | Turfed default constructor body since it's not really used anymore, and
- *									is used in one area temporarily so it's causing memory leaks
+ * Karl Schmidt, March 12 2007	   | Turfed default constructor body since it's not really used anymore, and
+ *									     is used in one area temporarily so it's causing memory leaks
  * Mike Malyuk, March 14 2007     | Set map in Level for evil Overlord
+ * Seung Woo Han, March 14 2007   | Modified Level(int) constructor. Now This contructor takes integer value which is the battle
+ *                                  number. No further changes will be made to Level(int battleNumber) I hope.
  */
 
 #include <util.h>
 
 #include "Level.h"                                // class implemented
-//#include "Character.h"
 #include "Archer.h"
 #include "Knight.h"
 #include "Healer.h"
@@ -66,33 +67,34 @@ Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point>
 
 }
 
-Level::Level(int)
+Level::Level(int battleNumber)
 : mState(FREE), mCurChar( NULL ), mMyTurn( true )
 {
-    Map mMap;
     DBEngine* DBE = DBEngine::GetInstance();
     DBE->Initialize();
+
+    mMap = Map( DBE->LoadBattleMap( battleNumber ) );
 
     Point StartingPoint;
     DBVector2D* StartingVector;
 
     //// Party Setting ////
-    vector<Character*>* PartyList = DBE->LoadParty(); // Get the pointer of party members in this level.
+    vector<Character*>* PartyList = DBE->LoadParty( battleNumber ); // Get the pointer of party members in this level.
     vector<Character*>::iterator Iter1; // Iterator.
     for (Iter1 = PartyList->begin(); Iter1 != PartyList->end(); Iter1++)
     {
-        StartingVector = DBE->LoadPartyStartingPoint( *Iter1 );
+        StartingVector = DBE->LoadPartyStartingPoint( battleNumber, *Iter1 );
         StartingPoint.Set( StartingVector->GetX(), StartingVector->GetY() );
         (*Iter1)->Move( StartingPoint );
         mParty.push_back( (*Iter1) );
     }
 
     //// Enemies Setting ////
-    vector<Character*>* EnemiesList = DBE->LoadEnemies(); // Get the pointer of enemy members in this level.
+    vector<Character*>* EnemiesList = DBE->LoadEnemies( battleNumber ); // Get the pointer of enemy members in this level.
     vector<Character*>::iterator Iter2; // Iterator.
     for (Iter2 = EnemiesList->begin(); Iter2 != EnemiesList->end(); Iter2++)
     {
-        StartingVector = DBE->LoadEnemiesStartingPoint( *Iter2 );
+        StartingVector = DBE->LoadEnemiesStartingPoint( battleNumber, *Iter2 );
         StartingPoint.Set( StartingVector->GetX(), StartingVector->GetY() );
         (*Iter2)->Move( StartingPoint );
         mEnemies.push_back( (*Iter2) );

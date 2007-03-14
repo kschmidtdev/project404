@@ -25,6 +25,12 @@
 				<Data type="string" name="Weapon" value="Bow of Lightenning" />
 				<Data type="string" name="Armor" value="Armor of Feather" />
 			</Node>
+			<Node name="Super Man">
+				<Data type="string" name="Class" value="Archer" />
+				<Data type="int" name="Level" value="99" />
+				<Data type="string" name="Weapon" value="Bow of Lightenning" />
+				<Data type="string" name="Armor" value="Armor of Feather" />
+			</Node>
 			<Node name="Enemy Type A">
 				<Data type="string" name="Class" value="Knight" />
 				<Data type="int" name="Level" value="5" />
@@ -271,6 +277,81 @@
 					<Data type="vector2d" name="StartCoordinate" value="9:5" />
 					<Data type="vector2d" name="EndCoordinate" value="9:9" />
 				</Node>			
+			</Node>
+		</Node>
+		<Node name="Stage2">
+			<Node name="Party">
+				<Node name="Memeber1">
+					<Data type="string" name="Character Name" value="Super Man" />
+					<Data type="vector2d" name="Starting Point" value="0:0" />
+				</Node>
+				<Node name="Memeber2">
+					<Data type="string" name="Character Name" value="Karl" />
+					<Data type="vector2d" name="Starting Point" value="0:3" />
+				</Node>
+				<Node name="Memeber3">
+					<Data type="string" name="Character Name" value="Mike" />
+					<Data type="vector2d" name="Starting Point" value="0:6" />
+				</Node>
+				<Node name="Memeber4">
+					<Data type="string" name="Character Name" value="Andrew" />
+					<Data type="vector2d" name="Starting Point" value="0:9" />
+				</Node>
+			</Node>
+			<Node name="Enemies">
+				<Node name="Member1">
+					<Data type="string" name="Character Name" value="Enemy Type A" />
+					<Data type="vector2d" name="Starting Point" value="9:2" />
+				</Node>
+				<Node name="Member2">
+					<Data type="string" name="Character Name" value="Enemy Type B" />
+					<Data type="vector2d" name="Starting Point" value="9:4" />
+				</Node>
+				<Node name="Member3">
+					<Data type="string" name="Character Name" value="Enemy Type C" />
+					<Data type="vector2d" name="Starting Point" value="9:6" />
+				</Node>
+				<Node name="Member4">
+					<Data type="string" name="Character Name" value="Enemy Boss" />
+					<Data type="vector2d" name="Starting Point" value="9:8" />
+				</Node>
+			</Node>
+			<Node name="Map">
+				<Node name="TileSet001">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="0:0" />
+					<Data type="vector2d" name="EndCoordinate" value="3:9" />
+				</Node>
+				<Node name="TileSet002">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="4:0" />
+					<Data type="vector2d" name="EndCoordinate" value="4:4" />
+				</Node>
+				<Node name="TileSet003">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="4:5" />
+					<Data type="vector2d" name="EndCoordinate" value="4:5" />
+				</Node>
+				<Node name="TileSet004">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="4:6" />
+					<Data type="vector2d" name="EndCoordinate" value="5:4" />
+				</Node>
+				<Node name="TileSet005">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="5:5" />
+					<Data type="vector2d" name="EndCoordinate" value="5:5" />
+				</Node>
+				<Node name="TileSet006">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="5:6" />
+					<Data type="vector2d" name="EndCoordinate" value="5:9" />
+				</Node>
+				<Node name="TileSet004">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="6:0" />
+					<Data type="vector2d" name="EndCoordinate" value="9:9" />
+				</Node>
 			</Node>
 		</Node>
 	</Node>
