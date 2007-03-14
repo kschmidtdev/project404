@@ -85,6 +85,16 @@ public:
     DBNode* GetChild(const string& name); // return the specific child in the child vector.
 
     /**
+     * Get Method. Return the pointer of children vector.
+    */
+    vector<DBNode*>* GetChildren();
+
+     /**
+     * Get Method. Return the pointer of Right Sibling Node.
+    */
+    DBNode* GetRightSibling();
+
+    /**
      * Get Method. Return the pointer of its first attribute data.
      */
     DBData* GetFirstAttribute();

@@ -22,6 +22,7 @@
 
 #include "tinyxml.h"
 #include "DBNode.h"
+#include <sstream>
 
 class DatabaseManager
 {
@@ -57,7 +58,7 @@ public:
     /**
      * Save to XML file.
      */
-    void SaveToFile(); // not implemented for version 1.
+    void SaveToFile(const string& filename);
 
     /**
      * Get Method. Return the root node of the database.
@@ -68,6 +69,21 @@ public:
      * Search a Node which is specified with a parameter.
      */
     DBNode* Search(const string& name);
+
+    /**
+     * Update existing Node. Update DBString.
+     */
+     bool UpdateNode(const string& nodeName, const string& attributeName, const string& value);
+
+    /**
+     * Update existing Node. Update DBInt.
+     */
+     bool UpdateNode(const string& nodeName, const string& attributeName, int value);
+
+    /**
+     * Update existing Node. Update DBVector2D
+     */
+     bool UpdateNode(const string& nodeName, const string& attributeName,int xValue, int yValue);
 
 protected:
 
@@ -91,23 +107,37 @@ private:
     /**
      * This is a recursive function. Which finds and creates a sibling node.
      */
-    void CreateSiblingNode( TiXmlElement* currentNode, DBNode* parent );
+    void CreateSiblingNode( TiXmlElement* currentElement, DBNode* parentNode );
 
     /**
      * This is a recursive function. Which finds and creates a child node.
      */
-    void CreateChildNode( TiXmlElement* currentNode, DBNode* parent );
+    void CreateChildNode( TiXmlElement* currentElement, DBNode* parentNode );
 
     /**
      * This is a recursive function. Which finds and creates a attribute data.
      */
     DBData* CreateAttribute( TiXmlElement* thisTag );
 
+    /**
+     * This is a recursive function. Which finds and saves a sibling node to the output file.
+     */
+    void SaveSiblingNode( DBNode* currentNode, TiXmlElement* parentElement );
+
+    /**
+     * This is a recursive function. Which finds and saves a child node to the output file.
+     */
+    void SaveChildNode( DBNode* currentNode, TiXmlElement* parentElement );
+
+    /**
+     * This is a recursive function. Which finds and saves attributes of this node to the output file.
+     */
+    void SaveAttribute( DBNode* thisNode, TiXmlElement* parentElement );
+
     // VARIABLES
     vector<DBNode*> mSearchList;
     DBNode* mRootNode;
     int mSize; // Save a size of Nodes and Datas.
-
 };
 
 #endif  // _DatabaseManager_h_

@@ -43,6 +43,11 @@ public:
      */
     float GetData() { return mFloatData; } // INLINE METHOD.
 
+    /**
+     * Set Method.
+     */
+     void SetData(float data) { mFloatData = data; }
+
 protected:
 
 private:

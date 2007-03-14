@@ -54,6 +54,16 @@ public:
      */
     int GetY() { return mVector2DData[1]; } // INLINE METHOD.
 
+     /**
+     * Set Method. Set X.
+     */
+     void SetX(int x) { mVector2DData[0] = x; } // INLINE METHOD.
+
+      /**
+     * Set Method. Set Y.
+     */
+     void SetY(int y) { mVector2DData[1] = y; } // INLINE METHOD.
+
 protected:
 
 private:
