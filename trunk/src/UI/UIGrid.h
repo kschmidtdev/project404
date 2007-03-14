@@ -21,6 +21,7 @@
  * Mike Malyuk,    March 10, 2007     | Added info for Map, changed add moveable range to use map
  * Andrew Osborne, March 11, 2007     | Added mCharWindow & added CursorUpdate method
  * Mike Malyuk,    March 14, 2007     | Fixed range method to get latest.
+ * Mike Malyuk,    March 14, 2007     | Removed defunct methods
  */
 
 #ifndef UIGrid_h
@@ -124,11 +125,6 @@ public:
     void ClearAttackRange( void );
 
     /**
-     * Generic Function used for adding movement/attack range
-     */
-    void AddRange( const PointVec & pointRange, const UIImagePtrVec & elementRange);
-
-    /**
      * Clear the attack range that appears
      */
     void ClearRange( const UIImagePtrVec & elements );
@@ -143,7 +139,7 @@ public:
      */
     void UpdateCursor(void);
 
-
+    void Initialize();
 // ACCESS (writing)
 
     /**
@@ -168,7 +164,6 @@ public:
      */
     bool HasCharacter( const Point & p );
 
-    Map GetMap();
     Point MaxXY(){ return Point(mNumColumns, mNumRows);}
 
 protected:
@@ -176,6 +171,7 @@ protected:
 
     // Tile Info
     UITileVec mTiles;
+    PointVec mMovePoints;
     int mTileWidth;
     int mTileHeight;
     int mNumRows;
@@ -197,7 +193,7 @@ protected:
     UICharWindow* mCharWindow;
 
     //Map
-    Map mMap;
+    Map* mMap;
 
     // Gameplay-Character Movement/Attack variables
 
@@ -224,16 +220,6 @@ protected:
     protected:
     SDL_Surface* GetClassSurface( Character* c, const string group );
     Point GridToAbsoluteCoordinates( const Point & p );
-
-
-
-    /**
-     * Refines point vector to ensure all points are valid and don't contain points that have other characters
-     * on them
-     *
-     *@return refined point vector
-     */
-    PointVec RefineMoveRange( PointVec moveRange);
 
 
 private:

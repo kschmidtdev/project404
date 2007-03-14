@@ -22,6 +22,7 @@
  * Mike Malyuk, February 15, 2007 | Added GetCurCharacter
  * Mike Malyuk, March 10, 2007    | Removed mMap and move methods, now that map does this
  * Karl Schmidt, March 14, 2007   | Added a hack to force the current turn to the players to solve a bug
+ * Mike Malyuk, March 14, 2007    | Added Map to Level variables, added GetMap method.
  */
 
 #ifndef Level_h
@@ -159,6 +160,11 @@ enum charState
      vector<Character*> GetParty();
 
     /**
+     *
+     */
+     Map* GetMap(){return &mMap;}
+
+    /**
      * Return Party
      */
      Character* GetCurCharacter(){return mCurChar;}
@@ -173,6 +179,7 @@ protected:
     vector<Point> mAttackArea;
     vector<Point> mStart;
     Character* mCurChar;
+    Map mMap;
     bool mMyTurn;
 
     // For testing/version1

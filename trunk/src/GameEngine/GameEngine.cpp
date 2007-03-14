@@ -11,6 +11,7 @@
  * Andrew Osborne, March 11 2007  | Added GetLevels (and created instantiations of the levels in the game)
  * Karl Schmidt, March 12, 2007	  | Fixed a memory leak (deleting levels on Shutdown now)
  * Andrew Osborne, March 13 2007  | Added GetCities, and changed BattleInit
+ * Mike Malyuk,    March 14 2007  | Set AIController with proper map
  */
 
 #include <util.h>
@@ -88,7 +89,7 @@ void GameEngine::BattleInit(City *c)
     DBE->Initialize();
     Map map ( DBE->LoadBattleMap( 1 ) );
 
-    // Map map;
+    //Map map;
 
     // Set current city
     mCurCity = c;
@@ -102,7 +103,7 @@ void GameEngine::BattleInit(City *c)
     mCurLvl = new Level(0);
 
     // Initialize AI
-    mAI = new AIControl(mCurLvl, map);
+    mAI = new AIControl(mCurLvl, *(mCurLvl->GetMap()));
 
 }
 
