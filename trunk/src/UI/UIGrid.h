@@ -20,6 +20,7 @@
  * Mike Malyuk,    March 9, 2007      | Added variable for Map
  * Mike Malyuk,    March 10, 2007     | Added info for Map, changed add moveable range to use map
  * Andrew Osborne, March 11, 2007     | Added mCharWindow & added CursorUpdate method
+ * Mike Malyuk,    March 14, 2007     | Fixed range method to get latest.
  */
 
 #ifndef UIGrid_h
@@ -105,7 +106,7 @@ public:
     /**
      * Used for displaying the range of motion for a particular player
      */
-    void AddMoveableRange( vector<Character*> enemies, Character* you);
+    void AddMoveableRange( vector<Character*> enemies, vector<Character*> enemies, Character* you);
 
     /**
      *  Clears the points which make up

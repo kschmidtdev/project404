@@ -8,6 +8,7 @@
  * Mike Malyuk, February 15, 2007 | Fixed bounds so AI can't leave the grid
  * Karl Schmidt, March 9, 2007	  | Added proper enum usage, and faked AI 'thinking' pauses
  * Mike Malyuk, March 10, 2007    | Added map to calculate movement
+ * Mike Malyuk, March 14, 2007    | Dijkstras method changed, added no params
  */
 
 #include <util.h>
@@ -42,7 +43,7 @@ Point AIControl::DoAction()
             }
             return Point(-30,-30);
         case Level::AIMOVE:
-            points = mMap.GetMovementRange(mLevel->GetEveryone(), mLevel->GetCurCharacter());
+            points = mMap.GetMovementRange(mLevel->GetEveryone(), mLevel->GetParty(), mLevel->GetCurCharacter());
             p = *(points.begin());
             points.clear();
             return p;

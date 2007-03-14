@@ -9,6 +9,7 @@
  * Mike Malyuk, March 9, 2007    | Added default constructor implementation and GetTiles()
  * Mike Malyuk, March 10, 2007   | Added dijkstras method, added node struct
  * Karl Schmidt, March 10, 2007  | Fixed memory leaks
+ * Mike Malyuk, March 14, 2007   | Lazy man's immovables added!
  */
 
 #include <util.h>
@@ -41,7 +42,7 @@ Map::Map()
     mTiles.push_back( Tile(Point(0,8), "GRASS"));
     mTiles.push_back( Tile(Point(0,9), "GRASS"));
     mTiles.push_back( Tile(Point(1,0), "GRASS"));
-    mTiles.push_back( Tile(Point(1,1), "GRASS"));
+    mTiles.push_back( Tile(Point(1,1), "ROCK"));
     mTiles.push_back( Tile(Point(1,2), "GRASS"));
     mTiles.push_back( Tile(Point(1,3), "GRASS"));
     mTiles.push_back( Tile(Point(1,4), "GRASS"));
@@ -56,7 +57,7 @@ Map::Map()
     mTiles.push_back( Tile(Point(2,3), "ROAD"));
     mTiles.push_back( Tile(Point(2,4), "ROAD"));
     mTiles.push_back( Tile(Point(2,5), "ROAD"));
-    mTiles.push_back( Tile(Point(2,6), "GRASS"));
+    mTiles.push_back( Tile(Point(2,6), "ROCK"));
     mTiles.push_back( Tile(Point(2,7), "GRASS"));
     mTiles.push_back( Tile(Point(2,8), "GRASS"));
     mTiles.push_back( Tile(Point(2,9), "GRASS"));
@@ -173,24 +174,48 @@ vector<Tile> Map::GetTiles()
     return mTiles;
 }
 
-vector<Point> Map::GetMovementRange(vector<Character*> everyone, Character* guy)
+vector<Point> Map::GetMovementRange(vector<Character*> everyone, vector<Character*> enemies, Character* guy)
 {
     Node* nodes = new Node[mTiles.size()];
     Node* checked = new Node[mTiles.size()];
     vector<Point> possiblepoints;
-
+    int maxMove = 0;
+    for(vector<Character*>::iterator citer = everyone.begin(); citer != everyone.end(); citer++)
+    {
+        if(((*citer)->GetAttr(Character::AGI)/2) > maxMove)
+        {
+            maxMove = (*citer)->GetAttr(Character::AGI)/2;
+        }
+    }
+    maxMove = maxMove+10;
     Node something;
     int b = 0;
     for(vector<Tile>::iterator iter = mTiles.begin(); iter != mTiles.end(); iter++)
     {
+        if((*iter).GetType().compare("ROCK") == 0)
+        {
+            something.weight = maxMove;
+        }
+        else
+        {
+            something.weight = (*iter).GetWeight();
+        }
         something.p = (*iter).GetPoint();
-        something.weight = (*iter).GetWeight();
         something.pathweight = -1;
         something.checked = false;
         nodes[b] = something;
         b++;
     }
-
+    for(vector<Character*>::iterator citer = enemies.begin(); citer != enemies.end(); citer++)
+    {
+        for(int i = 0; i < mTiles.size(); i++)
+        {
+            if(nodes[i].p == (*citer)->GetPoint())
+            {
+                nodes[i].weight = maxMove;
+            }
+        }
+    }
     nodes[guy->GetPoint().GetX()*mMaxX + guy->GetPoint().GetY()].pathweight = 0;
     nodes[guy->GetPoint().GetX()*mMaxX + guy->GetPoint().GetY()].checked = true;
     Node currentNode = nodes[guy->GetPoint().GetX()*mMaxX + guy->GetPoint().GetY()];
