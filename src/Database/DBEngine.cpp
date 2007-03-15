@@ -10,12 +10,14 @@
  *                                   LoadParty, LoadEnemies, LoadPartyStartingPoint, LoadEnemiesStartringPoint
  *                                   takes a parameter(battle number) now.
  * Karl Schmidt, March 15 2007	   | Added default behaviour so that it will attempt to load a savegame in Initialize if asked, otherwise load the regular db
+ * Karl Schmidt, March 15 2007     | Temporarily added in encryption/decryption hack for save file checking
  */
 
 #include <util.h>
 
 
 #include "DBEngine.h"                                     // class implemented
+#include <SecurityManager.h>
 #include <iostream>
 using namespace std;
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -49,7 +51,9 @@ void DBEngine::Initialize( const bool loadFromSave )
     if( loadFromSave && mDB->IsSaveFile() )
     {
         cout << "Loaded from the save file." << endl;
+        SecurityManager::GetInstance()->DecryptFile( "Save001.xml", SecurityManager::GetInstance()->GetUserHash("user1") );
         mDB->LoadFromFile( "Save001.xml" );
+        SecurityManager::GetInstance()->EncryptFile( "Save001.xml", SecurityManager::GetInstance()->GetUserHash("user1") );
     }
     else
     {
@@ -420,7 +424,9 @@ void DBEngine::SaveGame()
         DatabaseManager::GetInstance()->UpdateNode( (*Iter)->GetName(), "Level", (*Iter)->GetLevel() );
     }
 
-    DatabaseManager::GetInstance()->SaveToFile( "Save001.xml" );
+    string saveFileName = "Save001.xml";
+    DatabaseManager::GetInstance()->SaveToFile( saveFileName );
+    SecurityManager::GetInstance()->EncryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
     cout << "Your game has been saved successfully." << endl;
 }
 
