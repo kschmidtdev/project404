@@ -37,6 +37,7 @@ Archer::Archer()
     mAttributes[DEF] = 2;
     mExhausted = false;
     mIsDead = false;
+    mTarget = NULL;
 }// Archer
 
 Archer::Archer(string name, int level, WeaponItem* weapon, ArmorItem* armor)
@@ -55,6 +56,7 @@ Archer::Archer(string name, int level, WeaponItem* weapon, ArmorItem* armor)
     mAttributes[DEF] = 2;
     mExhausted = false;
     mIsDead = false;
+    mTarget = NULL;
     if(weapon != NULL)
     {
         mAttributes[POW] = mAttributes[POW] + weapon->GetAttr();

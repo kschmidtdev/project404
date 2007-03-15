@@ -114,6 +114,11 @@ enum Attr
      */
     void MakeDead();
 
+    /**
+     * SetTarget for AI
+     */
+    void SetTarget(Character* target);
+
 // INQUIRY
 
     /**
@@ -175,6 +180,10 @@ enum Attr
 	 */
     int GetExp();
 
+    /**
+     * Get target (AI)
+	 */
+    Character* GetTarget();
 protected:
 
 // VARIABLES
@@ -187,6 +196,7 @@ protected:
     int mMaxActRange;
     bool mExhausted;
     bool mIsDead;
+    Character* mTarget;
     Point mCurPos;
     ArmorItem* mArmor;
     WeaponItem* mWeapon;

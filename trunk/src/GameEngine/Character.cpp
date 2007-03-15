@@ -26,7 +26,7 @@
 
 Character::Character()
 :mName("GENERIC"), mLevel(1), mExp(0), mCurHP(10), mMaxHP(10),
-mMaxActRange(0), mExhausted(false), mIsDead(false), mCurPos(Point(0,0)), mArmor(NULL), mWeapon(NULL)
+mMaxActRange(0), mExhausted(false), mIsDead(false), mTarget(NULL), mCurPos(Point(0,0)), mArmor(NULL), mWeapon(NULL)
 {
     mAttributes[POW] = 0;
     mAttributes[AGI] = 0;
@@ -181,6 +181,11 @@ void Character::SetWeapon(WeaponItem* item)
         mWeapon = item;
     }
 }
+
+void Character::SetTarget(Character* target)
+{
+    mTarget = target;
+}
 //============================= INQUIRY    ===================================
 int Character::GetAttr(Attr value)
 {
@@ -240,6 +245,10 @@ int Character::GetLevel()
 int Character::GetExp()
 {
     return mExp;
+}
+Character* Character::GetTarget()
+{
+    return mTarget;
 }
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
