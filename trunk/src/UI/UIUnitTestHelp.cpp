@@ -39,7 +39,6 @@ mSRend( NULL ), mInitialized( false )
     mElementImage = ResourceManager::GetInstance()->LoadTexture("UITest.png");
 
     mSRend = SDLRenderer::GetInstance();
-    //tacAssert(mSRend);
 
     Initialize();
 

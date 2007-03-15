@@ -46,7 +46,6 @@ public:
     {
 
         // Initializing Elements for test
-        //testFileName = "charTile.png";
         UIText* storage;
         UIImage* backdrop = new UIImage("testButton.png");
         SDLRenderer::GetInstance()->AddToRenderQueue(backdrop);
@@ -67,8 +66,6 @@ public:
 
         mUIUnitTester->RunBasicTest();
         SDLRenderer::GetInstance()->RemoveFromRenderQueue(backdrop);
-
-        //mUIUnitTester->RunNewTest("Cons Def.");
 
         // Test 3rd constructor
         storage = testText;

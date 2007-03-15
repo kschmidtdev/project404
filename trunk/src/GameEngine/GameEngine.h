@@ -78,15 +78,10 @@ enum Cities
     void Shutdown();
 
 // OPERATIONS
-//  Character* GetInstChar(string templatename);
-//  Item* GetInstItem(string templatename);
-//  void DBWrite();
-//  void Initialize();
 
     /**
      * Pass information to a level instance
 	 */
-    //void BattleInit(vector<Character*> partyMem, City *c, Map map);
     void BattleInit(City *c);
 
     /**

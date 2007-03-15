@@ -148,7 +148,6 @@ void UIBattleScreenLayout::Initialize()
     mGrid = new UIGrid();
     mGrid->Initialize();
     mDefaultEventListener = mGrid;
-    //mGrid->setParent(this);
     mElements.push_back( mGrid );
 
 
@@ -165,8 +164,6 @@ void UIBattleScreenLayout::Initialize()
     // -----------------------------------
     mMenu = new UIMenu();
     mMenu->SetPos( Point(450, 180) );
-
-    //mMenu->AddButton("Status", new StatusFunction() );
     mMenu->AddButton("End Turn", new EndTurnFunction() );
     mMenu->AddButton("Quit", new BattleScreenQuitFunction() );
 
@@ -218,26 +215,20 @@ void UIBattleScreenLayout::OnLoad( void )
 
     if (tempIcon!=NULL)
     {
-        //LogInfo("Character Icon loaded successfully");
         while(piter != party.end() )
         {
-            //(*iter)->Move((*piter));
-            //mGrid->addCharacter( (*iter)->getTexture(), (*iter)->GetPoint() );
             mGrid->AddPartyCharacter( (*piter) );
             piter++;
 
         }
         while(eiter != enemies.end() )
         {
-            //(*iter)->Move((*piter));
-            //mGrid->addCharacter( (*iter)->getTexture(), (*iter)->GetPoint() );
             mGrid->AddEnemyCharacter( (*eiter) );
             eiter++;
         }
     }
     else
     {
-        //LogInfo("Character Icon load failed");
     }
 
     // Load in map textures

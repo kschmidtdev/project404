@@ -86,8 +86,6 @@ public:
         // and you were creating functions on the stack that would be getting deleted
         // by UIMenu when it destructs, causing a crash
         MenuTestOperation* Func1 = new MenuTestOperation(mUIUnitTester, "1");
-        //MenuTestOperation Func2(mUIUnitTester, "2");
-        //MenuTestOperation Func3(mUIUnitTester, "3");
         // Note:  This testing of function will come later
         // Once I complete an Input-help class
 

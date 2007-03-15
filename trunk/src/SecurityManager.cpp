@@ -91,7 +91,6 @@ void SecurityManager::LoadPasswordHashFile( const string fileName )
     else
     {
         // We should never try to open a file that doesn't exist
-        //tacAssert( false );
         LogWarning( fileName + string(" - File not found") );
     }
 }
@@ -288,8 +287,6 @@ string SecurityManager::EncryptFile( const string fileNameToEncrypt, const strin
         // (if the hashLength happens to be uneven)
         for( int j = 0; j < hashLength && i+j < bufferSize; ++j )
         {
-            // This commented code was used as a debugging tool
-            //LogInfo( string("Turning: ") + toString(buffer[i+j]) + string(" into: ") + toString(static_cast<char>(buffer[i+j] xor hashBuffer[j])) + string(" (hashing against: ") + toString( hashBuffer[j] ) );
             buffer[i+j] = buffer[i+j] xor hashBuffer[j];
         }
     }
@@ -425,8 +422,6 @@ string SecurityManager::DecryptFile( const string fileNameToDecrypt, const strin
         // (if the hashLength happens to be uneven)
         for( int j = 0; j < hashLength && i+j < bufferSize; ++j )
         {
-            // This commented code was used as a debugging tool
-            //LogInfo( string("Turning: ") + toString(buffer[i+j]) + string(" into: ") + toString(static_cast<char>(buffer[i+j] xor hashBuffer[j])) + string(" (hashing against: ") + toString( hashBuffer[j] ) );
             buffer[i+j] = buffer[i+j] xor hashBuffer[j];
         }
     }
@@ -551,8 +546,6 @@ string SecurityManager::DecryptFileToString( const string fileNameToDecrypt, con
         // (if the hashLength happens to be uneven)
         for( int j = 0; j < hashLength && i+j < bufferSize; ++j )
         {
-            // This commented code was used as a debugging tool
-            //LogInfo( string("Turning: ") + toString(buffer[i+j]) + string(" into: ") + toString(static_cast<char>(buffer[i+j] xor hashBuffer[j])) + string(" (hashing against: ") + toString( hashBuffer[j] ) );
             toReturn += buffer[i+j] xor hashBuffer[j];
         }
     }

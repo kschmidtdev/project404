@@ -80,17 +80,6 @@ public:
 
 // ACCESS (writing)
 
-    /**
-     * Change event handler to Menu
-     */
-    //void switchToMenu(void);
-
-    /**
-     * Change event handler to Grid
-     */
-    //void switchToGrid(void);
-
-
 // INQUIRY (reading)
 
     /**
@@ -107,9 +96,6 @@ protected:
 // PROTECTED VARIABLES
     UIMenu* mMenu;
     UIGrid* mGrid;
-    //int mGameState;
-    //Level* mLevel;
-    //GameEngine *mGameEngine;
 
 private:
 // PRIVATE VARIABLES

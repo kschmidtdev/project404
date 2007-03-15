@@ -28,7 +28,6 @@ public:
 
         TS_ASSERT( DatabaseManager::GetInstance()->LoadFromFile( DatabaseFile ) ); // test if database.xml has been loaded successfully.
 
-        // TS_TRACE( "Loading database. If you don't see any error messages, it is loaded successfully.\n");
     }
 
     // Called after all unit tests in this suite, remove if note needed

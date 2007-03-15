@@ -31,19 +31,6 @@ UIWinLayout::UIWinLayout()
     UIImage *temp = new UIImage("screen_win.png");
     mElements.push_back(temp);
 
-    //UIText *tempText = new UIText("Congratulations", 70, 255, 0, 0);
-    //tempText->SetPos( Point(33,50) );
-    //mElements.push_back(tempText);
-
-    //tempText = new UIText("YOU WON!!", 50, 255, 0, 0);
-    //tempText->SetPos( Point(175,145) );
-    //mElements.push_back(tempText);
-
-
-    //tempText = new UIText("Press CONFIRM to return to Main Menu", 24, 255, 0, 0);
-    //tempText->SetPos( Point(94, 390) );
-    //mElements.push_back(tempText);
-
     mName = "Win";
 
 }// UIWinLayout

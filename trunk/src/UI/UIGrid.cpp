@@ -53,9 +53,6 @@ UIGrid::UIGrid()
 : mNumRows( 10 ), mNumColumns( 10 ), mCursorPos( Point(0,0) ), mTileStart( Point(10,10) ), mTileOffset( 0 ),
   mCursor(NULL), mCharWindow( NULL ), mMap( NULL ), mCurCharacter( NULL ), mLevel( NULL )
 {
-    // Retrieve Game Engine
-    //mGameEngine = GameEngine::GetInstance();
-    //mGameEngine = NULL;
 
 }// UIGrid
 
@@ -125,18 +122,13 @@ void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
             {
                 mCursorPos = mCursorPos + Point(0,-1);
                 UpdateCursor();
-                //newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
-                //mCursor->SetPos( newPos );
             }
-            //cursor->moveUp()
             break;
         case InputManager::DOWN:
             if (mCursorPos.GetY()<mMaxCursorPos.GetY())
             {
                 mCursorPos = mCursorPos + Point(0,1);
                 UpdateCursor();
-                //newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
-                //mCursor->SetPos( newPos );
             }
             break;
         case InputManager::LEFT:
@@ -145,26 +137,19 @@ void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
             {
                 mCursorPos = mCursorPos + Point(-1,0);
                 UpdateCursor();
-                //newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
-                //mCursor->SetPos( newPos );
             }
-            //cursor->moveUp()
             break;
         case InputManager::RIGHT:
             if (mCursorPos.GetX()<mMaxCursorPos.GetX())
             {
                 mCursorPos = mCursorPos + Point(1,0);
                 UpdateCursor();
-                //newPos.Set(mCursorStart.GetX() + mTotalTileOffset*mCursorPos.GetX(), mCursorStart.GetY() + mTotalTileOffset*mCursorPos.GetY() );
-                //mCursor->SetPos( newPos );
             }
             break;
         case InputManager::CONFIRM:
             ConfirmFunction(mCursorPos);
             break;
         case InputManager::CANCEL:
-            // Will be handled later
-            // Add a request to confirm quiting??
             break;
         default:
             break;
@@ -769,7 +754,6 @@ void UIGrid::Initialize()
     // ----------------------------------------------------
     mMaxCursorPos.Set(mNumColumns - 1, mNumRows - 1);
     mCursorStart = mTileStart + Point( -mTileOffset, -mTileOffset);
-    //mCursor = new UICursor("tileCursor.png", "");
     mCursor = new UIImage("tileCursor.png");
     mCursor->SetPos( mCursorStart );
 

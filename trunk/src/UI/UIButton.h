@@ -69,12 +69,6 @@ public:
 	 */
     virtual void SetPos( const Point & nPos );
 
-    /**
-     * specifies operation to be performed upon pressing the button.
-	 */
-    //void SetOperation(FuncObj* nOperation);
-
-
 // INQUIRY (reading)
 
 protected:

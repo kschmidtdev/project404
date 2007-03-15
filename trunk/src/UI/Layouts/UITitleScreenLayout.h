@@ -49,13 +49,6 @@ public:
 
 // OPERATORS
 // OPERATIONS
-    /**
-     * Method to Draw the element on the screen
-     *
-     * @param Desitination surface
-     *
-     */
-    //virtual void RenderSelf( SDL_Surface* destination );
 
     /**
      * Method to Process input from user
