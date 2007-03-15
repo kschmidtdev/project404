@@ -418,6 +418,7 @@ void DBEngine::SaveGame()
     }
 
     DatabaseManager::GetInstance()->SaveToFile( "Save001.xml" );
+    cout << "Your game has been saved successfully." << endl;
 }
 
 //============================= ACCESS     ===================================

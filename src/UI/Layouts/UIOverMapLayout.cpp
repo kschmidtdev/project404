@@ -6,6 +6,7 @@
  * Authors:
  * Andrew Osborne, March 4, 2007 | Initial creation
  * Seung Woo Han, March 14, 2007 | Added feature that loads dialogs from the database.
+ * Seung Woo Han, March 15, 2007 | Saving function works now. ( by pressing Save button in the overmap screen )
  */
 #include "UIOverMapLayout.h"                                // class implemented
 #include "FuncObj.h"
@@ -17,7 +18,7 @@ class SaveFunction : public FuncObj
     virtual void operator()(void)
     {
         //UIManager::GetInstance()->SetEndGameState( true );
-        //GameEngine::GetInstance()->SaveGame();
+        DBEngine::GetInstance()->SaveGame();
     }
 
 };
