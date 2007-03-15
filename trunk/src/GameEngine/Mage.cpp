@@ -52,7 +52,7 @@ Mage::Mage(string name, int level, WeaponItem* weapon, ArmorItem* armor)
     mMaxActRange = 2;
     mCurPos = Point(0,0);
     mAttributes[POW] = 5;
-    mAttributes[AGI] = 2;
+    mAttributes[AGI] = 4;
     mAttributes[DEF] = 1;
     mExhausted = false;
     mIsDead = false;
@@ -80,7 +80,7 @@ Mage::~Mage()
 //============================= OPERATIONS ===================================
 void Mage::LevelUp()
 {
-    mAttributes[POW] = mAttributes[POW]+3;
+    mAttributes[POW] = mAttributes[POW]+2;
     mAttributes[AGI] = mAttributes[AGI]+1;
     mAttributes[DEF] = mAttributes[DEF]+1;
     mMaxHP = mMaxHP + 1;

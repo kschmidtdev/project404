@@ -52,7 +52,7 @@ Knight::Knight(string name, int level, WeaponItem* weapon, ArmorItem* armor)
     mMaxActRange = 1;
     mCurPos = Point(0,0);
     mAttributes[POW] = 3;
-    mAttributes[AGI] = 3;
+    mAttributes[AGI] = 5;
     mAttributes[DEF] = 4;
     mExhausted = false;
     mIsDead = false;
@@ -80,9 +80,9 @@ Knight::~Knight()
 //============================= OPERATIONS ===================================
 void Knight::LevelUp()
 {
-    mAttributes[POW] = mAttributes[POW]+2;
+    mAttributes[POW] = mAttributes[POW]+1;
     mAttributes[AGI] = mAttributes[AGI]+1;
-    mAttributes[DEF] = mAttributes[DEF]+3;
+    mAttributes[DEF] = mAttributes[DEF]+2;
     mMaxHP = mMaxHP + 5;
     mCurHP = mMaxHP;
     mLevel++;

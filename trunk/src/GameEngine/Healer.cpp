@@ -52,7 +52,7 @@ Healer::Healer(string name, int level, WeaponItem* weapon, ArmorItem* armor)
     mMaxActRange = 2;
     mCurPos = Point(0,0);
     mAttributes[POW] = 2;
-    mAttributes[AGI] = 2;
+    mAttributes[AGI] = 4;
     mAttributes[DEF] = 1;
     mExhausted = false;
     mIsDead = false;
