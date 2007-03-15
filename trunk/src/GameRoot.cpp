@@ -13,6 +13,7 @@
  * Karl Schmidt, March 13 2007    | Added sound system disabling, mainly for unit tests
  * Karl Schmidt, March 14 2007    | Added event recording/playback support
  * Seung Woo Han, March 15 2007   | Added DBEngine and DBEngine initialization.
+ * Karl Schmidt, March 15 2007	  | Removed DBEngine init, it is our save-game so we load later on
  */
 
 #include "GameRoot.h"                                // class implemented
@@ -115,7 +116,6 @@ void GameRoot::Initialize( const int argc, char** argv, const bool soundEnabled 
     mDatabase->Initialize();
 
     mDBEngine = DBEngine::GetInstance();
-    mDBEngine->Initialize();
 
     mGameEngine = GameEngine::GetInstance();
 

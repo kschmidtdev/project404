@@ -25,11 +25,13 @@ public:
     {
         Logger::GetInstance( "unitTestLog.txt" );
         Logger::GetInstance()->Initialize();
+        DBEngine::GetInstance()->Initialize();
     }
 
     // Called after all unit tests in this suite, remove if note needed
     void tearDown()
     {
+        DBEngine::GetInstance()->Shutdown();
         Logger::GetInstance()->Shutdown();
     }
 
@@ -88,7 +90,8 @@ public:
         eiter++;
         TS_ASSERT_EQUALS((*eiter)->GetName(), "Enemy Type C");
         eiter++;
-        TS_ASSERT_EQUALS((*eiter)->GetName(), "Enemy Boss");
+        TS_ASSERT( eiter != enemies.end() );
+        TS_ASSERT_EQUALS((*eiter)->GetName(), "Enemy Boss A");
         eiter++;
         //and that's all
         TS_ASSERT_EQUALS(eiter, enemies.end());
@@ -111,7 +114,7 @@ public:
         aiter++;
         TS_ASSERT_EQUALS((*aiter)->GetName(), "Enemy Type C");
         aiter++;
-        TS_ASSERT_EQUALS((*aiter)->GetName(), "Enemy Boss");
+        TS_ASSERT_EQUALS((*aiter)->GetName(), "Enemy Boss A");
         aiter++;
         //and that's all
         TS_ASSERT_EQUALS(aiter, all.end());

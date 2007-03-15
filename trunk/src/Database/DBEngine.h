@@ -6,6 +6,7 @@
  * Authors:
  * Seung Woo Han, February 13 2007 | Initial design
  * Karl Schmidt, February 15 2007 | Fixed some odd header paths
+ * Karl Schmidt, March 15 2007 	  | Added parameter to Initialize
  */
 
 #ifndef DBEngine_h
@@ -36,7 +37,7 @@ public:
     /**
      * Initialize this instance : Loading database and creating actual instances of Character, Item, and etc.
      */
-    void Initialize();
+    void Initialize( const bool loadFromSave = false );
 
     /**
      * Release memory

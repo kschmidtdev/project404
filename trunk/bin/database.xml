@@ -141,19 +141,19 @@
 	<Node name="Level">
 		<Node name="Stage1">
 			<Node name="Party">
-				<Node name="Memeber1">
+				<Node name="Member1">
 					<Data type="string" name="Character Name" value="Han" />
 					<Data type="vector2d" name="Starting Point" value="0:0" />
 				</Node>
-				<Node name="Memeber2">
+				<Node name="Member2">
 					<Data type="string" name="Character Name" value="Karl" />
 					<Data type="vector2d" name="Starting Point" value="1:0" />
 				</Node>
-				<Node name="Memeber3">
+				<Node name="Member3">
 					<Data type="string" name="Character Name" value="Mike" />
 					<Data type="vector2d" name="Starting Point" value="2:0" />
 				</Node>
-				<Node name="Memeber4">
+				<Node name="Member4">
 					<Data type="string" name="Character Name" value="Andrew" />
 					<Data type="vector2d" name="Starting Point" value="3:0" />
 				</Node>
@@ -172,7 +172,7 @@
 					<Data type="vector2d" name="Starting Point" value="2:9" />
 				</Node>
 				<Node name="Member4">
-					<Data type="string" name="Character Name" value="Enemy Boss" />
+					<Data type="string" name="Character Name" value="Enemy Boss A" />
 					<Data type="vector2d" name="Starting Point" value="9:9" />
 				</Node>
 			</Node>
@@ -291,23 +291,23 @@
 		</Node>
 		<Node name="Stage2">
 			<Node name="Party">
-				<Node name="Memeber1">
+				<Node name="Member1">
 					<Data type="string" name="Character Name" value="Super Man" />
 					<Data type="vector2d" name="Starting Point" value="0:0" />
 				</Node>
-				<Node name="Memeber2">
+				<Node name="Member2">
 					<Data type="string" name="Character Name" value="Karl" />
 					<Data type="vector2d" name="Starting Point" value="0:3" />
 				</Node>
-				<Node name="Memeber3">
+				<Node name="Member3">
 					<Data type="string" name="Character Name" value="Mike" />
 					<Data type="vector2d" name="Starting Point" value="0:6" />
 				</Node>
-				<Node name="Memeber4">
+				<Node name="Member4">
 					<Data type="string" name="Character Name" value="Andrew" />
 					<Data type="vector2d" name="Starting Point" value="0:9" />
 				</Node>
-				<Node name="Memeber5">
+				<Node name="Member5">
 					<Data type="string" name="Character Name" value="Han" />
 					<Data type="vector2d" name="Starting Point" value="1:5" />
 				</Node>
