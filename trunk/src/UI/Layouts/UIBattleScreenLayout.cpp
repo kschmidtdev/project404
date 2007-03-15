@@ -20,6 +20,7 @@
  * Karl Schmidt,   March 12 2007 	| Made the QuitFunction quit to the Main Menu, also made the Easy win function
  *  								  act correctly and not leak memory
  * Mike Malyuk,    March 14 2007    | Added intializers for Grid
+ * Karl Schmidt,   March 14 2007	| Disabled "Easy Win" button in release mode
  */
 
 
@@ -168,7 +169,10 @@ void UIBattleScreenLayout::Initialize()
     //mMenu->AddButton("Status", new StatusFunction() );
     mMenu->AddButton("End Turn", new EndTurnFunction() );
     mMenu->AddButton("Quit", new BattleScreenQuitFunction() );
+
+    #ifdef _DEBUG
     mMenu->AddButton("Easy Win", new EasyWinFunction() );
+    #endif
 
     mElements.push_back( mMenu );
 

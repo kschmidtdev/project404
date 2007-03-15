@@ -26,6 +26,7 @@
  * Mike Malyuk, March 14 2007     | Set map in Level for evil Overlord
  * Seung Woo Han, March 14 2007   | Modified Level(int) constructor. Now This contructor takes integer value which is the battle
  *                                  number. No further changes will be made to Level(int battleNumber) I hope.
+ * Karl Schmidt, March 14 2007	  | Fixed a small iterator dereferencing causing crash bug
  */
 
 #include <util.h>
@@ -46,13 +47,11 @@
 Level::Level()
 : mState( FREE ), mMyTurn( true )
 {
-    Map mMap;
 }// Level
 
 Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point> start)
 : mState(FREE), mParty(party), mEnemies(badguys), mStart(start), mCurChar(NULL),  mMyTurn(true), mDefaultConstructor( false )
 {
-    Map mMap;
     vector<Character*>::iterator iter;
     vector<Point>::iterator piter;
     iter = mParty.begin();
@@ -63,8 +62,6 @@ Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point>
         iter++;
         piter++;
     }
-
-
 }
 
 Level::Level(int battleNumber)
@@ -74,6 +71,11 @@ Level::Level(int battleNumber)
     DBE->Initialize();
 
     mMap = Map( DBE->LoadBattleMap( battleNumber ) );
+
+    if( mMap.GetTiles().empty() )
+    {
+        return;
+    }
 
     Point StartingPoint;
     DBVector2D* StartingVector;
@@ -180,11 +182,11 @@ Character* Level::OnSelect(Point p)
                 //check if enemies are in range, if not exhaust character
                 while(charIter != mEnemies.end())
                 {
-                    while( ((*iter2)) != ((*charIter)->GetPoint()) && iter2 != attackArea.end())
+                    while( iter2 != attackArea.end() && ((*iter2)) != ((*charIter)->GetPoint()))
                     {
                         iter2++;
                     }
-                    if(iter2 != attackArea.end() && ((*iter2)) == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()))
+                    if( iter2 != attackArea.end() && ((*iter2)) == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()))
                     {
                         mAttackArea = attackArea;
                         mState = ATTACK;
