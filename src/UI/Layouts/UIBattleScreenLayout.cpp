@@ -164,7 +164,7 @@ void UIBattleScreenLayout::Initialize()
     // Add Menu
     // -----------------------------------
     mMenu = new UIMenu();
-    mMenu->SetPos( Point(460, 140) );
+    mMenu->SetPos( Point(450, 180) );
 
     //mMenu->AddButton("Status", new StatusFunction() );
     mMenu->AddButton("End Turn", new EndTurnFunction() );
