@@ -5,8 +5,11 @@
 
 #include <../AI/AIControl.h>
 #include <../GameEngine/Level.h>
+#include <..\src\Logger.h>
 #include <../Point.h>
 #include <../GameEngine/Character.h>
+#include <../GameEngine/Map.h>
+#include <../Database/DBEngine.h>
 //
 // A generated test suite: Just write tests!
 //
@@ -22,22 +25,24 @@ public:
     // Called before all unit tests in this suite, remove if not needed
     void setUp()
     {
-
+        Logger::GetInstance( "unitTestLog.txt" );
+        Logger::GetInstance()->Initialize();
+        DBEngine::GetInstance()->Initialize();
     }
 
     // Called after all unit tests in this suite, remove if note needed
     void tearDown()
     {
-
+        DBEngine::GetInstance()->Shutdown();
+        Logger::GetInstance()->Shutdown();
     }
 
     void testAI()
     {
-        /*
-        Map map;
-        Level* level = new Level( 0 );
+
+        Level* level = new Level( 1 );
         Point p(9,9);
-        AIControl ai(level, map);
+        AIControl ai(level, *(level->GetMap()));
         level->SetState(Level::AIFREE);
         //test point retrieval
         Point spot = ai.DoAction();
@@ -58,7 +63,7 @@ public:
         TS_ASSERT_EQUALS(level->ReturnState(), Level::AIMOVE);
 
         Point another = ai.DoAction();
-        vector<Point> points = map.GetMovementRange(level->GetEveryone(), level->GetEnemies(), level->GetCurCharacter());
+        vector<Point> points = level->GetMap()->GetMovementRange(level->GetEveryone(), level->GetParty(), level->GetCurCharacter());
         vector<Point>::iterator ppiter;
         ppiter = points.begin();
         while(ppiter != points.end())
@@ -90,7 +95,7 @@ public:
         }
         //it exists in list
         TS_ASSERT_EQUALS((*iterer)->GetPoint(), spotted);
-        */
+
     }
 
 };
