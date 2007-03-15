@@ -11,6 +11,7 @@
  * Karl Schmidt, March 10, 2007  | Fixed memory leaks
  * Mike Malyuk, March 14, 2007   | Lazy man's immovables added!
  * Mike Malyuk, March 14, 2007   | Optimized one loop
+ * Mike Malyuk, March 14, 2007   | Generalizing all methods to mMaxX and mMaxY
  */
 
 #include <util.h>
@@ -232,19 +233,19 @@ vector<Point> Map::GetMovementRange(vector<Character*> everyone, vector<Characte
         }
         else
         {
-            up =  ((checked[i].p.GetX())*10 + checked[i].p.GetY() - 1);
+            up =  ((checked[i].p.GetX())*mMaxX + checked[i].p.GetY() - 1);
         }
-        if(checked[i].p.GetY() == 9)
+        if(checked[i].p.GetY() == mMaxY-1)
         {
             down = mTiles.size();
         }
         else
         {
-            down = ((checked[i].p.GetX())*10 + checked[i].p.GetY() + 1);
+            down = ((checked[i].p.GetX())*mMaxX + checked[i].p.GetY() + 1);
         }
-        int curpathweight =nodes[((checked[i].p.GetX())*10 + checked[i].p.GetY())].pathweight;
-        int left =  ((checked[i].p.GetX())*10 + checked[i].p.GetY() - mMaxX);
-        int right =  ((checked[i].p.GetX())*10 + checked[i].p.GetY() + mMaxX);
+        int curpathweight =nodes[((checked[i].p.GetX())*mMaxX + checked[i].p.GetY())].pathweight;
+        int left =  ((checked[i].p.GetX())*mMaxX + checked[i].p.GetY() - mMaxX);
+        int right =  ((checked[i].p.GetX())*mMaxX + checked[i].p.GetY() + mMaxX);
         //cout << "CurPoint: " << checked[i].p.GetX() << ", " << checked[i].p.GetY() << endl;
         //cout << "CurWeight: " << nodes[((checked[i].p.GetX())*10 + checked[i].p.GetY())].pathweight << endl;
         if(up >= 0)

@@ -31,6 +31,7 @@
  * Mike Malyuk,     March 14 2007     |Added Initialize, set more pointers to NULL, removed old methods,
  *                                     optimized movement by only making one call to Map for movement per player vs 2
  * Karl Schmidt, 	March 14 2007	  | Added and re-arranged initialize list so more pointers are set to NULL on construction (safer)
+ * Mike Malyuk,     March 14 2007     | Generalized columns in Initializer
  */
 
 #include <util.h>
@@ -745,6 +746,8 @@ void UIGrid::Initialize()
     // Add all elements
     SDL_Surface *sample = ResourceManager::GetInstance()->LoadTexture("defaultTile.png");
     mMap = mLevel->GetMap();
+    mNumColumns = mMap->GetMaxX();
+    mNumRows = mMap->GetMaxY();
     if( sample )
     {
         mTileHeight = sample->h;

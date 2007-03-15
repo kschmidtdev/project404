@@ -12,6 +12,7 @@
  * Mike Malyuk, March 9, 2007    | Added GetTiles()
  * Mike Malyuk, March 10, 2007   | Added Character include and Map movement finder
  * Mike Malyuk, March 14, 2007   | Changed parameters on GetMovementRange
+ * Mike Malyuk, March 14, 2007   | Added GetMaxX() and GetMaxY()
  */
 
 #ifndef Map_h
@@ -60,6 +61,8 @@ public:
     Tile GetTile(Point p);
     vector<Tile> GetTiles();
     vector<Point> GetMovementRange(vector<Character*> everyone, vector<Character*> enemies, Character* guy);
+    int GetMaxX(){return mMaxX;}
+    int GetMaxY(){return mMaxY;}
 protected:
     vector<Tile> mTiles;
     int mMaxX;
