@@ -36,9 +36,6 @@ mOldPwdUIText(NULL), mNewPwdUIText(NULL), mConfirmPwdUIText(NULL), mOldPwd(""), 
 {
     mName = "SetPassword";
 
-    // Assume only one user - needs to be changed for V2
-    //string user = "user1";
-
     // Old Password
     mOldPwdUIText = new UIText(mOldStarString, 30, 255, 0, 0);
     mOldPwdUIText->SetPos( Point(175, 145) );
@@ -57,14 +54,10 @@ mOldPwdUIText(NULL), mNewPwdUIText(NULL), mConfirmPwdUIText(NULL), mOldPwd(""), 
     mElements.push_back(mConfirmPwdUIText);
 
     UIText *tempText = new UIText("Set Password", 40, 255, 0, 0);
-    //SDL_Surface *tempSur = tempText->GetElement();
-    //printf("set title: width: %d, height:%d\n", tempSur->w, tempSur->h);
     tempText->SetPos( Point(98,50) );
     mElements.push_back(tempText);
 
     tempText = new UIText("Press CONFIRM to advance", 24, 255, 0, 0);
-    //tempSur = tempText->GetElement();
-    //printf("confirm: width: %d, height:%d\n", tempSur->w, tempSur->h);
     tempText->SetPos( Point(115, 390) );
     mElements.push_back(tempText);
 

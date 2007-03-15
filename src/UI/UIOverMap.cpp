@@ -34,12 +34,6 @@ UIOverMap::UIOverMap()
             mMapTiles.push_back( UIOverMapTile( (*iter) ) );
     }
 
-
-    //mMapTiles.push_back( UIOverMapTile(130,350) );
-    //mMapTiles.push_back( UIOverMapTile(180,270) );
-    //mMapTiles.push_back( UIOverMapTile(250,170) );
-    //mMapTiles.push_back( UIOverMapTile(390,70) );
-
     mMapTiles[0].SetNextPrev( &mMapTiles[1] , NULL);
     mMapTiles[1].SetNextPrev( &mMapTiles[2], &mMapTiles[0]);
     mMapTiles[2].SetNextPrev( &mMapTiles[3], &mMapTiles[1]);
@@ -175,14 +169,12 @@ void UIOverMap::UpdateMap(void)
 
 void UIOverMap::SetPos( const Point & nPos )
 {
-    //Point tempPoint;
     MapTileItr iter;
 
     // Move points in OverMap to relative position
     iter = mMapTiles.begin();
     while (iter!=mMapTiles.end())
     {
-        //tempPoint = (*iter).GetPos();
         (*iter).SetPos( mPos + (*iter).GetMapOffset() );
         iter++;
     }

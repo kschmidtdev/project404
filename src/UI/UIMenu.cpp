@@ -101,7 +101,6 @@ void UIMenu::RenderSelf(SDL_Surface* destination)
 
         // Buttons are rendered second
         UIElementPtrItr iter;
-        //int size = buttons.size();
 
         for ( iter = mButtons.begin(); iter!=mButtons.end(); ++iter )
         {
@@ -145,7 +144,6 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
             {
                 FuncObj *temp = mButtonFuncs[mCursorPos];
                 (*temp)();
-                //mButtonFuncs[mCursorPos]->();
             }
             break;
         default:
@@ -153,23 +151,6 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
 
     }
 }
-
-
-/*void UIMenu::HideButton(int n)
-{
-    mButtons[n]->SetVisible(false);
-}
-
-void UIMenu::ShowButton(int n)
-{
-    mButtons[n]->SetVisible(true);
-}
-
-void UIMenu::UpdateOrder(void)
-{
-    //for (int i=0; i<=mMaxCursorPos; i++)
-}*/
-
 
 //============================= ACCESS     ===================================
 

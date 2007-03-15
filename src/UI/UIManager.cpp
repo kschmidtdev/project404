@@ -51,12 +51,6 @@ UIManager* UIManager::GetInstance()
  : mCurLayout( NULL ), mGameShutdown( false )
  {
 
-     // Constructor stuff
-
-     // Add title screen or profile menu
-     //Logger::GetInstance()->LogMessage(Logger::INFO, "UIManager Initiated");
-
-
  }
 
 
@@ -88,11 +82,6 @@ void UIManager::Initialize(void)
     AddLayout( new UISetPasswordLayout() );
     AddLayout( new UIOverMapLayout() );
 
-    // Set current (first) layout
-    //PushLayout("BattleScreen");
-    //PushLayout("TitleScreen");
-    //PushLayout("MainMenu");
-    //PushLayout("Lose");
     PushLayout("PasswordVer");
 
     // Add all the layouts to the manager.
@@ -127,9 +116,6 @@ void UIManager::Shutdown(void)
 
 void UIManager::Render(void)
 {
-
-    // or RenderSelf()
-    //mCurLayout->RenderSelf();
 
 }
 

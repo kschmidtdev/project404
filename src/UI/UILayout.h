@@ -62,13 +62,6 @@ public:
 
 // OPERATORS
 // OPERATIONS
-    /**
-     * Method renders menu on screen
-	 *
-	 * @param the destination (SDL_Surface) where the menu will go.
-	 *
-	 */
-    //virtual void RenderSelf(SDL_Surface* destination);
 
     /**
      * Method that is run upon layout being loaded as current layout (called from UIManager)

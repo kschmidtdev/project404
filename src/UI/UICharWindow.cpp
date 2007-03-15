@@ -42,7 +42,6 @@ mStrOffset( 0 ), mDefOffset( 0 )
     mValOffset = 84;
     mSlashOffset = mValOffset + 30;
     mMaxOffset = mSlashOffset + 20;
-    //mMPStart.Set(xStart, mHPStart.GetY() + defaultTextSize + textSpacing + nameGap);
 
     // Str/Def
     mStrStart.Set(xStart, mHPStart.GetY() + defaultTextSize + textSpacing + 5);
@@ -58,10 +57,6 @@ mStrOffset( 0 ), mDefOffset( 0 )
     int HPGreen = 0;
     int HPBlue = 0;
 
-    //int MPRed = 0;
-    //int MPGreen = 0;
-    //int MPBlue = 255;
-
     // Initialize Static Text (and set colour/size parameters)
 
     mCharName.ChangeText( "Name", defaultTextSize, HPRed, HPGreen, HPBlue );
@@ -74,12 +69,6 @@ mStrOffset( 0 ), mDefOffset( 0 )
     mHP.ChangeText( str, defaultTextSize, HPRed, HPGreen, HPBlue );
     mHPSlash.ChangeText( "/", defaultTextSize, HPRed, HPGreen, HPBlue );
     mHPMax.ChangeText( str, defaultTextSize, HPRed, HPGreen, HPBlue );
-
-    /*mMPTitle.ChangeText( "MP: ", defaultTextSize, MPRed, MPGreen, MPBlue );
-    mMP.ChangeText( str, defaultTextSize, MPRed, MPGreen, MPBlue );
-    mMPSlash.ChangeText( "/", defaultTextSize, MPRed, MPGreen, MPBlue );
-    mMPMax.ChangeText( str, defaultTextSize, MPRed, MPGreen, MPBlue );*/
-
 
     mStrText.ChangeText("Strength : ", defaultTextSize, HPRed, HPGreen, HPBlue );
     mCharStr.ChangeText("99", defaultTextSize, HPRed, HPGreen, HPBlue );
@@ -112,13 +101,10 @@ UICharWindow::~UICharWindow()
 void UICharWindow::RenderSelf(SDL_Surface* destination)
 {
 
-    //UIElement::RenderSelf(destination);
-
     if (mVisible)
     {
         if (mCharacterView)
         {
-            //mElementImage = mDefaultCharBackground;
             UIElement::RenderSelf(destination);
 
             // Name
@@ -130,11 +116,6 @@ void UICharWindow::RenderSelf(SDL_Surface* destination)
             mHPSlash.RenderSelf(destination);
             mHPMax.RenderSelf(destination);
 
-            //mMPTitle.RenderSelf(destination);
-            //mMP.RenderSelf(destination);
-            //mMPSlash.RenderSelf(destination);
-            //mMPMax.RenderSelf(destination);
-
             // Str/Def
             mStrText.RenderSelf(destination);
             mCharStr.RenderSelf(destination);
@@ -143,7 +124,6 @@ void UICharWindow::RenderSelf(SDL_Surface* destination)
         }
         else
         {
-            //mElementImage = mDefaultBlankImage;
             UIElement::RenderSelf(destination);
         }
 
@@ -178,14 +158,6 @@ void UICharWindow::SetCharacter(Character *c)
         oss << mCurCharacter->GetMaxHP();
         mHPMax.ChangeText( oss.str() );
         oss.str("");
-
-        // Character's MP
-        //oss << mCurCharacter->GetMP();
-        //mMP.ChangeText( oss.str() );
-
-        // Character's MP max
-        //oss << mCurCharacter->GetMaxMP();
-        //mMPMax.ChangeText( oss.str() );
 
         // Character's Strength
         oss << mCurCharacter->GetAttr(Character::POW);

@@ -32,19 +32,6 @@ UITitleScreenLayout::UITitleScreenLayout()
     UIImage *temp = new UIImage("castle_title.png");
     mElements.push_back(temp);
 
-    //UIText *tempText = new UIText("SymTac", 100, 255, 0, 0);
-    //tempText->SetPos( Point(120,50) );
-    //SDL_Surface *tempSur = tempText->GetElement();
-    //printf("title: width: %d, height: %d\n", tempSur->w, tempSur->h);
-    //mElements.push_back(tempText);
-
-    //tempText = new UIText("Press CONFIRM to advance", 24, 255, 0, 0);
-    //tempText->SetPos( Point(165, 390) );
-    //tempSur = tempText->GetElement();
-    //printf("confirm: width: %d, height: %d\n", tempSur->w, tempSur->h);
-    //mElements.push_back(tempText);
-
-
 }// UITitleScreenLayout
 
 UITitleScreenLayout::~UITitleScreenLayout()

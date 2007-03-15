@@ -127,10 +127,6 @@ Point AIControl::DoAction()
             }
             else //I'm an archer, if I run right beside them I can't attack, so lets not do that
             {
-                //cout << mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX() - 1 << ", " << mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY() << endl;
-                //cout << mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX() + 1 << ", " << mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY() << endl;
-                //cout << mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX() << ", " << mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY() - 1 << endl;
-                //cout << mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX() << ", " << mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY() + 1<< endl;
                 for(vector<Point>::iterator piter = points.begin(); piter != points.end(); piter++)
                 {
                     if((*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX(), mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY() + 1) &&
@@ -144,7 +140,6 @@ Point AIControl::DoAction()
                 }
                 for(vector<Point>::iterator piter = archPoints.begin(); piter != archPoints.end(); piter++)
                 {
-                        //cout << (*piter).GetX() << ", " << (*piter).GetY() << endl;
                         if((sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2))) < distance)
                         {
                             closest = (*piter);

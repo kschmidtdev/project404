@@ -246,8 +246,6 @@ vector<Point> Map::GetMovementRange(vector<Character*> everyone, vector<Characte
         int curpathweight =nodes[((checked[i].p.GetX())*mMaxX + checked[i].p.GetY())].pathweight;
         int left =  ((checked[i].p.GetX())*mMaxX + checked[i].p.GetY() - mMaxX);
         int right =  ((checked[i].p.GetX())*mMaxX + checked[i].p.GetY() + mMaxX);
-        //cout << "CurPoint: " << checked[i].p.GetX() << ", " << checked[i].p.GetY() << endl;
-        //cout << "CurWeight: " << nodes[((checked[i].p.GetX())*10 + checked[i].p.GetY())].pathweight << endl;
         if(up >= 0)
         {
             if(((curpathweight + nodes[up].weight) < nodes[up].pathweight) || ((curpathweight + nodes[up].weight) > 0 && nodes[up].pathweight == -1))
@@ -319,7 +317,6 @@ vector<Point> Map::GetMovementRange(vector<Character*> everyone, vector<Characte
     {
         if(nodes[i].pathweight <= (guy->GetAttr(Character::AGI)/2))
         {
-            //cout << nodes[i].pathweight << endl;
             bool valid = true;
             for(vector<Character*>::iterator eiter = everyone.begin(); eiter != everyone.end(); eiter++)
             {

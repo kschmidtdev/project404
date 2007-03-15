@@ -37,7 +37,6 @@ void TextureResource::Load()
     // load an image
 
     LogInfo( string("Loading image: ") + mFileName );
-    //mSurface = SDL_LoadBMP( mFileName.c_str() );
     mSurface = IMG_Load( (IMG_DIR + mFileName).c_str() );
 
     tacAssert( mSurface );

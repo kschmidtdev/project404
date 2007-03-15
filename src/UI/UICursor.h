@@ -41,11 +41,6 @@ public:
     UICursor(void);
 
     /**
-     * Input constructor.
-     */
-    //UICursor(const string filename, const string buttonHeading);
-
-    /**
      * Destructor.
 	 */
     ~UICursor(void);
@@ -60,8 +55,6 @@ public:
 
 protected:
 // PROTECTED VARIABLES
- //   int maxPosition;
- //   int curPosition;
 
 private:
 // PRIVATE VARIABLES

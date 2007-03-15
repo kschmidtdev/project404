@@ -49,11 +49,6 @@ public:
     UIElement(void);
 
     /**
-     * constructor involving loading bitmap file for image
-	 */
-    //UIElement(const string filename);
-
-    /**
      * Destructor.
 	 */
     virtual ~UIElement(void);

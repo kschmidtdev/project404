@@ -208,7 +208,6 @@ protected:
 
     // Regular Communication
     Level* mLevel;
-    //GameEngine* mGameEngine;
 
 // PROTECTED METHODS
 

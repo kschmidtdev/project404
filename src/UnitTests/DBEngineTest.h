@@ -32,24 +32,23 @@ public:
 
     void testLoadParties()
     {
-//        TS_ASSERT( DBEngine::GetInstance()->LoadParty() );
+
     }
 
     void testLoadEnemies()
     {
-//        TS_ASSERT( DBEngine::GetInstance()->LoadEnemies() );
+
     }
 
     void testLoadPartyStartingPoint()
     {
         Healer newCharacter("Han", 1, NULL, NULL);
-//        TS_ASSERT( DBEngine::GetInstance()->LoadPartyStartingPoint( &newCharacter ) );
+
     }
 
     void testLoadEnemiesStartingPoint()
     {
         Knight newCharacter("Enemy Boss", 1, NULL, NULL);
-//        TS_ASSERT( DBEngine::GetInstance()->LoadEnemiesStartingPoint( &newCharacter ) );
     }
 
     void testGetCharacterList()
