@@ -41,7 +41,7 @@ public:
         Logger::GetInstance()->Shutdown();
     }
 
-    void testRenderSelf()
+    void testUIButtonRenderSelf()
     {
 
         testButton = new UIButton("Button Text");

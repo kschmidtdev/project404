@@ -9,6 +9,7 @@
  * Seung Woo Han, March 14 2007    | LoadBattleMap has been added.
  *                                   LoadParty, LoadEnemies, LoadPartyStartingPoint, LoadEnemiesStartringPoint
  *                                   takes a parameter(battle number) now.
+ * Karl Schmidt, March 15 2007	   | Added default behaviour so that it will attempt to load a savegame in Initialize if asked, otherwise load the regular db
  */
 
 #include <util.h>
@@ -37,7 +38,7 @@ DBEngine::~DBEngine()
 {
 }
 
-void DBEngine::Initialize()
+void DBEngine::Initialize( const bool loadFromSave )
 {
     // Get Database instance.
     mDB = DatabaseManager::GetInstance();
@@ -45,16 +46,15 @@ void DBEngine::Initialize()
     tacAssert( mDB );
 
     // Load XML file. Default : database.xml. If there is any save file, load that.
-    if ( !mDB->IsSaveFile() )
-    {
-        cout << "No Save File" << endl;
-        mDB->LoadFromFile( "database.xml" );
-    }
-
-    else
+    if( loadFromSave && mDB->IsSaveFile() )
     {
         cout << "Loaded from the save file." << endl;
         mDB->LoadFromFile( "Save001.xml" );
+    }
+    else
+    {
+        cout << "No Save File or starting a new game" << endl;
+        mDB->LoadFromFile( "database.xml" );
     }
 
     // Create DBNode instances from XML file.
@@ -160,6 +160,9 @@ void DBEngine::Shutdown()
     {
         delete *ItemIter;
     }
+
+    mCharacterList.clear();
+    mItemList.clear();
 
     if( _instance )
     {

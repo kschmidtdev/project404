@@ -5,6 +5,7 @@
  *
  * Authors:
  * Andrew Osborne, March 12 2007 | Initial Creation
+ * Karl Schmidt, March 15 2007   | Added ClearText implementation
  */
 #include "UIScrollText.h"                                // class implemented
 
@@ -47,6 +48,7 @@ UIScrollText::~UIScrollText()
         (*iter) = NULL;
     }
     mUILines.clear();
+
 }// ~UIScrollText
 
 
@@ -138,6 +140,11 @@ void UIScrollText::AddLine(string oneLine)
     }
 }
 
+void UIScrollText::ClearText()
+{
+    mStringLines.clear();
+    mCurStartIndex = 0;
+}
 
 
 //============================= INQUIRY    ===================================

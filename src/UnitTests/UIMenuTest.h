@@ -72,7 +72,7 @@ public:
 
     }
 
-    void testYourFunctionNameHere()
+    void testUIMenuAddButton()
     {
 
         testMenu = new UIMenu();
@@ -82,14 +82,17 @@ public:
         mUIUnitTester->RunBasicTest();
 
         // Preamble to creating Functions
-        MenuTestOperation Func1(mUIUnitTester, "1");
-        MenuTestOperation Func2(mUIUnitTester, "2");
-        MenuTestOperation Func3(mUIUnitTester, "3");
+        // What were you doing here? UIMenu deletes it's buttons and it's functions,
+        // and you were creating functions on the stack that would be getting deleted
+        // by UIMenu when it destructs, causing a crash
+        MenuTestOperation* Func1 = new MenuTestOperation(mUIUnitTester, "1");
+        //MenuTestOperation Func2(mUIUnitTester, "2");
+        //MenuTestOperation Func3(mUIUnitTester, "3");
         // Note:  This testing of function will come later
         // Once I complete an Input-help class
 
         // Add One Button
-        testMenu->AddButton("Button 1", &Func1);
+        testMenu->AddButton("Button 1", Func1);
         mUIUnitTester->RunNewTest("Add 1 Button");
 
 

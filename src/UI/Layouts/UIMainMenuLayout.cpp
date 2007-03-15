@@ -13,6 +13,7 @@
  * Karl Schmidt, March 9 2007	 	| Changed textures to png
  * Mike Malyuk, March 10, 2007      | Changed battleinit init to be compatible with map
  * Karl Schmidt, March 12 2007		| Cleaned up the NewGameFunction because the OverMap does what it was doing now
+ * Karl Schmidt, March 15 2007      | Removed commented code, made newgame and loadgame work
  */
 
 #include <util.h>
@@ -24,13 +25,14 @@
 #include "UIText.h"
 #include "UIImage.h"
 
-#include <GameEngine/GameEngine.h>
+#include <Database/DBEngine.h>
 
 
 class NewGameFunction : public FuncObj
 {
     virtual void operator()(void)
     {
+        DBEngine::GetInstance()->Initialize( false );
         UIManager::GetInstance()->PushLayout("OverMap");
     }
 };
@@ -39,7 +41,8 @@ class LoadGameFunction : public FuncObj
 {
     virtual void operator()(void)
     {
-        //GameEngine::GetInstance()->LoadGame();
+        DBEngine::GetInstance()->Initialize( true );
+        UIManager::GetInstance()->PushLayout("OverMap");
     }
 };
 
@@ -72,11 +75,6 @@ UIMainMenuLayout::UIMainMenuLayout()
     UIImage *tempImg = new UIImage("castle_main.png");
     mElements.push_back(tempImg);
 
-    //UIText *tempText = new UIText("SymTac", 100, 255, 0, 0);
-    //tempText->SetPos( Point(120,50) );
-    //mElements.push_back(tempText);
-
-
     UIMenu *tempMenu = new UIMenu();
 
     tempMenu->AddButton("New Game", new NewGameFunction() );
@@ -94,7 +92,6 @@ UIMainMenuLayout::UIMainMenuLayout()
 
 UIMainMenuLayout::~UIMainMenuLayout()
 {
-    //mElements[0]->deleteFunctions();
 }// ~UIMainMenuLayout
 
 

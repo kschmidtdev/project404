@@ -930,7 +930,7 @@
 			<Option link="0" />
 			<Option target="UnitTest" />
 		</Unit>
-		<Unit filename="..\src\UnitTests\GameRootAndSoundManagerTest.h">
+		<Unit filename="..\src\UnitTests\GameRootTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
@@ -984,7 +984,55 @@
 			<Option link="0" />
 			<Option target="UnitTest" />
 		</Unit>
+		<Unit filename="..\src\UnitTests\SoundManagerTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
 		<Unit filename="..\src\UnitTests\TileTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UIButtonTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UICharWindowTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UIElementTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UIImageTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UIMenuTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UIScrollTextTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UITextTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />

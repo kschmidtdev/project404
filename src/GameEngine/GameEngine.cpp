@@ -14,6 +14,7 @@
  * Mike Malyuk,    March 14 2007  | Set AIController with proper map
  * Karl Schmidt,   March 14 2007  | Level is now loaded depending on city ID
  * Seung Woo Han, March 15 2007 | Save Game at the end of each battle.
+ * Karl Schmidt,   March 15 2007 | Removed saving the game at the end of each battle
  */
 
 #include <util.h>
@@ -117,9 +118,6 @@ void GameEngine::BattleOver()
         delete mAI;
         mAI = NULL;
     }
-
-    // Save Game
-    DBEngine::GetInstance()->SaveGame();
 }
 
 //============================= OPERATORS ====================================

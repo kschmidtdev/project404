@@ -113,7 +113,7 @@ public:
     /**
      * Clear all text in (Scroll box's) memory
      */
-    //void ClearText(void);
+    void ClearText(void);
 
     /**
      * Clearn one line of text
