@@ -72,7 +72,7 @@ public:
     /**
      * specifies operation to be performed upon pressing the button.
 	 */
-    void SetOperation(FuncObj* nOperation);
+    //void SetOperation(FuncObj* nOperation);
 
 
 // INQUIRY (reading)

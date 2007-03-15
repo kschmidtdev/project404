@@ -60,7 +60,7 @@ UIMenu::UIMenu()
     // Set backgound
     mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_back.png");
 
-    //SetPos( Point(0,0) );
+    SetPos(mPos);
 
 }// UIMenu
 
@@ -155,7 +155,7 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
 }
 
 
-void UIMenu::HideButton(int n)
+/*void UIMenu::HideButton(int n)
 {
     mButtons[n]->SetVisible(false);
 }
@@ -168,7 +168,7 @@ void UIMenu::ShowButton(int n)
 void UIMenu::UpdateOrder(void)
 {
     //for (int i=0; i<=mMaxCursorPos; i++)
-}
+}*/
 
 
 //============================= ACCESS     ===================================

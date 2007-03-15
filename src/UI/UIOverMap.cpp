@@ -163,14 +163,10 @@ void UIOverMap::RenderSelf(SDL_Surface* destination)
 void UIOverMap::UpdateMap(void)
 {
 
-
     for(MapTileItr iter = mMapTiles.begin(); iter !=mMapTiles.end(); ++iter)
     {
         (*iter).Update();
     }
-
-
-
 
 }
 

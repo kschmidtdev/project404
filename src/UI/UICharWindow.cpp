@@ -6,6 +6,8 @@
  * Authors:
  * Andrew Osborne, March 9 2007 | Initial Creation
  * Andrew Osborne, March 10 2007 | Completed Implementation
+ * Andrew Osborne, March 14 2007 | Made it so by default, mElementImage has something stored in it
+ *                                      and by default, the blank image is displayed
  */
 #include "UICharWindow.h"                                // class implemented
 #include <sstream>
@@ -87,6 +89,8 @@ mStrOffset( 0 ), mDefOffset( 0 )
     //mPos.Set(440, 5);
     SetPos(mPos);
 
+    ClearCharacter();
+
 }// UICharWindow
 
 
@@ -114,7 +118,7 @@ void UICharWindow::RenderSelf(SDL_Surface* destination)
     {
         if (mCharacterView)
         {
-            mElementImage = mDefaultCharBackground;
+            //mElementImage = mDefaultCharBackground;
             UIElement::RenderSelf(destination);
 
             // Name
@@ -139,7 +143,7 @@ void UICharWindow::RenderSelf(SDL_Surface* destination)
         }
         else
         {
-            mElementImage = mDefaultBlankImage;
+            //mElementImage = mDefaultBlankImage;
             UIElement::RenderSelf(destination);
         }
 
@@ -195,6 +199,9 @@ void UICharWindow::SetCharacter(Character *c)
 
         mCharacterView = true;
 
+        // Element Image
+        mElementImage = mDefaultCharBackground;
+
     }
     else
     {
@@ -209,6 +216,7 @@ void UICharWindow::ClearCharacter(void)
 {
     mCurCharacter = NULL;
     mCharacterView = false;
+    mElementImage = mDefaultBlankImage;
 }
 
 void UICharWindow::SetPos( const Point & nPos )
