@@ -16,6 +16,7 @@
  * Karl Schmidt, February 13 2007 | Initial creation of header
  * Karl Schmidt, March 11 2007	   | Added file encryption/decryption routines
  * Karl Schmidt, March 12 2007    | Added DecryptFileToString
+ * Karl Schmidt, March 15 2007    | Made string params refs, added GetUserHash
  */
 
 #ifndef SecurityManager_h
@@ -74,37 +75,37 @@ public:
     * Loads a password hash file into
     * mLoadedPasswords
     */
-    void LoadPasswordHashFile( const string fileName );
+    void LoadPasswordHashFile( const string & fileName );
 
     /**
     * Saves out mLoadedPasswords
     * to fileName
     */
-    void SavePasswordHashFile( const string fileName );
+    void SavePasswordHashFile( const string & fileName );
 
     /**
     * Hashs the incoming password and compares
     * that to the stored password hash for the particular user.
     * Returns true if they are equal, false if they are not
     */
-    bool VerifyPassword( const string userName, const string password );
+    bool VerifyPassword( const string & userName, const string & password );
 
     /**
     * Adds a user and hashs the password and stores them in
     * mLoadedPasswords
     */
-    void AddUser( const string userName, const string password );
+    void AddUser( const string & userName, const string & password );
 
     /**
     * Deletes a user from mLoadedPasswords
     */
-    void DeleteUser( const string userName );
+    void DeleteUser( const string & userName );
 
     /**
     * Changes the password of a user in
     * mLoadedPasswords
     */
-    void ChangeUserPassword( const string userName, const string newPassword );
+    void ChangeUserPassword( const string & userName, const string & newPassword );
 
     /**
     * Encrypts the incoming file's contents (based on the filename) if it can
@@ -112,7 +113,7 @@ public:
     * the incoming file's contents with the encrypted version.
     * It returns the filename of the file it ended up writing the encrypted version to.
     */
-    string EncryptFile( const string fileNameToEncrypt, const string hash, const string outFileName = "" );
+    string EncryptFile( const string & fileNameToEncrypt, const string & hash, const string & outFileName = "" );
 
     /**
     * Decrypts the incoming file's contents (based on the filename) if it can
@@ -120,14 +121,20 @@ public:
     * the incoming file's contents with the decrypted version.
     * It returns the filename of the file it ended up writing the decrypted version to.
     */
-    string DecryptFile( const string fileNameToDecrypt, const string hash, const string outFileName = "" );
+    string DecryptFile( const string & fileNameToDecrypt, const string & hash, const string & outFileName = "" );
 
     /**
     * Decrypts the incoming file's contents (based on the filename) if it can
     * access the file.
     * It returns the contents of the file in a decrypted form.
     */
-    string DecryptFileToString( const string fileNameToDecrypt, const string hash );
+    string DecryptFileToString( const string & fileNameToDecrypt, const string & hash );
+
+    /**
+    * Finds the user in the list of loaded users, and
+    * returns their hash, if no user is found a blank string is returned
+    */
+    string GetUserHash( const string & userName );
 
 // ACCESS (writing)
 // INQUIRY (reading)
@@ -139,7 +146,7 @@ protected:
 	 */
     SecurityManager(void);
 
-    string HashString( const string incoming );
+    string HashString( const string & incoming );
 
 // PROTECTED VARIABLES
     static SecurityManager* _instance;

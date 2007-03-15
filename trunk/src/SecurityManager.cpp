@@ -11,6 +11,7 @@
  * Karl Schmidt, March 12 2007    | Added DecryptFileToString
  * Karl Schmidt, March 13 2007	  | Added more error checking so it passes unit tests, doesn't infinite loop upon bad input (WHOOPS)
  * Karl Schmidt, March 14 2007	  | Removed usage of toString for DecryptFileToString, inconsistent length behaviour across different platforms
+ * Karl Schmidt, March 15 2007    | Made string params refs, added GetUserHash
  */
 
 #include <util.h>
@@ -56,7 +57,7 @@ void SecurityManager::Shutdown()
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================
 
-void SecurityManager::LoadPasswordHashFile( const string fileName )
+void SecurityManager::LoadPasswordHashFile( const string & fileName )
 {
     FILE* passHashFileHandle = NULL;
     passHashFileHandle = fopen( fileName.c_str(), "r" );
@@ -95,7 +96,7 @@ void SecurityManager::LoadPasswordHashFile( const string fileName )
     }
 }
 
-void SecurityManager::SavePasswordHashFile( const string fileName )
+void SecurityManager::SavePasswordHashFile( const string & fileName )
 {
     if( mLoadedPasswords.empty() )
     {
@@ -124,7 +125,7 @@ void SecurityManager::SavePasswordHashFile( const string fileName )
     }
 }
 
-bool SecurityManager::VerifyPassword( const string userName, const string password )
+bool SecurityManager::VerifyPassword( const string & userName, const string & password )
 {
     if( HashString( userName + password ) == mLoadedPasswords[userName] )
     {
@@ -136,7 +137,7 @@ bool SecurityManager::VerifyPassword( const string userName, const string passwo
     }
 }
 
-void SecurityManager::AddUser( const string userName, const string password )
+void SecurityManager::AddUser( const string & userName, const string & password )
 {
     tacAssert( userName != "" && password != "" );
     if( userName == "" || password == "" )
@@ -155,7 +156,7 @@ void SecurityManager::AddUser( const string userName, const string password )
     }
 }
 
-void SecurityManager::DeleteUser( const string userName )
+void SecurityManager::DeleteUser( const string & userName )
 {
     tacAssert( userName != "" );
     if( userName == "" )
@@ -175,7 +176,7 @@ void SecurityManager::DeleteUser( const string userName )
     }
 }
 
-void SecurityManager::ChangeUserPassword( const string userName, const string newPassword )
+void SecurityManager::ChangeUserPassword( const string & userName, const string & newPassword )
 {
     tacAssert( userName != "" && newPassword != "" );
     if( userName == "" || newPassword == "" )
@@ -194,7 +195,7 @@ void SecurityManager::ChangeUserPassword( const string userName, const string ne
     }
 }
 
-string SecurityManager::EncryptFile( const string fileNameToEncrypt, const string hash, const string outFileName )
+string SecurityManager::EncryptFile( const string & fileNameToEncrypt, const string & hash, const string & outFileName )
 {
     // Make sure we're not trying to open clearly invalid files
     tacAssert( fileNameToEncrypt != "" );
@@ -315,7 +316,7 @@ string SecurityManager::EncryptFile( const string fileNameToEncrypt, const strin
     return resultOutFileName;
 }
 
-string SecurityManager::DecryptFile( const string fileNameToDecrypt, const string hash, const string outFileName )
+string SecurityManager::DecryptFile( const string & fileNameToDecrypt, const string & hash, const string & outFileName )
 {
     // Make sure we're not trying to open clearly invalid files
     tacAssert( fileNameToDecrypt != "" );
@@ -450,7 +451,7 @@ string SecurityManager::DecryptFile( const string fileNameToDecrypt, const strin
     return resultOutFileName;
 }
 
-string SecurityManager::DecryptFileToString( const string fileNameToDecrypt, const string hash )
+string SecurityManager::DecryptFileToString( const string & fileNameToDecrypt, const string & hash )
 {
     // Make sure we're not trying to open clearly invalid files
     tacAssert( fileNameToDecrypt != "" );
@@ -555,6 +556,18 @@ string SecurityManager::DecryptFileToString( const string fileNameToDecrypt, con
     return toReturn;
 }
 
+string SecurityManager::GetUserHash( const string & userName )
+{
+    if( mLoadedPasswords.find( userName ) != mLoadedPasswords.end() )
+    {
+        return mLoadedPasswords[userName];
+    }
+    else
+    {
+        return "";
+    }
+}
+
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
@@ -564,7 +577,7 @@ SecurityManager::SecurityManager()
     // stub
 }// SecurityManager
 
-string SecurityManager::HashString( const string incoming )
+string SecurityManager::HashString( const string & incoming )
 {
     string output = "";
     for( unsigned int i(0); i < incoming.length(); ++i )

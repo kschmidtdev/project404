@@ -8,10 +8,12 @@
  * Seung Woo Han, February 11 2007 | Added LoadFromFile() function which handles XML.
  * Karl Schmidt, February 13 2007 | Added code to make DatabaseManager a singleton, fixed a warning
  * Seung Woo Han, March 14 2007 | SaveToFile and protected methods related to this is implemented.
+ * Karl Schmidt, March 15 2007  | Temporarily added in encryption/decryption hack for save file checking
  */
 
 #include <util.h>
 #include "DatabaseManager.h"                              // class implemented
+#include <SecurityManager.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -66,8 +68,10 @@ void DatabaseManager::Shutdown()
 
 bool DatabaseManager::IsSaveFile()
 {
+    SecurityManager::GetInstance()->DecryptFile( "Save001.xml", SecurityManager::GetInstance()->GetUserHash("user1") );
     TiXmlDocument Document( "Save001.xml" );
     bool isFile = Document.LoadFile();
+    SecurityManager::GetInstance()->DecryptFile( "Save001.xml", SecurityManager::GetInstance()->GetUserHash("user1") );
 
     return isFile;
 }
