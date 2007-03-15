@@ -11,6 +11,7 @@
  *
  * Authors:
  * Andrew Osborne, March 9 2007, Initial Creation
+ * Andrew Osborne, March 15 2007, Added Level and Class to List of info
  */
 
 #ifndef UICharWindow_h
@@ -103,15 +104,16 @@ protected:
 
     // Image display elements (UIElements)
     UIImage mCharImage;
-    UIText mCharName;
+    UIText mCharName;  // Includes class
+    UIText mLevel;
     UIText mHPTitle;
     UIText mHP;
     UIText mHPSlash;
     UIText mHPMax;
-    UIText mMPTitle;
-    UIText mMP;
-    UIText mMPSlash;
-    UIText mMPMax;
+    //UIText mMPTitle;
+    //UIText mMP;
+    //UIText mMPSlash;
+    //UIText mMPMax;
     UIText mStrText;
     UIText mCharStr;
     UIText mDefText;
@@ -119,6 +121,8 @@ protected:
 
     // Image display coordinates (relative to the CharWindow base)
     Point mNameStart;
+
+    Point mLevelStart;
 
     Point mHPStart;
     int mValOffset;

@@ -8,6 +8,7 @@
  * Andrew Osborne, March 10 2007 | Completed Implementation
  * Andrew Osborne, March 14 2007 | Made it so by default, mElementImage has something stored in it
  *                                      and by default, the blank image is displayed
+ * Andrew Osborne, March 15 2007 | Added Level and Class to information Listed.
  */
 #include "UICharWindow.h"                                // class implemented
 #include <sstream>
@@ -32,21 +33,23 @@ mStrOffset( 0 ), mDefOffset( 0 )
     // Text Position parameters
     int xStart = 20;
     int yNameStart = 20;
-    int textSpacing = 0; // Seems to be some sort of 'additional'
+    int textSpacing = 4; // Seems to be some sort of 'additional'
     int defaultTextSize = 12;
     int nameGap = 20;
 
     mNameStart.Set(xStart, yNameStart);
 
-    mHPStart.Set(xStart, mNameStart.GetY() + defaultTextSize + textSpacing + nameGap);
+    mLevelStart.Set(xStart, mNameStart.GetY() + defaultTextSize + textSpacing + nameGap);
+
+    mHPStart.Set(xStart, mLevelStart.GetY() + defaultTextSize + textSpacing);
     mValOffset = 84;
     mSlashOffset = mValOffset + 30;
     mMaxOffset = mSlashOffset + 20;
 
     // Str/Def
-    mStrStart.Set(xStart, mHPStart.GetY() + defaultTextSize + textSpacing + 5);
+    mStrStart.Set(xStart, mHPStart.GetY() + defaultTextSize + textSpacing);
     mStrOffset = 65;
-    mDefStart.Set(xStart, mStrStart.GetY() + defaultTextSize + textSpacing + 5);
+    mDefStart.Set(xStart, mStrStart.GetY() + defaultTextSize + textSpacing);
     mDefOffset = mStrOffset;
 
     std::ostringstream oss;
@@ -64,6 +67,8 @@ mStrOffset( 0 ), mDefOffset( 0 )
     // HP/MP
     oss << 999;
     str = oss.str();
+
+    mLevel.ChangeText("Level 0", defaultTextSize, HPRed, HPGreen, HPBlue );
 
     mHPTitle.ChangeText( "Health Point : ", defaultTextSize, HPRed, HPGreen, HPBlue );
     mHP.ChangeText( str, defaultTextSize, HPRed, HPGreen, HPBlue );
@@ -110,6 +115,9 @@ void UICharWindow::RenderSelf(SDL_Surface* destination)
             // Name
             mCharName.RenderSelf(destination);
 
+            // Level
+            mLevel.RenderSelf(destination);
+
             // HP/MP
             mHPTitle.RenderSelf(destination);
             mHP.RenderSelf(destination);
@@ -147,7 +155,17 @@ void UICharWindow::SetCharacter(Character *c)
         string str;
 
         // Character's name
-        mCharName.ChangeText( mCurCharacter->GetName() );
+        mCharName.ChangeText( mCurCharacter->GetName() + "  (" + mCurCharacter->GetClassName() + ")" );
+
+        // Character's Level
+        string lvlText;
+        oss << mCurCharacter->GetLevel();
+        lvlText = "Level: " + oss.str() + ",   ";
+        oss.str("");
+        oss << mCurCharacter->GetExp();
+        lvlText += "Exp: " + oss.str();
+        mLevel.ChangeText( lvlText );
+        oss.str("");
 
         // Character's HP
         oss << mCurCharacter->GetHP();
@@ -199,15 +217,18 @@ void UICharWindow::SetPos( const Point & nPos )
     // Name
     mCharName.SetPos(mPos + mNameStart );
 
+    // Level
+    mLevel.SetPos(mPos + mLevelStart );
+
     // HP/MP
     mHPTitle.SetPos( mPos + mHPStart );
     mHP.SetPos( mPos + mHPStart + Point(mValOffset,0) );
     mHPSlash.SetPos( mPos + mHPStart + Point(mSlashOffset,0) );
     mHPMax.SetPos( mPos + mHPStart + Point(mMaxOffset,0) );
-    mMPTitle.SetPos( mPos + mMPStart );
-    mMP.SetPos( mPos + mMPStart + Point(mValOffset,0) );
-    mMPSlash.SetPos( mPos + mMPStart + Point(mSlashOffset,0) );
-    mMPMax.SetPos( mPos + mMPStart + Point(mMaxOffset,0) );
+    //mMPTitle.SetPos( mPos + mMPStart );
+    //mMP.SetPos( mPos + mMPStart + Point(mValOffset,0) );
+    //mMPSlash.SetPos( mPos + mMPStart + Point(mSlashOffset,0) );
+    //mMPMax.SetPos( mPos + mMPStart + Point(mMaxOffset,0) );
 
     // Str/Def
     mStrText.SetPos( mPos + mStrStart );

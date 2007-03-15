@@ -782,6 +782,10 @@
 			<Option target="Release" />
 			<Option target="UnitTest" />
 		</Unit>
+		<Unit filename="..\src\UI\UILayoutTestHelp.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="UnitTest" />
+		</Unit>
 		<Unit filename="..\src\UI\UIManager.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
