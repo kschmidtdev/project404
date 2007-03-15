@@ -44,8 +44,18 @@ void DBEngine::Initialize()
 
     tacAssert( mDB );
 
-    // Load XML file.
-    mDB->LoadFromFile( "database.xml" );
+    // Load XML file. Default : database.xml. If there is any save file, load that.
+    if ( !mDB->IsSaveFile() )
+    {
+        cout << "No Save File" << endl;
+        mDB->LoadFromFile( "database.xml" );
+    }
+
+    else
+    {
+        cout << "Loaded from the save file." << endl;
+        mDB->LoadFromFile( "Save001.xml" );
+    }
 
     // Create DBNode instances from XML file.
     DBNode* TemplateNode = mDB->Search( "Templates" );
@@ -130,10 +140,14 @@ void DBEngine::Initialize()
 
         CharacterNode = CharactersNode->GetNextChild(); // Go to next Character.
     }
+
+    // TEST //
+    cout << "Init Character # : " << mCharacterList.size() << endl;
 }
 
 void DBEngine::Shutdown()
 {
+    cout << "************* DBEngine Shutdown ******************" << endl;
     vector<Character*>::iterator CharIter;
     vector<Item*>::iterator ItemIter;
 
@@ -207,6 +221,16 @@ vector<Character*>* DBEngine::LoadParty( int battleNumber )
         PartyMemberNode = PartyNode->GetNextChild();
     }
 
+    // TEST
+    cout << "< Party List >" << endl;
+
+    for (Iter = PartyList->begin(); Iter != PartyList->end(); Iter++)
+    {
+        cout << (*Iter)->GetName() << endl;
+    }
+
+    cout << endl;
+
     return PartyList;
 }
 
@@ -244,6 +268,14 @@ vector<Character*>* DBEngine::LoadEnemies( int battleNumber )
         }
 
         EnemiesMemberNode = EnemiesNode->GetNextChild();
+    }
+
+    // TEST
+    cout << "< Enemies List >" << endl;
+
+    for (Iter = EnemiesList->begin(); Iter != EnemiesList->end(); Iter++)
+    {
+        cout << (*Iter)->GetName() << endl;
     }
 
     return EnemiesList;
@@ -371,15 +403,23 @@ vector<Tile> DBEngine::LoadBattleMap( int battleNumber )
         TileSetNode = BattleMapNode->GetNextChild();
     }
 
-    vector<Tile>::iterator Iter;
-    for (Iter=BattleMap.begin(); Iter!=BattleMap.end(); Iter++)
-    {
-        cout << (*Iter).GetType() << "    " << (*Iter).GetPoint().GetX() << ":" << (*Iter).GetPoint().GetY() << endl;
-    }
-
     return BattleMap;
 
 }
+
+void DBEngine::SaveGame()
+{
+    vector<Character*>::iterator Iter;
+    cout << "Number of Characters : " << mCharacterList.size() << endl;
+    for (Iter = mCharacterList.begin(); Iter != mCharacterList.end(); Iter++)
+    {
+        cout << (*Iter)->GetName() << "<" << (*Iter)->GetLevel() << ">" << endl;
+        DatabaseManager::GetInstance()->UpdateNode( (*Iter)->GetName(), "Level", (*Iter)->GetLevel() );
+    }
+
+    DatabaseManager::GetInstance()->SaveToFile( "Save001.xml" );
+}
+
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////

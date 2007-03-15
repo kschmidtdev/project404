@@ -6,60 +6,70 @@
 				<Data type="int" name="Level" value="4" />
 				<Data type="string" name="Weapon" value="Mace of Light" />
 				<Data type="string" name="Armor" value="Armor of Faith" />
+				<Data type="string" name="Picture" value="imgHan.png" />
 			</Node>
 			<Node name="Karl">
 				<Data type="string" name="Class" value="Mage" />
 				<Data type="int" name="Level" value="5" />
 				<Data type="string" name="Weapon" value="Staff of Wisdom" />
 				<Data type="string" name="Armor" value="Cloak of Mana" />
+				<Data type="string" name="Picture" value="imgKarl.png" />
 			</Node>
 			<Node name="Mike">
 				<Data type="string" name="Class" value="Knight" />
 				<Data type="int" name="Level" value="5" />
 				<Data type="string" name="Weapon" value="Sword of Victory" />
 				<Data type="string" name="Armor" value="Armor of Strength" />
+				<Data type="string" name="Picture" value="imgMike.png" />
 			</Node>
 			<Node name="Andrew">
 				<Data type="string" name="Class" value="Archer" />
 				<Data type="int" name="Level" value="6" />
 				<Data type="string" name="Weapon" value="Bow of Lightenning" />
 				<Data type="string" name="Armor" value="Armor of Feather" />
+				<Data type="string" name="Picture" value="imgAndy.png" />
 			</Node>
 			<Node name="Super Man">
 				<Data type="string" name="Class" value="Archer" />
 				<Data type="int" name="Level" value="99" />
 				<Data type="string" name="Weapon" value="Bow of Lightenning" />
 				<Data type="string" name="Armor" value="Armor of Feather" />
+				<Data type="string" name="Picture" value="imgSuperMan.png" />
 			</Node>
 			<Node name="Enemy Type A">
 				<Data type="string" name="Class" value="Knight" />
 				<Data type="int" name="Level" value="5" />
 				<Data type="string" name="Weapon" value="Basic Sword" />
 				<Data type="string" name="Armor" value="Basic Armor" />
+				<Data type="string" name="Picture" value="imgEnemyTypeA.png" />
 			</Node>
 			<Node name="Enemy Type B">
 				<Data type="string" name="Class" value="Archer" />
 				<Data type="int" name="Level" value="3" />
 				<Data type="string" name="Weapon" value="Basic Bow" />
 				<Data type="string" name="Armor" value="Basic Armor" />
+				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type C">
 				<Data type="string" name="Class" value="Healer" />
 				<Data type="int" name="Level" value="3" />
 				<Data type="string" name="Weapon" value="Basic Mace" />
 				<Data type="string" name="Armor" value="Basic Cloak" />
+				<Data type="string" name="Picture" value="imgEnemyTypeC.png" />
 			</Node>
 			<Node name="Enemy Type D">
 				<Data type="string" name="Class" value="Mage" />
 				<Data type="int" name="Level" value="6" />
 				<Data type="string" name="Weapon" value="Basic Staff" />
 				<Data type="string" name="Armor" value="Basic Cloak" />
+				<Data type="string" name="Picture" value="imgEnemyTypeD.png" />
 			</Node>
-			<Node name="Enemy Boss">
+			<Node name="Enemy Boss A">
 				<Data type="string" name="Class" value="Knight" />
 				<Data type="int" name="Level" value="1" />
 				<Data type="string" name="Weapon" value="Unique Sword" />
 				<Data type="string" name="Armor" value="Unique Armor" />
+				<Data type="string" name="Picture" value="imgEnemyBossA.png" />
 			</Node>
 		</Node>
 		<Node name="Items">
@@ -297,6 +307,10 @@
 					<Data type="string" name="Character Name" value="Andrew" />
 					<Data type="vector2d" name="Starting Point" value="0:9" />
 				</Node>
+				<Node name="Memeber5">
+					<Data type="string" name="Character Name" value="Han" />
+					<Data type="vector2d" name="Starting Point" value="1:5" />
+				</Node>
 			</Node>
 			<Node name="Enemies">
 				<Node name="Member1">
@@ -305,14 +319,14 @@
 				</Node>
 				<Node name="Member2">
 					<Data type="string" name="Character Name" value="Enemy Type B" />
-					<Data type="vector2d" name="Starting Point" value="9:4" />
+					<Data type="vector2d" name="Starting Point" value="9:3" />
 				</Node>
 				<Node name="Member3">
 					<Data type="string" name="Character Name" value="Enemy Type C" />
-					<Data type="vector2d" name="Starting Point" value="9:6" />
+					<Data type="vector2d" name="Starting Point" value="9:4" />
 				</Node>
 				<Node name="Member4">
-					<Data type="string" name="Character Name" value="Enemy Boss" />
+					<Data type="string" name="Character Name" value="Enemy Boss A" />
 					<Data type="vector2d" name="Starting Point" value="9:8" />
 				</Node>
 			</Node>
@@ -347,7 +361,7 @@
 					<Data type="vector2d" name="StartCoordinate" value="5:6" />
 					<Data type="vector2d" name="EndCoordinate" value="5:9" />
 				</Node>
-				<Node name="TileSet004">
+				<Node name="TileSet007">
 					<Data type="string" name="TileType" value="GRASS" />
 					<Data type="vector2d" name="StartCoordinate" value="6:0" />
 					<Data type="vector2d" name="EndCoordinate" value="9:9" />

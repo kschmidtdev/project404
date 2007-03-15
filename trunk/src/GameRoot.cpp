@@ -12,7 +12,9 @@
  * Karl Schmidt, February 11 2007 | Initial creation of implementation
  * Karl Schmidt, March 13 2007    | Added sound system disabling, mainly for unit tests
  * Karl Schmidt, March 14 2007    | Added event recording/playback support
+ * Seung Woo Han, March 15 2007   | Added DBEngine and DBEngine initialization.
  */
+
 #include "GameRoot.h"                                // class implemented
 
 #include <Logger.h>
@@ -20,6 +22,7 @@
 
 #include <SecurityManager.h>
 #include <Database/DatabaseManager.h>
+#include <Database/DBEngine.h>
 #include <InputManager.h>
 #include <Renderer/SDLRenderer.h>
 #include <ResourceManager/ResourceManager.h>
@@ -111,6 +114,9 @@ void GameRoot::Initialize( const int argc, char** argv, const bool soundEnabled 
     mDatabase = DatabaseManager::GetInstance();
     mDatabase->Initialize();
 
+    mDBEngine = DBEngine::GetInstance();
+    mDBEngine->Initialize();
+
     mGameEngine = GameEngine::GetInstance();
 
     mUIManager = UIManager::GetInstance();
@@ -124,6 +130,8 @@ void GameRoot::Shutdown()
     mGameEngine->Shutdown();
 
     mDatabase->Shutdown();
+
+    mDBEngine->Shutdown();
 
     mSecurityManager->SavePasswordHashFile( "passwords" );
     mSecurityManager->Shutdown();

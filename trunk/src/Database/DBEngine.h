@@ -69,6 +69,11 @@ public:
     vector<Tile> LoadBattleMap( int battleNumber );
 
     /**
+     * Update mCharacterList and save any changes to output file.
+     */
+    void SaveGame();
+
+    /**
      * Get Method. Return the pointer of the list of all the characters in the game.
      */
     vector<Character*>* GetCharacterList() { return &mCharacterList; } // INLINE METHOD.
