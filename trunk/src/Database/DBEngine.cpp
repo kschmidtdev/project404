@@ -11,6 +11,7 @@
  *                                   takes a parameter(battle number) now.
  * Karl Schmidt, March 15 2007	   | Added default behaviour so that it will attempt to load a savegame in Initialize if asked, otherwise load the regular db
  * Karl Schmidt, March 15 2007     | Temporarily added in encryption/decryption hack for save file checking
+ * Seung Woo Han, March 17 2007    | Put some more comments and removed test codes.
  */
 
 #include <util.h>
@@ -18,8 +19,6 @@
 
 #include "DBEngine.h"                                     // class implemented
 #include <SecurityManager.h>
-#include <iostream>
-using namespace std;
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
@@ -50,14 +49,12 @@ void DBEngine::Initialize( const bool loadFromSave )
     // Load XML file. Default : database.xml. If there is any save file, load that.
     if( loadFromSave && mDB->IsSaveFile() )
     {
-        cout << "Loaded from the save file." << endl;
         SecurityManager::GetInstance()->DecryptFile( "Save001.xml", SecurityManager::GetInstance()->GetUserHash("user1") );
         mDB->LoadFromFile( "Save001.xml" );
         SecurityManager::GetInstance()->EncryptFile( "Save001.xml", SecurityManager::GetInstance()->GetUserHash("user1") );
     }
     else
     {
-        cout << "No Save File or starting a new game" << endl;
         mDB->LoadFromFile( "database.xml" );
     }
 
@@ -144,14 +141,10 @@ void DBEngine::Initialize( const bool loadFromSave )
 
         CharacterNode = CharactersNode->GetNextChild(); // Go to next Character.
     }
-
-    // TEST //
-    cout << "Init Character # : " << mCharacterList.size() << endl;
 }
 
 void DBEngine::Shutdown()
 {
-    cout << "************* DBEngine Shutdown ******************" << endl;
     vector<Character*>::iterator CharIter;
     vector<Item*>::iterator ItemIter;
 
@@ -228,16 +221,6 @@ vector<Character*>* DBEngine::LoadParty( int battleNumber )
         PartyMemberNode = PartyNode->GetNextChild();
     }
 
-    // TEST
-    cout << "< Party List >" << endl;
-
-    for (Iter = PartyList->begin(); Iter != PartyList->end(); Iter++)
-    {
-        cout << (*Iter)->GetName() << endl;
-    }
-
-    cout << endl;
-
     return PartyList;
 }
 
@@ -275,14 +258,6 @@ vector<Character*>* DBEngine::LoadEnemies( int battleNumber )
         }
 
         EnemiesMemberNode = EnemiesNode->GetNextChild();
-    }
-
-    // TEST
-    cout << "< Enemies List >" << endl;
-
-    for (Iter = EnemiesList->begin(); Iter != EnemiesList->end(); Iter++)
-    {
-        cout << (*Iter)->GetName() << endl;
     }
 
     return EnemiesList;
@@ -417,17 +392,14 @@ vector<Tile> DBEngine::LoadBattleMap( int battleNumber )
 void DBEngine::SaveGame()
 {
     vector<Character*>::iterator Iter;
-    cout << "Number of Characters : " << mCharacterList.size() << endl;
     for (Iter = mCharacterList.begin(); Iter != mCharacterList.end(); Iter++)
     {
-        cout << (*Iter)->GetName() << "<" << (*Iter)->GetLevel() << ">" << endl;
         DatabaseManager::GetInstance()->UpdateNode( (*Iter)->GetName(), "Level", (*Iter)->GetLevel() );
     }
 
     string saveFileName = "Save001.xml";
     DatabaseManager::GetInstance()->SaveToFile( saveFileName );
     SecurityManager::GetInstance()->EncryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
-    cout << "Your game has been saved successfully." << endl;
 }
 
 //============================= ACCESS     ===================================
