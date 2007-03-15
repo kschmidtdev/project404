@@ -119,6 +119,11 @@ enum Attr
      */
     void SetTarget(Character* target);
 
+    /**
+     * Set health to max, make undead if dead, invigorate
+	 */
+    void RestoreToFullLife();
+
 // INQUIRY
 
     /**
@@ -184,6 +189,7 @@ enum Attr
      * Get target (AI)
 	 */
     Character* GetTarget();
+
 protected:
 
 // VARIABLES
