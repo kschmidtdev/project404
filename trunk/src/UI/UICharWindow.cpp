@@ -28,21 +28,22 @@ mStrOffset( 0 ), mDefOffset( 0 )
     mDefaultBlankImage = ResourceManager::GetInstance()->LoadTexture("CharWindowBlank.png");
 
     // Text Position parameters
-    int xStart = 7;
-    int yNameStart = 2;
+    int xStart = 10;
+    int yNameStart = 7;
     int textSpacing = 0; // Seems to be some sort of 'additional'
     int defaultTextSize = 24;
+    int nameGap = 20;
 
     mNameStart.Set(xStart, yNameStart);
 
-    mHPStart.Set(xStart, mNameStart.GetY() + defaultTextSize + textSpacing);
+    mHPStart.Set(xStart, mNameStart.GetY() + defaultTextSize + textSpacing + nameGap);
     mValOffset = 47;
     mSlashOffset = mValOffset + 50;
     mMaxOffset = mSlashOffset + 17;
-    mMPStart.Set(xStart, mHPStart.GetY() + defaultTextSize + textSpacing);
+    //mMPStart.Set(xStart, mHPStart.GetY() + defaultTextSize + textSpacing + nameGap);
 
     // Str/Def
-    mStrStart.Set(xStart, mMPStart.GetY() + defaultTextSize + textSpacing);
+    mStrStart.Set(xStart, mHPStart.GetY() + defaultTextSize + textSpacing + 5);
     mStrOffset = 55;
     mDefStart.Set(xStart + mStrOffset + 40, mStrStart.GetY() );
     mDefOffset = mStrOffset;
@@ -51,17 +52,17 @@ mStrOffset( 0 ), mDefOffset( 0 )
     string str;
 
     // Initialize color parameters
-    int HPRed = 255;
-    int HPGreen = 0;
+    int HPRed = 250;
+    int HPGreen = 250;
     int HPBlue = 0;
 
-    int MPRed = 0;
-    int MPGreen = 0;
-    int MPBlue = 255;
+    //int MPRed = 0;
+    //int MPGreen = 0;
+    //int MPBlue = 255;
 
     // Initialize Static Text (and set colour/size parameters)
 
-    mCharName.ChangeText( "NAME", 24, 0, 255, 0 );
+    mCharName.ChangeText( "NAME", 24, HPRed, HPGreen, HPBlue );
 
     // HP/MP
     oss << 999;
@@ -72,16 +73,16 @@ mStrOffset( 0 ), mDefOffset( 0 )
     mHPSlash.ChangeText( "/", defaultTextSize, HPRed, HPGreen, HPBlue );
     mHPMax.ChangeText( str, defaultTextSize, HPRed, HPGreen, HPBlue );
 
-    mMPTitle.ChangeText( "MP: ", defaultTextSize, MPRed, MPGreen, MPBlue );
+    /*mMPTitle.ChangeText( "MP: ", defaultTextSize, MPRed, MPGreen, MPBlue );
     mMP.ChangeText( str, defaultTextSize, MPRed, MPGreen, MPBlue );
     mMPSlash.ChangeText( "/", defaultTextSize, MPRed, MPGreen, MPBlue );
-    mMPMax.ChangeText( str, defaultTextSize, MPRed, MPGreen, MPBlue );
+    mMPMax.ChangeText( str, defaultTextSize, MPRed, MPGreen, MPBlue );*/
 
 
-    mStrText.ChangeText("STR ", defaultTextSize, 255, 0, 0 );
-    mCharStr.ChangeText("99", defaultTextSize, 255, 0, 0 );
-    mDefText.ChangeText("DEF ", defaultTextSize, 255, 0, 0 );
-    mCharDef.ChangeText("99", defaultTextSize, 255, 0, 0 );
+    mStrText.ChangeText("STR ", defaultTextSize, HPRed, HPGreen, HPBlue );
+    mCharStr.ChangeText("99", defaultTextSize, HPRed, HPGreen, HPBlue );
+    mDefText.ChangeText("DEF ", defaultTextSize,HPRed, HPGreen, HPBlue );
+    mCharDef.ChangeText("99", defaultTextSize, HPRed, HPGreen, HPBlue );
 
     //mPos.Set(440, 5);
     SetPos(mPos);
