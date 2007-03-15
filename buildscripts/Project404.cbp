@@ -718,12 +718,6 @@
 			<Option target="Release" />
 			<Option target="UnitTest" />
 		</Unit>
-		<Unit filename="..\src\UI\UICursor.cpp">
-			<Option compilerVar="CPP" />
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="UnitTest" />
-		</Unit>
 		<Unit filename="..\src\UI\UICursor.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
