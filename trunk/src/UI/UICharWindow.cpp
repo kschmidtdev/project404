@@ -27,35 +27,35 @@ mStrOffset( 0 ), mDefOffset( 0 )
 
     // Setup backgrounds
     mDefaultCharBackground = ResourceManager::GetInstance()->LoadTexture("CharWindowBackground.png");
-    mDefaultBlankImage = ResourceManager::GetInstance()->LoadTexture("CharWindowBlank.png");
+    mDefaultBlankImage = ResourceManager::GetInstance()->LoadTexture("CharWindowBackground.png");
 
     // Text Position parameters
-    int xStart = 10;
-    int yNameStart = 7;
+    int xStart = 20;
+    int yNameStart = 20;
     int textSpacing = 0; // Seems to be some sort of 'additional'
-    int defaultTextSize = 24;
+    int defaultTextSize = 12;
     int nameGap = 20;
 
     mNameStart.Set(xStart, yNameStart);
 
     mHPStart.Set(xStart, mNameStart.GetY() + defaultTextSize + textSpacing + nameGap);
-    mValOffset = 47;
-    mSlashOffset = mValOffset + 50;
-    mMaxOffset = mSlashOffset + 17;
+    mValOffset = 84;
+    mSlashOffset = mValOffset + 30;
+    mMaxOffset = mSlashOffset + 20;
     //mMPStart.Set(xStart, mHPStart.GetY() + defaultTextSize + textSpacing + nameGap);
 
     // Str/Def
     mStrStart.Set(xStart, mHPStart.GetY() + defaultTextSize + textSpacing + 5);
-    mStrOffset = 55;
-    mDefStart.Set(xStart + mStrOffset + 40, mStrStart.GetY() );
+    mStrOffset = 65;
+    mDefStart.Set(xStart, mStrStart.GetY() + defaultTextSize + textSpacing + 5);
     mDefOffset = mStrOffset;
 
     std::ostringstream oss;
     string str;
 
     // Initialize color parameters
-    int HPRed = 250;
-    int HPGreen = 250;
+    int HPRed = 0;
+    int HPGreen = 0;
     int HPBlue = 0;
 
     //int MPRed = 0;
@@ -64,13 +64,13 @@ mStrOffset( 0 ), mDefOffset( 0 )
 
     // Initialize Static Text (and set colour/size parameters)
 
-    mCharName.ChangeText( "NAME", 24, HPRed, HPGreen, HPBlue );
+    mCharName.ChangeText( "Name", defaultTextSize, HPRed, HPGreen, HPBlue );
 
     // HP/MP
     oss << 999;
     str = oss.str();
 
-    mHPTitle.ChangeText( "HP: ", defaultTextSize, HPRed, HPGreen, HPBlue );
+    mHPTitle.ChangeText( "Health Point : ", defaultTextSize, HPRed, HPGreen, HPBlue );
     mHP.ChangeText( str, defaultTextSize, HPRed, HPGreen, HPBlue );
     mHPSlash.ChangeText( "/", defaultTextSize, HPRed, HPGreen, HPBlue );
     mHPMax.ChangeText( str, defaultTextSize, HPRed, HPGreen, HPBlue );
@@ -81,9 +81,9 @@ mStrOffset( 0 ), mDefOffset( 0 )
     mMPMax.ChangeText( str, defaultTextSize, MPRed, MPGreen, MPBlue );*/
 
 
-    mStrText.ChangeText("STR ", defaultTextSize, HPRed, HPGreen, HPBlue );
+    mStrText.ChangeText("Strength : ", defaultTextSize, HPRed, HPGreen, HPBlue );
     mCharStr.ChangeText("99", defaultTextSize, HPRed, HPGreen, HPBlue );
-    mDefText.ChangeText("DEF ", defaultTextSize,HPRed, HPGreen, HPBlue );
+    mDefText.ChangeText("Defence :  ", defaultTextSize,HPRed, HPGreen, HPBlue );
     mCharDef.ChangeText("99", defaultTextSize, HPRed, HPGreen, HPBlue );
 
     //mPos.Set(440, 5);
