@@ -18,7 +18,9 @@
 
 // SYSTEM INCLUDES
 //
-
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
 // PROJECT INCLUDES
 //
 #include <..\src\GameEngine\Character.h>

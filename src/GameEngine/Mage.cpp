@@ -37,6 +37,7 @@ Mage::Mage()
     mAttributes[DEF] = 1;
     mExhausted = false;
     mIsDead = false;
+    mTarget = NULL;
 }// Mage
 
 Mage::Mage(string name, int level, WeaponItem* weapon, ArmorItem* armor)
@@ -55,6 +56,7 @@ Mage::Mage(string name, int level, WeaponItem* weapon, ArmorItem* armor)
     mAttributes[DEF] = 1;
     mExhausted = false;
     mIsDead = false;
+    mTarget = NULL;
     if(weapon != NULL)
     {
         mAttributes[POW] = mAttributes[POW] + weapon->GetAttr();

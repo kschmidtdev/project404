@@ -37,6 +37,7 @@ Knight::Knight()
     mAttributes[DEF] = 4;
     mExhausted = false;
     mIsDead = false;
+    mTarget = NULL;
 }// Knight
 
 Knight::Knight(string name, int level, WeaponItem* weapon, ArmorItem* armor)
@@ -55,6 +56,7 @@ Knight::Knight(string name, int level, WeaponItem* weapon, ArmorItem* armor)
     mAttributes[DEF] = 4;
     mExhausted = false;
     mIsDead = false;
+    mTarget = NULL;
     if(weapon != NULL)
     {
         mAttributes[POW] = mAttributes[POW] + weapon->GetAttr();
