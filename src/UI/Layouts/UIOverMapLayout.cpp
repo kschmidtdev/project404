@@ -5,13 +5,12 @@
  *
  * Authors:
  * Andrew Osborne, March 4, 2007 | Initial creation
+ * Seung Woo Han, March 14, 2007 | Added feature that loads dialogs from the database.
  */
 #include "UIOverMapLayout.h"                                // class implemented
 #include "FuncObj.h"
 #include "UIManager.h"
-#include <../Database/DatabaseManager.h>
-#include <iostream>
-using namespace std;
+#include <../Database/DBEngine.h>
 
 class SaveFunction : public FuncObj
 {
@@ -63,11 +62,7 @@ UIOverMapLayout::UIOverMapLayout()
 
     // Debug
     //Text can go no further than the end of this line============
-    DatabaseManager* DBM = DatabaseManager::GetInstance();
-    DBM->LoadFromFile( "database.xml" );
-    DBNode* Dialog001 = DBM->Search( "D001" );
-
-    DBM->SaveToFile( "Save001.xml" );
+    DBNode* Dialog001 = DatabaseManager::GetInstance()->Search( "D001" );
 
     DBString* thisLine = dynamic_cast<DBString*>( Dialog001->GetFirstAttribute() );
     while ( thisLine != NULL )

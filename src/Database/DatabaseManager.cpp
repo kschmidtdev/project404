@@ -64,6 +64,14 @@ void DatabaseManager::Shutdown()
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================
 
+bool DatabaseManager::IsSaveFile()
+{
+    TiXmlDocument Document( "Save001.xml" );
+    bool isFile = Document.LoadFile();
+
+    return isFile;
+}
+
 bool DatabaseManager::LoadFromFile(const string& filename)
 {
     TiXmlDocument Document( filename );

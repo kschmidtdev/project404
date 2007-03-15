@@ -51,6 +51,11 @@ public:
     void Shutdown();
 
     /**
+     * Check if there is a save file or not.
+     */
+    bool IsSaveFile();
+
+    /**
      * Load XML file and creates Nodes from that file.
      */
     bool LoadFromFile(const string& filename);

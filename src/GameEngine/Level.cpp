@@ -26,6 +26,7 @@
  * Mike Malyuk, March 14 2007     | Set map in Level for evil Overlord
  * Seung Woo Han, March 14 2007   | Modified Level(int) constructor. Now This contructor takes integer value which is the battle
  *                                  number. No further changes will be made to Level(int battleNumber) I hope.
+ * Seung Woo Han, March 15 2007   | ~Level modified. Previously, it shut down DBEngine which shouldn't be.
  * Karl Schmidt, March 14 2007	  | Fixed a small iterator dereferencing causing crash bug
  */
 
@@ -68,7 +69,6 @@ Level::Level(int battleNumber)
 : mState(FREE), mCurChar( NULL ), mMyTurn( true )
 {
     DBEngine* DBE = DBEngine::GetInstance();
-    DBE->Initialize();
 
     mMap = Map( DBE->LoadBattleMap( battleNumber ) );
 
@@ -108,7 +108,6 @@ Level::Level(int battleNumber)
 
 Level::~Level()
 {
-    DBEngine::GetInstance()->Shutdown();
 }// ~Level
 
 //============================= OPERATIONS ===================================

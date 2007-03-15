@@ -41,6 +41,7 @@ typedef ConfigMap::iterator ConfigItr;
 
 class SecurityManager;
 class DatabaseManager;
+class DBEngine;
 class InputManager;
 class SDLRenderer;
 class ResourceManager;
@@ -113,6 +114,7 @@ protected:
 
     SecurityManager*    mSecurityManager;
     DatabaseManager*    mDatabase;
+    DBEngine*           mDBEngine;
     InputManager*       mInput;
     SDLRenderer*        mRenderer;
     ResourceManager*    mResManager;
