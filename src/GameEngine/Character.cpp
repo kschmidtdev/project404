@@ -186,6 +186,14 @@ void Character::SetTarget(Character* target)
 {
     mTarget = target;
 }
+
+void Character::RestoreToFullLife()
+{
+    Invigorate();
+    SetHP( mMaxHP );
+    mIsDead = false;
+}
+
 //============================= INQUIRY    ===================================
 int Character::GetAttr(Attr value)
 {

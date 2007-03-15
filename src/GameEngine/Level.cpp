@@ -88,6 +88,7 @@ Level::Level(int battleNumber)
         StartingVector = DBE->LoadPartyStartingPoint( battleNumber, *Iter1 );
         StartingPoint.Set( StartingVector->GetX(), StartingVector->GetY() );
         (*Iter1)->Move( StartingPoint );
+        (*Iter1)->RestoreToFullLife();
         mParty.push_back( (*Iter1) );
     }
 
@@ -99,6 +100,7 @@ Level::Level(int battleNumber)
         StartingVector = DBE->LoadEnemiesStartingPoint( battleNumber, *Iter2 );
         StartingPoint.Set( StartingVector->GetX(), StartingVector->GetY() );
         (*Iter2)->Move( StartingPoint );
+        (*Iter2)->RestoreToFullLife();
         mEnemies.push_back( (*Iter2) );
     }
 
