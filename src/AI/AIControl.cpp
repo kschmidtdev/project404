@@ -37,7 +37,7 @@ Point AIControl::DoAction()
             {
                 if((*eiter)->GetExhaust() == false)
                 {
-                    if( !InputManager::GetInstance()->GetMode() == InputManager::PLAYBACK )
+                    if( !(InputManager::GetInstance()->GetMode() == InputManager::PLAYBACK) )
                     {
                         SDL_Delay( AI_FAKE_TIME_WAIT );
                     }
