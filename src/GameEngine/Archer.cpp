@@ -52,7 +52,7 @@ Archer::Archer(string name, int level, WeaponItem* weapon, ArmorItem* armor)
     mMaxActRange = 2;
     mCurPos = Point(0,0);
     mAttributes[POW] = 2;
-    mAttributes[AGI] = 5;
+    mAttributes[AGI] = 6;
     mAttributes[DEF] = 2;
     mExhausted = false;
     mIsDead = false;
@@ -81,8 +81,8 @@ Archer::~Archer()
 void Archer::LevelUp()
 {
     mAttributes[POW] = mAttributes[POW]+1;
-    mAttributes[AGI] = mAttributes[AGI]+3;
-    mAttributes[DEF] = mAttributes[DEF]+2;
+    mAttributes[AGI] = mAttributes[AGI]+2;
+    mAttributes[DEF] = mAttributes[DEF]+1;
     mMaxHP = mMaxHP + 3;
     mCurHP = mMaxHP;
     mLevel++;
