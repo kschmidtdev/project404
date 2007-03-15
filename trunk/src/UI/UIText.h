@@ -80,7 +80,7 @@ public:
     /**
      * Change Size.
 	 */
-    void SetColour(int s);
+    void SetSize(int s);
 
 
 

@@ -106,7 +106,7 @@ void UIText::SetColour(int r, int g, int b)
     mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
 }
 
-void UIText::SetColour(int s)
+void UIText::SetSize(int s)
 {
     mSize = s;
     if( mElementImage )

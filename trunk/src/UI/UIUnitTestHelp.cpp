@@ -50,6 +50,14 @@ mSRend( NULL ), mInitialized( false )
 
 UIUnitTestHelp::~UIUnitTestHelp()
 {
+    // must ensure elements are out of RenderQueue
+    if (mTestElement)
+        mSRend->RemoveFromRenderQueue(mTestElement);
+
+    mSRend->RemoveFromRenderQueue(this);
+
+    mSRend = NULL;
+
 }// ~UIUnitTestHelp
 
 
@@ -81,6 +89,7 @@ void UIUnitTestHelp::RunBasicTest(void)
         if (!mInitialized)
             Initialize();
 
+        ostringstream oss;
 
         int width;
         int height;
@@ -90,6 +99,8 @@ void UIUnitTestHelp::RunBasicTest(void)
             width = 0;
             height = 0;
             mInfoText.ChangeText("NULL");
+            oss << mTestNumNum;
+            mTestNum.ChangeText( oss.str() );
             this->SetPos( origin + Point(width, 0) );
             // I think i have to insert draw here....
             mSRend->Draw();
@@ -102,23 +113,34 @@ void UIUnitTestHelp::RunBasicTest(void)
             // Check for visibility
             mTestElement->SetVisible(true);
             mInfoText.ChangeText("YES - (0,0)");
+            oss << mTestNumNum;
+            mTestNum.ChangeText( oss.str() );
             MoveToRight();
             mSRend->Draw();
             Delay();
+            mTestNumNum++;
 
             // Check for invisibility
             mTestElement->SetVisible(false);
             mInfoText.ChangeText("NO");
+            oss.str("");
+            oss << mTestNumNum;
+            mTestNum.ChangeText( oss.str() );
             mSRend->Draw();
             Delay();
+            mTestNumNum++;
 
             // Move position
             mTestElement->SetPos( Point(30,30) );
             mTestElement->SetVisible(true);
             MoveToRight();
             mInfoText.ChangeText("(30,30)");
+            oss.str("");
+            oss << mTestNumNum;
+            mTestNum.ChangeText( oss.str() );
             mSRend->Draw();
             Delay();
+            mTestNumNum++;
 
 
         }
@@ -135,15 +157,12 @@ void UIUnitTestHelp::RunNewTest(string message)
     if (mInitialized) {
 
         SDLRenderer *SRend = SDLRenderer::GetInstance();
+        ostringstream oss;
 
-        int width;
-        int height;
-        Point origin;
-        SDL_Surface* element = mTestElement->GetElement();
-        width = element->w;
-        height = element->h;
-        mInfoText.ChangeText("NULL");
-        this->SetPos( origin + Point(width, 0) );
+        mInfoText.ChangeText(message);
+        oss << mTestNumNum;
+        mTestNum.ChangeText( oss.str() );
+        MoveToRight();
         // I think i have to insert draw here....
         SRend->Draw();
         Delay();
@@ -185,6 +204,11 @@ void UIUnitTestHelp::SetNewElement( UIElement* nElement )
 
 }
 
+
+void UIUnitTestHelp::SetDelay(int n)
+{
+    mDelayTime = n;
+}
 
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////

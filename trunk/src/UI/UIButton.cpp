@@ -20,7 +20,7 @@
 //============================= LIFECYCLE ====================================
 
 UIButton::UIButton()
-: mText(""), mOperation(NULL)
+: mText(" "), mOperation(NULL)
 {
     mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_item.png");
 }// UIButton
@@ -78,10 +78,10 @@ void UIButton::SetPos( const Point & nPos )
 
 }
 
-void UIButton::SetOperation( FuncObj* nOperation)
+/*void UIButton::SetOperation( FuncObj* nOperation)
 {
     mOperation = nOperation;
-}
+}*/
 
 
 

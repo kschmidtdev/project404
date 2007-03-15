@@ -32,13 +32,14 @@
  *                                     optimized movement by only making one call to Map for movement per player vs 2
  * Karl Schmidt, 	March 14 2007	  | Added and re-arranged initialize list so more pointers are set to NULL on construction (safer)
  * Mike Malyuk,     March 14 2007     | Generalized columns in Initializer
+ * Andrew osborne,  March 14 2007     | Removed Cursor, as it is a lame duck class that does nothing different from UIImage
  */
 
 #include <util.h>
 
 #include "UIGrid.h"                                // class implemented
 #include "UITile.h"
-#include "UICursor.h"
+//#include "UICursor.h"
 #include "UIManager.h"
 #include "InputManager.h"
 #include "GameEngine/Level.h"
@@ -768,7 +769,8 @@ void UIGrid::Initialize()
     // ----------------------------------------------------
     mMaxCursorPos.Set(mNumColumns - 1, mNumRows - 1);
     mCursorStart = mTileStart + Point( -mTileOffset, -mTileOffset);
-    mCursor = new UICursor("tileCursor.png", "");
+    //mCursor = new UICursor("tileCursor.png", "");
+    mCursor = new UIImage("tileCursor.png");
     mCursor->SetPos( mCursorStart );
 
 

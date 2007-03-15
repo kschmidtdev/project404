@@ -101,6 +101,11 @@ public:
      */
     virtual void SetNewElement( UIElement* nElement );
 
+    /**
+     * Sets Delay time (so it's quick for all test, except the current debug
+     */
+    void SetDelay(int n);
+
 
 // INQUIRY (reading)
 

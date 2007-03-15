@@ -93,12 +93,12 @@ public:
     /**
      * Given crude string of text, will format into different lines/pages
      */
-    void AddCrudeText(string newCrude);
+    //void AddCrudeText(string newCrude);
 
     /**
      * Given a vector of strings, interpret the different lines/pages
      */
-    void AddFormattedText(vector<string> newLines);
+    //void AddFormattedText(vector<string> newLines);
 
     /**
      * Adds single line of text
@@ -108,17 +108,17 @@ public:
     /**
      * Adds single line of text
      */
-    void AddLine(UIText* oneLine);
+    //void AddLine(UIText* oneLine);
 
     /**
      * Clear all text in (Scroll box's) memory
      */
-    void ClearText(void);
+    //void ClearText(void);
 
     /**
      * Clearn one line of text
      */
-    void ClearOneLine(void);
+    //void ClearOneLine(void);
 
     /**
      * Sets text Colour

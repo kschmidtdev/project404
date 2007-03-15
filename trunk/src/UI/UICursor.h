@@ -43,7 +43,7 @@ public:
     /**
      * Input constructor.
      */
-    UICursor(const string filename, const string buttonHeading);
+    //UICursor(const string filename, const string buttonHeading);
 
     /**
      * Destructor.

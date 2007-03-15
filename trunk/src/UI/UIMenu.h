@@ -70,20 +70,22 @@ public:
     */
     virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
 
+    // All three of these operations are not implemented yet
+
     /**
      * Hides buttons from viewing
      */
-    void HideButton(int n);
+    //void HideButton(int n);
 
     /**
      * Shows button for viewing
      */
-    void ShowButton(int n);
+    //void ShowButton(int n);
 
     /**
      * After Showing/Hiding operations are performed, puts menu in proper visual order
      */
-    void UpdateOrder(void);
+    //void UpdateOrder(void);
 
 // ACCESS (writing)
     /**

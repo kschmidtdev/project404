@@ -21,11 +21,11 @@ UICursor::UICursor()
 {
 }// UICursor
 
-UICursor::UICursor(const string fileName, const string buttonHeading)
+/*UICursor::UICursor(const string fileName, const string buttonHeading)
 {
     mElementImage = ResourceManager::GetInstance()->LoadTexture(fileName);
 
-}// UICursor
+}// UICursor*/
 
 
 UICursor::~UICursor()
