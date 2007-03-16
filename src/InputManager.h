@@ -14,6 +14,7 @@
  * Karl Schmidt, February 9 2007 | Fixed minor issues (so it could compile)
  * Karl Schmidt, February 7 2007 | Initial creation of the header
  * Karl Schmidt, March 14 2007    | Added event recording/playback support
+ * Karl Schmidt, March 15 2007    | Made an attempt to fix event recording/playback, still not acting right
  */
 
 #ifndef InputManager_h
@@ -62,7 +63,7 @@ enum INPUTKEYS
     KEYCOUNT
 };
 
-typedef vector<INPUTKEYS> KeyVec;
+typedef vector<int> KeyVec;
 typedef KeyVec::iterator KeyVecItr;
 
 enum INPUT_MODE
@@ -179,6 +180,7 @@ protected:
     INPUT_MODE mMode;
     string mRecPlayFileName;
     KeyVec mKeyList;
+    KeyVecItr currentPlaybackKey;
 
 private:
 // PRIVATE VARIABLES

@@ -212,6 +212,11 @@ public:
         TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
     }
 
+    void testGetUserHash()
+    {
+        SecurityManager::GetInstance()->AddUser( "userGetUserHash", "blah" );
+        TS_ASSERT( SecurityManager::GetInstance()->GetUserHash( "userGetUserHash" ) != "" );
+    }
 };
 
 

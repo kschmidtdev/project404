@@ -57,6 +57,8 @@ public:
      */
     virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
 
+    void OnLoad();
+
 // OPERATIONS
 // ACCESS (writing)
 // INQUIRY (reading)
