@@ -15,6 +15,7 @@
  * Seung Woo Han, March 15 2007   | Added DBEngine and DBEngine initialization.
  * Karl Schmidt, March 15 2007	  | Removed DBEngine init, it is our save-game so we load later on
  * Karl Schmidt, March 15 2007	  | Added support for -encrypt parameter
+ * Karl Schmidt, March 16 2007    | Fixed infinite loop state bug, recorded event playback now works!
  */
 
 #include "GameRoot.h"                                // class implemented
@@ -168,8 +169,9 @@ void GameRoot::GameLoop()
     while (!done)
     {
         // message processing loop
-        if((mGameEngine != NULL && mGameEngine->GetLevel() && mGameEngine->GetLevel()->GetTurn()) ||
-          ( mGameEngine != NULL && mGameEngine->GetLevel() == NULL ) )
+        if((mGameEngine != NULL) && ((mGameEngine->GetLevel() && mGameEngine->GetLevel()->GetTurn()) ||
+          ( mGameEngine != NULL && mGameEngine->GetLevel() == NULL ) ||
+          ( mGameEngine != NULL && ( mGameEngine->GetLevel()->GetWinCondition() || mGameEngine->GetLevel()->GetLoseCondition() ))) )
         {
             SDL_Event event;
             while (SDL_PollEvent(&event))
@@ -196,6 +198,7 @@ void GameRoot::GameLoop()
                     }
                 } // end switch
             } // end of message processing
+            mInput->Update();
         }
         else
         {
@@ -205,7 +208,6 @@ void GameRoot::GameLoop()
                 mUIManager->GetLayout("BattleScreen")->GetGrid()->ConfirmFunction(inputPt);
             }
         }
-        mInput->Update();
         mRenderer->Draw();
         if( !done )
         {
