@@ -29,11 +29,13 @@ public:
         Logger::GetInstance()->Initialize();
         SDLRenderer::GetInstance()->Initialize( 640, 480, 32 );
         ResourceManager::GetInstance()->Initialize();
+        DBEngine::GetInstance()->Initialize();
     }
 
     // Called after all unit tests in this suite, remove if note needed
     void tearDown()
     {
+        DBEngine::GetInstance()->Shutdown();
         ResourceManager::GetInstance()->Shutdown();
         SDLRenderer::GetInstance()->Shutdown();
         Logger::GetInstance()->Shutdown();
