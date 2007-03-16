@@ -1,1 +1,39 @@
-Project Manager for this assignment: <b>TBA</b>.
+Project Manager for this assignment: <i>Karl Schmidt</i>.
+
+Version 2 can be downloaded from <a href="http://www.sfu.ca/~aco1/Project404Version2.zip">here</a>. Extract and run Project404.exe. The default password is right-right-right-right. The libraries required to build are available <a href="http://www.sfu.ca/~karls/CMPT275/Project404Version1ExternalLibs.zip">here</a>. Extract them in the trunk folder. Download a description of UI test cases from <a href="http://www.sfu.ca/~aco1/UI_Test_Cases.doc">here</a>.
+
+The link to our coding standards document is <a href="http://www.sfu.ca/~karls/CMPT275/CppCodingStandard.html">here</a>, retrieved from <a href="http://www.possibility.com/Cpp/">here</a>.
+
+Source code documentation generated with DOxygen is available <a href="http://www.sfu.ca/~karls/CMPT275/doxygen">here</a>. 
+
+Controls are mapped as follows:
+<ul>
+<li>Keyboard directional keys - UP, LEFT, DOWN, RIGHT</li>
+<li>M - Menu</li>
+<li>Backspace - Cancel</li>
+<li>Enter - Confirm</li>
+<li>S - Start</li>
+<li>A - Select</li>
+</ul>
+
+Sections of this assignment include:
+
+<ul class="contentlist">
+<li><a href="assignment2/functionalrequirements1.html">Functional Requirements Page 1</a></li>
+<li><a href="assignment4/functionalrequirements2.html">Functional Requirements Page 2</a></li>
+<li><a href="assignment4/functionalrequirements3.html">Functional Requirements Page 3</a></li>
+<li><a href="assignment4/functionalrequirements4.html">Functional Requirements Page 4</a></li>
+<li><a href="assignment4/functionalrequirements5.html">Functional Requirements Page 5</a></li>
+<li><a href="assignment4/functionalrequirements6.html">Functional Requirements Page 6</a></li>
+<li><a href="assignment4/functionalrequirements7.html">Functional Requirements Page 7</a></li>
+<li><a href="assignment4/functionalrequirements8.html">Functional Requirements Page 8</a></li>
+<li><a href="assignment4/functionalrequirements9.html">Functional Requirements Page 9</a></li>
+<li><a href="assignment4/architecturediagram.html">Architectural Diagram</a></li>
+<li><a href="assignment4/umldiagrams.html">UML Architectural Diagram</a></li>
+<li><a href="assignment4/datarequirements.html">Data requirements</a></li>
+<li><a href="assignment4/nonfunctionalreqs.html">Non-functional requirements</a></li>
+<li><a href="assignment4/guidelines.html">Guidelines</a></li>
+<li><a href="assignment4/glossary.html">Glossary</a></li>
+<li><a href="assignment4/featurepriority.html">Feature Priority</a></li>
+<li><a href="assignment4/risktable.html">Updated Risk Table</a></li>
+</ul>
