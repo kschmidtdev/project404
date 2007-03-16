@@ -8,9 +8,9 @@
  * Karl Schmidt, February 9 2007 | Initial creation and stubbing out of methods
  */
 
-#include <util.h>
-
 #include "ResourceManager.h"                                // class implemented
+
+#include <util.h>
 
 #include "Resource.h"
 #include "TextureResource.h"
@@ -64,7 +64,7 @@ void ResourceManager::Shutdown()
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 
-SDL_Surface* ResourceManager::LoadTexture( const string fileName )
+SDL_Surface* ResourceManager::LoadTexture( const std::string & fileName )
 {
     Resource* toLoad = CheckForResource( fileName );
 
@@ -79,7 +79,7 @@ SDL_Surface* ResourceManager::LoadTexture( const string fileName )
     return static_cast<TextureResource*>(toLoad)->GetTexture();
 }
 
-Mix_Chunk* ResourceManager::LoadSound( const string fileName )
+Mix_Chunk* ResourceManager::LoadSound( const std::string & fileName )
 {
     Resource* toLoad = CheckForResource( fileName );
 
@@ -94,7 +94,7 @@ Mix_Chunk* ResourceManager::LoadSound( const string fileName )
     return static_cast<SoundResource*>(toLoad)->GetSound();
 }
 
-Mix_Music* ResourceManager::LoadMusic( const string fileName )
+Mix_Music* ResourceManager::LoadMusic( const std::string & fileName )
 {
     Resource* toLoad = CheckForResource( fileName );
 
@@ -111,7 +111,7 @@ Mix_Music* ResourceManager::LoadMusic( const string fileName )
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
-Resource* ResourceManager::CheckForResource( const string fileName )
+Resource* ResourceManager::CheckForResource( const std::string & fileName )
 {
     for( ResourceVecItr i = mLoadedResources.begin(); i != mLoadedResources.end(); ++i )
     {

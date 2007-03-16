@@ -19,7 +19,6 @@
 
 // SYSTEM INCLUDES
 //
-#include <SDL.h>
 
 // PROJECT INCLUDES
 //
@@ -31,6 +30,8 @@
 // FORWARD REFERENCES
 //
 
+class SDL_Surface;
+
 class TextureResource : public Resource
 {
 public:
@@ -39,8 +40,7 @@ public:
     /**
      * Constructor, passes fileName to base Resource constructor
      */
-    TextureResource( const string fileName )
-    : Resource( fileName ), mSurface( NULL ) { };
+    TextureResource( const std::string & fileName );
 
     /**
      * Destructor
@@ -67,15 +67,12 @@ public:
      * Returns the SDL_Surface* of the loaded
      * texture, inlined for speed
 	 */
-    SDL_Surface* GetTexture() { return mSurface; };
-
-protected:
-// PROTECTED VARIABLES
-
-    SDL_Surface* mSurface;
+    SDL_Surface* GetTexture() const;
 
 private:
 // PRIVATE VARIABLES
+
+    SDL_Surface* mSurface;
 };
 
 // INLINE METHODS

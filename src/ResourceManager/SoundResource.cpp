@@ -10,16 +10,22 @@
  * Karl Schmidt, March 13 2007    | Added support for sound subsystem disabling
  */
 
-#include <util.h>
-
 #include "SoundResource.h"                                // class implemented
 
+#include <util.h>
 #include <Logger.h>
 #include <SoundManager.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
+
+SoundResource::SoundResource( const std::string & fileName )
+: Resource( fileName ),
+  mSndData( NULL )
+{
+
+};
 
 SoundResource::~SoundResource()
 {
@@ -34,13 +40,13 @@ void SoundResource::Load()
 {
     if( SoundManager::GetInstance()->GetIsEnabled() )
     {
-        LogInfo( string("Loading sound: ") + mFileName );
+        LogInfo( string("Loading sound: ") + GetFileName() );
 
-        mSndData = Mix_LoadWAV( mFileName.c_str() );
+        mSndData = Mix_LoadWAV( GetFileName().c_str() );
         tacAssert( mSndData );
         if( !mSndData )
         {
-            LogError( string("Error loading sound file: ") + mFileName +
+            LogError( string("Error loading sound file: ") + GetFileName() +
                       string(" (SDL_mixer error: ") + string(Mix_GetError()) + string(")") );
             return;
         }
@@ -51,7 +57,7 @@ void SoundResource::Unload()
 {
     if( SoundManager::GetInstance()->GetIsEnabled() )
     {
-        LogInfo( string("Unloading sound file: ") + mFileName );
+        LogInfo( string("Unloading sound file: ") + GetFileName() );
         tacAssert( mSndData );
         Mix_FreeChunk( mSndData );
         mSndData = NULL;
@@ -59,6 +65,12 @@ void SoundResource::Unload()
 }
 
 //============================= ACCESS     ===================================
+
+Mix_Chunk* SoundResource::GetSound() const
+{
+    return mSndData;
+};
+
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 

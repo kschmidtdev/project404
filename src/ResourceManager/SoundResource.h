@@ -40,9 +40,7 @@ public:
     /**
      * Default constructor, just sets the filename based on the given parameter
 	 */
-    SoundResource( const string fileName )
-    : Resource( fileName ), mSndData( NULL )
-    { };
+    SoundResource( const std::string & fileName );
 
     /**
      * Destructor, serves no purpose for this class
@@ -70,15 +68,13 @@ public:
      * Returns a pointer to the Mix_Chunk
      * instance
 	 */
-    Mix_Chunk* GetSound() { return mSndData; };
-
-protected:
-// PROTECTED VARIABLES
-
-Mix_Chunk* mSndData;
+    Mix_Chunk* GetSound() const;
 
 private:
 // PRIVATE VARIABLES
+
+Mix_Chunk* mSndData;
+
 };
 
 // INLINE METHODS

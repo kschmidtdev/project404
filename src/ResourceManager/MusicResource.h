@@ -19,6 +19,7 @@
 
 // SYSTEM INCLUDES
 //
+
 #include <SDL_mixer.h>
 
 // PROJECT INCLUDES
@@ -39,9 +40,7 @@ public:
     /**
      * Default constructor, just sets the filename based on the given parameter
 	 */
-    MusicResource( const string fileName )
-    : Resource( fileName ), mMusData( NULL )
-    { };
+    MusicResource( const std::string & fileName );
 
     /**
      * Destructor, serves no purpose for this class
@@ -69,7 +68,7 @@ public:
      * Returns a pointer to the Mix_Music
      * instance
 	 */
-    Mix_Music* GetMusic() { return mMusData; };
+    Mix_Music* GetMusic() const;
 
 protected:
 // PROTECTED VARIABLES
