@@ -20,6 +20,9 @@ public:
     // Called before all unit tests in this suite, remove if not needed
     void setUp()
     {
+        Logger::GetInstance( "dbManagerUnitTestLog.txt" );
+        Logger::GetInstance()->Initialize();
+
         DBEngine::GetInstance()->Initialize();
     }
 
@@ -28,6 +31,7 @@ public:
     {
         DBEngine::GetInstance()->Shutdown();
         DatabaseManager::GetInstance()->Shutdown();
+        Logger::GetInstance()->Shutdown();
     }
 
     void testLoadParties()
