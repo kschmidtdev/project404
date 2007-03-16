@@ -123,9 +123,6 @@ void UIOverMapTile::LevelUndefeated(void)
 
 void UIOverMapTile::BattleInit(void)
 {
-    // Battle init currently doesn't use characters...
-    // And currently there's only one map....
-
     GameEngine::GetInstance()->BattleInit(mCity);
 }
 
