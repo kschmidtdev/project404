@@ -10,6 +10,7 @@
  * Mike Malyuk, February 14 2007 | On level up, curHP renewed.
  * Mike Malyuk, February 14 2007 | On level up more verbose, also added "Heal" method.
  * Mike Malyuk, March 16 2007    | Be nice if you leveled up eh!
+ * Mike Malyuk, March 16 2007    | Healer may now heal self. Go healer! Couple other fixes for goodness
  */
 
 #include <util.h>
@@ -96,12 +97,21 @@ vector<Point> Healer::CalcAction()
     points.push_back(Point(mCurPos.GetX()+1, mCurPos.GetY()));
     points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()-1));
     points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()+1));
+    if(mCurHP < mMaxHP)
+    {
+        points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()));
+    }
     return points;
 }
 
 void Healer::Heal(Character* buddy)
 {
-    if(buddy->GetMaxHP() < (buddy->GetHP() + mAttributes[POW]))
+    if(buddy->GetMaxHP() == buddy->GetHP())
+    {
+        mExhausted = true;
+        return;
+    }
+    else if(buddy->GetMaxHP() < (buddy->GetHP() + mAttributes[POW]))
     {
         cout << "Healer (" << mName << ") heals " << buddy->GetClassName() << " (" << buddy->GetName() << ") for " << buddy->GetMaxHP() - buddy->GetHP() << " HP." << endl;
         buddy->SetHP(buddy->GetMaxHP());
