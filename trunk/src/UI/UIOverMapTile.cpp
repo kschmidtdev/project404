@@ -104,7 +104,13 @@ void UIOverMapTile::BattleInit(void)
 void UIOverMapTile::Update(void)
 {
     if (mCity->IsDefeated())
+    {
         LevelDefeated();
+    }
+    else
+    {
+
+    }
 }
 
 //============================= ACCESS     ===================================

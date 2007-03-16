@@ -231,15 +231,16 @@ void UIGrid::ConfirmFunction( const Point & p )
                     {
                         RemoveCharacter(p);
                         AddExhaustedCharacter(mCurCharacter);
-
+                        ClearMoveableRange();
                     }
 
                     // Prep screen for attack
                     else
                     {
+                        ClearMoveableRange();
                         AddAttackRange( mLevel->GetAttackArea() );
                     }
-                    ClearMoveableRange();
+                    //ClearMoveableRange();
                 }
 
                 else
@@ -542,27 +543,46 @@ void UIGrid::RemoveCharacter( const Point & p)
 
 void UIGrid::ClearMoveableRange(void)
 {
-    mImageMoveRange.clear();
+    //mImageMoveRange.clear();
+
+    for ( UITileItr iter = mTiles.begin(); iter!=mTiles.end(); ++iter )
+    {
+        (*iter).RemoveRange();
+    }
+
+
 }
 
 
 void UIGrid::ClearAttackRange(void)
 {
-    mImageAttackRange.clear();
+    for ( UITileItr iter = mTiles.begin(); iter!=mTiles.end(); ++iter )
+    {
+        (*iter).RemoveRange();
+    }
+
+    //mImageAttackRange.clear();
 }
 
 void UIGrid::AddAttackRange( PointVec attackRange )
 {
+
+    SDL_Surface* RangeImage = ResourceManager::GetInstance()->LoadTexture("yellowCursor.png");
+    //SDL_Surface* RangeImage = ResourceManager::GetInstance()->LoadTexture("blueCursor.png");
+    int index;
+
     for ( PointItr i=attackRange.begin(); i!=attackRange.end(); ++i )
     {
         if(ValidPoint((*i)))
         {
-            mImageAttackRange.push_back( UIImage("yellowCursor.png") );
+            //mImageAttackRange.push_back( UIImage("yellowCursor.png") );
+            index = FindIndex( (*i) );
+            mTiles[index].AddRange(RangeImage);
         }
     }
 
 
-    PointItr pointIter;
+    /*PointItr pointIter;
     UIImageItr elementIter;
     Point cursorPos;
     Point gridPoint;
@@ -585,7 +605,7 @@ void UIGrid::AddAttackRange( PointVec attackRange )
             (*elementIter).SetVisible( true );
             elementIter++;
         }
-    }
+    }*/
 
 
 }
@@ -596,13 +616,18 @@ void UIGrid::AddMoveableRange( vector<Character*> everyone, vector<Character*> e
 
     mMovePoints = mMap->GetMovementRange(everyone, enemies, you);
 
+    SDL_Surface* RangeImage = ResourceManager::GetInstance()->LoadTexture("blueCursor.png");
+
     for ( PointItr i = mMovePoints.begin(); i != mMovePoints.end(); ++i )
     {
-        mImageMoveRange.push_back( UIImage("blueCursor.png") );
+        if (ValidPoint((*i)))
+            mTiles[ FindIndex( (*i) ) ].AddRange(RangeImage);
+
+        //mImageMoveRange.push_back( UIImage("blueCursor.png") );
     }
 
 
-    PointItr pointIter;
+    /*PointItr pointIter;
     UIImageItr elementIter;
     Point cursorPos;
     Point gridPoint;
@@ -617,7 +642,7 @@ void UIGrid::AddMoveableRange( vector<Character*> everyone, vector<Character*> e
         (*elementIter).SetPos( cursorPos );
         (*elementIter).SetVisible( true );
         elementIter++;
-    }
+    }*/
 
 }
 
