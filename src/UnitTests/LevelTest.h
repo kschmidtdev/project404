@@ -4,10 +4,12 @@
 #include <cxxtest/TestSuite.h>
 
 #include <GameEngine/Level.h>
-#include <..\src\Logger.h>
+#include <Logger.h>
 #include <GameEngine/Map.h>
 #include <GameEngine/Character.h>
-#include <../Point.h>
+#include <Point.h>
+#include <Database/DBEngine.h>
+
 //
 // A generated test suite: Just write tests!
 //

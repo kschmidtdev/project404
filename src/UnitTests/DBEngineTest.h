@@ -29,8 +29,6 @@ public:
     // Called after all unit tests in this suite, remove if note needed
     void tearDown()
     {
-        Logger::GetInstance()->Shutdown();
-
         DBEngine::GetInstance()->Shutdown();
         DatabaseManager::GetInstance()->Shutdown();
         Logger::GetInstance()->Shutdown();

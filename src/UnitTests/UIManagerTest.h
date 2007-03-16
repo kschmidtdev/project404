@@ -35,8 +35,8 @@ public:
     {
         ResourceManager::GetInstance()->Shutdown();
         SDLRenderer::GetInstance()->Shutdown();
-        Logger::GetInstance()->Shutdown();
         UIManager::GetInstance()->Shutdown();
+        Logger::GetInstance()->Shutdown();
     }
 
     void testManager()
