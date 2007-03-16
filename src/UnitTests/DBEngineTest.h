@@ -29,6 +29,8 @@ public:
     // Called after all unit tests in this suite, remove if note needed
     void tearDown()
     {
+        Logger::GetInstance()->Shutdown();
+
         DBEngine::GetInstance()->Shutdown();
         DatabaseManager::GetInstance()->Shutdown();
         Logger::GetInstance()->Shutdown();
@@ -36,12 +38,23 @@ public:
 
     void testLoadParties()
     {
+        vector<Character*>* PartyList = DBEngine::GetInstance()->LoadParty( 1 );
 
+        TS_ASSERT_EQUALS( PartyList->size(), 4 ); // size of the vector should be 4.
     }
 
     void testLoadEnemies()
     {
+        vector<Character*>* EnemiesList = DBEngine::GetInstance()->LoadEnemies( 4 );
 
+        TS_ASSERT_EQUALS( EnemiesList->size(), 1 ); // size of the vector should be 1.
+    }
+
+    void testLoadBattleMap()
+    {
+        vector<Tile> testMap( DBEngine::GetInstance()->LoadBattleMap( 1 ) );
+
+        TS_ASSERT_EQUALS( testMap.size(), 100 ); // size of the vector should be 1.
     }
 
     void testLoadPartyStartingPoint()

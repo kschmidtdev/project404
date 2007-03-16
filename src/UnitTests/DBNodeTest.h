@@ -4,7 +4,7 @@
 #include <cxxtest/TestSuite.h>
 
 #include <../Database/DBNode.h>
-
+#include <iostream>
 //
 // A generated test suite: Just write tests!
 //
@@ -87,6 +87,22 @@ public:
         ParentNode.AddChild( &ChildNode3 );
 
         TS_ASSERT_EQUALS( ParentNode.GetChild( "ChildNode3" ), &ChildNode3 );
+    }
+
+    void testGetRightSibling()
+    {
+        DBNode ParentNode( 0, "ParentNode" );
+        DBNode ChildNode1( 1, "ChildNode1", &ParentNode );
+        DBNode ChildNode2( 2, "ChildNode2", &ParentNode );
+        DBNode ChildNode3( 3, "ChildNode3", &ParentNode );
+
+        ParentNode.AddChild( &ChildNode1 );
+        ParentNode.AddChild( &ChildNode2 );
+        ParentNode.AddChild( &ChildNode3 );
+
+        TS_ASSERT_EQUALS( ChildNode1.GetRightSibling(), &ChildNode2 );
+        TS_ASSERT_EQUALS( ChildNode2.GetRightSibling(), &ChildNode3 );
+        TS_ASSERT( ChildNode3.GetRightSibling() == NULL );
     }
 
     void testGetFirstAttribute()

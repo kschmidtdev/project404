@@ -50,6 +50,44 @@ public:
         TS_ASSERT_EQUALS( LevelNode, FoundNode); // test if they are the same pointer.(if they have the same pointer address.)
     }
 
+    void testSaveToFile()
+    {
+        TS_ASSERT( DatabaseManager::GetInstance() ); // test wheather if the pointer of DatabaseManager is not NULL.
+
+        const char* SaveFile = "unitTestSaveFile.xml";
+
+        DatabaseManager::GetInstance()->SaveToFile( SaveFile );
+
+        TS_ASSERT( access( SaveFile, F_OK ) == 0 ); // test if 'unitTestSaveFile.xml' exist in the directory.
+    }
+
+    void testUpdateNode()
+    {
+        // #1
+        DBNode* testNode = DatabaseManager::GetInstance()->Search( "Han" );
+        DBString* testData1 = dynamic_cast<DBString*>( testNode->GetAttribute( "Class" ) );
+
+        TS_ASSERT_EQUALS( testData1->GetData(), "Healer" );
+
+        DatabaseManager::GetInstance()->UpdateNode( "Han", "Class", "SuperTestClass" ); // After update the node.
+
+        testData1 = dynamic_cast<DBString*>( testNode->GetAttribute( "Class" ) );
+
+        TS_ASSERT_EQUALS( testData1->GetData(), "SuperTestClass" );
+
+
+        // #2
+        DBInt* testData2 = dynamic_cast<DBInt*>( testNode->GetAttribute( "Level" ) );
+
+        TS_ASSERT_EQUALS( testData2->GetData(), 1 );
+
+        DatabaseManager::GetInstance()->UpdateNode( "Han", "Level", 99 ); // After update the node.
+
+        testData2 = dynamic_cast<DBInt*>( testNode->GetAttribute( "Level" ) );
+
+        TS_ASSERT_EQUALS( testData2->GetData(), 99 );
+    }
+
 };
 
 
