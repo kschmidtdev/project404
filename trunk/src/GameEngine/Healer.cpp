@@ -9,6 +9,7 @@
  *                                 Added variables for mIsDead, mExhausted and new attr DEF
  * Mike Malyuk, February 14 2007 | On level up, curHP renewed.
  * Mike Malyuk, February 14 2007 | On level up more verbose, also added "Heal" method.
+ * Mike Malyuk, March 16 2007    | Be nice if you leveled up eh!
  */
 
 #include <util.h>
@@ -107,8 +108,14 @@ void Healer::Heal(Character* buddy)
     }
     else
     {
-                cout << "Healer (" << mName << ") heals " << buddy->GetClassName() << " (" << buddy->GetName() << ") for " << mAttributes[POW] << " HP." << endl;
+        cout << "Healer (" << mName << ") heals " << buddy->GetClassName() << " (" << buddy->GetName() << ") for " << mAttributes[POW] << " HP." << endl;
         buddy->SetHP(buddy->GetHP() + mAttributes[POW]);
+    }
+    mExp = mExp+20;
+    if(mExp == 100)
+    {
+        LevelUp();
+        mExp = 0;
     }
     mExhausted = true;
 }
