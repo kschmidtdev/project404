@@ -10,6 +10,7 @@
 #include <../GameEngine/Character.h>
 #include <../GameEngine/Map.h>
 #include <../Database/DBEngine.h>
+#include <../SecurityManager.h>
 //
 // A generated test suite: Just write tests!
 //
@@ -27,9 +28,10 @@ public:
     {
         Logger::GetInstance( "unitTestLog.txt" );
         Logger::GetInstance()->Initialize();
+        DBEngine::GetInstance()->Initialize();
         SecurityManager::GetInstance()->Initialize();
         SecurityManager::GetInstance()->LoadPasswordHashFile( "passwords" );
-        DBEngine::GetInstance()->Initialize();
+
     }
 
     // Called after all unit tests in this suite, remove if note needed
