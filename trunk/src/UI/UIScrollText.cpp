@@ -16,12 +16,12 @@
 
 UIScrollText::UIScrollText()
 : mMaxLength( 0 ), mMaxLines( 4 ), mColourRed( 0 ), mColourGreen( 0 ), mColourBlue( 0 ),
-mFontSize( 18 ), mLineSpacing( 7 ), mCurStartIndex( 0 )
+mFontSize( 14 ), mLineSpacing( 7 ), mCurStartIndex( 0 )
 {
 
     mElementImage = ResourceManager::GetInstance()->LoadTexture("scrollBox.png");
 
-    mStartPoint.Set(10,12);
+    mStartPoint.Set(20,20);
     mLineOffest.Set(0, mFontSize + mLineSpacing);
 
     mUILines.clear();
