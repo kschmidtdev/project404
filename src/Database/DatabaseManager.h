@@ -15,6 +15,7 @@
  * Seung Woo Han, February 7 2007 | Initial design
  * Seung Woo Han, February 11 2007 | Done for all the basic implementation
  * Karl Schmidt, February 13 2007 | Added code to make DatabaseManager a singleton
+ * Karl Schmidt, March 15 2007  | Big changes to support reloading db
  */
 
 #ifndef DatabaseManager_h
@@ -50,10 +51,12 @@ public:
      */
     void Shutdown();
 
+    void ClearLoadedData();
+
     /**
-     * Check if there is a save file or not.
+     * Check if the incoming file can be loaded by tinyXML or not
      */
-    bool IsSaveFile();
+    bool IsValidFile( const string & fileName );
 
     /**
      * Load XML file and creates Nodes from that file.

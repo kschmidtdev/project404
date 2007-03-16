@@ -9,6 +9,7 @@
  * Karl Schmidt, February 13 2007 | Added code to make DatabaseManager a singleton, fixed a warning
  * Seung Woo Han, March 14 2007 | SaveToFile and protected methods related to this is implemented.
  * Karl Schmidt, March 15 2007  | Temporarily added in encryption/decryption hack for save file checking
+ * Karl Schmidt, March 15 2007  | Big changes to support reloading of db
  */
 
 #include <util.h>
@@ -42,6 +43,16 @@ void DatabaseManager::Initialize()
 
 void DatabaseManager::Shutdown()
 {
+    ClearLoadedData();
+    if( _instance )
+    {
+        delete _instance; // delete DatabaseManager instance.
+        _instance = NULL;
+    }
+}
+
+void DatabaseManager::ClearLoadedData()
+{
     vector<DBNode*>::iterator Iter;
 
     for (Iter=mSearchList.begin(); Iter!=mSearchList.end(); Iter++)
@@ -55,23 +66,18 @@ void DatabaseManager::Shutdown()
 
         delete (*Iter); // delete node instances.
     }
-
-    if( _instance )
-    {
-        delete _instance; // delete DatabaseManager instance.
-        _instance = NULL;
-    }
+    mSearchList.clear();
 }
 
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================
 
-bool DatabaseManager::IsSaveFile()
+bool DatabaseManager::IsValidFile( const string & fileName )
 {
-    SecurityManager::GetInstance()->DecryptFile( "Save001.xml", SecurityManager::GetInstance()->GetUserHash("user1") );
-    TiXmlDocument Document( "Save001.xml" );
+    SecurityManager::GetInstance()->DecryptFile( fileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+    TiXmlDocument Document( fileName );
     bool isFile = Document.LoadFile();
-    SecurityManager::GetInstance()->DecryptFile( "Save001.xml", SecurityManager::GetInstance()->GetUserHash("user1") );
+    SecurityManager::GetInstance()->EncryptFile( fileName, SecurityManager::GetInstance()->GetUserHash("user1") );
 
     return isFile;
 }
@@ -83,6 +89,8 @@ bool DatabaseManager::LoadFromFile(const string& filename)
 
 	if (loadOkay)
 	{
+	    ClearLoadedData();
+
 	    TiXmlHandle docHandle( &Document );
 
         TiXmlElement* XML_Root = docHandle.FirstChild().ToElement();

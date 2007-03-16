@@ -8,6 +8,7 @@
  * Seung Woo Han, March 14, 2007 | Added feature that loads dialogs from the database.
  * Seung Woo Han, March 15, 2007 | Saving function works now. ( by pressing Save button in the overmap screen )
  * Karl Schmidt, March 15 2007   | Made savegame work, also loading dialog now happens when the screen is shown (db isn't loaded when this object is constructed)
+ * Karl Schmidt, March 15 2007   | Quit now goes to main menu, loads city info from db
  */
 #include "UIOverMapLayout.h"                                // class implemented
 #include "FuncObj.h"
@@ -27,7 +28,8 @@ class QuitFunction : public FuncObj
 {
     virtual void operator()(void)
     {
-        UIManager::GetInstance()->SetEndGameState( true );
+        UIManager::GetInstance()->PopAllLayouts();  // automatically adds titlescreen
+        UIManager::GetInstance()->PushLayout("MainMenu");
     }
 };
 
@@ -103,6 +105,8 @@ void UIOverMapLayout::OnLoad( void )
 
     mScrollBox->SetVisible(true);
     mScrollBoxEnabled = true;
+
+    GameEngine::GetInstance()->UpdateCitiesFromDB();
 
     if (mOverMap)
         mOverMap->UpdateMap();

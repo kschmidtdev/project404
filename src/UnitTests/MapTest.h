@@ -25,6 +25,8 @@ public:
     {
         Logger::GetInstance( "unitTestLog.txt" );
         Logger::GetInstance()->Initialize();
+        SecurityManager::GetInstance()->Initialize();
+        SecurityManager::GetInstance()->LoadPasswordHashFile( "passwords" );
         DBEngine::GetInstance()->Initialize();
     }
 
@@ -32,6 +34,7 @@ public:
     void tearDown()
     {
         DBEngine::GetInstance()->Shutdown();
+        SecurityManager::GetInstance()->Shutdown();
         Logger::GetInstance()->Shutdown();
     }
 
@@ -179,13 +182,6 @@ public:
         }
         TS_ASSERT_EQUALS(need, count);
 
-        vector<Character*>::iterator hiter = heroes.begin();
-        delete (*hiter);
-
-        for( vector<Character*>::iterator eiter = enemies.begin(); eiter != enemies.end(); eiter++)
-        {
-            delete (*eiter);
-        }
         for( vector<Character*>::iterator aiter = all.begin(); aiter != all.end(); aiter++)
         {
             delete (*aiter);

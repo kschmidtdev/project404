@@ -13,8 +13,9 @@
  * Andrew Osborne, March 13 2007  | Added GetCities, and changed BattleInit
  * Mike Malyuk,    March 14 2007  | Set AIController with proper map
  * Karl Schmidt,   March 14 2007  | Level is now loaded depending on city ID
- * Seung Woo Han, March 15 2007 | Save Game at the end of each battle.
- * Karl Schmidt,   March 15 2007 | Removed saving the game at the end of each battle
+ * Seung Woo Han, March 15 2007   | Save Game at the end of each battle.
+ * Karl Schmidt,   March 15 2007  | Removed saving the game at the end of each battle
+ * Karl Schmidt, March 15 2007    | Support for city defeating status to update db
  */
 
 #include <util.h>
@@ -132,7 +133,18 @@ void GameEngine::SetAI(Level* level)
 void GameEngine::CityDefeated(void)
 {
     if (mCurCity)
+    {
+        DBEngine::GetInstance()->SetBattleCompleted( mCurCity->GetID(), true );
         mCurCity->SetDefeated(true);
+    }
+}
+
+void GameEngine::UpdateCitiesFromDB()
+{
+    for( unsigned int i = 0; i < mCities.size(); ++i )
+    {
+        mCities[i]->SetDefeated( DBEngine::GetInstance()->GetBattleCompleted( i+1 ) );
+    }
 }
 
 //============================= INQUIRY    ===================================

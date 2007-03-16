@@ -18,6 +18,7 @@
  * Karl Schmidt, February 15 2007 | Fixed an odd header include path
  * Mike Malyuk, March 10, 2007    | Removed point, implemented map
  * Andrew Osborne, March 13 2007  | Changed BattleInit, and initiated the city member variables
+ * Karl Schmidt, March 15 2007    | Support for city defeating status to update db
  */
 
 #ifndef GameEngine_h
@@ -130,6 +131,7 @@ enum Cities
      */
     void CityDefeated(void);
 
+    void UpdateCitiesFromDB();
 
     void SetAI(Level* level);
 // INQUIRY (reading)

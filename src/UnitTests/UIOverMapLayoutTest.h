@@ -27,6 +27,9 @@ public:
         // Header for all UI Testing Elements
         Logger::GetInstance( "unitTestLog.txt" );
         Logger::GetInstance()->Initialize();
+        SecurityManager::GetInstance()->Initialize();
+        SecurityManager::GetInstance()->LoadPasswordHashFile( "passwords" );
+
         SDLRenderer::GetInstance()->Initialize( 640, 480, 32 );
         ResourceManager::GetInstance()->Initialize();
         DBEngine::GetInstance()->Initialize();
@@ -38,6 +41,7 @@ public:
         DBEngine::GetInstance()->Shutdown();
         ResourceManager::GetInstance()->Shutdown();
         SDLRenderer::GetInstance()->Shutdown();
+        SecurityManager::GetInstance()->Shutdown();
         Logger::GetInstance()->Shutdown();
     }
 

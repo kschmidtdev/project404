@@ -22,7 +22,7 @@ public:
         // testLoadFromFile().
         TS_ASSERT( DatabaseManager::GetInstance() ); // test wheather if the pointer of DatabaseManager is not NULL.
 
-        const char* DatabaseFile = "database.xml";
+        const char* DatabaseFile = "databaseUnencrypted.xml";
 
         TS_ASSERT( access( DatabaseFile, F_OK ) == 0 ); // test if 'database.xml' exist in the directory.
 

@@ -266,6 +266,7 @@
 	</Node>
 	<Node name="Level">
 		<Node name="Stage1">
+			<Data type="int" name="Completed" value="0" />
 			<Node name="Party">
 				<Node name="Member1">
 					<Data type="string" name="Character Name" value="Han" />
@@ -416,6 +417,7 @@
 			</Node>
 		</Node>
 		<Node name="Stage2">
+			<Data type="int" name="Completed" value="0" />
 			<Node name="Party">
 				<Node name="Member1">
 					<Data type="string" name="Character Name" value="Karl" />
@@ -507,6 +509,7 @@
 			</Node>
 		</Node>
 		<Node name="Stage3">
+			<Data type="int" name="Completed" value="0" />
 			<Node name="Party">
 				<Node name="Member1">
 					<Data type="string" name="Character Name" value="Karl" />
@@ -562,6 +565,7 @@
 			</Node>
 		</Node>
 		<Node name="Stage4">
+			<Data type="int" name="Completed" value="0" />
 			<Node name="Party">
 				<Node name="Member1">
 					<Data type="string" name="Character Name" value="Karl" />
@@ -655,6 +659,7 @@
 			</Node>
 		</Node>
 		<Node name="Stage5">
+			<Data type="int" name="Completed" value="0" />
 			<Node name="Party">
 				<Node name="Member1">
 					<Data type="string" name="Character Name" value="Karl" />

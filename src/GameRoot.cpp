@@ -14,6 +14,7 @@
  * Karl Schmidt, March 14 2007    | Added event recording/playback support
  * Seung Woo Han, March 15 2007   | Added DBEngine and DBEngine initialization.
  * Karl Schmidt, March 15 2007	  | Removed DBEngine init, it is our save-game so we load later on
+ * Karl Schmidt, March 15 2007	  | Added support for -encrypt parameter
  */
 
 #include "GameRoot.h"                                // class implemented
@@ -116,6 +117,12 @@ void GameRoot::Initialize( const int argc, char** argv, const bool soundEnabled 
     mDatabase->Initialize();
 
     mDBEngine = DBEngine::GetInstance();
+
+    if( mSettings.find( "encrypt" ) != mSettings.end() )
+    {
+        mDBEngine->Initialize();
+        mDBEngine->SaveEncryptedFile( "databaseEncrypted.xml" );
+    }
 
     mGameEngine = GameEngine::GetInstance();
 
@@ -275,6 +282,10 @@ void GameRoot::ProcessCommandLine( const int argc, char** argv )
             {
                 LogError( "-playback was passed with no filename" );
             }
+        }
+        else if( strcmp( argv[i], "-encrypt") == 0 )
+        {
+            mSettings["encrypt"] = 1;
         }
     }
 }
