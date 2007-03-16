@@ -13,6 +13,7 @@
  * Andrew Osborne, February 11 2007 | Initial Creation
  * Karl Schmidt,   February 14 2007 | Updated function capitalization, block style, typedefs, refs
  * Mike Malyuk,    March 8 2007     | Added UITile constructor taking Tile in preparation for use of map
+ * Andrew osborne, March 15 2007    | Made a change in preperation for a dynamically changing Grid.
  */
 
 #ifndef UITile_h
@@ -72,6 +73,12 @@ public:
      * Adds character icon to tile (metaphorically - on top of terrain)
      */
     void AddCharacter(SDL_Surface *nSur);
+
+    /**
+     * Adds a Range indicator surface to tile
+     */
+    void AddRange(SDL_Surface* nSur);
+
 // INQUIRY (reading)
 
     /**
@@ -79,11 +86,17 @@ public:
      */
     bool HasCharacter(void);
 
+    /**
+     * Removes Range indicator surface from tile
+     */
+    void RemoveRange(void);
+
 
 
 protected:
 // PROTECTED VARIABLES
     SDL_Surface* mCharacterImage;
+    SDL_Surface* mRangeImage;
     // Animation variable
 
 

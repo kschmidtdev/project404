@@ -30,7 +30,7 @@ UITile::UITile()
 }// UITile
 
 UITile::UITile(Tile t)
-: UIElement(), mCharacterImage( NULL )
+: UIElement(), mCharacterImage( NULL ), mRangeImage( NULL )
 {
     mElementImage = ResourceManager::GetInstance()->LoadTexture(t.GetPic());
     int mTotalOffset = mElementImage->w;
@@ -57,6 +57,15 @@ void UITile::RemoveCharacter(void)
     mCharacterImage = NULL;
 }
 
+void UITile::RemoveRange(void)
+{
+    mRangeImage = NULL;
+}
+
+void UITile::AddRange(SDL_Surface* nSur)
+{
+    mRangeImage = nSur;
+}
 
 
 void UITile::RenderSelf(SDL_Surface* destination)
@@ -72,6 +81,12 @@ void UITile::RenderSelf(SDL_Surface* destination)
         if( mCharacterImage != NULL )
         {
             SDLRenderer::GetInstance()->DrawImageAt(mCharacterImage, mPos.GetX(), mPos.GetY(), mCharacterImage->w, mCharacterImage->h, destination);
+        }
+
+        // Put range on top of both
+        if ( mRangeImage != NULL )
+        {
+            SDLRenderer::GetInstance()->DrawImageAt(mRangeImage, mPos.GetX(), mPos.GetY(), mRangeImage->w, mRangeImage->h, destination);
         }
     }
 }
