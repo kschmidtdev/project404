@@ -9,6 +9,7 @@
  * Andrew Osborne, March 12, 2007 | Added "UpdateMap"
  * Karl Schmidt, March 12 2007	 | Added battle initialization to starting a new level
  * Andrew Osborne, March 13 2007 | OverMapTile now calls BattleInit
+ * Karl Schmidt, March 15 2007   | Added hack to reset highlighted city to the first every onLoad
  */
 #include "UIOverMap.h"                                // class implemented
 #include "UIManager.h"
@@ -158,7 +159,8 @@ void UIOverMap::RenderSelf(SDL_Surface* destination)
 
 void UIOverMap::UpdateMap(void)
 {
-
+    // This is a hack so that when UIOverMapLayout is loaded it defaults to the first map
+    mCursor.SetCurTile( &mMapTiles[0] );
     for(MapTileItr iter = mMapTiles.begin(); iter !=mMapTiles.end(); ++iter)
     {
         (*iter).Update();

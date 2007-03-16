@@ -9,6 +9,7 @@
 #include <GameEngine/Character.h>
 #include <Point.h>
 #include <Database/DBEngine.h>
+#include <SecurityManager.h>
 
 //
 // A generated test suite: Just write tests!
@@ -27,6 +28,8 @@ public:
     {
         Logger::GetInstance( "unitTestLog.txt" );
         Logger::GetInstance()->Initialize();
+        SecurityManager::GetInstance()->Initialize();
+        SecurityManager::GetInstance()->LoadPasswordHashFile( "passwords" );
         DBEngine::GetInstance()->Initialize();
     }
 
@@ -34,6 +37,7 @@ public:
     void tearDown()
     {
         DBEngine::GetInstance()->Shutdown();
+        SecurityManager::GetInstance()->Shutdown();
         Logger::GetInstance()->Shutdown();
     }
 

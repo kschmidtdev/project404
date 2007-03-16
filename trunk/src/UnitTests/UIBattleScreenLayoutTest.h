@@ -29,6 +29,8 @@ public:
         Logger::GetInstance()->Initialize();
         SDLRenderer::GetInstance()->Initialize( 640, 480, 32 );
         ResourceManager::GetInstance()->Initialize();
+        SecurityManager::GetInstance()->Initialize();
+        SecurityManager::GetInstance()->LoadPasswordHashFile( "passwords" );
         DatabaseManager::GetInstance()->Initialize();
         DBEngine::GetInstance()->Initialize();
 
@@ -41,8 +43,10 @@ public:
     // Called after all unit tests in this suite, remove if note needed
     void tearDown()
     {
+        DBEngine::GetInstance()->Shutdown();
         ResourceManager::GetInstance()->Shutdown();
         SDLRenderer::GetInstance()->Shutdown();
+        SecurityManager::GetInstance()->Shutdown();
         Logger::GetInstance()->Shutdown();
         //GameEngine::GetInstance()->Shutdown();
     }

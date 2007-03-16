@@ -5,8 +5,9 @@
  *
  * Authors:
  * Seung Woo Han, February 13 2007 | Initial design
- * Karl Schmidt, February 15 2007 | Fixed some odd header paths
- * Karl Schmidt, March 15 2007 	  | Added parameter to Initialize
+ * Karl Schmidt, February 15 2007  | Fixed some odd header paths
+ * Karl Schmidt, March 15 2007 	   | Added parameter to Initialize
+ * Karl Schmidt, March 15 2007     | Support for loading/saving encrypted db, save files, loading battle progress
  */
 
 #ifndef DBEngine_h
@@ -69,10 +70,19 @@ public:
      */
     vector<Tile> LoadBattleMap( int battleNumber );
 
+    bool GetBattleCompleted( const int battleNumber );
+
+    void SetBattleCompleted( const int battleNumber, const bool completed );
+
     /**
      * Update mCharacterList and save any changes to output file.
      */
     void SaveGame();
+
+    /**
+     * Save an encrypted version of the loaded database
+     */
+    void SaveEncryptedFile( const string & fileName );
 
     /**
      * Get Method. Return the pointer of the list of all the characters in the game.

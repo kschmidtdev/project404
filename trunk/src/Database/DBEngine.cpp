@@ -11,7 +11,8 @@
  *                                   takes a parameter(battle number) now.
  * Karl Schmidt, March 15 2007	   | Added default behaviour so that it will attempt to load a savegame in Initialize if asked, otherwise load the regular db
  * Karl Schmidt, March 15 2007     | Temporarily added in encryption/decryption hack for save file checking
- * Seung Woo Han, March 17 2007    | Put some more comments and removed test codes.
+ * Seung Woo Han, March 15 2007    | Put some more comments and removed test codes.
+ * Karl Schmidt, March 15 2007     | Support for loading/saving encrypted db, save files, loading battle progress
  */
 
 #include <util.h>
@@ -46,16 +47,28 @@ void DBEngine::Initialize( const bool loadFromSave )
 
     tacAssert( mDB );
 
+    string saveFileName = "Save001.xml";
     // Load XML file. Default : database.xml. If there is any save file, load that.
-    if( loadFromSave && mDB->IsSaveFile() )
+    if( loadFromSave && mDB->IsValidFile( saveFileName ) )
     {
-        SecurityManager::GetInstance()->DecryptFile( "Save001.xml", SecurityManager::GetInstance()->GetUserHash("user1") );
-        mDB->LoadFromFile( "Save001.xml" );
-        SecurityManager::GetInstance()->EncryptFile( "Save001.xml", SecurityManager::GetInstance()->GetUserHash("user1") );
+        SecurityManager::GetInstance()->DecryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+        mDB->LoadFromFile( saveFileName );
+        SecurityManager::GetInstance()->EncryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
     }
     else
     {
-        mDB->LoadFromFile( "database.xml" );
+        string dbFileName = "database.xml";
+        if( mDB->IsValidFile( dbFileName ) )
+        {
+            SecurityManager::GetInstance()->DecryptFile( dbFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+            mDB->LoadFromFile( dbFileName );
+            SecurityManager::GetInstance()->EncryptFile( dbFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+        }
+        else // unencrypted
+        {
+            LogInfo("Loading unencrypted db\n");
+            mDB->LoadFromFile( dbFileName );
+        }
     }
 
     // Create DBNode instances from XML file.
@@ -389,6 +402,55 @@ vector<Tile> DBEngine::LoadBattleMap( int battleNumber )
 
 }
 
+bool DBEngine::GetBattleCompleted( const int battleNumber )
+{
+    // Load Nodes.
+    DBNode* levelNode = mDB->Search( "Level" );
+
+    // Find Correct Battle Stage.
+    DBNode* stageNode = levelNode->GetFirstChild();
+    for (int i = 1; i < battleNumber; ++i )
+    {
+        stageNode = levelNode->GetNextChild();
+    }
+
+    if( stageNode )
+    {
+        if( stageNode->GetAttribute("Completed") )
+        {
+            DBInt* completedStage = dynamic_cast<DBInt*>( stageNode->GetAttribute("Completed") );
+            return completedStage->GetData();
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void DBEngine::SetBattleCompleted( const int battleNumber, const bool completed )
+{
+    // Load Nodes.
+    DBNode* levelNode = mDB->Search( "Level" );
+
+    // Find Correct Battle Stage.
+    DBNode* stageNode = levelNode->GetFirstChild();
+    for (int i = 1; i < battleNumber; ++i )
+    {
+        stageNode = levelNode->GetNextChild();
+    }
+
+    if( stageNode && stageNode->GetAttribute("Completed") )
+    {
+        DBInt* completedStage = dynamic_cast<DBInt*>( stageNode->GetAttribute("Completed") );
+        completedStage->SetData( static_cast<int>(completed) );
+    }
+}
+
 void DBEngine::SaveGame()
 {
     vector<Character*>::iterator Iter;
@@ -400,6 +462,12 @@ void DBEngine::SaveGame()
     string saveFileName = "Save001.xml";
     DatabaseManager::GetInstance()->SaveToFile( saveFileName );
     SecurityManager::GetInstance()->EncryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+}
+
+void DBEngine::SaveEncryptedFile( const string & fileName )
+{
+    DatabaseManager::GetInstance()->SaveToFile( fileName );
+    SecurityManager::GetInstance()->EncryptFile( fileName, SecurityManager::GetInstance()->GetUserHash("user1") );
 }
 
 //============================= ACCESS     ===================================

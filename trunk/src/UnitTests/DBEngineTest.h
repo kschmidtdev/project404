@@ -20,9 +20,11 @@ public:
     // Called before all unit tests in this suite, remove if not needed
     void setUp()
     {
-        Logger::GetInstance( "dbManagerUnitTestLog.txt" );
+        Logger::GetInstance( "dbEngineUnitTestLog.txt" );
         Logger::GetInstance()->Initialize();
 
+        SecurityManager::GetInstance()->Initialize();
+        SecurityManager::GetInstance()->LoadPasswordHashFile( "passwords" );
         DBEngine::GetInstance()->Initialize();
     }
 
@@ -31,6 +33,7 @@ public:
     {
         DBEngine::GetInstance()->Shutdown();
         DatabaseManager::GetInstance()->Shutdown();
+        SecurityManager::GetInstance()->Shutdown();
         Logger::GetInstance()->Shutdown();
     }
 
