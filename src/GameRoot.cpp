@@ -192,7 +192,7 @@ void GameRoot::GameLoop()
         }
         else
         {
-            if( mGameEngine->GetAI() )
+            if( mGameEngine->GetAI() && mGameEngine->GetLevel() && ( !mGameEngine->GetLevel()->GetWinCondition() && !mGameEngine->GetLevel()->GetLoseCondition() ) )
             {
                 const Point inputPt = mGameEngine->GetAI()->DoAction();
                 mUIManager->GetLayout("BattleScreen")->GetGrid()->ConfirmFunction(inputPt);

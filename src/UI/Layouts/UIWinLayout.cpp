@@ -60,12 +60,6 @@ void UIWinLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 
 }
 
-void UIWinLayout::OnLoad()
-{
-    UILayout::OnLoad();
-    GameEngine::GetInstance()->GetLevel()->SetPlayerTurn();
-}
-
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================

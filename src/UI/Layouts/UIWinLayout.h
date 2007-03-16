@@ -40,8 +40,6 @@ public:
 	 */
     UIWinLayout(void);
 
-
-
     /**
      * Destructor.
 	 */
@@ -56,8 +54,6 @@ public:
      *
      */
     virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
-
-    void OnLoad();
 
 // OPERATIONS
 // ACCESS (writing)
