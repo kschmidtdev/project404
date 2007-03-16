@@ -114,10 +114,10 @@ void UIManager::Shutdown(void)
 
 }
 
-void UIManager::Render(void)
+/*void UIManager::Render(void)
 {
 
-}
+}*/
 
 
 //============================= ACCESS     ===================================

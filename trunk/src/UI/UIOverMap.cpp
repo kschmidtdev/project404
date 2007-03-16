@@ -40,6 +40,7 @@ UIOverMap::UIOverMap()
     mMapTiles[3].SetNextPrev( &mMapTiles[4], &mMapTiles[2]);
     mMapTiles[4].SetNextPrev( NULL, &mMapTiles[3]);
 
+
     // Some Debug
     //mMapTiles[0].LevelDefeated();
 
@@ -114,7 +115,8 @@ void UIOverMap::ProcessEvent( const InputManager::INPUTKEYS evt )
             // Temporary until true functionality is added
 
             // Temporarily hardcoding this initialization (until the UI has the overmap that does this)
-            vector<Character*> partyTemp;
+            //vector<Character*> partyTemp;
+
             mCursor.GetCurTile()->BattleInit();
 
             UIManager::GetInstance()->PushLayout("BattleScreen");

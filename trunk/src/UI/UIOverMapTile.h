@@ -12,6 +12,7 @@
  * Authors:
  * Andrew Osborne, March 4, 2007, Initial Creation
  * Andrew Osborne, March 13 2007, Added BattleInit operation and mCity (ptr) variable
+ * andrew Osborne, March 15 2007, Added Scroll Box Handling
  */
 
 #ifndef UIOverMapTile_h
@@ -92,6 +93,11 @@ public:
     void LevelDefeated(void);
 
     /**
+     * Signifies to tile that the "level" the tile represents has NOT been defeated
+     */
+    void LevelUndefeated(void);
+
+    /**
      * Initializes the battle that in the place that this tile represents
      */
     void BattleInit(void);
@@ -119,6 +125,11 @@ public:
      * Setting what city is to the "Down" Direction
      */
     void SetDown(UIOverMapTile* d);
+
+    /**
+     * Sets ScrollBox control
+     */
+    //void SetScroll(UIScrollText* s);
 
     /**
      * Sets what the next and previos locations (tiles) are
@@ -179,6 +190,11 @@ protected:
     // City that tile represents
     City* mCity;
 
+    // ScrollBar/UI Stuff
+    //UIScrollText* mScroll;
+    string mCityFileName;
+    string mVictoryFileName;
+
     //string mBattleImageFilename;
     //string mConqueredImageFilename;
     //SDL_Surface* mBattleImage;
@@ -195,6 +211,16 @@ protected:
      * Enables movement (right, down) to the previous level
      */
     void EnablePrevMove(void);
+
+    /**
+     * Disables movement (left,up) to the next level
+     */
+    void DisableNextMove(void);
+
+    /**
+     * Disables movement (right, down) to the previous level
+     */
+    void DisablePrevMove(void);
 
 private:
 // PRIVATE VARIABLES

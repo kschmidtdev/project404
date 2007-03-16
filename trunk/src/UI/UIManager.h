@@ -74,7 +74,7 @@ public:
      * Not currently used - though maybe to render the screen
      *
 	 */
-    void Render(void);  // or RenderSelf()
+    //void Render(void);  // or RenderSelf()
 
 // ACCESS (writing)
     /**
