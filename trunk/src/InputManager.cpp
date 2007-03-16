@@ -8,6 +8,7 @@
  * Karl Schmidt, February 12 2007 | Added corner direction event sending changes
  * Karl Schmidt, February 9 2007 | Initial creation, all functions stubbed
  * Karl Schmidt, March 14 2007    | Added event recording/playback support
+ * Karl Schmidt, March 15 2007 	  | Made a few fixes, but event recording/playback still isn't stable
  */
 
 #include <util.h>
@@ -70,7 +71,9 @@ void InputManager::Initialize( const INPUT_MODE mode, const string recPlayFileNa
         if( mMode == PLAYBACK )
         {
             LoadKeyListFromFile( mRecPlayFileName );
+            currentPlaybackKey = mKeyList.begin();
         }
+        srand( 7775 ); // Seeding by same value so we don't get a the AI doing different things on playback
     }
 
     LogInfo( "The InputManager has been initialized successfully." );
@@ -117,6 +120,11 @@ void InputManager::RemoveEventListener( EventListener* toRemove )
 
 void InputManager::ProcessEvent( const SDL_Event* evt )
 {
+    if( mMode == PLAYBACK )
+    {
+        return;
+    }
+
     int foundBoundKey = -1;
 
     // translate Keyboard SDLEvent into appropriate key
@@ -180,29 +188,50 @@ void InputManager::ProcessEvent( const SDL_Event* evt )
         {
             SendEventToListeners( LEFT );
             SendEventToListeners( UP );
+            if( mMode == RECORDING )
+            {
+                mKeyList.push_back( LEFT );
+                mKeyList.push_back( UP );
+            }
         }
         else if( foundBoundKey == LEFTDOWN )
         {
             SendEventToListeners( LEFT );
             SendEventToListeners( DOWN );
+            if( mMode == RECORDING )
+            {
+                mKeyList.push_back( LEFT );
+                mKeyList.push_back( DOWN );
+            }
         }
         else if( foundBoundKey == RIGHTUP )
         {
-            SendEventToListeners( LEFT );
+            SendEventToListeners( RIGHT );
             SendEventToListeners( UP );
+            if( mMode == RECORDING )
+            {
+                mKeyList.push_back( RIGHT );
+                mKeyList.push_back( UP );
+            }
         }
         else if( foundBoundKey == RIGHTDOWN )
         {
-            SendEventToListeners( LEFT );
+            SendEventToListeners( RIGHT );
             SendEventToListeners( UP );
+            if( mMode == RECORDING )
+            {
+                mKeyList.push_back( RIGHT );
+                mKeyList.push_back( UP );
+            }
         }
         else // the usual
         {
-            SendEventToListeners( INPUTKEYS( foundBoundKey ) );
             if( mMode == RECORDING )
             {
-                mKeyList.push_back( INPUTKEYS( foundBoundKey ) );
+                mKeyList.push_back( foundBoundKey );
+                SaveKeyToFile( mRecPlayFileName, INPUTKEYS(foundBoundKey) );
             }
+            SendEventToListeners( INPUTKEYS( foundBoundKey ) );
         }
     }
 }
@@ -211,17 +240,18 @@ void InputManager::Update()
 {
     if( mMode == PLAYBACK )
     {
-        static KeyVecItr currentKey = mKeyList.begin();
-
-        if( currentKey != mKeyList.end() )
+        if( currentPlaybackKey != mKeyList.end() )
         {
-            SendEventToListeners( *currentKey );
-            ++currentKey;
+            SendEventToListeners( INPUTKEYS(*currentPlaybackKey) );
+            //printf( "Sending key: %i\n", *currentPlaybackKey );
+            ++currentPlaybackKey;
         }
         else
         {
             LogInfo("Key playback over.");
+            mMode = NORMAL;
         }
+        SDL_Delay( 50 );
     }
 }
 
@@ -336,12 +366,18 @@ void InputManager::SaveKeyToFile( const string & fileName, const INPUTKEYS key )
     FILE* keyListFileHandle = NULL;
     if( firstTime )
     {
-        keyListFileHandle = fopen( fileName.c_str(), "a" );
+        keyListFileHandle = fopen( fileName.c_str(), "w" );
         firstTime = false;
     }
+    else
+    {
+        keyListFileHandle = fopen( fileName.c_str(), "a" );
+    }
+
 
     if( keyListFileHandle )
     {
+        //printf( "Recording key: %i\n", key );
         fprintf( keyListFileHandle, "%i\n", key );
         fclose( keyListFileHandle );
     }
