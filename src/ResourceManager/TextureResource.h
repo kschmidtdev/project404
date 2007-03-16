@@ -65,7 +65,7 @@ public:
 
     /**
      * Returns the SDL_Surface* of the loaded
-     * texture, inlined for speed
+     * texture
 	 */
     SDL_Surface* GetTexture() const;
 
