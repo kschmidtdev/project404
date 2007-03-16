@@ -39,7 +39,7 @@ TextureResource::~TextureResource()
 
 void TextureResource::Load()
 {
-    tacAssert( mFileName != "" );
+    tacAssert( GetFileName() != "" );
 
     // load an image
 
