@@ -22,6 +22,13 @@ const string IMG_DIR( "img/" );
 
 //============================= LIFECYCLE ====================================
 
+TextureResource::TextureResource( const std::string & fileName )
+: Resource( fileName ),
+  mSurface( NULL )
+{
+
+};
+
 TextureResource::~TextureResource()
 {
     // nothing to be done here
@@ -36,13 +43,13 @@ void TextureResource::Load()
 
     // load an image
 
-    LogInfo( string("Loading image: ") + mFileName );
-    mSurface = IMG_Load( (IMG_DIR + mFileName).c_str() );
+    LogInfo( string("Loading image: ") + GetFileName() );
+    mSurface = IMG_Load( (IMG_DIR + GetFileName()).c_str() );
 
     tacAssert( mSurface );
     if ( !mSurface )
     {
-        LogError( string("Unable to load bitmap: ") + mFileName + string(" SDL_image error: ") + string( IMG_GetError() ) );
+        LogError( string("Unable to load bitmap: ") + GetFileName() + string(" SDL_image error: ") + string( IMG_GetError() ) );
     }
 }
 
@@ -50,13 +57,19 @@ void TextureResource::Unload()
 {
     if( mSurface )
     {
-        LogInfo( string("Unloading image: ") + mFileName );
+        LogInfo( string("Unloading image: ") + GetFileName() );
         SDL_FreeSurface( mSurface );
         mSurface = NULL;
     }
 }
 
 //============================= ACCESS     ===================================
+
+SDL_Surface* TextureResource::GetTexture() const
+{
+    return mSurface;
+};
+
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 

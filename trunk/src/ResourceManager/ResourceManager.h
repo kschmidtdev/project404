@@ -20,12 +20,11 @@
 
 // SYSTEM INCLUDES
 //
-#include <SDL.h>
-#include <SDL_mixer.h>
 
 #include <string>
 #include <vector>
-using namespace std;
+
+#include <SDL_mixer.h>
 
 // PROJECT INCLUDES
 //
@@ -37,7 +36,9 @@ using namespace std;
 //
 class Resource;
 
-typedef vector<Resource*> ResourceVec;
+struct SDL_Surface;
+
+typedef std::vector<Resource*> ResourceVec;
 typedef ResourceVec::iterator ResourceVecItr;
 
 class ResourceManager
@@ -80,24 +81,24 @@ public:
      * will return an existing pointer if texture
      * has already been loaded
 	 */
-    SDL_Surface* LoadTexture( const string fileName );
+    SDL_Surface* LoadTexture( const std::string & fileName );
 
     /**
      * Returns a pointer to the loaded sound,
      * will return an existing pointer if sound
      * has already been loaded
 	 */
-    Mix_Chunk* LoadSound( const string fileName );
+    Mix_Chunk* LoadSound( const std::string & fileName );
 
     /**
      * Returns a pointer to the loaded music,
      * will return an existing pointer if music
      * has already been loaded
 	 */
-    Mix_Music* LoadMusic( const string fileName );
+    Mix_Music* LoadMusic( const std::string & fileName );
 
-protected:
-// PROTECTED METHODS
+private:
+// PRIVATE VARIABLES
 
     /**
      * Default constructor.
@@ -110,16 +111,13 @@ protected:
      * has, it returns a pointer to that resource back,
      * if it cannot find one, it returns NULL
 	 */
-    Resource* CheckForResource( const string fileName );
+    Resource* CheckForResource( const std::string & fileName );
 
 // PROTECTED VARIABLES
 
     static ResourceManager* _instance;
 
     ResourceVec mLoadedResources;
-
-private:
-// PRIVATE VARIABLES
 };
 
 // INLINE METHODS

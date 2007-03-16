@@ -14,7 +14,7 @@
 //============================= LIFECYCLE ====================================
 
 UILayoutTestHelp::UILayoutTestHelp(UILayout* test)
-: mTestLayout(NULL), mMessage( NULL ), mDelay( 700 ), mSR( NULL )
+: mTestLayout(NULL), mMessage( NULL ), mDelay( 350 ), mSR( NULL )
 {
     mTestLayout = test;
     mMessage = new UIText(" ", 18, 0, 0, 0);

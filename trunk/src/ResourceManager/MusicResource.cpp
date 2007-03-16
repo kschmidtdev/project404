@@ -9,9 +9,9 @@
  * Karl Schmidt, March 13 2007    | Added support for sound subsystem disabling
  */
 
-#include <util.h>
-
 #include "MusicResource.h"                                // class implemented
+
+#include <util.h>
 
 #include <Logger.h>
 #include <SoundManager.h>
@@ -19,6 +19,13 @@
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
+
+MusicResource::MusicResource( const std::string & fileName )
+: Resource( fileName ),
+  mMusData( NULL )
+{
+
+};
 
 MusicResource::~MusicResource()
 {
@@ -33,13 +40,13 @@ void MusicResource::Load()
 {
     if( SoundManager::GetInstance()->GetIsEnabled() )
     {
-        LogInfo( string("Loading music file: ") + mFileName );
+        LogInfo( string("Loading music file: ") + GetFileName() );
 
-        mMusData = Mix_LoadMUS( mFileName.c_str() );
+        mMusData = Mix_LoadMUS( GetFileName().c_str() );
         tacAssert( mMusData );
         if( !mMusData )
         {
-            LogError( string("Error loading music file: ") + mFileName +
+            LogError( string("Error loading music file: ") + GetFileName() +
                       string(" (SDL_mixer error: ") + string(Mix_GetError()) + string(")") );
             return;
         }
@@ -50,7 +57,7 @@ void MusicResource::Unload()
 {
     if( SoundManager::GetInstance()->GetIsEnabled() )
     {
-        LogInfo( string("Unloading music file: ") + mFileName );
+        LogInfo( string("Unloading music file: ") + GetFileName() );
         tacAssert( mMusData );
         Mix_FreeMusic( mMusData );
         mMusData = NULL;
@@ -58,6 +65,12 @@ void MusicResource::Unload()
 }
 
 //============================= ACCESS     ===================================
+
+Mix_Music* MusicResource::GetMusic() const
+{
+    return mMusData;
+};
+
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 

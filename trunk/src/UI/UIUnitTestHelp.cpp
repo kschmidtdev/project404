@@ -19,7 +19,7 @@ UIUnitTestHelp::UIUnitTestHelp()
 
 UIUnitTestHelp::UIUnitTestHelp(UIElement* newElement, string className)
 : mFontSize( 28 ), mFontRed ( 0 ), mFontGreen ( 0 ), mFontBlue ( 255 ),
-mElementInfoOffset( 0 ), mTestNumOffset ( 0 ), mTestNumNum( 1 ), mDelayTime ( 1000 ),
+mElementInfoOffset( 0 ), mTestNumOffset ( 0 ), mTestNumNum( 1 ), mDelayTime ( 500 ),
 mSRend( NULL ), mInitialized( false )
 {
     mTestElement = newElement;

@@ -21,7 +21,6 @@
 // SYSTEM INCLUDES
 //
 #include <string>
-using namespace std;
 
 // PROJECT INCLUDES
 //
@@ -41,7 +40,7 @@ public:
     /**
      * Constructor.
 	 */
-    Resource( const string fileName )
+    Resource( const std::string & fileName )
     : mFileName( fileName ) { };
 
     /**
@@ -70,13 +69,11 @@ public:
     /**
      * Returns the filename of the resource
 	 */
-    string GetFileName() { return mFileName; };
+    const std::string & GetFileName() { return mFileName; };
 
-protected:
-// PROTECTED VARIABLES
-
-string mFileName;
 private:
+    std::string mFileName;
+
 // PRIVATE VARIABLES
 };
 
