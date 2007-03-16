@@ -12,6 +12,7 @@
  *                               | Protected against dealing "negative damage" or healing the defender.
  * Mike Malyuk, February 14 2007 | Levelling up occurs at 100 exp now instead of greater than 100
  * Mike Malyuk, March 10 2007    | Added explicit cast so no warning, the int cutting is intentional
+ * Mike Malyuk, March 15 2007    | Fixed Levelling up! yay!
  */
 
 #include <util.h>
@@ -73,7 +74,6 @@ void Character::Attack(Character* another)
 {
     cout << "Attacking " << GetClassName() <<" (" << GetName() << ")'s HP:" << GetHP() << endl;
     cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ")'s HP:" << another->GetHP() << endl;
-    bool killed = false;
     if(GetClassName() == "Knight")
     {
         if(mAttributes[POW] - (another->GetAttr(Character::DEF)/2) <= 0)
@@ -90,7 +90,16 @@ void Character::Attack(Character* another)
             cout << "Defender " << another->GetClassName() << " (" << another->GetName() <<  ") Dead" << endl;
             another->MakeDead();
             another->Exhaust();
-            killed = true;
+            mExp = (int)(mExp + ((another->GetLevel()*1.0)/mLevel)*100);
+            if(mExp >= 100)
+            {
+                int multi = mExp/100;
+                for(int i = 0; i < multi; i++)
+                {
+                    LevelUp();
+                }
+                mExp = mExp-100*multi;
+            }
         }
         else
         {
@@ -110,6 +119,16 @@ void Character::Attack(Character* another)
                     cout << "Attacker " << GetClassName() << " (" << GetName() <<  ") Dead" << endl;
                     mIsDead = true;
                     mExhausted = true;
+                    (*another).mExp = (int)((*another).mExp + ((GetLevel()*1.0)/ (*another).mLevel)*100);
+                    if((*another).mExp >= 100)
+                    {
+                    int multi = (*another).mExp/100;
+                    for(int i = 0; i < multi; i++)
+                    {
+                        (*another).LevelUp();
+                    }
+                    (*another).mExp = (*another).mExp-100*multi;
+                    }
                 }
             }
         }
@@ -130,16 +149,16 @@ void Character::Attack(Character* another)
             cout << "Defender " << another->GetClassName() << " (" << another->GetName() <<  ") Dead" << endl;
             another->MakeDead();
             another->Exhaust();
-            killed = true;
-        }
-    }
-    if(killed == true)
-    {
-        mExp = (int)(mExp + ((another->GetLevel()*1.0)/mLevel)*100);
-        if(mExp >= 100)
-        {
-            LevelUp();
-            mExp = mExp-100;
+            mExp = (int)(mExp + ((another->GetLevel()*1.0)/mLevel)*100);
+            if(mExp >= 100)
+            {
+                int multi = mExp/100;
+                for(int i = 0; i < multi; i++)
+                {
+                    LevelUp();
+                }
+                mExp = mExp-100*multi;
+            }
         }
     }
     mExhausted = true;
