@@ -126,7 +126,7 @@ public:
 
     void testEncryptionDecryptionBasic()
     {
-        string result = SecurityManager::GetInstance()->EncryptFile( "database.xml", "TESTHASH", dbEncryptedFileName );
+        string result = SecurityManager::GetInstance()->EncryptFile( "databaseUnencrypted.xml", "TESTHASH", dbEncryptedFileName );
         TS_ASSERT( result.size() != 0 );
         TS_ASSERT_SAME_DATA( result.c_str(), dbEncryptedFileName, result.size() );
 
@@ -137,7 +137,7 @@ public:
 
     void testEncryptionDecryptionOneElementLongHash()
     {
-        string result = SecurityManager::GetInstance()->EncryptFile( "database.xml", "a", dbEncryptedFileName );
+        string result = SecurityManager::GetInstance()->EncryptFile( "databaseUnencrypted.xml", "a", dbEncryptedFileName );
         TS_ASSERT( result.size() > 0 );
         TS_ASSERT_SAME_DATA( result.c_str(), dbEncryptedFileName, result.size() );
 
@@ -145,7 +145,7 @@ public:
         TS_ASSERT( result.size() > 0 );
         TS_ASSERT_SAME_DATA( result.c_str(), dbDecryptedFileName, result.size() );
 
-        result = SecurityManager::GetInstance()->EncryptFile( "database.xml", "b", dbEncryptedFileName );
+        result = SecurityManager::GetInstance()->EncryptFile( "databaseUnencrypted.xml", "b", dbEncryptedFileName );
         TS_ASSERT( result.size() > 0 );
         TS_ASSERT_SAME_DATA( result.c_str(), dbEncryptedFileName, result.size() );
 
@@ -156,13 +156,13 @@ public:
 
     void testEncryptionBlankHash()
     {
-        string result = SecurityManager::GetInstance()->EncryptFile( "database.xml", "", dbEncryptedFileName );
+        string result = SecurityManager::GetInstance()->EncryptFile( "databaseUnencrypted.xml", "", dbEncryptedFileName );
         TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
     }
 
     void testDecryptionBlankHash()
     {
-        string result = SecurityManager::GetInstance()->DecryptFile( "database.xml", "", dbDecryptedFileName );
+        string result = SecurityManager::GetInstance()->DecryptFile( "databaseUnencrypted.xml", "", dbDecryptedFileName );
         TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
     }
 
@@ -202,7 +202,7 @@ public:
 
     void testDecryptionToAStringBlankHash()
     {
-        string result = SecurityManager::GetInstance()->DecryptFileToString( "database.xml", "" );
+        string result = SecurityManager::GetInstance()->DecryptFileToString( "databaseUnencrypted.xml", "" );
         TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
     }
 
