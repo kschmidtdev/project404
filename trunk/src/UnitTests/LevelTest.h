@@ -84,14 +84,14 @@ public:
         vector<Character*> enemies = level.GetEnemies();
         vector<Character*>::iterator eiter;
         eiter = enemies.begin();
-        TS_ASSERT_EQUALS((*eiter)->GetName(), "Enemy Type A");
+        TS_ASSERT_EQUALS((*eiter)->GetName(), "Enemy Type 1-A");
         eiter++;
-        TS_ASSERT_EQUALS((*eiter)->GetName(), "Enemy Type B");
+        TS_ASSERT_EQUALS((*eiter)->GetName(), "Enemy Type 1-B");
         eiter++;
-        TS_ASSERT_EQUALS((*eiter)->GetName(), "Enemy Type C");
+        TS_ASSERT_EQUALS((*eiter)->GetName(), "Enemy Type 1-C");
         eiter++;
         TS_ASSERT( eiter != enemies.end() );
-        TS_ASSERT_EQUALS((*eiter)->GetName(), "Enemy Boss A");
+        TS_ASSERT_EQUALS((*eiter)->GetName(), "Enemy Boss 1");
         eiter++;
         //and that's all
         TS_ASSERT_EQUALS(eiter, enemies.end());
@@ -108,13 +108,13 @@ public:
         aiter++;
         TS_ASSERT_EQUALS((*aiter)->GetName(), "Andrew");
         aiter++;
-        TS_ASSERT_EQUALS((*aiter)->GetName(), "Enemy Type A");
+        TS_ASSERT_EQUALS((*aiter)->GetName(), "Enemy Type 1-A");
         aiter++;
-        TS_ASSERT_EQUALS((*aiter)->GetName(), "Enemy Type B");
+        TS_ASSERT_EQUALS((*aiter)->GetName(), "Enemy Type 1-B");
         aiter++;
-        TS_ASSERT_EQUALS((*aiter)->GetName(), "Enemy Type C");
+        TS_ASSERT_EQUALS((*aiter)->GetName(), "Enemy Type 1-C");
         aiter++;
-        TS_ASSERT_EQUALS((*aiter)->GetName(), "Enemy Boss A");
+        TS_ASSERT_EQUALS((*aiter)->GetName(), "Enemy Boss 1");
         aiter++;
         //and that's all
         TS_ASSERT_EQUALS(aiter, all.end());
