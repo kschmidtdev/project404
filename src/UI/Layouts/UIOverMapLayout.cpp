@@ -20,8 +20,19 @@ class SaveFunction : public FuncObj
     virtual void operator()(void)
     {
         DBEngine::GetInstance()->SaveGame();
-    }
+        UIOverMapLayout* thisOverMapLayout = dynamic_cast<UIOverMapLayout*>( UIManager::GetInstance()->GetLayout( "OverMap" ) );
+        UIScrollText* thisScrollText = thisOverMapLayout->GetUIScrollBox();
 
+        thisScrollText->ClearText(); // Clear previous texts.
+        thisScrollText->AddLine( "Your game has been saved successfully." );
+        thisScrollText->AddLine( " " );
+        thisScrollText->AddLine( " " );
+        thisScrollText->AddLine( " " );
+
+        thisScrollText->SetVisible( true ); // Display Scroll Box.
+
+        thisOverMapLayout->SetScrollBoxEnabled( true ); // Remove Scroll Box.
+    }
 };
 
 class QuitFunction : public FuncObj
@@ -40,8 +51,6 @@ class QuitFunction : public FuncObj
 UIOverMapLayout::UIOverMapLayout()
 : mOverMap( NULL ), mMenu( NULL ), mScrollBox( NULL ), mScrollBoxEnabled( false )
 {
-
-
     // Define Name
     mName = "OverMap";
 
@@ -102,7 +111,6 @@ void UIOverMapLayout::OnLoad( void )
         thisLine = dynamic_cast<DBString*>( Dialog001->GetNextAttribute() );
     }
 
-
     mScrollBox->SetVisible(true);
     mScrollBoxEnabled = true;
 
@@ -128,11 +136,7 @@ void UIOverMapLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
             }
         }
     }
-    /*else if ( (mDefaultEventListener==mOverMap) && (evt==InputManager::CONFIRM) )
-    {
 
-        if (!m
-    }*/
     else if ( (mDefaultEventListener==mOverMap) && (evt==InputManager::MENU) )
     {
         mDefaultEventListener = mMenu;

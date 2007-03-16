@@ -68,6 +68,18 @@ public:
 // OPERATIONS
 
     /**
+     * Get Method. Returns the pointer of mScrollBox
+     */
+    UIScrollText* GetUIScrollBox() { return mScrollBox; }
+
+    /**
+     * Get Method.
+     */
+    UIOverMap* GetOverMap() { return mOverMap; }
+
+    void SetScrollBoxEnabled( bool bswitch ) { mScrollBoxEnabled = bswitch; }
+
+    /**
      * Override OnLoad to allow for map updates
      */
     virtual void OnLoad( void );
