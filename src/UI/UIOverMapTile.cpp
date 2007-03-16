@@ -18,7 +18,8 @@
 
 UIOverMapTile::UIOverMapTile()
 : mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
-mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL )
+mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL ),
+mCityFileName( "charTile.png" ), mVictoryFileName( "victory.png" )
 {
     // Default image for now, should change later
     mElementImage = ResourceManager::GetInstance()->LoadTexture("charTile.png");
@@ -26,31 +27,34 @@ mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL )
 
 UIOverMapTile::UIOverMapTile(int x, int y)
 : mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
-mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL )
+mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL ),
+mCityFileName( "charTile.png" ), mVictoryFileName( "victory.png" )
 {
     // Default image for now, should change later
-    mElementImage = ResourceManager::GetInstance()->LoadTexture("charTile.png");
+    mElementImage = ResourceManager::GetInstance()->LoadTexture(mCityFileName);
     mMapOffset.Set(x,y);
 
 }// UIOverMapTile
 
 UIOverMapTile::UIOverMapTile(int x, int y, string fileName)
 : mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
-mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL )
+mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL ),
+mCityFileName( "charTile.png" ), mVictoryFileName( "victory.png" )
 {
     // Default image for now, should change later
-    mElementImage = ResourceManager::GetInstance()->LoadTexture(fileName);
+    mElementImage = ResourceManager::GetInstance()->LoadTexture(mCityFileName);
     mMapOffset.Set(x,y);
 
 }// UIOverMapTile
 
 UIOverMapTile::UIOverMapTile(City *c)
 : mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
-mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL )
+mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL ),
+mCityFileName( "charTile.png" ), mVictoryFileName( "victory.png" )
 {
     // Default image for now, should change later
     mCity = c;
-    mElementImage = ResourceManager::GetInstance()->LoadTexture( "charTile.png" );
+    mElementImage = ResourceManager::GetInstance()->LoadTexture( mCityFileName );
     mMapOffset = c->GetMapPos();
 }
 
@@ -94,10 +98,34 @@ void UIOverMapTile::LevelDefeated(void)
     }
 }
 
+void UIOverMapTile::LevelUndefeated(void)
+{
+    if (mDefeated)
+    {
+        // Allow advancement if such advancement exists
+        if (mNextTile)
+        {
+            mNextTile->DisablePrevMove();
+            DisableNextMove();
+        }
+
+        // Change current picture to that of a "victory" flag
+        SDL_Surface* temp = ResourceManager::GetInstance()->LoadTexture(mCityFileName);
+        if (temp)
+            mElementImage = temp;
+
+        // Declare level defeated
+        mDefeated = false;
+
+    }
+
+}
+
 void UIOverMapTile::BattleInit(void)
 {
     // Battle init currently doesn't use characters...
     // And currently there's only one map....
+
     GameEngine::GetInstance()->BattleInit(mCity);
 }
 
@@ -109,7 +137,7 @@ void UIOverMapTile::Update(void)
     }
     else
     {
-
+        LevelUndefeated();
     }
 }
 
@@ -137,6 +165,11 @@ void UIOverMapTile::SetDown(UIOverMapTile* d)
 {
     mDownTile = d;
 }
+
+/*void UIOverMapTile::SetScroll(UIScrollText* s)
+{
+    mSroll = s;
+}*/
 
 void UIOverMapTile::SetNextPrev(UIOverMapTile* next, UIOverMapTile* prev)
 {
@@ -194,4 +227,16 @@ void UIOverMapTile::EnablePrevMove(void)
     SetDown(mPrevTile);
 }
 
+void UIOverMapTile::DisableNextMove(void)
+{
+    SetRight(NULL);
+    SetUp(NULL);
+}
+
+
+void UIOverMapTile::DisablePrevMove(void)
+{
+    SetLeft(NULL);
+    SetDown(NULL);
+}
 /////////////////////////////// PRIVATE    ///////////////////////////////////

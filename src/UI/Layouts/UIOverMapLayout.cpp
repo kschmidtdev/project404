@@ -65,6 +65,9 @@ UIOverMapLayout::UIOverMapLayout()
     mElements.push_back( mScrollBox );
 
     mDefaultEventListener = mOverMap;
+
+    mOverMap->UpdateMap();
+
 }// UIOverMapLayout
 
 
@@ -97,11 +100,13 @@ void UIOverMapLayout::OnLoad( void )
         thisLine = dynamic_cast<DBString*>( Dialog001->GetNextAttribute() );
     }
 
+
     mScrollBox->SetVisible(true);
     mScrollBoxEnabled = true;
 
     if (mOverMap)
         mOverMap->UpdateMap();
+
 }
 
 void UIOverMapLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
@@ -119,6 +124,11 @@ void UIOverMapLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
             }
         }
     }
+    /*else if ( (mDefaultEventListener==mOverMap) && (evt==InputManager::CONFIRM) )
+    {
+
+        if (!m
+    }*/
     else if ( (mDefaultEventListener==mOverMap) && (evt==InputManager::MENU) )
     {
         mDefaultEventListener = mMenu;
