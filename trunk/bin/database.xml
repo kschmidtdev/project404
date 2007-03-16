@@ -1,4 +1,7 @@
 <Database>
+	<Node name="SaveData">
+		<Data type="int" name="CurrentStage" value="1" />
+	</Node>
 	<Node name="Templates">
 		<Node name="Characters">
 			<Node name="Han">
@@ -256,12 +259,33 @@
 			<Node name="D001">
 				<Data type="string" name="Line1" value="This is our story." />
 				<Data type="string" name="Line2" value=" " />
-				<Data type="string" name="Line3" value="After years and years of being" />
-				<Data type="string" name="Line4" value="supressed by the empire... they were" />
-				<Data type="string" name="Line5" value="finally defeated." />
-				<Data type="string" name="Line6" value=" " />
-				<Data type="string" name="Line7" value="We decided to journey on..." />
-			</Node>		
+				<Data type="string" name="Line3" value="After years and years of being supressed by the empire..." />
+				<Data type="string" name="Line4" value="We decided to save our kingdom by our hands." />
+			</Node>
+			<Node name="D002">
+				<Data type="string" name="Line1" value="We defeated enemy scouts successfully." />
+				<Data type="string" name="Line2" value="However, there are hundreds of enemy archers along the river." />
+				<Data type="string" name="Line3" value="We should destroy them before we across the river" />
+				<Data type="string" name="Line4" value="and keep our journey on." />
+			</Node>
+			<Node name="D003">
+				<Data type="string" name="Line1" value="After our second victory, we reached to the plain of despair." />
+				<Data type="string" name="Line2" value="Sunddenly enemy Knights appeared and they are trying to take us down." />
+				<Data type="string" name="Line3" value="They are the most powerful Knights of the empire." />
+				<Data type="string" name="Line4" value="If we could defeat them, we will get to the Last Island" /> 
+				<Data type="string" name="Line5" value="without anymore enemies." />
+			</Node>
+			<Node name="D004">
+				<Data type="string" name="Line1" value="We reached to the Last Island." />
+				<Data type="string" name="Line2" value="Formidable Archer is guarding the Island." />
+				<Data type="string" name="Line3" value="We should defeat him and look for the Sword of the Hope." />
+				<Data type="string" name="Line4" value="That is the only weapon to destroy the evil empire." />
+			</Node>
+			<Node name="D005">
+				<Data type="string" name="Line1" value="Finally, we reached to the Great Castle where the Emperor lives." />
+				<Data type="string" name="Line2" value="Break through the gate and defeat the Emperor to save our kingdom." />
+				<Data type="string" name="Line3" value="This is our last chance. Everything is on our hands now." />
+			</Node>
 		</Node>
 	</Node>
 	<Node name="Level">

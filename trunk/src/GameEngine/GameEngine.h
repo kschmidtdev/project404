@@ -186,6 +186,9 @@ protected:
     Point* mCurTile;
     Character* mCurChar;
 
+    // Stage cleared.
+    int mCurStage;
+
     static GameEngine* _instance;
 
 private:
