@@ -33,7 +33,7 @@ Knight::Knight()
     mArmor = NULL;
     mWeapon = NULL;
     mAttributes[POW] = 3;
-    mAttributes[AGI] = 3;
+    mAttributes[AGI] = 5;
     mAttributes[DEF] = 4;
     mExhausted = false;
     mIsDead = false;

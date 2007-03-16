@@ -33,7 +33,7 @@ Healer::Healer()
     mArmor = NULL;
     mWeapon = NULL;
     mAttributes[POW] = 2;
-    mAttributes[AGI] = 2;
+    mAttributes[AGI] = 4;
     mAttributes[DEF] = 1;
     mExhausted = false;
     mIsDead = false;

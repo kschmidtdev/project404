@@ -33,7 +33,7 @@ Archer::Archer()
     mArmor = NULL;
     mWeapon = NULL;
     mAttributes[POW] = 2;
-    mAttributes[AGI] = 5;
+    mAttributes[AGI] = 6;
     mAttributes[DEF] = 2;
     mExhausted = false;
     mIsDead = false;

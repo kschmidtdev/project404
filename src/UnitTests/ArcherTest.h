@@ -36,7 +36,7 @@ public:
         TS_ASSERT_EQUALS(archer.GetLevel(), 2);
         TS_ASSERT_EQUALS(archer.GetAttr(Character::POW), 3);
         TS_ASSERT_EQUALS(archer.GetAttr(Character::AGI), 8);
-        TS_ASSERT_EQUALS(archer.GetAttr(Character::DEF), 4);
+        TS_ASSERT_EQUALS(archer.GetAttr(Character::DEF), 3);
         TS_ASSERT_EQUALS(archer.GetHP(), 4);
         TS_ASSERT_EQUALS(archer.GetMaxHP(), 4);
     }
