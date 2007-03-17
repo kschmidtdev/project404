@@ -42,7 +42,8 @@ public:
     void testRenderTexture()
     {
         // SDLRenderer::DrawImageAt is tested within the ExampleRenderable
-        SDL_Surface* texture = ResourceManager::GetInstance()->LoadTexture( "archer_party.png" );
+        SDL_Surface* texture = NULL;
+        texture = ResourceManager::GetInstance()->LoadTexture( "archer_party.png" );
         TS_ASSERT( texture );
         exTextureRenderable.SetTexture( texture );
         SDLRenderer::GetInstance()->AddToRenderQueue( &exTextureRenderable );
@@ -57,7 +58,8 @@ public:
 
     void testRenderText()
     {
-        SDL_Surface* texture = SDLRenderer::GetInstance()->CreateTextSurface( "Test text", 12, 255, 255, 255 );
+        SDL_Surface* texture = NULL;
+        texture = SDLRenderer::GetInstance()->CreateTextSurface( "Test text", 12, 255, 255, 255 );
         TS_ASSERT( texture );
         exTextRenderable.SetTexture( texture );
         SDLRenderer::GetInstance()->AddToRenderQueue( &exTextRenderable );
@@ -72,7 +74,8 @@ public:
 
     void testRenderTemp()
     {
-        SDL_Surface* texture = SDLRenderer::GetInstance()->CreateTextSurface( "Temporary Text", 12, 255, 255, 255 );
+        SDL_Surface* texture = NULL;
+        texture = SDLRenderer::GetInstance()->CreateTextSurface( "Temporary Text", 12, 255, 255, 255 );
         TS_ASSERT( texture );
         ExampleRenderable* temporaryRenderable = new ExampleRenderable();
         temporaryRenderable->SetTexture( texture );

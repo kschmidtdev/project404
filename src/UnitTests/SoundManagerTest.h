@@ -57,7 +57,8 @@ public:
 
         // Cannot run this unit test without the test music file
         TS_ASSERT( access( musFileName, F_OK ) == 0 );
-        Mix_Music* musicToPlay = ResourceManager::GetInstance()->LoadMusic( musFileName );
+        Mix_Music* musicToPlay = NULL;
+        musicToPlay = ResourceManager::GetInstance()->LoadMusic( musFileName );
         TS_ASSERT( musicToPlay );
 
         SoundManager::GetInstance()->PlayMusic( musicToPlay, false );
@@ -71,7 +72,8 @@ public:
 
         // Cannot run this unit test without the test sound file
         TS_ASSERT( access( sndFileName, F_OK ) == 0 );
-        Mix_Chunk* soundToPlay = ResourceManager::GetInstance()->LoadSound( sndFileName );
+        Mix_Chunk* soundToPlay = NULL;
+        soundToPlay = ResourceManager::GetInstance()->LoadSound( sndFileName );
         TS_ASSERT( soundToPlay );
 
         SoundManager::GetInstance()->PlaySound( soundToPlay, false );

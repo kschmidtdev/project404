@@ -44,7 +44,8 @@ public:
     void testAI()
     {
 
-        Level* level = new Level( 1 );
+        Level* level = NULL;
+        level = new Level( 1 );
         Point p(9,9);
         AIControl ai(level, *(level->GetMap()));
         level->SetState(Level::AIFREE);

@@ -96,6 +96,10 @@ void GameRoot::Initialize( const int argc, char** argv, const bool soundEnabled 
     {
         mInput->Initialize( InputManager::PLAYBACK, mPlaybackFileName );
     }
+    else if( mSettings.find("recordMode") != mSettings.end() && mSettings["recordMode"] == 1 )
+    {
+        mInput->Initialize( InputManager::RECORDING, "recordedKeys" );
+    }
     else
     {
         mInput->Initialize();
