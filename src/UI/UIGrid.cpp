@@ -33,6 +33,7 @@
  * Karl Schmidt, 	March 14 2007	  | Added and re-arranged initialize list so more pointers are set to NULL on construction (safer)
  * Mike Malyuk,     March 14 2007     | Generalized columns in Initializer
  * Andrew osborne,  March 14 2007     | Removed Cursor, as it is a lame duck class that does nothing different from UIImage
+ * Seung Woo Han, March 17 2006 | New Pics
  */
 
 #include <util.h>
