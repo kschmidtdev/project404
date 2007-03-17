@@ -3,7 +3,9 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <../Database/DBEngine.h>
+#include <Database/DBEngine.h>
+#include <Logger.h>
+#include <SecurityManager.h>
 
 //
 // A generated test suite: Just write tests!
