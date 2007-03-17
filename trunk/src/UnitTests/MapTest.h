@@ -58,10 +58,12 @@ public:
         vector<Character*> enemies;
         vector<Character*> heroes;
         vector<Character*> all;
-        Archer* enemy = new Archer("YDONOAF", 1, NULL, NULL);
+        Archer* enemy = NULL;
+        enemy = new Archer("YDONOAF", 1, NULL, NULL);
         enemy->Move(Point(9,9));
         enemies.push_back(enemy);
-        Knight* hero = new Knight("HERO!", 2, NULL, NULL);
+        Knight* hero = NULL;
+        hero = new Knight("HERO!", 2, NULL, NULL);
         hero->Move(Point(0,0));
         heroes.push_back(hero);
         all.push_back(enemy);

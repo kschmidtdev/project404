@@ -184,7 +184,8 @@ public:
         string fileContents = "TEST FILE ONE TWO THREE 1 2 3";
         const char* hashToUse = "DECRYPTION_TO_STRING_TEST_HASH_STRING";
 
-        FILE* testFile = fopen( fileName, "wb" );
+        FILE* testFile = NULL;
+        testFile = fopen( fileName, "wb" );
         TS_ASSERT( testFile != NULL );
         TS_ASSERT_EQUALS( fwrite( fileContents.c_str(), sizeof(char), fileContents.size(), testFile ), fileContents.size() );
         fclose( testFile );

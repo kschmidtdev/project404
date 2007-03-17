@@ -64,7 +64,8 @@ public:
     void testUpdateNode()
     {
         // #1
-        DBNode* testNode = DatabaseManager::GetInstance()->Search( "Han" );
+        DBNode* testNode = NULL;
+        testNode = DatabaseManager::GetInstance()->Search( "Han" );
         DBString* testData1 = dynamic_cast<DBString*>( testNode->GetAttribute( "Class" ) );
 
         TS_ASSERT_EQUALS( testData1->GetData(), "Healer" );
