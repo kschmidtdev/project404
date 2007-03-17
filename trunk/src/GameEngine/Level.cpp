@@ -28,6 +28,7 @@
  *                                  number. No further changes will be made to Level(int battleNumber) I hope.
  * Seung Woo Han, March 15 2007   | ~Level modified. Previously, it shut down DBEngine which shouldn't be.
  * Karl Schmidt, March 14 2007	  | Fixed a small iterator dereferencing causing crash bug
+ * Mike Malyuk, March 16 2007     | Added fix to healer, no more annoying heal others when they do not need it.
  */
 
 #include <util.h>
@@ -214,7 +215,7 @@ Character* Level::OnSelect(Point p)
                     {
                         iter2++;
                     }
-                    if(iter2 != healArea.end() && ((*iter2)) == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()))
+                    if(iter2 != healArea.end() && ((*iter2)) == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()) && (*charIter)->GetHP() != (*charIter)->GetMaxHP())
                     {
                         mAttackArea = healArea;
                         mState = ATTACK;
@@ -288,7 +289,7 @@ Character* Level::OnSelect(Point p)
                 {
                     charIter++;
                 }
-                if( charIter != mParty.end() && (*charIter) != NULL && p == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()))
+                if( charIter != mParty.end() && (*charIter) != NULL && p == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()) && (*charIter)->GetHP() != (*charIter)->GetMaxHP())
                 {
                     //we know it's a healer
                     ((Healer*)mCurChar)->Heal((*charIter));
