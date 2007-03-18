@@ -742,6 +742,13 @@
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UILoadProfileLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UILoseLayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
@@ -765,6 +772,13 @@
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UINewProfileLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UIOverMapLayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
@@ -772,12 +786,26 @@
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIPartyStatusLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UIPasswordVerificationLayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIProfileMenuLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UI\Layouts\UISetPasswordLayout.cpp">
 			<Option compilerVar="CPP" />

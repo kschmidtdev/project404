@@ -35,6 +35,17 @@ class SaveFunction : public FuncObj
     }
 };
 
+
+class OverMapPartyStatusFunction : public FuncObj
+{
+    virtual void operator()(void)
+    {
+        UIManager::GetInstance()->PushLayout("PartyStatus");
+    }
+};
+
+
+
 class QuitFunction : public FuncObj
 {
     virtual void operator()(void)
@@ -62,9 +73,11 @@ UIOverMapLayout::UIOverMapLayout()
     // Create Menu
     mMenu = new UIMenu();
     mMenu->AddButton("Save Game", new SaveFunction() );
+    mMenu->AddButton("Party Status", new OverMapPartyStatusFunction() );
     mMenu->AddButton("Quit", new QuitFunction() );
     mMenu->SetPos( Point(460, 140) );
     mMenu->SetPos( Point(460, 140) );
+    mMenu->Disable();
     mElements.push_back( mMenu );
 
     // Create Scroll Box
@@ -119,6 +132,8 @@ void UIOverMapLayout::OnLoad( void )
     if (mOverMap)
         mOverMap->UpdateMap();
 
+    mMenu->Disable();
+
 }
 
 void UIOverMapLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
@@ -139,10 +154,12 @@ void UIOverMapLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 
     else if ( (mDefaultEventListener==mOverMap) && (evt==InputManager::MENU) )
     {
+        mMenu->Enable();
         mDefaultEventListener = mMenu;
     }
     else if ( (mDefaultEventListener==mMenu) && (evt==InputManager::CANCEL) )
     {
+        mMenu->Disable();
         mDefaultEventListener = mOverMap;
     }
     else

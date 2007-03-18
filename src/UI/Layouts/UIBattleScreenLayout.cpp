@@ -171,6 +171,8 @@ void UIBattleScreenLayout::Initialize()
     mMenu->AddButton("Easy Win", new EasyWinFunction() );
     #endif
 
+    mMenu->Disable();
+
     mElements.push_back( mMenu );
 
 
@@ -238,6 +240,9 @@ void UIBattleScreenLayout::OnLoad( void )
     // UpdateCursor
     mGrid->UpdateCursor();
 
+    // Make Menu disabled
+    mMenu->Disable();
+
 }
 
 void UIBattleScreenLayout::OnClose(void)
@@ -262,10 +267,12 @@ void UIBattleScreenLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
     if ( (mDefaultEventListener==mGrid) && (evt==InputManager::MENU) )
     {
+        mMenu->Enable();
         mDefaultEventListener = mMenu;
     }
     else if ( (mDefaultEventListener==mMenu) && (evt==InputManager::CANCEL) )
     {
+        mMenu->Disable();
         mDefaultEventListener = mGrid;
     }
     else
