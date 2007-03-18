@@ -13,6 +13,7 @@
  * Andrew Osborne, February 10 2007 | Filled out documentation
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  * Andrew Osborne, February 14 2007 | Created ability to add buttons - removed from default constructor
+ * Andrew Osborne, March 18 2007 | Added Enable/Disable to allow the cursor to appear/disappear if the menu is active or not
  */
 
 #ifndef UIMenu_h
@@ -82,6 +83,16 @@ public:
      * Adds button with opeation
      */
     virtual void AddButton( const string nName, FuncObj* operation);
+
+    /**
+     * Enable Menu (make cursor visible)
+     */
+    void Enable(void) {mCursor->SetVisible(true); }
+
+    /**
+     * Disable Menu (make cursor invisible)
+     */
+    void Disable(void) {mCursor->SetVisible(false); }
 
 // INQUIRY (reading)
 

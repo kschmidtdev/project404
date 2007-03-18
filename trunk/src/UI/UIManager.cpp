@@ -28,6 +28,10 @@
 #include <UIPasswordVerificationLayout.h>
 #include <UISetPasswordLayout.h>
 #include <UIOverMapLayout.h>
+#include <UIPartyStatusLayout.h>
+#include <UIProfileMenuLayout.h>
+#include <UINewProfileLayout.h>
+#include <UILoadProfileLayout.h>
 #include <vector>
 
 
@@ -81,8 +85,13 @@ void UIManager::Initialize(void)
     AddLayout( new UIPasswordVerificationLayout() );
     AddLayout( new UISetPasswordLayout() );
     AddLayout( new UIOverMapLayout() );
+    AddLayout( new UIPartyStatusLayout() );
+    AddLayout( new UIProfileMenuLayout() );
+    AddLayout( new UINewProfileLayout() );
+    AddLayout( new UILoadProfileLayout() );
 
-    PushLayout("PasswordVer");
+    //PushLayout("PasswordVer");
+    PushLayout("ProfileMenu");
 
     // Add all the layouts to the manager.
     LogInfo( "The UIManager has been initialized successfully." );
