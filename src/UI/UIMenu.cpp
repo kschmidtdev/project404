@@ -45,7 +45,7 @@ UIMenu::UIMenu()
     {
     	// Setting location parameters
 	    mButtonStart.Set(15, 15);
-	    mButtonOffset.Set(0, (sample->h+10) );
+	    mButtonOffset.Set(0, (sample->h+8) );
 	    mCursorOffset.Set(-2,-2);
     }
 

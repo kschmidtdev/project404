@@ -1,52 +1,51 @@
 /**
- * File: UILoadGameLayout.cpp
+ * File: UISaveGameLayout.cpp
  *
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, March 18 2007 | Initial Creation
+ * Andrew Osborne, March 18 2007 | Initial creation
  */
-#include "UILoadGameLayout.h"                                // class implemented
+#include "UISaveGameLayout.h"                                // class implemented
 #include "UIManager.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
-UILoadGameLayout::UILoadGameLayout()
+UISaveGameLayout::UISaveGameLayout()
 {
-    UIText* temp = new UIText("Load Game Layout", 20, 255, 0, 0);
+     UIText* temp = new UIText("Save Game Layout", 20, 255, 0, 0);
 
     mElements.push_back(temp);
 
-    mName = "LoadGame";
+    mName = "SaveGame";
+}// UISaveGameLayout
 
-}// UILoadGameLayout
 
-
-UILoadGameLayout::~UILoadGameLayout()
+UISaveGameLayout::~UISaveGameLayout()
 {
-}// ~UILoadGameLayout
+}// ~UISaveGameLayout
 
 
 //============================= OPERATORS ====================================
 
 //============================= OPERATIONS ===================================
 
-
-void UILoadGameLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
+void UISaveGameLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
     switch (evt)
     {
         case InputManager::CONFIRM:
-            // Need to add code here about loading the game
-            UIManager::GetInstance()->PushLayout("OverMap");
+            // Currently relying on code before this layout was 'pushed' to actually save the game
+            UIManager::GetInstance()->PopLayout();
             break;
         default:
             break;
     }
 
 }
+
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////

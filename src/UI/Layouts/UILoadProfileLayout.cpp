@@ -39,8 +39,10 @@ void UILoadProfileLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
     {
         case InputManager::CONFIRM:
             UIManager::GetInstance()->PopLayout();
-            UIManager::GetInstance()->PushLayout("MainMenu");
+            UIManager::GetInstance()->PushLayout("PasswordVer");
             // Eventually should also push the SetPassword Layout, to update/set password
+            break;
+        default:
             break;
     }
 

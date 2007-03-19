@@ -1,45 +1,42 @@
 /**
- * File: UILoadGameLayout.cpp
+ * File: UITutorialLayout.cpp
  *
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, March 18 2007 | Initial Creation
+ * Andrew Osborne, March 18 2007 | Initial Creation (stub)
  */
-#include "UILoadGameLayout.h"                                // class implemented
+#include "UITutorialLayout.h"                                // class implemented
 #include "UIManager.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
-UILoadGameLayout::UILoadGameLayout()
+UITutorialLayout::UITutorialLayout()
 {
-    UIText* temp = new UIText("Load Game Layout", 20, 255, 0, 0);
+    mElements.push_back( new UIText("Tutorial Layout", 20, 255, 0, 0) );
 
-    mElements.push_back(temp);
+    mName = "Tutorial";
 
-    mName = "LoadGame";
-
-}// UILoadGameLayout
+}// UITutorialLayout
 
 
-UILoadGameLayout::~UILoadGameLayout()
+UITutorialLayout::~UITutorialLayout()
 {
-}// ~UILoadGameLayout
+}// ~UITutorialLayout
 
 
 //============================= OPERATORS ====================================
 
 //============================= OPERATIONS ===================================
 
-
-void UILoadGameLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
+void UITutorialLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
     switch (evt)
     {
         case InputManager::CONFIRM:
-            // Need to add code here about loading the game
+            UIManager::GetInstance()->PopLayout();
             UIManager::GetInstance()->PushLayout("OverMap");
             break;
         default:
@@ -47,6 +44,8 @@ void UILoadGameLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
     }
 
 }
+
+
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////

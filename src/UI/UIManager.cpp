@@ -32,6 +32,14 @@
 #include <UIProfileMenuLayout.h>
 #include <UINewProfileLayout.h>
 #include <UILoadProfileLayout.h>
+#include <UITutorialMenuLayout.h>
+#include <UITutorialLayout.h>
+#include <UILoadGameLayout.h>
+#include <UICreditsLayout.h>
+#include <UIOptionsLayout.h>
+#include <UISaveGameLayout.h>
+#include <UIArmoryLayout.h>
+#include <UIMarketLayout.h>
 #include <vector>
 
 
@@ -89,6 +97,16 @@ void UIManager::Initialize(void)
     AddLayout( new UIProfileMenuLayout() );
     AddLayout( new UINewProfileLayout() );
     AddLayout( new UILoadProfileLayout() );
+    AddLayout( new UITutorialMenuLayout() );
+    AddLayout( new UITutorialLayout() );
+    AddLayout( new UILoadGameLayout() );
+    AddLayout( new UICreditsLayout() );
+    AddLayout( new UIOptionsLayout() );
+    AddLayout( new UISaveGameLayout() );
+    AddLayout( new UIArmoryLayout() );
+    AddLayout( new UIMarketLayout() );
+
+
 
     //PushLayout("PasswordVer");
     PushLayout("ProfileMenu");

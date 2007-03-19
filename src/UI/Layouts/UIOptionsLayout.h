@@ -1,18 +1,18 @@
 /**
- * Layout that prompts user to select saved game.
+ * The Layout that allows user to change options in the game.
  *
- * #include "UILoadGameLayout.h"
+ * #include "UIOptionsLayout.h"
  *
- * Layout that prompts user to select saved game.
+ * The Layout that allows user to change options in the game.
  *
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, March 18 2007, Initial Creation
+ * Andrew osborne, March 18 2007, Initial Design
  */
 
-#ifndef UILoadGameLayout_h
-#define UILoadGameLayout_h
+#ifndef UIOptionsLayout_h
+#define UIOptionsLayout_h
 
 // SYSTEM INCLUDES
 //
@@ -28,7 +28,7 @@
 //
 
 
-class UILoadGameLayout : public UILayout
+class UIOptionsLayout : public UILayout
 {
 public:
 // LIFECYCLE
@@ -36,19 +36,19 @@ public:
     /**
      * Default constructor.
 	 */
-    UILoadGameLayout(void);
+    UIOptionsLayout(void);
 
     /**
      * Copy constructor.
 	 *
 	 * @param from The value to copy to this object.
 	 */
-    //UILoadGameLayout(const UILoadGameLayout& from);
+    //UIOptionsLayout(const UIOptionsLayout& from);
 
     /**
      * Destructor.
 	 */
-    ~UILoadGameLayout(void);
+    ~UIOptionsLayout(void);
 
 // OPERATORS
 
@@ -59,7 +59,7 @@ public:
 	 *
 	 * @return A reference to this object.
 	 */
-    //UILoadGameLayout&                     operator=(UILoadGameLayout& from);
+    //UIOptionsLayout&                     operator=(UIOptionsLayout& from);
 
 // OPERATIONS
 
@@ -83,4 +83,4 @@ private:
 // EXTERNAL REFERENCES
 //
 
-#endif  // _UILoadGameLayout_h_
+#endif  // _UIOptionsLayout_h_

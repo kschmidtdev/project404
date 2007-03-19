@@ -742,6 +742,20 @@
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UICreditsLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UILoadGameLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UILoadProfileLayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
@@ -779,6 +793,13 @@
 			<Option target="UnitTest_Debug" />
 			<Option target="UnitTest_Release" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIOptionsLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UIOverMapLayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
@@ -807,6 +828,13 @@
 			<Option target="UnitTest_Debug" />
 			<Option target="UnitTest_Release" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UISaveGameLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UISetPasswordLayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
@@ -829,6 +857,20 @@
 			<Option target="Release" />
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UITutorialLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UITutorialMenuLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UI\Layouts\UIWinLayout.cpp">
 			<Option compilerVar="CPP" />

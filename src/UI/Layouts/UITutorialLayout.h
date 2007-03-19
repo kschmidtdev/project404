@@ -1,9 +1,9 @@
 /**
- * Layout that prompts user to select saved game.
+ * Layout that gives user a tutorial of how to use the game.
  *
- * #include "UILoadGameLayout.h"
+ * #include "UITutorialLayout.h"
  *
- * Layout that prompts user to select saved game.
+ * Layout that gives user a tutorial of how to use the game.
  *
  * Project 404 2007
  *
@@ -11,8 +11,8 @@
  * Andrew Osborne, March 18 2007, Initial Creation
  */
 
-#ifndef UILoadGameLayout_h
-#define UILoadGameLayout_h
+#ifndef UITutorialLayout_h
+#define UITutorialLayout_h
 
 // SYSTEM INCLUDES
 //
@@ -28,7 +28,7 @@
 //
 
 
-class UILoadGameLayout : public UILayout
+class UITutorialLayout : public UILayout
 {
 public:
 // LIFECYCLE
@@ -36,19 +36,19 @@ public:
     /**
      * Default constructor.
 	 */
-    UILoadGameLayout(void);
+    UITutorialLayout(void);
 
     /**
      * Copy constructor.
 	 *
 	 * @param from The value to copy to this object.
 	 */
-    //UILoadGameLayout(const UILoadGameLayout& from);
+    //UITutorialLayout(const UITutorialLayout& from);
 
     /**
      * Destructor.
 	 */
-    ~UILoadGameLayout(void);
+    ~UITutorialLayout(void);
 
 // OPERATORS
 
@@ -59,7 +59,7 @@ public:
 	 *
 	 * @return A reference to this object.
 	 */
-    //UILoadGameLayout&                     operator=(UILoadGameLayout& from);
+    //UITutorialLayout&                     operator=(UITutorialLayout& from);
 
 // OPERATIONS
 
@@ -67,6 +67,7 @@ public:
      * Listens for Key Press from User
     */
     virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
+
 
 // ACCESS (writing)
 // INQUIRY (reading)
@@ -83,4 +84,4 @@ private:
 // EXTERNAL REFERENCES
 //
 
-#endif  // _UILoadGameLayout_h_
+#endif  // _UITutorialLayout_h_

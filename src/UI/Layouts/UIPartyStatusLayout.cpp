@@ -46,6 +46,8 @@ void UIPartyStatusLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
         case InputManager::CONFIRM:
             UIManager::GetInstance()->PopLayout();
             break;
+        default:
+            break;
     }
 
 }
