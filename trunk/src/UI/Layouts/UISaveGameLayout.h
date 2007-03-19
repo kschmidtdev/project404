@@ -1,9 +1,9 @@
 /**
- * Layout that prompts user to select saved game.
+ * Layout to Save Game.
  *
- * #include "UILoadGameLayout.h"
+ * #include "UISaveGameLayout.h"
  *
- * Layout that prompts user to select saved game.
+ * Layout to Save Game.
  *
  * Project 404 2007
  *
@@ -11,8 +11,8 @@
  * Andrew Osborne, March 18 2007, Initial Creation
  */
 
-#ifndef UILoadGameLayout_h
-#define UILoadGameLayout_h
+#ifndef UISaveGameLayout_h
+#define UISaveGameLayout_h
 
 // SYSTEM INCLUDES
 //
@@ -28,7 +28,7 @@
 //
 
 
-class UILoadGameLayout : public UILayout
+class UISaveGameLayout : public UILayout
 {
 public:
 // LIFECYCLE
@@ -36,19 +36,19 @@ public:
     /**
      * Default constructor.
 	 */
-    UILoadGameLayout(void);
+    UISaveGameLayout(void);
 
     /**
      * Copy constructor.
 	 *
 	 * @param from The value to copy to this object.
 	 */
-    //UILoadGameLayout(const UILoadGameLayout& from);
+    //UISaveGameLayout(const UISaveGameLayout& from);
 
     /**
      * Destructor.
 	 */
-    ~UILoadGameLayout(void);
+    ~UISaveGameLayout(void);
 
 // OPERATORS
 
@@ -59,7 +59,7 @@ public:
 	 *
 	 * @return A reference to this object.
 	 */
-    //UILoadGameLayout&                     operator=(UILoadGameLayout& from);
+    //UISaveGameLayout&                     operator=(UISaveGameLayout& from);
 
 // OPERATIONS
 
@@ -83,4 +83,4 @@ private:
 // EXTERNAL REFERENCES
 //
 
-#endif  // _UILoadGameLayout_h_
+#endif  // _UISaveGameLayout_h_

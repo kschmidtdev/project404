@@ -33,7 +33,7 @@ class NewGameFunction : public FuncObj
     virtual void operator()(void)
     {
         DBEngine::GetInstance()->Initialize( false );
-        UIManager::GetInstance()->PushLayout("OverMap");
+        UIManager::GetInstance()->PushLayout("TutorialMenu");
     }
 };
 
@@ -42,7 +42,7 @@ class LoadGameFunction : public FuncObj
     virtual void operator()(void)
     {
         DBEngine::GetInstance()->Initialize( true );
-        UIManager::GetInstance()->PushLayout("OverMap");
+        UIManager::GetInstance()->PushLayout("LoadGame");
     }
 };
 
@@ -53,6 +53,23 @@ class SetPasswordFunction : public FuncObj
         UIManager::GetInstance()->PushLayout("SetPassword");
     }
 };
+
+class OptionsFunction : public FuncObj
+{
+    virtual void operator()(void)
+    {
+        UIManager::GetInstance()->PushLayout("Options");
+    }
+};
+
+class CreditsFunction : public FuncObj
+{
+    virtual void operator()(void)
+    {
+        UIManager::GetInstance()->PushLayout("Credits");
+    }
+};
+
 
 class MainMenuQuitFunction : public FuncObj
 {
@@ -79,6 +96,9 @@ UIMainMenuLayout::UIMainMenuLayout()
 
     tempMenu->AddButton("New Game", new NewGameFunction() );
     tempMenu->AddButton("Load Game", new LoadGameFunction()  );
+    tempMenu->AddButton("Options", new OptionsFunction() );
+    tempMenu->AddButton("Credits", new CreditsFunction() );
+    // This option should be moved withing options??
     tempMenu->AddButton("Set Password", new SetPasswordFunction() );
     tempMenu->AddButton("Quit", new MainMenuQuitFunction() );
 

@@ -32,6 +32,10 @@ class SaveFunction : public FuncObj
         thisScrollText->SetVisible( true ); // Display Scroll Box.
 
         thisOverMapLayout->SetScrollBoxEnabled( true ); // Remove Scroll Box.
+
+        // After all that.. pop the layout that will later due what this already does (except more)
+        UIManager::GetInstance()->PushLayout("SaveGame");
+
     }
 };
 
@@ -41,6 +45,22 @@ class OverMapPartyStatusFunction : public FuncObj
     virtual void operator()(void)
     {
         UIManager::GetInstance()->PushLayout("PartyStatus");
+    }
+};
+
+class ArmoryFunction : public FuncObj
+{
+    virtual void operator()(void)
+    {
+        UIManager::GetInstance()->PushLayout("Armory");
+    }
+};
+
+class MarketFunction : public FuncObj
+{
+    virtual void operator()(void)
+    {
+        UIManager::GetInstance()->PushLayout("Market");
     }
 };
 
@@ -74,6 +94,8 @@ UIOverMapLayout::UIOverMapLayout()
     mMenu = new UIMenu();
     mMenu->AddButton("Save Game", new SaveFunction() );
     mMenu->AddButton("Party Status", new OverMapPartyStatusFunction() );
+    mMenu->AddButton("Market", new MarketFunction() );
+    mMenu->AddButton("Armory", new ArmoryFunction() );
     mMenu->AddButton("Quit", new QuitFunction() );
     mMenu->SetPos( Point(460, 140) );
     mMenu->SetPos( Point(460, 140) );

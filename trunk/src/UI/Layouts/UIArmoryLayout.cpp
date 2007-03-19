@@ -1,51 +1,50 @@
 /**
- * File: UILoadGameLayout.cpp
+ * File: UIArmoryLayout.cpp
  *
  * Project 404 2007
  *
  * Authors:
  * Andrew Osborne, March 18 2007 | Initial Creation
  */
-#include "UILoadGameLayout.h"                                // class implemented
+#include "UIArmoryLayout.h"                                // class implemented
 #include "UIManager.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
-UILoadGameLayout::UILoadGameLayout()
+UIArmoryLayout::UIArmoryLayout()
 {
-    UIText* temp = new UIText("Load Game Layout", 20, 255, 0, 0);
+    UIText* temp = new UIText("Armory Layout", 20, 255, 0, 0);
 
     mElements.push_back(temp);
 
-    mName = "LoadGame";
+    mName = "Armory";
+}// UIArmoryLayout
 
-}// UILoadGameLayout
 
-
-UILoadGameLayout::~UILoadGameLayout()
+UIArmoryLayout::~UIArmoryLayout()
 {
-}// ~UILoadGameLayout
+}// ~UIArmoryLayout
 
 
 //============================= OPERATORS ====================================
 
+
+
 //============================= OPERATIONS ===================================
 
-
-void UILoadGameLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
+void UIArmoryLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
     switch (evt)
     {
         case InputManager::CONFIRM:
             // Need to add code here about loading the game
-            UIManager::GetInstance()->PushLayout("OverMap");
+            UIManager::GetInstance()->PopLayout();
             break;
         default:
             break;
     }
-
 }
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================

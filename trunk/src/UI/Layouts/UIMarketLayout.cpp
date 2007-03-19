@@ -1,52 +1,51 @@
 /**
- * File: UILoadGameLayout.cpp
+ * File: UIMarketLayout.cpp
  *
  * Project 404 2007
  *
  * Authors:
  * Andrew Osborne, March 18 2007 | Initial Creation
  */
-#include "UILoadGameLayout.h"                                // class implemented
+#include "UIMarketLayout.h"                                // class implemented
 #include "UIManager.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
-UILoadGameLayout::UILoadGameLayout()
+UIMarketLayout::UIMarketLayout()
 {
-    UIText* temp = new UIText("Load Game Layout", 20, 255, 0, 0);
+    UIText* temp = new UIText("Market Layout", 20, 255, 0, 0);
 
     mElements.push_back(temp);
 
-    mName = "LoadGame";
+    mName = "Market";
+}// UIMarketLayout
 
-}// UILoadGameLayout
 
-
-UILoadGameLayout::~UILoadGameLayout()
+UIMarketLayout::~UIMarketLayout()
 {
-}// ~UILoadGameLayout
+}// ~UIMarketLayout
 
 
 //============================= OPERATORS ====================================
 
+
 //============================= OPERATIONS ===================================
 
-
-void UILoadGameLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
+void UIMarketLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
     switch (evt)
     {
         case InputManager::CONFIRM:
             // Need to add code here about loading the game
-            UIManager::GetInstance()->PushLayout("OverMap");
+            UIManager::GetInstance()->PopLayout();
             break;
         default:
             break;
     }
-
 }
+
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////

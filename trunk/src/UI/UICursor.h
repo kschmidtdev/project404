@@ -11,6 +11,7 @@
  *
  * Authors:
  * Andrew Osborne, February 11 2007, Initial Creation
+ * Andrew Osborne, March 18 2007, Re-initialized class for use, added UpdatePos and SetAttach methods
  */
 
 #ifndef UICursor_h
@@ -41,6 +42,11 @@ public:
     UICursor(void);
 
     /**
+     * image file constructor.
+	 */
+    UICursor(string filename, Point o, UIElement* start);
+
+    /**
      * Destructor.
 	 */
     ~UICursor(void);
@@ -49,12 +55,25 @@ public:
 
 // OPERATIONS
 
-//virtual void RenderSelf(SDL_Surface* destination, Point offset);
+    /**
+     * Update Position.
+	 */
+    void UpdatePos(void);
+
 // ACCESS (writing)
+
+    /**
+     * Set New center Element.
+	 */
+    void SetAttach(UIElement* e);
+
+
 // INQUIRY (reading)
 
 protected:
 // PROTECTED VARIABLES
+    UIElement* mAttach;
+    Point mOffset;
 
 private:
 // PRIVATE VARIABLES

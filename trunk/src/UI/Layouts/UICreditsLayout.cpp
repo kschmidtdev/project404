@@ -1,51 +1,47 @@
 /**
- * File: UILoadGameLayout.cpp
+ * File: UICreditsLayout.cpp
  *
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, March 18 2007 | Initial Creation
+ * Name, Date | Work Done
  */
-#include "UILoadGameLayout.h"                                // class implemented
+#include "UICreditsLayout.h"                                // class implemented
 #include "UIManager.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
-UILoadGameLayout::UILoadGameLayout()
+UICreditsLayout::UICreditsLayout()
 {
-    UIText* temp = new UIText("Load Game Layout", 20, 255, 0, 0);
+    UIText* temp = new UIText("Credits Layout", 20, 255, 0, 0);
 
     mElements.push_back(temp);
 
-    mName = "LoadGame";
+    mName = "Credits";
+}// UICreditsLayout
 
-}// UILoadGameLayout
 
-
-UILoadGameLayout::~UILoadGameLayout()
+UICreditsLayout::~UICreditsLayout()
 {
-}// ~UILoadGameLayout
+}// ~UICreditsLayout
 
 
 //============================= OPERATORS ====================================
 
 //============================= OPERATIONS ===================================
 
-
-void UILoadGameLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
+void UICreditsLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
     switch (evt)
     {
         case InputManager::CONFIRM:
-            // Need to add code here about loading the game
-            UIManager::GetInstance()->PushLayout("OverMap");
+            UIManager::GetInstance()->PopLayout();
             break;
         default:
             break;
     }
-
 }
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================

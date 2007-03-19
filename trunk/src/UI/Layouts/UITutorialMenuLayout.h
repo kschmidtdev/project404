@@ -1,9 +1,11 @@
 /**
- * Layout that prompts user to select saved game.
+ * Layout that prompts user to enter tutorial or not.
  *
- * #include "UILoadGameLayout.h"
+ * #include "UITutorialMenuLayout.h"
  *
- * Layout that prompts user to select saved game.
+ * Layout that prompts user to enter tutorial or not.
+ *
+ * @see UITutorialLayout
  *
  * Project 404 2007
  *
@@ -11,15 +13,15 @@
  * Andrew Osborne, March 18 2007, Initial Creation
  */
 
-#ifndef UILoadGameLayout_h
-#define UILoadGameLayout_h
+#ifndef UITutorialMenuLayout_h
+#define UITutorialMenuLayout_h
 
 // SYSTEM INCLUDES
 //
 
 // PROJECT INCLUDES
 //
-#include <UILayout.h>
+#include<UILayout.h>
 
 // LOCAL INCLUDES
 //
@@ -28,7 +30,7 @@
 //
 
 
-class UILoadGameLayout : public UILayout
+class UITutorialMenuLayout : public UILayout
 {
 public:
 // LIFECYCLE
@@ -36,19 +38,19 @@ public:
     /**
      * Default constructor.
 	 */
-    UILoadGameLayout(void);
+    UITutorialMenuLayout(void);
 
     /**
      * Copy constructor.
 	 *
 	 * @param from The value to copy to this object.
 	 */
-    //UILoadGameLayout(const UILoadGameLayout& from);
+    //UITutorialMenuLayout(const UITutorialMenuLayout& from);
 
     /**
      * Destructor.
 	 */
-    ~UILoadGameLayout(void);
+    ~UITutorialMenuLayout(void);
 
 // OPERATORS
 
@@ -59,14 +61,10 @@ public:
 	 *
 	 * @return A reference to this object.
 	 */
-    //UILoadGameLayout&                     operator=(UILoadGameLayout& from);
+    //UITutorialMenuLayout&                     operator=(UITutorialMenuLayout& from);
 
 // OPERATIONS
 
-    /**
-     * Listens for Key Press from User
-    */
-    virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
 
 // ACCESS (writing)
 // INQUIRY (reading)
@@ -83,4 +81,4 @@ private:
 // EXTERNAL REFERENCES
 //
 
-#endif  // _UILoadGameLayout_h_
+#endif  // _UITutorialMenuLayout_h_

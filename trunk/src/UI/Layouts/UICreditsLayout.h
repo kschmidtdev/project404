@@ -1,18 +1,18 @@
 /**
- * Layout that prompts user to select saved game.
+ * The Layout that shows the credits in the game.
  *
- * #include "UILoadGameLayout.h"
+ * #include "UICreditsLayout.h"
  *
- * Layout that prompts user to select saved game.
+ * The Layout that shows the credits in the game.
  *
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, March 18 2007, Initial Creation
+ * Andrew Osborne, March 18 2007 | Initial Creation
  */
 
-#ifndef UILoadGameLayout_h
-#define UILoadGameLayout_h
+#ifndef UICreditsLayout_h
+#define UICreditsLayout_h
 
 // SYSTEM INCLUDES
 //
@@ -28,7 +28,7 @@
 //
 
 
-class UILoadGameLayout : public UILayout
+class UICreditsLayout : public UILayout
 {
 public:
 // LIFECYCLE
@@ -36,19 +36,19 @@ public:
     /**
      * Default constructor.
 	 */
-    UILoadGameLayout(void);
+    UICreditsLayout(void);
 
     /**
      * Copy constructor.
 	 *
 	 * @param from The value to copy to this object.
 	 */
-    //UILoadGameLayout(const UILoadGameLayout& from);
+    //UICreditsLayout(const UICreditsLayout& from);
 
     /**
      * Destructor.
 	 */
-    ~UILoadGameLayout(void);
+    ~UICreditsLayout(void);
 
 // OPERATORS
 
@@ -59,7 +59,7 @@ public:
 	 *
 	 * @return A reference to this object.
 	 */
-    //UILoadGameLayout&                     operator=(UILoadGameLayout& from);
+    //UICreditsLayout&                     operator=(UICreditsLayout& from);
 
 // OPERATIONS
 
@@ -67,6 +67,7 @@ public:
      * Listens for Key Press from User
     */
     virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
+
 
 // ACCESS (writing)
 // INQUIRY (reading)
@@ -83,4 +84,4 @@ private:
 // EXTERNAL REFERENCES
 //
 
-#endif  // _UILoadGameLayout_h_
+#endif  // _UICreditsLayout_h_

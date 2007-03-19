@@ -75,6 +75,8 @@ void UIPasswordVerificationLayout::ProcessEvent( const InputManager::INPUTKEYS e
             if (SecurityManager::GetInstance()->VerifyPassword("user1", mPwdString))
             {
                 UIManager::GetInstance()->PopAllLayouts();
+                //UIManager::GetInstance()->PushLayout("ProfileMenu");
+                //UIManager::GetInstance()->PushLayout("MainMenu");
             }
             else
             {
