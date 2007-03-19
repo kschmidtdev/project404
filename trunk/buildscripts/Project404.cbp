@@ -726,6 +726,13 @@
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIArmoryLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UIBattleScreenLayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
@@ -785,6 +792,13 @@
 			<Option target="Release" />
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIMarketLayout.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UI\Layouts\UINewProfileLayout.cpp">
 			<Option compilerVar="CPP" />
