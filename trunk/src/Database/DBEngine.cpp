@@ -13,6 +13,7 @@
  * Karl Schmidt, March 15 2007     | Temporarily added in encryption/decryption hack for save file checking
  * Seung Woo Han, March 15 2007    | Put some more comments and removed test codes.
  * Karl Schmidt, March 15 2007     | Support for loading/saving encrypted db, save files, loading battle progress
+ * Karl Schmidt, March 18 2007     | Added clearing of loaded character and item data between db loads
  */
 
 #include <util.h>
@@ -70,6 +71,8 @@ void DBEngine::Initialize( const bool loadFromSave )
             mDB->LoadFromFile( dbFileName );
         }
     }
+
+    ClearLoadedData();
 
     // Create DBNode instances from XML file.
     DBNode* TemplateNode = mDB->Search( "Templates" );
@@ -158,21 +161,7 @@ void DBEngine::Initialize( const bool loadFromSave )
 
 void DBEngine::Shutdown()
 {
-    vector<Character*>::iterator CharIter;
-    vector<Item*>::iterator ItemIter;
-
-    for (CharIter=mCharacterList.begin(); CharIter!=mCharacterList.end(); CharIter++)
-    {
-        delete *CharIter;
-    }
-
-    for (ItemIter=mItemList.begin(); ItemIter!=mItemList.end(); ItemIter++)
-    {
-        delete *ItemIter;
-    }
-
-    mCharacterList.clear();
-    mItemList.clear();
+    ClearLoadedData();
 
     if( _instance )
     {
@@ -468,6 +457,25 @@ void DBEngine::SaveEncryptedFile( const string & fileName )
 {
     DatabaseManager::GetInstance()->SaveToFile( fileName );
     SecurityManager::GetInstance()->EncryptFile( fileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+}
+
+void DBEngine::ClearLoadedData()
+{
+    vector<Character*>::iterator CharIter;
+    vector<Item*>::iterator ItemIter;
+
+    for (CharIter=mCharacterList.begin(); CharIter!=mCharacterList.end(); CharIter++)
+    {
+        delete *CharIter;
+    }
+
+    for (ItemIter=mItemList.begin(); ItemIter!=mItemList.end(); ItemIter++)
+    {
+        delete *ItemIter;
+    }
+
+    mCharacterList.clear();
+    mItemList.clear();
 }
 
 //============================= ACCESS     ===================================

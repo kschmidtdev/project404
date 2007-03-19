@@ -8,6 +8,7 @@
  * Karl Schmidt, February 15 2007  | Fixed some odd header paths
  * Karl Schmidt, March 15 2007 	   | Added parameter to Initialize
  * Karl Schmidt, March 15 2007     | Support for loading/saving encrypted db, save files, loading battle progress
+ * Karl Schmidt, March 18 2007     | Added clearing of loaded character and item data between db loads
  */
 
 #ifndef DBEngine_h
@@ -93,6 +94,11 @@ public:
      * Get Method. Return the pointer of the list of all the items in the game.
      */
     vector<Item*>* GetItemList() { return &mItemList; } // INLINE METHOD.
+
+    /**
+     * Deletes all characters and items currently loaded, and clears both lists
+     */
+    void ClearLoadedData();
 
 protected:
 
