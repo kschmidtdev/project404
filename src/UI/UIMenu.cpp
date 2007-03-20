@@ -66,7 +66,7 @@ UIMenu::UIMenu()
 
 UIMenu::~UIMenu()
 {
-    for ( UIElementPtrItr iter = mButtons.begin(); iter!=mButtons.end(); ++iter )
+    for ( UIButtonPtrItr iter = mButtons.begin(); iter!=mButtons.end(); ++iter )
     {
         delete (*iter);
     }
@@ -100,7 +100,7 @@ void UIMenu::RenderSelf(SDL_Surface* destination)
         mCursor->RenderSelf(destination);
 
         // Buttons are rendered second
-        UIElementPtrItr iter;
+        UIButtonPtrItr iter;
 
         for ( iter = mButtons.begin(); iter!=mButtons.end(); ++iter )
         {
@@ -140,7 +140,7 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
             mCursor->SetPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
             break;
         case InputManager::CONFIRM:
-            if (mButtonFuncs[mCursorPos])
+            if ( (mButtonFuncs[mCursorPos]) && (!mButtons[mCursorPos]->GetGhost()) )
             {
                 FuncObj *temp = mButtonFuncs[mCursorPos];
                 (*temp)();
@@ -163,7 +163,7 @@ void UIMenu::SetPos( const Point & nPos)
     mCursor->SetPos( mPos + mButtonStart + mCursorOffset );
 
     // Move buttons
-    UIElementPtrItr iter;
+    UIButtonPtrItr iter;
     int i = 0;
     for ( iter = mButtons.begin(); iter!=mButtons.end(); ++iter )
     {
@@ -181,6 +181,13 @@ void UIMenu::AddButton( const string nName, FuncObj* operation)
     mButtonFuncs.push_back(operation);
     mMaxCursorPos = mButtons.size() - 1;
     SetPos( mPos );
+}
+
+void UIMenu::SetGhost(int n, bool b)
+{
+    if (n<=mMaxCursorPos)
+        mButtons[n]->SetGhost(b);
+
 }
 
 //============================= INQUIRY    ===================================
