@@ -12,6 +12,7 @@
  * Authors:
  * Mike Malyuk, February 7 2007  | Initial design
  * Mike Malyuk, February 11 2007 | Made CalcAction return non-pointer Point vector
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 #ifndef Archer_h
@@ -43,7 +44,7 @@ public:
     /**
      * Constructor
      */
-    Archer(string name, int level, WeaponItem* weapon, ArmorItem* armor);
+    Archer( const string & name, const int level, WeaponItem* weapon, ArmorItem* armor);
 
     /**
      * Destructor.
@@ -60,14 +61,14 @@ public:
     /**
      * Returns array of Points a character may have action on
 	 */
-    virtual vector<Point> CalcAction();
+    virtual const PointVec CalcAction();
 
 // INQUIRY
 
     /**
      * Get name of class (for UI stuff, or limiting weapons)
 	 */
-    virtual string GetClassName();
+    virtual const string GetClassName() const;
 
 protected:
 private:

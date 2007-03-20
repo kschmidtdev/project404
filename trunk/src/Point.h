@@ -15,6 +15,7 @@
  * Mike Malyuk,    February 9, 2007 | Added comparison operator
  * Andrew Osborne, February 10, 2007 | Added set operator that takes both x and y
  * Karl Schmidt,   February 14 2007 | Added consts
+ * Karl Schmidt,   March 20 2007    | Major adding of consts and reference usage, rearranging includes
  */
 
 #ifndef Point_h
@@ -31,7 +32,6 @@
 
 // FORWARD REFERENCES
 //
-
 
 class Point
 {
@@ -64,12 +64,12 @@ public:
     /**
      * Compare points
      */
-    bool operator==(const Point &other)const;
+    const bool operator==(const Point &other)const;
 
     /**
      * Compare points
      */
-    bool operator!=(const Point &other)const;
+    const bool operator!=(const Point &other)const;
 
     /**
      * Addition operator
@@ -104,12 +104,12 @@ public:
     /**
      * Get x coord
 	 */
-    int GetX() const;
+    const int GetX() const;
 
     /**
      * Get y coord
 	 */
-    int GetY() const;
+    const int GetY() const;
 
 protected:
 // PROTECTED VARIABLES

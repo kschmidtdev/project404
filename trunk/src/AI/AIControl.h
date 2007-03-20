@@ -11,6 +11,7 @@
  * Authors:
  * Mike Malyuk, February 15 2007 | Initial Design
  * Mike Malyuk, March 10, 2007   | Added map to AI removed point
+ * Karl Schmidt, March 20 2007    | Major adding of consts and reference usage, rearranging includes
  */
 
 #ifndef AIControl_h
@@ -18,21 +19,17 @@
 
 // SYSTEM INCLUDES
 //
-#include <cstdlib>
-#include <ctime>
-#include <cmath>
+
 // PROJECT INCLUDES
 //
-#include <..\src\GameEngine\Character.h>
-#include <..\src\UI\UIGrid.h>
-#include <..\src\Point.h>
-#include <..\src\GameEngine\Level.h>
-#include <..\src\GameEngine\Map.h>
+#include <GameEngine/Map.h>
 // LOCAL INCLUDES
 //
 
 // FORWARD REFERENCES
 //
+
+class Level;
 
 
 class AIControl
@@ -43,17 +40,17 @@ public:
     /**
      * Default constructor.
 	 */
-    AIControl(Level* level, Map map);
+    AIControl(Level* level, const Map & map);
 
     /**
      * Destructor.
 	 */
     ~AIControl(void);
 
-// OPERATIONS
-Point DoAction();
-// ACCESS (writing)
-void SetLevel(Level* level){mLevel = level;}// INQUIRY (reading)
+    // OPERATIONS
+    Point DoAction();
+    // ACCESS (writing)
+    void SetLevel(Level* level){mLevel = level;}// INQUIRY (reading)
 
 protected:
 // PROTECTED VARIABLES

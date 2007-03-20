@@ -9,6 +9,7 @@
  *                                 Added variables for mIsDead, mExhausted and new attr DEF
  * Mike Malyuk, February 14 2007 | On level up, curHP renewed.
  * Mike Malyuk, February 14 2007 | Levelling up is couted
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 #include <util.h>
@@ -40,7 +41,7 @@ Archer::Archer()
     mTarget = NULL;
 }// Archer
 
-Archer::Archer(string name, int level, WeaponItem* weapon, ArmorItem* armor)
+Archer::Archer( const string & name, const int level, WeaponItem* weapon, ArmorItem* armor)
 {
     mName = name;
     mLevel = 1;
@@ -88,9 +89,9 @@ void Archer::LevelUp()
     mLevel++;
     cout << "Archer (" << mName << ") has levelled up to level " << mLevel << endl;
 }
-vector<Point> Archer::CalcAction()
+const PointVec Archer::CalcAction()
 {
-    vector<Point> points;
+    PointVec points;
     points.push_back(Point(mCurPos.GetX()-1, mCurPos.GetY()-1));
     points.push_back(Point(mCurPos.GetX()+1, mCurPos.GetY()+1));
     points.push_back(Point(mCurPos.GetX()+1, mCurPos.GetY()-1));
@@ -103,10 +104,10 @@ vector<Point> Archer::CalcAction()
 }
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
-    string Archer::GetClassName()
-    {
-        return "Archer";
-    }
+const string Archer::GetClassName() const
+{
+    return "Archer";
+}
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

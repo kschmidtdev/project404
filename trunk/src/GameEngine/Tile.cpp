@@ -8,24 +8,26 @@
  * Mike Malyuk, March 8 2007     | Added Tile mPic getter, allows UI to create easier
  * Karl Schmidt, March 9 2007	 | Changed textures to png
  * Mike Malyuk, March 14 2007    | Added rock
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
+#include "Tile.h"                                // class implemented
 #include <util.h>
 
-#include "Tile.h"                                // class implemented
-
+/*#include <string>
+#include <iostream>*/
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
 Tile::Tile()
-: mTilePoint(Point(0,0)), mType("GRASS"), mWeight(2)
+: mTilePoint( Point(0,0)), mType("GRASS"), mPic(""), mWeight(2)
 {
 }// Tile
 
-Tile::Tile(Point p, string type)
-: mTilePoint(p), mType(type)
+Tile::Tile( const Point & p, const string & type )
+: mTilePoint( p ), mType( type ), mPic(""), mWeight(0)
 {
     if(type.compare("GRASS") == 0)
     {
@@ -62,19 +64,19 @@ Tile::~Tile()
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
-Point Tile::GetPoint()
+const Point& Tile::GetPoint() const
 {
     return mTilePoint;
 }
-int Tile::GetWeight()
+const int Tile::GetWeight() const
 {
     return mWeight;
 }
-string Tile::GetType()
+const string& Tile::GetType() const
 {
     return mType;
 }
-string Tile::GetPic()
+const string& Tile::GetPic() const
 {
     return mPic;
 }

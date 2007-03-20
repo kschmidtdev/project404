@@ -12,6 +12,7 @@
  * Authors:
  * Andrew Osborne, February 14 2007 | Initial Creation
  * Andrew Osborne, March 9 2007 | Added new ChangeText command that allows you to change all parameters
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 #ifndef UIText_h
@@ -44,17 +45,17 @@ public:
     /**
      * Full constructor.
 	 */
-    UIText( const string text, int size, int r, int g, int b);
+    UIText( const string & text, const int size, const int r, const int g, const int b);
 
     /**
      * Partial constructor.
 	 */
-    UIText( const string text);
+    UIText( const string & text);
 
     /**
      * Destructor.
 	 */
-    ~UIText(void);
+    virtual ~UIText(void);
 
 // OPERATORS
 
@@ -65,22 +66,22 @@ public:
     /**
      * Method that changes text .
 	 */
-    void ChangeText(const string newText);
+    void ChangeText(const string & newText);
 
     /**
      * New Text (with parameters)
      */
-    void ChangeText(const string newText, int s, int r, int g, int b);
+    void ChangeText(const string & newText, const int s, const int r, const int g, const int b);
 
     /**
      * Change Colour.
 	 */
-    void SetColour(int r, int g, int b);
+    void SetColour( const int r, const int g, const int b);
 
     /**
      * Change Size.
 	 */
-    void SetSize(int s);
+    void SetSize( const int s);
 
 
 

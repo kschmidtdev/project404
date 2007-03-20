@@ -23,6 +23,7 @@
  * Mike Malyuk, March 10, 2007    | Removed mMap and move methods, now that map does this
  * Karl Schmidt, March 14, 2007   | Added a hack to force the current turn to the players to solve a bug
  * Mike Malyuk, March 14, 2007    | Added Map to Level variables, added GetMap method.
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 #ifndef Level_h
@@ -33,9 +34,9 @@
 #include <vector>
 // PROJECT INCLUDES
 //
-#include "Map.h"
-#include "Character.h"
 #include "Point.h"
+#include <GameEngine/Map.h>
+#include <GameEngine/Character.h>
 
 // LOCAL INCLUDES
 //
@@ -43,6 +44,9 @@
 // FORWARD REFERENCES
 //
 
+typedef std::vector<Character*> CharacterPtrVec;
+typedef CharacterPtrVec::iterator CharacterPtrItr;
+typedef CharacterPtrVec::const_iterator CharacterPtrConstItr;
 
 class Level
 {
@@ -67,12 +71,12 @@ enum charState
     /**
      * Constructor.
 	 */
-    Level(vector<Character*> party, vector<Character*> badguys, vector<Point> start);
+    Level( const CharacterPtrVec & party, const CharacterPtrVec & badguys, const PointVec & start);
 
     /**
     * Constructor.
     */
-    Level(int battleNumber); // Contructor loads characters from Database.
+    Level( const int battleNumber); // Contructor loads characters from Database.
 
     /**
      * Destructor.
@@ -89,16 +93,16 @@ enum charState
      * From SetCursorBattle, controls STATE by checking position for players.
      * If character exists returns pointer, if not, returns null
 	 */
-    Character* OnSelect(Point p);
+    Character* OnSelect( const Point & p );
 
     /**
      * From SetCursorBattle, controls STATE by checking position for players.
      * If character exists returns pointer, if not, returns null
 	 */
-    Character* OnAISelect(Point p);
+    Character* OnAISelect( const Point & p );
 
 // ACCESS (writing)
-    void SetState(charState state){mState = state;}
+    void SetState( const charState state ){mState = state;}
 // INQUIRY (reading)
 
     int ReturnState();
@@ -106,84 +110,81 @@ enum charState
     /**
      * Get Turn (true ours, false theirs)
      */
-    bool GetTurn();
+    const bool GetTurn() const;
 
     /**
      * Check if all party is dead
      */
-    bool GetLoseCondition();
+    const bool GetLoseCondition() const;
 
     /**
      * Check if all enemies are dead
      */
-    bool GetWinCondition();
+    const bool GetWinCondition() const;
 
     /**
      * Return all characters in level (for UI)
      */
-    vector<Character*> GetEveryone();
+    const CharacterPtrVec GetEveryone() const;
 
     /**
      * Return all points in attack area (state = 2)
      */
-    vector<Point> GetAttackArea();
+    const PointVec& GetAttackArea() const;
 
     /**
      * Checks if party is exhausted, if true, it will automatically switch turns
      */
-    bool AllExhaustedParty();
+    const bool AllExhaustedParty();
 
     /**
      * Checks if party is exhausted, if true, it will automatically switch turns
      */
-    bool AllExhaustedEnemies();
+    const bool AllExhaustedEnemies();
 
     /**
      * Checks if point has person, return person if it does;
      */
-    Character* PointHasPerson(Point p);
+    Character* PointHasPerson( const Point & p ) const;
 
     /**
      * Checks if point has person, return person if it does;
      */
-    Character* AIPointHasPerson(Point p);
+    Character* AIPointHasPerson( const Point & p ) const;
 
 
     /**
      * Return Enemies
      */
-    vector<Character*> GetEnemies();
+    const CharacterPtrVec& GetEnemies() const;
 
     /**
      * Return Party
      */
-     vector<Character*> GetParty();
+    const CharacterPtrVec& GetParty() const;
 
     /**
      *
      */
-     Map* GetMap(){return &mMap;}
+     Map* GetMap() { return &mMap; }
 
     /**
      * Return Party
      */
-     Character* GetCurCharacter(){return mCurChar;}
+     Character* GetCurCharacter() const { return mCurChar; }
 
      void SetPlayerTurn() { mMyTurn = true; };
 
 protected:
 // PROTECTED VARIABLES
     charState mState;
-    vector<Character*> mParty;
-    vector<Character*> mEnemies;
-    vector<Point> mAttackArea;
-    vector<Point> mStart;
+    CharacterPtrVec mParty;
+    CharacterPtrVec mEnemies;
+    PointVec mAttackArea;
+    PointVec mStart;
     Character* mCurChar;
     Map mMap;
     bool mMyTurn;
-
-    // For testing/version1
-    bool mDefaultConstructor;
 
 private:
 // PRIVATE VARIABLES

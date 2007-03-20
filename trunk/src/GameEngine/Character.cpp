@@ -13,6 +13,7 @@
  * Mike Malyuk, February 14 2007 | Levelling up occurs at 100 exp now instead of greater than 100
  * Mike Malyuk, March 10 2007    | Added explicit cast so no warning, the int cutting is intentional
  * Mike Malyuk, March 15 2007    | Fixed Levelling up! yay!
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 #include <util.h>
@@ -46,9 +47,9 @@ void Character::LevelUp()
     mAttributes[DEF] = mAttributes[DEF] + 1;
     mLevel++;
 }
-vector<Point> Character::CalcAction()
+const PointVec Character::CalcAction()
 {
-    vector<Point> points;
+    PointVec points;
     points.push_back(Point(mCurPos.GetX()-1, mCurPos.GetY()));
     points.push_back(Point(mCurPos.GetX()+1, mCurPos.GetY()));
     points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()-1));
@@ -164,12 +165,12 @@ void Character::Attack(Character* another)
     mExhausted = true;
 }
 //============================= ACCESS     ===================================
-void Character::Move(Point p)
+void Character::Move( const Point & p)
 {
     mCurPos.SetX(p.GetX());
     mCurPos.SetY(p.GetY());
 }
-void Character::SetHP(int value)
+void Character::SetHP( const int value)
 {
     mCurHP = value;
 }
@@ -214,66 +215,67 @@ void Character::RestoreToFullLife()
 }
 
 //============================= INQUIRY    ===================================
-int Character::GetAttr(Attr value)
+const int Character::GetAttr( const Attr value) const
 {
     return mAttributes[value];
 }
 
-int Character::GetHP()
+const int Character::GetHP() const
 {
     return mCurHP;
 }
 
-int Character::GetMaxHP()
+const int Character::GetMaxHP() const
 {
     return mMaxHP;
 }
 
-Point Character::GetPoint()
+const Point& Character::GetPoint() const
 {
     return mCurPos;
 }
 
-string Character::GetClassName()
+const string Character::GetClassName() const
 {
     return "base";
 }
 
-ArmorItem* Character::GetArmor()
+ArmorItem* Character::GetArmor() const
 {
     return mArmor;
 }
 
-WeaponItem* Character::GetWeapon()
+WeaponItem* Character::GetWeapon() const
 {
     return mWeapon;
 }
 
-string Character::GetName()
+const string & Character::GetName() const
 {
     return mName;
 }
 
-bool Character::GetExhaust()
+const bool Character::GetExhaust() const
 {
     return mExhausted;
 }
 
-bool Character::IsDead()
+const bool Character::IsDead() const
 {
     return mIsDead;
 }
 
-int Character::GetLevel()
+const int Character::GetLevel() const
 {
     return mLevel;
 }
 
-int Character::GetExp()
+const int Character::GetExp() const
 {
     return mExp;
 }
-Character* Character::GetTarget()
+
+Character* Character::GetTarget() const
 {
     return mTarget;
 }

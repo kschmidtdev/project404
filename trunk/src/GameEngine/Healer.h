@@ -13,6 +13,7 @@
  * Mike Malyuk, February 7 2007 | Initial design
  * Mike Malyuk, February 11 2007 | Made CalcAction return non-pointer Point vector
  * Mike Malyuk, February 14 2007 | Added Heal function
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 #ifndef Healer_h
@@ -44,7 +45,7 @@ public:
     /**
      * Constructor
      */
-    Healer(string name, int level, WeaponItem* weapon, ArmorItem* armor);
+    Healer( const string & name, const int level, WeaponItem* weapon, ArmorItem* armor);
 
     /**
      * Destructor.
@@ -61,7 +62,7 @@ public:
     /**
      * Returns array of Points a character may have action on
 	 */
-    virtual vector<Point> CalcAction();
+    virtual const PointVec CalcAction();
 
     /**
      * Healer specific healing
@@ -74,7 +75,7 @@ public:
     /**
      * Get name of class (for UI stuff, or limiting weapons)
 	 */
-    virtual string GetClassName();
+    virtual const string GetClassName() const;
 
 
 protected:

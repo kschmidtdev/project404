@@ -16,6 +16,7 @@
  * Seung Woo Han, March 15 2007   | Save Game at the end of each battle.
  * Karl Schmidt,   March 15 2007  | Removed saving the game at the end of each battle
  * Karl Schmidt, March 15 2007    | Support for city defeating status to update db
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 #include <util.h>
@@ -89,6 +90,12 @@ void GameEngine::Shutdown()
 //void GameEngine::BattleInit(vector<Character*> partyMem, City *c, Map* map)
 void GameEngine::BattleInit(City *c)
 {
+    tacAssert( c != NULL );
+
+    if( c == NULL )
+    {
+        return;
+    }
     // Set current city
     mCurCity = c;
 

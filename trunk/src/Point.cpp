@@ -9,6 +9,7 @@
  * Mike Malyuk,    February 9, 2007 | Added comparison operator
  * Andrew Osborne, February 10 2007 | added Set(x,y) function
  * Karl Schmidt,   February 14 2007 | Added consts
+ * Karl Schmidt,   March 20 2007    | Major adding of consts and reference usage, rearranging includes
  */
 
 #include <util.h>
@@ -40,7 +41,7 @@ Point::~Point()
 {
 }// ~Point
 //============================= OPERATORS  ===================================
-bool Point::operator==(const Point &other) const
+const bool Point::operator==(const Point &other) const
 {
     if(mX == other.mX && mY == other.mY)
     {
@@ -51,7 +52,7 @@ bool Point::operator==(const Point &other) const
         return false;
     }
 }
-bool Point::operator!=(const Point &other)const
+const bool Point::operator!=(const Point &other)const
 {
     if(mX == other.mX && mY == other.mY)
     {
@@ -91,12 +92,12 @@ void Point::Set( const int x, const int y )
     mY = y;
 }
 
-int Point::GetX() const
+const int Point::GetX() const
 {
     return mX;
 }
 
-int Point::GetY() const
+const int Point::GetY() const
 {
     return mY;
 }

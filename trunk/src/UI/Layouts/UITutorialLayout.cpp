@@ -9,6 +9,8 @@
 #include "UITutorialLayout.h"                                // class implemented
 #include "UIManager.h"
 
+#include <UI/UIText.h>
+
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================

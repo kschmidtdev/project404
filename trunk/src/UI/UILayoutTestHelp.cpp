@@ -8,6 +8,7 @@
  */
 #include "UILayoutTestHelp.h"                                // class implemented
 
+#include "UIText.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
