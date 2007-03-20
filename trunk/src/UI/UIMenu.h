@@ -27,6 +27,7 @@
 #include <SDL.h>
 #include <Renderer/SDLRenderable.h>
 #include <UIElement.h>
+#include <UIButton.h>
 #include <EventListener.h>
 #include <FuncObj.h>
 
@@ -40,6 +41,8 @@ typedef vector<UIElement*> UIElementPtrVec;
 typedef UIElementPtrVec::iterator UIElementPtrItr;
 typedef vector<FuncObj*> FuncObjPtrVec;
 typedef FuncObjPtrVec::iterator FuncObjPtrItr;
+typedef vector<UIButton*> UIButtonPtrVec;
+typedef UIButtonPtrVec::iterator UIButtonPtrItr;
 
 class UIMenu : public UIElement, public EventListener
 {
@@ -94,12 +97,17 @@ public:
      */
     void Disable(void) {mCursor->SetVisible(false); }
 
+    /**
+     * Disable (Ghost) Menu buttons (make text grey and disable funcitonality)
+     */
+    void SetGhost(int n, bool b);
+
 // INQUIRY (reading)
 
 protected:
 // PROTECTED VARIABLES
     UIElement* mCursor;
-    UIElementPtrVec mButtons;
+    UIButtonPtrVec mButtons;
     FuncObjPtrVec mButtonFuncs;
 
     int mCursorPos;  // Starts with 0 to max (inclusive)

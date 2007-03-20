@@ -7,12 +7,21 @@
  * Andrew Osborne, February 11 2007 | Initial Creation
  * Karl Schmidt, February 14 2007 	| Updated function capitalization, block style, typedefs
  * Karl Schmidt, March 9 2007	 	| Changed textures to png, fixed a warning
+ * Andrew Osborne, March 19 2007    | Added Ghosting functionality
  */
 
 #include <util.h>
-
-
 #include "UIButton.h"                                // class implemented
+
+
+
+int UIButton::mActiveRed = 0;
+int UIButton::mActiveGreen = 0;
+int UIButton::mActiveBlue = 0;
+int UIButton::mGhostRed = 128;
+int UIButton::mGhostGreen = 128;
+int UIButton::mGhostBlue = 128;
+int UIButton::mTextSize = 12;
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -20,15 +29,15 @@
 //============================= LIFECYCLE ====================================
 
 UIButton::UIButton()
-: mText(" "), mOperation(NULL)
+: mText(" "), mOperation(NULL), mGhost( false )
 {
     mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_item.png");
 }// UIButton
 
 UIButton::UIButton(const string text)
-: mOperation( NULL )
+: mOperation( NULL ), mGhost( false )
 {
-    mText.ChangeText(text);
+    mText.ChangeText(text, mTextSize, mActiveRed, mActiveGreen, mActiveBlue);
     mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_item.png");
 }
 
@@ -83,7 +92,25 @@ void UIButton::SetPos( const Point & nPos )
     mOperation = nOperation;
 }*/
 
-
+void UIButton::SetGhost(bool b)
+{
+    if (b!=mGhost)
+    {
+        // Value has changed
+        if (b)
+        {
+            // Ghost = true
+            mText.SetColour(mGhostRed, mGhostGreen, mGhostBlue);
+            mGhost = true;
+        }
+        else
+        {
+            // Ghost = false
+            mText.SetColour(mActiveRed, mActiveGreen, mActiveBlue);
+            mGhost = false;
+        }
+    }
+}
 
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////

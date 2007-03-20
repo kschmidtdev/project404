@@ -102,6 +102,9 @@ UIOverMapLayout::UIOverMapLayout()
     mMenu->Disable();
     mElements.push_back( mMenu );
 
+    // Debug
+    mMenu->SetGhost(3, true);
+
     // Create Scroll Box
     mScrollBox = new UIScrollText();
     mScrollBox->SetPos( Point(10, 350) );

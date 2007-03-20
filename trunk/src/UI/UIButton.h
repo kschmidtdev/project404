@@ -69,12 +69,33 @@ public:
 	 */
     virtual void SetPos( const Point & nPos );
 
+    /**
+     * Set Ghost
+     */
+    void SetGhost(bool b);
+
 // INQUIRY (reading)
+
+    /**
+     * Get Ghost
+     */
+    bool GetGhost(void) { return mGhost; }
 
 protected:
 // PROTECTED VARIABLES
     UIText mText;
     FuncObj* mOperation;
+    bool mGhost;
+
+    // Font information
+    static int mActiveRed;
+    static int mActiveGreen;
+    static int mActiveBlue;
+    static int mGhostRed;
+    static int mGhostGreen;
+    static int mGhostBlue;
+    static int mTextSize;
+
 
 private:
 // PRIVATE VARIABLES
