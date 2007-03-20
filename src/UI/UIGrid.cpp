@@ -33,25 +33,30 @@
  * Karl Schmidt, 	March 14 2007	  | Added and re-arranged initialize list so more pointers are set to NULL on construction (safer)
  * Mike Malyuk,     March 14 2007     | Generalized columns in Initializer
  * Andrew osborne,  March 14 2007     | Removed Cursor, as it is a lame duck class that does nothing different from UIImage
- * Seung Woo Han, March 17 2006 | New Pics
+ * Seung Woo Han,   March 17 2006     | New Pics
+ * Karl Schmidt,    March 20 2007     | Major adding of consts and reference usage, rearranging includes
  */
 
-#include <util.h>
-
 #include "UIGrid.h"                                // class implemented
-#include "UITile.h"
-//#include "UICursor.h"
+
+#include <util.h>
+#include <Logger.h>
+
 #include "UIManager.h"
 #include "InputManager.h"
-#include "GameEngine/Level.h"
-#include <Logger.h>
+#include "UICharWindow.h"
+
+#include <GameEngine/Character.h>
+#include <GameEngine/Level.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
 UIGrid::UIGrid()
-: mNumRows( 10 ), mNumColumns( 10 ), mCursorPos( Point(0,0) ), mTileStart( Point(10,10) ), mTileOffset( 0 ),
+: mTiles(),
+  mMovePoints(),
+  mNumRows( 10 ), mNumColumns( 10 ), mCursorPos( Point(0,0) ), mTileStart( Point(10,10) ), mTileOffset( 0 ),
   mCursor(NULL), mCharWindow( NULL ), mMap( NULL ), mCurCharacter( NULL ), mLevel( NULL )
 {
 
@@ -166,8 +171,8 @@ void UIGrid::ConfirmFunction( const Point & p )
     vector<Point> movement;
     switch(curState)
     {
-        case 0:
-
+        case Level::FREE:
+        {
 
             // Attempt to select character
             // ------------------------------------------
@@ -187,9 +192,11 @@ void UIGrid::ConfirmFunction( const Point & p )
                 // ==============
                 AddMoveableRange( mLevel->GetEveryone(), mLevel->GetEnemies(), mCurCharacter);
             }
-            break;
+        }
+        break;
 
-        case 1:
+        case Level::MOVE:
+        {
 
             // Attempting to MOVE to new spot
             // ----------------------------------------------
@@ -267,9 +274,10 @@ void UIGrid::ConfirmFunction( const Point & p )
                     UIManager::GetInstance()->PushLayout("Win");
                 }
             }
-            break;
-
-        case 2:
+        }
+        break;
+        case Level::ATTACK:
+        {
             // Attempting to attack
             //------------------------------------------------------
 
@@ -279,7 +287,7 @@ void UIGrid::ConfirmFunction( const Point & p )
 
             // Step 3 - Attack other character
 
-            // Step 4 - run end turn check (is target dead, is enememy dead, is party exhausted)
+            // Step 4 - run end turn check (is target dead, is enemy dead, is party exhausted)
 
             // Step 5 - Initialize next turn
 
@@ -287,13 +295,14 @@ void UIGrid::ConfirmFunction( const Point & p )
 
             // now check if person is there
             mLevel->OnSelect(p);
-            if(mLevel->ReturnState() == 0 || mLevel->ReturnState() == 3)
+            if(mLevel->ReturnState() == Level::FREE || mLevel->ReturnState() == Level::AIFREE)
             {
             	// Draw an image to indicate action is being taken
                 UIImage* indicator = new UIImage( "testIndicator.png" );
                 Point toDrawAt( mCurCharacter->GetPoint().GetX() * mTileWidth, mCurCharacter->GetPoint().GetY() * mTileHeight );
                 indicator->SetPos( toDrawAt );
                 SDLRenderer::GetInstance()->AddToTempRenderQueue( indicator, SDL_GetTicks() + 400 );
+
                 RemoveCharacter(mCurCharacter->GetPoint());
                 AddExhaustedCharacter(mCurCharacter);
                 ClearAttackRange();
@@ -332,12 +341,11 @@ void UIGrid::ConfirmFunction( const Point & p )
             {
                 UIManager::GetInstance()->PushLayout("Win");
             }
+        }
+        break;
 
-            break;
-
-        case 3:
-
-
+        case Level::AIFREE:
+        {
             // Attempt to select character
             // ------------------------------------------
             mCurCharacter = mLevel->OnAISelect(p);
@@ -354,11 +362,11 @@ void UIGrid::ConfirmFunction( const Point & p )
                 // ==============
                 AddMoveableRange( mLevel->GetEveryone(), mLevel->GetParty(), mCurCharacter );
             }
+        }
+        break;
 
-            break;
-
-        case 4:
-
+        case Level::AIMOVE:
+        {
             // Attempting to MOVE to new spot
             // ----------------------------------------------
 
@@ -429,9 +437,11 @@ void UIGrid::ConfirmFunction( const Point & p )
                     UIManager::GetInstance()->PushLayout("Lose");
                 }
             }
-            break;
+        }
+        break;
 
-        case 5:
+        case Level::AIATTACK:
+        {
             // Attempting to attack
             //------------------------------------------------------
 
@@ -491,7 +501,8 @@ void UIGrid::ConfirmFunction( const Point & p )
                 UIManager::GetInstance()->PushLayout("Lose");
             }
 
-            break;
+        }
+        break;
 
     }
 }
@@ -565,14 +576,14 @@ void UIGrid::ClearAttackRange(void)
     //mImageAttackRange.clear();
 }
 
-void UIGrid::AddAttackRange( PointVec attackRange )
+void UIGrid::AddAttackRange( const PointVec & attackRange )
 {
 
     SDL_Surface* RangeImage = ResourceManager::GetInstance()->LoadTexture("yellowCursor.png");
     //SDL_Surface* RangeImage = ResourceManager::GetInstance()->LoadTexture("blueCursor.png");
     int index;
 
-    for ( PointItr i=attackRange.begin(); i!=attackRange.end(); ++i )
+    for ( PointConstItr i=attackRange.begin(); i!=attackRange.end(); ++i )
     {
         if(ValidPoint((*i)))
         {

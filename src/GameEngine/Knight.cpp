@@ -9,6 +9,7 @@
  *                                 Added variables for mIsDead, mExhausted and new attr DEF
  * Mike Malyuk, February 14 2007 | On level up, curHP renewed.
  * Mike Malyuk, February 14 2007 | Levelling up is couted
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 #include <util.h>
@@ -40,7 +41,7 @@ Knight::Knight()
     mTarget = NULL;
 }// Knight
 
-Knight::Knight(string name, int level, WeaponItem* weapon, ArmorItem* armor)
+Knight::Knight( const string & name, const int level, WeaponItem* weapon, ArmorItem* armor)
 {
     mName = name;
     mLevel = 1;
@@ -88,9 +89,9 @@ void Knight::LevelUp()
     mLevel++;
     cout << "Knight (" << mName << ") has levelled up to level " << mLevel << endl;
 }
-vector<Point> Knight::CalcAction()
+const PointVec Knight::CalcAction()
 {
-    vector<Point> points;
+    PointVec points;
     points.push_back(Point(mCurPos.GetX()-1, mCurPos.GetY()));
     points.push_back(Point(mCurPos.GetX()+1, mCurPos.GetY()));
     points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()-1));
@@ -99,10 +100,10 @@ vector<Point> Knight::CalcAction()
 }
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
-    string Knight::GetClassName()
-    {
-        return "Knight";
-    }
+const string Knight::GetClassName() const
+{
+    return "Knight";
+}
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

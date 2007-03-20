@@ -14,9 +14,10 @@
  * Karl Schmidt, February 15 2007 | Implemented DeleteUser and ChangeUserPassword
  * Karl Schmidt, February 15 2007 | Added HashString function
  * Karl Schmidt, February 13 2007 | Initial creation of header
- * Karl Schmidt, March 11 2007	   | Added file encryption/decryption routines
+ * Karl Schmidt, March 11 2007	  | Added file encryption/decryption routines
  * Karl Schmidt, March 12 2007    | Added DecryptFileToString
- * Karl Schmidt, March 15 2007    | Made string params refs, added GetUserHash
+ * Karl Schmidt, March 15 2007    | Made std::string params refs, added GetUserHash
+ * Karl Schmidt, March 20 2007    | Took out potentially bad using namespace std;
  */
 
 #ifndef SecurityManager_h
@@ -27,8 +28,6 @@
 #include <map>
 #include <string>
 
-using namespace std;
-
 // PROJECT INCLUDES
 //
 
@@ -38,7 +37,7 @@ using namespace std;
 // FORWARD REFERENCES
 //
 
-typedef map<string, string> PasswordHashMap;
+typedef std::map<std::string, std::string> PasswordHashMap;
 typedef PasswordHashMap::iterator PasswordHashMapItr;
 
 class SecurityManager
@@ -75,37 +74,37 @@ public:
     * Loads a password hash file into
     * mLoadedPasswords
     */
-    void LoadPasswordHashFile( const string & fileName );
+    void LoadPasswordHashFile( const std::string & fileName );
 
     /**
     * Saves out mLoadedPasswords
     * to fileName
     */
-    void SavePasswordHashFile( const string & fileName );
+    void SavePasswordHashFile( const std::string & fileName );
 
     /**
     * Hashs the incoming password and compares
     * that to the stored password hash for the particular user.
     * Returns true if they are equal, false if they are not
     */
-    bool VerifyPassword( const string & userName, const string & password );
+    bool VerifyPassword( const std::string & userName, const std::string & password );
 
     /**
     * Adds a user and hashs the password and stores them in
     * mLoadedPasswords
     */
-    void AddUser( const string & userName, const string & password );
+    void AddUser( const std::string & userName, const std::string & password );
 
     /**
     * Deletes a user from mLoadedPasswords
     */
-    void DeleteUser( const string & userName );
+    void DeleteUser( const std::string & userName );
 
     /**
     * Changes the password of a user in
     * mLoadedPasswords
     */
-    void ChangeUserPassword( const string & userName, const string & newPassword );
+    void ChangeUserPassword( const std::string & userName, const std::string & newPassword );
 
     /**
     * Encrypts the incoming file's contents (based on the filename) if it can
@@ -113,7 +112,7 @@ public:
     * the incoming file's contents with the encrypted version.
     * It returns the filename of the file it ended up writing the encrypted version to.
     */
-    string EncryptFile( const string & fileNameToEncrypt, const string & hash, const string & outFileName = "" );
+    std::string EncryptFile( const std::string & fileNameToEncrypt, const std::string & hash, const std::string & outFileName = "" );
 
     /**
     * Decrypts the incoming file's contents (based on the filename) if it can
@@ -121,20 +120,20 @@ public:
     * the incoming file's contents with the decrypted version.
     * It returns the filename of the file it ended up writing the decrypted version to.
     */
-    string DecryptFile( const string & fileNameToDecrypt, const string & hash, const string & outFileName = "" );
+    std::string DecryptFile( const std::string & fileNameToDecrypt, const std::string & hash, const std::string & outFileName = "" );
 
     /**
     * Decrypts the incoming file's contents (based on the filename) if it can
     * access the file.
     * It returns the contents of the file in a decrypted form.
     */
-    string DecryptFileToString( const string & fileNameToDecrypt, const string & hash );
+    std::string DecryptFileToString( const std::string & fileNameToDecrypt, const std::string & hash );
 
     /**
     * Finds the user in the list of loaded users, and
-    * returns their hash, if no user is found a blank string is returned
+    * returns their hash, if no user is found a blank std::string is returned
     */
-    string GetUserHash( const string & userName );
+    std::string GetUserHash( const std::string & userName );
 
 // ACCESS (writing)
 // INQUIRY (reading)
@@ -146,12 +145,12 @@ protected:
 	 */
     SecurityManager(void);
 
-    string HashString( const string & incoming );
+    std::string HashString( const std::string & incoming );
 
 // PROTECTED VARIABLES
     static SecurityManager* _instance;
     PasswordHashMap mLoadedPasswords;
-    string mCurrentHashFilename;
+    std::string mCurrentHashFilename;
 
 private:
 // PRIVATE VARIABLES

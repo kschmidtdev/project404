@@ -22,6 +22,7 @@
  * Andrew Osborne, March 11, 2007     | Added mCharWindow & added CursorUpdate method
  * Mike Malyuk,    March 14, 2007     | Fixed range method to get latest.
  * Mike Malyuk,    March 14, 2007     | Removed defunct methods
+ * Karl Schmidt,   March 20 2007      | Major adding of consts and reference usage, rearranging includes
  */
 
 #ifndef UIGrid_h
@@ -32,14 +33,10 @@
 
 // PROJECT INCLUDES
 //
-#include <UIElement.h>
 #include <UITile.h>
 #include <EventListener.h>
 #include <UIImage.h>
-#include <UICharWindow.h>
-#include <GameEngine/Character.h>
 #include <GameEngine/Level.h>
-
 
 // LOCAL INCLUDES
 //
@@ -47,14 +44,15 @@
 // FORWARD REFERENCES
 //
 
+class UIElement;
+class UICharWindow;
+
 typedef vector<UITile> UITileVec;
 typedef UITileVec::iterator UITileItr;
 typedef vector<UIImage> UIImageVec;
 typedef UIImageVec::iterator UIImageItr;
 typedef vector<UIImage*> UIImagePtrVec;
 typedef UIImagePtrVec::iterator UIImagePtrItr;
-typedef vector<Point> PointVec;
-typedef PointVec::iterator PointItr;
 
 class UIGrid : public UIElement, public EventListener
 {
@@ -117,7 +115,7 @@ public:
     /**
      * Used for displaying an attacking range of motion
      */
-    void AddAttackRange( PointVec attackableSpots);
+    void AddAttackRange( const PointVec & attackableSpots );
 
     /**
      * Clear the attack range that appears

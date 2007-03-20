@@ -5,6 +5,8 @@
 
 #include <UIOverMapLayout.h>
 #include <UILayoutTestHelp.h>
+#include <SecurityManager.h>
+#include <Database/DBEngine.h>
 
 //
 // A generated test suite: Just write tests!

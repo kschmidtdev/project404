@@ -28,6 +28,7 @@
 
 // FORWARD REFERENCES
 //
+class UIText;
 
 
 class UILayoutTestHelp : public UIElement

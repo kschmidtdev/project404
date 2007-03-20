@@ -19,7 +19,6 @@
 
 #include <sstream>
 #include <string>
-using namespace std;
 
 // Utility Function to automatically convert most primitives to a STL string
 template< typename T >

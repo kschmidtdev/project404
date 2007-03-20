@@ -14,6 +14,7 @@
  * Mike Malyuk, February 11 2007 | Added DEF attr, Made CalcAction return non-pointer Point vector,
  *                                 Added Exhaust, Invigorate, Attack, MakeDead, GetExhaust, IsDead,
  *                                 and two booleans, mExhausted and mIsDead
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 #ifndef Character_h
@@ -36,6 +37,9 @@ using namespace std;
 // FORWARD REFERENCES
 //
 
+typedef std::vector<Point> PointVec;
+typedef PointVec::iterator PointItr;
+typedef PointVec::const_iterator PointConstItr;
 
 class Character
 {
@@ -70,7 +74,7 @@ enum Attr
     /**
      * Returns array of Points a character may have action on
 	 */
-    virtual vector<Point> CalcAction();
+    virtual const PointVec CalcAction();
 
     /**
      * Set character to exhausted, done moving or attack
@@ -92,12 +96,12 @@ enum Attr
     /**
      * Move Character to new position
 	 */
-    void Move(Point p);
+    void Move( const Point & p );
 
     /**
      * Set value of HP (damage)
 	 */
-    void SetHP(int value);
+    void SetHP( const int value);
 
     /**
      * Set value of Armor (new equips)
@@ -129,66 +133,66 @@ enum Attr
     /**
      * Get specified character attributes (use for calculations)
 	 */
-    int GetAttr(Attr value);
+    const int GetAttr(Attr value) const;
 
     /**
      * Get value of HP (for damage)
 	 */
-    int GetHP();
+    const int GetHP() const;
 
     /**
      * Get total possible HP
 	 */
-    int GetMaxHP();
+    const int GetMaxHP() const;
     /**
      * Get point currently at (used for move)
 	 */
-    Point GetPoint();
+    const Point & GetPoint() const;
 
     /**
      * Get name of class (for UI stuff, or limiting weapons)
 	 */
-    virtual string GetClassName();
+    virtual const string GetClassName() const;
 
     /**
      * Get Armor (for UI representation)
 	 */
-    ArmorItem* GetArmor();
+    ArmorItem* GetArmor() const;
 
     /**
      * Get Weapon (for UI representation)
 	 */
-    WeaponItem* GetWeapon();
+    WeaponItem* GetWeapon() const;
 
     /**
      * Get name of character (for UI)
 	 */
-    string GetName();
+    const string& GetName() const;
 
     /**
      * Get exhausted status of character
 	 */
-    bool GetExhaust();
+    const bool GetExhaust() const;
 
     /**
      * Get dead status of character
 	 */
-    bool IsDead();
+    const bool IsDead() const;
 
     /**
      * Get Level of character
 	 */
-    int GetLevel();
+    const int GetLevel() const;
 
     /**
      * Get Exp of character
 	 */
-    int GetExp();
+    const int GetExp() const;
 
     /**
      * Get target (AI)
 	 */
-    Character* GetTarget();
+    Character* GetTarget() const;
 
 protected:
 

@@ -12,12 +12,12 @@
  * Mike Malyuk, March 14, 2007   | Lazy man's immovables added!
  * Mike Malyuk, March 14, 2007   | Optimized one loop
  * Mike Malyuk, March 14, 2007   | Generalizing all methods to mMaxX and mMaxY
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
-
-#include <util.h>
 
 #include "Map.h"                                // class implemented
 
+#include <util.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -32,8 +32,9 @@ struct Node
 };
 
 Map::Map()
+: mTiles()
 {
-    mTiles.push_back( Tile(Point(0,0), "GRASS"));
+    /*mTiles.push_back( Tile(Point(0,0), "GRASS"));
     mTiles.push_back( Tile(Point(0,1), "GRASS"));
     mTiles.push_back( Tile(Point(0,2), "GRASS"));
     mTiles.push_back( Tile(Point(0,3), "GRASS"));
@@ -134,29 +135,29 @@ Map::Map()
     mTiles.push_back( Tile(Point(9,8), "GRASS"));
     mTiles.push_back( Tile(Point(9,9), "GRASS"));
     mMaxX = 10;
-    mMaxY = 10;
+    mMaxY = 10;*/
 }// Map
-Map::Map(vector<Tile> tiles)
-:mTiles(tiles)
+Map::Map( const TileVec & tiles)
+: mMaxX( 10 ),
+  mMaxY( 10 )
 {
-    mMaxX = 10;
-    mMaxY = 10;
+    mTiles.insert( mTiles.end(), tiles.begin(), tiles.end() );
 }
+
 Map::~Map()
 {
 }// ~Map
 
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================
-void Map::AddTiles(Tile tile)
+void Map::AddTiles( const Tile & tile )
 {
     mTiles.push_back(tile);
 }
 //============================= INQUIRY    ===================================
-Tile Map::GetTile(Point p)
+const Tile & Map::GetTile( const Point & p )
 {
-    vector<Tile>::iterator iter;
-    iter = mTiles.begin();
+    vector<Tile>::iterator iter = mTiles.begin();
     while( ((*iter).GetPoint()) != p && iter != mTiles.end())
     {
         iter++;
@@ -173,18 +174,18 @@ Tile Map::GetTile(Point p)
     }
 }
 
-vector<Tile> Map::GetTiles()
+const vector<Tile> & Map::GetTiles() const
 {
     return mTiles;
 }
 
-vector<Point> Map::GetMovementRange(vector<Character*> everyone, vector<Character*> enemies, Character* guy)
+const vector<Point> Map::GetMovementRange( const vector<Character*> & everyone, const vector<Character*> & enemies, Character* guy)
 {
     Node* nodes = new Node[mTiles.size()];
     Node* checked = new Node[mTiles.size()];
     vector<Point> possiblepoints;
     int maxMove = 0;
-    for(vector<Character*>::iterator citer = everyone.begin(); citer != everyone.end(); citer++)
+    for(vector<Character*>::const_iterator citer = everyone.begin(); citer != everyone.end(); citer++)
     {
         if(((*citer)->GetAttr(Character::AGI)/2) > maxMove)
         {
@@ -210,7 +211,7 @@ vector<Point> Map::GetMovementRange(vector<Character*> everyone, vector<Characte
         nodes[b] = something;
         b++;
     }
-    for(vector<Character*>::iterator citer = enemies.begin(); citer != enemies.end(); citer++)
+    for(vector<Character*>::const_iterator citer = enemies.begin(); citer != enemies.end(); citer++)
     {
         if(!((*citer)->IsDead()))
         {
@@ -318,7 +319,7 @@ vector<Point> Map::GetMovementRange(vector<Character*> everyone, vector<Characte
         if(nodes[i].pathweight <= (guy->GetAttr(Character::AGI)/2))
         {
             bool valid = true;
-            for(vector<Character*>::iterator eiter = everyone.begin(); eiter != everyone.end(); eiter++)
+            for(vector<Character*>::const_iterator eiter = everyone.begin(); eiter != everyone.end(); eiter++)
             {
                 if(nodes[i].p == (*eiter)->GetPoint() && nodes[i].p != guy->GetPoint())
                 {

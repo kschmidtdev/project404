@@ -29,6 +29,7 @@
  * Seung Woo Han, March 15 2007   | ~Level modified. Previously, it shut down DBEngine which shouldn't be.
  * Karl Schmidt, March 14 2007	  | Fixed a small iterator dereferencing causing crash bug
  * Mike Malyuk, March 16 2007     | Added fix to healer, no more annoying heal others when they do not need it.
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 #include <util.h>
@@ -51,11 +52,18 @@ Level::Level()
 {
 }// Level
 
-Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point> start)
-: mState(FREE), mParty(party), mEnemies(badguys), mStart(start), mCurChar(NULL),  mMyTurn(true), mDefaultConstructor( false )
+Level::Level( const CharacterPtrVec & party, const CharacterPtrVec & badguys, const PointVec & start)
+: mState(FREE),
+  mParty(party),
+  mEnemies(badguys),
+  mAttackArea(),
+  mStart(start),
+  mCurChar(NULL),
+  mMap(),
+  mMyTurn(true)
 {
-    vector<Character*>::iterator iter;
-    vector<Point>::iterator piter;
+    CharacterPtrConstItr iter;
+    PointConstItr piter;
     iter = mParty.begin();
     piter = mStart.begin();
     while(iter != mParty.end() && piter != mStart.end())
@@ -66,8 +74,15 @@ Level::Level(vector<Character*> party, vector<Character*> badguys, vector<Point>
     }
 }
 
-Level::Level(int battleNumber)
-: mState(FREE), mCurChar( NULL ), mMyTurn( true )
+Level::Level( const int battleNumber)
+: mState(FREE),
+  mParty(),
+  mEnemies(),
+  mAttackArea(),
+  mStart(),
+  mCurChar( NULL ),
+  mMap(),
+  mMyTurn( true )
 {
     DBEngine* DBE = DBEngine::GetInstance();
 
@@ -79,11 +94,11 @@ Level::Level(int battleNumber)
     }
 
     Point StartingPoint;
-    DBVector2D* StartingVector;
+    DBVector2D* StartingVector = NULL;
 
     //// Party Setting ////
-    vector<Character*>* PartyList = DBE->LoadParty( battleNumber ); // Get the pointer of party members in this level.
-    vector<Character*>::iterator Iter1; // Iterator.
+    CharacterPtrVec* PartyList = DBE->LoadParty( battleNumber ); // Get the pointer of party members in this level.
+    CharacterPtrConstItr Iter1; // Iterator.
     for (Iter1 = PartyList->begin(); Iter1 != PartyList->end(); Iter1++)
     {
         StartingVector = DBE->LoadPartyStartingPoint( battleNumber, *Iter1 );
@@ -94,8 +109,8 @@ Level::Level(int battleNumber)
     }
 
     //// Enemies Setting ////
-    vector<Character*>* EnemiesList = DBE->LoadEnemies( battleNumber ); // Get the pointer of enemy members in this level.
-    vector<Character*>::iterator Iter2; // Iterator.
+    CharacterPtrVec* EnemiesList = DBE->LoadEnemies( battleNumber ); // Get the pointer of enemy members in this level.
+    CharacterPtrConstItr Iter2; // Iterator.
     for (Iter2 = EnemiesList->begin(); Iter2 != EnemiesList->end(); Iter2++)
     {
         StartingVector = DBE->LoadEnemiesStartingPoint( battleNumber, *Iter2 );
@@ -118,7 +133,7 @@ void Level::TakeTurn()
 {
     if(mMyTurn == true)
     {
-        vector<Character*>::iterator iter;
+        CharacterPtrConstItr iter;
         iter = mEnemies.begin();
         while( iter != mEnemies.end())
         {
@@ -132,7 +147,7 @@ void Level::TakeTurn()
     }
     else
     {
-        vector<Character*>::iterator iter;
+        CharacterPtrConstItr iter;
         iter = mParty.begin();
         while( iter != mParty.end())
         {
@@ -146,12 +161,12 @@ void Level::TakeTurn()
     }
 }
 
-Character* Level::OnSelect(Point p)
+Character* Level::OnSelect( const Point & p )
 {
     //Need to select a character
     if(mState == FREE)
     {
-        vector<Character*>::iterator iter;
+        CharacterPtrConstItr iter;
         iter = mParty.begin();
         while( iter != mParty.end() && ((*iter)->GetPoint()) != p)
         {
@@ -176,9 +191,9 @@ Character* Level::OnSelect(Point p)
             cout << "Attacker " << mCurChar->GetName()  <<" (" << mCurChar->GetClassName() << ") moving to: " << mCurChar->GetPoint().GetX() << "," << mCurChar->GetPoint().GetY() << endl;
             if(mCurChar->GetClassName() != "Healer")
             {
-                vector<Point> attackArea = mCurChar->CalcAction();
-                vector<Character*>::iterator charIter;
-                vector<Point>::iterator iter2;
+                const PointVec& attackArea = mCurChar->CalcAction();
+                CharacterPtrConstItr charIter;
+                PointConstItr iter2;
                 iter2 = attackArea.begin();
                 charIter = mEnemies.begin();
                 //check if enemies are in range, if not exhaust character
@@ -203,9 +218,9 @@ Character* Level::OnSelect(Point p)
             }
             else if (mCurChar->GetClassName() == "Healer")
             {
-                vector<Point> healArea = mCurChar->CalcAction();
-                vector<Character*>::iterator charIter;
-                vector<Point>::iterator iter2;
+                const PointVec& healArea = mCurChar->CalcAction();
+                CharacterPtrConstItr charIter;
+                PointConstItr iter2;
                 iter2 = healArea.begin();
                 charIter = mParty.begin();
                 //check if enemies are in range, if not exhaust character
@@ -239,10 +254,10 @@ Character* Level::OnSelect(Point p)
     {
         if(mCurChar->GetClassName() != "Healer")
         {
-            vector<Point>::iterator iter;
-            vector<Point> attackArea = mCurChar->CalcAction();
-            vector<Character*>::iterator charIter;
-            vector<Point>::iterator iter2;
+            PointConstItr iter;
+            const PointVec& attackArea = mCurChar->CalcAction();
+            CharacterPtrConstItr charIter;
+            PointConstItr iter2;
             iter2 = attackArea.begin();
             charIter = mEnemies.begin();
             while(iter2 != attackArea.end() && (*iter2) != p)
@@ -273,10 +288,10 @@ Character* Level::OnSelect(Point p)
         }
         else if(mCurChar->GetClassName() == "Healer")
         {
-            vector<Point>::iterator iter;
-            vector<Point> healArea = mCurChar->CalcAction();
-            vector<Character*>::iterator charIter;
-            vector<Point>::iterator iter2;
+            PointConstItr iter;
+            const PointVec & healArea = mCurChar->CalcAction();
+            CharacterPtrConstItr charIter;
+            PointConstItr iter2;
             iter2 = healArea.begin();
             charIter = mParty.begin();
             while(iter2 != healArea.end() && (*iter2) != p)
@@ -317,12 +332,12 @@ Character* Level::OnSelect(Point p)
     return NULL;
 }
 
-Character* Level::OnAISelect(Point p)
+Character* Level::OnAISelect( const Point & p )
 {
     //Need to select a character
     if(mState == AIFREE)
     {
-        vector<Character*>::iterator iter;
+        CharacterPtrConstItr iter;
         iter = mEnemies.begin();
         while( iter != mEnemies.end() && ((*iter)->GetPoint()) != p)
         {
@@ -346,9 +361,9 @@ Character* Level::OnAISelect(Point p)
             cout << "Attacker " << mCurChar->GetName()  <<" (" << mCurChar->GetClassName() << ") moving to: " << mCurChar->GetPoint().GetX() << "," << mCurChar->GetPoint().GetY() << endl;
             if(mCurChar->GetClassName() != "Healer")
             {
-                vector<Point> attackArea = mCurChar->CalcAction();
-                vector<Character*>::iterator charIter;
-                vector<Point>::iterator iter2;
+                const PointVec& attackArea = mCurChar->CalcAction();
+                CharacterPtrConstItr charIter;
+                PointConstItr iter2;
                 iter2 = attackArea.begin();
                 charIter = mParty.begin();
                 //check if enemies are in range, if not exhaust character
@@ -373,9 +388,9 @@ Character* Level::OnAISelect(Point p)
             }
             else if (mCurChar->GetClassName() == "Healer")
             {
-                vector<Point> healArea = mCurChar->CalcAction();
-                vector<Character*>::iterator charIter;
-                vector<Point>::iterator iter2;
+                const PointVec & healArea = mCurChar->CalcAction();
+                CharacterPtrConstItr charIter;
+                PointConstItr iter2;
                 iter2 = healArea.begin();
                 charIter = mEnemies.begin();
                 //check if enemies are in range, if not exhaust character
@@ -409,10 +424,10 @@ Character* Level::OnAISelect(Point p)
     {
         if(mCurChar->GetClassName() != "Healer")
         {
-            vector<Point>::iterator iter;
-            vector<Point> attackArea = mCurChar->CalcAction();
-            vector<Character*>::iterator charIter;
-            vector<Point>::iterator iter2;
+            PointConstItr iter;
+            const PointVec& attackArea = mCurChar->CalcAction();
+            CharacterPtrConstItr charIter;
+            PointConstItr iter2;
             iter2 = attackArea.begin();
             charIter = mParty.begin();
             while(iter2 != attackArea.end() && (*iter2) != p)
@@ -443,10 +458,10 @@ Character* Level::OnAISelect(Point p)
         }
         else if(mCurChar->GetClassName() == "Healer")
         {
-            vector<Point>::iterator iter;
-            vector<Point> healArea = mCurChar->CalcAction();
-            vector<Character*>::iterator charIter;
-            vector<Point>::iterator iter2;
+            PointConstItr iter;
+            const PointVec& healArea = mCurChar->CalcAction();
+            CharacterPtrConstItr charIter;
+            PointConstItr iter2;
             iter2 = healArea.begin();
             charIter = mEnemies.begin();
             while(iter2 != healArea.end() && (*iter2) != p)
@@ -491,70 +506,66 @@ Character* Level::OnAISelect(Point p)
         return mState;
     }
 
-    bool Level::GetTurn()
+    const bool Level::GetTurn() const
     {
         return mMyTurn;
     }
 
-    bool Level::GetLoseCondition()
+    const bool Level::GetLoseCondition() const
     {
-        vector<Character*>::iterator iter;
-
-        iter = mParty.begin();
-
         unsigned int allDead = 0;
-
-        while(iter != mParty.end())
+        for( CharacterPtrConstItr i = mParty.begin(); i != mParty.end(); ++i )
         {
-            if((*iter)->IsDead())
+            if( (*i)->IsDead() )
             {
-                allDead++;
+                ++allDead;
             }
-            iter ++;
         }
-        if(allDead == mParty.size())
+
+        if( allDead == mParty.size() )
         {
             return true;
         }
+
         return false;
     }
-    bool Level::GetWinCondition()
+
+    const bool Level::GetWinCondition() const
     {
-        vector<Character*>::iterator iter;
-
-        iter = mEnemies.begin();
-
         unsigned int allDead = 0;
 
-        while(iter != mEnemies.end())
+        for( CharacterPtrConstItr i = mEnemies.begin(); i != mEnemies.end(); ++i )
         {
-            if((*iter)->IsDead())
+            if( (*i)->IsDead() )
             {
-                allDead++;
+                ++allDead;
             }
-            iter++;
         }
-        if(allDead == mEnemies.size())
+
+        if( allDead == mEnemies.size() )
         {
             return true;
         }
+
         return false;
     }
-    vector<Character*> Level::GetEveryone()
+
+    const CharacterPtrVec Level::GetEveryone() const
     {
-        vector<Character*> temp = mParty;
+        CharacterPtrVec temp;
+        temp.insert( temp.end(), mParty.begin(), mParty.end() );
         temp.insert(temp.end(),mEnemies.begin(),mEnemies.end());
         return temp;
     }
 
-    vector<Point> Level::GetAttackArea()
+    const PointVec& Level::GetAttackArea() const
     {
         return mAttackArea;
     }
 
-    bool Level::AllExhaustedParty()
+    const bool Level::AllExhaustedParty()
     {
-        vector<Character*>::iterator iter;
+        CharacterPtrConstItr iter;
         iter = mParty.begin();
         unsigned int count = 0;
         while(iter != mParty.end())
@@ -573,9 +584,9 @@ Character* Level::OnAISelect(Point p)
         return false;
     }
 
-    bool Level::AllExhaustedEnemies()
+    const bool Level::AllExhaustedEnemies()
     {
-        vector<Character*>::iterator iter;
+        CharacterPtrConstItr iter;
         iter = mEnemies.begin();
         unsigned int count = 0;
         while(iter != mEnemies.end())
@@ -594,42 +605,52 @@ Character* Level::OnAISelect(Point p)
         return false;
     }
 
-    Character* Level::PointHasPerson(Point p)
+    Character* Level::PointHasPerson( const Point & p ) const
     {
-        vector<Character*>::iterator iter;
-        iter = mEnemies.begin();
-        while(iter!=mEnemies.end() && (*iter)->GetPoint() != p)
+        Character* charToFind = NULL;
+        for( CharacterPtrConstItr i = mEnemies.begin(); i != mEnemies.end(); ++i )
         {
-            iter++;
+            if( (*i)->GetPoint() == p )
+            {
+                charToFind = *i;
+                break;
+            }
         }
-        if(iter!=mEnemies.end() && (*iter)->GetPoint() == p && (*iter)->IsDead())
+
+        if( charToFind != NULL && charToFind->IsDead() )
         {
-            return (*iter);
+            return charToFind;
         }
+
         return NULL;
     }
 
-    Character* Level::AIPointHasPerson(Point p)
+    Character* Level::AIPointHasPerson( const Point & p ) const
     {
-        vector<Character*>::iterator iter;
-        iter = mParty.begin();
-        while(iter!=mParty.end() && (*iter)->GetPoint() != p)
+        Character* charToFind = NULL;
+        for( CharacterPtrConstItr i = mParty.begin(); i != mParty.end(); ++i )
         {
-            iter++;
+            if( (*i)->GetPoint() == p )
+            {
+                charToFind = *i;
+                break;
+            }
         }
-        if(iter!=mParty.end() && (*iter)->GetPoint() == p && (*iter)->IsDead())
+
+        if( charToFind != NULL && charToFind->IsDead() )
         {
-            return (*iter);
+            return charToFind;
         }
+
         return NULL;
     }
 
-    vector<Character*> Level::GetEnemies()
+    const CharacterPtrVec& Level::GetEnemies() const
     {
         return mEnemies;
     }
 
-    vector<Character*> Level::GetParty()
+    const CharacterPtrVec& Level::GetParty() const
     {
         return mParty;
     }

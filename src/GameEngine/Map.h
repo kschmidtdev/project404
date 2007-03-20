@@ -13,6 +13,7 @@
  * Mike Malyuk, March 10, 2007   | Added Character include and Map movement finder
  * Mike Malyuk, March 14, 2007   | Changed parameters on GetMovementRange
  * Mike Malyuk, March 14, 2007   | Added GetMaxX() and GetMaxY()
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 #ifndef Map_h
@@ -21,7 +22,6 @@
 // SYSTEM INCLUDES
 //
 #include <vector>
-#include "limits.h"
 // PROJECT INCLUDES
 //
 #include "Tile.h"
@@ -33,6 +33,7 @@
 // FORWARD REFERENCES
 //
 
+typedef vector<Tile> TileVec;
 
 class Map
 {
@@ -47,7 +48,7 @@ public:
     /**
      * Constructor
 	 */
-    Map(vector<Tile> tiles);
+    Map( const TileVec & tiles );
 
     /**
      * Destructor.
@@ -56,15 +57,15 @@ public:
 
 // OPERATIONS
 // ACCESS (writing)
-    void AddTiles(Tile tile);
+    void AddTiles( const Tile & tile);
 // INQUIRY (reading)
-    Tile GetTile(Point p);
-    vector<Tile> GetTiles();
-    vector<Point> GetMovementRange(vector<Character*> everyone, vector<Character*> enemies, Character* guy);
-    int GetMaxX(){return mMaxX;}
-    int GetMaxY(){return mMaxY;}
+    const Tile & GetTile( const Point & p);
+    const TileVec & GetTiles() const;
+    const vector<Point> GetMovementRange( const vector<Character*>& everyone, const vector<Character*> & enemies, Character* guy);
+    const int GetMaxX() const {return mMaxX;}
+    const int GetMaxY() const {return mMaxY;}
 protected:
-    vector<Tile> mTiles;
+    TileVec mTiles;
     int mMaxX;
     int mMaxY;
 private:

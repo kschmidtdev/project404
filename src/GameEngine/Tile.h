@@ -8,6 +8,7 @@
  * Authors:
  * Mike Malyuk, February 9, 2007 | Initial design
  * Mike Malyuk, March 8 2007     | Added Tile mPic string and getter, allows UI to create easier
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 #ifndef Tile_h
@@ -16,8 +17,7 @@
 // SYSTEM INCLUDES
 //
 #include <string>
-#include <iostream>
-using namespace std;
+
 // PROJECT INCLUDES
 //
 #include "Point.h"
@@ -26,7 +26,6 @@ using namespace std;
 
 // FORWARD REFERENCES
 //
-
 
 class Tile
 {
@@ -41,7 +40,7 @@ public:
     /**
      * Tile Constructor
      */
-    Tile(Point p, string type);
+    Tile( const Point & p, const std::string & type );
 
     /**
      * Destructor.
@@ -51,15 +50,15 @@ public:
 // OPERATIONS
 // ACCESS (writing)
 // INQUIRY (reading)
-    Point GetPoint();
-    int GetWeight();
-    string GetType();
-    string GetPic();
+    const Point& GetPoint() const;
+    const int GetWeight() const;
+    const std::string& GetType() const;
+    const std::string& GetPic() const;
 protected:
 // PROTECTED VARIABLES
    Point mTilePoint;
-   string mType;
-   string mPic;
+   std::string mType;
+   std::string mPic;
    int mWeight;
 private:
 // PRIVATE VARIABLES

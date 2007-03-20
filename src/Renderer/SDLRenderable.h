@@ -14,6 +14,7 @@
  * Authors:
  * Karl Schmidt, February 9 2007, Initial creation of header
  * Andrew Osborne, February 10 2007, added SDL include
+ * Karl Schmidt, March 20 2007 | Added virtual destructor
  */
 
 #ifndef SDLRenderable_h
@@ -41,6 +42,8 @@ public:
 // OPERATORS
 
 // OPERATIONS
+
+    virtual ~SDLRenderable() { };
 
     /**
      * To be overritten by an inheriting class,

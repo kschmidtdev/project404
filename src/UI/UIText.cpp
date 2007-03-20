@@ -6,6 +6,7 @@
  * Authors:
  * Andrew Osborne, February 14 2007 | Initial Creation
  * Andrew Osborne, March 9 2007 | Added new ChangeText command that allows you to change all parameters
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 
@@ -29,7 +30,7 @@ UIText::UIText()
     mSize = 12;
 }// UIText
 
-UIText::UIText( const string text, int size, int r, int g, int b)
+UIText::UIText( const string & text, const int size, const int r, const int g, const int b)
 : UIElement()
 {
     mRed = r;
@@ -40,7 +41,7 @@ UIText::UIText( const string text, int size, int r, int g, int b)
     mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
 }
 
-UIText::UIText( const string text)
+UIText::UIText( const string & text)
 : UIElement()
 {
     mRed = 0;
@@ -69,7 +70,7 @@ UIText::~UIText()
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================
 
-void UIText::ChangeText(const string newText)
+void UIText::ChangeText(const string & newText)
 {
     mText = newText;
     if( mElementImage )
@@ -79,7 +80,7 @@ void UIText::ChangeText(const string newText)
     mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
 }
 
-void UIText::ChangeText(const string newText, int s, int r, int g, int b)
+void UIText::ChangeText(const string & newText, const int s, const int r, const int g, const int b)
 {
     mText = newText;
     mSize = s;
@@ -94,7 +95,7 @@ void UIText::ChangeText(const string newText, int s, int r, int g, int b)
 }
 
 
-void UIText::SetColour(int r, int g, int b)
+void UIText::SetColour(const int r, const int g, const int b)
 {
     mRed = r;
     mGreen = g;
@@ -106,7 +107,7 @@ void UIText::SetColour(int r, int g, int b)
     mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
 }
 
-void UIText::SetSize(int s)
+void UIText::SetSize(const int s)
 {
     mSize = s;
     if( mElementImage )

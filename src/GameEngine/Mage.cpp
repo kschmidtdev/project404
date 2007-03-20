@@ -9,6 +9,7 @@
  *                                 Added variables for mIsDead, mExhausted and new attr DEF
  * Mike Malyuk, February 14 2007 | On level up, curHP renewed.
  * Mike Malyuk, February 14 2007 | Levelling up is couted
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 #include <util.h>
@@ -40,7 +41,7 @@ Mage::Mage()
     mTarget = NULL;
 }// Mage
 
-Mage::Mage(string name, int level, WeaponItem* weapon, ArmorItem* armor)
+Mage::Mage(const string & name, const int level, WeaponItem* weapon, ArmorItem* armor)
 {
     mName = name;
     mLevel = 1;
@@ -88,9 +89,9 @@ void Mage::LevelUp()
     mLevel++;
     cout << "Mage (" << mName << ") has levelled up to level " << mLevel << endl;
 }
-vector<Point> Mage::CalcAction()
+const PointVec Mage::CalcAction()
 {
-    vector<Point> points;
+    PointVec points;
     points.push_back(Point(mCurPos.GetX()-1, mCurPos.GetY()));
     points.push_back(Point(mCurPos.GetX()+1, mCurPos.GetY()));
     points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()-1));
@@ -107,10 +108,10 @@ vector<Point> Mage::CalcAction()
 }
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
-    string Mage::GetClassName()
-    {
-        return "Mage";
-    }
+const string Mage::GetClassName() const
+{
+    return "Mage";
+}
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

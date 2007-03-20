@@ -10,24 +10,34 @@
  * Mike Malyuk, March 10, 2007    | Added map to calculate movement
  * Mike Malyuk, March 14, 2007    | Dijkstras method changed, added no params
  * Mike Malyuk, March 14, 2007    | Huge update to AI, now it acts smarter (better than the jig anyway)
+ * Karl Schmidt, March 20 2007    | Major adding of consts and reference usage, rearranging includes
  */
+
+#include "AIControl.h"                                // class implemented
 
 #include <util.h>
 
-#include "AIControl.h"                                // class implemented
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
+
+#include <GameEngine/Character.h>
+#include <UI/UIGrid.h>
+#include <GameEngine/Level.h>
+
 
 const int AI_FAKE_TIME_WAIT = 500;
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
-AIControl::AIControl(Level* level, Map map):mMap(map), mLevel(level)
+AIControl::AIControl(Level* level, const Map & map):mMap(map), mLevel(level)
 {
 }// AIControl
+
 Point AIControl::DoAction()
 {
     int curState = mLevel->ReturnState();
-    vector<Character*> enemies;
     vector<Point> points;
     vector<Point> archPoints;
     Point p;
@@ -39,8 +49,9 @@ Point AIControl::DoAction()
     switch(curState)
     {
         case Level::AIFREE:
-            enemies = mLevel->GetEnemies();
-            for(vector<Character*>::iterator eiter = enemies.begin(); eiter != enemies.end(); eiter++)
+        {
+            const CharacterPtrVec& enemies = mLevel->GetEnemies();
+            for(CharacterPtrConstItr eiter = enemies.begin(); eiter != enemies.end(); eiter++)
             {
                 if((*eiter)->GetExhaust() == false)
                 {
@@ -52,13 +63,17 @@ Point AIControl::DoAction()
                 }
             }
             return Point(-30,-30);
+        }
+        break;
+
         case Level::AIMOVE:
+        {
             points = mMap.GetMovementRange(mLevel->GetEveryone(), mLevel->GetParty(), mLevel->GetCurCharacter());
             //If not a healer, push back enemies to look for
             if(mLevel->GetCurCharacter()->GetClassName() != "Healer")
             {
-                enemies = mLevel->GetParty();
-                for(vector<Character*>::iterator citer = enemies.begin(); citer != enemies.end(); citer++)
+                const CharacterPtrVec& enemies = mLevel->GetParty();
+                for(CharacterPtrConstItr citer = enemies.begin(); citer != enemies.end(); citer++)
                 {
                     if((*citer)->GetPoint() != Point(-5, -5))
                     {
@@ -71,7 +86,7 @@ Point AIControl::DoAction()
                 //if I don't have a target or I killed my target get a new one
                 if(mLevel->GetCurCharacter()->GetTarget() == NULL || mLevel->GetCurCharacter()->GetTarget()->GetPoint() == Point(-5, -5))
                 {
-                    for(vector<Character*>::iterator citer = enemies.begin(); citer != enemies.end(); citer++)
+                    for(CharacterPtrConstItr citer = enemies.begin(); citer != enemies.end(); citer++)
                     {
                         //make sure he ain't dead!
                         if((*citer)->GetPoint() != Point(-5, -5))
@@ -91,11 +106,11 @@ Point AIControl::DoAction()
             }
             else //I'm a healer lets get my friends
             {
-                enemies = mLevel->GetEnemies();
+                const CharacterPtrVec& enemies = mLevel->GetEnemies();
                 //If I don't have a target or my target is dead, get a new one!
                 if(mLevel->GetCurCharacter()->GetTarget() == NULL || mLevel->GetCurCharacter()->GetTarget()->GetPoint() == Point(-5, -5))
                 {
-                    for(vector<Character*>::iterator citer = enemies.begin(); citer != enemies.end(); citer++)
+                    for(CharacterPtrConstItr citer = enemies.begin(); citer != enemies.end(); citer++)
                     {
                         //make sure he ain't dead and he needs healin!
                         if((*citer)->GetPoint() != Point(-5, -5) && (*citer)->GetHP() < (*citer)->GetMaxHP() && (*citer)->GetPoint() != mLevel->GetCurCharacter()->GetPoint())
@@ -116,7 +131,7 @@ Point AIControl::DoAction()
             //if I'm not an archer, I can run right up to the guy
             if(mLevel->GetCurCharacter()->GetClassName() != "Archer")
             {
-                for(vector<Point>::iterator piter = points.begin(); piter != points.end(); piter++)
+                for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
                     {
                         if((sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2))) < distance)
                         {
@@ -127,7 +142,7 @@ Point AIControl::DoAction()
             }
             else //I'm an archer, if I run right beside them I can't attack, so lets not do that
             {
-                for(vector<Point>::iterator piter = points.begin(); piter != points.end(); piter++)
+                for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
                 {
                     if((*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX(), mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY() + 1) &&
                         (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX() + 1, mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()) &&
@@ -138,7 +153,7 @@ Point AIControl::DoAction()
                         archPoints.push_back((*piter));
                     }
                 }
-                for(vector<Point>::iterator piter = archPoints.begin(); piter != archPoints.end(); piter++)
+                for(PointConstItr piter = archPoints.begin(); piter != archPoints.end(); piter++)
                 {
                         if((sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2))) < distance)
                         {
@@ -149,16 +164,19 @@ Point AIControl::DoAction()
             }
             points.clear();
             return closest;
+        }
+        break;
 
         case Level::AIATTACK:
-            vector<Point> points = mLevel->GetAttackArea();
+        {
+            const PointVec& points = mLevel->GetAttackArea();
             Character* curChar = mLevel->GetCurCharacter();
             if(curChar->GetClassName() != "Healer")
             {
-                vector<Character*> party = mLevel->GetParty();
-                for(vector<Point>::iterator piter = points.begin(); piter != points.end(); piter++)
+                const CharacterPtrVec & party = mLevel->GetParty();
+                for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
                 {
-                    for(vector<Character*>::iterator eiter = party.begin(); eiter != party.end(); eiter++)
+                    for(CharacterPtrConstItr eiter = party.begin(); eiter != party.end(); eiter++)
                     {
                         if((*piter) == (*eiter)->GetPoint())
                         {
@@ -169,10 +187,10 @@ Point AIControl::DoAction()
             }
             else
             {
-                vector<Character*> enemy = mLevel->GetEnemies();
-                for(vector<Point>::iterator piter = points.begin(); piter != points.end(); piter++)
+                const CharacterPtrVec & enemy = mLevel->GetEnemies();
+                for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
                 {
-                    for(vector<Character*>::iterator eiter = enemy.begin(); eiter != enemy.end(); eiter++)
+                    for(CharacterPtrConstItr eiter = enemy.begin(); eiter != enemy.end(); eiter++)
                     {
                         if((*piter) == (*eiter)->GetPoint())
                         {
@@ -182,6 +200,8 @@ Point AIControl::DoAction()
                 }
             }
             return Point(-30, -30);
+        }
+        break;
     }
     return Point(-30, -30);
 }

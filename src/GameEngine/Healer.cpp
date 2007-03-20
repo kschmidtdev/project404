@@ -11,6 +11,7 @@
  * Mike Malyuk, February 14 2007 | On level up more verbose, also added "Heal" method.
  * Mike Malyuk, March 16 2007    | Be nice if you leveled up eh!
  * Mike Malyuk, March 16 2007    | Healer may now heal self. Go healer! Couple other fixes for goodness
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  */
 
 #include <util.h>
@@ -42,7 +43,7 @@ Healer::Healer()
     mTarget = NULL;
 }// Healer
 
-Healer::Healer(string name, int level, WeaponItem* weapon, ArmorItem* armor)
+Healer::Healer(const string & name, const int level, WeaponItem* weapon, ArmorItem* armor)
 {
     mName = name;
     mLevel = 1;
@@ -90,9 +91,9 @@ void Healer::LevelUp()
     mLevel++;
     cout << "Healer (" << mName << ") has levelled up to level " << mLevel << endl;
 }
-vector<Point> Healer::CalcAction()
+const PointVec Healer::CalcAction()
 {
-    vector<Point> points;
+    PointVec points;
     points.push_back(Point(mCurPos.GetX()-1, mCurPos.GetY()));
     points.push_back(Point(mCurPos.GetX()+1, mCurPos.GetY()));
     points.push_back(Point(mCurPos.GetX(), mCurPos.GetY()-1));
@@ -131,10 +132,10 @@ void Healer::Heal(Character* buddy)
 }
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
-    string Healer::GetClassName()
-    {
-        return "Healer";
-    }
+const string Healer::GetClassName() const
+{
+    return "Healer";
+}
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

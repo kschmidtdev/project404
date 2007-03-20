@@ -36,10 +36,6 @@
 // FORWARD REFERENCES
 //
 
-typedef vector<Character*> CharacterPtrVec;
-typedef CharacterPtrVec::iterator CharacterPtrItr;
-
-
 class UIBattleScreenLayout : public UILayout
 {
 public:
