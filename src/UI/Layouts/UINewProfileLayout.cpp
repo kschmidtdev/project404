@@ -9,6 +9,7 @@
 #include "UINewProfileLayout.h"                                // class implemented
 #include "UIText.h"
 #include "UIManager.h"
+#include "UIAlphabetGrid.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -16,11 +17,18 @@
 
 UINewProfileLayout::UINewProfileLayout()
 {
-    UIText* temp = new UIText("New Profile Layout", 20, 255, 0, 0);
+    UIElement* temp = new UIText("New Profile Layout", 20, 255, 0, 0);
 
     mElements.push_back(temp);
 
+    UIAlphabetGrid *newAlpha = new UIAlphabetGrid();
+    newAlpha->SetPos( Point(0, 100) );
+    mDefaultEventListener = newAlpha;
+
+    mElements.push_back(newAlpha);
+
     mName = "NewProfile";
+
 }// UINewProfileLayout
 
 
@@ -33,7 +41,7 @@ UINewProfileLayout::~UINewProfileLayout()
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================
 
-void UINewProfileLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
+/*void UINewProfileLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
 
     switch (evt)
@@ -43,9 +51,11 @@ void UINewProfileLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
             UIManager::GetInstance()->PushLayout("MainMenu");
             // Eventually should also push the SetPassword Layout, to update/set password
             break;
+        default:
+            break;
     }
 
-}
+}*/
 
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================

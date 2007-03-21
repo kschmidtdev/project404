@@ -66,7 +66,7 @@ public:
     /**
      * Listens for Key Press from User
     */
-    virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
+    //virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
 
 // ACCESS (writing)
 // INQUIRY (reading)

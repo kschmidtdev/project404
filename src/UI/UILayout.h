@@ -18,6 +18,7 @@
  * Karl Schmidt, February 13 2007 | Added typedefs instead of lots of vector<Type>
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  * Mike Malyuk, February 15 2007  | Added virtual function to get at Grid, look at this for v2
+ * Andrew Osborne, March 21 2007  | Added SetEventHandler to allow easier passing of "event handling" among UIElements
  */
 
 #ifndef UILayout_h
@@ -83,6 +84,12 @@ public:
     virtual UIGrid* GetGrid(){return NULL;};
 
 // ACCESS (writing)
+
+    /**
+     * Sets current event handler
+    */
+    virtual void SetEventHandler( EventListener *e ) { mDefaultEventListener=e; }
+
 // INQUIRY (reading)
     string GetName(void);
 
