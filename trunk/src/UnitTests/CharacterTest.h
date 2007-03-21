@@ -118,7 +118,10 @@ public:
         //show Max different from Cur
         character.SetHP(10);
         joeshmoe.Attack(&character);
-        TS_ASSERT_EQUALS(character.GetHP(), 7)
+        int power = joeshmoe.GetAttr(Character::POW);
+
+        //now with random, should not have hp higher than this value
+        TS_ASSERT_LESS_THAN_EQUALS(character.GetHP(), 10 - (power-2))
         TS_ASSERT_EQUALS(character.GetMaxHP(), 10);
     }
 
