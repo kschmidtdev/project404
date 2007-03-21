@@ -18,6 +18,9 @@
 
 #include <util.h>
 
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
 
 #include "Character.h"                                // class implemented
 
@@ -73,18 +76,28 @@ void Character::MakeDead()
 }
 void Character::Attack(Character* another)
 {
+    int randPOW;
+    if(rand()%(100/(mAttributes[AGI]/3)) == 0)
+    {
+        randPOW = (rand()%5-2) + mAttributes[POW];
+        randPOW = randPOW*1.5;
+    }
+    else
+    {
+        randPOW = (rand()%5-2) + mAttributes[POW];
+    }
     cout << "Attacking " << GetClassName() <<" (" << GetName() << ")'s HP:" << GetHP() << endl;
     cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ")'s HP:" << another->GetHP() << endl;
     if(GetClassName() == "Knight")
     {
-        if(mAttributes[POW] - (another->GetAttr(Character::DEF)/2) <= 0)
+        if(randPOW - (another->GetAttr(Character::DEF)/2) <= 0)
         {
             cout << "Attacking " << GetClassName() <<" (" << GetName() << ") did 0 damage" << endl;
         }
         else
         {
-        another->SetHP(another->GetHP()-mAttributes[POW]+(another->GetAttr(Character::DEF)/2));
-        cout << "Attacking " << GetClassName() <<" (" << GetName() << ") did " << mAttributes[POW]-(another->GetAttr(Character::DEF)/2) << " damage" << endl;
+        another->SetHP(another->GetHP()-randPOW+(another->GetAttr(Character::DEF)/2));
+        cout << "Attacking " << GetClassName() <<" (" << GetName() << ") did " << randPOW-(another->GetAttr(Character::DEF)/2) << " damage" << endl;
         }
         if(another->GetHP() <= 0)
         {
@@ -106,14 +119,23 @@ void Character::Attack(Character* another)
         {
             if(another->GetClassName() == "Knight")
             {
-                if(another->GetAttr(Character::POW) - (mAttributes[DEF]/2) <= 0)
+                if(rand()%(100/(another->GetAttr(Character::AGI)/3)) == 0)
+                    {
+                        randPOW = (rand()%5-2) + another->GetAttr(Character::POW);
+                        randPOW = randPOW*1.5;
+                    }
+                    else
+                    {
+                        randPOW = (rand()%5-2) + another->GetAttr(Character::POW);
+                    }
+                if(randPOW - (mAttributes[DEF]/2) <= 0)
                 {
                     cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ") did 0 damage" << endl;
                 }
                 else
                 {
-                cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ") did " << another->GetAttr(Character::POW) - (mAttributes[DEF]/2) << " damage" << endl;
-                mCurHP = (mCurHP-another->GetAttr(Character::POW) + (mAttributes[DEF]/2));
+                cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ") did " << randPOW - (mAttributes[DEF]/2) << " damage" << endl;
+                mCurHP = (mCurHP-randPOW + (mAttributes[DEF]/2));
                 }
                 if (mCurHP <= 0)
                 {
@@ -136,14 +158,14 @@ void Character::Attack(Character* another)
     }
     else
     {
-        if(mAttributes[POW] - (another->GetAttr(Character::DEF)/2) <= 0)
+        if(randPOW - (another->GetAttr(Character::DEF)/2) <= 0)
         {
             cout << "Attacking " << GetClassName() <<" (" << GetName() << ") did 0 damage" << endl;
         }
         else
         {
-        another->SetHP(another->GetHP()-mAttributes[POW]+(another->GetAttr(Character::DEF)/2));
-        cout << "Attacking " << GetClassName() <<" (" << GetName() << ") did " << mAttributes[POW]-(another->GetAttr(Character::DEF)/2) << " damage" << endl;
+        another->SetHP(another->GetHP()-randPOW+(another->GetAttr(Character::DEF)/2));
+        cout << "Attacking " << GetClassName() <<" (" << GetName() << ") did " << randPOW-(another->GetAttr(Character::DEF)/2) << " damage" << endl;
         }
         if(another->GetHP() <= 0)
         {
