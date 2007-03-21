@@ -61,6 +61,12 @@ public:
 
 
 // OPERATIONS
+
+    /**
+     * Method that changes text .
+	 */
+    void CenterText(UIElement* e);
+
 // ACCESS (writing)
 
     /**

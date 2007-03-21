@@ -68,6 +68,47 @@ UIText::~UIText()
 
 
 //============================= OPERATIONS ===================================
+
+void UIText::CenterText(UIElement* e)
+{
+
+    // Find Text width
+    //SDL_Surface *textSurface = mMessage->GetElement();
+
+    int textWidth, textHeight;
+    if( mElementImage )
+    {
+        textWidth = mElementImage->w;
+        textHeight = mElementImage->h;
+    }
+    else
+    {
+        textWidth = textHeight = 0;
+    }
+
+    // Find Image Width
+    int imageWidth, imageHeight;
+    SDL_Surface* s = e->GetElement();
+    if (s)
+    {
+        imageWidth = s->w;
+        imageHeight = s->h;
+    }
+    else
+    {
+        imageWidth = imageHeight = 0;
+    }
+
+    // Find Offset Point
+    Point offset;
+    offset.Set( (int) (imageWidth - textWidth) / 2, (int) (imageHeight - textHeight) / 2);
+
+    // Move to position
+    SetPos( e->GetPos() + offset );
+
+}
+
+
 //============================= ACCESS     ===================================
 
 void UIText::ChangeText(const string & newText)
