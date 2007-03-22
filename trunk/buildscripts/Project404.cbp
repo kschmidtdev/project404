@@ -354,6 +354,15 @@
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
 		</Unit>
+		<Unit filename="..\src\GameEngine\City.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\GameEngine\GameEngine.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
@@ -733,6 +742,15 @@
 			<Option target="UnitTest_Debug" />
 			<Option target="UnitTest_Release" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIArmoryLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UIBattleScreenLayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
@@ -756,8 +774,26 @@
 			<Option target="UnitTest_Debug" />
 			<Option target="UnitTest_Release" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UICreditsLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UILoadGameLayout.cpp">
 			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UILoadGameLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="UnitTest_Debug" />
@@ -770,12 +806,30 @@
 			<Option target="UnitTest_Debug" />
 			<Option target="UnitTest_Release" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UILoadProfileLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UILoseLayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UILoseLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UI\Layouts\UIMainMenuLayout.cpp">
 			<Option compilerVar="CPP" />
@@ -800,8 +854,26 @@
 			<Option target="UnitTest_Debug" />
 			<Option target="UnitTest_Release" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIMarketLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UINewProfileLayout.cpp">
 			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UINewProfileLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="UnitTest_Debug" />
@@ -814,6 +886,15 @@
 			<Option target="UnitTest_Debug" />
 			<Option target="UnitTest_Release" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIOptionsLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UIOverMapLayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
@@ -821,8 +902,26 @@
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIOverMapLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UIPartyStatusLayout.cpp">
 			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIPartyStatusLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="UnitTest_Debug" />
@@ -835,8 +934,26 @@
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIPasswordVerificationLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UIProfileMenuLayout.cpp">
 			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIProfileMenuLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="UnitTest_Debug" />
@@ -849,12 +966,30 @@
 			<Option target="UnitTest_Debug" />
 			<Option target="UnitTest_Release" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UISaveGameLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UISetPasswordLayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UISetPasswordLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UI\Layouts\UITitleScreenLayout.cpp">
 			<Option compilerVar="CPP" />
@@ -879,8 +1014,26 @@
 			<Option target="UnitTest_Debug" />
 			<Option target="UnitTest_Release" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UITutorialLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\Layouts\UITutorialMenuLayout.cpp">
 			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UI\Layouts\UITutorialMenuLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="UnitTest_Debug" />
@@ -893,8 +1046,26 @@
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
 		</Unit>
+		<Unit filename="..\src\UI\Layouts\UIWinLayout.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\UIAlphabetGrid.cpp">
 			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UI\UIAlphabetGrid.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="UnitTest_Debug" />
@@ -922,6 +1093,22 @@
 			<Option target="Release" />
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+		</Unit>
+		<Unit filename="..\src\UI\UICharWindow.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UI\UICursor.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UI\UICursor.h">
 			<Option compilerVar="CPP" />
@@ -998,8 +1185,15 @@
 		</Unit>
 		<Unit filename="..\src\UI\UILayoutTestHelp.cpp">
 			<Option compilerVar="CPP" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UI\UILayoutTestHelp.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UI\UIManager.cpp">
 			<Option compilerVar="CPP" />
@@ -1040,12 +1234,30 @@
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
 		</Unit>
+		<Unit filename="..\src\UI\UIOverMap.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\UIOverMapCursor.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+		</Unit>
+		<Unit filename="..\src\UI\UIOverMapCursor.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UI\UIOverMapTile.cpp">
 			<Option compilerVar="CPP" />
@@ -1054,6 +1266,15 @@
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
 		</Unit>
+		<Unit filename="..\src\UI\UIOverMapTile.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\UIScrollText.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
@@ -1061,12 +1282,30 @@
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
 		</Unit>
+		<Unit filename="..\src\UI\UIScrollText.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\UIText.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+		</Unit>
+		<Unit filename="..\src\UI\UIText.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UI\UITile.cpp">
 			<Option compilerVar="CPP" />
@@ -1086,232 +1325,302 @@
 		</Unit>
 		<Unit filename="..\src\UI\UIUnitTestHelp.cpp">
 			<Option compilerVar="CPP" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UI\UIUnitTestHelp.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\AIControlTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\ArcherTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\ArmorItemTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\CharacterTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\DBColourTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\DBEngineTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\DBFloatTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\DBIntTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\DBNodeTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\DBStringTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\DBVector2DTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\DatabaseManagerTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\GameRootTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\HealerTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\ItemTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\KnightTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\LevelTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\LoggerTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\MageTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\MapTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\SecurityManagerTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\SoundManagerTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\TileTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UIBattleScreenLayoutTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\UIButtonTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\UICharWindowTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\UIElementTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\UIImageTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UILoseLayoutTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UIMainMenuLayoutTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UIManagerTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\UIMenuTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UIOverMapLayoutTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UIPasswordVerificationLayoutTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\UIScrollTextTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UISetPasswordLayoutTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\UITextTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UITitleScreenLayoutTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\UnitTests\UIWinLayoutTest.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\WeaponItemTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\UnitTests\sdlrendererTest.h">
 			<Option compilerVar="CPP" />
 			<Option compile="0" />
 			<Option link="0" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\main.cpp">
 			<Option compilerVar="CPP" />
@@ -1320,8 +1629,8 @@
 		</Unit>
 		<Unit filename="..\src\unittests.cpp">
 			<Option compilerVar="CPP" />
-			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\util.h">
 			<Option compilerVar="CPP" />
