@@ -79,7 +79,7 @@ void UIText::CenterText(UIElement* centerElement)
     // Find Image Width
     int imageWidth, imageHeight;
     SDL_Surface* centerSurface = centerElement->GetElement();
-    if (s)
+    if (centerSurface)
     {
         imageWidth = centerSurface->w;
         imageHeight = centerSurface->h;
