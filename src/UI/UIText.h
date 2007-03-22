@@ -13,6 +13,8 @@
  * Andrew Osborne, February 14 2007 | Initial Creation
  * Andrew Osborne, March 9 2007 | Added new ChangeText command that allows you to change all parameters
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 21 2007 | Re-arranged class to eliminate code duplication as much as possible, 
+ 								 added support for black background text
  */
 
 #ifndef UIText_h
@@ -45,7 +47,7 @@ public:
     /**
      * Full constructor.
 	 */
-    UIText( const string & text, const int size, const int r, const int g, const int b);
+    UIText( const string & text, const int size, const int r, const int g, const int b, const bool backBlack = false );
 
     /**
      * Partial constructor.
@@ -77,7 +79,7 @@ public:
     /**
      * New Text (with parameters)
      */
-    void ChangeText(const string & newText, const int s, const int r, const int g, const int b);
+    void ChangeText(const string & newText, const int s, const int r, const int g, const int b, const bool backBlack = false );
 
     /**
      * Change Colour.
@@ -94,12 +96,18 @@ public:
 // INQUIRY (reading)
 
 protected:
+// PROTECTED METHODS
+
+    inline void MakeText();
+    inline void DestroyText();
+
 // PROTECTED VARIABLES
     int mRed;
     int mGreen;
     int mBlue;
     int mSize;
     string mText;
+    bool mBackBlack;
 
 private:
 // PRIVATE VARIABLES

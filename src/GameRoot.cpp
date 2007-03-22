@@ -16,6 +16,7 @@
  * Karl Schmidt, March 15 2007	  | Removed DBEngine init, it is our save-game so we load later on
  * Karl Schmidt, March 15 2007	  | Added support for -encrypt parameter
  * Karl Schmidt, March 16 2007    | Fixed infinite loop state bug, recorded event playback now works!
+ * Karl Schmidt, March 21 2007    | Added support for SDL_KEYDOWN handling in InputManager
  */
 
 #include "GameRoot.h"                                // class implemented
@@ -193,6 +194,7 @@ void GameRoot::GameLoop()
                     case SDL_JOYBUTTONUP:
                     case SDL_JOYAXISMOTION:
                     case SDL_KEYDOWN:
+                    case SDL_KEYUP:
                     {
                         mInput->ProcessEvent( &event );
                         // exit if ESCAPE is pressed

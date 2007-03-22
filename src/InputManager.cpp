@@ -4,17 +4,18 @@
  * Project 404 2007
  *
  * Authors:
- * Karl Schmidt, February 13 2007 | Added joystick support
+ * Karl Schmidt, February 9 2007  | Initial creation, all functions stubbed
  * Karl Schmidt, February 12 2007 | Added corner direction event sending changes
- * Karl Schmidt, February 9 2007 | Initial creation, all functions stubbed
+ * Karl Schmidt, February 13 2007 | Added joystick support
  * Karl Schmidt, March 14 2007    | Added event recording/playback support
- * Karl Schmidt, March 15 2007 	  | Made a few fixes, but event recording/playback still isn't stable
+ * Karl Schmidt, March 15 2007    | Made a few fixes, but event recording/playback still isn't stable
+ * Karl Schmidt, March 21 2007    | Added directional-key auto-repeat, storing/loading rand seed in key recording file
  */
 
-#include <util.h>
-
-
 #include "InputManager.h"                                // class implemented
+
+#include <util.h>
+#include <algorithm>
 
 #include "EventListener.h"
 #include "Logger.h"
@@ -23,6 +24,8 @@
 
 // Axis movement values aren't exactly 0 when the directional pad 'moves back to the center'
 const int JOY_MOVEMENT_DAMPENING = 1000;
+
+const int AUTO_REPEAT_DELAY_MS = 200;
 
 //============================= LIFECYCLE ====================================
 
@@ -42,7 +45,7 @@ InputManager::~InputManager(void)
     // stub
 }
 
-void InputManager::Initialize( const INPUT_MODE mode, const string recPlayFileName )
+void InputManager::Initialize( const INPUT_MODE mode, const string & recPlayFileName )
 {
     if( SDL_NumJoysticks() > 0 )
     {
@@ -71,9 +74,17 @@ void InputManager::Initialize( const INPUT_MODE mode, const string recPlayFileNa
         if( mMode == PLAYBACK )
         {
             LoadKeyListFromFile( mRecPlayFileName );
-            currentPlaybackKey = mKeyList.begin();
+            mCurrentPlaybackKey = mKeyList.begin();
+            srand( *mCurrentPlaybackKey ); // Seeding by the stored seed value (stored at the top of the recorded file)
+            ++mCurrentPlaybackKey;
         }
-        srand( 7775 ); // Seeding by same value so we don't get a the AI doing different things on playback
+        else if( mMode == RECORDING )
+        {
+            unsigned int seedValue = time(NULL);
+            mKeyList.push_back( seedValue );
+            SaveKeyToFile( mRecPlayFileName, seedValue );
+            srand( seedValue ); // Seeding by same value so we don't get a the AI doing different things on playback
+        }
     }
 
     LogInfo( "The InputManager has been initialized successfully." );
@@ -180,7 +191,24 @@ void InputManager::ProcessEvent( const SDL_Event* evt )
         }
     }
 
+    // If a bound key was pressed...
     if( foundBoundKey != -1 )
+    {
+        // If it was a keydown event, set our internal keystate for that key is that it is down
+        if( evt->type == SDL_KEYDOWN )
+        {
+            mKeyState[foundBoundKey] = true;
+            // Increment this time so we don't auto-repeat right away (this is probably not a great way of doing this)
+            mLastAutoRepeatTime = SDL_GetTicks() + AUTO_REPEAT_DELAY_MS;
+        }
+        else if( evt->type == SDL_KEYUP ) // If it was a keyup, update our records so we know the key isn't being pressed anymore
+        {
+            mKeyState[foundBoundKey] = false;
+        }
+    }
+
+    // If a bound key event was sent, and that key is currently down, process it
+    if( foundBoundKey != -1 && mKeyState[foundBoundKey] )
     {
         // We typically won't be using the corner directions,
         // so events are sent separately for LEFTUP (ie: LEFT then UP)
@@ -240,11 +268,11 @@ void InputManager::Update()
 {
     if( mMode == PLAYBACK )
     {
-        if( currentPlaybackKey != mKeyList.end() )
+        if( mCurrentPlaybackKey != mKeyList.end() )
         {
-            SendEventToListeners( INPUTKEYS(*currentPlaybackKey) );
-            //printf( "Sending key: %i\n", *currentPlaybackKey );
-            ++currentPlaybackKey;
+            SendEventToListeners( INPUTKEYS(*mCurrentPlaybackKey) );
+            //printf( "Sending key: %i\n", *mCurrentPlaybackKey );
+            ++mCurrentPlaybackKey;
         }
         else
         {
@@ -253,6 +281,22 @@ void InputManager::Update()
         }
         SDL_Delay( 50 );
     }
+    else // Recording or playing normally
+    {
+        // We don't want to send an auto-repeat every since Update, that would make it happen too much
+        if( mLastAutoRepeatTime < SDL_GetTicks() )
+        {
+            // If it's a directional key (no point auto-repeating confirm, cancel, etc
+            for( int i = 0; i < LAST_DIRECTION+1; ++i )
+            {
+                if( mKeyState[i] )
+                {
+                    SendEventToListeners( INPUTKEYS( i ) );
+                }
+            }
+            mLastAutoRepeatTime = SDL_GetTicks() + AUTO_REPEAT_DELAY_MS;
+        }
+    }
 }
 
 //============================= ACCESS     ===================================
@@ -260,13 +304,14 @@ void InputManager::Update()
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 InputManager::InputManager(void)
-: mJoyStick( NULL ), mMode( NORMAL ), mRecPlayFileName( "" )
+: mJoyStick( NULL ),
+  mMode( NORMAL ),
+  mRecPlayFileName( "" ),
+  mLastAutoRepeatTime( 0 )
 {
-    for( int i( 0 ); i < KEYCOUNT; ++i )
-    {
-        mKeys[i] = 0;
-        mJButtons[i] = -1; // 0 is a valid button value for joystick buttons
-    }
+    std::fill( &mKeys[0], &mKeys[KEYCOUNT], 0 );
+    std::fill( &mJButtons[0], &mJButtons[KEYCOUNT], -1 );
+    std::fill( &mKeyState[0], &mKeyState[KEYCOUNT], false );
 }
 
 void InputManager::SetupKeyBindings()
@@ -359,7 +404,7 @@ void InputManager::SaveKeyListToFile( const string & fileName )
     }
 }
 
-void InputManager::SaveKeyToFile( const string & fileName, const INPUTKEYS key )
+void InputManager::SaveKeyToFile( const string & fileName, const int key )
 {
     static bool firstTime = true;
 

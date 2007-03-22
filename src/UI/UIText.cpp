@@ -7,6 +7,8 @@
  * Andrew Osborne, February 14 2007 | Initial Creation
  * Andrew Osborne, March 9 2007 | Added new ChangeText command that allows you to change all parameters
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 21 2007 | Re-arranged class to eliminate code duplication as much as possible, 
+ 								 added support for black background text
  */
 
 
@@ -23,42 +25,30 @@
 UIText::UIText()
 : UIElement()
 {
-    mRed = 0;
-    mGreen = 0;
-    mBlue = 0;
-    mText = "Nothing Specified";
-    mSize = 12;
+    ChangeText( "Nothing Specified", 12, 0, 0, 0, false );
 }// UIText
 
-UIText::UIText( const string & text, const int size, const int r, const int g, const int b)
-: UIElement()
+UIText::UIText( const string & text, const int size, const int r, const int g, const int b, const bool backBlack )
+: UIElement(),
+  mRed( r ),
+  mGreen( g ),
+  mBlue( b ),
+  mSize( size ),
+  mText( text ),
+  mBackBlack( backBlack )
 {
-    mRed = r;
-    mGreen = g;
-    mBlue = b;
-    mText = text;
-    mSize = size;
-    mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
+    MakeText();
 }
 
 UIText::UIText( const string & text)
 : UIElement()
 {
-    mRed = 0;
-    mGreen = 0;
-    mBlue = 0;
-    mText = text;
-    mSize = 12;
-    mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
+    ChangeText( text, 12, 0, 0, 0, false );
 }
 
 UIText::~UIText()
 {
-    if( mElementImage )
-    {
-        SDL_FreeSurface( mElementImage );
-    }
-    mElementImage = NULL;
+    DestroyText();
 }// ~UIText
 
 
@@ -114,25 +104,21 @@ void UIText::CenterText(UIElement* e)
 void UIText::ChangeText(const string & newText)
 {
     mText = newText;
-    if( mElementImage )
-    {
-        SDL_FreeSurface( mElementImage );
-    }
-    mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
+    DestroyText();
+    MakeText();
 }
 
-void UIText::ChangeText(const string & newText, const int s, const int r, const int g, const int b)
+void UIText::ChangeText(const string & newText, const int s, const int r, const int g, const int b, const bool backBlack )
 {
     mText = newText;
     mSize = s;
     mRed = r;
     mGreen = g;
     mBlue = b;
-    if( mElementImage )
-    {
-        SDL_FreeSurface( mElementImage );
-    }
-    mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
+    mBackBlack = backBlack;
+
+    DestroyText();
+    MakeText();
 }
 
 
@@ -141,25 +127,34 @@ void UIText::SetColour(const int r, const int g, const int b)
     mRed = r;
     mGreen = g;
     mBlue = b;
-    if( mElementImage )
-    {
-        SDL_FreeSurface( mElementImage );
-    }
-    mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
+
+    DestroyText();
+    MakeText();
 }
 
 void UIText::SetSize(const int s)
 {
     mSize = s;
-    if( mElementImage )
-    {
-        SDL_FreeSurface( mElementImage );
-    }
-    mElementImage = SDLRenderer::GetInstance()->CreateTextSurface(mText, mSize, mRed, mGreen, mBlue);
+    DestroyText();
+    MakeText();
 }
 
 
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
+
+void UIText::MakeText()
+{
+    mElementImage = SDLRenderer::GetInstance()->CreateTextSurface( mText, mSize, mRed, mGreen, mBlue, mBackBlack );
+}
+
+void UIText::DestroyText()
+{
+    if( mElementImage )
+    {
+        SDL_FreeSurface( mElementImage );
+    }
+    mElementImage = NULL;
+}
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

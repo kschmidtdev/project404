@@ -35,6 +35,7 @@
  * Andrew osborne,  March 14 2007     | Removed Cursor, as it is a lame duck class that does nothing different from UIImage
  * Seung Woo Han,   March 17 2006     | New Pics
  * Karl Schmidt,    March 20 2007     | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt,    March 21 2007     | Added support for health change indication UI
  */
 
 #include "UIGrid.h"                                // class implemented
@@ -50,6 +51,8 @@
 #include <GameEngine/Level.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
+
+const int INDICATER_DELAY = 600;
 
 //============================= LIFECYCLE ====================================
 
@@ -294,14 +297,10 @@ void UIGrid::ConfirmFunction( const Point & p )
             // check to see if attack-range is valid
 
             // now check if person is there
-            mLevel->OnSelect(p);
-            if(mLevel->ReturnState() == Level::FREE || mLevel->ReturnState() == Level::AIFREE)
+            Character* defender = mLevel->OnSelect(p);
+            if( (mLevel->ReturnState() == Level::FREE || mLevel->ReturnState() == Level::AIFREE) )
             {
-            	// Draw an image to indicate action is being taken
-                UIImage* indicator = new UIImage( "testIndicator.png" );
-                Point toDrawAt( mCurCharacter->GetPoint().GetX() * mTileWidth, mCurCharacter->GetPoint().GetY() * mTileHeight );
-                indicator->SetPos( toDrawAt );
-                SDLRenderer::GetInstance()->AddToTempRenderQueue( indicator, SDL_GetTicks() + 400 );
+                DrawHealthIndicationers( mCurCharacter, defender );
 
                 RemoveCharacter(mCurCharacter->GetPoint());
                 AddExhaustedCharacter(mCurCharacter);
@@ -458,10 +457,11 @@ void UIGrid::ConfirmFunction( const Point & p )
             // check to see if attack-range is valid
 
             // now check if person is there
-            mLevel->OnAISelect(p);
+            Character* defender = mLevel->OnAISelect(p);
 
-            if(mLevel->ReturnState() == 0 || mLevel->ReturnState() == 3)
+            if(mLevel->ReturnState() == Level::FREE || mLevel->ReturnState() == Level::AIFREE)
             {
+                DrawHealthIndicationers( mCurCharacter, defender );
                 RemoveCharacter(mCurCharacter->GetPoint());
                 AddExhaustedCharacter(mCurCharacter);
             }
@@ -910,6 +910,39 @@ SDL_Surface* UIGrid::GetClassSurface(Character* c, const string group)
         return NULL;
     }
 
+}
+
+void UIGrid::DrawHealthIndicationers( Character* attacker, Character* defender )
+{
+    if( attacker != NULL && defender != NULL )
+    {
+        char dmgTxt[8];
+        if( attacker->GetClassName() == "Healer" )
+        {
+            // Draw an image to indicate action is being taken
+            sprintf( dmgTxt, "%i", mLevel->GetLastHealed() );
+            UIText* amountHealed = new UIText( dmgTxt, 18, 255, 255, 255, true );
+
+            amountHealed->SetPos( defender->GetPoint().GetX() * mTileWidth + mTileWidth/2, defender->GetPoint().GetY() * mTileHeight + mTileHeight/2 );
+
+            SDLRenderer::GetInstance()->AddToTempRenderQueue( amountHealed, SDL_GetTicks() + INDICATER_DELAY );
+        }
+        else
+        {
+            // Draw an image to indicate action is being taken
+            sprintf( dmgTxt, "%i", mLevel->GetLastDamageInflicted() );
+            UIText* damageInflicted = new UIText( dmgTxt, 18, 255, 255, 255, true );
+
+            sprintf( dmgTxt, "%i", mLevel->GetLastDamageTaken() );
+            UIText* damageTaken = new UIText( dmgTxt, 18, 255, 255, 255, true );
+
+            damageInflicted->SetPos( defender->GetPoint().GetX() * mTileWidth + mTileWidth/2, defender->GetPoint().GetY() * mTileHeight + mTileHeight/2 );
+            damageTaken->SetPos( attacker->GetPoint().GetX() * mTileWidth + mTileWidth/2, attacker->GetPoint().GetY() * mTileHeight + mTileHeight/2 );
+
+            SDLRenderer::GetInstance()->AddToTempRenderQueue( damageInflicted, SDL_GetTicks() + INDICATER_DELAY );
+            SDLRenderer::GetInstance()->AddToTempRenderQueue( damageTaken, SDL_GetTicks() + INDICATER_DELAY );
+        }
+    }
 }
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

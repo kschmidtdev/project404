@@ -11,10 +11,11 @@
  * Authors:
  * Karl Schmidt, February 13 2007 | Added joystick support
  * Karl Schmidt, February 12 2007 | Added inline function for sending events to listeners
- * Karl Schmidt, February 9 2007 | Fixed minor issues (so it could compile)
- * Karl Schmidt, February 7 2007 | Initial creation of the header
+ * Karl Schmidt, February 9 2007  | Fixed minor issues (so it could compile)
+ * Karl Schmidt, February 7 2007  | Initial creation of the header
  * Karl Schmidt, March 14 2007    | Added event recording/playback support
  * Karl Schmidt, March 15 2007    | Made an attempt to fix event recording/playback, still not acting right
+ * Karl Schmidt, March 21 2007    | Added directional-key auto-repeat, storing/loading rand seed in key recording file
  */
 
 #ifndef InputManager_h
@@ -22,9 +23,10 @@
 
 // SYSTEM INCLUDES
 //
-#include <SDL.h>
 #include <vector>
-using namespace std;
+#include <string>
+
+#include <SDL.h>
 
 // PROJECT INCLUDES
 //
@@ -38,7 +40,7 @@ class EventListener;
 
 // TYPEDEFS
 //
-typedef vector<EventListener*> EventListenerVec;
+typedef std::vector<EventListener*> EventListenerVec;
 typedef EventListenerVec::iterator EventListenerItr;
 
 class InputManager
@@ -55,6 +57,7 @@ enum INPUTKEYS
     RIGHTDOWN,
     RIGHT,
     RIGHTUP,
+    LAST_DIRECTION = RIGHTUP,
     START,
     SELECT,
     CONFIRM,
@@ -63,7 +66,7 @@ enum INPUTKEYS
     KEYCOUNT
 };
 
-typedef vector<int> KeyVec;
+typedef std::vector<int> KeyVec;
 typedef KeyVec::iterator KeyVecItr;
 
 enum INPUT_MODE
@@ -91,7 +94,7 @@ enum INPUT_MODE
     * after instantiation and before
     * other methods
     */
-    void Initialize( const INPUT_MODE mode = NORMAL, const string mRecPlayFileName = "" );
+    void Initialize( const INPUT_MODE mode = NORMAL, const std::string & mRecPlayFileName = "" );
 
     /**
     * Shuts the input manager down,
@@ -129,7 +132,7 @@ enum INPUT_MODE
 	/**
 	* Returns the current mode of the input manager
 	*/
-    int GetMode() { return mMode; };
+    const int GetMode() const { return mMode; };
 
 // ACCESS (writing)
 // INQUIRY (reading)
@@ -157,30 +160,33 @@ protected:
 	/**
 	* Loads recorded keys from fileName into mKeyList
 	*/
-    void LoadKeyListFromFile( const string & fileName );
+    void LoadKeyListFromFile( const std::string & fileName );
 
 	/**
 	* Saves keys in mKeyList to fileName
 	*/
-    void SaveKeyListToFile( const string & fileName );
+    void SaveKeyListToFile( const std::string & fileName );
 
 	/**
 	* Saves a single key (appends after clearing the file once) to
 	* fileName
 	*/
-    void SaveKeyToFile( const string & fileName, const INPUTKEYS key );
+    void SaveKeyToFile( const std::string & fileName, const int key );
 
 // PROTECTED VARIABLES
     static InputManager* _instance;
     int mKeys[KEYCOUNT];
     int mJButtons[KEYCOUNT];
+    bool mKeyState[KEYCOUNT]; // true if down, false if up
     EventListenerVec mRegisteredListeners;
     SDL_Joystick* mJoyStick;
 
     INPUT_MODE mMode;
-    string mRecPlayFileName;
+    std::string mRecPlayFileName;
     KeyVec mKeyList;
-    KeyVecItr currentPlaybackKey;
+    KeyVecItr mCurrentPlaybackKey;
+
+    unsigned int mLastAutoRepeatTime; // time in ticks for next auto-repeat allowance in future
 
 private:
 // PRIVATE VARIABLES

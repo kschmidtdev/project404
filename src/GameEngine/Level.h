@@ -23,7 +23,8 @@
  * Mike Malyuk, March 10, 2007    | Removed mMap and move methods, now that map does this
  * Karl Schmidt, March 14, 2007   | Added a hack to force the current turn to the players to solve a bug
  * Mike Malyuk, March 14, 2007    | Added Map to Level variables, added GetMap method.
- * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 20 2007    | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 21 2007    | Added storage of the last damage and healing values from attacking/defending and healing
  */
 
 #ifndef Level_h
@@ -175,6 +176,13 @@ enum charState
 
      void SetPlayerTurn() { mMyTurn = true; };
 
+	/**
+	 * Simple getters for the following values
+	 */
+     const int GetLastDamageInflicted() const { return mLastDmgInflicted; };
+     const int GetLastDamageTaken() const { return mLastDmgTaken; };
+     const int GetLastHealed() const { return mLastHealed; };
+
 protected:
 // PROTECTED VARIABLES
     charState mState;
@@ -185,6 +193,10 @@ protected:
     Character* mCurChar;
     Map mMap;
     bool mMyTurn;
+
+    int mLastDmgInflicted;
+    int mLastDmgTaken;
+    int mLastHealed;
 
 private:
 // PRIVATE VARIABLES
