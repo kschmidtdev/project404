@@ -21,7 +21,7 @@
  * Karl Schmidt, February 15 2007 | Fixed slight memory leak
  * Karl Schmidt, March 04 2007    | Fixed another slight memory leak
  * Mike Malyuk, March 10 2007     | Removed move methods now in Map, cleared things out to work with new method
- * Karl Schmidt, March 12 2007	   | Turfed default constructor body since it's not really used anymore, and
+ * Karl Schmidt, March 12 2007    | Turfed default constructor body since it's not really used anymore, and
  *									     is used in one area temporarily so it's causing memory leaks
  * Mike Malyuk, March 14 2007     | Set map in Level for evil Overlord
  * Seung Woo Han, March 14 2007   | Modified Level(int) constructor. Now This contructor takes integer value which is the battle
@@ -29,7 +29,8 @@
  * Seung Woo Han, March 15 2007   | ~Level modified. Previously, it shut down DBEngine which shouldn't be.
  * Karl Schmidt, March 14 2007	  | Fixed a small iterator dereferencing causing crash bug
  * Mike Malyuk, March 16 2007     | Added fix to healer, no more annoying heal others when they do not need it.
- * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 20 2007    | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 21 2007    | Added storage of the last damage and healing values from attacking/defending and healing
  */
 
 #include <util.h>
@@ -48,7 +49,11 @@
 //============================= LIFECYCLE ====================================
 
 Level::Level()
-: mState( FREE ), mMyTurn( true )
+: mState( FREE ),
+  mMyTurn( true ),
+  mLastDmgInflicted( 0 ),
+  mLastDmgTaken( 0 ),
+  mLastHealed( 0 )
 {
 }// Level
 
@@ -60,7 +65,10 @@ Level::Level( const CharacterPtrVec & party, const CharacterPtrVec & badguys, co
   mStart(start),
   mCurChar(NULL),
   mMap(),
-  mMyTurn(true)
+  mMyTurn(true),
+  mLastDmgInflicted( 0 ),
+  mLastDmgTaken( 0 ),
+  mLastHealed( 0 )
 {
     CharacterPtrConstItr iter;
     PointConstItr piter;
@@ -82,7 +90,10 @@ Level::Level( const int battleNumber)
   mStart(),
   mCurChar( NULL ),
   mMap(),
-  mMyTurn( true )
+  mMyTurn( true ),
+  mLastDmgInflicted( 0 ),
+  mLastDmgTaken( 0 ),
+  mLastHealed( 0 )
 {
     DBEngine* DBE = DBEngine::GetInstance();
 
@@ -271,11 +282,19 @@ Character* Level::OnSelect( const Point & p )
                     charIter++;
                 }
                 if( charIter != mEnemies.end() && (*charIter) != NULL && p == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()))
-                    {
-                        mCurChar->Attack((*charIter));
-                        mState = FREE;
-                        return NULL;
-                    }
+                {
+                    Character* defender = (*charIter);
+                    int attackerHealth = mCurChar->GetHP();
+                    int defenderHealth = defender->GetHP();
+
+                    mCurChar->Attack( defender );
+
+                    mLastDmgTaken = mCurChar->GetHP() - attackerHealth;
+                    mLastDmgInflicted = defender->GetHP() - defenderHealth;
+
+                    mState = FREE;
+                    return defender;
+                }
                 else
                 {
                     return mCurChar;
@@ -306,10 +325,17 @@ Character* Level::OnSelect( const Point & p )
                 }
                 if( charIter != mParty.end() && (*charIter) != NULL && p == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()) && (*charIter)->GetHP() != (*charIter)->GetMaxHP())
                 {
+                    Character* toBeHealed = (*charIter);
                     //we know it's a healer
-                    ((Healer*)mCurChar)->Heal((*charIter));
+
+                    int targetHealth = toBeHealed->GetHP();
+
+                    ((Healer*)mCurChar)->Heal(toBeHealed);
+
+                    mLastHealed = toBeHealed->GetHP() - targetHealth;
+
                     mState = FREE;
-                    return NULL;
+                    return toBeHealed;
                 }
                 else
                 {
@@ -441,11 +467,19 @@ Character* Level::OnAISelect( const Point & p )
                     charIter++;
                 }
                 if( charIter != mParty.end() && (*charIter) != NULL && p == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()))
-                    {
-                        mCurChar->Attack((*charIter));
-                        mState = AIFREE;
-                        return NULL;
-                    }
+                {
+                    Character* defender = (*charIter);
+                    int attackerHealth = mCurChar->GetHP();
+                    int defenderHealth = defender->GetHP();
+
+                    mCurChar->Attack( defender );
+
+                    mLastDmgTaken = mCurChar->GetHP() - attackerHealth;
+                    mLastDmgInflicted = defender->GetHP() - defenderHealth;
+
+                    mState = AIFREE;
+                    return defender;
+                }
                 else
                 {
                     return mCurChar;
@@ -476,10 +510,17 @@ Character* Level::OnAISelect( const Point & p )
                 }
                 if( charIter != mEnemies.end() && (*charIter) != NULL && charIter != mEnemies.end() && p == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()))
                 {
+                    Character* toBeHealed = (*charIter);
+
+                    int targetHealth = toBeHealed->GetHP();
+
                     //we know it's a healer
-                    ((Healer*)mCurChar)->Heal((*charIter));
+                    ((Healer*)mCurChar)->Heal( toBeHealed );
+
+                    mLastHealed = toBeHealed->GetHP() - targetHealth;
+
                     mState = AIFREE;
-                    return NULL;
+                    return toBeHealed;
                 }
                 else
                 {

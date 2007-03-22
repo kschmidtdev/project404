@@ -10,6 +10,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, March 21 2007    | Added support for black-backround rendering behind text
  * Karl Schmidt, February 15 2007 | Added temporary renderable functionality
  * Karl Schmidt, February 7 2007, Initial creation of the header
  */
@@ -109,7 +110,8 @@ public:
      * will default to white if no colour components are passed in. IF YOU CALL THIS YOU
      * MUST HANDLE DESTROYING THE SURFACE IT GIVES YOU WHEN YOU ARE DONE WITH IT
 	 */
-    SDL_Surface* SDLRenderer::CreateTextSurface( const string textToRender, const int size, const int red, const int green, const int blue );
+    SDL_Surface* SDLRenderer::CreateTextSurface( const string & textToRender, const int size, const int red = 255, const int green = 255,
+                                                 const int blue = 255, const bool backBlack = false );
 
 // ACCESS (writing)
 // INQUIRY (reading)

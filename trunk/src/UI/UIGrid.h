@@ -23,6 +23,7 @@
  * Mike Malyuk,    March 14, 2007     | Fixed range method to get latest.
  * Mike Malyuk,    March 14, 2007     | Removed defunct methods
  * Karl Schmidt,   March 20 2007      | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt,   March 21 2007     | Added support for health change indication UI
  */
 
 #ifndef UIGrid_h
@@ -218,6 +219,9 @@ protected:
     SDL_Surface* GetClassSurface( Character* c, const string group );
     Point GridToAbsoluteCoordinates( const Point & p );
 
+	/**
+	 * Draw the text about the player and the target participating in an attack/heal
+    void DrawHealthIndicationers( Character* attacker, Character* defender );
 
 private:
 // PRIVATE VARIABLES

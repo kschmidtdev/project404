@@ -4,11 +4,12 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, March 21 2007    | Added support for black-backround rendering behind text
  * Karl Schmidt, February 15 2007 | Added temporary renderable functionality
  * Karl Schmidt, February 13 2007 | Added joystick init to SDL parameters
  * Karl Schmidt, February 11 2007 | Disabled the mouse cursor, added custom window title, more error/info logging
  * Karl Schmidt, February 10 2007 | Added SDL_INIT_AUDIO flag to SDL_Init
- * Karl Schmidt, February 8 2007 | Initial creation of cpp file
+ * Karl Schmidt, February 8 2007  | Initial creation of cpp file
  */
 
 #include <util.h>
@@ -156,7 +157,8 @@ void SDLRenderer::RemoveFromRenderQueue( SDLRenderable * toRemove )
     }
 }
 
-SDL_Surface* SDLRenderer::CreateTextSurface( const string textToRender, const int size, const int red = 255, const int green = 255, const int blue = 255 )
+SDL_Surface* SDLRenderer::CreateTextSurface( const string & textToRender, const int size, const int red, const int green, const int blue,
+                                             const bool backBlack )
 {
     tacAssert( textToRender != "" );
     tacAssert( red >= 0 );
@@ -169,13 +171,18 @@ SDL_Surface* SDLRenderer::CreateTextSurface( const string textToRender, const in
         mFonts[size] = TTF_OpenFont( fontName, size );
     }
 
-    // Render some text in solid black to a new surface
-    // then blit to the upper left of the screen
-    // then free the text surface
     SDL_Color colour = { red, green, blue, 255 };
+    SDL_Color bgColour = { 0, 0, 0, 255 };
 
     SDL_Surface* textSurface = NULL;
-    textSurface = TTF_RenderText_Blended( mFonts[size], textToRender.c_str(), colour );
+    if( backBlack )
+    {
+        textSurface = TTF_RenderText_Shaded( mFonts[size], textToRender.c_str(), colour, bgColour );
+    }
+    else
+    {
+        textSurface = TTF_RenderText_Blended( mFonts[size], textToRender.c_str(), colour );
+    }
 
     tacAssert( textSurface );
     if( !textSurface )
