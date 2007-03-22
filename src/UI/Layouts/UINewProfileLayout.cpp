@@ -5,6 +5,7 @@
  *
  * Authors:
  * Andrew Osborne, March 18 2007 | Initial Creation
+ * Andrew Osborne, March 21 2007 | Added AlhpabetGrid to screen
  */
 #include "UINewProfileLayout.h"                                // class implemented
 #include "UIText.h"

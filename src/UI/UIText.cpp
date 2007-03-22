@@ -7,7 +7,7 @@
  * Andrew Osborne, February 14 2007 | Initial Creation
  * Andrew Osborne, March 9 2007 | Added new ChangeText command that allows you to change all parameters
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
- * Karl Schmidt, March 21 2007 | Re-arranged class to eliminate code duplication as much as possible, 
+ * Karl Schmidt, March 21 2007 | Re-arranged class to eliminate code duplication as much as possible,
  								 added support for black background text
  */
 
@@ -59,7 +59,7 @@ UIText::~UIText()
 
 //============================= OPERATIONS ===================================
 
-void UIText::CenterText(UIElement* e)
+void UIText::CenterText(UIElement* centerElement)
 {
 
     // Find Text width
@@ -78,11 +78,11 @@ void UIText::CenterText(UIElement* e)
 
     // Find Image Width
     int imageWidth, imageHeight;
-    SDL_Surface* s = e->GetElement();
+    SDL_Surface* centerSurface = centerElement->GetElement();
     if (s)
     {
-        imageWidth = s->w;
-        imageHeight = s->h;
+        imageWidth = centerSurface->w;
+        imageHeight = centerSurface->h;
     }
     else
     {
@@ -94,7 +94,7 @@ void UIText::CenterText(UIElement* e)
     offset.Set( (int) (imageWidth - textWidth) / 2, (int) (imageHeight - textHeight) / 2);
 
     // Move to position
-    SetPos( e->GetPos() + offset );
+    SetPos( centerElement->GetPos() + offset );
 
 }
 
