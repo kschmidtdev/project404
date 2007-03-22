@@ -13,8 +13,9 @@
  * Andrew Osborne, February 14 2007 | Initial Creation
  * Andrew Osborne, March 9 2007 | Added new ChangeText command that allows you to change all parameters
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
- * Karl Schmidt, March 21 2007 | Re-arranged class to eliminate code duplication as much as possible, 
+ * Karl Schmidt, March 21 2007 | Re-arranged class to eliminate code duplication as much as possible,
  								 added support for black background text
+ * Andrew Osborne, March 21 2007 | Added 'CenterText' operation
  */
 
 #ifndef UIText_h
@@ -65,9 +66,11 @@ public:
 // OPERATIONS
 
     /**
-     * Method that changes text .
+     * Method that centers the text on passed element.
+     *
+     *@param UIElement to center text around.
 	 */
-    void CenterText(UIElement* e);
+    void CenterText(UIElement* centerElement);
 
 // ACCESS (writing)
 

@@ -9,6 +9,7 @@
  *
  * Authors:
  * Andrew Osborne, March 18 2007, Initial Creation
+ * Andrew Osborne, March 21 2007, Commented out Process Event (part of debug)
  */
 
 #ifndef UINewProfileLayout_h
