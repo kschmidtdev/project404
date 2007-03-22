@@ -221,6 +221,7 @@ protected:
 
 	/**
 	 * Draw the text about the player and the target participating in an attack/heal
+	 */
     void DrawHealthIndicationers( Character* attacker, Character* defender );
 
 private:
