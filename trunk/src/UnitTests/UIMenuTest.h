@@ -6,6 +6,7 @@
 #include <UI/UIMenu.h>
 #include <UI/FuncObj.h>
 #include <Renderer/SDLRenderer.h>
+#include <ResourceManager/ResourceManager.h>
 
 // Generated Function Object
 
