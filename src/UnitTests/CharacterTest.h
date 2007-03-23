@@ -15,6 +15,7 @@ class CharacterTest : public CxxTest::TestSuite
 private:
 // any variables that could be shared between tests
     Character character;
+    Character meh;
 
 // Unit Tests:
 public:
@@ -55,11 +56,11 @@ public:
     character.SetWeapon(&w2item);
     TS_ASSERT_EQUALS(character.GetAttr(Character::POW), 3);
     TS_ASSERT_EQUALS(character.GetAttr(Character::DEF), 1);
-    TS_ASSERT_EQUALS(character.GetAttr(Character::AGI), 0);
+    TS_ASSERT_EQUALS(character.GetAttr(Character::AGI), 3);
     //Gain +1 on all atributes
     character.LevelUp();
     TS_ASSERT_EQUALS(character.GetAttr(Character::POW), 4);
-    TS_ASSERT_EQUALS(character.GetAttr(Character::AGI), 1);
+    TS_ASSERT_EQUALS(character.GetAttr(Character::AGI), 4);
     TS_ASSERT_EQUALS(character.GetAttr(Character::DEF), 2);
     //Character should be exhausted
     character.Exhaust();
@@ -101,28 +102,27 @@ public:
     {
         Character joeshmoe;
         joeshmoe.LevelUp();
-        joeshmoe.LevelUp();
-        joeshmoe.LevelUp();
+        joeshmoe.SetWeapon(&WeaponItem("RIDICULOUS", 500));
         //SetHp is only used in Attack and Heal
-        character.SetHP(1);
-        joeshmoe.Attack(&character);
+        meh.SetHP(1);
+        joeshmoe.Attack(&meh);
         //demonstrate exp
-        TS_ASSERT_EQUALS(joeshmoe.GetLevel(), 4);
+        TS_ASSERT_EQUALS(joeshmoe.GetLevel(), 2);
         TS_ASSERT_EQUALS(joeshmoe.GetExp(), 50);
         //illustrate level up
-        character.SetHP(1);
-        joeshmoe.Attack(&character);
-        TS_ASSERT_EQUALS(joeshmoe.GetLevel(), 5);
+        meh.SetHP(1);
+        joeshmoe.Attack(&meh);
+        TS_ASSERT_EQUALS(joeshmoe.GetLevel(), 3);
         TS_ASSERT_EQUALS(joeshmoe.GetExp(), 0);
         //show damage doesn't kill always
         //show Max different from Cur
-        character.SetHP(10);
-        joeshmoe.Attack(&character);
+        meh.SetHP(10);
+        joeshmoe.Attack(&meh);
         int power = joeshmoe.GetAttr(Character::POW);
 
         //now with random, should not have hp higher than this value
-        TS_ASSERT_LESS_THAN_EQUALS(character.GetHP(), 10 - (power-2))
-        TS_ASSERT_EQUALS(character.GetMaxHP(), 10);
+        TS_ASSERT_LESS_THAN_EQUALS(meh.GetHP(), 10 - (power-2))
+        TS_ASSERT_EQUALS(meh.GetMaxHP(), 10);
     }
 
 };
