@@ -37,6 +37,7 @@
  * Karl Schmidt,    March 20 2007     | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt,    March 21 2007     | Added support for health change indication UI
  * Karl Schmidt,    March 22 2007     | Correcting include orders and paths
+ * Karl Schmidt,    March 23 2007     | Got rid of more using namespace std; usage
  */
 
 #include "UIGrid.h"                                // class implemented
@@ -832,7 +833,7 @@ int UIGrid::FindIndex( const Point & p )
 
 SDL_Surface* UIGrid::GetClassSurface(Character* c, const std::string & group)
 {
-    string temp = c->GetClassName();
+    string temp = c->GetCharacterClassName();
     if(group=="Party")
     {
         if (temp=="Archer")
@@ -920,7 +921,7 @@ void UIGrid::DrawHealthIndicationers( Character* attacker, Character* defender )
     if( attacker != NULL && defender != NULL )
     {
         char dmgTxt[8];
-        if( attacker->GetClassName() == "Healer" )
+        if( attacker->GetCharacterClassName() == "Healer" )
         {
             // Draw an image to indicate action is being taken
             sprintf( dmgTxt, "%i", mLevel->GetLastHealed() );

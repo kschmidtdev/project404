@@ -5,12 +5,13 @@
  *
  * Authors:
  * Andrew Osborne, February 14 2007 | Initial Creation
- * Andrew Osborne, March 9 2007 | Added new ChangeText command that allows you to change all parameters
- * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
- * Karl Schmidt, March 21 2007 | Re-arranged class to eliminate code duplication as much as possible,
- 								 added support for black background text
+ * Andrew Osborne, March 9 2007     | Added new ChangeText command that allows you to change all parameters
+ * Karl Schmidt, March 20 2007      | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 21 2007      | Re-arranged class to eliminate code duplication as much as possible,
+ 								      added support for black background text
  * Andrew Osborne, March 21 2007 | Added 'CenterText' as method, corrected bug.
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Karl Schmidt, March 23 2007      | Got rid of more using namespace std; usage
  */
 
 #include "UIText.h"                                // class implemented
@@ -30,7 +31,7 @@ UIText::UIText()
     ChangeText( "Nothing Specified", 12, 0, 0, 0, false );
 }// UIText
 
-UIText::UIText( const string & text, const int size, const int r, const int g, const int b, const bool backBlack )
+UIText::UIText( const std::string & text, const int size, const int r, const int g, const int b, const bool backBlack )
 : UIElement(),
   mRed( r ),
   mGreen( g ),
@@ -42,7 +43,7 @@ UIText::UIText( const string & text, const int size, const int r, const int g, c
     MakeText();
 }
 
-UIText::UIText( const string & text)
+UIText::UIText( const std::string & text)
 : UIElement()
 {
     ChangeText( text, 12, 0, 0, 0, false );
@@ -103,14 +104,14 @@ void UIText::CenterText(UIElement* centerElement)
 
 //============================= ACCESS     ===================================
 
-void UIText::ChangeText(const string & newText)
+void UIText::ChangeText(const std::string & newText)
 {
     mText = newText;
     DestroyText();
     MakeText();
 }
 
-void UIText::ChangeText(const string & newText, const int s, const int r, const int g, const int b, const bool backBlack )
+void UIText::ChangeText(const std::string & newText, const int s, const int r, const int g, const int b, const bool backBlack )
 {
     mText = newText;
     mSize = s;

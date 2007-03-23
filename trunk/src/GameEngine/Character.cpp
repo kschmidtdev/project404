@@ -15,6 +15,7 @@
  * Mike Malyuk, March 15 2007    | Fixed Levelling up! yay!
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 22 2007   | More include re-arranging, fixed some warnings
+ * Karl Schmidt, March 22 2007   | Changed name of GetClassName
  */
 
 #include "Character.h"                                // class implemented
@@ -24,6 +25,11 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+
+namespace
+{
+    const std::string characterClassName = "base";
+}
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -86,22 +92,22 @@ void Character::Attack(Character* another)
     {
         randPOW = (rand()%5-2) + mAttributes[POW];
     }
-    cout << "Attacking " << GetClassName() <<" (" << GetName() << ")'s HP:" << GetHP() << endl;
-    cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ")'s HP:" << another->GetHP() << endl;
-    if(GetClassName() == "Knight")
+    cout << "Attacking " << GetCharacterClassName() <<" (" << GetName() << ")'s HP:" << GetHP() << endl;
+    cout << "Defending " << another->GetCharacterClassName() <<" (" << another->GetName() << ")'s HP:" << another->GetHP() << endl;
+    if(GetCharacterClassName() == "Knight")
     {
         if(randPOW - (another->GetAttr(Character::DEF)/2) <= 0)
         {
-            cout << "Attacking " << GetClassName() <<" (" << GetName() << ") did 0 damage" << endl;
+            cout << "Attacking " << GetCharacterClassName() <<" (" << GetName() << ") did 0 damage" << endl;
         }
         else
         {
         another->SetHP(another->GetHP()-randPOW+(another->GetAttr(Character::DEF)/2));
-        cout << "Attacking " << GetClassName() <<" (" << GetName() << ") did " << randPOW-(another->GetAttr(Character::DEF)/2) << " damage" << endl;
+        cout << "Attacking " << GetCharacterClassName() <<" (" << GetName() << ") did " << randPOW-(another->GetAttr(Character::DEF)/2) << " damage" << endl;
         }
         if(another->GetHP() <= 0)
         {
-            cout << "Defender " << another->GetClassName() << " (" << another->GetName() <<  ") Dead" << endl;
+            cout << "Defender " << another->GetCharacterClassName() << " (" << another->GetName() <<  ") Dead" << endl;
             another->MakeDead();
             another->Exhaust();
             mExp = (int)(mExp + ((another->GetLevel()*1.0)/mLevel)*100);
@@ -117,7 +123,7 @@ void Character::Attack(Character* another)
         }
         else
         {
-            if(another->GetClassName() == "Knight")
+            if(another->GetCharacterClassName() == "Knight")
             {
                 if(rand()%(100/(another->GetAttr(Character::AGI)/3)) == 0)
                     {
@@ -130,16 +136,16 @@ void Character::Attack(Character* another)
                     }
                 if(randPOW - (mAttributes[DEF]/2) <= 0)
                 {
-                    cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ") did 0 damage" << endl;
+                    cout << "Defending " << another->GetCharacterClassName() <<" (" << another->GetName() << ") did 0 damage" << endl;
                 }
                 else
                 {
-                cout << "Defending " << another->GetClassName() <<" (" << another->GetName() << ") did " << randPOW - (mAttributes[DEF]/2) << " damage" << endl;
+                cout << "Defending " << another->GetCharacterClassName() <<" (" << another->GetName() << ") did " << randPOW - (mAttributes[DEF]/2) << " damage" << endl;
                 mCurHP = (mCurHP-randPOW + (mAttributes[DEF]/2));
                 }
                 if (mCurHP <= 0)
                 {
-                    cout << "Attacker " << GetClassName() << " (" << GetName() <<  ") Dead" << endl;
+                    cout << "Attacker " << GetCharacterClassName() << " (" << GetName() <<  ") Dead" << endl;
                     mIsDead = true;
                     mExhausted = true;
                     (*another).mExp = (int)((*another).mExp + ((GetLevel()*1.0)/ (*another).mLevel)*100);
@@ -160,16 +166,16 @@ void Character::Attack(Character* another)
     {
         if(randPOW - (another->GetAttr(Character::DEF)/2) <= 0)
         {
-            cout << "Attacking " << GetClassName() <<" (" << GetName() << ") did 0 damage" << endl;
+            cout << "Attacking " << GetCharacterClassName() <<" (" << GetName() << ") did 0 damage" << endl;
         }
         else
         {
         another->SetHP(another->GetHP()-randPOW+(another->GetAttr(Character::DEF)/2));
-        cout << "Attacking " << GetClassName() <<" (" << GetName() << ") did " << randPOW-(another->GetAttr(Character::DEF)/2) << " damage" << endl;
+        cout << "Attacking " << GetCharacterClassName() <<" (" << GetName() << ") did " << randPOW-(another->GetAttr(Character::DEF)/2) << " damage" << endl;
         }
         if(another->GetHP() <= 0)
         {
-            cout << "Defender " << another->GetClassName() << " (" << another->GetName() <<  ") Dead" << endl;
+            cout << "Defender " << another->GetCharacterClassName() << " (" << another->GetName() <<  ") Dead" << endl;
             another->MakeDead();
             another->Exhaust();
             mExp = (int)(mExp + ((another->GetLevel()*1.0)/mLevel)*100);
@@ -257,9 +263,9 @@ const Point& Character::GetPoint() const
     return mCurPos;
 }
 
-const string Character::GetClassName() const
+const inline std::string & Character::GetCharacterClassName() const
 {
-    return "base";
+    return characterClassName;
 }
 
 ArmorItem* Character::GetArmor() const

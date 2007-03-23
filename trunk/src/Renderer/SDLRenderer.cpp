@@ -11,6 +11,7 @@
  * Karl Schmidt, February 10 2007 | Added SDL_INIT_AUDIO flag to SDL_Init
  * Karl Schmidt, February 8 2007  | Initial creation of cpp file
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
+ * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage
  */
 
 #include "SDLRenderer.h"                                // class implemented
@@ -54,7 +55,7 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
     if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK ) < 0 )
     {
         tacAssert( false ); // Always assert if this happens
-        LogCritical( string("Unable to init SDL: ") + string( SDL_GetError() ) );
+        LogCritical( std::string("Unable to init SDL: ") + std::string( SDL_GetError() ) );
         return;
     }
 
@@ -72,14 +73,14 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
     tacAssert( mScreen );
     if ( !mScreen )
     {
-        LogError( string("Unable to set video mode: ") + toString(xRes) + string(" ") + toString(yRes) + string("SDL error is: ") + toString(SDL_GetError()) + string(")") );
+        LogError( std::string("Unable to set video mode: ") + toString(xRes) + std::string(" ") + toString(yRes) + std::string("SDL error is: ") + toString(SDL_GetError()) + std::string(")") );
         printf("Unable to set %ix%i video: %s\n", xRes, yRes, SDL_GetError());
         return;
     }
 
     SDL_WM_SetCaption( "SymTac Alpha 2", NULL );
 
-    LogInfo( string("Set video mode: ") + toString(xRes) + string(" ") + toString(yRes) );
+    LogInfo( std::string("Set video mode: ") + toString(xRes) + std::string(" ") + toString(yRes) );
     LogInfo( "The SDLRenderer has been initialized successfully." );
 }
 
@@ -174,7 +175,7 @@ void SDLRenderer::RemoveFromRenderQueue( SDLRenderable * toRemove )
     }
 }
 
-SDL_Surface* SDLRenderer::CreateTextSurface( const string & textToRender, const int size, const int red, const int green, const int blue,
+SDL_Surface* SDLRenderer::CreateTextSurface( const std::string & textToRender, const int size, const int red, const int green, const int blue,
                                              const bool backBlack )
 {
     tacAssert( textToRender != "" );
@@ -204,7 +205,7 @@ SDL_Surface* SDLRenderer::CreateTextSurface( const string & textToRender, const 
     tacAssert( textSurface );
     if( !textSurface )
     {
-        LogError( string("Could not render text to surface, given text: ") + textToRender + string(", TTF_GetError says: ") + string( TTF_GetError() ) );
+        LogError( std::string("Could not render text to surface, given text: ") + textToRender + std::string(", TTF_GetError says: ") + std::string( TTF_GetError() ) );
         return NULL;
     }
 

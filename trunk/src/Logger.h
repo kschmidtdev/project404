@@ -16,6 +16,8 @@
  *
  * Karl Schmidt, February 7 2007, Modified slightly (no need forseen for COUNT in EMESSAGE_TYPE)
  * Karl Schmidt, February 7 2007, Created initial class definition
+ * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage, renamed some enums
+                                    because of name collisions
  */
 
 #ifndef Logger_h
@@ -25,7 +27,6 @@
 //
 #include <string>
 #include <stdio.h>
-using namespace std;
 
 // PROJECT INCLUDES
 //
@@ -43,11 +44,11 @@ public:
 // ENUM
 enum EMESSAGE_TYPE
 {
-    ERROR = 0,
-    CRITICAL,
-    WARNING,
-    INFO,
-    ERR_COUNT
+    EL_ERROR = 0,
+    EL_CRITICAL,
+    EL_WARNING,
+    EL_INFO,
+    EL_ERRCOUNT
 };
 
 // LIFECYCLE
@@ -57,7 +58,7 @@ enum EMESSAGE_TYPE
     * is the first time it is called, it will
     * use the param as the filename for the log file
     */
-    static Logger* GetInstance( const string logFileName );
+    static Logger* GetInstance( const std::string & logFileName );
 
     /**
     * Returns an instance of a Logger
@@ -85,13 +86,13 @@ enum EMESSAGE_TYPE
     /**
     * Log an error/info message
     */
-    void LogMessage( const EMESSAGE_TYPE type, const string msg );
+    void LogMessage( const EMESSAGE_TYPE type, const std::string & msg );
 
     /**
     * Log an error/info message, with additional developer
     * information (source filename, line number)
     */
-    void LogMessage( const EMESSAGE_TYPE type, const string msg, const string srcFileName, const int lineNum );
+    void LogMessage( const EMESSAGE_TYPE type, const std::string & msg, const std::string & srcFileName, const int lineNum );
 
 
 // ACCESS (writing)
@@ -108,15 +109,15 @@ protected:
     /**
     * Constructor that takes the name of the log filename in.
     */
-    Logger( const string logFileName );
+    Logger( const std::string & logFileName );
 
     static Logger* _instance;
 
 // PROTECTED VARIABLES
 
     FILE* mLogFileHandle;
-    string mLogFileName;
-    const char* mMsgTypeText[ERR_COUNT];
+    std::string mLogFileName;
+    const char* mMsgTypeText[EL_ERRCOUNT];
 
 private:
 // PRIVATE VARIABLES
@@ -128,9 +129,9 @@ private:
 // EXTERNAL REFERENCES
 //
 
-#define LogError( msg ) Logger::GetInstance()->LogMessage( Logger::ERROR, msg, __FILE__, __LINE__ );
-#define LogCritical( msg ) Logger::GetInstance()->LogMessage( Logger::CRITICAL, msg, __FILE__, __LINE__ );
-#define LogWarning( msg ) Logger::GetInstance()->LogMessage( Logger::WARNING, msg, __FILE__, __LINE__ );
-#define LogInfo( msg ) Logger::GetInstance()->LogMessage( Logger::INFO, msg, __FILE__, __LINE__ );
+#define LogError( msg ) Logger::GetInstance()->LogMessage( Logger::EL_ERROR, msg, __FILE__, __LINE__ );
+#define LogCritical( msg ) Logger::GetInstance()->LogMessage( Logger::EL_CRITICAL, msg, __FILE__, __LINE__ );
+#define LogWarning( msg ) Logger::GetInstance()->LogMessage( Logger::EL_WARNING, msg, __FILE__, __LINE__ );
+#define LogInfo( msg ) Logger::GetInstance()->LogMessage( Logger::EL_INFO, msg, __FILE__, __LINE__ );
 
 #endif  // _Logger_h_

@@ -22,9 +22,9 @@
 
 // Utility Function to automatically convert most primitives to a STL string
 template< typename T >
-string toString( const T& toConvert )
+std::string toString( const T& toConvert )
 {
-    ostringstream output;
+    std::ostringstream output;
     output << toConvert;
     return output.str();
 }

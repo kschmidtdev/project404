@@ -11,12 +11,13 @@
  * Karl Schmidt, March 12 2007    | Added DecryptFileToString
  * Karl Schmidt, March 13 2007	  | Added more error checking so it passes unit tests, doesn't infinite loop upon bad input (WHOOPS)
  * Karl Schmidt, March 14 2007	  | Removed usage of toString for DecryptFileToString, inconsistent length behaviour across different platforms
- * Karl Schmidt, March 15 2007    | Made string params refs, added GetUserHash
+ * Karl Schmidt, March 15 2007    | Made std::string params refs, added GetUserHash
+ * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage
  */
 
-#include <util.h>
-
 #include "SecurityManager.h"                                // class implemented
+
+#include <util.h>
 
 #include <Logger.h>
 
@@ -57,7 +58,7 @@ void SecurityManager::Shutdown()
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================
 
-void SecurityManager::LoadPasswordHashFile( const string & fileName )
+void SecurityManager::LoadPasswordHashFile( const std::string & fileName )
 {
     FILE* passHashFileHandle = NULL;
     passHashFileHandle = fopen( fileName.c_str(), "r" );
@@ -76,7 +77,7 @@ void SecurityManager::LoadPasswordHashFile( const string & fileName )
             if( userName[0] != '#' ) // Allow for "comments" in the file
             {
                 mLoadedPasswords[userName] = password;
-                LogInfo( string("Loaded username: ") + userName + string(" with password hash: ") + password );
+                LogInfo( std::string("Loaded username: ") + userName + std::string(" with password hash: ") + password );
             }
             else // Seek to the end of the line if you find a comment
             {
@@ -92,11 +93,11 @@ void SecurityManager::LoadPasswordHashFile( const string & fileName )
     else
     {
         // We should never try to open a file that doesn't exist
-        LogWarning( fileName + string(" - File not found") );
+        LogWarning( fileName + std::string(" - File not found") );
     }
 }
 
-void SecurityManager::SavePasswordHashFile( const string & fileName )
+void SecurityManager::SavePasswordHashFile( const std::string & fileName )
 {
     if( mLoadedPasswords.empty() )
     {
@@ -121,11 +122,11 @@ void SecurityManager::SavePasswordHashFile( const string & fileName )
     {
         // Unable to write to file for some reason
         tacAssert( false );
-        LogWarning( fileName + string(": Unable to write to password file") );
+        LogWarning( fileName + std::string(": Unable to write to password file") );
     }
 }
 
-bool SecurityManager::VerifyPassword( const string & userName, const string & password )
+bool SecurityManager::VerifyPassword( const std::string & userName, const std::string & password )
 {
     if( HashString( userName + password ) == mLoadedPasswords[userName] )
     {
@@ -137,7 +138,7 @@ bool SecurityManager::VerifyPassword( const string & userName, const string & pa
     }
 }
 
-void SecurityManager::AddUser( const string & userName, const string & password )
+void SecurityManager::AddUser( const std::string & userName, const std::string & password )
 {
     tacAssert( userName != "" && password != "" );
     if( userName == "" || password == "" )
@@ -156,7 +157,7 @@ void SecurityManager::AddUser( const string & userName, const string & password 
     }
 }
 
-void SecurityManager::DeleteUser( const string & userName )
+void SecurityManager::DeleteUser( const std::string & userName )
 {
     tacAssert( userName != "" );
     if( userName == "" )
@@ -176,7 +177,7 @@ void SecurityManager::DeleteUser( const string & userName )
     }
 }
 
-void SecurityManager::ChangeUserPassword( const string & userName, const string & newPassword )
+void SecurityManager::ChangeUserPassword( const std::string & userName, const std::string & newPassword )
 {
     tacAssert( userName != "" && newPassword != "" );
     if( userName == "" || newPassword == "" )
@@ -195,7 +196,7 @@ void SecurityManager::ChangeUserPassword( const string & userName, const string 
     }
 }
 
-string SecurityManager::EncryptFile( const string & fileNameToEncrypt, const string & hash, const string & outFileName )
+std::string SecurityManager::EncryptFile( const std::string & fileNameToEncrypt, const std::string & hash, const std::string & outFileName )
 {
     // Make sure we're not trying to open clearly invalid files
     tacAssert( fileNameToEncrypt != "" );
@@ -214,7 +215,7 @@ string SecurityManager::EncryptFile( const string & fileNameToEncrypt, const str
 
     // If an outOutFileName was not specified or is blank, then make the output
     // file result in the same file we are reading from
-    string resultOutFileName("");
+    std::string resultOutFileName("");
     if( outFileName == "" )
     {
         resultOutFileName = fileNameToEncrypt;
@@ -240,7 +241,7 @@ string SecurityManager::EncryptFile( const string & fileNameToEncrypt, const str
         // Rewind it back to the beginning for the actual reading of the data
         rewind( fileToRead );
 
-        LogInfo( string("Reading: ") + toString( bufferSize ) + string(" elements from ") + fileNameToEncrypt );
+        LogInfo( std::string("Reading: ") + toString( bufferSize ) + std::string(" elements from ") + fileNameToEncrypt );
 
         // We want this file to not be empty
         tacAssert( bufferSize > 0 );
@@ -249,7 +250,7 @@ string SecurityManager::EncryptFile( const string & fileNameToEncrypt, const str
         tacAssert( buffer != NULL );
         if( buffer == NULL )
         {
-            LogError( string("Unable to allocate enough memory for  ") + fileNameToEncrypt );
+            LogError( std::string("Unable to allocate enough memory for  ") + fileNameToEncrypt );
             fclose( fileToRead );
             return "";
         }
@@ -259,7 +260,7 @@ string SecurityManager::EncryptFile( const string & fileNameToEncrypt, const str
         tacAssert( copyResult == bufferSize );
         if( copyResult != bufferSize )
         {
-            LogError( string("Reading error ") + fileNameToEncrypt );
+            LogError( std::string("Reading error ") + fileNameToEncrypt );
             fclose( fileToRead );
             return "";
         }
@@ -270,7 +271,7 @@ string SecurityManager::EncryptFile( const string & fileNameToEncrypt, const str
     {
         // Unable to read to file for some reason
         tacAssert( false );
-        LogError( string("Unable to read file to encrypt ") + fileNameToEncrypt );
+        LogError( std::string("Unable to read file to encrypt ") + fileNameToEncrypt );
         return "";
     }
 
@@ -302,7 +303,7 @@ string SecurityManager::EncryptFile( const string & fileNameToEncrypt, const str
         if( fwrite( buffer, bufferSize, 1, fileToWrite ) != 1 )
         {
             tacAssert( false );
-            LogError( string("Error writing file out ") + resultOutFileName );
+            LogError( std::string("Error writing file out ") + resultOutFileName );
             fclose( fileToWrite );
             delete buffer;
             return "";
@@ -316,7 +317,7 @@ string SecurityManager::EncryptFile( const string & fileNameToEncrypt, const str
     return resultOutFileName;
 }
 
-string SecurityManager::DecryptFile( const string & fileNameToDecrypt, const string & hash, const string & outFileName )
+std::string SecurityManager::DecryptFile( const std::string & fileNameToDecrypt, const std::string & hash, const std::string & outFileName )
 {
     // Make sure we're not trying to open clearly invalid files
     tacAssert( fileNameToDecrypt != "" );
@@ -335,7 +336,7 @@ string SecurityManager::DecryptFile( const string & fileNameToDecrypt, const str
 
     // If an outOutFileName was not specified or is blank, then make the output
     // file result in the same file we are reading from
-    string resultOutFileName("");
+    std::string resultOutFileName("");
     if( outFileName == "" )
     {
         resultOutFileName = fileNameToDecrypt;
@@ -359,7 +360,7 @@ string SecurityManager::DecryptFile( const string & fileNameToDecrypt, const str
         if( fseek( fileToRead, 0, SEEK_END ) != 0 )
         {
             tacAssert( false );
-            LogError( string("Unabled to seek to end of file ") + fileNameToDecrypt );
+            LogError( std::string("Unabled to seek to end of file ") + fileNameToDecrypt );
             fclose( fileToRead );
             return "";
         }
@@ -368,13 +369,13 @@ string SecurityManager::DecryptFile( const string & fileNameToDecrypt, const str
         // Rewind it back to the beginning for the actual reading of the data
         rewind( fileToRead );
 
-        LogInfo( string("Reading: ") + toString( bufferSize ) + string(" elements from ") + fileNameToDecrypt );
+        LogInfo( std::string("Reading: ") + toString( bufferSize ) + std::string(" elements from ") + fileNameToDecrypt );
 
         // We want this file to not be empty
         tacAssert( bufferSize > 0 );
         if( bufferSize < 1 )
         {
-            LogError( string("File is empty?  ") + fileNameToDecrypt );
+            LogError( std::string("File is empty?  ") + fileNameToDecrypt );
             fclose( fileToRead );
             return "";
         }
@@ -384,7 +385,7 @@ string SecurityManager::DecryptFile( const string & fileNameToDecrypt, const str
         tacAssert( buffer != NULL );
         if( buffer == NULL )
         {
-            LogError( string("Unable to allocate enough memory for  ") + fileNameToDecrypt );
+            LogError( std::string("Unable to allocate enough memory for  ") + fileNameToDecrypt );
             fclose( fileToRead );
             return "";
         }
@@ -394,7 +395,7 @@ string SecurityManager::DecryptFile( const string & fileNameToDecrypt, const str
         tacAssert( copyResult == bufferSize );
         if( copyResult != bufferSize )
         {
-            LogError( string("Reading error ") + fileNameToDecrypt );
+            LogError( std::string("Reading error ") + fileNameToDecrypt );
             fclose( fileToRead );
             return "";
         }
@@ -405,7 +406,7 @@ string SecurityManager::DecryptFile( const string & fileNameToDecrypt, const str
     {
         // Unable to read to file for some reason
         tacAssert( false );
-        LogError( string("Unable to read file to decrypt ") + fileNameToDecrypt );
+        LogError( std::string("Unable to read file to decrypt ") + fileNameToDecrypt );
         return "";
     }
 
@@ -437,7 +438,7 @@ string SecurityManager::DecryptFile( const string & fileNameToDecrypt, const str
         if( fwrite( buffer, sizeof(char), bufferSize, fileToWrite ) != static_cast<unsigned int>( bufferSize ) )
         {
             tacAssert( false );
-            LogError( string("Error writing file out ") + resultOutFileName );
+            LogError( std::string("Error writing file out ") + resultOutFileName );
             fclose( fileToWrite );
             delete buffer;
             return "";
@@ -451,7 +452,7 @@ string SecurityManager::DecryptFile( const string & fileNameToDecrypt, const str
     return resultOutFileName;
 }
 
-string SecurityManager::DecryptFileToString( const string & fileNameToDecrypt, const string & hash )
+std::string SecurityManager::DecryptFileToString( const std::string & fileNameToDecrypt, const std::string & hash )
 {
     // Make sure we're not trying to open clearly invalid files
     tacAssert( fileNameToDecrypt != "" );
@@ -482,7 +483,7 @@ string SecurityManager::DecryptFileToString( const string & fileNameToDecrypt, c
         if( fseek( fileToRead, 0, SEEK_END ) != 0 )
         {
             tacAssert( false );
-            LogError( string("Unabled to seek to end of file ") + fileNameToDecrypt );
+            LogError( std::string("Unabled to seek to end of file ") + fileNameToDecrypt );
             fclose( fileToRead );
             return "";
         }
@@ -491,13 +492,13 @@ string SecurityManager::DecryptFileToString( const string & fileNameToDecrypt, c
         // Rewind it back to the beginning for the actual reading of the data
         rewind( fileToRead );
 
-        LogInfo( string("Reading: ") + toString( bufferSize ) + string(" elements from ") + fileNameToDecrypt );
+        LogInfo( std::string("Reading: ") + toString( bufferSize ) + std::string(" elements from ") + fileNameToDecrypt );
 
         // We want this file to not be empty
         tacAssert( bufferSize > 0 );
         if( bufferSize < 1 )
         {
-            LogError( string("File is empty?  ") + fileNameToDecrypt );
+            LogError( std::string("File is empty?  ") + fileNameToDecrypt );
             fclose( fileToRead );
             return "";
         }
@@ -507,7 +508,7 @@ string SecurityManager::DecryptFileToString( const string & fileNameToDecrypt, c
         tacAssert( buffer != NULL );
         if( buffer == NULL )
         {
-            LogError( string("Unable to allocate enough memory for  ") + fileNameToDecrypt );
+            LogError( std::string("Unable to allocate enough memory for  ") + fileNameToDecrypt );
             fclose( fileToRead );
             return "";
         }
@@ -517,7 +518,7 @@ string SecurityManager::DecryptFileToString( const string & fileNameToDecrypt, c
         tacAssert( copyResult == bufferSize );
         if( copyResult != bufferSize )
         {
-            LogError( string("Reading error ") + fileNameToDecrypt );
+            LogError( std::string("Reading error ") + fileNameToDecrypt );
             fclose( fileToRead );
             return "";
         }
@@ -528,7 +529,7 @@ string SecurityManager::DecryptFileToString( const string & fileNameToDecrypt, c
     {
         // Unable to read to file for some reason
         tacAssert( false );
-        LogError( string("Unable to read file to decrypt ") + fileNameToDecrypt );
+        LogError( std::string("Unable to read file to decrypt ") + fileNameToDecrypt );
         return "";
     }
 
@@ -537,7 +538,7 @@ string SecurityManager::DecryptFileToString( const string & fileNameToDecrypt, c
     // I am just doing this because it is probably faster
     const char * hashBuffer = hash.c_str();
 
-    string toReturn = "";
+    std::string toReturn = "";
     // Go through all the elements, and XOR each with an element in the hash
     // Skip through the buffer by the size of the hash
     for( int i = 0; i < bufferSize; i += hashLength )
@@ -556,7 +557,7 @@ string SecurityManager::DecryptFileToString( const string & fileNameToDecrypt, c
     return toReturn;
 }
 
-string SecurityManager::GetUserHash( const string & userName )
+std::string SecurityManager::GetUserHash( const std::string & userName )
 {
     if( mLoadedPasswords.find( userName ) != mLoadedPasswords.end() )
     {
@@ -577,9 +578,9 @@ SecurityManager::SecurityManager()
     // stub
 }// SecurityManager
 
-string SecurityManager::HashString( const string & incoming )
+std::string SecurityManager::HashString( const std::string & incoming )
 {
-    string output = "";
+    std::string output = "";
     for( unsigned int i(0); i < incoming.length(); ++i )
     {
         int curDigit = incoming[i];

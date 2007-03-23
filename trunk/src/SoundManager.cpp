@@ -9,6 +9,7 @@
  * Karl Schmidt, February 11 2007 | Correctly cleared the singleton instance in Shutdown()
  * Karl Schmidt, February 10 2007 | Initial creation of the class
  * Karl Schmidt, March 13 2007    | Added support for sound subsystem disabling
+ * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage
  */
 
 #include <util.h>
@@ -46,7 +47,7 @@ void SoundManager::Initialize( const bool isEnabled )
         LogInfo( "Beginning SoundManager initialization..." );
         if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1 )
         {
-            LogCritical( string("Mix_OpenAudio: ") + string(Mix_GetError()) );
+            LogCritical( std::string("Mix_OpenAudio: ") + std::string(Mix_GetError()) );
             tacAssert( false ); // this should never happen
             return;
         }
