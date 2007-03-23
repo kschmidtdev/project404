@@ -20,23 +20,23 @@
 #include <UI/UIMenu.h>
 #include <UI/FuncObj.h>
 
-class SaveGameFunction : public FuncObj {
-
-    public:
-    SaveGameFunction(string fileName)
+class SaveGameFunction : public FuncObj
+{
+public:
+    SaveGameFunction( const std::string & fileName)
     : mFileName(fileName)
     {
     }
 
-    virtual void operator()(void)
+    void operator()(void)
     {
         //GameEngine::GetInstance()->SaveGame(mFileName);
         UIManager::GetInstance()->PopLayout();
     }
 
 
-    protected:
-    string mFileName;
+protected:
+    std::string mFileName;
 
 };
 

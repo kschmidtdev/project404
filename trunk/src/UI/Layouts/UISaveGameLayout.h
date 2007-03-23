@@ -42,28 +42,11 @@ public:
     UISaveGameLayout(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    //UISaveGameLayout(const UISaveGameLayout& from);
-
-    /**
      * Destructor.
 	 */
     ~UISaveGameLayout(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    //UISaveGameLayout&                     operator=(UISaveGameLayout& from);
-
 // OPERATIONS
 
     /**

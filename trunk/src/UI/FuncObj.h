@@ -12,6 +12,7 @@
  *
  * Authors:
  * Andrew Osborne, February 11 2007, Initial Creation
+ * Karl Schmidt, March 23 2007 | Added virtual destructor
  */
 
 #ifndef FuncObj_h
@@ -33,6 +34,7 @@ class FuncObj
 {
 public:
 // LIFECYCLE
+    virtual ~FuncObj() { };
 // OPERATORS
 // OPERATIONS
 
