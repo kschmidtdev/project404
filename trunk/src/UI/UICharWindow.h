@@ -12,6 +12,7 @@
  * Authors:
  * Andrew Osborne, March 9 2007, Initial Creation
  * Andrew Osborne, March 15 2007, Added Level and Class to List of info
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UICharWindow_h
@@ -19,10 +20,8 @@
 
 // SYSTEM INCLUDES
 //
-#include <UIElement.h>
-#include <UIText.h>
-#include <UIImage.h>
-#include <GameEngine/Character.h>
+#include <UI/UIText.h>
+#include <UI/UIImage.h>
 
 // PROJECT INCLUDES
 //
@@ -32,7 +31,7 @@
 
 // FORWARD REFERENCES
 //
-
+class Character;
 
 class UICharWindow : public UIElement
 {
@@ -45,27 +44,11 @@ public:
     UICharWindow(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    //UICharWindow(const UICharWindow& from);
-
-    /**
      * Destructor.
 	 */
     ~UICharWindow(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    //UICharWindow&                     operator=(UICharWindow& from);
 
 // OPERATIONS
 

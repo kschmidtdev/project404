@@ -13,7 +13,8 @@
  * Andrew Osborne, February 10 2007 | Initial Crude Creation
  * Karl Schmidt,   February 14 2007 | Updated function capitalization, block style, typedefs
  * Mike Malyuk,    February 15 2007 | Added function to get grid
- * Karl Schmidt, February 15 2007 | Added Initialize and OnClose override
+ * Karl Schmidt, February 15 2007   | Added Initialize and OnClose override
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UIBattleScreenLayout_h
@@ -24,9 +25,9 @@
 
 // PROJECT INCLUDES
 //
-#include <UILayout.h>
-#include <UIMenu.h>
-#include <UIGrid.h>
+#include <UI/UILayout.h>
+#include <UI/UIMenu.h>
+#include <UI/UIGrid.h>
 #include <GameEngine/Level.h>
 #include <GameEngine/GameEngine.h>
 

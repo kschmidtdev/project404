@@ -3,7 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <../GameEngine/ArmorItem.h>
+#include <GameEngine/ArmorItem.h>
 
 //
 // A generated test suite: Just write tests!

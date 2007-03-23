@@ -12,6 +12,7 @@
  * Authors:
  * Andrew Osborne, February 11 2007, Initial Creation
  * Andrew Osborne, March 18 2007, Re-initialized class for use, added UpdatePos and SetAttach methods
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UICursor_h
@@ -19,10 +20,11 @@
 
 // SYSTEM INCLUDES
 //
+#include <string>
 
 // PROJECT INCLUDES
 //
-#include <UIElement.h>
+#include <UI/UIElement.h>
 
 // LOCAL INCLUDES
 //
@@ -44,7 +46,7 @@ public:
     /**
      * image file constructor.
 	 */
-    UICursor(string filename, Point o, UIElement* start);
+    UICursor( const std::string & filename, const Point & point, UIElement* start );
 
     /**
      * Destructor.

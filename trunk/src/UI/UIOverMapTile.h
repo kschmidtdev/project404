@@ -13,6 +13,7 @@
  * Andrew Osborne, March 4, 2007, Initial Creation
  * Andrew Osborne, March 13 2007, Added BattleInit operation and mCity (ptr) variable
  * andrew Osborne, March 15 2007, Added Scroll Box Handling
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UIOverMapTile_h
@@ -23,7 +24,7 @@
 
 // PROJECT INCLUDES
 //
-#include <UIElement.h>
+#include <UI/UIElement.h>
 #include <GameEngine/City.h>
 
 // LOCAL INCLUDES

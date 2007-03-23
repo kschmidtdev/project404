@@ -9,6 +9,7 @@
  *
  * Authors:
  * Andrew Osborne, March 12 2007, Initial Creation
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UIScrollText_h
@@ -16,20 +17,22 @@
 
 // SYSTEM INCLUDES
 //
+#include <vector>
 
 // PROJECT INCLUDES
 //
-#include <UIElement.h>
-#include <UIText.h>
+#include <UI/UIElement.h>
 
 // LOCAL INCLUDES
 //
 
 // FORWARD REFERENCES
 //
-typedef vector<UIText*> UITextVec;
+class UIText;
+
+typedef std::vector<UIText*> UITextVec;
 typedef UITextVec::iterator UITextItr;
-typedef vector<string> StringVec;
+typedef std::vector<std::string> StringVec;
 typedef StringVec::iterator StringItr;
 
 
@@ -44,28 +47,11 @@ public:
     UIScrollText(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    //UIScrollText(const UIScrollText& from);
-
-    /**
      * Destructor.
 	 */
     ~UIScrollText(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    //UIScrollText&                     operator=(UIScrollText& from);
-
 // OPERATIONS
 
     /**
@@ -103,7 +89,7 @@ public:
     /**
      * Adds single line of text
      */
-    void AddLine(string oneLine);
+    void AddLine( const std::string & oneLine );
 
     /**
      * Adds single line of text

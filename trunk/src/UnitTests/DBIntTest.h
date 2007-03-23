@@ -3,7 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <../Database/DBInt.h>
+#include <Database/DBInt.h>
 
 //
 // A generated test suite: Just write tests!

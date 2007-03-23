@@ -15,6 +15,7 @@
  * Karl Schmidt, February 9 2007, Initial creation of header
  * Andrew Osborne, February 10 2007, added SDL include
  * Karl Schmidt, March 20 2007 | Added virtual destructor
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 
 #ifndef SDLRenderable_h
@@ -25,14 +26,13 @@
 
 // PROJECT INCLUDES
 //
-#include <SDL.h>
 
 // LOCAL INCLUDES
 //
 
 // FORWARD REFERENCES
 //
-
+class SDL_Surface;
 
 class SDLRenderable
 {

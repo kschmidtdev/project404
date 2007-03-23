@@ -10,6 +10,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Karl Schmidt, March 21 2007    | Added support for black-backround rendering behind text
  * Karl Schmidt, February 15 2007 | Added temporary renderable functionality
  * Karl Schmidt, February 7 2007, Initial creation of the header
@@ -20,11 +21,9 @@
 
 // SYSTEM INCLUDES
 //
-#include <SDL.h>
-#include <SDL_ttf.h>
 #include <vector>
 #include <map>
-using namespace std;
+#include <SDL_ttf.h>
 
 // PROJECT INCLUDES
 //
@@ -36,13 +35,18 @@ using namespace std;
 // FORWARD REFERENCES
 //
 class SDLRenderable;
+class SDL_Surface;
 
-typedef vector<SDLRenderable*> RenderableVec;
+typedef unsigned int Uint32;
+
+typedef std::vector<SDLRenderable*> RenderableVec;
 typedef RenderableVec::iterator RenderableVecItr;
-typedef map<int, TTF_Font*> FontMap;
+typedef std::map<int, TTF_Font*> FontMap;
 typedef FontMap::iterator FontMapItr;
-typedef pair<SDLRenderable*, Uint32> TempRenderable;
-typedef vector< TempRenderable > TempRenderableVec;
+
+typedef std::pair<Uint32, Uint32> TimeStartEndPair;
+typedef std::pair<SDLRenderable*, TimeStartEndPair> TempRenderable;
+typedef std::vector< TempRenderable > TempRenderableVec;
 typedef TempRenderableVec::iterator TempRenderableItr;
 
 class SDLRenderer : public Renderer
@@ -91,9 +95,10 @@ public:
     /**
      * Adds a SDLRenderable to the temporary render queue, that
      * will be removed when timeToRemove becomes older than the current time
+     * and will start drawing when timeToStart is reached if it is not 0
      * THIS WILL DELETE EXPIRED RENDERABLES ITSELF
 	 */
-    void AddToTempRenderQueue( SDLRenderable * toAdd, const Uint32 timeToRemove );
+    void AddToTempRenderQueue( SDLRenderable * toAdd, const Uint32 timeToRemove, const Uint32 timeToStart = 0 );
 
     /**
      * Removes a SDLRenderable from the render queue
@@ -110,7 +115,7 @@ public:
      * will default to white if no colour components are passed in. IF YOU CALL THIS YOU
      * MUST HANDLE DESTROYING THE SURFACE IT GIVES YOU WHEN YOU ARE DONE WITH IT
 	 */
-    SDL_Surface* SDLRenderer::CreateTextSurface( const string & textToRender, const int size, const int red = 255, const int green = 255,
+    SDL_Surface* SDLRenderer::CreateTextSurface( const std::string & textToRender, const int size, const int red = 255, const int green = 255,
                                                  const int blue = 255, const bool backBlack = false );
 
 // ACCESS (writing)

@@ -3,7 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <../Database/DBVector2D.h>
+#include <Database/DBVector2D.h>
 
 //
 // A generated test suite: Just write tests!

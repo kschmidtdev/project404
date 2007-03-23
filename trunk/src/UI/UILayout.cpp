@@ -9,17 +9,18 @@
  * Andrew Osborne, February 10, 2007 | Added documentation
  * Andrew Osborne, February 11, 2007 | Added Process event handling, took out renderSelf
  * Andrew Osborne, February 12, 2007 | Added getName for searching purposes
- * Karl Schmidt, February 13 2007 | Implemented typedefs for vector types, destructor modification
- * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Karl Schmidt, February 13 2007    | Implemented typedefs for vector types, destructor modification
+ * Karl Schmidt, February 14 2007    | Updated function capitalization, block style, typedefs, refs
+ * Karl Schmidt, March 22 2007       | Correcting include orders and paths
  */
 
+#include "UILayout.h"                                   // class implemented
 
 #include <util.h>
 
-
-#include <UILayout.h>                                   // class implemented
 #include <Renderer/SDLRenderer.h>
-#include <UIManager.h>
+#include <UI/UIManager.h>
+#include <UI/UIElement.h>
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -97,7 +98,7 @@ void UILayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 
-string UILayout::GetName(void)
+const std::string & UILayout::GetName(void) const
 {
     return mName;
 }

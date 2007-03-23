@@ -10,6 +10,7 @@
  * Authors:
  * Andrew Osborne, March 4, 2007, Initial Creation
  * Andrew Osborne, March 12, 2007, Added OnLoad to allow for OverMap updating.
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 
 #ifndef UIOverMapLayout_h
@@ -20,10 +21,10 @@
 
 // PROJECT INCLUDES
 //
-#include <UIOverMap.h>
-#include <UILayout.h>
-#include <UIMenu.h>
-#include <UIScrollText.h>
+#include <UI/UIOverMap.h>
+#include <UI/UILayout.h>
+#include <UI/UIMenu.h>
+#include <UI/UIScrollText.h>
 
 // LOCAL INCLUDES
 //
@@ -43,28 +44,11 @@ public:
     UIOverMapLayout(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    //UIOverMapLayout(const UIOverMapLayout& from);
-
-    /**
      * Destructor.
 	 */
     ~UIOverMapLayout(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    //UIOverMapLayout&                     operator=(UIOverMapLayout& from);
-
 // OPERATIONS
 
     /**

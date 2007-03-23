@@ -9,15 +9,16 @@
  * Andrew Osborne, February 10, 2007 | Added documentation, removed RSM/rend references
  * Karl Schmidt, February 11 2007 | Added checks that prevent game from crashing if textures are missing
  * Andrew Osborne, February 11 2007 | Added destructor
- * Karl Schmidt, February 13 2007 | Rearranged initializer list to prevent warning
- * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Karl Schmidt, February 13 2007   | Rearranged initializer list to prevent warning
+ * Karl Schmidt, February 14 2007   | Updated function capitalization, block style, typedefs, refs
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
+
+#include <UI/UIElement.h>                   // class implemented
 
 #include <util.h>
 
-
-#include <UIElement.h>                   // class implemented
-
+#include <Renderer/SDLRenderer.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 

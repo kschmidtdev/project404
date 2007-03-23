@@ -5,12 +5,14 @@
  *
  * Authors:
  * Andrew Osborne, March 20 2007 | Initial Creation
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
+
+#include "UIAlphabetGrid.h"                                // class implemented
 
 #include <util.h>
 
-#include "UIAlphabetGrid.h"                                // class implemented
-#include "UIManager.h"
+#include <UI/UIManager.h>
 
 /*
 
@@ -59,6 +61,18 @@ mGrid( Point( 6, 3 ) ), mOffset( Point( 45, 45) )
 
 UIAlphabetGrid::~UIAlphabetGrid()
 {
+    for( UITextItr i = mLetters.begin(); i != mLetters.end(); ++i )
+    {
+        delete *i;
+    }
+    mLetters.clear();
+
+    if( mCursor )
+    {
+        delete mCursor;
+    }
+    mCursor = NULL;
+
 }// ~UIAlphabetGrid
 
 
@@ -179,7 +193,7 @@ void UIAlphabetGrid::AddChar(void)
 {
     // find mLetters index
     string temp;
-    int index = mCursorPos.GetX() + mCursorPos.GetY() * ( mGrid.GetX() + 1);
+    unsigned int index = mCursorPos.GetX() + mCursorPos.GetY() * ( mGrid.GetX() + 1);
     if (index<mLetters.size())
     {
         temp = mAlphabet[index];

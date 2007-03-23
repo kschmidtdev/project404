@@ -7,15 +7,16 @@
  * Andrew Osborne, February 15 2007 | Initial Creation
  * Karl Schmidt, March 9 2007	 	| Changed textures to png
  * Karl Schmidt, March 12 2007		| Cleaned up ProcessEvent so it goes to the Overmap correctly
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
+
+#include "UILoseLayout.h"                                // class implemented
 
 #include <util.h>
 
-
-#include "UILoseLayout.h"                                // class implemented
-#include "UIText.h"
-#include "UIImage.h"
-#include "UIManager.h"
+#include <UI/UIText.h>
+#include <UI/UIImage.h>
+#include <UI/UIManager.h>
 
 #include <GameEngine/GameEngine.h>
 

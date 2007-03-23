@@ -17,6 +17,7 @@
  * Karl Schmidt, March 15 2007    | Made an attempt to fix event recording/playback, still not acting right
  * Karl Schmidt, March 21 2007    | Added directional-key auto-repeat, storing/loading rand seed in key recording file
  * Karl Schmidt, March 22 2007    | Fixed a bug where auto-repeated key events weren't being logged during recording
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 
 #ifndef InputManager_h
@@ -27,7 +28,7 @@
 #include <vector>
 #include <string>
 
-#include <SDL.h>
+#include <SDL/SDL.h>
 
 // PROJECT INCLUDES
 //

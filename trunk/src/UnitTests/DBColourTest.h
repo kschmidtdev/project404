@@ -3,7 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <../Database/DBColour.h>
+#include <Database/DBColour.h>
 
 //
 // A generated test suite: Just write tests!

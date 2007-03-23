@@ -3,8 +3,8 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <UICharWindow.h>
-#include <UIUnitTestHelp.h>
+#include <UI/UICharWindow.h>
+#include <UI/UIUnitTestHelp.h>
 #include <GameEngine/Character.h>
 
 //

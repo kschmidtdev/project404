@@ -14,19 +14,20 @@
  * Mike Malyuk, March 10, 2007      | Changed battleinit init to be compatible with map
  * Karl Schmidt, March 12 2007		| Cleaned up the NewGameFunction because the OverMap does what it was doing now
  * Karl Schmidt, March 15 2007      | Removed commented code, made newgame and loadgame work
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
+
+#include "UIMainMenuLayout.h"                                // class implemented
 
 #include <util.h>
 
-
-#include "UIMainMenuLayout.h"                                // class implemented
-#include "UIMenu.h"
-#include "UIManager.h"
-#include "UIText.h"
-#include "UIImage.h"
+#include <UI/UIMenu.h>
+#include <UI/UIManager.h>
+#include <UI/UIText.h>
+#include <UI/UIImage.h>
+#include <UI/FuncObj.h>
 
 #include <Database/DBEngine.h>
-
 
 class NewGameFunction : public FuncObj
 {

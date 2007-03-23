@@ -3,7 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <../GameEngine/Knight.h>
+#include <GameEngine/Knight.h>
 
 //
 // A generated test suite: Just write tests!

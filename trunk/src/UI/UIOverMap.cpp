@@ -10,10 +10,15 @@
  * Karl Schmidt, March 12 2007	 | Added battle initialization to starting a new level
  * Andrew Osborne, March 13 2007 | OverMapTile now calls BattleInit
  * Karl Schmidt, March 15 2007   | Added hack to reset highlighted city to the first every onLoad
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  */
 #include "UIOverMap.h"                                // class implemented
-#include "UIManager.h"
-#include "GameEngine/GameEngine.h"
+
+#include <util.h>
+
+#include <UI/UIManager.h>
+#include <GameEngine/GameEngine.h>
+#include <ResourceManager/ResourceManager.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 

@@ -8,7 +8,8 @@
  * Project 404 2007
  *
  * Authors:
- * Andrew osborne, March 18 2007, Initial Creaiton
+ * Andrew osborne, March 18 2007, Initial Creation
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 
 #ifndef UILoadProfileLayout_h
@@ -19,7 +20,7 @@
 
 // PROJECT INCLUDES
 //
-#include <UILayout.h>
+#include <UI/UILayout.h>
 
 // LOCAL INCLUDES
 //

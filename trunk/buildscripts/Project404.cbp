@@ -81,10 +81,8 @@
 			<Add option="-Wall" />
 			<Add option="-DTIXML_USE_STL" />
 			<Add directory="..\external\include" />
-			<Add directory="..\external\include\SDL" />
 			<Add directory="..\src" />
-			<Add directory="..\src\UI" />
-			<Add directory="..\src\UI\Layouts" />
+			<Add directory="..\external\include\SDL" />
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />

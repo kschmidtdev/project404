@@ -14,6 +14,7 @@
  * Karl Schmidt,   February 14 2007 | Updated function capitalization, block style, typedefs, refs
  * Mike Malyuk,    March 8 2007     | Added UITile constructor taking Tile in preparation for use of map
  * Andrew osborne, March 15 2007    | Made a change in preperation for a dynamically changing Grid.
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UITile_h
@@ -24,8 +25,8 @@
 
 // PROJECT INCLUDES
 //
-#include <UIElement.h>
-#include <../GameEngine/Tile.h>
+#include <UI/UIElement.h>
+#include <GameEngine/Tile.h>
 // LOCAL INCLUDES
 //
 
@@ -43,7 +44,7 @@ public:
 	 */
     UITile(void);
 
-    UITile(Tile t);
+    UITile( const Tile & tile );
 
     /**
      * Destructor.

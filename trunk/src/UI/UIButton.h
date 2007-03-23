@@ -12,7 +12,8 @@
  *
  * Authors:
  * Andrew Osborne, February 11 2007 | Initial Creation
- * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs
+ * Karl Schmidt, February 14 2007   | Updated function capitalization, block style, typedefs
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UIButton_h
@@ -23,15 +24,14 @@
 
 // PROJECT INCLUDES
 //
-#include <UIElement.h>
-#include <UIText.h>
-#include <FuncObj.h>
+#include <UI/UIText.h>
 
 // LOCAL INCLUDES
 //
 
 // FORWARD REFERENCES
 //
+class FuncObj;
 
 
 class UIButton : public UIElement
@@ -47,7 +47,7 @@ public:
     /**
      * Default constructor.
 	 */
-	UIButton(const string text);
+	UIButton(const std::string & text);
 
     /**
      * Destructor.

@@ -25,7 +25,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-using namespace std;
+
 // PROJECT INCLUDES
 //
 #include "ArmorItem.h"

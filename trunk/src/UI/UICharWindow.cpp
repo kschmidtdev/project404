@@ -9,11 +9,16 @@
  * Andrew Osborne, March 14 2007 | Made it so by default, mElementImage has something stored in it
  *                                      and by default, the blank image is displayed
  * Andrew Osborne, March 15 2007 | Added Level and Class to information Listed.
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  */
 #include "UICharWindow.h"                                // class implemented
+
+#include <util.h>
+
 #include <sstream>
 
-
+#include <ResourceManager/ResourceManager.h>
+#include <GameEngine/Character.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -53,7 +58,7 @@ mStrOffset( 0 ), mDefOffset( 0 )
     mDefOffset = mStrOffset;
 
     std::ostringstream oss;
-    string str;
+    std::string str;
 
     // Initialize color parameters
     int HPRed = 0;
@@ -152,7 +157,7 @@ void UICharWindow::SetCharacter(Character *c)
     {
 
         std::ostringstream oss;
-        string str;
+        std::string str;
 
         // Character's name
         mCharName.ChangeText( mCurCharacter->GetName() + "  (" + mCurCharacter->GetClassName() + ")" );

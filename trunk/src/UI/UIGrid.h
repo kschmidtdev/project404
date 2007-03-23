@@ -23,7 +23,8 @@
  * Mike Malyuk,    March 14, 2007     | Fixed range method to get latest.
  * Mike Malyuk,    March 14, 2007     | Removed defunct methods
  * Karl Schmidt,   March 20 2007      | Major adding of consts and reference usage, rearranging includes
- * Karl Schmidt,   March 21 2007     | Added support for health change indication UI
+ * Karl Schmidt,   March 21 2007      | Added support for health change indication UI
+ * Karl Schmidt,   March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UIGrid_h
@@ -34,10 +35,9 @@
 
 // PROJECT INCLUDES
 //
-#include <UITile.h>
+#include <UI/UITile.h>
 #include <EventListener.h>
-#include <UIImage.h>
-#include <GameEngine/Level.h>
+#include <UI/UIImage.h>
 
 // LOCAL INCLUDES
 //
@@ -47,13 +47,17 @@
 
 class UIElement;
 class UICharWindow;
+class Level;
+class Character;
+class Map;
 
-typedef vector<UITile> UITileVec;
+typedef std::vector<UITile> UITileVec;
 typedef UITileVec::iterator UITileItr;
-typedef vector<UIImage> UIImageVec;
+typedef std::vector<UIImage> UIImageVec;
 typedef UIImageVec::iterator UIImageItr;
-typedef vector<UIImage*> UIImagePtrVec;
+typedef std::vector<UIImage*> UIImagePtrVec;
 typedef UIImagePtrVec::iterator UIImagePtrItr;
+typedef std::vector<Point> PointVec;
 
 class UIGrid : public UIElement, public EventListener
 {
@@ -106,7 +110,7 @@ public:
     /**
      * Used for displaying the range of motion for a particular player
      */
-    void AddMoveableRange( vector<Character*> enemies, vector<Character*> enemies, Character* you);
+    void AddMoveableRange( std::vector<Character*> enemies, std::vector<Character*> enemies, Character* you);
 
     /**
      *  Clears the points which make up
@@ -216,7 +220,7 @@ protected:
     public:
     void ConfirmFunction( const Point & p );
     protected:
-    SDL_Surface* GetClassSurface( Character* c, const string group );
+    SDL_Surface* GetClassSurface( Character* c, const std::string & group );
     Point GridToAbsoluteCoordinates( const Point & p );
 
 	/**

@@ -17,28 +17,31 @@
  * Karl Schmidt, March 15 2007	  | Added support for -encrypt parameter
  * Karl Schmidt, March 16 2007    | Fixed infinite loop state bug, recorded event playback now works!
  * Karl Schmidt, March 21 2007    | Added support for SDL_KEYDOWN handling in InputManager
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 
 #include "GameRoot.h"                                // class implemented
 
-#include <Logger.h>
 #include <util.h>
+#include <Logger.h>
 
 #include <SecurityManager.h>
 #include <Database/DatabaseManager.h>
 #include <Database/DBEngine.h>
+#include <GameEngine/GameEngine.h>
 #include <InputManager.h>
 #include <Renderer/SDLRenderer.h>
 #include <ResourceManager/ResourceManager.h>
 #include <SoundManager.h>
-#include <UIManager.h>
-#include <GameEngine/GameEngine.h>
+#include <UI/UIManager.h>
+#include <UI/UIGrid.h>
+#include <UI/UILayout.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
-const string bgMusicFileName( "Fantastic_B1-256.ogg" );
-const string logFileName( "tacLogFile.txt" );
-const string configFileName( "config.cfg" );
+const std::string bgMusicFileName( "Fantastic_B1-256.ogg" );
+const std::string logFileName( "tacLogFile.txt" );
+const std::string configFileName( "config.cfg" );
 
 //============================= LIFECYCLE ====================================
 
@@ -223,7 +226,7 @@ void GameRoot::GameLoop()
     LogInfo( "The game has ended." );
 }
 
-void GameRoot::LoadConfigFileSettings( const string fileName )
+void GameRoot::LoadConfigFileSettings( const std::string & fileName )
 {
     FILE* configFileHandle = NULL;
     configFileHandle = fopen( fileName.c_str(), "r" );

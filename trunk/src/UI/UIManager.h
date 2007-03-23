@@ -18,6 +18,7 @@
  * Karl Schmidt, February 13 2007 | Added typedefs instead of lots of vector<Type>
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  * Andrew Osborne, February 15 2007 | Added PopAllLayouts
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UIManager_h
@@ -27,19 +28,18 @@
 //
 #include <vector>
 #include <list>
-using namespace std;
 
 // PROJECT INCLUDES
 //
-#include <UILayout.h>
 
 // LOCAL INCLUDES
 //
 
 // FORWARD REFERENCES
 //
+class UILayout;
 
-typedef vector<UILayout*> UILayoutVec;
+typedef std::vector<UILayout*> UILayoutVec;
 typedef UILayoutVec::iterator UILayoutItr;
 
 class UIManager
@@ -89,7 +89,7 @@ public:
 	 *
 	 * @param string name of desired layout.
 	 */
-    void PushLayout(const string newLayout);
+    void PushLayout(const std::string & newLayout);
 
     /**
      * Releases current UILayout and makes previous UILayout current one.
@@ -131,7 +131,7 @@ public:
      *
 	 * @return pointer to requested layout (or NULL if doesn't exist).
 	 */
-	 UILayout* GetLayout(const string layoutName);
+	 UILayout* GetLayout(const std::string & layoutName);
 
 	 bool GetEndGameState() { return mGameShutdown; };
 
@@ -148,7 +148,7 @@ protected:
     static UIManager* _instance;
 
     UILayoutVec mLayoutMasterList;
-    list<UILayout*> mCurrentLayoutList;
+    std::list<UILayout*> mCurrentLayoutList;
     UILayout* mCurLayout;
     bool mGameShutdown;
 

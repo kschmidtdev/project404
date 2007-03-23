@@ -5,10 +5,14 @@
  *
  * Authors:
  * Andrew Osborne, March 18 2007 | Initial Creation
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 #include "UILoadProfileLayout.h"                                // class implemented
-#include "UIText.h"
-#include "UIManager.h"
+
+#include <util.h>
+
+#include <UI/UIText.h>
+#include <UI/UIManager.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 

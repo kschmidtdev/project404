@@ -13,17 +13,19 @@
  * Andrew Osborne, February 14, 2007 | added AddButton method
  * Karl Schmidt, February 15 2007 	 | Added wrap-around for navigating upwards and downwards on menu
  * Karl Schmidt, March 9 2007	 	 | Changed textures to png
+ * Karl Schmidt, March 22 2007       | Correcting include orders and paths
  */
 
+#include "UIMenu.h"                                // class implemented
 
 #include <util.h>
 
-
-#include "UIMenu.h"                                // class implemented
-#include "Point.h"
-#include "UIImage.h"
-#include "UIButton.h"
-#include "FuncObj.h"
+#include <Point.h>
+#include <UI/UIImage.h>
+#include <UI/UIButton.h>
+#include <UI/FuncObj.h>
+#include <ResourceManager/ResourceManager.h>
+#include <Renderer/SDLRenderer.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -174,7 +176,7 @@ void UIMenu::SetPos( const Point & nPos)
 }
 
 
-void UIMenu::AddButton( const string nName, FuncObj* operation)
+void UIMenu::AddButton( const std::string & nName, FuncObj* operation)
 {
     UIButton *temp = new UIButton(nName);
     mButtons.push_back(temp);

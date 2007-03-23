@@ -3,8 +3,8 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <UIImage.h>
-#include <UIUnitTestHelp.h>
+#include <UI/UIImage.h>
+#include <UI/UIUnitTestHelp.h>
 #include <Logger.h>
 
 //

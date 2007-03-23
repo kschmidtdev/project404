@@ -6,8 +6,15 @@
  * Authors:
  * Andrew Osborne, March 4, 2007 | Initial Creation
  * Karl Schmidt, March 9 2007	 | Changed textures to png
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  */
+
 #include "UIOverMapCursor.h"                                // class implemented
+
+#include <util.h>
+
+#include <ResourceManager/ResourceManager.h>
+#include <UI/UIOverMapTile.h>
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////

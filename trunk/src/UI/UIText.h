@@ -16,6 +16,7 @@
  * Karl Schmidt, March 21 2007 | Re-arranged class to eliminate code duplication as much as possible,
  								 added support for black background text
  * Andrew Osborne, March 21 2007 | Added 'CenterText' operation
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UIText_h
@@ -23,10 +24,11 @@
 
 // SYSTEM INCLUDES
 //
+#include <string>
 
 // PROJECT INCLUDES
 //
-#include <UIElement.h>
+#include <UI/UIElement.h>
 
 // LOCAL INCLUDES
 //
@@ -48,12 +50,12 @@ public:
     /**
      * Full constructor.
 	 */
-    UIText( const string & text, const int size, const int r, const int g, const int b, const bool backBlack = false );
+    UIText( const std::string & text, const int size, const int r, const int g, const int b, const bool backBlack = false );
 
     /**
      * Partial constructor.
 	 */
-    UIText( const string & text);
+    UIText( const std::string & text);
 
     /**
      * Destructor.
@@ -77,12 +79,12 @@ public:
     /**
      * Method that changes text .
 	 */
-    void ChangeText(const string & newText);
+    void ChangeText(const std::string & newText);
 
     /**
      * New Text (with parameters)
      */
-    void ChangeText(const string & newText, const int s, const int r, const int g, const int b, const bool backBlack = false );
+    void ChangeText(const std::string & newText, const int s, const int r, const int g, const int b, const bool backBlack = false );
 
     /**
      * Change Colour.
@@ -109,7 +111,7 @@ protected:
     int mGreen;
     int mBlue;
     int mSize;
-    string mText;
+    std::string mText;
     bool mBackBlack;
 
 private:

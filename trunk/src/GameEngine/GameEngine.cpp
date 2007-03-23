@@ -16,13 +16,14 @@
  * Seung Woo Han, March 15 2007   | Save Game at the end of each battle.
  * Karl Schmidt,   March 15 2007  | Removed saving the game at the end of each battle
  * Karl Schmidt, March 15 2007    | Support for city defeating status to update db
- * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 20 2007    | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 
 #include <util.h>
 
 #include "GameEngine.h"                                // class implemented
-#include "../Database/DBEngine.h"
+#include "Database/DBEngine.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 

@@ -3,7 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <../Database/DBNode.h>
+#include <Database/DBNode.h>
 #include <iostream>
 //
 // A generated test suite: Just write tests!

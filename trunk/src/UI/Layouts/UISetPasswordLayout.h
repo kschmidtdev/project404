@@ -12,6 +12,7 @@
  *
  * Authors:
  * Andrew Osborne, February 15 2007, Initial Creation
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 
 #ifndef UISetPasswordLayout_h
@@ -22,8 +23,8 @@
 
 // PROJECT INCLUDES
 //
-#include <UILayout.h>
-#include <UIText.h>
+#include <UI/UILayout.h>
+#include <UI/UIText.h>
 
 // LOCAL INCLUDES
 //
@@ -67,15 +68,15 @@ public:
 protected:
 // PROTECTED VARIABLES
     int mPasswordEntryState;
-    string mOldStarString;
-    string mNewStarString;
-    string mConfirmStarString;
+    std::string mOldStarString;
+    std::string mNewStarString;
+    std::string mConfirmStarString;
     UIText *mOldPwdUIText;
     UIText *mNewPwdUIText;
     UIText *mConfirmPwdUIText;
-    string mOldPwd;
-    string mNewPwd;
-    string mConfirmPwd;
+    std::string mOldPwd;
+    std::string mNewPwd;
+    std::string mConfirmPwd;
 
 // PROTECTED METHODS
     void AddStar(void);

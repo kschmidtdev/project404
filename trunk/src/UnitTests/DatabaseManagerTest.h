@@ -2,7 +2,7 @@
 #define __DATABASEMANAGERTEST_H
 
 #include <cxxtest/TestSuite.h>
-#include <../Database/DatabaseManager.h>
+#include <Database/DatabaseManager.h>
 #include <unistd.h>
 //
 // A generated test suite: Just write tests!

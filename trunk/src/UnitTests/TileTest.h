@@ -2,8 +2,8 @@
 #define __TILETEST_H
 
 #include <cxxtest/TestSuite.h>
-#include <../Point.h>
-#include <../GameEngine/Tile.h>
+#include <Point.h>
+#include <GameEngine/Tile.h>
 
 //
 // A generated test suite: Just write tests!

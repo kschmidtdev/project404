@@ -14,6 +14,7 @@
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  * Andrew Osborne, February 14 2007 | Created ability to add buttons - removed from default constructor
  * Andrew Osborne, March 18 2007 | Added Enable/Disable to allow the cursor to appear/disappear if the menu is active or not
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UIMenu_h
@@ -24,24 +25,22 @@
 
 // PROJECT INCLUDES
 //
-#include <SDL.h>
-#include <Renderer/SDLRenderable.h>
-#include <UIElement.h>
-#include <UIButton.h>
+#include <UI/UIElement.h>
 #include <EventListener.h>
-#include <FuncObj.h>
 
 // LOCAL INCLUDES
 //
 
 // FORWARD REFERENCES
 //
+class UIButton;
+class FuncObj;
 
-typedef vector<UIElement*> UIElementPtrVec;
+typedef std::vector<UIElement*> UIElementPtrVec;
 typedef UIElementPtrVec::iterator UIElementPtrItr;
-typedef vector<FuncObj*> FuncObjPtrVec;
+typedef std::vector<FuncObj*> FuncObjPtrVec;
 typedef FuncObjPtrVec::iterator FuncObjPtrItr;
-typedef vector<UIButton*> UIButtonPtrVec;
+typedef std::vector<UIButton*> UIButtonPtrVec;
 typedef UIButtonPtrVec::iterator UIButtonPtrItr;
 
 class UIMenu : public UIElement, public EventListener
@@ -85,7 +84,7 @@ public:
     /**
      * Adds button with opeation
      */
-    virtual void AddButton( const string nName, FuncObj* operation);
+    virtual void AddButton( const std::string & nName, FuncObj* operation);
 
     /**
      * Enable Menu (make cursor visible)

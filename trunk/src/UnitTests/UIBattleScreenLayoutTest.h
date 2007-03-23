@@ -3,8 +3,8 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <UIBattleScreenLayout.h>
-#include <UILayoutTestHelp.h>
+#include <UI/Layouts/UIBattleScreenLayout.h>
+#include <UI/UILayoutTestHelp.h>
 #include <GameEngine/GameEngine.h>
 
 //
@@ -33,11 +33,6 @@ public:
         SecurityManager::GetInstance()->LoadPasswordHashFile( "passwords" );
         DatabaseManager::GetInstance()->Initialize();
         DBEngine::GetInstance()->Initialize();
-
-        // Messing with GameEngine
-        vector<City*>* cities = GameEngine::GetInstance()->GetCities();
-        //(*cities)[0]->
-        //GameEngine::GetInstance()->BattleInit( (*cities)[0] );
     }
 
     // Called after all unit tests in this suite, remove if note needed

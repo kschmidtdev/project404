@@ -10,15 +10,16 @@
  * Karl Schmidt, March 14 2007		| Force the current turn to the player's when the game is over
  * 									  so the AI doesn't try to do something and then crash the game
  * Karl Schmidt, March 15 2007      | Moved that hack elsewhere so it happens earlier
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
+
+#include "UIWinLayout.h"                                // class implemented
 
 #include <util.h>
 
-
-#include "UIWinLayout.h"                                // class implemented
-#include "UIManager.h"
-#include "UIImage.h"
-#include "UIText.h"
+#include <UI/UIManager.h>
+#include <UI/UIImage.h>
+#include <UI/UIText.h>
 
 #include <GameEngine/GameEngine.h>
 

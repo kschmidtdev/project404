@@ -10,6 +10,7 @@
  * Authors:
  * Andrew Osborne, March 20 2007, Initial Creation
  * Andrew Osborne, March 21 2007, Added Process Event, incorporated CenterText
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UIAlphabetGrid_h
@@ -20,9 +21,9 @@
 
 // PROJECT INCLUDES
 //
-#include <UIElement.h>
-#include <UIImage.h>
-#include <UIText.h>
+#include <UI/UIElement.h>
+#include <UI/UIImage.h>
+#include <UI/UIText.h>
 #include <EventListener.h>
 
 // LOCAL INCLUDES
@@ -31,6 +32,8 @@
 // FORWARD REFERENCES
 //
 
+typedef std::vector<UIText*> UITextVec;
+typedef UITextVec::iterator UITextItr;
 
 class UIAlphabetGrid : public UIElement, public EventListener
 {
@@ -43,28 +46,11 @@ public:
     UIAlphabetGrid(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    //UIAlphabetGrid(const UIAlphabetGrid& from);
-
-    /**
      * Destructor.
 	 */
     ~UIAlphabetGrid(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    //UIAlphabetGrid&                     operator=(UIAlphabetGrid& from);
-
 // OPERATIONS
 
     /**
@@ -100,19 +86,19 @@ public:
     /**
      * Returns currently constructed string
      */
-    string GetString(void) { return mResult; }
+    const std::string & GetString(void) { return mResult; }
 
 protected:
 // PROTECTED VARIABLES
 
     // Letter Grid
-    string mAlphabet;
-    string mCapitalAlphabet;
-    vector<UIText*> mLetters;
+    std::string mAlphabet;
+    std::string mCapitalAlphabet;
+    UITextVec mLetters;
 
     // String result
     UIText mUIResult;
-    string mResult;
+    std::string mResult;
 
 
 
