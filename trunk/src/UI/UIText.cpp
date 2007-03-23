@@ -9,6 +9,7 @@
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 21 2007 | Re-arranged class to eliminate code duplication as much as possible,
  								 added support for black background text
+ * Andrew Osborne, March 21 2007 | Added 'CenterText' as method, corrected bug.
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
