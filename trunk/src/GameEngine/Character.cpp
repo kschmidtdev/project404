@@ -34,7 +34,7 @@ Character::Character()
 mMaxActRange(0), mExhausted(false), mIsDead(false), mTarget(NULL), mCurPos(Point(0,0)), mArmor(NULL), mWeapon(NULL)
 {
     mAttributes[POW] = 0;
-    mAttributes[AGI] = 0;
+    mAttributes[AGI] = 3;
     mAttributes[DEF] = 0;
 }
 Character::~Character()
