@@ -6,11 +6,15 @@
  * Authors:
  * Andrew Osborne, March 18 2007 | Initial Creation
  * Andrew Osborne, March 21 2007 | Added AlhpabetGrid to screen
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 #include "UINewProfileLayout.h"                                // class implemented
-#include "UIText.h"
-#include "UIManager.h"
-#include "UIAlphabetGrid.h"
+
+#include <util.h>
+
+#include <UI/UIText.h>
+#include <UI/UIManager.h>
+#include <UI/UIAlphabetGrid.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 

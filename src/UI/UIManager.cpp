@@ -13,35 +13,34 @@
  * Andrew Osborne, February 14 2007 | Refined/debugged ability to push/pop layouts
  * Karl Schmidt, February 15 2007 | Fixed a minor odd header include path
  * Andrew Osborne, February 15 2007 | Added PopAllLayouts
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
+
+#include "UIManager.h"                                  // class implemented
 
 #include <util.h>
 
-
-#include <UIManager.h>                                  // class implemented
 #include <Logger.h>
-#include <UIBattleScreenLayout.h>
-#include <UITitleScreenLayout.h>
-#include <UIMainMenuLayout.h>
-#include <UIWinLayout.h>
-#include <UILoseLayout.h>
-#include <UIPasswordVerificationLayout.h>
-#include <UISetPasswordLayout.h>
-#include <UIOverMapLayout.h>
-#include <UIPartyStatusLayout.h>
-#include <UIProfileMenuLayout.h>
-#include <UINewProfileLayout.h>
-#include <UILoadProfileLayout.h>
-#include <UITutorialMenuLayout.h>
-#include <UITutorialLayout.h>
-#include <UILoadGameLayout.h>
-#include <UICreditsLayout.h>
-#include <UIOptionsLayout.h>
-#include <UISaveGameLayout.h>
-#include <UIArmoryLayout.h>
-#include <UIMarketLayout.h>
-#include <vector>
-
+#include <UI/Layouts/UIBattleScreenLayout.h>
+#include <UI/Layouts/UITitleScreenLayout.h>
+#include <UI/Layouts/UIMainMenuLayout.h>
+#include <UI/Layouts/UIWinLayout.h>
+#include <UI/Layouts/UILoseLayout.h>
+#include <UI/Layouts/UIPasswordVerificationLayout.h>
+#include <UI/Layouts/UISetPasswordLayout.h>
+#include <UI/Layouts/UIOverMapLayout.h>
+#include <UI/Layouts/UIPartyStatusLayout.h>
+#include <UI/Layouts/UIProfileMenuLayout.h>
+#include <UI/Layouts/UINewProfileLayout.h>
+#include <UI/Layouts/UILoadProfileLayout.h>
+#include <UI/Layouts/UITutorialMenuLayout.h>
+#include <UI/Layouts/UITutorialLayout.h>
+#include <UI/Layouts/UILoadGameLayout.h>
+#include <UI/Layouts/UICreditsLayout.h>
+#include <UI/Layouts/UIOptionsLayout.h>
+#include <UI/Layouts/UISaveGameLayout.h>
+#include <UI/Layouts/UIArmoryLayout.h>
+#include <UI/Layouts/UIMarketLayout.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -171,7 +170,7 @@ void UIManager::PushLayout(UILayout* newLayout)
     }
 }
 
-void UIManager::PushLayout(const string newLayout)
+void UIManager::PushLayout(const std::string & newLayout)
 {
 
     UILayout *temp = GetLayout(newLayout);
@@ -249,7 +248,7 @@ UILayout* UIManager::PeekLayout(void)
 
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
-UILayout* UIManager::GetLayout(const string layoutName)
+UILayout* UIManager::GetLayout(const std::string & layoutName)
 {
     string compare;
 

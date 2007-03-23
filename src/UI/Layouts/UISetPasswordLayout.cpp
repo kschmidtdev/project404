@@ -5,13 +5,14 @@
  *
  * Authors:
  * Andrew Osborne, February 15 2007 | Initial Creation
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
+
+#include "UISetPasswordLayout.h"                                // class implemented
 
 #include <util.h>
 
-
-#include "UISetPasswordLayout.h"                                // class implemented
-#include "UIManager.h"
+#include <UI/UIManager.h>
 #include "SecurityManager.h"
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////

@@ -3,7 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <UIText.h>
+#include <UI/UIText.h>
 
 //
 // A generated test suite: Just write tests!

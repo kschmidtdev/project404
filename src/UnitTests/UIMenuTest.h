@@ -3,8 +3,8 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <UIMenu.h>
-
+#include <UI/UIMenu.h>
+#include <UI/FuncObj.h>
 
 // Generated Function Object
 

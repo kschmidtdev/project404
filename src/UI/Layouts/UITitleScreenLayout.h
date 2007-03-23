@@ -13,6 +13,7 @@
  * Andrew Osborne, February 10 2007 | Initial Creation
  * Andrew Osborne, February 10 2007 | Documentation
  * Andrew Osborne, February 14 2007 | Added ProcessEvent handling
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UITitleScreenLayout_h
@@ -23,7 +24,7 @@
 
 // PROJECT INCLUDES
 //
-#include <UILayout.h>
+#include <UI/UILayout.h>
 
 // LOCAL INCLUDES
 //

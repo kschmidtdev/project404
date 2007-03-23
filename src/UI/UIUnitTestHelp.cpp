@@ -5,9 +5,15 @@
  *
  * Authors:
  * Andrew Osborne, March 13 2007 | Initial creation, Fleshed out methods
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  */
+
 #include "UIUnitTestHelp.h"                                // class implemented
-#include "util.h"
+
+#include <util.h>
+
+#include <ResourceManager/ResourceManager.h>
+#include <Renderer/SDLRenderer.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -17,7 +23,7 @@ UIUnitTestHelp::UIUnitTestHelp()
 {
 }// UIUnitTestHelp
 
-UIUnitTestHelp::UIUnitTestHelp(UIElement* newElement, string className)
+UIUnitTestHelp::UIUnitTestHelp(UIElement* newElement, const std::string & className)
 : mFontSize( 28 ), mFontRed ( 0 ), mFontGreen ( 0 ), mFontBlue ( 255 ),
 mElementInfoOffset( 0 ), mTestNumOffset ( 0 ), mTestNumNum( 1 ), mDelayTime ( 500 ),
 mSRend( NULL ), mInitialized( false )
@@ -150,11 +156,10 @@ void UIUnitTestHelp::RunBasicTest(void)
 // Need to add "initialized" boolean value, so I don't have to keep adding/removing
 // this and element to render Queue
 
-void UIUnitTestHelp::RunNewTest(string message)
+void UIUnitTestHelp::RunNewTest( const std::string & message )
 {
-
-    if (mInitialized) {
-
+    if (mInitialized)
+    {
         SDLRenderer *SRend = SDLRenderer::GetInstance();
         ostringstream oss;
 
@@ -167,10 +172,7 @@ void UIUnitTestHelp::RunNewTest(string message)
         Delay();
 
         mTestNumNum++;
-
     }
-
-
 }
 
 //============================= ACCESS     ===================================

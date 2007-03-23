@@ -8,9 +8,14 @@
  * Karl Schmidt, March 9 2007	 | Changed textures to png
  * Andrew Osborne, March 11 2007 | Added next/previous notion to tiles (with LevelDefeated method)
  * Andrew Osborne, March 13 2007 | Added BattleInit funcitonality
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  */
 #include "UIOverMapTile.h"                                // class implemented
-#include "GameEngine/GameEngine.h"
+
+#include <util.h>
+
+#include <GameEngine/GameEngine.h>
+#include <ResourceManager/ResourceManager.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 

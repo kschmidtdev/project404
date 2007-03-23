@@ -5,9 +5,13 @@
  *
  * Authors:
  * Andrew Osborne, March 18 2007 | Initial creation
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  */
 #include "UISaveGameLayout.h"                                // class implemented
-#include "UIManager.h"
+
+#include <util.h>
+
+#include <UI/UIManager.h>
 
 #include <UI/UIText.h>
 

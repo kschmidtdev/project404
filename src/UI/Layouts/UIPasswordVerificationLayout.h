@@ -9,6 +9,7 @@
  *
  * Authors:
  * Andrew Osborne, February 15 2007, Initial Creation
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 
 #ifndef UIPasswordVerificationLayout_h
@@ -19,8 +20,8 @@
 
 // PROJECT INCLUDES
 //
-#include <UILayout.h>
-#include <UIText.h>
+#include <UI/UILayout.h>
+#include <UI/UIText.h>
 
 // LOCAL INCLUDES
 //
@@ -62,8 +63,8 @@ public:
 protected:
 // PROTECTED VARIABLES
     UIText* mPasswordText;
-    string mStarString;
-    string mPwdString;
+    std::string mStarString;
+    std::string mPwdString;
 
 private:
 // PRIVATE VARIABLES

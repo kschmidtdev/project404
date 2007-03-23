@@ -10,14 +10,18 @@
  * Karl Schmidt, February 11 2007 | Disabled the mouse cursor, added custom window title, more error/info logging
  * Karl Schmidt, February 10 2007 | Added SDL_INIT_AUDIO flag to SDL_Init
  * Karl Schmidt, February 8 2007  | Initial creation of cpp file
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
-
-#include <util.h>
 
 #include "SDLRenderer.h"                                // class implemented
 
-#include "SDLRenderable.h"
-#include "Logger.h"
+#include <util.h>
+
+#include <SDL/SDL.h>
+
+#include <Renderer/SDLRenderable.h>
+#include <Logger.h>
+
 
 SDLRenderer* SDLRenderer::_instance = 0;
 
@@ -83,6 +87,12 @@ void SDLRenderer::Shutdown()
 {
     LogInfo( "Beginning SDLRenderer shut down..." );
 
+    for( TempRenderableItr i = mTempRenderables.begin(); i != mTempRenderables.end(); ++i )
+    {
+        delete i->first;
+    }
+    mTempRenderables.clear();
+
     for( FontMapItr i = mFonts.begin(); i != mFonts.end(); ++i )
     {
         TTF_CloseFont( i->second );
@@ -113,18 +123,21 @@ void SDLRenderer::Draw()
     Uint32 currentTime = SDL_GetTicks();
     for( TempRenderableItr i = mTempRenderables.begin(); i != mTempRenderables.end(); ++i )
     {
+        if( i->second.second < currentTime && find( mRenderQueue.begin(), mRenderQueue.end(), i->first ) == mRenderQueue.end() )
+        {
+            mRenderQueue.push_back( i->first );
+        }
+
         // If it is expired...
-        if( i->second < currentTime )
+        if( i->second.first < currentTime )
         {
             // Find it in the renderqueue and turf it
-            for( RenderableVecItr j = mRenderQueue.begin(); j != mRenderQueue.end(); ++j )
+            RenderableVecItr j = find( mRenderQueue.begin(), mRenderQueue.end(), i->first );
+            if( j != mRenderQueue.end() )
             {
-                if( i->first == (*j)  )
-                {
-                    mRenderQueue.erase( j );
-                    break;
-                }
+                mRenderQueue.erase( j );
             }
+
             delete i->first;
             i = mTempRenderables.erase( i );
             --i;
@@ -139,10 +152,14 @@ void SDLRenderer::AddToRenderQueue( SDLRenderable * toAdd )
     mRenderQueue.push_back( toAdd );
 }
 
-void SDLRenderer::AddToTempRenderQueue( SDLRenderable * toAdd, const Uint32 timeToRemove )
+void SDLRenderer::AddToTempRenderQueue( SDLRenderable * toAdd, const Uint32 timeToRemove, const Uint32 timeToStart )
 {
-    mTempRenderables.push_back( TempRenderable( toAdd, timeToRemove ) );
-    mRenderQueue.push_back( toAdd );
+    mTempRenderables.push_back( TempRenderable( toAdd, TimeStartEndPair(timeToRemove, timeToStart) ) );
+
+    if( timeToStart == 0 )
+    {
+        mRenderQueue.push_back( toAdd );
+    }
 }
 
 void SDLRenderer::RemoveFromRenderQueue( SDLRenderable * toRemove )

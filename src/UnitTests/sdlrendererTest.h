@@ -88,6 +88,23 @@ public:
             SDLRenderer::GetInstance()->Draw();
         }
     }
+
+    void testRenderTempStartInFuture()
+    {
+        SDL_Surface* texture = NULL;
+        texture = SDLRenderer::GetInstance()->CreateTextSurface( "Temporary Text", 12, 255, 255, 255 );
+        TS_ASSERT( texture );
+        ExampleRenderable* temporaryRenderable = new ExampleRenderable();
+        temporaryRenderable->SetTexture( texture );
+        SDLRenderer::GetInstance()->AddToTempRenderQueue( temporaryRenderable, SDL_GetTicks() + 1000, SDL_GetTicks() + 500 );
+        SDLRenderer::GetInstance()->Draw();
+        TS_TRACE( "You should see no text, then text render and then disappear" );
+        Uint32 futureTime = SDL_GetTicks() + 2000;
+        while( SDL_GetTicks() < futureTime )
+        {
+            SDLRenderer::GetInstance()->Draw();
+        }
+    }
 };
 
 

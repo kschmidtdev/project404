@@ -3,8 +3,8 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <UIWinLayout.h>
-#include <UILayoutTestHelp.h>
+#include <UI/Layouts/UIWinLayout.h>
+#include <UI/UILayoutTestHelp.h>
 
 //
 // A generated test suite: Just write tests!

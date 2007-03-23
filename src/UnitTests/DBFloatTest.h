@@ -3,7 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <../Database/DBFloat.h>
+#include <Database/DBFloat.h>
 
 //
 // A generated test suite: Just write tests!

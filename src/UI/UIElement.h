@@ -12,8 +12,9 @@
  * Andrew Osborne, February 7 2007 | Initial Design
  * Andrew Osborne, February 10 2007 | added bitmap constructor, added RSM and rend variable
  * Andrew Osborne, February 10 2007 | Added more documentation, removed RSM/rend
- * Karl Schmidt, February 12 2007 | Removed unnecessary copy constructor and assignment operator overload
- * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
+ * Karl Schmidt, February 12 2007   | Removed unnecessary copy constructor and assignment operator overload
+ * Karl Schmidt, February 14 2007   | Updated function capitalization, block style, typedefs, refs
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 
@@ -26,8 +27,6 @@
 // PROJECT INCLUDES
 //
 #include <Renderer/SDLRenderable.h>
-#include <Renderer/SDLRenderer.h>
-#include <ResourceManager/ResourceManager.h>
 #include <Point.h>
 
 

@@ -6,9 +6,14 @@
  * Authors:
  * Andrew Osborne, March 12 2007 | Initial Creation
  * Karl Schmidt, March 15 2007   | Added ClearText implementation
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  */
 #include "UIScrollText.h"                                // class implemented
 
+#include <util.h>
+
+#include <UI/UIText.h>
+#include <ResourceManager/ResourceManager.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -126,7 +131,7 @@ void UIScrollText::SetPos( const Point & nPos )
 
 }
 
-void UIScrollText::AddLine(string oneLine)
+void UIScrollText::AddLine( const std::string & oneLine )
 {
     //string temp
     mStringLines.push_back( oneLine );

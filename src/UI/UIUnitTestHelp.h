@@ -11,6 +11,7 @@
  *
  * Authors:
  * Andrew Osborne, March 10 2007, Initial Creation
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UIUnitTestHelp_h
@@ -21,8 +22,8 @@
 
 // PROJECT INCLUDES
 //
-#include <UIElement.h>
-#include <UIText.h>
+#include <UI/UIElement.h>
+#include <UI/UIText.h>
 
 
 // LOCAL INCLUDES
@@ -30,7 +31,7 @@
 
 // FORWARD REFERENCES
 //
-
+class SDLRenderer;
 
 class UIUnitTestHelp : public UIElement
 {
@@ -45,15 +46,8 @@ public:
     /**
      * Used constructor.
 	 */
-    UIUnitTestHelp(UIElement* nTest, string nClassName);
+    UIUnitTestHelp(UIElement* nTest, const std::string & nClassName);
 
-
-    /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    //UIUnitTestHelp(const UIUnitTestHelp& from);
 
     /**
      * Destructor.
@@ -61,16 +55,6 @@ public:
     ~UIUnitTestHelp(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    //UIUnitTestHelp&                     operator=(UIUnitTestHelp& from);
-
 // OPERATIONS
 
     /**
@@ -86,7 +70,7 @@ public:
     /**
      *  Instruct to run new test (function is run outside this method.  This method only changes display.)
      */
-    void RunNewTest(string message);
+    void RunNewTest( const std::string & message );
 
 
 // ACCESS (writing)

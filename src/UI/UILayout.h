@@ -19,6 +19,7 @@
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  * Mike Malyuk, February 15 2007  | Added virtual function to get at Grid, look at this for v2
  * Andrew Osborne, March 21 2007  | Added SetEventHandler to allow easier passing of "event handling" among UIElements
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 
 #ifndef UILayout_h
@@ -28,22 +29,19 @@
 //
 #include <vector>
 
-using namespace std;
-
 // PROJECT INCLUDES
 //
-#include <UIElement.h>
-#include <UIGrid.h>
 #include <EventListener.h>
-#include <InputManager.h>
 
 // LOCAL INCLUDES
 //
 
 // FORWARD REFERENCES
 //
+class UIElement;
+class UIGrid;
 
-typedef vector<UIElement*> UIElementPtrVec;
+typedef std::vector<UIElement*> UIElementPtrVec;
 typedef UIElementPtrVec::iterator UIElementPtrItr;
 
 class UILayout : public EventListener
@@ -91,13 +89,13 @@ public:
     virtual void SetEventHandler( EventListener *e ) { mDefaultEventListener=e; }
 
 // INQUIRY (reading)
-    string GetName(void);
+    const std::string & GetName(void) const;
 
 protected:
 // PROTECTED VARIABLES
     UIElementPtrVec mElements;
     EventListener* mDefaultEventListener;
-    string mName;
+    std::string mName;
 
 private:
 // PRIVATE VARIABLES

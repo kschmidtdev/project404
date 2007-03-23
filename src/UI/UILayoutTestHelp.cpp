@@ -5,10 +5,15 @@
  *
  * Authors:
  * Andrew Osborne, March 14 2007 | Initial Creation
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  */
 #include "UILayoutTestHelp.h"                                // class implemented
 
-#include "UIText.h"
+#include <util.h>
+
+#include <UI/UIText.h>
+#include <ResourceManager/ResourceManager.h>
+#include <Renderer/SDLRenderer.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 

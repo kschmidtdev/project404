@@ -21,19 +21,23 @@
  *  								  act correctly and not leak memory
  * Mike Malyuk,    March 14 2007    | Added intializers for Grid
  * Karl Schmidt,   March 14 2007	| Disabled "Easy Win" button in release mode
+ * Karl Schmidt,   March 22 2007    | Correcting include orders and paths
  */
 
+#include "UIBattleScreenLayout.h"                                // class implemented
 
 #include <util.h>
 
-#include "UIBattleScreenLayout.h"                                // class implemented
-#include "UIMenu.h"
-#include "UIGrid.h"
-#include "Logger.h"
-#include "GameEngine/GameEngine.h"
-#include "UIManager.h"
-#include "UICharWindow.h"
-#include "GameEngine/Knight.h"
+#include <UI/UIMenu.h>
+#include <UI/UIGrid.h>
+#include <UI/UIManager.h>
+#include <UI/UICharWindow.h>
+#include <UI/FuncObj.h>
+
+#include <Logger.h>
+#include <GameEngine/GameEngine.h>
+#include <GameEngine/Knight.h>
+#include <ResourceManager/ResourceManager.h>
 
 // Defining Function Objects for Button Operations
 

@@ -3,8 +3,8 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <UIButton.h>
-#include <UIUnitTestHelp.h>
+#include <UI/UIButton.h>
+#include <UI/UIUnitTestHelp.h>
 
 //
 // A generated test suite: Just write tests!

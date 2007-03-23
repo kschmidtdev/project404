@@ -6,14 +6,16 @@
  * Authors:
  * Andrew Osborne, February 15 2007 | Initial Creation
  * Karl Schmidt, March 9 2007	 	| Changed textures to png
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
+
+#include "UIPasswordVerificationLayout.h"                                // class implemented
 
 #include <util.h>
 
-
-#include "UIPasswordVerificationLayout.h"                                // class implemented
-#include "UIManager.h"
-#include "SecurityManager.h"
+#include <UI/UIManager.h>
+#include <SecurityManager.h>
+#include <UI/UIImage.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 

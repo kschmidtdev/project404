@@ -15,6 +15,7 @@
  * Karl Schmidt, February 07 2007 | Initial creation of header
  * Karl Schmidt, March 13 2007	  | Added parameter to Initialize for disabling the sound system
  * Karl Schmidt, March 14 2007    | Added event recording/playback support
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 
 #ifndef GameRoot_h
@@ -25,8 +26,6 @@
 #include <map>
 #include <string>
 
-using namespace std;
-
 // PROJECT INCLUDES
 //
 
@@ -36,7 +35,7 @@ using namespace std;
 // FORWARD REFERENCES
 //
 
-typedef map<string,int> ConfigMap;
+typedef std::map< std::string, int > ConfigMap;
 typedef ConfigMap::iterator ConfigItr;
 
 class SecurityManager;
@@ -102,7 +101,7 @@ protected:
     * Loads the given config file if it exists, and takes the
     * the values out of it and puts them into mSettings
     */
-    void LoadConfigFileSettings( const string fileName );
+    void LoadConfigFileSettings( const std::string & fileName );
 
     /**
     * Processes the command line and sets certain options
@@ -124,8 +123,8 @@ protected:
 
     ConfigMap           mSettings;
 
-    string              mRecordFileName;
-    string              mPlaybackFileName;
+    std::string         mRecordFileName;
+    std::string         mPlaybackFileName;
 
 private:
 // PRIVATE VARIABLES

@@ -11,6 +11,7 @@
  *
  * Authors:
  * Andrew Osborne, March 15, 2007, Initial Creation
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UILayoutTestHelp_h
@@ -21,7 +22,8 @@
 
 // PROJECT INCLUDES
 //
-#include <UILayout.h>
+#include <UI/UILayout.h>
+#include <UI/UIElement.h>
 
 // LOCAL INCLUDES
 //
@@ -29,6 +31,7 @@
 // FORWARD REFERENCES
 //
 class UIText;
+class SDLRenderer;
 
 
 class UILayoutTestHelp : public UIElement

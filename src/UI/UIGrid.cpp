@@ -36,6 +36,7 @@
  * Seung Woo Han,   March 17 2006     | New Pics
  * Karl Schmidt,    March 20 2007     | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt,    March 21 2007     | Added support for health change indication UI
+ * Karl Schmidt,    March 22 2007     | Correcting include orders and paths
  */
 
 #include "UIGrid.h"                                // class implemented
@@ -43,12 +44,14 @@
 #include <util.h>
 #include <Logger.h>
 
-#include "UIManager.h"
+#include <UI/UIManager.h>
 #include "InputManager.h"
 #include "UICharWindow.h"
 
 #include <GameEngine/Character.h>
 #include <GameEngine/Level.h>
+#include <ResourceManager/ResourceManager.h>
+#include <Renderer/SDLRenderer.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -827,7 +830,7 @@ int UIGrid::FindIndex( const Point & p )
 
 
 
-SDL_Surface* UIGrid::GetClassSurface(Character* c, const string group)
+SDL_Surface* UIGrid::GetClassSurface(Character* c, const std::string & group)
 {
     string temp = c->GetClassName();
     if(group=="Party")

@@ -5,10 +5,13 @@
  *
  * Authors:
  * Name, Date | Work Done
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 #include "UICreditsLayout.h"                                // class implemented
-#include "UIManager.h"
 
+#include <util.h>
+
+#include <UI/UIManager.h>
 #include <UI/UIText.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////

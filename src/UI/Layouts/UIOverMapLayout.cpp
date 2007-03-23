@@ -9,11 +9,15 @@
  * Seung Woo Han, March 15, 2007 | Saving function works now. ( by pressing Save button in the overmap screen )
  * Karl Schmidt, March 15 2007   | Made savegame work, also loading dialog now happens when the screen is shown (db isn't loaded when this object is constructed)
  * Karl Schmidt, March 15 2007   | Quit now goes to main menu, loads city info from db
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  */
 #include "UIOverMapLayout.h"                                // class implemented
-#include "FuncObj.h"
-#include "UIManager.h"
-#include <../Database/DBEngine.h>
+
+#include <util.h>
+
+#include <UI/FuncObj.h>
+#include <UI/UIManager.h>
+#include <Database/DBEngine.h>
 
 class SaveFunction : public FuncObj
 {

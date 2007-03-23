@@ -3,7 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <../GameEngine/Healer.h>
+#include <GameEngine/Healer.h>
 
 //
 // A generated test suite: Just write tests!

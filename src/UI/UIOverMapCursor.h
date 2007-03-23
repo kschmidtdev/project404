@@ -11,6 +11,7 @@
  *
  * Authors:
  * Name, Date (Month Day Year), What was done
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UIOverMapCursor_h
@@ -21,8 +22,7 @@
 
 // PROJECT INCLUDES
 //
-#include <UIElement.h>
-#include <UIOverMapTile.h>
+#include <UI/UIElement.h>
 #include <Point.h>
 
 // LOCAL INCLUDES
@@ -30,7 +30,7 @@
 
 // FORWARD REFERENCES
 //
-
+class UIOverMapTile;
 
 class UIOverMapCursor : public UIElement
 {
@@ -43,28 +43,11 @@ public:
     UIOverMapCursor(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    //UIOverMapCursor(const UIOverMapCursor& from);
-
-    /**
      * Destructor.
 	 */
     ~UIOverMapCursor(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    //UIOverMapCursor&                     operator=(UIOverMapCursor& from);
-
 // OPERATIONS
 
 

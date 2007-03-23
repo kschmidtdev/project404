@@ -3,8 +3,8 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <UIPasswordVerificationLayout.h>
-#include <UILayoutTestHelp.h>
+#include <UI/Layouts/UIPasswordVerificationLayout.h>
+#include <UI/UILayoutTestHelp.h>
 
 //
 // A generated test suite: Just write tests!

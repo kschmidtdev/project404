@@ -5,10 +5,13 @@
  *
  * Authors:
  * Andrew Osborne, March 18 2007 | Initial Creation (stub)
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 #include "UITutorialLayout.h"                                // class implemented
-#include "UIManager.h"
 
+#include <util.h>
+
+#include <UI/UIManager.h>
 #include <UI/UIText.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////

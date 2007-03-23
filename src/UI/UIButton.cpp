@@ -8,11 +8,14 @@
  * Karl Schmidt, February 14 2007 	| Updated function capitalization, block style, typedefs
  * Karl Schmidt, March 9 2007	 	| Changed textures to png, fixed a warning
  * Andrew Osborne, March 19 2007    | Added Ghosting functionality
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
-#include <util.h>
 #include "UIButton.h"                                // class implemented
 
+#include <util.h>
+#include <ResourceManager/ResourceManager.h>
+#include <Renderer/SDLRenderer.h>
 
 
 int UIButton::mActiveRed = 0;
@@ -34,7 +37,7 @@ UIButton::UIButton()
     mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_item.png");
 }// UIButton
 
-UIButton::UIButton(const string text)
+UIButton::UIButton( const std::string & text )
 : mOperation( NULL ), mGhost( false )
 {
     mText.ChangeText(text, mTextSize, mActiveRed, mActiveGreen, mActiveBlue);

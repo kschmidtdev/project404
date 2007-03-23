@@ -3,7 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <../GameEngine/Mage.h>
+#include <GameEngine/Mage.h>
 
 //
 // A generated test suite: Just write tests!

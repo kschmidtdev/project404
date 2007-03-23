@@ -9,6 +9,7 @@
  *
  * Authors:
  * Andrew Osborne, February 11 2007 | Initial Creation
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UIImage_h
@@ -16,10 +17,11 @@
 
 // SYSTEM INCLUDES
 //
+#include <string>
 
 // PROJECT INCLUDES
 //
-#include <UIElement.h>
+#include <UI/UIElement.h>
 
 // LOCAL INCLUDES
 //
@@ -41,7 +43,7 @@ public:
     /**
      * constructor involving loading bitmap file for image
 	 */
-    UIImage(const string filename);
+    UIImage(const std::string & filename);
 
     /**
      * Destructor.

@@ -5,10 +5,16 @@
  *
  * Authors:
  * Andrew Osborne, March 18 2007 | Initial Creation
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 #include "UIProfileMenuLayout.h"                                // class implemented
-#include "UIMenu.h"
-#include "UIManager.h"
+
+#include <util.h>
+
+#include <UI/UIMenu.h>
+#include <UI/UIManager.h>
+#include <UI/FuncObj.h>
+#include <UI/UIImage.h>
 
 class NewProfileFunction : public FuncObj
 {

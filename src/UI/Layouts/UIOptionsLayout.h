@@ -9,6 +9,7 @@
  *
  * Authors:
  * Andrew osborne, March 18 2007, Initial Design
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  */
 
 #ifndef UIOptionsLayout_h
@@ -19,7 +20,7 @@
 
 // PROJECT INCLUDES
 //
-#include <UILayout.h>
+#include <UI/UILayout.h>
 
 // LOCAL INCLUDES
 //

@@ -3,8 +3,8 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <UIScrollText.h>
-#include <UIUnitTestHelp.h>
+#include <UI/UIScrollText.h>
+#include <UI/UIUnitTestHelp.h>
 
 //
 // A generated test suite: Just write tests!

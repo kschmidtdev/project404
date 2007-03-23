@@ -3,8 +3,8 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <UIOverMapLayout.h>
-#include <UILayoutTestHelp.h>
+#include <UI/Layouts/UIOverMapLayout.h>
+#include <UI/UILayoutTestHelp.h>
 #include <SecurityManager.h>
 #include <Database/DBEngine.h>
 

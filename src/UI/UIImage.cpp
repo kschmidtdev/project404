@@ -5,13 +5,14 @@
  *
  * Authors:
  * Andrew Osborne, February 11 2007 | Initial Creation
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
-
-#include <util.h>
-
 
 #include "UIImage.h"                                // class implemented
 
+#include <util.h>
+
+#include <ResourceManager/ResourceManager.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -22,7 +23,7 @@ UIImage::UIImage()
 }// UIImage
 
 
-UIImage::UIImage( const string filename)
+UIImage::UIImage( const std::string & filename)
 {
     mElementImage = ResourceManager::GetInstance()->LoadTexture(filename);
 }

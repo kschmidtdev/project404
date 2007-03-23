@@ -1,9 +1,9 @@
 /**
- * The layout class that represents the "Congradulations" screen
+ * The layout class that represents the "Congratulations" screen
  *
  * #include "UIWinLayout.h"
  *
- * The layout class that represents the "Congradulations" screen that you see when you win a battle.
+ * The layout class that represents the "Congratulations" screen that you see when you win a battle.
  *
  * @see UILayout, UIBattleScreenLayout
  *
@@ -11,6 +11,7 @@
  *
  * Authors:
  * Andrew Osborne, February 15 2007, Initial Creation
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UIWinLayout_h
@@ -21,7 +22,7 @@
 
 // PROJECT INCLUDES
 //
-#include "UILayout.h"
+#include <UI/UILayout.h>
 
 // LOCAL INCLUDES
 //

@@ -14,16 +14,16 @@
  * Mike Malyuk, March 10 2007    | Added explicit cast so no warning, the int cutting is intentional
  * Mike Malyuk, March 15 2007    | Fixed Levelling up! yay!
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 22 2007   | More include re-arranging, fixed some warnings
  */
+
+#include "Character.h"                                // class implemented
 
 #include <util.h>
 
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
-
-#include "Character.h"                                // class implemented
-
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -80,7 +80,7 @@ void Character::Attack(Character* another)
     if(rand()%(100/(mAttributes[AGI]/3)) == 0)
     {
         randPOW = (rand()%5-2) + mAttributes[POW];
-        randPOW = randPOW*1.5;
+        randPOW = static_cast<int>( randPOW*1.5 );
     }
     else
     {
@@ -122,7 +122,7 @@ void Character::Attack(Character* another)
                 if(rand()%(100/(another->GetAttr(Character::AGI)/3)) == 0)
                     {
                         randPOW = (rand()%5-2) + another->GetAttr(Character::POW);
-                        randPOW = randPOW*1.5;
+                        randPOW = static_cast<int>( randPOW*1.5 );
                     }
                     else
                     {

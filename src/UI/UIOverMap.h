@@ -12,6 +12,7 @@
  * Authors:
  * Andrew Osborne, March 4, 2007, Initial Creation
  * Andrew Osborne, March 12, 2007, Added Update Map
+ * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  */
 
 #ifndef UIOverMap_h
@@ -22,12 +23,11 @@
 
 // PROJECT INCLUDES
 //
-#include <UIElement.h>
-#include <UIText.h>
-#include <UIOverMapTile.h>
-#include <UIOverMapCursor.h>
+#include <UI/UIElement.h>
+#include <UI/UIText.h>
+#include <UI/UIOverMapTile.h>
+#include <UI/UIOverMapCursor.h>
 #include <EventListener.h>
-#include <vector>
 
 // LOCAL INCLUDES
 //
@@ -35,7 +35,7 @@
 // FORWARD REFERENCES
 //
 
-typedef vector<UIOverMapTile> MapTileVec;
+typedef std::vector<UIOverMapTile> MapTileVec;
 typedef MapTileVec::iterator MapTileItr;
 
 
@@ -50,28 +50,11 @@ public:
     UIOverMap(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    //UIOverMap(const UIOverMap& from);
-
-    /**
      * Destructor.
 	 */
     ~UIOverMap(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    //UIOverMap&                     operator=(UIOverMap& from);
-
 // OPERATIONS
 
     /**

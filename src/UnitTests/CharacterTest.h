@@ -3,9 +3,9 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <../GameEngine/Character.h>
-#include <../GameEngine/ArmorItem.h>
-#include <../GameEngine/WeaponItem.h>
+#include <GameEngine/Character.h>
+#include <GameEngine/ArmorItem.h>
+#include <GameEngine/WeaponItem.h>
 //
 // A generated test suite: Just write tests!
 //
@@ -102,7 +102,8 @@ public:
     {
         Character joeshmoe;
         joeshmoe.LevelUp();
-        joeshmoe.SetWeapon(&WeaponItem("RIDICULOUS", 500));
+        WeaponItem weapon("RIDICULOUS", 500);
+        joeshmoe.SetWeapon( &weapon );
         //SetHp is only used in Attack and Heal
         meh.SetHP(1);
         joeshmoe.Attack(&meh);

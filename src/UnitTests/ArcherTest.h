@@ -4,7 +4,7 @@
 #include <cxxtest/TestSuite.h>
 
 #include <Point.h>
-#include <../GameEngine/Archer.h>
+#include <GameEngine/Archer.h>
 
 //
 // A generated test suite: Just write tests!

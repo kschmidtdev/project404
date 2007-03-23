@@ -3,7 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 
-#include <../GameEngine/Item.h>
+#include <GameEngine/Item.h>
 
 //
 // A generated test suite: Just write tests!
