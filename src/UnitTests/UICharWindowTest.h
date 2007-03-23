@@ -6,6 +6,7 @@
 #include <UI/UICharWindow.h>
 #include <UI/UIUnitTestHelp.h>
 #include <GameEngine/Character.h>
+#include <Renderer/SDLRenderer.h>
 
 //
 // A generated test suite: Just write tests!

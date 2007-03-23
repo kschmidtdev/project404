@@ -5,6 +5,7 @@
 
 #include <UI/Layouts/UIWinLayout.h>
 #include <UI/UILayoutTestHelp.h>
+#include <Renderer/SDLRenderer.h>
 
 //
 // A generated test suite: Just write tests!

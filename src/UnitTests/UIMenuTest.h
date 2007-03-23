@@ -5,6 +5,7 @@
 
 #include <UI/UIMenu.h>
 #include <UI/FuncObj.h>
+#include <Renderer/SDLRenderer.h>
 
 // Generated Function Object
 
