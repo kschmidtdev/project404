@@ -10,6 +10,7 @@
  * Karl Schmidt, March 14 2007    | Added event recording/playback support
  * Karl Schmidt, March 15 2007    | Made a few fixes, but event recording/playback still isn't stable
  * Karl Schmidt, March 21 2007    | Added directional-key auto-repeat, storing/loading rand seed in key recording file
+ * Karl Schmidt, March 22 2007    | Fixed a bug where auto-repeated key events weren't being logged during recording
  */
 
 #include "InputManager.h"                                // class implemented
@@ -74,9 +75,12 @@ void InputManager::Initialize( const INPUT_MODE mode, const string & recPlayFile
         if( mMode == PLAYBACK )
         {
             LoadKeyListFromFile( mRecPlayFileName );
-            mCurrentPlaybackKey = mKeyList.begin();
-            srand( *mCurrentPlaybackKey ); // Seeding by the stored seed value (stored at the top of the recorded file)
-            ++mCurrentPlaybackKey;
+            if( !mKeyList.empty() )
+            {
+                mCurrentPlaybackKey = mKeyList.begin();
+                srand( *mCurrentPlaybackKey ); // Seeding by the stored seed value (stored at the top of the recorded file)
+                ++mCurrentPlaybackKey;
+            }
         }
         else if( mMode == RECORDING )
         {
@@ -123,10 +127,10 @@ void InputManager::RemoveEventListener( EventListener* toRemove )
         if( (*i) == toRemove )
         {
             mRegisteredListeners.erase( i );
-            break;
+            return;
         }
     }
-    // TODO: Add logging if could not find the eventlistener requested to remove
+    LogError( "An event listener has been requested to be removed, but does not exist on the list" );
 }
 
 void InputManager::ProcessEvent( const SDL_Event* evt )
@@ -291,6 +295,11 @@ void InputManager::Update()
             {
                 if( mKeyState[i] )
                 {
+                    if( mMode == RECORDING )
+                    {
+                        mKeyList.push_back( i );
+                        SaveKeyToFile( mRecPlayFileName, INPUTKEYS(i) );
+                    }
                     SendEventToListeners( INPUTKEYS( i ) );
                 }
             }
@@ -316,7 +325,6 @@ InputManager::InputManager(void)
 
 void InputManager::SetupKeyBindings()
 {
-    // TODO: This is for keyboard-only until we expand it
     mKeys[UP] = SDLK_UP;
     mKeys[LEFTUP] = SDLK_HOME;
     mKeys[LEFT] = SDLK_LEFT;

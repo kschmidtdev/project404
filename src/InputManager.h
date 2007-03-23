@@ -16,6 +16,7 @@
  * Karl Schmidt, March 14 2007    | Added event recording/playback support
  * Karl Schmidt, March 15 2007    | Made an attempt to fix event recording/playback, still not acting right
  * Karl Schmidt, March 21 2007    | Added directional-key auto-repeat, storing/loading rand seed in key recording file
+ * Karl Schmidt, March 22 2007    | Fixed a bug where auto-repeated key events weren't being logged during recording
  */
 
 #ifndef InputManager_h
