@@ -14,6 +14,7 @@
  * Karl Schmidt, February 15 2007 	 | Added wrap-around for navigating upwards and downwards on menu
  * Karl Schmidt, March 9 2007	 	 | Changed textures to png
  * Karl Schmidt, March 22 2007       | Correcting include orders and paths
+ * Andrew Osborne, March 23 2007     | Added "ClearButtons" functionality
  */
 
 #include "UIMenu.h"                                // class implemented
@@ -50,7 +51,6 @@ UIMenu::UIMenu()
 	    mButtonOffset.Set(0, (sample->h+8) );
 	    mCursorOffset.Set(-2,-2);
     }
-
 
     // Set cursor parameters
     mCursorPos = 0;
@@ -184,6 +184,32 @@ void UIMenu::AddButton( const std::string & nName, FuncObj* operation)
     mMaxCursorPos = mButtons.size() - 1;
     SetPos( mPos );
 }
+
+
+void UIMenu::ClearButtons(void)
+{
+
+    // Erase button images
+    for ( UIButtonPtrItr iter = mButtons.begin(); iter!=mButtons.end(); ++iter )
+    {
+        delete (*iter);
+    }
+
+    // Erase/delete function pointers
+    for ( FuncObjPtrItr iter2 = mButtonFuncs.begin(); iter2!=mButtonFuncs.end(); ++iter2 )
+    {
+        delete (*iter2);
+    }
+
+    mButtons.clear();
+    mButtonFuncs.clear();
+
+    // Set cursor parameters
+    mCursorPos = 0;
+    mMaxCursorPos = 0;
+
+}
+
 
 void UIMenu::SetGhost(int n, bool b)
 {

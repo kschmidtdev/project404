@@ -12,6 +12,7 @@
  * Karl Schmidt, February 13 2007    | Implemented typedefs for vector types, destructor modification
  * Karl Schmidt, February 14 2007    | Updated function capitalization, block style, typedefs, refs
  * Karl Schmidt, March 22 2007       | Correcting include orders and paths
+ * Andrew Osborne, March 23 2007     | Fixed undiscovered bug (should have initialized mDefaultEvent - to NULL)
  */
 
 #include "UILayout.h"                                   // class implemented
@@ -28,6 +29,7 @@
 //============================= LIFECYCLE ====================================
 
 UILayout::UILayout(void)
+: mDefaultEventListener( NULL )
 {
 
         // Code that will be taken out at some point
@@ -88,7 +90,7 @@ void UILayout::OnClose(void)
 void UILayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
 
-    if( mDefaultEventListener != NULL )
+    if(mDefaultEventListener)
     {
         mDefaultEventListener->ProcessEvent(evt);
     }
