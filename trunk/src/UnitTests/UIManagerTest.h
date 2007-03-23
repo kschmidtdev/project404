@@ -4,6 +4,7 @@
 #include <cxxtest/TestSuite.h>
 
 #include <UI/UIManager.h>
+#include <Renderer/SDLRenderer.h>
 
 //
 // A generated test suite: Just write tests!

@@ -7,7 +7,7 @@
 #include <ResourceManager/ResourceManager.h>
 #include <SoundManager.h>
 #include <Logger.h>
-#include <SDL/SDL.h>
+#include <Renderer/SDLRenderer.h>
 
 class SoundManagerTest : public CxxTest::TestSuite
 {

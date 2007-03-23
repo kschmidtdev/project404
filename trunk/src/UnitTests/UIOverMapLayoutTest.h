@@ -7,6 +7,7 @@
 #include <UI/UILayoutTestHelp.h>
 #include <SecurityManager.h>
 #include <Database/DBEngine.h>
+#include <Renderer/SDLRenderer.h>
 
 //
 // A generated test suite: Just write tests!
