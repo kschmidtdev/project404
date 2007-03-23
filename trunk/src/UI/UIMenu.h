@@ -15,6 +15,7 @@
  * Andrew Osborne, February 14 2007 | Created ability to add buttons - removed from default constructor
  * Andrew Osborne, March 18 2007 | Added Enable/Disable to allow the cursor to appear/disappear if the menu is active or not
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Andrew Osborne, March 23 2007    | Added "ClearButtons"
  */
 
 #ifndef UIMenu_h
@@ -85,6 +86,11 @@ public:
      * Adds button with opeation
      */
     virtual void AddButton( const std::string & nName, FuncObj* operation);
+
+    /**
+     * Clear all buttons from menu
+     */
+    virtual void ClearButtons(void);
 
     /**
      * Enable Menu (make cursor visible)
