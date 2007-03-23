@@ -11,6 +11,7 @@
  * Karl Schmidt, March 15 2007    | Made a few fixes, but event recording/playback still isn't stable
  * Karl Schmidt, March 21 2007    | Added directional-key auto-repeat, storing/loading rand seed in key recording file
  * Karl Schmidt, March 22 2007    | Fixed a bug where auto-repeated key events weren't being logged during recording
+ * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage
  */
 
 #include "InputManager.h"                                // class implemented
@@ -46,7 +47,7 @@ InputManager::~InputManager(void)
     // stub
 }
 
-void InputManager::Initialize( const INPUT_MODE mode, const string & recPlayFileName )
+void InputManager::Initialize( const INPUT_MODE mode, const std::string & recPlayFileName )
 {
     if( SDL_NumJoysticks() > 0 )
     {
@@ -56,10 +57,10 @@ void InputManager::Initialize( const INPUT_MODE mode, const string & recPlayFile
     }
     if( mJoyStick )
     {
-        LogInfo( string("Opened Joystick 0: Name: ") + toString(SDL_JoystickName( 0 )) +
-                 string(" Number of Axes: ") + toString(SDL_JoystickNumAxes( mJoyStick )) +
-                 string(" Number of Buttons: ") + toString(SDL_JoystickNumButtons( mJoyStick )) +
-                 string(" Number of Balls: ") + toString(SDL_JoystickNumBalls( mJoyStick )) );
+        LogInfo( std::string("Opened Joystick 0: Name: ") + toString(SDL_JoystickName( 0 )) +
+                 std::string(" Number of Axes: ") + toString(SDL_JoystickNumAxes( mJoyStick )) +
+                 std::string(" Number of Buttons: ") + toString(SDL_JoystickNumButtons( mJoyStick )) +
+                 std::string(" Number of Balls: ") + toString(SDL_JoystickNumBalls( mJoyStick )) );
     }
     else
     {
@@ -355,7 +356,7 @@ void InputManager::SendEventToListeners( const INPUTKEYS evt )
     }
 }
 
-void InputManager::LoadKeyListFromFile( const string & fileName )
+void InputManager::LoadKeyListFromFile( const std::string & fileName )
 {
     FILE* keyListFileHandle = NULL;
     keyListFileHandle = fopen( fileName.c_str(), "r" );
@@ -371,7 +372,7 @@ void InputManager::LoadKeyListFromFile( const string & fileName )
         	// Load in a line of text formatted like "text #" (where # is some integer)
             fscanf( keyListFileHandle, "%i\n", &value );
             mKeyList.push_back( INPUTKEYS( value ) );
-            LogInfo( string("Loaded recorded key with value: ") + toString(value) );
+            LogInfo( std::string("Loaded recorded key with value: ") + toString(value) );
         }
 
         fclose( keyListFileHandle );
@@ -379,11 +380,11 @@ void InputManager::LoadKeyListFromFile( const string & fileName )
     else
     {
         tacAssert( false );
-        LogWarning( fileName + string(" file not found, no keys to playback") );
+        LogWarning( fileName + std::string(" file not found, no keys to playback") );
     }
 }
 
-void InputManager::SaveKeyListToFile( const string & fileName )
+void InputManager::SaveKeyListToFile( const std::string & fileName )
 {
     if( mKeyList.empty() )
     {
@@ -408,11 +409,11 @@ void InputManager::SaveKeyListToFile( const string & fileName )
     {
         // Unable to write to file for some reason
         tacAssert( false );
-        LogWarning( fileName + string(": Unable to write to key list file") );
+        LogWarning( fileName + std::string(": Unable to write to key list file") );
     }
 }
 
-void InputManager::SaveKeyToFile( const string & fileName, const int key )
+void InputManager::SaveKeyToFile( const std::string & fileName, const int key )
 {
     static bool firstTime = true;
 
@@ -438,7 +439,7 @@ void InputManager::SaveKeyToFile( const string & fileName, const int key )
     {
         // Unable to write to file for some reason
         tacAssert( false );
-        LogWarning( fileName + string(": Unable to write to key list file") );
+        LogWarning( fileName + std::string(": Unable to write to key list file") );
     }
 }
 

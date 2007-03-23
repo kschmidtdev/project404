@@ -8,6 +8,7 @@
  * Karl Schmidt, February 10 2007 | Full functionality implemented
  * Karl Schmidt, February 9 2007 | Initial creation, stubbed
  * Karl Schmidt, March 13 2007    | Added support for sound subsystem disabling
+ * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage
  */
 
 #include "SoundResource.h"                                // class implemented
@@ -40,14 +41,14 @@ void SoundResource::Load()
 {
     if( SoundManager::GetInstance()->GetIsEnabled() )
     {
-        LogInfo( string("Loading sound: ") + GetFileName() );
+        LogInfo( std::string("Loading sound: ") + GetFileName() );
 
         mSndData = Mix_LoadWAV( GetFileName().c_str() );
         tacAssert( mSndData );
         if( !mSndData )
         {
-            LogError( string("Error loading sound file: ") + GetFileName() +
-                      string(" (SDL_mixer error: ") + string(Mix_GetError()) + string(")") );
+            LogError( std::string("Error loading sound file: ") + GetFileName() +
+                      std::string(" (SDL_mixer error: ") + std::string(Mix_GetError()) + std::string(")") );
             return;
         }
     }
@@ -57,7 +58,7 @@ void SoundResource::Unload()
 {
     if( SoundManager::GetInstance()->GetIsEnabled() )
     {
-        LogInfo( string("Unloading sound file: ") + GetFileName() );
+        LogInfo( std::string("Unloading sound file: ") + GetFileName() );
         tacAssert( mSndData );
         Mix_FreeChunk( mSndData );
         mSndData = NULL;

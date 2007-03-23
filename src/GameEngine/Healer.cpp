@@ -12,13 +12,17 @@
  * Mike Malyuk, March 16 2007    | Be nice if you leveled up eh!
  * Mike Malyuk, March 16 2007    | Healer may now heal self. Go healer! Couple other fixes for goodness
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 22 2007   | Changed name of GetClassName
  */
-
-#include <util.h>
-
 
 #include "Healer.h"                                // class implemented
 
+#include <util.h>
+
+namespace
+{
+    const std::string characterClassName = "Healer";
+}
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -114,12 +118,12 @@ void Healer::Heal(Character* buddy)
     }
     else if(buddy->GetMaxHP() < (buddy->GetHP() + mAttributes[POW]))
     {
-        cout << "Healer (" << mName << ") heals " << buddy->GetClassName() << " (" << buddy->GetName() << ") for " << buddy->GetMaxHP() - buddy->GetHP() << " HP." << endl;
+        cout << "Healer (" << mName << ") heals " << buddy->GetCharacterClassName() << " (" << buddy->GetName() << ") for " << buddy->GetMaxHP() - buddy->GetHP() << " HP." << endl;
         buddy->SetHP(buddy->GetMaxHP());
     }
     else
     {
-        cout << "Healer (" << mName << ") heals " << buddy->GetClassName() << " (" << buddy->GetName() << ") for " << mAttributes[POW] << " HP." << endl;
+        cout << "Healer (" << mName << ") heals " << buddy->GetCharacterClassName() << " (" << buddy->GetName() << ") for " << mAttributes[POW] << " HP." << endl;
         buddy->SetHP(buddy->GetHP() + mAttributes[POW]);
     }
     mExp = mExp+20;
@@ -132,9 +136,9 @@ void Healer::Heal(Character* buddy)
 }
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
-const string Healer::GetClassName() const
+const inline std::string & Healer::GetCharacterClassName() const
 {
-    return "Healer";
+    return characterClassName;
 }
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 

@@ -6,6 +6,7 @@
  * Authors:
  * Andrew Osborne, February 15 2007 | Initial Creation
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Karl Schmidt, March 23 2007      | Got rid of more using namespace std; usage
  */
 
 #include "UISetPasswordLayout.h"                                // class implemented
@@ -21,15 +22,15 @@
 
 
     int mPasswordEntryState;
-    string mOldStarString;
-    string mNewStarString;
-    string mConfirmStarString;
+    std::string mOldStarString;
+    std::string mNewStarString;
+    std::string mConfirmStarString;
     UIText *mOldPwdUIText;
     UIText *mNewPwdUIText;
     UIText *mConfirmPwdUIText;
-    string mOldPwd;
-    string mNewPwd;
-    string mConfirmPwd;
+    std::string mOldPwd;
+    std::string mNewPwd;
+    std::string mConfirmPwd;
 
 UISetPasswordLayout::UISetPasswordLayout()
 : mPasswordEntryState( 0 ), mOldStarString ("Old Pwd:"), mNewStarString ( "New Pwd:"), mConfirmStarString( "Confirm Pwd:"),

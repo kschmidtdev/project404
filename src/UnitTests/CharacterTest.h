@@ -74,7 +74,7 @@ public:
     TS_ASSERT_EQUALS(character.IsDead(), true);
     //Check names
     TS_ASSERT_EQUALS(character.GetName(), "GENERIC");
-    TS_ASSERT_EQUALS(character.GetClassName(), "base");
+    TS_ASSERT_EQUALS(character.GetCharacterClassName(), "base");
     TS_ASSERT_EQUALS(character.GetArmor()->GetName(), "blehshield");
     TS_ASSERT_EQUALS(character.GetArmor()->GetAttr(), 1);
     TS_ASSERT_EQUALS(character.GetWeapon()->GetName(), "UBERSWORDOFDEATH!!!11111");

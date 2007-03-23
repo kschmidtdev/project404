@@ -11,6 +11,7 @@
  * Mike Malyuk, March 14, 2007    | Dijkstras method changed, added no params
  * Mike Malyuk, March 14, 2007    | Huge update to AI, now it acts smarter (better than the jig anyway)
  * Karl Schmidt, March 20 2007    | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 22 2007    | Changed name of GetClassName
  */
 
 #include "AIControl.h"                                // class implemented
@@ -70,7 +71,7 @@ Point AIControl::DoAction()
         {
             points = mMap.GetMovementRange(mLevel->GetEveryone(), mLevel->GetParty(), mLevel->GetCurCharacter());
             //If not a healer, push back enemies to look for
-            if(mLevel->GetCurCharacter()->GetClassName() != "Healer")
+            if(mLevel->GetCurCharacter()->GetCharacterClassName() != "Healer")
             {
                 const CharacterPtrVec& enemies = mLevel->GetParty();
                 for(CharacterPtrConstItr citer = enemies.begin(); citer != enemies.end(); citer++)
@@ -129,7 +130,7 @@ Point AIControl::DoAction()
                 }
             }
             //if I'm not an archer, I can run right up to the guy
-            if(mLevel->GetCurCharacter()->GetClassName() != "Archer")
+            if(mLevel->GetCurCharacter()->GetCharacterClassName() != "Archer")
             {
                 for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
                     {
@@ -171,7 +172,7 @@ Point AIControl::DoAction()
         {
             const PointVec& points = mLevel->GetAttackArea();
             Character* curChar = mLevel->GetCurCharacter();
-            if(curChar->GetClassName() != "Healer")
+            if(curChar->GetCharacterClassName() != "Healer")
             {
                 const CharacterPtrVec & party = mLevel->GetParty();
                 for(PointConstItr piter = points.begin(); piter != points.end(); piter++)

@@ -13,6 +13,7 @@
  * Mike Malyuk, February 7 2007  | Initial design
  * Mike Malyuk, February 11 2007 | Made CalcAction return non-pointer Point vector
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 22 2007   | Changed name of GetClassName
  */
 
 #ifndef Archer_h
@@ -68,7 +69,7 @@ public:
     /**
      * Get name of class (for UI stuff, or limiting weapons)
 	 */
-    virtual const string GetClassName() const;
+    virtual const std::string & GetCharacterClassName() const;
 
 protected:
 private:

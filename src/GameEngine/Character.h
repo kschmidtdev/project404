@@ -15,6 +15,7 @@
  *                                 Added Exhaust, Invigorate, Attack, MakeDead, GetExhaust, IsDead,
  *                                 and two booleans, mExhausted and mIsDead
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 22 2007   | Changed name of GetClassName
  */
 
 #ifndef Character_h
@@ -152,7 +153,7 @@ enum Attr
     /**
      * Get name of class (for UI stuff, or limiting weapons)
 	 */
-    virtual const string GetClassName() const;
+    virtual const std::string & GetCharacterClassName() const;
 
     /**
      * Get Armor (for UI representation)
@@ -197,7 +198,7 @@ enum Attr
 protected:
 
 // VARIABLES
-    string mName;
+    std::string mName;
     int mLevel;
     int mExp;
     int mCurHP;

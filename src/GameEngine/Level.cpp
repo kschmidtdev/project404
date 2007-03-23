@@ -31,6 +31,7 @@
  * Mike Malyuk, March 16 2007     | Added fix to healer, no more annoying heal others when they do not need it.
  * Karl Schmidt, March 20 2007    | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 21 2007    | Added storage of the last damage and healing values from attacking/defending and healing
+ * Karl Schmidt, March 22 2007    | Changed name of GetClassName
  */
 
 #include <util.h>
@@ -199,8 +200,8 @@ Character* Level::OnSelect( const Point & p )
     {
 
             mCurChar->Move(p);
-            cout << "Attacker " << mCurChar->GetName()  <<" (" << mCurChar->GetClassName() << ") moving to: " << mCurChar->GetPoint().GetX() << "," << mCurChar->GetPoint().GetY() << endl;
-            if(mCurChar->GetClassName() != "Healer")
+            cout << "Attacker " << mCurChar->GetName()  <<" (" << mCurChar->GetCharacterClassName() << ") moving to: " << mCurChar->GetPoint().GetX() << "," << mCurChar->GetPoint().GetY() << endl;
+            if(mCurChar->GetCharacterClassName() != "Healer")
             {
                 const PointVec& attackArea = mCurChar->CalcAction();
                 CharacterPtrConstItr charIter;
@@ -227,7 +228,7 @@ Character* Level::OnSelect( const Point & p )
                 mState = FREE;
                 return NULL;
             }
-            else if (mCurChar->GetClassName() == "Healer")
+            else if (mCurChar->GetCharacterClassName() == "Healer")
             {
                 const PointVec& healArea = mCurChar->CalcAction();
                 CharacterPtrConstItr charIter;
@@ -263,7 +264,7 @@ Character* Level::OnSelect( const Point & p )
     }
     else
     {
-        if(mCurChar->GetClassName() != "Healer")
+        if(mCurChar->GetCharacterClassName() != "Healer")
         {
             PointConstItr iter;
             const PointVec& attackArea = mCurChar->CalcAction();
@@ -305,7 +306,7 @@ Character* Level::OnSelect( const Point & p )
                 return mCurChar;
             }
         }
-        else if(mCurChar->GetClassName() == "Healer")
+        else if(mCurChar->GetCharacterClassName() == "Healer")
         {
             PointConstItr iter;
             const PointVec & healArea = mCurChar->CalcAction();
@@ -384,8 +385,8 @@ Character* Level::OnAISelect( const Point & p )
     else if(mState == AIMOVE)
     {
             mCurChar->Move(p);
-            cout << "Attacker " << mCurChar->GetName()  <<" (" << mCurChar->GetClassName() << ") moving to: " << mCurChar->GetPoint().GetX() << "," << mCurChar->GetPoint().GetY() << endl;
-            if(mCurChar->GetClassName() != "Healer")
+            cout << "Attacker " << mCurChar->GetName()  <<" (" << mCurChar->GetCharacterClassName() << ") moving to: " << mCurChar->GetPoint().GetX() << "," << mCurChar->GetPoint().GetY() << endl;
+            if(mCurChar->GetCharacterClassName() != "Healer")
             {
                 const PointVec& attackArea = mCurChar->CalcAction();
                 CharacterPtrConstItr charIter;
@@ -412,7 +413,7 @@ Character* Level::OnAISelect( const Point & p )
                 mState = AIFREE;
                 return NULL;
             }
-            else if (mCurChar->GetClassName() == "Healer")
+            else if (mCurChar->GetCharacterClassName() == "Healer")
             {
                 const PointVec & healArea = mCurChar->CalcAction();
                 CharacterPtrConstItr charIter;
@@ -448,7 +449,7 @@ Character* Level::OnAISelect( const Point & p )
     }
     else
     {
-        if(mCurChar->GetClassName() != "Healer")
+        if(mCurChar->GetCharacterClassName() != "Healer")
         {
             PointConstItr iter;
             const PointVec& attackArea = mCurChar->CalcAction();
@@ -490,7 +491,7 @@ Character* Level::OnAISelect( const Point & p )
                 return mCurChar;
             }
         }
-        else if(mCurChar->GetClassName() == "Healer")
+        else if(mCurChar->GetCharacterClassName() == "Healer")
         {
             PointConstItr iter;
             const PointVec& healArea = mCurChar->CalcAction();

@@ -9,6 +9,7 @@
  * Karl Schmidt, March 9 2007	 | Changed textures to png
  * Mike Malyuk, March 14 2007    | Added rock
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 22 2007   | Got rid of more using namespace std; usage
  */
 
 #include "Tile.h"                                // class implemented
@@ -26,7 +27,7 @@ Tile::Tile()
 {
 }// Tile
 
-Tile::Tile( const Point & p, const string & type )
+Tile::Tile( const Point & p, const std::string & type )
 : mTilePoint( p ), mType( type ), mPic(""), mWeight(0)
 {
     if(type.compare("GRASS") == 0)
@@ -72,11 +73,11 @@ const int Tile::GetWeight() const
 {
     return mWeight;
 }
-const string& Tile::GetType() const
+const std::string& Tile::GetType() const
 {
     return mType;
 }
-const string& Tile::GetPic() const
+const std::string& Tile::GetPic() const
 {
     return mPic;
 }

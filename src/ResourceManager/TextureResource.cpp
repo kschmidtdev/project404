@@ -5,8 +5,9 @@
  *
  * Authors:
  * Karl Schmidt, February 13 2007 | Added logging when loading and unloading
- * Karl Schmidt, February 9 2007 | Initial creation of implementation
- * Karl Schmidt, March 9 2007	 | Added SDL_image implementation to support other texture file formats
+ * Karl Schmidt, February 9 2007  | Initial creation of implementation
+ * Karl Schmidt, March 9 2007	  | Added SDL_image implementation to support other texture file formats
+ * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage
  */
 
 #include <util.h>
@@ -16,7 +17,10 @@
 
 #include <Logger.h>
 
-const string IMG_DIR( "img/" );
+namespace
+{
+	const std::string IMG_DIR( "img/" );
+}
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -43,13 +47,13 @@ void TextureResource::Load()
 
     // load an image
 
-    LogInfo( string("Loading image: ") + GetFileName() );
+    LogInfo( std::string("Loading image: ") + GetFileName() );
     mSurface = IMG_Load( (IMG_DIR + GetFileName()).c_str() );
 
     tacAssert( mSurface );
     if ( !mSurface )
     {
-        LogError( string("Unable to load bitmap: ") + GetFileName() + string(" SDL_image error: ") + string( IMG_GetError() ) );
+        LogError( std::string("Unable to load bitmap: ") + GetFileName() + std::string(" SDL_image error: ") + std::string( IMG_GetError() ) );
     }
 }
 
@@ -57,7 +61,7 @@ void TextureResource::Unload()
 {
     if( mSurface )
     {
-        LogInfo( string("Unloading image: ") + GetFileName() );
+        LogInfo( std::string("Unloading image: ") + GetFileName() );
         SDL_FreeSurface( mSurface );
         mSurface = NULL;
     }

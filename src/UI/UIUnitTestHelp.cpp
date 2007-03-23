@@ -6,6 +6,7 @@
  * Authors:
  * Andrew Osborne, March 13 2007 | Initial creation, Fleshed out methods
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
+ * Karl Schmidt, March 23 2007   | Got rid of more using namespace std; usage
  */
 
 #include "UIUnitTestHelp.h"                                // class implemented
@@ -86,15 +87,15 @@ void UIUnitTestHelp::RenderSelf(SDL_Surface* destination)
 
 void UIUnitTestHelp::RunBasicTest(void)
 {
-
-
     // Making sure testElement has been intialized
-    if (mTestElement) {
-
-        if (!mInitialized)
+    if (mTestElement)
+    {
+        if( !mInitialized )
+        {
             Initialize();
+        }
 
-        ostringstream oss;
+        std::ostringstream oss;
 
         int width;
         int height;
@@ -146,8 +147,6 @@ void UIUnitTestHelp::RunBasicTest(void)
             mSRend->Draw();
             Delay();
             mTestNumNum++;
-
-
         }
     }
 
@@ -161,7 +160,7 @@ void UIUnitTestHelp::RunNewTest( const std::string & message )
     if (mInitialized)
     {
         SDLRenderer *SRend = SDLRenderer::GetInstance();
-        ostringstream oss;
+        std::ostringstream oss;
 
         mInfoText.ChangeText(message);
         oss << mTestNumNum;

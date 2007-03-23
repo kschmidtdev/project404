@@ -9,6 +9,8 @@
  * Karl Schmidt, February 12 2007, Removed opening the file handle in Initialize, unnecessary.
  * Karl Schmidt, February 9 2007, Added full functionality
  * Karl Schmidt, February 7 2007, Created initial class definition
+ * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage, renamed some enums
+                                    because of name collisions
  */
 
 
@@ -22,7 +24,7 @@
 
 Logger* Logger::_instance = 0;
 
-Logger* Logger::GetInstance( const string logFileName )
+Logger* Logger::GetInstance( const std::string & logFileName )
 {
     // If a logger exists, return it's instance,
     // otherwise create a new one.
@@ -54,10 +56,10 @@ Logger* Logger::GetInstance()
 
 void Logger::Initialize()
 {
-    mMsgTypeText[ERROR] = "ERROR";
-    mMsgTypeText[CRITICAL] = "** CRITICAL **";
-    mMsgTypeText[WARNING] = "WARNING";
-    mMsgTypeText[INFO] = "INFO";
+    mMsgTypeText[EL_ERROR] = "ERROR";
+    mMsgTypeText[EL_CRITICAL] = "** CRITICAL **";
+    mMsgTypeText[EL_WARNING] = "WARNING";
+    mMsgTypeText[EL_INFO] = "INFO";
 
     tacAssert( !mLogFileHandle ); // Shouldn't already have a file handle, means we've called Initialize twice
     tacAssert( mLogFileName != "" ); // Log filename should be valid
@@ -67,9 +69,9 @@ void Logger::Initialize()
     mLogFileHandle = fopen( mLogFileName.c_str(), "w" );
 
 #ifdef _DEBUG
-    LogMessage( INFO, "The log has started successfully for a DEBUG build" );
+    LogMessage( EL_INFO, "The log has started successfully for a DEBUG build" );
 #else
-    LogMessage( INFO, "The log has started successfully for a RELEASE build" );
+    LogMessage( EL_INFO, "The log has started successfully for a RELEASE build" );
 #endif
 }
 
@@ -82,7 +84,7 @@ void Logger::Shutdown()
 Logger::~Logger()
 {
     // close the file handle, etc
-    LogMessage( INFO, "Log closing" );
+    LogMessage( EL_INFO, "Log closing" );
     if( mLogFileHandle )
     {
         fclose( mLogFileHandle );
@@ -92,7 +94,7 @@ Logger::~Logger()
 
 //============================= OPERATIONS ===================================
 
-void Logger::LogMessage( const EMESSAGE_TYPE type, const string msg )
+void Logger::LogMessage( const EMESSAGE_TYPE type, const std::string & msg )
 {
     if( !mLogFileHandle )
     {
@@ -106,9 +108,9 @@ void Logger::LogMessage( const EMESSAGE_TYPE type, const string msg )
     mLogFileHandle = NULL;
 }
 
-void Logger::LogMessage( const EMESSAGE_TYPE type, const string msg, const string srcFileName, const int lineNum )
+void Logger::LogMessage( const EMESSAGE_TYPE type, const std::string & msg, const std::string & srcFileName, const int lineNum )
 {
-    LogMessage( type, msg + string(" ( FILE: ") + srcFileName.substr(srcFileName.rfind("\\") + 1) + string(" LINE: ") + toString( lineNum ) + string(" ) ") );
+    LogMessage( type, msg + std::string(" ( FILE: ") + srcFileName.substr(srcFileName.rfind("\\") + 1) + std::string(" LINE: ") + toString( lineNum ) + std::string(" ) ") );
 }
 
 //============================= ACCESS      ===================================
@@ -120,7 +122,7 @@ Logger::Logger()
     // create logger with default name
 }
 
-Logger::Logger( const string logFileName )
+Logger::Logger( const std::string & logFileName )
 : mLogFileHandle( NULL ), mLogFileName( logFileName )
 {
     // stub

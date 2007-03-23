@@ -10,13 +10,17 @@
  * Mike Malyuk, February 14 2007 | On level up, curHP renewed.
  * Mike Malyuk, February 14 2007 | Levelling up is couted
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 22 2007    | Changed name of GetClassName
  */
-
-#include <util.h>
-
 
 #include "Archer.h"                                // class implemented
 
+#include <util.h>
+
+namespace
+{
+    const std::string characterClassName = "Archer";
+}
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -104,9 +108,9 @@ const PointVec Archer::CalcAction()
 }
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
-const string Archer::GetClassName() const
+const inline std::string & Archer::GetCharacterClassName() const
 {
-    return "Archer";
+    return characterClassName;
 }
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 

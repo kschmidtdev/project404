@@ -5,7 +5,8 @@
  *
  * Authors:
  * Andrew Osborne, March 20 2007 | Initial Creation
- * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
+ * Karl Schmidt, March 23 2007   | Got rid of more using namespace std; usage
  */
 
 #include "UIAlphabetGrid.h"                                // class implemented
@@ -38,9 +39,9 @@ mGrid( Point( 6, 3 ) ), mOffset( Point( 45, 45) )
     mCapitalAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     // Adding in 26 lower case letters
-    string temp;
+    std::string temp;
 
-    string::iterator iter;
+    std::string::iterator iter;
     for (iter = mAlphabet.begin(); iter!= mAlphabet.end(); ++iter)
     {
         temp = (*iter);
@@ -192,7 +193,7 @@ void UIAlphabetGrid::UpdateCursor(void)
 void UIAlphabetGrid::AddChar(void)
 {
     // find mLetters index
-    string temp;
+    std::string temp;
     unsigned int index = mCursorPos.GetX() + mCursorPos.GetY() * ( mGrid.GetX() + 1);
     if (index<mLetters.size())
     {

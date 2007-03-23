@@ -4,12 +4,13 @@
  * Project 404 2007
  *
  * Authors:
- * Andrew Osborne, March 9 2007 | Initial Creation
+ * Andrew Osborne, March 9 2007  | Initial Creation
  * Andrew Osborne, March 10 2007 | Completed Implementation
  * Andrew Osborne, March 14 2007 | Made it so by default, mElementImage has something stored in it
  *                                      and by default, the blank image is displayed
  * Andrew Osborne, March 15 2007 | Added Level and Class to information Listed.
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
+ * Karl Schmidt, March 23 2007   | Got rid of more using namespace std; usage
  */
 #include "UICharWindow.h"                                // class implemented
 
@@ -160,7 +161,7 @@ void UICharWindow::SetCharacter(Character *c)
         std::string str;
 
         // Character's name
-        mCharName.ChangeText( mCurCharacter->GetName() + "  (" + mCurCharacter->GetClassName() + ")" );
+        mCharName.ChangeText( mCurCharacter->GetName() + "  (" + mCurCharacter->GetCharacterClassName() + ")" );
 
         // Character's Level
         string lvlText;
