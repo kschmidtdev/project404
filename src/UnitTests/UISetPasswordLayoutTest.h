@@ -5,6 +5,8 @@
 
 #include <UI/Layouts/UISetPasswordLayout.h>
 #include <UI/UILayoutTestHelp.h>
+#include <ResourceManager/ResourceManager.h>
+#include <Renderer/SDLRenderer.h>
 
 //
 // A generated test suite: Just write tests!
