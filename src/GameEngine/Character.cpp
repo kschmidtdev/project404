@@ -16,12 +16,13 @@
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 22 2007   | More include re-arranging, fixed some warnings
  * Karl Schmidt, March 22 2007   | Changed name of GetClassName
+ * Mike Malyuk, March 24 2007    | Added code to call RTAudio proof of concept trumpet sound on attack. Prepare for annoyance!
  */
 
 #include "Character.h"                                // class implemented
 
 #include <util.h>
-
+#include "SoundManager.h"
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
@@ -82,6 +83,7 @@ void Character::MakeDead()
 }
 void Character::Attack(Character* another)
 {
+    SoundManager::GetInstance()->PlayRTAUDIO();
     int randPOW;
     if(rand()%(100/(mAttributes[AGI]/3)) == 0)
     {

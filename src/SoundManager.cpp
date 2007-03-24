@@ -10,15 +10,22 @@
  * Karl Schmidt, February 10 2007 | Initial creation of the class
  * Karl Schmidt, March 13 2007    | Added support for sound subsystem disabling
  * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage
+ * Mike Malyuk, March 24 2007     | Added code for RTAudio real time output.
  */
 
-#include <util.h>
 
 
 #include "SoundManager.h"                                // class implemented
-
+#include <math.h>
 #include <Logger.h>
+#include <util.h>
 
+typedef float  MY_TYPE;
+#define FORMAT RTAUDIO_FLOAT32
+#define SCALE  1.0
+
+#define BASE_RATE 0.005
+#define TIME   1.0
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
@@ -51,7 +58,32 @@ void SoundManager::Initialize( const bool isEnabled )
             tacAssert( false ); // this should never happen
             return;
         }
-
+        int buffer_size, fs, device = 0;
+        audio = 0;
+        data = new double(1);
+        char input;
+        fs = 44100;
+        // Open the realtime output device
+        buffer_size = 1024;
+        try
+        {
+            audio = new RtAudio(device, 1, 0, 0,
+                                FORMAT, fs, &buffer_size, 4);
+        }
+        catch (RtError &error)
+        {
+            error.printMessage();
+            exit(EXIT_FAILURE);
+        }
+        try
+        {
+            //audio->setStreamCallback(&cosine, (void *)data);
+            //audio->startStream();
+        }
+        catch (RtError &error)
+        {
+            error.printMessage();
+        }
         // TODO: Make functions for this or something
         Mix_AllocateChannels( 1 );
         Mix_Volume( -1, MIX_MAX_VOLUME /2 );
@@ -70,7 +102,10 @@ void SoundManager::Shutdown()
 
         Mix_CloseAudio();
     }
-
+    audio->stopStream();
+    audio->closeStream();
+    delete audio;
+    delete[] data;
     delete _instance;
     _instance = NULL;
 
@@ -83,7 +118,7 @@ void SoundManager::Shutdown()
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================
 
-void SoundManager::PlaySound( Mix_Chunk* toPlay, const bool looping )
+void SoundManager::PlaySoundSample( Mix_Chunk* toPlay, const bool looping )
 {
     if( mIsEnabled )
     {
@@ -113,6 +148,50 @@ void SoundManager::PlayMusic( Mix_Music* toPlay, const bool looping )
             LogError( "Attempting to play invalid music (NULL)" );
         }
     }
+}
+static int cosine(char *buffer, int buffer_size, void *data)
+{
+    int i, j;
+    static int chans = 1;
+    static int times = 0;
+    float T = 1.0 / 44100.0;
+    MY_TYPE *my_buffer = (MY_TYPE *) buffer;
+    double *my_data = (double *) data;
+    double pi = 3.141592653589793;
+    MY_TYPE sinval = 0;
+    static int n = 0;
+    float f0 = 262.0;
+    for (i=0; i<buffer_size; i++)
+    {
+        sinval = .5*(cos(2.0*pi*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*f0*T*(float)n)) +
+                 (cos(2.0*pi*3*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*3*f0*T*(float)n)) +
+                 (cos(2.0*pi*4*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*4*f0*T*(float)n)) +
+                 (cos(2.0*pi*5*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*5*f0*T*(float)n)) +
+                 .1*(cos(2.0*pi*7*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*7*f0*T*(float)n)) +
+                 .05*(cos(2.0*pi*9*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*9*f0*T*(float)n));
+        n++;
+        if (n > 44100)
+        {
+            n = 0;
+            times++;
+        }
+        for (j=0; j<chans; j++)
+        {
+            *my_buffer++ = (MY_TYPE) (my_data[j] * SCALE);
+            my_data[j] = sinval/7.4;
+        }
+    }
+    if (times == 1)
+    {
+        times = 0;
+        return 1;
+    }
+    return 0;
+}
+void SoundManager::PlayRTAUDIO()
+{
+    audio->startStream();
+    audio->setStreamCallback(&cosine, (void *)data);
 }
 
 void SoundManager::StopAllPlayback()
