@@ -9,6 +9,7 @@
  * Karl Schmidt, March 23 2007   | Got rid of more using namespace std; usage
  * Andrew Osborne, March 23 2007 | Added start offset and background image (also made small position adjustments)
  *                                  and font colour change
+ * Andrew Osborne, March 23 2007 | Added fix to prevent crash when 'main string' is set to nothing ("")
  */
 
 #include "UIAlphabetGrid.h"                                // class implemented
@@ -216,7 +217,13 @@ void UIAlphabetGrid::RemoveChar(void)
         mResult = mResult.substr(0, mResult.size()-1);
     }
 
-    mUIResult.ChangeText(mResult);
-
+    if (mResult=="")
+    {
+        mUIResult.ChangeText(" ");
+    }
+    else
+    {
+        mUIResult.ChangeText(mResult);
+    }
 }
 /////////////////////////////// PRIVATE    ///////////////////////////////////
