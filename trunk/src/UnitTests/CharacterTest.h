@@ -23,13 +23,15 @@ public:
     // Called before all unit tests in this suite, remove if not needed
     void setUp()
     {
-
+        Logger::GetInstance( "unitTestLog.txt" )->Initialize();
+        SoundManager::GetInstance()->Initialize( false );
     }
 
     // Called after all unit tests in this suite, remove if note needed
     void tearDown()
     {
-
+        SoundManager::GetInstance()->Shutdown();
+        Logger::GetInstance()->Shutdown();
     }
 
     void TestingSettersGetters()

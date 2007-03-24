@@ -10,6 +10,7 @@
 #include <Point.h>
 #include <Database/DBEngine.h>
 #include <SecurityManager.h>
+#include <SoundManager.h>
 
 //
 // A generated test suite: Just write tests!
@@ -31,11 +32,17 @@ public:
         SecurityManager::GetInstance()->Initialize();
         SecurityManager::GetInstance()->LoadPasswordHashFile( "passwords" );
         DBEngine::GetInstance()->Initialize();
+        // Since we are playing sounds from within gameplay now,
+        // for this test we start the sound manager in disabled mode,
+        // since we are testing it's functionality exclusively within
+        // SoundManagerTest.h
+        SoundManager::GetInstance()->Initialize( false );
     }
 
     // Called after all unit tests in this suite, remove if note needed
     void tearDown()
     {
+        SoundManager::GetInstance()->Shutdown();
         DBEngine::GetInstance()->Shutdown();
         SecurityManager::GetInstance()->Shutdown();
         Logger::GetInstance()->Shutdown();
