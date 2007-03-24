@@ -76,7 +76,7 @@ public:
         soundToPlay = ResourceManager::GetInstance()->LoadSound( sndFileName );
         TS_ASSERT( soundToPlay );
 
-        SoundManager::GetInstance()->PlaySound( soundToPlay, false );
+        SoundManager::GetInstance()->PlaySoundSample( soundToPlay, false );
         TS_TRACE( "Playing sound for 1 second, you should hear it\n" );
         SDL_Delay( 1000 );
     }

@@ -16,9 +16,24 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option="_WIN32" />
+					<Add option="_DEBUG" />
+					<Add option="WIN32" />
+					<Add option="_CONSOLE" />
+					<Add option="__WINDOWS_DS__" />
+					<Add option="__RTAUDIO_DEBUG__" />
 					<Add option="-D_WIN32" />
 					<Add option="-D_DEBUG" />
+					<Add option="-DWIN32" />
+					<Add option="-D_CONSOLE" />
+					<Add option="-D__WINDOWS_DS__" />
+					<Add option="-D__RTAUDIO_DEBUG__" />
 				</Compiler>
+				<Linker>
+					<Add library="dsound" />
+					<Add library="winmm" />
+					<Add library="ole32" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="..\bin\Project404.exe" />
@@ -32,9 +47,15 @@
 					<Add option="-O3" />
 					<Add option="-O2" />
 					<Add option="-D_WIN32" />
+					<Add option="-DWIN32" />
+					<Add option="-D_CONSOLE" />
+					<Add option="-D__WINDOWS_DS__" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="dsound" />
+					<Add library="winmm" />
+					<Add library="ole32" />
 				</Linker>
 			</Target>
 			<Target title="UnitTest_Debug">
@@ -47,7 +68,17 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-D_WIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DWIN32" />
+					<Add option="-D_CONSOLE" />
+					<Add option="-D__WINDOWS_DS__" />
+					<Add option="-D__RTAUDIO_DEBUG__" />
 				</Compiler>
+				<Linker>
+					<Add library="dsound" />
+					<Add library="winmm" />
+					<Add library="ole32" />
+				</Linker>
 				<ExtraCommands>
 					<Add before="buildunittests.bat" />
 				</ExtraCommands>
@@ -65,9 +96,15 @@
 					<Add option="-O3" />
 					<Add option="-O2" />
 					<Add option="-D_WIN32" />
+					<Add option="-DWIN32" />
+					<Add option="-D_CONSOLE" />
+					<Add option="-D__WINDOWS_DS__" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="dsound" />
+					<Add library="winmm" />
+					<Add library="ole32" />
 				</Linker>
 				<ExtraCommands>
 					<Add before="buildunittests.bat" />
@@ -99,10 +136,44 @@
 			<Add library="..\bin\SDL_image.dll" />
 			<Add directory="..\external\lib" />
 		</Linker>
+		<Unit filename="..\external\include\RtAudio.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\external\include\RtError.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\external\include\dsound.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\external\include\mmgr\mmgr.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />
 			<Option target="UnitTest_Debug" />
+		</Unit>
+		<Unit filename="..\external\lib\RtAudio.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
 		</Unit>
 		<Unit filename="..\src\AI\AIControl.cpp">
 			<Option compilerVar="CPP" />

@@ -22,7 +22,7 @@
 // SYSTEM INCLUDES
 //
 #include <SDL_mixer.h>
-
+#include "RtAudio.h"
 // PROJECT INCLUDES
 //
 
@@ -69,7 +69,7 @@ public:
      * Plays the given sound, will make it looping
      * if looping is true
 	 */
-    void PlaySound( Mix_Chunk* toPlay, const bool looping );
+    void PlaySoundSample( Mix_Chunk* toPlay, const bool looping );
 
     /**
      * Plays the given music, will make it looping
@@ -77,6 +77,12 @@ public:
 	 */
     void PlayMusic( Mix_Music* toPlay, const bool looping );
 
+    //int cosine(char *buffer, int buffer_size, void *data);
+
+    /**
+     *
+     */
+    void PlayRTAUDIO();
     /**
      * Plays the given music, will make it looping
      * if looping is true
@@ -104,6 +110,8 @@ protected:
     static SoundManager* _instance;
 
     bool mIsEnabled;
+    RtAudio* audio;
+    double* data;
 
 private:
 // PRIVATE VARIABLES
