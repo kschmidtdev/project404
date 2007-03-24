@@ -10,6 +10,7 @@
  * Authors:
  * Andrew Osborne, March 18 2007, Initial Creation
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Andrew Osborne, March 23 2007, Proper Implementation of functionality
  */
 
 #ifndef UITutorialLayout_h
@@ -27,7 +28,7 @@
 
 // FORWARD REFERENCES
 //
-
+class UIImage;
 
 class UITutorialLayout : public UILayout
 {
@@ -75,6 +76,20 @@ public:
 
 protected:
 // PROTECTED VARIABLES
+
+    // Tutorial page indexing
+    int mMinLayoutNum;
+    int mMaxLayoutNum;
+    int mCurLayoutNum;
+
+    // Image filename
+    std::string mLayoutFileNamePrefix;
+    std::string mLayoutFileNameSuffix;
+
+    // Tutorial Image
+    UIImage* mBack;
+
+
 private:
 // PRIVATE VARIABLES
 };
