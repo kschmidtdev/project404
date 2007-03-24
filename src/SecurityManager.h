@@ -163,3 +163,7 @@ private:
 //
 
 #endif  // _SecurityManager_h_
+
+#ifdef EncryptFile
+#undef EncryptFile
+#endif

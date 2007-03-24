@@ -16,12 +16,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="_WIN32" />
-					<Add option="_DEBUG" />
-					<Add option="WIN32" />
-					<Add option="_CONSOLE" />
-					<Add option="__WINDOWS_DS__" />
-					<Add option="__RTAUDIO_DEBUG__" />
 					<Add option="-D_WIN32" />
 					<Add option="-D_DEBUG" />
 					<Add option="-DWIN32" />
@@ -67,8 +61,6 @@
 				<Option parameters="unitTests.txt" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="-D_WIN32" />
-					<Add option="-D_DEBUG" />
 					<Add option="-DWIN32" />
 					<Add option="-D_CONSOLE" />
 					<Add option="-D__WINDOWS_DS__" />

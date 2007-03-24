@@ -61,7 +61,6 @@ void SoundManager::Initialize( const bool isEnabled )
         int buffer_size, fs, device = 0;
         audio = 0;
         data = new double(1);
-        char input;
         fs = 44100;
         // Open the realtime output device
         buffer_size = 1024;
@@ -101,11 +100,13 @@ void SoundManager::Shutdown()
         StopAllPlayback();
 
         Mix_CloseAudio();
+
+        audio->stopStream();
+        audio->closeStream();
+        delete audio;
+        delete[] data;
     }
-    audio->stopStream();
-    audio->closeStream();
-    delete audio;
-    delete[] data;
+
     delete _instance;
     _instance = NULL;
 
@@ -190,8 +191,11 @@ static int cosine(char *buffer, int buffer_size, void *data)
 }
 void SoundManager::PlayRTAUDIO()
 {
-    audio->startStream();
-    audio->setStreamCallback(&cosine, (void *)data);
+    if( mIsEnabled )
+    {
+        audio->startStream();
+        audio->setStreamCallback(&cosine, (void *)data);
+    }
 }
 
 void SoundManager::StopAllPlayback()
