@@ -11,6 +11,7 @@
  * Andrew Osborne, March 18 2007, Initial Creation
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Andrew Osborne, March 23 2007 | Added proper menu functionality, removed ProcessEvent, added OnLoad
+ * Andrew Osborne, March 23 2007 | Made small change to comply with other changes Karl has made to 'include' format
  */
 
 #ifndef UISaveGameLayout_h
@@ -22,14 +23,13 @@
 // PROJECT INCLUDES
 //
 #include <UI/UILayout.h>
-#include <UI/UIMenu.h>
 
 // LOCAL INCLUDES
 //
 
 // FORWARD REFERENCES
 //
-
+class UIMenu;
 
 class UISaveGameLayout : public UILayout
 {
