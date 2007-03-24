@@ -10,6 +10,7 @@
  * Authors:
  * Andrew Osborne, February 11 2007 | Initial Creation
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Andrew Osborne, March 23 2007 | Added "SetImage" method to dynamically adjust image
  */
 
 #ifndef UIImage_h
@@ -56,6 +57,12 @@ public:
 
 // OPERATIONS
 // ACCESS (writing)
+
+    /**
+     * Sets new Image.
+	 */
+    void SetImage(const std::string & filename);
+
 // INQUIRY (reading)
 
 protected:
