@@ -15,6 +15,7 @@
  * Mike Malyuk,    March 8 2007     | Added UITile constructor taking Tile in preparation for use of map
  * Andrew osborne, March 15 2007    | Made a change in preperation for a dynamically changing Grid.
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Karl Schmidt, March 23 2007      | Made UITile more modular, removed unused default constructor
  */
 
 #ifndef UITile_h
@@ -39,12 +40,9 @@ class UITile : public UIElement
 public:
 // LIFECYCLE
 
-    /**
-     * Default constructor.
-	 */
-    UITile(void);
+    UITile( const Tile & tile, const Point & mapOffset = Point() );
 
-    UITile( const Tile & tile );
+    UITile( const Point & tilePos, const std::string imageFileName, const Point & mapOffset = Point() );
 
     /**
      * Destructor.
@@ -64,7 +62,7 @@ public:
     /**
      * Remove character icon from tile
      */
-    void RemoveCharacter(void);
+    void RemoveCharacter();
 
 
 
@@ -98,6 +96,7 @@ protected:
 // PROTECTED VARIABLES
     SDL_Surface* mCharacterImage;
     SDL_Surface* mRangeImage;
+
     // Animation variable
 
 

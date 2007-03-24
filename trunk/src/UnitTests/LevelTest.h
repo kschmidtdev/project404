@@ -160,8 +160,8 @@ public:
         TS_ASSERT_EQUALS(level.ReturnState(), Level::ATTACK);
 
         //lets get the attack range
-        vector<Point> apoints = level.GetAttackArea();
-        vector<Point>::iterator aiter;
+        const PointVec & apoints = level.GetAttackArea();
+        PointConstItr aiter;
         aiter = apoints.begin();
         TS_ASSERT_EQUALS((*aiter), Point(7,9))
         aiter++;

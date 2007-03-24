@@ -6,8 +6,9 @@
  * Authors:
  * Andrew Osborne, March 18 2007 | Initial Creation
  * Andrew Osborne, March 21 2007 | Added AlhpabetGrid to screen
- * Karl Schmidt, March 22 2007    | Correcting include orders and paths
- * Andrew Osborne, March 23 2007  | Added true functionality and display (background, menu, instructions)
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
+ * Andrew Osborne, March 23 2007 | Added true functionality and display (background, menu, instructions)
+ * Karl Schmidt, March 23 2007   | Added cast to int to suppress warning
  */
 #include "UINewProfileLayout.h"                                // class implemented
 
@@ -85,7 +86,7 @@ UINewProfileLayout::UINewProfileLayout()
     int fontGreen = 255;
     int fontBlue = 0;
     Point helpStart( 70, 380);
-    Point helpOffset(0, (int) fontSize*1.2);
+    Point helpOffset(0, static_cast<int>( fontSize*1.2 ) );
     Point p = helpStart;
 
     UIText* help = new UIText("Press CONFIRM to add letter", fontSize, fontRed, fontGreen, fontBlue);
