@@ -6,6 +6,8 @@
 #include <UI/UIImage.h>
 #include <UI/UIUnitTestHelp.h>
 #include <Logger.h>
+#include <ResourceManager/ResourceManager.h>
+#include <Renderer/SDLRenderer.h>
 
 //
 // A generated test suite: Just write tests!
