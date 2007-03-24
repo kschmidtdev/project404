@@ -7,6 +7,8 @@
  * Andrew Osborne, March 20 2007 | Initial Creation
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  * Karl Schmidt, March 23 2007   | Got rid of more using namespace std; usage
+ * Andrew Osborne, March 23 2007 | Added start offset and background image (also made small position adjustments)
+ *                                  and font colour change
  */
 
 #include "UIAlphabetGrid.h"                                // class implemented
@@ -14,15 +16,8 @@
 #include <util.h>
 
 #include <UI/UIManager.h>
+#include <ResourceManager/ResourceManager.h>
 
-/*
-
-ToDo List:
-Make UItext have CenterText operations (cuz it's useful)
-then create a stencil (temp) image that moves around and centers
-the text where it should be.
-
-*/
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -31,9 +26,11 @@ the text where it should be.
 UIAlphabetGrid::UIAlphabetGrid()
 //: mAlphabet( "abcdefghijklmnopqrstuvwxyz" ), mCapitalAlphabet( "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ),
 : mCursor( NULL ), mCursorPos( Point(0,0) ),
-mFontSize( 36 ), mFontRed ( 255 ), mFontGreen( 0 ), mFontBlue( 0 ),
-mGrid( Point( 6, 3 ) ), mOffset( Point( 45, 45) )
+mFontSize( 36 ), mFontRed ( 96 ), mFontGreen( 57 ), mFontBlue( 19 ),
+mGrid( Point( 6, 3 ) ), mOffset( Point( 45, 45) ), mGridStart( Point(20,20) )
 {
+
+    mElementImage = ResourceManager::GetInstance()->LoadTexture("alpha_back.png");
 
     mAlphabet = "abcdefghijklmnopqrstuvwxyz";
     mCapitalAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -83,6 +80,8 @@ UIAlphabetGrid::~UIAlphabetGrid()
 
 void UIAlphabetGrid::RenderSelf(SDL_Surface* destination)
 {
+    UIElement::RenderSelf(destination);
+
     int size = mLetters.size();
     for (int i= 0; i<size; i++)
     {
@@ -152,8 +151,8 @@ void UIAlphabetGrid::SetPos( const Point & nPos )
     UIElement::SetPos(nPos);
 
     int size = mAlphabet.size();
-    Point newPos = mPos;
-    Point start = mPos;
+    Point newPos = mPos + mGridStart;
+    Point start = newPos;
 
     int columnCounter = 0;
     for (int i= 0; i<size; i++)
@@ -178,7 +177,7 @@ void UIAlphabetGrid::SetPos( const Point & nPos )
     UpdateCursor();
 
     // Result String
-    mUIResult.SetPos( mPos + Point( 20, ( mGrid.GetY() + 1) * mOffset.GetY() ) );
+    mUIResult.SetPos( mPos + mGridStart + Point( 20, ( mGrid.GetY() + 1) * mOffset.GetY() + 5 ) );
 
 }
 
@@ -187,7 +186,7 @@ void UIAlphabetGrid::SetPos( const Point & nPos )
 
 void UIAlphabetGrid::UpdateCursor(void)
 {
-    mCursor->SetPos( mPos + Point( mCursorPos.GetX() * mOffset.GetX(), mCursorPos.GetY() * mOffset.GetY() ) );
+    mCursor->SetPos( mPos + mGridStart + Point( mCursorPos.GetX() * mOffset.GetX(), mCursorPos.GetY() * mOffset.GetY() ) );
 }
 
 void UIAlphabetGrid::AddChar(void)

@@ -11,6 +11,7 @@
  * Andrew Osborne, March 18 2007, Initial Creation
  * Andrew Osborne, March 21 2007, Commented out Process Event (part of debug)
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
+ * Andrew Osborne, March 23 2007, Added proper functionality, added mAlpha, mMenu
  */
 
 #ifndef UINewProfileLayout_h
@@ -23,11 +24,14 @@
 //
 #include <UI/UILayout.h>
 
+
 // LOCAL INCLUDES
 //
 
 // FORWARD REFERENCES
 //
+class UIAlphabetGrid;
+class UIMenu;
 
 
 class UINewProfileLayout : public UILayout
@@ -75,6 +79,10 @@ public:
 
 protected:
 // PROTECTED VARIABLES
+
+    UIAlphabetGrid *mAlpha;
+    UIMenu* mMenu;
+
 private:
 // PRIVATE VARIABLES
 };

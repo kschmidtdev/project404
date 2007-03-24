@@ -11,6 +11,7 @@
  * Andrew Osborne, March 20 2007, Initial Creation
  * Andrew Osborne, March 21 2007, Added Process Event, incorporated CenterText
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Andrew Osborne, March 23 2007 | Added start offset
  */
 
 #ifndef UIAlphabetGrid_h
@@ -100,8 +101,6 @@ protected:
     UIText mUIResult;
     std::string mResult;
 
-
-
     // Cursor
     UIImage* mCursor;
     Point mCursorPos;
@@ -115,6 +114,7 @@ protected:
     // Display Format
     Point mGrid; // max - num of rows and columns
     Point mOffset; // Offset for each row/column
+    Point mGridStart;
 
 // PROTECTED FUNCTIONS
 

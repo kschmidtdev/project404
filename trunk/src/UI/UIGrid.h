@@ -25,6 +25,7 @@
  * Karl Schmidt,   March 20 2007      | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt,   March 21 2007      | Added support for health change indication UI
  * Karl Schmidt,   March 22 2007      | Correcting include orders and paths
+ * Andrew Osborne, March 23 2007      | Added comments for protected methods
  */
 
 #ifndef UIGrid_h
@@ -215,12 +216,46 @@ protected:
 // PROTECTED METHODS
 
 // TODO: These need correct commenting
+
+    /**
+     * Returns index of mTiles that is represented by input.
+     *
+     *@param (x,y) coordinate on grid
+     *
+     *@return respective index of mTiles element
+     */
     int FindIndex( const int x, const int y );
+
+    /**
+     * Returns index of mTiles that is represented by input.
+     *
+     *@param Point coordinate on grid (p = (x,y))
+     *
+     *@return respective index of mTiles element
+     */
     int FindIndex( const Point & p );
+
     public:
+
+    /**
+     * Function executed when user presses CONFIRM
+     */
     void ConfirmFunction( const Point & p );
+
     protected:
+
+    /**
+     * Function finds the SDL_Surface for a specified character (e.g. Archer) & status (e.g. Exhausted)
+     *
+     * @param Character pointer, string that represtes status (i.e. Party, Enemy or Exhausted)
+     *
+     * @return poiter to desired SDL_Surface
+     */
     SDL_Surface* GetClassSurface( Character* c, const std::string & group );
+
+    /**
+     * Returns (abolute) point on screen, given relative point on gird
+     */
     Point GridToAbsoluteCoordinates( const Point & p );
 
 	/**
