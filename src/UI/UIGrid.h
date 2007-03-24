@@ -26,6 +26,7 @@
  * Karl Schmidt,   March 21 2007      | Added support for health change indication UI
  * Karl Schmidt,   March 22 2007      | Correcting include orders and paths
  * Andrew Osborne, March 23 2007      | Added comments for protected methods
+ * Karl Schmidt,   March 23 2007     | Added mini-map implementation, enum instead of string for character tile type identification
  */
 
 #ifndef UIGrid_h
@@ -129,11 +130,6 @@ public:
     void ClearAttackRange( void );
 
     /**
-     * Clear the attack range that appears
-     */
-    void ClearRange( const UIImagePtrVec & elements );
-
-    /**
      * Clear the character on the grid
      */
     void ClearCharacters( void );
@@ -161,12 +157,12 @@ public:
     /**
      * Check to see if point is 'valid' point on grid
      */
-    bool ValidPoint( const Point & p );
+    const bool ValidPoint( const Point & p ) const;
 
     /**
      *
      */
-    bool HasCharacter( const Point & p );
+    const bool HasCharacter( const Point & p );
 
     Point MaxXY(){ return Point(mNumColumns, mNumRows);}
 
@@ -213,6 +209,15 @@ protected:
     // Regular Communication
     Level* mLevel;
 
+    UITileVec mMiniMap;
+
+    enum CHARACTER_SURFACE_GROUP
+    {
+        G_PARTY = 0,
+        G_ENEMY,
+        G_EXHAUSTED
+    };
+
 // PROTECTED METHODS
 
 // TODO: These need correct commenting
@@ -224,7 +229,7 @@ protected:
      *
      *@return respective index of mTiles element
      */
-    int FindIndex( const int x, const int y );
+    const int FindIndex( const int x, const int y ) const;
 
     /**
      * Returns index of mTiles that is represented by input.
@@ -233,7 +238,7 @@ protected:
      *
      *@return respective index of mTiles element
      */
-    int FindIndex( const Point & p );
+    const int FindIndex( const Point & p ) const;
 
     public:
 
@@ -249,14 +254,14 @@ protected:
      *
      * @param Character pointer, string that represtes status (i.e. Party, Enemy or Exhausted)
      *
-     * @return poiter to desired SDL_Surface
+     * @return pointer to desired SDL_Surface
      */
-    SDL_Surface* GetClassSurface( Character* c, const std::string & group );
+    SDL_Surface* GetClassSurface( Character* c, const CHARACTER_SURFACE_GROUP group, const bool isMiniMap = false );
 
     /**
-     * Returns (abolute) point on screen, given relative point on gird
+     * Returns (absolute) point on screen, given relative point on grid
      */
-    Point GridToAbsoluteCoordinates( const Point & p );
+    const Point GridToAbsoluteCoordinates( const Point & p ) const;
 
 	/**
 	 * Draw the text about the player and the target participating in an attack/heal

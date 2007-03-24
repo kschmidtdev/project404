@@ -14,6 +14,7 @@
  * Mike Malyuk, March 14, 2007   | Changed parameters on GetMovementRange
  * Mike Malyuk, March 14, 2007   | Added GetMaxX() and GetMaxY()
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 23 2007   | Corrected include paths
  */
 
 #ifndef Map_h
@@ -24,16 +25,18 @@
 #include <vector>
 // PROJECT INCLUDES
 //
-#include "Tile.h"
-#include "Point.h"
-#include "Character.h"
+#include <GameEngine/Tile.h>
+#include <Point.h>
+#include <GameEngine/Character.h>
 // LOCAL INCLUDES
 //
 
 // FORWARD REFERENCES
 //
 
-typedef vector<Tile> TileVec;
+typedef std::vector<Tile> TileVec;
+typedef TileVec::iterator TileItr;
+typedef TileVec::const_iterator TileConstItr;
 
 class Map
 {

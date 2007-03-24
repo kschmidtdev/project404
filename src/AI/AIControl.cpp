@@ -12,6 +12,7 @@
  * Mike Malyuk, March 14, 2007    | Huge update to AI, now it acts smarter (better than the jig anyway)
  * Karl Schmidt, March 20 2007    | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 22 2007    | Changed name of GetClassName
+ * Karl Schmidt, March 23 2007    | Removed unneeded include
  */
 
 #include "AIControl.h"                                // class implemented
@@ -23,11 +24,14 @@
 #include <cmath>
 
 #include <GameEngine/Character.h>
-#include <UI/UIGrid.h>
+#include <InputManager.h>
 #include <GameEngine/Level.h>
 
+namespace
+{
+    const int AI_FAKE_TIME_WAIT = 500;
+}
 
-const int AI_FAKE_TIME_WAIT = 500;
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
@@ -39,8 +43,8 @@ AIControl::AIControl(Level* level, const Map & map):mMap(map), mLevel(level)
 Point AIControl::DoAction()
 {
     int curState = mLevel->ReturnState();
-    vector<Point> points;
-    vector<Point> archPoints;
+    PointVec points;
+    PointVec archPoints;
     Point p;
     int selector = 0;
     int randint;

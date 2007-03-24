@@ -38,6 +38,7 @@
  * Karl Schmidt,    March 21 2007     | Added support for health change indication UI
  * Karl Schmidt,    March 22 2007     | Correcting include orders and paths
  * Karl Schmidt,    March 23 2007     | Got rid of more using namespace std; usage
+ * Karl Schmidt,    March 23 2007     | Added mini-map implementation, enum instead of string for character tile type identification
  */
 
 #include "UIGrid.h"                                // class implemented
@@ -46,18 +47,26 @@
 #include <Logger.h>
 
 #include <UI/UIManager.h>
-#include "InputManager.h"
-#include "UICharWindow.h"
+#include <InputManager.h>
+#include <UI/UICharWindow.h>
 
 #include <GameEngine/Character.h>
 #include <GameEngine/Level.h>
 #include <ResourceManager/ResourceManager.h>
 #include <Renderer/SDLRenderer.h>
 
+namespace
+{
+    const int INDICATER_DELAY = 600;
+    const Point mapOffset( 10, 10 );
+    const Point miniMapOffset( 450, 380 );
+
+    const std::string MINIMAPIMAGE_PREFIX( "mini_" );
+    const std::string MINIMAP_PARTY_IMG( MINIMAPIMAGE_PREFIX + "party.png" );
+    const std::string MINIMAP_ENEMY_IMG( MINIMAPIMAGE_PREFIX + "enemy.png" );
+}
+
 /////////////////////////////// PUBLIC ///////////////////////////////////////
-
-const int INDICATER_DELAY = 600;
-
 //============================= LIFECYCLE ====================================
 
 UIGrid::UIGrid()
@@ -91,7 +100,7 @@ void UIGrid::RenderSelf(SDL_Surface* destination)
     // Tiles are rendered first (bottom)
     for ( UITileItr iter = mTiles.begin(); iter!=mTiles.end(); ++iter )
     {
-        (*iter).RenderSelf(destination);
+        iter->RenderSelf(destination);
     }
 
     // Movement ranges are rendered second (middle)
@@ -103,8 +112,8 @@ void UIGrid::RenderSelf(SDL_Surface* destination)
         iIter = mImageMoveRange.begin();
         while (iIter!=mImageMoveRange.end())
         {
-            (*iIter).RenderSelf(destination);
-            iIter++;
+            iIter->RenderSelf(destination);
+            ++iIter;
         }
     }
     else if( curState == Level::ATTACK )
@@ -113,13 +122,18 @@ void UIGrid::RenderSelf(SDL_Surface* destination)
         iIter = mImageAttackRange.begin();
         while (iIter!=mImageAttackRange.end())
         {
-            (*iIter).RenderSelf(destination);
-            iIter++;
+            iIter->RenderSelf(destination);
+            ++iIter;
         }
     }
 
     // Cursor is rendered last (top)
     mCursor->RenderSelf(destination);
+
+    for( UITileItr i = mMiniMap.begin(); i != mMiniMap.end(); ++i )
+    {
+        i->RenderSelf( destination );
+    }
 }
 
 void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
@@ -518,8 +532,8 @@ void UIGrid::AddEnemyCharacter(Character *c)
     if ( ValidPoint(p)  )
     {
         int index = FindIndex( p );
-
-         mTiles[index].AddCharacter( GetClassSurface(c, "Enemy"));
+        mTiles[index].AddCharacter( GetClassSurface( c, G_ENEMY ) );
+        mMiniMap[index].AddCharacter( GetClassSurface(c, G_ENEMY, true ) );
     }
 }
 
@@ -530,8 +544,8 @@ void UIGrid::AddPartyCharacter(Character *c)
     if ( ValidPoint(p)  )
     {
         int index = FindIndex( p );
-
-         mTiles[index].AddCharacter( GetClassSurface(c, "Party"));
+        mTiles[index].AddCharacter( GetClassSurface( c, G_PARTY ) );
+        mMiniMap[index].AddCharacter( GetClassSurface( c, G_PARTY, true ) );
     }
 }
 
@@ -542,8 +556,8 @@ void UIGrid::AddExhaustedCharacter(Character *c)
     if ( ValidPoint(p)  )
     {
         int index = FindIndex( p );
-
-         mTiles[index].AddCharacter( GetClassSurface(c, "Exhausted"));
+        mTiles[index].AddCharacter( GetClassSurface( c, G_EXHAUSTED ) );
+        mMiniMap[index].AddCharacter( GetClassSurface( c, G_EXHAUSTED, true ) );
     }
 }
 
@@ -553,31 +567,20 @@ void UIGrid::RemoveCharacter( const Point & p)
     {
         int index = FindIndex( p );
         mTiles[index].RemoveCharacter();
+        mMiniMap[index].RemoveCharacter();
     }
 }
 
 
 void UIGrid::ClearMoveableRange(void)
 {
-    //mImageMoveRange.clear();
-
-    for ( UITileItr iter = mTiles.begin(); iter!=mTiles.end(); ++iter )
-    {
-        (*iter).RemoveRange();
-    }
-
-
+    for_each( mTiles.begin(), mTiles.end(), mem_fun_ref( &UITile::RemoveRange ) );
 }
 
 
 void UIGrid::ClearAttackRange(void)
 {
-    for ( UITileItr iter = mTiles.begin(); iter!=mTiles.end(); ++iter )
-    {
-        (*iter).RemoveRange();
-    }
-
-    //mImageAttackRange.clear();
+    for_each( mTiles.begin(), mTiles.end(), mem_fun_ref( &UITile::RemoveRange ) );
 }
 
 void UIGrid::AddAttackRange( const PointVec & attackRange )
@@ -665,11 +668,8 @@ void UIGrid::AddMoveableRange( vector<Character*> everyone, vector<Character*> e
 
 void UIGrid::ClearCharacters( void )
 {
-    for (UITileItr iter = mTiles.begin(); iter !=mTiles.end(); ++iter)
-    {
-        (*iter).RemoveCharacter();
-    }
-
+    for_each( mTiles.begin(), mTiles.end(), mem_fun_ref( &UITile::RemoveCharacter ) );
+    for_each( mMiniMap.begin(), mMiniMap.end(), mem_fun_ref( &UITile::RemoveCharacter ) );
 }
 
 
@@ -687,7 +687,7 @@ void UIGrid::SetCharWindow( UICharWindow* charWindow)
 
 //============================= INQUIRY    ===================================
 
-bool UIGrid::ValidPoint( const Point & p )
+const bool UIGrid::ValidPoint( const Point & p ) const
 {
     int x = p.GetX();
     int y = p.GetY();
@@ -702,7 +702,7 @@ bool UIGrid::ValidPoint( const Point & p )
     }
 }
 
-bool UIGrid::HasCharacter( const Point & p )
+const bool UIGrid::HasCharacter( const Point & p )
 {
     int index = FindIndex(p);
     if( index != -1 )
@@ -781,10 +781,15 @@ void UIGrid::Initialize()
         mTileWidth = sample->w;
     }
     mTotalTileOffset = mTileWidth;
-    vector<Tile> storage = mMap->GetTiles();
-    for(vector<Tile>::iterator iter = storage.begin(); iter != storage.end(); iter++)
+    const TileVec & storage = mMap->GetTiles();
+
+    mTiles.reserve( 100 );
+    mMiniMap.reserve( 100 );
+
+    for( TileConstItr iter = storage.begin(); iter != storage.end(); ++iter )
     {
-        mTiles.push_back(UITile((*iter)));
+        mTiles.push_back( UITile( (*iter), mapOffset ) );
+        mMiniMap.push_back( UITile( iter->GetPoint(), MINIMAPIMAGE_PREFIX + iter->GetPic(), miniMapOffset ) );
     }
 
     // Assign self an image
@@ -805,7 +810,7 @@ void UIGrid::Initialize()
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 
-int UIGrid::FindIndex( const int x, const int y )
+const int UIGrid::FindIndex( const int x, const int y ) const
 {
     if (ValidPoint( Point(x,y) ))
     {
@@ -817,7 +822,7 @@ int UIGrid::FindIndex( const int x, const int y )
     }
 }
 
-int UIGrid::FindIndex( const Point & p )
+const int UIGrid::FindIndex( const Point & p ) const
 {
     if (ValidPoint( p ))
     {
@@ -831,82 +836,110 @@ int UIGrid::FindIndex( const Point & p )
 
 
 
-SDL_Surface* UIGrid::GetClassSurface(Character* c, const std::string & group)
+SDL_Surface* UIGrid::GetClassSurface( Character* c, const CHARACTER_SURFACE_GROUP group, const bool isMiniMap )
 {
-    string temp = c->GetCharacterClassName();
-    if(group=="Party")
+    std::string temp = c->GetCharacterClassName();
+
+    if( group == G_PARTY )
     {
-        if (temp=="Archer")
+        if( isMiniMap )
         {
-            return ResourceManager::GetInstance()->LoadTexture("archer_party.png");
+            return ResourceManager::GetInstance()->LoadTexture( "mini_party.png" );
+        }
+        else if ( temp == "Archer" )
+        {
+            return ResourceManager::GetInstance()->LoadTexture( "archer_party.png" );
         }
         else if (temp=="Knight")
         {
-            return ResourceManager::GetInstance()->LoadTexture("knight_party.png");
+            return ResourceManager::GetInstance()->LoadTexture( "knight_party.png");
         }
         else if (temp=="Healer")
         {
-            return ResourceManager::GetInstance()->LoadTexture("healer_party.png");
+            return ResourceManager::GetInstance()->LoadTexture( "healer_party.png");
         }
         else if (temp=="Mage")
         {
-            return ResourceManager::GetInstance()->LoadTexture("mage_party.png");
+            return ResourceManager::GetInstance()->LoadTexture( "mage_party.png");
         }
         else
         {
             LogWarning( string("Class surface requested for unknown character type: ") + temp );
             // you screwed up
-            return ResourceManager::GetInstance()->LoadTexture("charTile.png");
+            return ResourceManager::GetInstance()->LoadTexture( "charTile.png");
         }
     }
-    else if(group == "Enemy")
+    else if( group == G_ENEMY )
     {
-        if (temp=="Archer")
+        if( isMiniMap )
         {
-            return ResourceManager::GetInstance()->LoadTexture("archer_enemy.png");
+            return ResourceManager::GetInstance()->LoadTexture( "mini_enemy.png" );
+        }
+        else if (temp=="Archer")
+        {
+            return ResourceManager::GetInstance()->LoadTexture( "archer_enemy.png");
         }
         else if (temp=="Knight")
         {
-            return ResourceManager::GetInstance()->LoadTexture("knight_enemy.png");
+            return ResourceManager::GetInstance()->LoadTexture( "knight_enemy.png");
         }
         else if (temp=="Healer")
         {
-            return ResourceManager::GetInstance()->LoadTexture("healer_enemy.png");
+            return ResourceManager::GetInstance()->LoadTexture( "healer_enemy.png");
         }
         else if (temp=="Mage")
         {
-            return ResourceManager::GetInstance()->LoadTexture("mage_enemy.png");
+            return ResourceManager::GetInstance()->LoadTexture( "mage_enemy.png");
         }
         else
         {
             LogWarning( string("Class surface requested for unknown character type: ") + temp );
             // you screwed up
-            return ResourceManager::GetInstance()->LoadTexture("charTile.png");
+            return ResourceManager::GetInstance()->LoadTexture( "charTile.png");
         }
     }
-    else if(group == "Exhausted")
+    else if( group == G_EXHAUSTED )
     {
-        if (temp=="Archer")
+        if( isMiniMap )
         {
-            return ResourceManager::GetInstance()->LoadTexture("archer_exhaust.png");
+            const CharacterPtrVec & enemies = mLevel->GetEnemies();
+            const CharacterPtrVec & party = mLevel->GetParty();
+
+            if( find( enemies.begin(), enemies.end(), c ) != enemies.end() )
+            {
+                return ResourceManager::GetInstance()->LoadTexture( MINIMAP_ENEMY_IMG );
+            }
+            else if( find( party.begin(), party.end(), c ) != party.end() )
+            {
+                return ResourceManager::GetInstance()->LoadTexture( MINIMAP_PARTY_IMG );
+            }
+            else
+            {
+                tacAssert( false ); // Should never get here in practice
+                return ResourceManager::GetInstance()->LoadTexture( "mini_defaultTile.png");
+            }
+        }
+        else if (temp=="Archer")
+        {
+            return ResourceManager::GetInstance()->LoadTexture( "archer_exhaust.png");
         }
         else if (temp=="Knight")
         {
-            return ResourceManager::GetInstance()->LoadTexture("knight_exhaust.png");
+            return ResourceManager::GetInstance()->LoadTexture( "knight_exhaust.png");
         }
         else if (temp=="Healer")
         {
-            return ResourceManager::GetInstance()->LoadTexture("healer_exhaust.png");
+            return ResourceManager::GetInstance()->LoadTexture( "healer_exhaust.png");
         }
         else if (temp=="Mage")
         {
-            return ResourceManager::GetInstance()->LoadTexture("mage_exhaust.png");
+            return ResourceManager::GetInstance()->LoadTexture( "mage_exhaust.png");
         }
         else
         {
             LogWarning( string("Class surface requested for unknown character type: ") + temp );
             // you screwed up
-            return ResourceManager::GetInstance()->LoadTexture("charTile.png");
+            return ResourceManager::GetInstance()->LoadTexture( "charTile.png");
         }
     }
     else

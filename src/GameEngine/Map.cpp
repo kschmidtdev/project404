@@ -13,6 +13,7 @@
  * Mike Malyuk, March 14, 2007   | Optimized one loop
  * Mike Malyuk, March 14, 2007   | Generalizing all methods to mMaxX and mMaxY
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 23 2007   | Added some more correct typedef usage
  */
 
 #include "Map.h"                                // class implemented
@@ -157,7 +158,7 @@ void Map::AddTiles( const Tile & tile )
 //============================= INQUIRY    ===================================
 const Tile & Map::GetTile( const Point & p )
 {
-    vector<Tile>::iterator iter = mTiles.begin();
+    TileVec::iterator iter = mTiles.begin();
     while( ((*iter).GetPoint()) != p && iter != mTiles.end())
     {
         iter++;
@@ -174,16 +175,16 @@ const Tile & Map::GetTile( const Point & p )
     }
 }
 
-const vector<Tile> & Map::GetTiles() const
+const TileVec & Map::GetTiles() const
 {
     return mTiles;
 }
 
-const vector<Point> Map::GetMovementRange( const vector<Character*> & everyone, const vector<Character*> & enemies, Character* guy)
+const PointVec Map::GetMovementRange( const vector<Character*> & everyone, const vector<Character*> & enemies, Character* guy)
 {
     Node* nodes = new Node[mTiles.size()];
     Node* checked = new Node[mTiles.size()];
-    vector<Point> possiblepoints;
+    PointVec possiblepoints;
     int maxMove = 0;
     for(vector<Character*>::const_iterator citer = everyone.begin(); citer != everyone.end(); citer++)
     {
@@ -195,7 +196,7 @@ const vector<Point> Map::GetMovementRange( const vector<Character*> & everyone, 
     maxMove = maxMove+10;
     Node something;
     int b = 0;
-    for(vector<Tile>::iterator iter = mTiles.begin(); iter != mTiles.end(); iter++)
+    for(TileVec::iterator iter = mTiles.begin(); iter != mTiles.end(); iter++)
     {
         if((*iter).GetType().compare("ROCK") == 0)
         {
