@@ -105,6 +105,52 @@ public:
             SDLRenderer::GetInstance()->Draw();
         }
     }
+
+    void testAnimationExample()
+    {
+        Uint32 totalTime = SDL_GetTicks();
+
+        TS_TRACE( "You should see text, then the number 1, then the number 2, then the number 3" );
+
+        SDL_Surface* texture = NULL;
+        texture = SDLRenderer::GetInstance()->CreateTextSurface( "Animation Commencing", 12, 255, 255, 255 );
+        TS_ASSERT( texture );
+        ExampleRenderable* temporaryRenderable = new ExampleRenderable();
+        temporaryRenderable->SetTexture( texture );
+        totalTime += 500;
+        SDLRenderer::GetInstance()->AddToTempRenderQueue( temporaryRenderable, totalTime );
+        texture = NULL;
+
+        texture = SDLRenderer::GetInstance()->CreateTextSurface( "1", 12, 255, 255, 255 );
+        TS_ASSERT( texture );
+        temporaryRenderable = new ExampleRenderable();
+        temporaryRenderable->SetTexture( texture );
+        totalTime += 500;
+        SDLRenderer::GetInstance()->AddToTempRenderQueue( temporaryRenderable, totalTime, totalTime-500 );
+
+        texture = NULL;
+        texture = SDLRenderer::GetInstance()->CreateTextSurface( "2", 12, 255, 255, 255 );
+        TS_ASSERT( texture );
+        temporaryRenderable = new ExampleRenderable();
+        temporaryRenderable->SetTexture( texture );
+        totalTime += 500;
+        SDLRenderer::GetInstance()->AddToTempRenderQueue( temporaryRenderable, totalTime, totalTime-500 );
+
+        texture = NULL;
+        texture = SDLRenderer::GetInstance()->CreateTextSurface( "3", 12, 255, 255, 255 );
+        TS_ASSERT( texture );
+        temporaryRenderable = new ExampleRenderable();
+        temporaryRenderable->SetTexture( texture );
+        totalTime += 500;
+        SDLRenderer::GetInstance()->AddToTempRenderQueue( temporaryRenderable, totalTime, totalTime-500 );
+
+        totalTime += 250;
+        while( SDL_GetTicks() < totalTime )
+        {
+            SDLRenderer::GetInstance()->Draw();
+        }
+    }
+
 };
 
 

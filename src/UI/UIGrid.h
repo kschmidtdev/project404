@@ -26,7 +26,8 @@
  * Karl Schmidt,   March 21 2007      | Added support for health change indication UI
  * Karl Schmidt,   March 22 2007      | Correcting include orders and paths
  * Andrew Osborne, March 23 2007      | Added comments for protected methods
- * Karl Schmidt,   March 23 2007     | Added mini-map implementation, enum instead of string for character tile type identification
+ * Karl Schmidt,   March 23 2007      | Added mini-map implementation, enum instead of string for character tile type identification,
+                                        removed some old code that wasn't used anymore
  */
 
 #ifndef UIGrid_h
@@ -112,7 +113,7 @@ public:
     /**
      * Used for displaying the range of motion for a particular player
      */
-    void AddMoveableRange( std::vector<Character*> enemies, std::vector<Character*> enemies, Character* you);
+    void AddMoveableRange( const std::vector<Character*> & enemies, const std::vector<Character*> & enemies, Character* you);
 
     /**
      *  Clears the points which make up
@@ -199,12 +200,6 @@ protected:
 
     // Gameplay elements
     Character* mCurCharacter;
-
-    // Display/UI elements
-    UIImageVec mImageMoveRange;
-    UIImageVec mImageAttackRange;
-
-
 
     // Regular Communication
     Level* mLevel;

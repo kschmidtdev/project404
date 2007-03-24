@@ -79,6 +79,7 @@
 		</VirtualTargets>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-Wno-uninitialized" />
 			<Add option="-DTIXML_USE_STL" />
 			<Add directory="..\external\include" />
 			<Add directory="..\src" />

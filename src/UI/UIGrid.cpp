@@ -38,7 +38,8 @@
  * Karl Schmidt,    March 21 2007     | Added support for health change indication UI
  * Karl Schmidt,    March 22 2007     | Correcting include orders and paths
  * Karl Schmidt,    March 23 2007     | Got rid of more using namespace std; usage
- * Karl Schmidt,    March 23 2007     | Added mini-map implementation, enum instead of string for character tile type identification
+ * Karl Schmidt,    March 23 2007     | Added mini-map implementation, enum instead of string for character tile type identification,
+                                        removed some old code that wasn't used anymore
  */
 
 #include "UIGrid.h"                                // class implemented
@@ -101,30 +102,6 @@ void UIGrid::RenderSelf(SDL_Surface* destination)
     for ( UITileItr iter = mTiles.begin(); iter!=mTiles.end(); ++iter )
     {
         iter->RenderSelf(destination);
-    }
-
-    // Movement ranges are rendered second (middle)
-    int curState = mLevel->ReturnState();
-    UIImageItr iIter;
-    if( curState == Level::MOVE )
-    {
-        // View Moveable Tiles
-        iIter = mImageMoveRange.begin();
-        while (iIter!=mImageMoveRange.end())
-        {
-            iIter->RenderSelf(destination);
-            ++iIter;
-        }
-    }
-    else if( curState == Level::ATTACK )
-    {
-        // View Attackable Tiles
-        iIter = mImageAttackRange.begin();
-        while (iIter!=mImageAttackRange.end())
-        {
-            iIter->RenderSelf(destination);
-            ++iIter;
-        }
     }
 
     // Cursor is rendered last (top)
@@ -527,7 +504,7 @@ void UIGrid::ConfirmFunction( const Point & p )
 
 void UIGrid::AddEnemyCharacter(Character *c)
 {
-    Point p = c->GetPoint();
+    const Point & p = c->GetPoint();
 
     if ( ValidPoint(p)  )
     {
@@ -539,7 +516,7 @@ void UIGrid::AddEnemyCharacter(Character *c)
 
 void UIGrid::AddPartyCharacter(Character *c)
 {
-    Point p = c->GetPoint();
+    const Point & p = c->GetPoint();
 
     if ( ValidPoint(p)  )
     {
@@ -551,7 +528,7 @@ void UIGrid::AddPartyCharacter(Character *c)
 
 void UIGrid::AddExhaustedCharacter(Character *c)
 {
-    Point p = c->GetPoint();
+    const Point & p = c->GetPoint();
 
     if ( ValidPoint(p)  )
     {
@@ -630,7 +607,7 @@ void UIGrid::AddAttackRange( const PointVec & attackRange )
 }
 
 
-void UIGrid::AddMoveableRange( vector<Character*> everyone, vector<Character*> enemies, Character* you )
+void UIGrid::AddMoveableRange( const vector<Character*> & everyone, const vector<Character*> & enemies, Character* you )
 {
 
     mMovePoints = mMap->GetMovementRange(everyone, enemies, you);
@@ -728,8 +705,8 @@ void UIGrid::UpdateCursor(void)
         mCursor->SetPos( mTiles[ FindIndex(mCursorPos) ].GetPos() + mCursorOffset);
 
         // Find whether current point has character
-        vector<Character*> everyoneVector = mLevel->GetEveryone();
-        vector<Character*>::iterator iter = everyoneVector.begin();
+        const vector<Character*> & everyoneVector = mLevel->GetEveryone();
+        vector<Character*>::const_iterator iter = everyoneVector.begin();
         Character *tempChar = NULL;
 
         while ( (iter != everyoneVector.end()) && (tempChar==NULL) )

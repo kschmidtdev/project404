@@ -71,10 +71,8 @@ Level::Level( const CharacterPtrVec & party, const CharacterPtrVec & badguys, co
   mLastDmgTaken( 0 ),
   mLastHealed( 0 )
 {
-    CharacterPtrConstItr iter;
-    PointConstItr piter;
-    iter = mParty.begin();
-    piter = mStart.begin();
+    CharacterPtrConstItr iter = mParty.begin();
+    PointConstItr piter = mStart.begin();
     while(iter != mParty.end() && piter != mStart.end())
     {
         (*iter)->Move((*piter));
