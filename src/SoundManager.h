@@ -14,6 +14,7 @@
  * Karl Schmidt, February 13 2007 | Added StopAllPlayback
  * Karl Schmidt, February 10 2007 | Initial creation of the class
  * Karl Schmidt, March 13 2007    | Added support for sound subsystem disabling
+ * Karl Schmidt, March 24 2007    | Renamed some variables to match coding standard, fixed return 03 problem.
  */
 
 #ifndef SoundManager_h
@@ -110,8 +111,8 @@ protected:
     static SoundManager* _instance;
 
     bool mIsEnabled;
-    RtAudio* audio;
-    double* data;
+    RtAudio* mRTAudio;
+    double* mAudioData;
 
 private:
 // PRIVATE VARIABLES
