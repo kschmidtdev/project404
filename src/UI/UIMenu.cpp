@@ -17,6 +17,7 @@
  * Andrew Osborne, March 23 2007     | Added "ClearButtons" functionality
  * Andrew Osborne, March 24 2007 | Added Cancel event support
  * Andrew Osborne, March 24 2007 | Added ability to specifiy whether UIMenu is visible when it's disabled (mVisibleWhenDisabled)
+ * Andrew osborne, March 24 2007 | Added SetBackground, SetSpacing, and SetCursorFunc.
  */
 
 #include "UIMenu.h"                                // class implemented
@@ -40,7 +41,7 @@
 // It should be commented out or deleted once proper sub-classes are defined
 
 UIMenu::UIMenu()
-: mCursor( NULL ), mVisibleWhenDisabled( true )
+: mCursor( NULL ), mCursorFunc( NULL ), mVisibleWhenDisabled( true )
 {
 
     // Formating Button offset parameters in preperation for adding buttons later
@@ -118,6 +119,8 @@ void UIMenu::RenderSelf(SDL_Surface* destination)
 void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
     // Come back to this later
+    bool moved = false;
+
     switch(evt)
     {
         case InputManager::UP:
@@ -130,7 +133,7 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
             {
                 mCursorPos = mMaxCursorPos;
             }
-            mCursor->SetPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
+            moved = true;
             //cursor->moveUp()
             break;
         case InputManager::DOWN:
@@ -142,7 +145,7 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
             {
                 mCursorPos = 0;
             }
-            mCursor->SetPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
+            moved = true;
             break;
         case InputManager::CONFIRM:
             if ( (mButtonFuncs[mCursorPos]) && (!mButtons[mCursorPos]->GetGhost()) )
@@ -159,6 +162,13 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
         default:
             break;
 
+    }
+
+    if (moved)
+    {
+        if (mCursorFunc)
+            (*mCursorFunc)();
+        mCursor->SetPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
     }
 }
 
@@ -235,6 +245,34 @@ void UIMenu::SetGhost(int n, bool b)
     if (n<=mMaxCursorPos)
         mButtons[n]->SetGhost(b);
 
+}
+
+void UIMenu::SetSpacing(int newSpacing)
+{
+    SDL_Surface *sample = NULL;
+    sample = ResourceManager::GetInstance()->LoadTexture("menu_item.png");
+
+    if( sample )
+    {
+    	// Setting location parameters
+	    mButtonOffset.Set(0, (sample->h+newSpacing) );
+
+    }
+    else
+    {
+        mButtonOffset.Set(0,newSpacing);
+    }
+    SetPos(mPos);
+}
+
+void UIMenu::SetBackground(const std::string & nName)
+{
+    mElementImage = ResourceManager::GetInstance()->LoadTexture(nName);
+}
+
+void UIMenu::SetCursorFunc(FuncObj* newCursorFunc)
+{
+    mCursorFunc = newCursorFunc;
 }
 
 //============================= INQUIRY    ===================================
