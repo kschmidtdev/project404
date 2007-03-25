@@ -19,6 +19,7 @@
  * Andrew Osborne, March 24 2007 | converted from EventListener to UIEventListener
  * Andrew Osborne, March 24 2007 | Added Cancel event support
  * Andrew Osborne, March 24 2007 | Added ability to specifiy whether UIMenu is visible when it's disabled (mVisibleWhenDisabled)
+ * Andrew osborne, March 24 2007 | Added SetBackground, SetSpacing, and SetCursorFunc.
  */
 
 #ifndef UIMenu_h
@@ -125,6 +126,22 @@ public:
      * Set Visibility when Disabled
      */
     void SetVisibleWhenDisabled(bool v) { mVisibleWhenDisabled = v; }
+
+    /**
+     * Set Vertical Spacing between Buttons
+     */
+    void SetSpacing(int newSpacing);
+
+    /**
+     * Set Background image filename
+     */
+    void SetBackground(const std::string & nName);
+
+    /**
+     * Set Cursor Function
+     */
+    void SetCursorFunc(FuncObj* newCursorFunc);
+
 // INQUIRY (reading)
 
 protected:
@@ -133,8 +150,10 @@ protected:
     UIButtonPtrVec mButtons;
     FuncObjPtrVec mButtonFuncs;
 
+    // Cursor Stuff
     int mCursorPos;  // Starts with 0 to max (inclusive)
     int mMaxCursorPos;
+    FuncObj* mCursorFunc;
 
     Point mButtonStart;
     Point mButtonOffset;
