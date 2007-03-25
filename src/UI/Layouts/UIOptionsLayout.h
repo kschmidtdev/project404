@@ -10,6 +10,7 @@
  * Authors:
  * Andrew osborne, March 18 2007, Initial Design
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
+ * Andrew Osborne, March 24 2007, Proper UI Implementation
  */
 
 #ifndef UIOptionsLayout_h
@@ -67,7 +68,7 @@ public:
     /**
      * Listens for Key Press from User
     */
-    virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
+    //virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
 
 // ACCESS (writing)
 // INQUIRY (reading)

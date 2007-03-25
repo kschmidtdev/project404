@@ -18,6 +18,7 @@
  * Andrew Osborne, March 23 2007    | Added "ClearButtons"
  * Andrew Osborne, March 24 2007 | converted from EventListener to UIEventListener
  * Andrew Osborne, March 24 2007 | Added Cancel event support
+ * Andrew Osborne, March 24 2007 | Added ability to specifiy whether UIMenu is visible when it's disabled (mVisibleWhenDisabled)
  */
 
 #ifndef UIMenu_h
@@ -98,12 +99,12 @@ public:
     /**
      * Enable Menu (make cursor visible)
      */
-    virtual void Enable(void) {mCursor->SetVisible(true); }
+    virtual void Enable(void);
 
     /**
      * Disable Menu (make cursor invisible)
      */
-    virtual void Disable(void) {mCursor->SetVisible(false); }
+    virtual void Disable(void);
 
     /**
      * Disable (Ghost) Menu buttons (make text grey and disable funcitonality)
@@ -120,6 +121,10 @@ public:
      */
     void SetCancel(UIEventListener* cancel) { mCancelEvent = cancel; }
 
+    /**
+     * Set Visibility when Disabled
+     */
+    void SetVisibleWhenDisabled(bool v) { mVisibleWhenDisabled = v; }
 // INQUIRY (reading)
 
 protected:
@@ -138,6 +143,7 @@ protected:
     // Event Handling
     UILayout* mParentLayout;
     UIEventListener* mCancelEvent;
+    bool mVisibleWhenDisabled;
 
 
 
