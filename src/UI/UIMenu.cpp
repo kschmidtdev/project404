@@ -15,6 +15,7 @@
  * Karl Schmidt, March 9 2007	 	 | Changed textures to png
  * Karl Schmidt, March 22 2007       | Correcting include orders and paths
  * Andrew Osborne, March 23 2007     | Added "ClearButtons" functionality
+ * Andrew Osborne, March 24 2007 | Added Cancel event support
  */
 
 #include "UIMenu.h"                                // class implemented
@@ -22,6 +23,7 @@
 #include <util.h>
 
 #include <Point.h>
+#include <UI/UILayout.h>
 #include <UI/UIImage.h>
 #include <UI/UIButton.h>
 #include <UI/FuncObj.h>
@@ -148,6 +150,11 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
                 (*temp)();
             }
             break;
+        case InputManager::CANCEL:
+            if ( (mParentLayout) && (mCancelEvent) )
+            {
+                mParentLayout->SetEventHandler(mCancelEvent);
+            }
         default:
             break;
 

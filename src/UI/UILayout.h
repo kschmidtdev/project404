@@ -20,6 +20,7 @@
  * Mike Malyuk, February 15 2007  | Added virtual function to get at Grid, look at this for v2
  * Andrew Osborne, March 21 2007  | Added SetEventHandler to allow easier passing of "event handling" among UIElements
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
+ * Andrew Osborne, March 24 2007 | Made it UIEventListener compatible
  */
 
 #ifndef UILayout_h
@@ -31,7 +32,7 @@
 
 // PROJECT INCLUDES
 //
-#include <EventListener.h>
+#include <UIEventListener.h>
 
 // LOCAL INCLUDES
 //
@@ -86,7 +87,7 @@ public:
     /**
      * Sets current event handler
     */
-    virtual void SetEventHandler( EventListener *e ) { mDefaultEventListener=e; }
+    virtual void SetEventHandler( UIEventListener *newEvent );
 
 // INQUIRY (reading)
     const std::string & GetName(void) const;
@@ -94,7 +95,7 @@ public:
 protected:
 // PROTECTED VARIABLES
     UIElementPtrVec mElements;
-    EventListener* mDefaultEventListener;
+    UIEventListener* mDefaultEventListener;
     std::string mName;
 
 private:

@@ -10,6 +10,8 @@
  * Authors:
  * Andrew Osborne, March 12 2007, Initial Creation
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Andrew Osborne, March 24 2007 | made element a UIEventListener (added Enable, Disable, ProcessEvent, SetNextEvent (methods) and
+ *                                  mNextEvent, mParentLayout (attribute)
  */
 
 #ifndef UIScrollText_h
@@ -22,6 +24,7 @@
 // PROJECT INCLUDES
 //
 #include <UI/UIElement.h>
+#include <UIEventListener.h>
 
 // LOCAL INCLUDES
 //
@@ -29,6 +32,7 @@
 // FORWARD REFERENCES
 //
 class UIText;
+class UILayout;
 
 typedef std::vector<UIText*> UITextVec;
 typedef UITextVec::iterator UITextItr;
@@ -36,7 +40,7 @@ typedef std::vector<std::string> StringVec;
 typedef StringVec::iterator StringItr;
 
 
-class UIScrollText : public UIElement
+class UIScrollText : public UIElement, public UIEventListener
 {
 public:
 // LIFECYCLE
@@ -68,6 +72,21 @@ public:
 	 *
 	 */
     virtual void RenderSelf(SDL_Surface *destination);
+
+    /**
+     * Listens for Key Press from User
+    */
+    virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
+
+    /**
+     * (Visually) Enables Element
+     */
+    virtual void Enable(void);
+
+    /**
+     * (Visually) Disables Element
+     */
+    virtual void Disable(void);
 
 // ACCESS (writing)
 
@@ -111,6 +130,11 @@ public:
      */
     //void SetNewColour
 
+    /**
+     * Set Next Event Handler (after ScrollText is extiguished)
+     */
+    void SetNextEvent(UILayout *parent, UIEventListener* nextEvent);
+
 // INQUIRY (reading)
 
 protected:
@@ -136,6 +160,10 @@ protected:
 
     // Current Display informatino
     int mCurStartIndex;
+
+    // Event Handline
+    UILayout *mParentLayout;
+    UIEventListener *mNextEvent;
 
 
 private:

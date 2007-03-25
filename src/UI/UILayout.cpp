@@ -13,6 +13,8 @@
  * Karl Schmidt, February 14 2007    | Updated function capitalization, block style, typedefs, refs
  * Karl Schmidt, March 22 2007       | Correcting include orders and paths
  * Andrew Osborne, March 23 2007     | Fixed undiscovered bug (should have initialized mDefaultEvent - to NULL)
+ * Andrew Osborne, March 23 2007     | Cleaned out some commented code and added proper SetEventHandler method ( to work with
+ *                                      UIEventListener(s)
  */
 
 #include "UILayout.h"                                   // class implemented
@@ -32,8 +34,6 @@ UILayout::UILayout(void)
 : mDefaultEventListener( NULL )
 {
 
-        // Code that will be taken out at some point
-   // mElements.push_back(
 }
 
 UILayout::~UILayout(void)
@@ -98,6 +98,15 @@ void UILayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 }
 
 //============================= ACCESS     ===================================
+
+
+void UILayout::SetEventHandler( UIEventListener *newEvent )
+{
+    mDefaultEventListener->Disable();
+    mDefaultEventListener=newEvent;
+    mDefaultEventListener->Enable();
+}
+
 //============================= INQUIRY    ===================================
 
 const std::string & UILayout::GetName(void) const

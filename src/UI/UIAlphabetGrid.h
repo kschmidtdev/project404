@@ -12,6 +12,8 @@
  * Andrew Osborne, March 21 2007, Added Process Event, incorporated CenterText
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  * Andrew Osborne, March 23 2007 | Added start offset
+ * Andrew Osborne, March 24 2007 | converted from EventListener to UIEventListener
+ * Andrew Osborne, March 24 2007 | Finally added ability to jump to menu
  */
 
 #ifndef UIAlphabetGrid_h
@@ -25,18 +27,19 @@
 #include <UI/UIElement.h>
 #include <UI/UIImage.h>
 #include <UI/UIText.h>
-#include <EventListener.h>
+#include <UIEventListener.h>
 
 // LOCAL INCLUDES
 //
 
 // FORWARD REFERENCES
 //
+class UILayout;
 
 typedef std::vector<UIText*> UITextVec;
 typedef UITextVec::iterator UITextItr;
 
-class UIAlphabetGrid : public UIElement, public EventListener
+class UIAlphabetGrid : public UIElement, public UIEventListener
 {
 public:
 // LIFECYCLE
@@ -74,12 +77,27 @@ public:
      */
     //int GetIndex( Point p );
 
+    /**
+     * (Visually) Enables Element
+     */
+    virtual void Enable(void);
+
+    /**
+     * (Visually) Disables Element
+     */
+    virtual void Disable(void);
+
 // ACCESS (writing)
 
     /**
      * Override Set Position
      */
     virtual void SetPos( const Point & nPos );
+
+    /**
+     * Sets menu to jump to when button is pressed
+     */
+    virtual void SetMenu(UILayout* parent, UIEventListener* menu);
 
 
 // INQUIRY (reading)
@@ -115,6 +133,11 @@ protected:
     Point mGrid; // max - num of rows and columns
     Point mOffset; // Offset for each row/column
     Point mGridStart;
+
+    // Event Handling Stuff
+    UILayout* mParentLayout;
+    UIEventListener *mNextMenu;
+
 
 // PROTECTED FUNCTIONS
 

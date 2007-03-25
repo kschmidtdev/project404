@@ -28,6 +28,7 @@
  * Andrew Osborne, March 23 2007      | Added comments for protected methods
  * Karl Schmidt,   March 23 2007      | Added mini-map implementation, enum instead of string for character tile type identification,
                                         removed some old code that wasn't used anymore
+ * Andrew Osborne, March 24 2007 | converted from EventListener to UIEventListener
  */
 
 #ifndef UIGrid_h
@@ -39,7 +40,7 @@
 // PROJECT INCLUDES
 //
 #include <UI/UITile.h>
-#include <EventListener.h>
+#include <UIEventListener.h>
 #include <UI/UIImage.h>
 
 // LOCAL INCLUDES
@@ -62,7 +63,7 @@ typedef std::vector<UIImage*> UIImagePtrVec;
 typedef UIImagePtrVec::iterator UIImagePtrItr;
 typedef std::vector<Point> PointVec;
 
-class UIGrid : public UIElement, public EventListener
+class UIGrid : public UIElement, public UIEventListener
 {
 public:
 // LIFECYCLE
