@@ -6,6 +6,8 @@
 #include <GameEngine/Character.h>
 #include <GameEngine/ArmorItem.h>
 #include <GameEngine/WeaponItem.h>
+#include <SoundManager.h>
+
 //
 // A generated test suite: Just write tests!
 //
