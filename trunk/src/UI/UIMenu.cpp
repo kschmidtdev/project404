@@ -16,6 +16,7 @@
  * Karl Schmidt, March 22 2007       | Correcting include orders and paths
  * Andrew Osborne, March 23 2007     | Added "ClearButtons" functionality
  * Andrew Osborne, March 24 2007 | Added Cancel event support
+ * Andrew Osborne, March 24 2007 | Added ability to specifiy whether UIMenu is visible when it's disabled (mVisibleWhenDisabled)
  */
 
 #include "UIMenu.h"                                // class implemented
@@ -39,7 +40,7 @@
 // It should be commented out or deleted once proper sub-classes are defined
 
 UIMenu::UIMenu()
-: mCursor( NULL )
+: mCursor( NULL ), mVisibleWhenDisabled( true )
 {
 
     // Formating Button offset parameters in preperation for adding buttons later
@@ -217,6 +218,17 @@ void UIMenu::ClearButtons(void)
 
 }
 
+void UIMenu::Enable(void)
+{
+    mCursor->SetVisible(true);
+    this->SetVisible(true);
+}
+
+void UIMenu::Disable(void)
+{
+    mCursor->SetVisible(false);
+    this->SetVisible( mVisibleWhenDisabled );
+}
 
 void UIMenu::SetGhost(int n, bool b)
 {
