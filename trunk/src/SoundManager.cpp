@@ -11,6 +11,7 @@
  * Karl Schmidt, March 13 2007    | Added support for sound subsystem disabling
  * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage
  * Mike Malyuk, March 24 2007     | Added code for RTAudio real time output.
+ * Karl Schmidt, March 24 2007    | Renamed some variables to match coding standard, fixed return 03 problem.
  */
 
 
@@ -59,14 +60,14 @@ void SoundManager::Initialize( const bool isEnabled )
             return;
         }
         int buffer_size, fs, device = 0;
-        audio = 0;
-        data = new double(1);
+
+        mAudioData = new double[1];
         fs = 44100;
         // Open the realtime output device
         buffer_size = 1024;
         try
         {
-            audio = new RtAudio(device, 1, 0, 0,
+            mRTAudio = new RtAudio(device, 1, 0, 0,
                                 FORMAT, fs, &buffer_size, 4);
         }
         catch (RtError &error)
@@ -101,10 +102,19 @@ void SoundManager::Shutdown()
 
         Mix_CloseAudio();
 
-        audio->stopStream();
-        audio->closeStream();
-        delete audio;
-        delete[] data;
+        mRTAudio->stopStream();
+        mRTAudio->closeStream();
+
+        if( mRTAudio )
+        {
+            delete mRTAudio;
+            mRTAudio = NULL;
+        }
+        if( mAudioData )
+        {
+            delete[] mAudioData;
+            mAudioData = NULL;
+        }
     }
 
     delete _instance;
@@ -193,8 +203,8 @@ void SoundManager::PlayRTAUDIO()
 {
     if( mIsEnabled )
     {
-        audio->startStream();
-        audio->setStreamCallback(&cosine, (void *)data);
+        mRTAudio->startStream();
+        mRTAudio->setStreamCallback(&cosine, (void *)mAudioData);
     }
 }
 
@@ -212,7 +222,9 @@ void SoundManager::StopAllPlayback()
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 SoundManager::SoundManager(void)
-: mIsEnabled( true )
+: mIsEnabled( true ),
+  mRTAudio( NULL ),
+  mAudioData( NULL )
 {
     // stub
 }
