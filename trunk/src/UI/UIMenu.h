@@ -16,6 +16,8 @@
  * Andrew Osborne, March 18 2007 | Added Enable/Disable to allow the cursor to appear/disappear if the menu is active or not
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  * Andrew Osborne, March 23 2007    | Added "ClearButtons"
+ * Andrew Osborne, March 24 2007 | converted from EventListener to UIEventListener
+ * Andrew Osborne, March 24 2007 | Added Cancel event support
  */
 
 #ifndef UIMenu_h
@@ -27,7 +29,7 @@
 // PROJECT INCLUDES
 //
 #include <UI/UIElement.h>
-#include <EventListener.h>
+#include <UIEventListener.h>
 
 // LOCAL INCLUDES
 //
@@ -36,6 +38,7 @@
 //
 class UIButton;
 class FuncObj;
+class UILayout;
 
 typedef std::vector<UIElement*> UIElementPtrVec;
 typedef UIElementPtrVec::iterator UIElementPtrItr;
@@ -44,7 +47,7 @@ typedef FuncObjPtrVec::iterator FuncObjPtrItr;
 typedef std::vector<UIButton*> UIButtonPtrVec;
 typedef UIButtonPtrVec::iterator UIButtonPtrItr;
 
-class UIMenu : public UIElement, public EventListener
+class UIMenu : public UIElement, public UIEventListener
 {
 public:
 // LIFECYCLE
@@ -95,17 +98,27 @@ public:
     /**
      * Enable Menu (make cursor visible)
      */
-    void Enable(void) {mCursor->SetVisible(true); }
+    virtual void Enable(void) {mCursor->SetVisible(true); }
 
     /**
      * Disable Menu (make cursor invisible)
      */
-    void Disable(void) {mCursor->SetVisible(false); }
+    virtual void Disable(void) {mCursor->SetVisible(false); }
 
     /**
      * Disable (Ghost) Menu buttons (make text grey and disable funcitonality)
      */
     void SetGhost(int n, bool b);
+
+    /**
+     * Set Parent layout
+     */
+    void SetParent(UILayout* parent) { mParentLayout = parent; }
+
+    /**
+     * Set Cancel Event
+     */
+    void SetCancel(UIEventListener* cancel) { mCancelEvent = cancel; }
 
 // INQUIRY (reading)
 
@@ -121,6 +134,10 @@ protected:
     Point mButtonStart;
     Point mButtonOffset;
     Point mCursorOffset;
+
+    // Event Handling
+    UILayout* mParentLayout;
+    UIEventListener* mCancelEvent;
 
 
 

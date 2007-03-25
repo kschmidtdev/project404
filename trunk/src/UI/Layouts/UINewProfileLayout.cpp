@@ -33,12 +33,15 @@ class NewProfileDoneFunction : public FuncObj
     {
     }
 
+    virtual ~NewProfileDoneFunction(void) { mAlpha = NULL; }
+
     virtual void operator()(void)
     {
         //GameEngine::GetInstance()->NewProfile( mAlpha->GetString() );
         UIManager::GetInstance()->PopLayout();
-        UIManager::GetInstance()->PushLayout("OverMap");
+        UIManager::GetInstance()->PushLayout("MainMenu");
     }
+
 
     protected:
     UIAlphabetGrid* mAlpha;
@@ -79,6 +82,11 @@ UINewProfileLayout::UINewProfileLayout()
     mMenu->AddButton( "Done", new NewProfileDoneFunction(mAlpha) );
     mMenu->AddButton( "Previous Menu", new PopLayoutFunction() );
     mElements.push_back(mMenu);
+
+    // Event Handling
+    mAlpha->SetMenu(this, mMenu);
+    mMenu->SetParent(this);
+    mMenu->SetCancel(mAlpha);
 
     // Add Visual Aid
     int fontSize = 24;

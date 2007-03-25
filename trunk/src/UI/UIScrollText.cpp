@@ -7,12 +7,15 @@
  * Andrew Osborne, March 12 2007 | Initial Creation
  * Karl Schmidt, March 15 2007   | Added ClearText implementation
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
+ * Andrew Osborne, March 24 2007 | made element a UIEventListener (added Enable, Disable, ProcessEvent, SetNextEvent (methods) and
+ *                                  mNextEvent, mParentLayout (attribute)
  */
 #include "UIScrollText.h"                                // class implemented
 
 #include <util.h>
 
 #include <UI/UIText.h>
+#include <UI/UILayout.h>
 #include <ResourceManager/ResourceManager.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -113,6 +116,36 @@ bool UIScrollText::NextPage()
 
 }
 
+void UIScrollText::ProcessEvent( const InputManager::INPUTKEYS evt )
+{
+
+    switch(evt)
+    {
+        case InputManager::CONFIRM:
+            if (!NextPage())
+            {
+                // No more next page
+                if ( (mParentLayout) && (mNextEvent) )
+                    mParentLayout->SetEventHandler(mNextEvent);
+            }
+            break;
+        default:
+            break;
+    }
+
+}
+
+
+void UIScrollText::Enable(void)
+{
+    SetVisible(true);
+}
+
+void UIScrollText::Disable(void)
+{
+    SetVisible(false);
+}
+
 //============================= ACCESS     ===================================
 
 void UIScrollText::SetPos( const Point & nPos )
@@ -151,6 +184,11 @@ void UIScrollText::ClearText()
     mCurStartIndex = 0;
 }
 
+void UIScrollText::SetNextEvent(UILayout *parent, UIEventListener* nextEvent)
+{
+    mParentLayout = parent;
+    mNextEvent = nextEvent;
+}
 
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////

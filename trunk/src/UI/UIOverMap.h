@@ -13,6 +13,7 @@
  * Andrew Osborne, March 4, 2007, Initial Creation
  * Andrew Osborne, March 12, 2007, Added Update Map
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Andrew Osborne, March 24 2007 | converted from EventListener to UIEventListener
  */
 
 #ifndef UIOverMap_h
@@ -27,7 +28,7 @@
 #include <UI/UIText.h>
 #include <UI/UIOverMapTile.h>
 #include <UI/UIOverMapCursor.h>
-#include <EventListener.h>
+#include <UIEventListener.h>
 
 // LOCAL INCLUDES
 //
@@ -39,7 +40,7 @@ typedef std::vector<UIOverMapTile> MapTileVec;
 typedef MapTileVec::iterator MapTileItr;
 
 
-class UIOverMap : public UIElement, public EventListener
+class UIOverMap : public UIElement, public UIEventListener
 {
 public:
 // LIFECYCLE

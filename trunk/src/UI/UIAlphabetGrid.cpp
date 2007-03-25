@@ -10,6 +10,8 @@
  * Andrew Osborne, March 23 2007 | Added start offset and background image (also made small position adjustments)
  *                                  and font colour change
  * Andrew Osborne, March 23 2007 | Added fix to prevent crash when 'main string' is set to nothing ("")
+ * Andrew Osborne, March 24 2007 | Made UIEventListener 'compatable' (added Enable, Disable)
+ * Andrew Osborne, March 24 2007 | Created functionality to allow you to specify what is done upon pressing the 'cancel' button
  */
 
 #include "UIAlphabetGrid.h"                                // class implemented
@@ -18,6 +20,7 @@
 
 #include <UI/UIManager.h>
 #include <ResourceManager/ResourceManager.h>
+#include <UI/UILayout.h>
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -28,7 +31,8 @@ UIAlphabetGrid::UIAlphabetGrid()
 //: mAlphabet( "abcdefghijklmnopqrstuvwxyz" ), mCapitalAlphabet( "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ),
 : mCursor( NULL ), mCursorPos( Point(0,0) ),
 mFontSize( 36 ), mFontRed ( 96 ), mFontGreen( 57 ), mFontBlue( 19 ),
-mGrid( Point( 6, 3 ) ), mOffset( Point( 45, 45) ), mGridStart( Point(20,20) )
+mGrid( Point( 6, 3 ) ), mOffset( Point( 45, 45) ), mGridStart( Point(20,20) ),
+mParentLayout( NULL ), mNextMenu( NULL )
 {
 
     mElementImage = ResourceManager::GetInstance()->LoadTexture("alpha_back.png");
@@ -136,13 +140,35 @@ void UIAlphabetGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
             RemoveChar();
             break;
         case InputManager::MENU:
-            UIManager::GetInstance()->PopLayout();
-            UIManager::GetInstance()->PushLayout("MainMenu");
+            if ( (mParentLayout) && (mNextMenu) )
+            {
+                mParentLayout->SetEventHandler(mNextMenu);
+            }
+            else
+            {
+                UIManager::GetInstance()->PopLayout();
+                UIManager::GetInstance()->PushLayout("MainMenu");
+            }
         default:
             break;
 
     }
 }
+
+
+
+void UIAlphabetGrid::Enable(void)
+{
+    if (mCursor)
+        mCursor->SetVisible(true);
+}
+
+void UIAlphabetGrid::Disable(void)
+{
+    if (mCursor)
+        mCursor->SetVisible(false);
+}
+
 
 //============================= ACCESS     ===================================
 
@@ -180,6 +206,12 @@ void UIAlphabetGrid::SetPos( const Point & nPos )
     // Result String
     mUIResult.SetPos( mPos + mGridStart + Point( 20, ( mGrid.GetY() + 1) * mOffset.GetY() + 5 ) );
 
+}
+
+void UIAlphabetGrid::SetMenu(UILayout* parent, UIEventListener* menu)
+{
+    mParentLayout = parent;
+    mNextMenu = menu;
 }
 
 //============================= INQUIRY    ===================================
