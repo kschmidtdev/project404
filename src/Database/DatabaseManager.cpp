@@ -10,6 +10,7 @@
  * Seung Woo Han, March 14 2007 | SaveToFile and protected methods related to this is implemented.
  * Karl Schmidt, March 15 2007  | Temporarily added in encryption/decryption hack for save file checking
  * Karl Schmidt, March 15 2007  | Big changes to support reloading of db
+ * Karl Schmidt, March 25 2007  | Added correct initialization and clearing of data, some naming convention corrections (more needed though)
  */
 
 #include <util.h>
@@ -53,20 +54,22 @@ void DatabaseManager::Shutdown()
 
 void DatabaseManager::ClearLoadedData()
 {
-    vector<DBNode*>::iterator Iter;
-
-    for (Iter=mSearchList.begin(); Iter!=mSearchList.end(); Iter++)
+    for( vector<DBNode*>::iterator iter = mSearchList.begin(); iter != mSearchList.end(); ++iter )
     {
-        DBData* thisAttribute = (*Iter)->GetFirstAttribute();
+        DBData* thisAttribute = (*iter)->GetFirstAttribute();
         while ( thisAttribute != NULL )
         {
             delete thisAttribute; // delete attribute instances of each Node.
-            thisAttribute = (*Iter)->GetNextAttribute();
+            thisAttribute = (*iter)->GetNextAttribute();
         }
 
-        delete (*Iter); // delete node instances.
+        delete (*iter); // delete node instances.
     }
+
     mSearchList.clear();
+
+    mRootNode = NULL;
+    mSize = 0;
 }
 
 //============================= OPERATORS ====================================
@@ -186,6 +189,8 @@ bool DatabaseManager::UpdateNode( const string& nodeName, const string& attribut
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 DatabaseManager::DatabaseManager()
+: mRootNode( NULL ),
+  mSize( 0 )
 {
 }
 

@@ -7,6 +7,7 @@
  * Andrew Osborne, March 18 2007 | Initial Creation
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Andrew Osborne, March 24 2007, Proper UI Implementation
+ * Karl Schmidt, March 25 2007   | Added functionality for loading profiles, and also going back to the previous menu
  */
 #include "UILoadProfileLayout.h"                                // class implemented
 
@@ -16,20 +17,20 @@
 #include <UI/UIMenu.h>
 #include <UI/UIManager.h>
 #include <UI/FuncObj.h>
+#include <Database/DBEngine.h>
+#include <SecurityManager.h>
 
-
-
-class LoadProfileFunction2 : public FuncObj
+class LoadProfileMenuFunction : public FuncObj
 {
 public:
-    LoadProfileFunction2( const std::string & name)
+    LoadProfileMenuFunction( const std::string & name)
     : mUserName(name)
     {
     }
 
     void operator()(void)
     {
-        //GameEngine::GetInstance()->LoadProfile(mUserName);
+        DBEngine::GetInstance()->SetCurrentProfileName( mUserName );
         UIManager::GetInstance()->PopLayout();
         UIManager::GetInstance()->PushLayout("MainMenu");
     }
@@ -40,8 +41,13 @@ protected:
 
 };
 
-
-
+class LoadProfileBackFunction : public FuncObj
+{
+    virtual void operator()(void)
+    {
+        UIManager::GetInstance()->PopLayout();
+    }
+};
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -50,7 +56,6 @@ protected:
 UILoadProfileLayout::UILoadProfileLayout()
 : mMenu( NULL )
 {
-
     // Background
     UIImage* back = new UIImage("castle_main.png");
     mElements.push_back(back);
@@ -90,31 +95,20 @@ UILoadProfileLayout::~UILoadProfileLayout()
 
 }*/
 
-
 void UILoadProfileLayout::OnLoad(void)
 {
-
     UILayout::OnLoad();
 
-    // Grab vector string of save files from GameEngine
-    /*
-    vector<string>* saveFiles = GameEngine::GetInstance()->GetSaveFiles();
+    const std::vector<std::string> profileNames = SecurityManager::GetInstance()->GetListOfLoadedUsernames();
 
     mMenu->ClearButtons();
-    for (vector<string>::iterator iter = saveFiles.begin(); iter != saveFiles.end(); ++iter)
+    for ( std::vector<std::string>::const_iterator i = profileNames.begin(); i != profileNames.end(); ++i )
     {
-        mMenu->AddButton( (*iter), new LoadGameFunction( (*iter) ) );
+        mMenu->AddButton( *i, new LoadProfileMenuFunction( *i ) );
     }
 
-    */
-
-    // Temp Debug
-    mMenu->ClearButtons();
-
-    mMenu->AddButton( "User1" , new LoadProfileFunction2( "User1" ) );
-    mMenu->AddButton( "User2" , new LoadProfileFunction2( "User2" ) );
-    mMenu->AddButton( "User3" , new LoadProfileFunction2( "User3" ) );
-
+    mMenu->AddBlankRow();
+    mMenu->AddButton( "Back", new LoadProfileBackFunction() );
 }
 
 //============================= ACCESS     ===================================

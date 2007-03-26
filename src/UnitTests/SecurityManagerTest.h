@@ -10,9 +10,7 @@
 #include <set>
 #include <string>
 
-using namespace std;
-
-typedef map< string, string > UserMap;
+typedef std::map< std::string, std::string > UserMap;
 typedef UserMap::iterator UserMapItr;
 
 //

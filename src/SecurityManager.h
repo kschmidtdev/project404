@@ -18,6 +18,7 @@
  * Karl Schmidt, March 12 2007    | Added DecryptFileToString
  * Karl Schmidt, March 15 2007    | Made std::string params refs, added GetUserHash
  * Karl Schmidt, March 20 2007    | Took out potentially bad using namespace std;
+ * Karl Schmidt, March 25 2007    | Added some helper functions other subsystems needed
  */
 
 #ifndef SecurityManager_h
@@ -27,6 +28,7 @@
 //
 #include <map>
 #include <string>
+#include <vector>
 
 // PROJECT INCLUDES
 //
@@ -39,6 +41,7 @@
 
 typedef std::map<std::string, std::string> PasswordHashMap;
 typedef PasswordHashMap::iterator PasswordHashMapItr;
+typedef PasswordHashMap::const_iterator PasswordHashMapConstItr;
 
 class SecurityManager
 {
@@ -133,7 +136,17 @@ public:
     * Finds the user in the list of loaded users, and
     * returns their hash, if no user is found a blank std::string is returned
     */
-    std::string GetUserHash( const std::string & userName );
+    const std::string GetUserHash( const std::string & userName );
+
+    /**
+    * Returns a vector of strings that represent all the loaded usernames
+    */
+    const std::vector< std::string > GetListOfLoadedUsernames() const;
+
+    /**
+    * Returns the number of usernames currently loaded
+    */
+    const int GetNumOfUsers() const;
 
 // ACCESS (writing)
 // INQUIRY (reading)
