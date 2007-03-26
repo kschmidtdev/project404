@@ -7,6 +7,8 @@
  * Andrew Osborne, March 18 2007 | Initial creation
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  * Andrew Osborne, March 22 2007 | Added proper UI functionality (Menu with options)
+ * Karl Schmidt, March 25 2007   | Added saving the game to a particular slot functionality, loading of games that have been saved as well,
+ 								   also now able to go back to the previous menu
  */
 
 
@@ -19,25 +21,34 @@
 #include <UI/UIImage.h>
 #include <UI/UIMenu.h>
 #include <UI/FuncObj.h>
+#include <Database/DBEngine.h>
 
-class SaveGameFunction : public FuncObj
+class LayoutSaveGameFunction : public FuncObj
 {
 public:
-    SaveGameFunction( const std::string & fileName)
-    : mFileName(fileName)
+    LayoutSaveGameFunction( const int saveFileNum )
+    : mSaveFileNum( saveFileNum )
     {
     }
 
     void operator()(void)
     {
-        //GameEngine::GetInstance()->SaveGame(mFileName);
+        DBEngine::GetInstance()->SetSaveFileNum( mSaveFileNum );
+        DBEngine::GetInstance()->SaveGame();
         UIManager::GetInstance()->PopLayout();
     }
 
 
 protected:
-    std::string mFileName;
+    int mSaveFileNum;
+};
 
+class SaveGameMenuBackFunction : public FuncObj
+{
+    virtual void operator()(void)
+    {
+        UIManager::GetInstance()->PopLayout();
+    }
 };
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -93,23 +104,17 @@ void UISaveGameLayout::OnLoad(void)
     UILayout::OnLoad();
 
     // Grab vector string of save files from GameEngine
-    /*
-    vector<string>* saveFiles = GameEngine::GetInstance()->GetSaveFiles();
+
+    const std::vector<std::string> saveFiles = DBEngine::GetInstance()->GetSaveFiles();
 
     mMenu->ClearButtons();
-    for (vector<string>::iterator iter = saveFiles.begin(); iter != saveFiles.end(); ++iter)
+    for ( unsigned int i = 0; i < saveFiles.size(); ++i )
     {
-        mMenu->AddButton( (*iter), new SaveGameFunction( (*iter) ) );
+        mMenu->AddButton( saveFiles[i], new LayoutSaveGameFunction( i+1 ) );
     }
 
-    */
-
-    // Temp Debug
-    mMenu->ClearButtons();
-
-    mMenu->AddButton( "Save1" , new SaveGameFunction( "Save1" ) );
-    mMenu->AddButton( "Save2" , new SaveGameFunction( "Save2" ) );
-    mMenu->AddButton( "Save3" , new SaveGameFunction( "Save3" ) );
+    mMenu->AddBlankRow();
+    mMenu->AddButton( "Back to Main Menu", new SaveGameMenuBackFunction() );
 
 }
 //============================= ACCESS     ===================================

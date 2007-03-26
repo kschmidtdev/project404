@@ -9,6 +9,7 @@
  * Karl Schmidt, March 15 2007 	   | Added parameter to Initialize
  * Karl Schmidt, March 15 2007     | Support for loading/saving encrypted db, save files, loading battle progress
  * Karl Schmidt, March 18 2007     | Added clearing of loaded character and item data between db loads
+ * Karl Schmidt, March 25 2007     | Added multiple save-game and profile name storing/setting support
  */
 
 #ifndef DBEngine_h
@@ -100,6 +101,31 @@ public:
      */
     void ClearLoadedData();
 
+    /**
+     * Looks for save files created by the current profile user, returns their names (not filenames)
+     */
+    const std::vector<std::string> GetSaveFiles() const;
+
+    /**
+     * Returns true if there is a save file for the current user in the given slot number, false otherwise
+     */
+    const bool IsValidSaveGame( const int saveGameNum ) const;
+
+    /**
+     * Sets the current save slot number (savegame will then save using this number)
+     */
+    void SetSaveFileNum( const int saveGameNum );
+
+    /**
+     * Sets the current profile name to the given string
+     */
+    void SetCurrentProfileName( const std::string & newProfileName );
+
+    /**
+     * Returns the current profile name
+     */
+    const std::string & GetCurrentProfileName() const;
+
 protected:
 
      /**
@@ -126,6 +152,9 @@ private:
     DatabaseManager* mDB;
     vector<Character*> mCharacterList;
     vector<Item*> mItemList;
+
+    int mCurrentSaveGameNum;
+    std::string mCurrentProfileName;
 
 };
 

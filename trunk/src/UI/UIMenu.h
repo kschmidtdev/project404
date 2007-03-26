@@ -20,7 +20,9 @@
  * Andrew Osborne, March 24 2007 | Added Cancel event support
  * Andrew Osborne, March 24 2007 | Added ability to specifiy whether UIMenu is visible when it's disabled (mVisibleWhenDisabled)
  * Andrew osborne, March 24 2007 | Added SetBackground, SetSpacing, and SetCursorFunc.
- */
+ * Karl Schmidt, March 25 2007       | Added correct variable initialization (mParentLayout and mCancelEvent weren't being set to NULL on 
+ 									   construction, as well as support for blank rows, and skipping over them, etc
+*/
 
 #ifndef UIMenu_h
 #define UIMenu_h
@@ -142,6 +144,11 @@ public:
      */
     void SetCursorFunc(FuncObj* newCursorFunc);
 
+    /**
+     * Adds a blank row to the menu, which isn't drawn and the cursor will skip over it
+     */
+    void AddBlankRow();
+
 // INQUIRY (reading)
 
 protected:
@@ -163,10 +170,6 @@ protected:
     UILayout* mParentLayout;
     UIEventListener* mCancelEvent;
     bool mVisibleWhenDisabled;
-
-
-
-
 
 private:
 // PRIVATE VARIABLES

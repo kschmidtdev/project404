@@ -11,6 +11,7 @@
  *
  * Authors:
  * Andrew Osborne, March 24 2007, Initial Creation
+ * Karl Schmidt, March 25 2007 | Removed commented out methods :/
  */
 
 #ifndef UIEventListener_h
@@ -36,33 +37,11 @@ public:
 // LIFECYCLE
 
     /**
-     * Default constructor.
-	 */
-    //UIEventListener(void) { };
-
-    /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    //UIEventListener(const UIEventListener& from);
-
-    /**
      * Destructor.
 	 */
     virtual ~UIEventListener(void) { };
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    //UIEventListener&                     operator=(UIEventListener& from);
-
 // OPERATIONS
 
     /**

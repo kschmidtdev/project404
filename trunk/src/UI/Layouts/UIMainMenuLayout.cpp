@@ -15,6 +15,7 @@
  * Karl Schmidt, March 12 2007		| Cleaned up the NewGameFunction because the OverMap does what it was doing now
  * Karl Schmidt, March 15 2007      | Removed commented code, made newgame and loadgame work
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Karl Schmidt, March 25 2007      | Removed database loading on load game button press since that happens after we've selected a save game
  */
 
 #include "UIMainMenuLayout.h"                                // class implemented
@@ -42,7 +43,6 @@ class LoadGameFunction : public FuncObj
 {
     virtual void operator()(void)
     {
-        DBEngine::GetInstance()->Initialize( true );
         UIManager::GetInstance()->PushLayout("LoadGame");
     }
 };

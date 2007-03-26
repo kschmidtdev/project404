@@ -13,6 +13,7 @@
  * Karl Schmidt, March 14 2007	  | Removed usage of toString for DecryptFileToString, inconsistent length behaviour across different platforms
  * Karl Schmidt, March 15 2007    | Made std::string params refs, added GetUserHash
  * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage
+ * Karl Schmidt, March 25 2007    | Added some helper functions other subsystems needed
  */
 
 #include "SecurityManager.h"                                // class implemented
@@ -557,7 +558,7 @@ std::string SecurityManager::DecryptFileToString( const std::string & fileNameTo
     return toReturn;
 }
 
-std::string SecurityManager::GetUserHash( const std::string & userName )
+const std::string SecurityManager::GetUserHash( const std::string & userName )
 {
     if( mLoadedPasswords.find( userName ) != mLoadedPasswords.end() )
     {
@@ -567,6 +568,23 @@ std::string SecurityManager::GetUserHash( const std::string & userName )
     {
         return "";
     }
+}
+
+const std::vector< std::string > SecurityManager::GetListOfLoadedUsernames() const
+{
+    std::vector< std::string > toReturn;
+    toReturn.reserve( mLoadedPasswords.size() );
+    for( PasswordHashMapConstItr i = mLoadedPasswords.begin(); i != mLoadedPasswords.end(); ++i )
+    {
+        toReturn.push_back( i->first );
+    }
+
+    return toReturn;
+}
+
+const int SecurityManager::GetNumOfUsers() const
+{
+    return mLoadedPasswords.size();
 }
 
 //============================= ACCESS     ===================================

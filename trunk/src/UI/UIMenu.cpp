@@ -18,6 +18,8 @@
  * Andrew Osborne, March 24 2007 | Added Cancel event support
  * Andrew Osborne, March 24 2007 | Added ability to specifiy whether UIMenu is visible when it's disabled (mVisibleWhenDisabled)
  * Andrew osborne, March 24 2007 | Added SetBackground, SetSpacing, and SetCursorFunc.
+ * Karl Schmidt, March 25 2007       | Added correct variable initialization (mParentLayout and mCancelEvent weren't being set to NULL on 
+ 									   construction, as well as support for blank rows, and skipping over them, etc
  */
 
 #include "UIMenu.h"                                // class implemented
@@ -41,7 +43,11 @@
 // It should be commented out or deleted once proper sub-classes are defined
 
 UIMenu::UIMenu()
-: mCursor( NULL ), mCursorFunc( NULL ), mVisibleWhenDisabled( true )
+: mCursor( NULL ),
+  mCursorFunc( NULL ),
+  mParentLayout( NULL ),
+  mCancelEvent( NULL ),
+  mVisibleWhenDisabled( true )
 {
 
     // Formating Button offset parameters in preperation for adding buttons later
@@ -74,13 +80,19 @@ UIMenu::~UIMenu()
 {
     for ( UIButtonPtrItr iter = mButtons.begin(); iter!=mButtons.end(); ++iter )
     {
-        delete (*iter);
+        if( *iter != NULL )
+        {
+            delete (*iter);
+        }
     }
 
     // It is assumed button is always passed "new" in constructor
-    for ( FuncObjPtrItr iter2 = mButtonFuncs.begin(); iter2!=mButtonFuncs.end(); ++iter2 )
+    for ( FuncObjPtrItr iter = mButtonFuncs.begin(); iter != mButtonFuncs.end(); ++iter )
     {
-        delete (*iter2);
+        if( *iter != NULL )
+        {
+            delete (*iter);
+        }
     }
     // Need to add function Objects... when I add them
 
@@ -110,7 +122,10 @@ void UIMenu::RenderSelf(SDL_Surface* destination)
 
         for ( iter = mButtons.begin(); iter!=mButtons.end(); ++iter )
         {
-            (*iter)->RenderSelf(destination);
+            if( *iter != NULL )
+            {
+                (*iter)->RenderSelf(destination);
+            }
         }
     }
 
@@ -127,9 +142,13 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
             // Move cursor up
             if (mCursorPos > 0)
             {
-                mCursorPos--;
+                --mCursorPos;
+                if( mButtons[mCursorPos] == NULL )
+                {
+                    --mCursorPos;
+                }
             }
-            else if( mCursorPos == 0 )
+            else if( mCursorPos <= 0 )
             {
                 mCursorPos = mMaxCursorPos;
             }
@@ -139,9 +158,13 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
         case InputManager::DOWN:
             if( mCursorPos < mMaxCursorPos )
             {
-                mCursorPos++;
+                ++mCursorPos;
+                if( mButtons[mCursorPos] == NULL )
+                {
+                    ++mCursorPos;
+                }
             }
-            else if( mCursorPos == mMaxCursorPos )
+            else if( mCursorPos >= mMaxCursorPos )
             {
                 mCursorPos = 0;
             }
@@ -187,7 +210,10 @@ void UIMenu::SetPos( const Point & nPos)
     int i = 0;
     for ( iter = mButtons.begin(); iter!=mButtons.end(); ++iter )
     {
-        (*iter)->SetPos( mPos + mButtonStart + (mButtonOffset * i) );
+        if( *iter != NULL )
+        {
+            (*iter)->SetPos( mPos + mButtonStart + (mButtonOffset * i) );
+        }
         i++;
     }
 
@@ -273,6 +299,14 @@ void UIMenu::SetBackground(const std::string & nName)
 void UIMenu::SetCursorFunc(FuncObj* newCursorFunc)
 {
     mCursorFunc = newCursorFunc;
+}
+
+void UIMenu::AddBlankRow()
+{
+    mButtons.push_back( NULL );
+    mButtonFuncs.push_back( NULL );
+    mMaxCursorPos = mButtons.size() - 1;
+    SetPos( mPos );
 }
 
 //============================= INQUIRY    ===================================

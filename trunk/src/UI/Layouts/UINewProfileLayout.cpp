@@ -9,6 +9,7 @@
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  * Andrew Osborne, March 23 2007 | Added true functionality and display (background, menu, instructions)
  * Karl Schmidt, March 23 2007   | Added cast to int to suppress warning
+ * Karl Schmidt, March 25 2007   | Added adding checking if a blank username was added, also setting of default password (to be changed)
  */
 #include "UINewProfileLayout.h"                                // class implemented
 
@@ -20,6 +21,8 @@
 #include <UI/UIAlphabetGrid.h>
 #include <UI/UIMenu.h>
 #include <UI/FuncObj.h>
+#include <SecurityManager.h>
+#include <Database/DBEngine.h>
 
 
 // Function Objects declaration
@@ -37,7 +40,19 @@ class NewProfileDoneFunction : public FuncObj
 
     virtual void operator()(void)
     {
-        //GameEngine::GetInstance()->NewProfile( mAlpha->GetString() );
+    	// Don't allow them to proceed if they didn't enter anything
+    	// We should really tell them they did something wrong when this occurs
+    	if( mAlpha->GetString() == "" || mAlpha->GetString() == " " )
+    	{
+    		return;
+    	}
+    	
+        if( SecurityManager::GetInstance()->GetUserHash( mAlpha->GetString() ) == "" )
+        {
+            DBEngine::GetInstance()->SetCurrentProfileName( mAlpha->GetString() );
+            SecurityManager::GetInstance()->AddUser( DBEngine::GetInstance()->GetCurrentProfileName(), "rrrr" );
+        }
+
         UIManager::GetInstance()->PopLayout();
         UIManager::GetInstance()->PushLayout("MainMenu");
     }

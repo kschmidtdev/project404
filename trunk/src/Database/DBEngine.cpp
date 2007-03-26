@@ -14,13 +14,23 @@
  * Seung Woo Han, March 15 2007    | Put some more comments and removed test codes.
  * Karl Schmidt, March 15 2007     | Support for loading/saving encrypted db, save files, loading battle progress
  * Karl Schmidt, March 18 2007     | Added clearing of loaded character and item data between db loads
+ * Karl Schmidt, March 25 2007     | Added multiple save-game and profile name storing/setting support
  */
+
+#include "DBEngine.h"                                     // class implemented
 
 #include <util.h>
 
-
-#include "DBEngine.h"                                     // class implemented
+#include <unistd.h>
 #include <SecurityManager.h>
+
+namespace
+{
+    const int SAVE_GAME_MAX = 3;
+    const std::string SAVE_FILE_PREFIX = "Save00";
+    const std::string SAVE_FILE_POSTFIX = ".xml";
+}
+
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
@@ -48,9 +58,9 @@ void DBEngine::Initialize( const bool loadFromSave )
 
     tacAssert( mDB );
 
-    string saveFileName = "Save001.xml";
+    std::string saveFileName = mCurrentProfileName + SAVE_FILE_PREFIX + toString( mCurrentSaveGameNum ) + SAVE_FILE_POSTFIX;
     // Load XML file. Default : database.xml. If there is any save file, load that.
-    if( loadFromSave && mDB->IsValidFile( saveFileName ) )
+    if( loadFromSave && mCurrentSaveGameNum > 0 && mDB->IsValidFile( saveFileName ) )
     {
         SecurityManager::GetInstance()->DecryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
         mDB->LoadFromFile( saveFileName );
@@ -442,15 +452,22 @@ void DBEngine::SetBattleCompleted( const int battleNumber, const bool completed 
 
 void DBEngine::SaveGame()
 {
-    vector<Character*>::iterator Iter;
-    for (Iter = mCharacterList.begin(); Iter != mCharacterList.end(); Iter++)
+    if( mCurrentSaveGameNum > 0 && mCurrentSaveGameNum < SAVE_GAME_MAX+1 )
     {
-        DatabaseManager::GetInstance()->UpdateNode( (*Iter)->GetName(), "Level", (*Iter)->GetLevel() );
-    }
+        vector<Character*>::iterator Iter;
+        for (Iter = mCharacterList.begin(); Iter != mCharacterList.end(); Iter++)
+        {
+            DatabaseManager::GetInstance()->UpdateNode( (*Iter)->GetName(), "Level", (*Iter)->GetLevel() );
+        }
 
-    string saveFileName = "Save001.xml";
-    DatabaseManager::GetInstance()->SaveToFile( saveFileName );
-    SecurityManager::GetInstance()->EncryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+        std::string saveFileName = mCurrentProfileName + SAVE_FILE_PREFIX + toString( mCurrentSaveGameNum ) + SAVE_FILE_POSTFIX;
+        DatabaseManager::GetInstance()->SaveToFile( saveFileName );
+        SecurityManager::GetInstance()->EncryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+    }
+    else
+    {
+        LogWarning( "Not saving, no save file specified" );
+    }
 }
 
 void DBEngine::SaveEncryptedFile( const string & fileName )
@@ -478,10 +495,65 @@ void DBEngine::ClearLoadedData()
     mItemList.clear();
 }
 
+const std::vector< std::string > DBEngine::GetSaveFiles() const
+{
+    std::vector< std::string > toReturn;
+
+    for( int i = 1; i < SAVE_GAME_MAX+1; ++i )
+    {
+        std::string toCheck = mCurrentProfileName + SAVE_FILE_PREFIX + toString(i) + SAVE_FILE_POSTFIX;
+        if( access( toCheck.c_str(), F_OK ) == 0 )
+        {
+            std::string toAdd = "Save " + toString( i );
+            toReturn.push_back( toAdd );
+        }
+        else // No save located in that slot
+        {
+            toReturn.push_back( "No save file found" );
+        }
+    }
+
+    return toReturn;
+}
+
+const bool DBEngine::IsValidSaveGame( const int saveGameNum ) const
+{
+    std::string toCheck = mCurrentProfileName + SAVE_FILE_PREFIX + toString(saveGameNum) + SAVE_FILE_POSTFIX;
+    if( access( toCheck.c_str(), F_OK ) == 0 && DatabaseManager::GetInstance()->IsValidFile( toCheck ) )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void DBEngine::SetSaveFileNum( const int saveGameNum )
+{
+    if( saveGameNum > 0 && saveGameNum < SAVE_GAME_MAX+1 )
+    {
+        mCurrentSaveGameNum = saveGameNum;
+    }
+}
+
+void DBEngine::SetCurrentProfileName( const std::string & newProfileName )
+{
+    mCurrentProfileName = newProfileName;
+}
+
+const std::string & DBEngine::GetCurrentProfileName() const
+{
+    return mCurrentProfileName;
+}
+
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 DBEngine::DBEngine()
+: mDB( NULL ),
+  mCurrentSaveGameNum( -1 ),
+  mCurrentProfileName("")
 {
 }
 
