@@ -4,14 +4,15 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, March 26 2007    | Added helper function AddAnimation
+ * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage
+ * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Karl Schmidt, March 21 2007    | Added support for black-backround rendering behind text
  * Karl Schmidt, February 15 2007 | Added temporary renderable functionality
  * Karl Schmidt, February 13 2007 | Added joystick init to SDL parameters
  * Karl Schmidt, February 11 2007 | Disabled the mouse cursor, added custom window title, more error/info logging
  * Karl Schmidt, February 10 2007 | Added SDL_INIT_AUDIO flag to SDL_Init
  * Karl Schmidt, February 8 2007  | Initial creation of cpp file
- * Karl Schmidt, March 22 2007    | Correcting include orders and paths
- * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage
  */
 
 #include "SDLRenderer.h"                                // class implemented
@@ -227,6 +228,20 @@ void SDLRenderer::DrawImageAt( SDL_Surface* src, const int x, const int y, const
     dstrect.w = width;
     dstrect.h = height;
     SDL_BlitSurface(src, 0, dest, &dstrect);
+}
+
+void SDLRenderer::AddAnimation( const SDLRenderableVec & frames, const Uint32 delay, const Uint32 initialDelay )
+{
+    Uint32 baseTime = initialDelay;
+    if( baseTime == 0 )
+    {
+        baseTime = SDL_GetTicks();
+    }
+    for( SDLRenderableConstItr i = frames.begin(); i != frames.end(); ++i )
+    {
+        AddToTempRenderQueue( *i, baseTime + delay, baseTime );
+        baseTime += delay;
+    }
 }
 
 //============================= ACCESS     ===================================

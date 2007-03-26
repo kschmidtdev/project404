@@ -108,43 +108,44 @@ public:
 
     void testAnimationExample()
     {
-        Uint32 totalTime = SDL_GetTicks();
-
         TS_TRACE( "You should see text, then the number 1, then the number 2, then the number 3" );
+
+        SDLRenderableVec frames;
 
         SDL_Surface* texture = NULL;
         texture = SDLRenderer::GetInstance()->CreateTextSurface( "Animation Commencing", 12, 255, 255, 255 );
         TS_ASSERT( texture );
         ExampleRenderable* temporaryRenderable = new ExampleRenderable();
         temporaryRenderable->SetTexture( texture );
-        totalTime += 500;
-        SDLRenderer::GetInstance()->AddToTempRenderQueue( temporaryRenderable, totalTime );
-        texture = NULL;
+
+        frames.push_back( temporaryRenderable );
 
         texture = SDLRenderer::GetInstance()->CreateTextSurface( "1", 12, 255, 255, 255 );
         TS_ASSERT( texture );
         temporaryRenderable = new ExampleRenderable();
         temporaryRenderable->SetTexture( texture );
-        totalTime += 500;
-        SDLRenderer::GetInstance()->AddToTempRenderQueue( temporaryRenderable, totalTime, totalTime-500 );
+
+        frames.push_back( temporaryRenderable );
 
         texture = NULL;
         texture = SDLRenderer::GetInstance()->CreateTextSurface( "2", 12, 255, 255, 255 );
         TS_ASSERT( texture );
         temporaryRenderable = new ExampleRenderable();
         temporaryRenderable->SetTexture( texture );
-        totalTime += 500;
-        SDLRenderer::GetInstance()->AddToTempRenderQueue( temporaryRenderable, totalTime, totalTime-500 );
+
+        frames.push_back( temporaryRenderable );
 
         texture = NULL;
         texture = SDLRenderer::GetInstance()->CreateTextSurface( "3", 12, 255, 255, 255 );
         TS_ASSERT( texture );
         temporaryRenderable = new ExampleRenderable();
         temporaryRenderable->SetTexture( texture );
-        totalTime += 500;
-        SDLRenderer::GetInstance()->AddToTempRenderQueue( temporaryRenderable, totalTime, totalTime-500 );
 
-        totalTime += 250;
+        frames.push_back( temporaryRenderable );
+
+        Uint32 totalTime = SDL_GetTicks() + frames.size() * 500;
+
+        SDLRenderer::GetInstance()->AddAnimation( frames, 500 );
         while( SDL_GetTicks() < totalTime )
         {
             SDLRenderer::GetInstance()->Draw();
