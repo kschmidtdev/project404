@@ -10,6 +10,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, March 26 2007    | Added helper AddAnimation function
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Karl Schmidt, March 21 2007    | Added support for black-backround rendering behind text
  * Karl Schmidt, February 15 2007 | Added temporary renderable functionality
@@ -48,6 +49,10 @@ typedef std::pair<Uint32, Uint32> TimeStartEndPair;
 typedef std::pair<SDLRenderable*, TimeStartEndPair> TempRenderable;
 typedef std::vector< TempRenderable > TempRenderableVec;
 typedef TempRenderableVec::iterator TempRenderableItr;
+
+typedef std::vector<SDLRenderable*> SDLRenderableVec;
+typedef SDLRenderableVec::iterator SDLRenderableItr;
+typedef SDLRenderableVec::const_iterator SDLRenderableConstItr;
 
 class SDLRenderer : public Renderer
 {
@@ -117,6 +122,12 @@ public:
 	 */
     SDL_Surface* SDLRenderer::CreateTextSurface( const std::string & textToRender, const int size, const int red = 255, const int green = 255,
                                                  const int blue = 255, const bool backBlack = false );
+
+    /**
+     * Adds all SDLRenderables in frames to the temporary render queue, and sets
+     * up their respective delays accordingly
+	 */
+    void AddAnimation( const SDLRenderableVec & frames, const Uint32 delay, const Uint32 initialDelay = 0 );
 
 // ACCESS (writing)
 // INQUIRY (reading)
