@@ -25,7 +25,7 @@ class SecurityManagerTest : public CxxTest::TestSuite
 {
 private:
 // any variables that could be shared between tests
-     string testPasswordFileName;
+     std::string testPasswordFileName;
 
 // Unit Tests:
 public:
@@ -89,8 +89,8 @@ public:
         const int LEN_OF_USERNAME_MAX = 32;
 
         UserMap users;
-        string userName("");
-        string passWord("");
+        std::string userName("");
+        std::string passWord("");
         for( int i = 0; i < NUM_OF_TESTS; ++i )
         {
             // Get a random length for the username
@@ -124,7 +124,7 @@ public:
 
     void testEncryptionDecryptionBasic()
     {
-        string result = SecurityManager::GetInstance()->EncryptFile( "databaseUnencrypted.xml", "TESTHASH", dbEncryptedFileName );
+        std::string result = SecurityManager::GetInstance()->EncryptFile( "databaseUnencrypted.xml", "TESTHASH", dbEncryptedFileName );
         TS_ASSERT( result.size() != 0 );
         TS_ASSERT_SAME_DATA( result.c_str(), dbEncryptedFileName, result.size() );
 
@@ -135,7 +135,7 @@ public:
 
     void testEncryptionDecryptionOneElementLongHash()
     {
-        string result = SecurityManager::GetInstance()->EncryptFile( "databaseUnencrypted.xml", "a", dbEncryptedFileName );
+        std::string result = SecurityManager::GetInstance()->EncryptFile( "databaseUnencrypted.xml", "a", dbEncryptedFileName );
         TS_ASSERT( result.size() > 0 );
         TS_ASSERT_SAME_DATA( result.c_str(), dbEncryptedFileName, result.size() );
 
@@ -154,32 +154,32 @@ public:
 
     void testEncryptionBlankHash()
     {
-        string result = SecurityManager::GetInstance()->EncryptFile( "databaseUnencrypted.xml", "", dbEncryptedFileName );
-        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
+        std::string result = SecurityManager::GetInstance()->EncryptFile( "databaseUnencrypted.xml", "", dbEncryptedFileName );
+        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank std::string
     }
 
     void testDecryptionBlankHash()
     {
-        string result = SecurityManager::GetInstance()->DecryptFile( "databaseUnencrypted.xml", "", dbDecryptedFileName );
-        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
+        std::string result = SecurityManager::GetInstance()->DecryptFile( "databaseUnencrypted.xml", "", dbDecryptedFileName );
+        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank std::string
     }
 
     void testEncryptionBlankFileName()
     {
-        string result = SecurityManager::GetInstance()->EncryptFile( "", "TEST_HASH", dbEncryptedFileName );
-        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
+        std::string result = SecurityManager::GetInstance()->EncryptFile( "", "TEST_HASH", dbEncryptedFileName );
+        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank std::string
     }
 
     void testDecryptionBlankFileName()
     {
-        string result = SecurityManager::GetInstance()->DecryptFile( "", "TEST_HASH", dbDecryptedFileName );
-        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
+        std::string result = SecurityManager::GetInstance()->DecryptFile( "", "TEST_HASH", dbDecryptedFileName );
+        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank std::string
     }
 
     void testDecryptionToAString()
     {
         const char* fileName = "unitTestDecryptToMem.xml";
-        string fileContents = "TEST FILE ONE TWO THREE 1 2 3";
+        std::string fileContents = "TEST FILE ONE TWO THREE 1 2 3";
         const char* hashToUse = "DECRYPTION_TO_STRING_TEST_HASH_STRING";
 
         FILE* testFile = NULL;
@@ -188,11 +188,11 @@ public:
         TS_ASSERT_EQUALS( fwrite( fileContents.c_str(), sizeof(char), fileContents.size(), testFile ), fileContents.size() );
         fclose( testFile );
 
-        string result = SecurityManager::GetInstance()->EncryptFile( fileName, hashToUse );
+        std::string result = SecurityManager::GetInstance()->EncryptFile( fileName, hashToUse );
         TS_ASSERT( result.size() > 0 );
         TS_ASSERT_SAME_DATA( result.c_str(), fileName, result.size() );
 
-        string resultString = SecurityManager::GetInstance()->DecryptFileToString( fileName, hashToUse );
+        std::string resultString = SecurityManager::GetInstance()->DecryptFileToString( fileName, hashToUse );
         TS_ASSERT( resultString.size() > 0 );
 
         TS_ASSERT_EQUALS( resultString.size(), fileContents.size() );
@@ -201,14 +201,14 @@ public:
 
     void testDecryptionToAStringBlankHash()
     {
-        string result = SecurityManager::GetInstance()->DecryptFileToString( "databaseUnencrypted.xml", "" );
-        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
+        std::string result = SecurityManager::GetInstance()->DecryptFileToString( "databaseUnencrypted.xml", "" );
+        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank std::string
     }
 
     void testDecryptionToAStringBlankFileName()
     {
-        string result = SecurityManager::GetInstance()->DecryptFileToString( "", "TEST_HASH" );
-        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank string
+        std::string result = SecurityManager::GetInstance()->DecryptFileToString( "", "TEST_HASH" );
+        TS_ASSERT( result.empty() ); // The above is invalid, so result should be a blank std::string
     }
 
     void testGetUserHash()
