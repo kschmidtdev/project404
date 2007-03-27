@@ -11,6 +11,7 @@
  * Mike Malyuk, February 14 2007 | Levelling up is couted
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 22 2007   | Changed name of GetClassName
+ * Mike Malyuk,  March 26 2007   | Balance change, Levelling up now only adds new HP to curHP instead of max
  */
 
 #include "Mage.h"                                // class implemented
@@ -89,7 +90,7 @@ void Mage::LevelUp()
     mAttributes[AGI] = mAttributes[AGI]+1;
     mAttributes[DEF] = mAttributes[DEF]+1;
     mMaxHP = mMaxHP + 1;
-    mCurHP = mMaxHP;
+    mCurHP = mCurHP + 1;
     mLevel++;
     cout << "Mage (" << mName << ") has levelled up to level " << mLevel << endl;
 }

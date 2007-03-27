@@ -10,7 +10,8 @@
  * Mike Malyuk, February 14 2007 | On level up, curHP renewed.
  * Mike Malyuk, February 14 2007 | Levelling up is couted
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
- * Karl Schmidt, March 22 2007    | Changed name of GetClassName
+ * Karl Schmidt, March 22 2007   | Changed name of GetClassName
+ * Mike Malyuk,  March 26 2007   | Balance change, Levelling up now only adds new HP to curHP instead of max
  */
 
 #include "Archer.h"                                // class implemented
@@ -89,7 +90,7 @@ void Archer::LevelUp()
     mAttributes[AGI] = mAttributes[AGI]+2;
     mAttributes[DEF] = mAttributes[DEF]+1;
     mMaxHP = mMaxHP + 3;
-    mCurHP = mMaxHP;
+    mCurHP = mCurHP+3;
     mLevel++;
     cout << "Archer (" << mName << ") has levelled up to level " << mLevel << endl;
 }

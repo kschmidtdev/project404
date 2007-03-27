@@ -13,6 +13,7 @@
  * Mike Malyuk, March 16 2007    | Healer may now heal self. Go healer! Couple other fixes for goodness
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 22 2007   | Changed name of GetClassName
+ * Mike Malyuk,  March 26 2007   | Balance change, Levelling up now only adds new HP to curHP instead of max
  */
 
 #include "Healer.h"                                // class implemented
@@ -91,7 +92,7 @@ void Healer::LevelUp()
     mAttributes[AGI] = mAttributes[AGI]+1;
     mAttributes[DEF] = mAttributes[DEF]+1;
     mMaxHP = mMaxHP + 2;
-    mCurHP = mMaxHP;
+    mCurHP = mCurHP + 2;
     mLevel++;
     cout << "Healer (" << mName << ") has levelled up to level " << mLevel << endl;
 }

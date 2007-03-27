@@ -11,6 +11,7 @@
  * Mike Malyuk, February 14 2007 | Levelling up is couted
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 22 2007   | Changed name of GetClassName
+ * Mike Malyuk,  March 26 2007   | Balance change, Levelling up now only adds new HP to curHP instead of max
  */
 
 #include "Knight.h"                                // class implemented
@@ -89,7 +90,7 @@ void Knight::LevelUp()
     mAttributes[AGI] = mAttributes[AGI]+1;
     mAttributes[DEF] = mAttributes[DEF]+2;
     mMaxHP = mMaxHP + 5;
-    mCurHP = mMaxHP;
+    mCurHP = mCurHP + 5;
     mLevel++;
     cout << "Knight (" << mName << ") has levelled up to level " << mLevel << endl;
 }

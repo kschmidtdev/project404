@@ -15,6 +15,7 @@
  * Mike Malyuk, March 14, 2007   | Added GetMaxX() and GetMaxY()
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 23 2007   | Corrected include paths
+ * Mike Malyuk, March 26, 2007   | Added AIAttackOrNot and AIGoWhere for AI Help
  */
 
 #ifndef Map_h
@@ -65,6 +66,8 @@ public:
     const Tile & GetTile( const Point & p);
     const TileVec & GetTiles() const;
     const vector<Point> GetMovementRange( const vector<Character*>& everyone, const vector<Character*> & enemies, Character* guy);
+    const bool AIAttackOrNot(const vector<Character*>& everyone , const vector<Character*>& enemies, Character* guy);
+    const vector<Point> AIGoWhere(const vector<Character*>& everyone, const vector<Character*>& enemies, const vector<Character*>& allies,  Character* guy);
     const int GetMaxX() const {return mMaxX;}
     const int GetMaxY() const {return mMaxY;}
 protected:

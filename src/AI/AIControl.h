@@ -11,7 +11,8 @@
  * Authors:
  * Mike Malyuk, February 15 2007 | Initial Design
  * Mike Malyuk, March 10, 2007   | Added map to AI removed point
- * Karl Schmidt, March 20 2007    | Major adding of consts and reference usage, rearranging includes
+ * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
+ * Mike Malyuk, March 26, 2007   | Added variable for difficulty, changed constructor
  */
 
 #ifndef AIControl_h
@@ -40,7 +41,7 @@ public:
     /**
      * Default constructor.
 	 */
-    AIControl(Level* level, const Map & map);
+    AIControl(Level* level, const Map & map, int difficulty);
 
     /**
      * Destructor.
@@ -56,6 +57,7 @@ protected:
 // PROTECTED VARIABLES
     Map mMap;
     Level* mLevel;
+    int mDifficulty;
 private:
 // PRIVATE VARIABLES
 };
