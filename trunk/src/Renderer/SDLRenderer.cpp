@@ -4,6 +4,8 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, March 26 2007    | Added support for drawing an image to the screen
+ 								    with a particular alpha value
  * Karl Schmidt, March 26 2007    | Added helper function AddAnimation
  * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
@@ -71,6 +73,9 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
     // create a new window
     mScreen = SDL_SetVideoMode(xRes, yRes, colourDepth, SDL_HWSURFACE|SDL_DOUBLEBUF);
 
+    mTransTempScreen = SDL_CreateRGBSurface( mScreen->flags, xRes, yRes, colourDepth, mScreen->format->Rmask,
+                                             mScreen->format->Gmask, mScreen->format->Bmask, mScreen->format->Amask );
+
     tacAssert( mScreen );
     if ( !mScreen )
     {
@@ -100,6 +105,12 @@ void SDLRenderer::Shutdown()
         TTF_CloseFont( i->second );
     }
     TTF_Quit();
+
+    if( mTransTempScreen )
+    {
+        SDL_FreeSurface( mTransTempScreen );
+        mTransTempScreen = NULL;
+    }
 
     SDL_Quit();
 
@@ -213,7 +224,7 @@ SDL_Surface* SDLRenderer::CreateTextSurface( const std::string & textToRender, c
     return textSurface;
 }
 
-void SDLRenderer::DrawImageAt( SDL_Surface* src, const int x, const int y, const int width, const int height, SDL_Surface* dest )
+void SDLRenderer::DrawImageAt( SDL_Surface* src, const int x, const int y, const int width, const int height, SDL_Surface* dest, const Uint32 alpha )
 {
     if( !src || !dest )
     {
@@ -227,7 +238,17 @@ void SDLRenderer::DrawImageAt( SDL_Surface* src, const int x, const int y, const
     dstrect.y = y;
     dstrect.w = width;
     dstrect.h = height;
-    SDL_BlitSurface(src, 0, dest, &dstrect);
+
+    if( alpha == 255 )
+    {
+        SDL_BlitSurface( src, 0, dest, &dstrect );
+    }
+    else
+    {
+        SDL_SetAlpha( mTransTempScreen, SDL_SRCALPHA | SDL_RLEACCEL, alpha );
+        SDL_BlitSurface( src, 0, mTransTempScreen, &dstrect );
+        SDL_BlitSurface( mTransTempScreen, &dstrect, dest, &dstrect );
+    }
 }
 
 void SDLRenderer::AddAnimation( const SDLRenderableVec & frames, const Uint32 delay, const Uint32 initialDelay )
@@ -249,7 +270,7 @@ void SDLRenderer::AddAnimation( const SDLRenderableVec & frames, const Uint32 de
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 SDLRenderer::SDLRenderer(void)
-: Renderer(), mScreen( NULL )
+: Renderer(), mScreen( NULL ), mTransTempScreen( NULL )
 {
 
 }
