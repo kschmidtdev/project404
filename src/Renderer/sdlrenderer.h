@@ -10,6 +10,8 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, March 26 2007    | Added support for drawing an image to the screen
+ 								    with a particular alpha value
  * Karl Schmidt, March 26 2007    | Added helper AddAnimation function
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Karl Schmidt, March 21 2007    | Added support for black-backround rendering behind text
@@ -113,7 +115,7 @@ public:
     /**
      * Blits an image (src) on to dest at the particular point (x, y) and size (width, height)
 	 */
-    void DrawImageAt( SDL_Surface* src, const int x, const int y, const int width, const int height, SDL_Surface* dest );
+    void DrawImageAt( SDL_Surface* src, const int x, const int y, const int width, const int height, SDL_Surface* dest, const Uint32 alpha = 255 );
 
     /**
      * Creates a SDL_Surface object with the given text written to that surface, colour
@@ -144,6 +146,7 @@ protected:
     static SDLRenderer* _instance;
     RenderableVec mRenderQueue;
     SDL_Surface* mScreen;
+    SDL_Surface* mTransTempScreen;
     FontMap mFonts;
     TempRenderableVec mTempRenderables;
 
