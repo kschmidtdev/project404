@@ -13,6 +13,7 @@
  * Karl Schmidt, March 20 2007    | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 22 2007    | Changed name of GetClassName
  * Karl Schmidt, March 23 2007    | Removed unneeded include
+ * Mike Malyuk, March 26, 2007    | Added new AI level (2). Tries to back off and regroup. Smarter healing.
  */
 
 #include "AIControl.h"                                // class implemented
@@ -36,12 +37,13 @@ namespace
 
 //============================= LIFECYCLE ====================================
 
-AIControl::AIControl(Level* level, const Map & map):mMap(map), mLevel(level)
+AIControl::AIControl(Level* level, const Map & map, int difficulty):mMap(map), mLevel(level), mDifficulty(difficulty)
 {
 }// AIControl
 
 Point AIControl::DoAction()
 {
+
     int curState = mLevel->ReturnState();
     PointVec points;
     PointVec archPoints;
@@ -51,162 +53,434 @@ Point AIControl::DoAction()
     int start = 0;
     double distance = 10000;
     Point closest;
-    switch(curState)
+    if(mDifficulty == 1)
     {
-        case Level::AIFREE:
+        switch(curState)
         {
-            const CharacterPtrVec& enemies = mLevel->GetEnemies();
-            for(CharacterPtrConstItr eiter = enemies.begin(); eiter != enemies.end(); eiter++)
+            case Level::AIFREE:
             {
-                if((*eiter)->GetExhaust() == false)
+                const CharacterPtrVec& enemies = mLevel->GetEnemies();
+                for(CharacterPtrConstItr eiter = enemies.begin(); eiter != enemies.end(); eiter++)
                 {
-                    if( !(InputManager::GetInstance()->GetMode() == InputManager::PLAYBACK) )
+                    if((*eiter)->GetExhaust() == false)
                     {
-                        SDL_Delay( AI_FAKE_TIME_WAIT );
+                        if( !(InputManager::GetInstance()->GetMode() == InputManager::PLAYBACK) )
+                        {
+                            SDL_Delay( AI_FAKE_TIME_WAIT );
+                        }
+                        return (*eiter)->GetPoint();
                     }
-                    return (*eiter)->GetPoint();
                 }
+                return Point(-30,-30);
             }
-            return Point(-30,-30);
-        }
-        break;
+            break;
 
-        case Level::AIMOVE:
-        {
-            points = mMap.GetMovementRange(mLevel->GetEveryone(), mLevel->GetParty(), mLevel->GetCurCharacter());
-            //If not a healer, push back enemies to look for
-            if(mLevel->GetCurCharacter()->GetCharacterClassName() != "Healer")
+            case Level::AIMOVE:
             {
-                const CharacterPtrVec& enemies = mLevel->GetParty();
-                for(CharacterPtrConstItr citer = enemies.begin(); citer != enemies.end(); citer++)
+                points = mMap.GetMovementRange(mLevel->GetEveryone(), mLevel->GetParty(), mLevel->GetCurCharacter());
+                //If not a healer, push back enemies to look for
+                if(mLevel->GetCurCharacter()->GetCharacterClassName() != "Healer")
                 {
-                    if((*citer)->GetPoint() != Point(-5, -5))
-                    {
-                        selector++;
-                    }
-                }
-                //lets randomly decide who is going to be our target
-                randint = (rand()%selector);
-
-                //if I don't have a target or I killed my target get a new one
-                if(mLevel->GetCurCharacter()->GetTarget() == NULL || mLevel->GetCurCharacter()->GetTarget()->GetPoint() == Point(-5, -5))
-                {
+                    const CharacterPtrVec& enemies = mLevel->GetParty();
                     for(CharacterPtrConstItr citer = enemies.begin(); citer != enemies.end(); citer++)
                     {
-                        //make sure he ain't dead!
                         if((*citer)->GetPoint() != Point(-5, -5))
                         {
-                            if(start == randint)
+                            selector++;
+                        }
+                    }
+                    //lets randomly decide who is going to be our target
+                    randint = (rand()%selector);
+
+                    //if I don't have a target or I killed my target get a new one
+                    if(mLevel->GetCurCharacter()->GetTarget() == NULL || mLevel->GetCurCharacter()->GetTarget()->GetPoint() == Point(-5, -5))
+                    {
+                        for(CharacterPtrConstItr citer = enemies.begin(); citer != enemies.end(); citer++)
+                        {
+                            //make sure he ain't dead!
+                            if((*citer)->GetPoint() != Point(-5, -5))
+                            {
+                                if(start == randint)
+                                {
+                                    mLevel->GetCurCharacter()->SetTarget((*citer));
+                                    break;
+                                }
+                                else
+                                {
+                                    start++;
+                                }
+                            }
+                        }
+                    }
+                }
+                else //I'm a healer lets get my friends
+                {
+                    const CharacterPtrVec& enemies = mLevel->GetEnemies();
+                    //If I don't have a target or my target is dead, get a new one!
+                    if(mLevel->GetCurCharacter()->GetTarget() == NULL || mLevel->GetCurCharacter()->GetTarget()->GetPoint() == Point(-5, -5))
+                    {
+                        for(CharacterPtrConstItr citer = enemies.begin(); citer != enemies.end(); citer++)
+                        {
+                            //make sure he ain't dead and he needs healin!
+                            if((*citer)->GetPoint() != Point(-5, -5) && (*citer)->GetHP() < (*citer)->GetMaxHP() && (*citer)->GetPoint() != mLevel->GetCurCharacter()->GetPoint())
                             {
                                 mLevel->GetCurCharacter()->SetTarget((*citer));
                                 break;
                             }
-                            else
+                        }
+                    }
+                    //no one needs healing? Lets run around like a chicken with its head cut off!
+                    if(mLevel->GetCurCharacter()->GetTarget() == NULL || mLevel->GetCurCharacter()->GetTarget()->GetPoint() == Point(-5, -5))
+                    {
+                        p = *(points.begin());
+                        points.clear();
+                        return p;
+                    }
+                }
+                //if I'm not an archer, I can run right up to the guy
+                if(mLevel->GetCurCharacter()->GetCharacterClassName() != "Archer")
+                {
+                    for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                        {
+                            if((sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2))) < distance)
                             {
-                                start++;
+                                closest = (*piter);
+                                distance = (sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2)));
+                            }
+                        }
+                }
+                else //I'm an archer, if I run right beside them I can't attack, so lets not do that
+                {
+                    for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                    {
+                        if((*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX(), mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY() + 1) &&
+                            (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX() + 1, mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()) &&
+                            (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX(), mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY() - 1) &&
+                            (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX() - 1, mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()) &&
+                            (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint()))
+                        {
+                            archPoints.push_back((*piter));
+                        }
+                    }
+                    for(PointConstItr piter = archPoints.begin(); piter != archPoints.end(); piter++)
+                    {
+                            if((sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2))) < distance)
+                            {
+                                closest = (*piter);
+                                distance = (sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2)));
+                            }
+                    }
+                }
+                points.clear();
+                return closest;
+            }
+            break;
+
+            case Level::AIATTACK:
+            {
+                const PointVec& points = mLevel->GetAttackArea();
+                Character* curChar = mLevel->GetCurCharacter();
+                if(curChar->GetCharacterClassName() != "Healer")
+                {
+                    const CharacterPtrVec & party = mLevel->GetParty();
+                    for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                    {
+                        for(CharacterPtrConstItr eiter = party.begin(); eiter != party.end(); eiter++)
+                        {
+                            if((*piter) == (*eiter)->GetPoint())
+                            {
+                                return (*piter);
                             }
                         }
                     }
                 }
+                else
+                {
+                    const CharacterPtrVec & enemy = mLevel->GetEnemies();
+                    for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                    {
+                        for(CharacterPtrConstItr eiter = enemy.begin(); eiter != enemy.end(); eiter++)
+                        {
+                            if((*piter) == (*eiter)->GetPoint())
+                            {
+                                return (*piter);
+                            }
+                        }
+                    }
+                }
+                return Point(-30, -30);
             }
-            else //I'm a healer lets get my friends
+            break;
+        }
+    }
+    else
+    {
+        switch(curState)
+        {
+            case Level::AIFREE:
             {
                 const CharacterPtrVec& enemies = mLevel->GetEnemies();
-                //If I don't have a target or my target is dead, get a new one!
-                if(mLevel->GetCurCharacter()->GetTarget() == NULL || mLevel->GetCurCharacter()->GetTarget()->GetPoint() == Point(-5, -5))
+                for(CharacterPtrConstItr eiter = enemies.begin(); eiter != enemies.end(); eiter++)
                 {
+                    if((*eiter)->GetExhaust() == false)
+                    {
+                        if( !(InputManager::GetInstance()->GetMode() == InputManager::PLAYBACK) )
+                        {
+                            SDL_Delay( AI_FAKE_TIME_WAIT );
+                        }
+                        return (*eiter)->GetPoint();
+                    }
+                }
+                return Point(-30,-30);
+            }
+            break;
+
+            case Level::AIMOVE:
+            {
+                points = mMap.GetMovementRange(mLevel->GetEveryone(), mLevel->GetParty(), mLevel->GetCurCharacter());
+                //If not a healer, push back enemies to look for
+                if(mLevel->GetCurCharacter()->GetCharacterClassName() != "Healer")
+                {
+                    const CharacterPtrVec& enemies = mLevel->GetParty();
                     for(CharacterPtrConstItr citer = enemies.begin(); citer != enemies.end(); citer++)
                     {
-                        //make sure he ain't dead and he needs healin!
-                        if((*citer)->GetPoint() != Point(-5, -5) && (*citer)->GetHP() < (*citer)->GetMaxHP() && (*citer)->GetPoint() != mLevel->GetCurCharacter()->GetPoint())
+                        if((*citer)->GetPoint() != Point(-5, -5))
                         {
-                            mLevel->GetCurCharacter()->SetTarget((*citer));
-                            break;
+                            selector++;
                         }
                     }
-                }
-                //no one needs healing? Lets run around like a chicken with its head cut off!
-                if(mLevel->GetCurCharacter()->GetTarget() == NULL || mLevel->GetCurCharacter()->GetTarget()->GetPoint() == Point(-5, -5))
-                {
-                    p = *(points.begin());
-                    points.clear();
-                    return p;
-                }
-            }
-            //if I'm not an archer, I can run right up to the guy
-            if(mLevel->GetCurCharacter()->GetCharacterClassName() != "Archer")
-            {
-                for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
-                    {
-                        if((sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2))) < distance)
-                        {
-                            closest = (*piter);
-                            distance = (sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2)));
-                        }
-                    }
-            }
-            else //I'm an archer, if I run right beside them I can't attack, so lets not do that
-            {
-                for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
-                {
-                    if((*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX(), mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY() + 1) &&
-                        (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX() + 1, mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()) &&
-                        (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX(), mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY() - 1) &&
-                        (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX() - 1, mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()) &&
-                        (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint()))
-                    {
-                        archPoints.push_back((*piter));
-                    }
-                }
-                for(PointConstItr piter = archPoints.begin(); piter != archPoints.end(); piter++)
-                {
-                        if((sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2))) < distance)
-                        {
-                            closest = (*piter);
-                            distance = (sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2)));
-                        }
-                }
-            }
-            points.clear();
-            return closest;
-        }
-        break;
+                    //lets randomly decide who is going to be our target
+                    randint = (rand()%selector);
 
-        case Level::AIATTACK:
-        {
-            const PointVec& points = mLevel->GetAttackArea();
-            Character* curChar = mLevel->GetCurCharacter();
-            if(curChar->GetCharacterClassName() != "Healer")
-            {
-                const CharacterPtrVec & party = mLevel->GetParty();
-                for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
-                {
-                    for(CharacterPtrConstItr eiter = party.begin(); eiter != party.end(); eiter++)
+                    //if I don't have a target or I killed my target get a new one
+                    if(mLevel->GetCurCharacter()->GetTarget() == NULL || mLevel->GetCurCharacter()->GetTarget()->GetPoint() == Point(-5, -5))
                     {
-                        if((*piter) == (*eiter)->GetPoint())
+                        for(CharacterPtrConstItr citer = enemies.begin(); citer != enemies.end(); citer++)
                         {
-                            return (*piter);
+                            //make sure he ain't dead!
+                            if((*citer)->GetPoint() != Point(-5, -5))
+                            {
+                                if(start == randint)
+                                {
+                                    mLevel->GetCurCharacter()->SetTarget((*citer));
+                                    break;
+                                }
+                                else
+                                {
+                                    start++;
+                                }
+                            }
                         }
                     }
                 }
-            }
-            else
-            {
-                const CharacterPtrVec & enemy = mLevel->GetEnemies();
-                for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                else //I'm a healer lets get my friends
                 {
-                    for(CharacterPtrConstItr eiter = enemy.begin(); eiter != enemy.end(); eiter++)
+                    const CharacterPtrVec& enemies = mLevel->GetEnemies();
+                    //If I don't have a target or my target is dead, get a new one!
+                    if(mLevel->GetCurCharacter()->GetTarget() == NULL || mLevel->GetCurCharacter()->GetTarget()->GetPoint() == Point(-5, -5) || mLevel->GetCurCharacter()->GetTarget()->GetMaxHP() == mLevel->GetCurCharacter()->GetTarget()->GetHP())
                     {
-                        if((*piter) == (*eiter)->GetPoint())
+                        for(CharacterPtrConstItr citer = enemies.begin(); citer != enemies.end(); citer++)
                         {
-                            return (*piter);
+                            //make sure he ain't dead and he needs healin!
+                            if((*citer)->GetPoint() != Point(-5, -5) && (*citer)->GetHP() < (*citer)->GetMaxHP() && (*citer)->GetPoint() != mLevel->GetCurCharacter()->GetPoint())
+                            {
+                                if(mLevel->GetCurCharacter()->GetTarget() != NULL && ((mLevel->GetCurCharacter()->GetTarget()->GetMaxHP() - mLevel->GetCurCharacter()->GetTarget()->GetHP()) > ((*citer)->GetMaxHP() - (*citer)->GetHP())))
+                                {
+                                    mLevel->GetCurCharacter()->SetTarget((*citer));
+                                }
+                                else
+                                {
+                                    mLevel->GetCurCharacter()->SetTarget((*citer));
+                                }
+                            }
+                        }
+                    }
+                    //no one needs healing? Lets run around like a chicken with its head cut off!
+                    if(mLevel->GetCurCharacter()->GetTarget() == NULL || mLevel->GetCurCharacter()->GetTarget()->GetPoint() == Point(-5, -5))
+                    {
+                        p = *(points.begin());
+                        points.clear();
+                        return p;
+                    }
+                }
+                //if I'm not an archer, I can run right up to the guy
+                if(mLevel->GetCurCharacter()->GetCharacterClassName() == "Knight")
+                {
+                    if(mMap.AIAttackOrNot(mLevel->GetEveryone(), mLevel->GetParty(), mLevel->GetCurCharacter()))
+                    {
+                        for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                        {
+                            if((sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2))) < distance)
+                            {
+                                closest = (*piter);
+                                distance = (sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2)));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        points = mMap.AIGoWhere(mLevel->GetEveryone(), mLevel->GetParty(), mLevel->GetEnemies(), mLevel->GetCurCharacter());
+                        if(points.size() == 0)
+                        {
+                            points.push_back(mLevel->GetCurCharacter()->GetPoint());
+                        }
+
+                        for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                        {
+                            //std::cout << mLevel->GetCurCharacter()->GetName() << std::endl;
+                            //std::cout << (*piter).GetX() << ", " << (*piter).GetY() << std::endl;
+                            if((sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2))) < distance)
+                            {
+                                closest = (*piter);
+                                distance = (sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2)));
+                            }
                         }
                     }
                 }
+                else if (mLevel->GetCurCharacter()->GetCharacterClassName() == "Healer")
+                {
+                    if(mMap.AIAttackOrNot(mLevel->GetEveryone(), mLevel->GetEnemies(), mLevel->GetCurCharacter()))
+                    {
+                        for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                        {
+                            if((sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2))) < distance)
+                            {
+                                closest = (*piter);
+                                distance = (sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2)));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        points = mMap.AIGoWhere(mLevel->GetEveryone(), mLevel->GetParty(), mLevel->GetEnemies(), mLevel->GetCurCharacter());
+                        if(points.size() == 0)
+                        {
+                            points.push_back(mLevel->GetCurCharacter()->GetPoint());
+                        }
+
+                        for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                        {
+                            //std::cout << mLevel->GetCurCharacter()->GetName() << std::endl;
+                            //std::cout << (*piter).GetX() << ", " << (*piter).GetY() << std::endl;
+                            if((sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2))) < distance)
+                            {
+                                closest = (*piter);
+                                distance = (sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2)));
+                            }
+                        }
+                    }
+                }
+                else //I'm an archer, if I run right beside them I can't attack, so lets not do that
+                {
+                    if(mMap.AIAttackOrNot(mLevel->GetEveryone(), mLevel->GetParty(), mLevel->GetCurCharacter()))
+                    {
+                        for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                        {
+                            if((*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX(), mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY() + 1) &&
+                                (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX() + 1, mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()) &&
+                                (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX(), mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY() - 1) &&
+                                (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX() - 1, mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()))
+                            {
+                                archPoints.push_back((*piter));
+                            }
+                        }
+                        for(PointConstItr piter = archPoints.begin(); piter != archPoints.end(); piter++)
+                        {
+                                if((sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2))) < distance)
+                                {
+                                    closest = (*piter);
+                                    distance = (sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2)));
+                                }
+                        }
+                    }
+                    else
+                    {
+                        points = mMap.AIGoWhere(mLevel->GetEveryone(), mLevel->GetParty(), mLevel->GetEnemies(), mLevel->GetCurCharacter());
+                        if(points.size() == 0)
+                        {
+                            points.push_back(mLevel->GetCurCharacter()->GetPoint());
+                        }
+                        for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                        {
+                            if((*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX(), mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY() + 1) &&
+                                (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX() + 1, mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()) &&
+                                (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX(), mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY() - 1) &&
+                                (*piter) != Point(mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX() - 1, mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()))
+                            {
+                                archPoints.push_back((*piter));
+                            }
+                        }
+                        for(PointConstItr piter = archPoints.begin(); piter != archPoints.end(); piter++)
+                        {
+                                if((sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2))) < distance)
+                                {
+                                    closest = (*piter);
+                                    distance = (sqrt(pow((double)((*piter).GetX() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetX()), 2) + pow((double)((*piter).GetY() - mLevel->GetCurCharacter()->GetTarget()->GetPoint().GetY()), 2)));
+                                }
+                        }
+                    }
+                }
+                points.clear();
+                return closest;
             }
-            return Point(-30, -30);
+            break;
+
+            case Level::AIATTACK:
+            {
+                const PointVec& points = mLevel->GetAttackArea();
+                Character* curChar = mLevel->GetCurCharacter();
+                if(curChar->GetCharacterClassName() != "Healer")
+                {
+                    const CharacterPtrVec & party = mLevel->GetParty();
+                    for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                    {
+                        for(CharacterPtrConstItr eiter = party.begin(); eiter != party.end(); eiter++)
+                        {
+                            if((*piter) == (*eiter)->GetPoint() && (*piter) == mLevel->GetCurCharacter()->GetTarget()->GetPoint())
+                            {
+                                return (*piter);
+                            }
+                        }
+                    }
+                    for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                    {
+                        for(CharacterPtrConstItr eiter = party.begin(); eiter != party.end(); eiter++)
+                        {
+                            if((*piter) == (*eiter)->GetPoint())
+                            {
+                                return (*piter);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    const CharacterPtrVec & enemy = mLevel->GetEnemies();
+                    for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                    {
+                        for(CharacterPtrConstItr eiter = enemy.begin(); eiter != enemy.end(); eiter++)
+                        {
+                            if((*piter) == (*eiter)->GetPoint() && (*piter) == mLevel->GetCurCharacter()->GetTarget()->GetPoint())
+                            {
+                                return (*piter);
+                            }
+                        }
+                    }
+                    for(PointConstItr piter = points.begin(); piter != points.end(); piter++)
+                    {
+                        for(CharacterPtrConstItr eiter = enemy.begin(); eiter != enemy.end(); eiter++)
+                        {
+                            if((*piter) == (*eiter)->GetPoint())
+                            {
+                                return (*piter);
+                            }
+                        }
+                    }
+                }
+                return Point(-30, -30);
+            }
+            break;
         }
-        break;
     }
     return Point(-30, -30);
 }

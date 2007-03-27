@@ -14,6 +14,7 @@
  * Mike Malyuk, March 14, 2007   | Generalizing all methods to mMaxX and mMaxY
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 23 2007   | Added some more correct typedef usage
+ * Mike Malyuk, March 26, 2007   | Added AIHelper functions AIAttackOrNot and AIGoWhere for new AI
  */
 
 #include "Map.h"                                // class implemented
@@ -340,7 +341,95 @@ const PointVec Map::GetMovementRange( const vector<Character*> & everyone, const
     return possiblepoints;
 
 }
+//Guy = AI unit, enemies = party
+const bool Map::AIAttackOrNot(const vector<Character*>& everyone , const vector<Character*>& enemies, Character* guy)
+{
+    PointVec myMove = GetMovementRange(everyone, enemies, guy);
+    Point storeMyPoint = guy->GetPoint();
+    PointVec myAttack;
+    for(vector<Point>::iterator mpoint = myMove.begin(); mpoint != myMove.end(); mpoint++)
+    {
+        guy->Move((*mpoint));
+        PointVec temp = guy->CalcAction();
+        myAttack.insert( myAttack.end(), temp.begin(), temp.end() );
+    }
+    guy->Move(storeMyPoint);
+    for(vector<Point>::iterator mpoint = myAttack.begin(); mpoint != myAttack.end(); mpoint++)
+    {
+        if(guy->GetTarget()->GetPoint() == (*mpoint))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+const vector<Point> Map::AIGoWhere(const vector<Character*>& everyone, const vector<Character*>& enemies, const vector<Character*>& allies, Character* guy)
+{
+    //Get my range
+    PointVec myMove = GetMovementRange(everyone, enemies, guy);
+    Point storeMyPoint = guy->GetPoint();
+    PointVec possibleChoice;
+    if(guy->GetCharacterClassName() != "Healer")
+    {
+        for(vector<Point>::iterator mpoint = myMove.begin(); mpoint != myMove.end(); mpoint++)
+        {
+            guy->Move((*mpoint));
+            for(vector<Character*>::const_iterator citer = enemies.begin(); citer != enemies.end(); citer++)
+            {
+                PointVec temp = guy->CalcAction();
+                if( find( temp.begin(), temp.end(), (*citer)->GetPoint() ) != temp.end() )
+                {
+                    possibleChoice.push_back(guy->GetPoint());
+                    guy->Move(storeMyPoint);
+                    return possibleChoice;
+                }
+            }
+        }
+    }
+    guy->Move(storeMyPoint);
 
+    PointVec theirMove;
+    PointVec totalAttack;
+    //iterate through all of party's members
+    for(vector<Character*>::const_iterator citer = enemies.begin(); citer != enemies.end(); citer++)
+    {
+        if(!((*citer)->IsDead()))//if they are not dead then lets check their attack
+        {
+            theirMove = GetMovementRange(everyone, allies, (*citer)); //get their move
+            Point storeTheirPoint = (*citer)->GetPoint(); //store their cur position
+
+            //for all movement possibilities, calculate their attack.
+            for(vector<Point>::iterator mpoint = theirMove.begin(); mpoint != theirMove.end(); mpoint++)
+            {
+                //store all points of attack
+                (*citer)->Move(*mpoint);
+                PointVec temp = (*citer)->CalcAction();
+                totalAttack.insert( totalAttack.end(), temp.begin(), temp.end() );
+            }
+            (*citer)->Move(storeTheirPoint);//restore their position
+        }
+    }
+    /*for(vector<Point>::iterator piter = totalAttack.begin(); piter != totalAttack.end(); piter++)
+    {
+        cout << (*piter).GetX() << ", " << (*piter).GetY() << endl;
+    }*/
+    //cross reference my movement with theirs, return only points that they can't attack me on.
+    for(vector<Point>::iterator piter = myMove.begin(); piter != myMove.end(); piter++)
+    {
+        bool ok = true;
+        if( find( totalAttack.begin(), totalAttack.end(), *piter ) != totalAttack.end() )
+        {
+            ok = false;
+        }
+        if(ok)
+        {
+            //std::cout << (*piter).GetX() << ", " << (*piter).GetY() << std::endl;
+            possibleChoice.push_back((*piter));
+            totalAttack.push_back((*piter)); //hack to not store same points in return
+        }
+    }
+    return possibleChoice;
+}
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

@@ -32,6 +32,7 @@
  * Karl Schmidt, March 20 2007    | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 21 2007    | Added storage of the last damage and healing values from attacking/defending and healing
  * Karl Schmidt, March 22 2007    | Changed name of GetClassName
+ * Mike Malyuk, March 26, 2007    | Fixed bug with enemy healer healing when not allowed
  */
 
 #include <util.h>
@@ -425,7 +426,7 @@ Character* Level::OnAISelect( const Point & p )
                     {
                         iter2++;
                     }
-                    if(iter2 != healArea.end() && ((*iter2)) == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()))
+                    if(iter2 != healArea.end() && ((*iter2)) == ((*charIter)->GetPoint()) && !((*charIter)->IsDead())&& (*charIter)->GetHP() != (*charIter)->GetMaxHP())
                     {
                         mAttackArea = healArea;
                         mState = AIATTACK;
@@ -507,7 +508,8 @@ Character* Level::OnAISelect( const Point & p )
                 {
                     charIter++;
                 }
-                if( charIter != mEnemies.end() && (*charIter) != NULL && charIter != mEnemies.end() && p == ((*charIter)->GetPoint()) && !((*charIter)->IsDead()))
+
+                if( charIter != mEnemies.end() && (*charIter) != NULL && charIter != mEnemies.end() && p == ((*charIter)->GetPoint()) && !((*charIter)->IsDead())&& (*charIter)->GetHP() != (*charIter)->GetMaxHP())
                 {
                     Character* toBeHealed = (*charIter);
 

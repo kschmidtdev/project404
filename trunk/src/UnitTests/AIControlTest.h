@@ -47,7 +47,7 @@ public:
         Level* level = NULL;
         level = new Level( 1 );
         Point p(9,9);
-        AIControl ai(level, *(level->GetMap()));
+        AIControl ai(level, *(level->GetMap()), 1);
         level->SetState(Level::AIFREE);
         //test point retrieval
         Point spot = ai.DoAction();
