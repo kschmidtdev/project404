@@ -10,6 +10,7 @@
  * Authors:
  * Andrew Osborne, March 18 2007, Initial Creation (empty)
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
+ * Andrew Osborne, March 25 2007 | Implemented proper UI functionality
  */
 
 #ifndef UIPartyStatusLayout_h
@@ -21,12 +22,18 @@
 // PROJECT INCLUDES
 //
 #include <UI/UILayout.h>
+#include <UI/UICharWindow.h>
 
 // LOCAL INCLUDES
 //
 
 // FORWARD REFERENCES
 //
+class UIMenu;
+//class UICharWindow;
+
+typedef std::vector<UICharWindow*> UICharWindowPtrVec;
+typedef UICharWindowPtrVec::iterator UICharWindowPtrItr;
 
 
 class UIPartyStatusLayout : public UILayout
@@ -67,14 +74,25 @@ public:
     /**
      * Listens for Key Press from User
     */
-    virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
+    //virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
 
+    /**
+     * Overwrites OnLoad operation
+     */
+    virtual void OnLoad(void);
 
 // ACCESS (writing)
 // INQUIRY (reading)
 
 protected:
 // PROTECTED VARIABLES
+
+    UIMenu *mMenu;
+    UIMenu *mArmorMenu;
+    UIMenu *mWeaponMenu;
+    UIMenu *mMasterPartyMenu;
+    UICharWindowPtrVec mPartyWindow;
+
 private:
 // PRIVATE VARIABLES
 };
