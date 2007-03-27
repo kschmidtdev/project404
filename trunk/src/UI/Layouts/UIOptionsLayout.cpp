@@ -9,6 +9,7 @@
  * Andrew Osborne, March 24 2007, Proper UI Implementation
  * Karl Schmidt, March 26 2007   | Added sound manager hooks for volume setting, selecting current setting
  								   on open support as well
+ * Karl Schmidt, March 27 2007   | Added support for AI difficulty setting/loading
  */
 #include "UIOptionsLayout.h"                                // class implemented
 
@@ -21,6 +22,7 @@
 #include <UI/FuncObj.h>
 
 #include <SoundManager.h>
+#include <GameEngine/GameEngine.h>
 
 class SwitchToFunction : public FuncObj
 {
@@ -48,14 +50,14 @@ protected:
 class SelectDifficultyFunction : public FuncObj
 {
 public:
-    SelectDifficultyFunction(int diff, UIMenu* parent)
-    : mDifficulty(diff), mParentMenu( parent )
+    SelectDifficultyFunction( const int difficulty, UIMenu* parent )
+    : mDifficulty( difficulty ), mParentMenu( parent )
     {
     }
 
     void operator()(void)
     {
-        //GameEngine::GetInstance()->SelectDifficult(mDifficulty)
+        GameEngine::GetInstance()->SetAIDifficulty( mDifficulty );
         if (mParentMenu)
             mParentMenu->ProcessEvent(InputManager::CANCEL);
     }
@@ -71,7 +73,7 @@ protected:
 class SelectSoundLevelFunction : public FuncObj
 {
 public:
-    SelectSoundLevelFunction( SoundManager::VOLUME_LEVEL volume, UIMenu* parent)
+    SelectSoundLevelFunction( const SoundManager::VOLUME_LEVEL volume, UIMenu* parent)
     : mSoundLevel(volume), mParentMenu( parent )
     {
     }
@@ -107,6 +109,9 @@ class PopLayoutFunction2 : public FuncObj
 //============================= LIFECYCLE ====================================
 
 UIOptionsLayout::UIOptionsLayout()
+: UILayout(),
+  mDifficultyMenu( NULL ),
+  mSoundLevelMenu( NULL )
 {
     // Back ground
     UIImage* back = new UIImage("castle_main.png");
@@ -114,45 +119,42 @@ UIOptionsLayout::UIOptionsLayout()
 
     // Creating Generic menu parametrs
     UIMenu *mainMenu = new UIMenu();
-    UIMenu *difficultyMenu = new UIMenu();
-    UIMenu *soundLevelMenu = new UIMenu();
+    mDifficultyMenu = new UIMenu();
+    mSoundLevelMenu = new UIMenu();
     Point primaryMenuPoint( 100 ,255 );
     Point secondaryMenuPoint( 430 ,255 );
 
     // Definging Difficulty Level menu
-    difficultyMenu->AddButton("Easy", new SelectDifficultyFunction(1, difficultyMenu) );
-    difficultyMenu->AddButton("Medium", new SelectDifficultyFunction(2, difficultyMenu) );
-    difficultyMenu->AddButton("Hard", new SelectDifficultyFunction(3, difficultyMenu) );
-    difficultyMenu->SetVisibleWhenDisabled(false);
-    difficultyMenu->Disable();
-    difficultyMenu->SetPos(secondaryMenuPoint);
-    difficultyMenu->SetParent(this);
-    difficultyMenu->SetCancel(mainMenu);
+    mDifficultyMenu->AddButton("Easy", new SelectDifficultyFunction(1, mDifficultyMenu) );
+    mDifficultyMenu->AddButton("Hard", new SelectDifficultyFunction(2, mDifficultyMenu) );
+    mDifficultyMenu->SetVisibleWhenDisabled(false);
+    mDifficultyMenu->Disable();
+    mDifficultyMenu->SetPos(secondaryMenuPoint);
+    mDifficultyMenu->SetParent(this);
+    mDifficultyMenu->SetCancel(mainMenu);
 
     // Defining SoundLevel Menu
-    soundLevelMenu->AddButton("Very Loud", new SelectSoundLevelFunction( SoundManager::VL_VERY_LOUD, soundLevelMenu));
-    soundLevelMenu->AddButton("Loud", new SelectSoundLevelFunction( SoundManager::VL_LOUD, soundLevelMenu));
-    soundLevelMenu->AddButton("Moderate", new SelectSoundLevelFunction( SoundManager::VL_MODERATE, soundLevelMenu));
-    soundLevelMenu->AddButton("Quiet", new SelectSoundLevelFunction( SoundManager::VL_QUIET, soundLevelMenu));
-    soundLevelMenu->AddButton("Mute", new SelectSoundLevelFunction( SoundManager::VL_MUTE, soundLevelMenu));
-    soundLevelMenu->SetVisibleWhenDisabled(false);
-    soundLevelMenu->Disable();
-    soundLevelMenu->SetPos(secondaryMenuPoint);
-    soundLevelMenu->SetParent(this);
-    soundLevelMenu->SetCancel(mainMenu);
-    SoundManager::VOLUME_LEVEL currentVolume = SoundManager::GetInstance()->GetVolumeLevel();
-    soundLevelMenu->SetCursorPos( static_cast<int>(currentVolume) );
+    mSoundLevelMenu->AddButton("Very Loud", new SelectSoundLevelFunction( SoundManager::VL_VERY_LOUD, mSoundLevelMenu));
+    mSoundLevelMenu->AddButton("Loud", new SelectSoundLevelFunction( SoundManager::VL_LOUD, mSoundLevelMenu));
+    mSoundLevelMenu->AddButton("Moderate", new SelectSoundLevelFunction( SoundManager::VL_MODERATE, mSoundLevelMenu));
+    mSoundLevelMenu->AddButton("Quiet", new SelectSoundLevelFunction( SoundManager::VL_QUIET, mSoundLevelMenu));
+    mSoundLevelMenu->AddButton("Mute", new SelectSoundLevelFunction( SoundManager::VL_MUTE, mSoundLevelMenu));
+    mSoundLevelMenu->SetVisibleWhenDisabled(false);
+    mSoundLevelMenu->Disable();
+    mSoundLevelMenu->SetPos(secondaryMenuPoint);
+    mSoundLevelMenu->SetParent(this);
+    mSoundLevelMenu->SetCancel(mainMenu);
 
     // Defining Main Menu
-    mainMenu->AddButton("Select Difficulty", new SwitchToFunction(this, difficultyMenu) );
-    mainMenu->AddButton("Select Sound Level", new SwitchToFunction(this, soundLevelMenu) );
+    mainMenu->AddButton("Select Difficulty", new SwitchToFunction(this, mDifficultyMenu) );
+    mainMenu->AddButton("Select Sound Level", new SwitchToFunction(this, mSoundLevelMenu) );
     mainMenu->AddButton("Done", new PopLayoutFunction2() );
     mainMenu->SetPos(primaryMenuPoint);
 
     // Add all to renderer queue
     mElements.push_back(mainMenu);
-    mElements.push_back(difficultyMenu);
-    mElements.push_back(soundLevelMenu);
+    mElements.push_back(mDifficultyMenu);
+    mElements.push_back(mSoundLevelMenu);
     mDefaultEventListener = mainMenu;
 
     mName = "Options";
@@ -183,6 +185,15 @@ UIOptionsLayout::~UIOptionsLayout()
     }
 
 }*/
+
+void UIOptionsLayout::OnLoad()
+{
+    UILayout::OnLoad();
+
+    SoundManager::VOLUME_LEVEL currentVolume = SoundManager::GetInstance()->GetVolumeLevel();
+    mSoundLevelMenu->SetCursorPos( static_cast<int>(currentVolume) );
+    mDifficultyMenu->SetCursorPos( GameEngine::GetInstance()->GetAIDifficulty() - 1 );
+}
 
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================

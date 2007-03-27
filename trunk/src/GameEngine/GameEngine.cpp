@@ -19,12 +19,14 @@
  * Karl Schmidt, March 20 2007    | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Mike Malyuk,  March 26 2007    | Calling new AI constructor
+ * Karl Schmidt, March 27 2007    | Added support for loading/saving difficulty from/to DBEngine
  */
+
+#include "GameEngine.h"                                // class implemented
 
 #include <util.h>
 
-#include "GameEngine.h"                                // class implemented
-#include "Database/DBEngine.h"
+#include <Database/DBEngine.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -112,7 +114,7 @@ void GameEngine::BattleInit(City *c)
     mCurLvl = new Level( c->GetID() );
 
     // Initialize AI
-    mAI = new AIControl(mCurLvl, *(mCurLvl->GetMap()), 2);
+    mAI = new AIControl(mCurLvl, *(mCurLvl->GetMap()), GetAIDifficulty() );
 
 }
 
@@ -156,6 +158,17 @@ void GameEngine::UpdateCitiesFromDB()
     }
 }
 
+void GameEngine::SetAIDifficulty( const int AIDifficulty )
+{
+    DBEngine::GetInstance()->SetCurrentDifficulty( AIDifficulty );
+}
+
+const int GameEngine::GetAIDifficulty() const
+{
+    return DBEngine::GetInstance()->GetCurrentDifficulty();
+};
+
+
 //============================= INQUIRY    ===================================
 
 
@@ -166,7 +179,8 @@ GameEngine::GameEngine()
   mAI( NULL ),
   mCurCity( NULL ),
   mCurTile( NULL ),
-  mCurChar( NULL )
+  mCurChar( NULL ),
+  mCurStage( 0 )
 {
 
     // Need to create different cities....

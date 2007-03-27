@@ -19,6 +19,7 @@
  * Mike Malyuk, March 10, 2007    | Removed point, implemented map
  * Andrew Osborne, March 13 2007  | Changed BattleInit, and initiated the city member variables
  * Karl Schmidt, March 15 2007    | Support for city defeating status to update db
+ * Karl Schmidt, March 27 2007    | Added support for loading/saving difficulty from/to DBEngine
  */
 
 #ifndef GameEngine_h
@@ -155,7 +156,20 @@ enum Cities
 	 */
     CityPtrVec* GetCities() { return &mCities; };
 
+    /**
+     * Returns a pointer to the current AI instantiation
+	 */
     AIControl* GetAI() {return mAI;}
+
+    /**
+     * Sets the current difficulty that the AI should be initialized with
+	 */
+    void SetAIDifficulty( const int AIDifficulty );
+
+    /**
+     * Returns the current difficulty level
+	 */
+    const int GetAIDifficulty() const;
 
 protected:
 // PROTECTED METHODS

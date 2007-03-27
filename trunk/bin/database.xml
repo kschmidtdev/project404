@@ -1,6 +1,7 @@
 <Database>
 	<Node name="SaveData">
 		<Data type="int" name="CurrentStage" value="1" />
+		<Data type="int" name="Difficulty" value="1" />
 	</Node>
 	<Node name="Templates">
 		<Node name="Characters">
