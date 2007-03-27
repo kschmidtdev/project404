@@ -7,6 +7,8 @@
  * Andrew Osborne, March 18 2007 | Initial Creation
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Andrew Osborne, March 24 2007, Proper UI Implementation
+ * Karl Schmidt, March 26 2007   | Added sound manager hooks for volume setting, selecting current setting
+ 								   on open support as well
  */
 #include "UIOptionsLayout.h"                                // class implemented
 
@@ -17,6 +19,8 @@
 #include <UI/UIImage.h>
 #include <UI/UIMenu.h>
 #include <UI/FuncObj.h>
+
+#include <SoundManager.h>
 
 class SwitchToFunction : public FuncObj
 {
@@ -67,21 +71,23 @@ protected:
 class SelectSoundLevelFunction : public FuncObj
 {
 public:
-    SelectSoundLevelFunction(int sound, UIMenu* parent)
-    : mSoundLevel(sound), mParentMenu( parent )
+    SelectSoundLevelFunction( SoundManager::VOLUME_LEVEL volume, UIMenu* parent)
+    : mSoundLevel(volume), mParentMenu( parent )
     {
     }
 
     void operator()(void)
     {
-        //SoundManager::GetInstance()->SelectSoundLevel(mSoundLevel)
         if (mParentMenu)
+        {
+            SoundManager::GetInstance()->SetVolumeLevel( mSoundLevel );
             mParentMenu->ProcessEvent(InputManager::CANCEL);
+        }
     }
 
 
 protected:
-    int mSoundLevel;
+    SoundManager::VOLUME_LEVEL mSoundLevel;
     UIMenu *mParentMenu;
 
 };
@@ -124,16 +130,18 @@ UIOptionsLayout::UIOptionsLayout()
     difficultyMenu->SetCancel(mainMenu);
 
     // Defining SoundLevel Menu
-    soundLevelMenu->AddButton("Very Load", new SelectSoundLevelFunction(4, soundLevelMenu));
-    soundLevelMenu->AddButton("Load", new SelectSoundLevelFunction(3, soundLevelMenu));
-    soundLevelMenu->AddButton("Moderate", new SelectSoundLevelFunction(2, soundLevelMenu));
-    soundLevelMenu->AddButton("Quiet", new SelectSoundLevelFunction(1, soundLevelMenu));
-    soundLevelMenu->AddButton("Mute", new SelectSoundLevelFunction(0, soundLevelMenu));
+    soundLevelMenu->AddButton("Very Loud", new SelectSoundLevelFunction( SoundManager::VL_VERY_LOUD, soundLevelMenu));
+    soundLevelMenu->AddButton("Loud", new SelectSoundLevelFunction( SoundManager::VL_LOUD, soundLevelMenu));
+    soundLevelMenu->AddButton("Moderate", new SelectSoundLevelFunction( SoundManager::VL_MODERATE, soundLevelMenu));
+    soundLevelMenu->AddButton("Quiet", new SelectSoundLevelFunction( SoundManager::VL_QUIET, soundLevelMenu));
+    soundLevelMenu->AddButton("Mute", new SelectSoundLevelFunction( SoundManager::VL_MUTE, soundLevelMenu));
     soundLevelMenu->SetVisibleWhenDisabled(false);
     soundLevelMenu->Disable();
     soundLevelMenu->SetPos(secondaryMenuPoint);
     soundLevelMenu->SetParent(this);
     soundLevelMenu->SetCancel(mainMenu);
+    SoundManager::VOLUME_LEVEL currentVolume = SoundManager::GetInstance()->GetVolumeLevel();
+    soundLevelMenu->SetCursorPos( static_cast<int>(currentVolume) );
 
     // Defining Main Menu
     mainMenu->AddButton("Select Difficulty", new SwitchToFunction(this, difficultyMenu) );

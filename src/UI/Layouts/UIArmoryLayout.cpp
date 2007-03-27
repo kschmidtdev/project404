@@ -5,8 +5,9 @@
  *
  * Authors:
  * Andrew Osborne, March 18 2007 | Initial Creation
- * Karl Schmidt, March 22 2007    | Correcting include orders and paths
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  * Andrew Osborne, March 25 2007 | Implemented proper functionality
+ * Karl Schmidt, March 27 2007   | Fixed memory leaks, labelled temporary code accordingly
  */
 
 
@@ -23,6 +24,11 @@
 #include <UI/UIMenu.h>
 #include <UI/FuncObj.h>
 
+// This is temporary, needs to be removed once real item fetching from somewhere is completed
+namespace
+{
+    static Item* tempItem = NULL;
+}
 
 class PurchaseItemFunction2 : public FuncObj
 {
@@ -94,6 +100,12 @@ UIArmoryLayout::UIArmoryLayout()
 
 UIArmoryLayout::~UIArmoryLayout()
 {
+    // This is temporary, needs to be removed once real item fetching from somewhere is completed
+    if( tempItem )
+    {
+        delete tempItem;
+        tempItem = NULL;
+    }
 }// ~UIArmoryLayout
 
 
@@ -135,7 +147,12 @@ void UIArmoryLayout::OnLoad(void)
 
     // Temp Debug
     mMenu->ClearButtons();
-    Item* tempItem = new Item();
+
+    // This is temporary, needs to be removed once real item fetching from somewhere is completed
+    if( tempItem == NULL )
+    {
+        tempItem = new Item();
+    }
 
     mMenu->AddButton( "Item1" , new PurchaseItemFunction2( tempItem, mFeedback ) );
     mMenu->AddButton( "Item2" , new PurchaseItemFunction2( tempItem, mFeedback ) );

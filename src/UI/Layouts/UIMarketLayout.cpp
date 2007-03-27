@@ -5,8 +5,9 @@
  *
  * Authors:
  * Andrew Osborne, March 18 2007 | Initial Creation
- * Karl Schmidt, March 22 2007    | Correcting include orders and paths
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  * Andrew Osborne, March 25 2007 | Implemented proper functionality
+ * Karl Schmidt, March 27 2007   | Fixed memory leaks, labelled temporary code accordingly
  */
 #include "UIMarketLayout.h"                                // class implemented
 
@@ -20,6 +21,12 @@
 #include <UI/UIText.h>
 #include <UI/UIMenu.h>
 #include <UI/FuncObj.h>
+
+// This is temporary, needs to be removed once real item fetching from somewhere is completed
+namespace
+{
+    static Item* tempItem = NULL;
+}
 
 /*
 
@@ -98,6 +105,12 @@ UIMarketLayout::UIMarketLayout()
 
 UIMarketLayout::~UIMarketLayout()
 {
+    // This is temporary, needs to be removed once real item fetching from somewhere is completed
+    if( tempItem )
+    {
+        delete tempItem;
+        tempItem = NULL;
+    }
 }// ~UIMarketLayout
 
 
@@ -139,7 +152,12 @@ void UIMarketLayout::OnLoad(void)
 
     // Temp Debug
     mMenu->ClearButtons();
-    Item* tempItem = new Item();
+
+    // This is temporary, needs to be removed once real item fetching from somewhere is completed
+    if( tempItem == NULL )
+    {
+        tempItem = new Item();
+    }
 
     mMenu->AddButton( "Item1" , new PurchaseItemFunction( tempItem, mFeedback ) );
     mMenu->AddButton( "Item2" , new PurchaseItemFunction( tempItem, mFeedback ) );

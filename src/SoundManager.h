@@ -15,6 +15,7 @@
  * Karl Schmidt, February 10 2007 | Initial creation of the class
  * Karl Schmidt, March 13 2007    | Added support for sound subsystem disabling
  * Karl Schmidt, March 24 2007    | Renamed some variables to match coding standard, fixed return 03 problem.
+ * Karl Schmidt, March 26 2007    | Added volume control functionality for both SDL_Mixer and RTAudio playback
  */
 
 #ifndef SoundManager_h
@@ -38,6 +39,16 @@ class SoundManager
 {
 public:
 // LIFECYCLE
+
+    enum VOLUME_LEVEL
+    {
+        VL_MUTE = 0,
+        VL_QUIET,
+        VL_MODERATE,
+        VL_LOUD,
+        VL_VERY_LOUD,
+        VL_MAX = VL_VERY_LOUD
+    };
 
     /**
     * Returns an instance of the soundmanager
@@ -96,7 +107,17 @@ public:
     /**
      * Returns true if sound is enabled
 	 */
-    bool GetIsEnabled() { return mIsEnabled; };
+    const bool GetIsEnabled() const { return mIsEnabled; };
+
+    /**
+     * Sets the current volume level (will affect all audio, even what is being played back)
+	 */
+    void SetVolumeLevel( const VOLUME_LEVEL newVolumeLevel );
+
+    /**
+     * Returns the current volume setting
+	 */
+    const VOLUME_LEVEL GetVolumeLevel() const;
 
 protected:
 // PROTECTED METHODS
@@ -113,6 +134,8 @@ protected:
     bool mIsEnabled;
     RtAudio* mRTAudio;
     double* mAudioData;
+
+    VOLUME_LEVEL mCurVolumeLevel;
 
 private:
 // PRIVATE VARIABLES

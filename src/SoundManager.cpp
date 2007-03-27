@@ -12,6 +12,7 @@
  * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage
  * Mike Malyuk, March 24 2007     | Added code for RTAudio real time output.
  * Karl Schmidt, March 24 2007    | Renamed some variables to match coding standard, fixed return 03 problem.
+ * Karl Schmidt, March 26 2007    | Added volume control functionality for both SDL_Mixer and RTAudio playback
  */
 
 
@@ -23,11 +24,15 @@
 
 typedef float  MY_TYPE;
 #define FORMAT RTAUDIO_FLOAT32
-#define SCALE  1.0
 
 #define BASE_RATE 0.005
 #define TIME   1.0
 /////////////////////////////// PUBLIC ///////////////////////////////////////
+
+namespace
+{
+    static double RTAUDIO_SCALE = 1.0;
+}
 
 //============================= LIFECYCLE ====================================
 
@@ -86,7 +91,7 @@ void SoundManager::Initialize( const bool isEnabled )
         }
         // TODO: Make functions for this or something
         Mix_AllocateChannels( 1 );
-        Mix_Volume( -1, MIX_MAX_VOLUME /2 );
+        SetVolumeLevel( mCurVolumeLevel );
 
         LogInfo( "SoundManager initialized successfully." );
     }
@@ -188,7 +193,7 @@ static int cosine(char *buffer, int buffer_size, void *data)
         }
         for (j=0; j<chans; j++)
         {
-            *my_buffer++ = (MY_TYPE) (my_data[j] * SCALE);
+            *my_buffer++ = (MY_TYPE) (my_data[j] * RTAUDIO_SCALE);
             my_data[j] = sinval/7.4;
         }
     }
@@ -217,6 +222,26 @@ void SoundManager::StopAllPlayback()
     }
 }
 
+void SoundManager::SetVolumeLevel( const VOLUME_LEVEL newVolumeLevel )
+{
+    if( mIsEnabled )
+    {
+        const int volumeStep = MIX_MAX_VOLUME / VL_MAX;
+        Mix_Volume( -1, volumeStep * newVolumeLevel );
+        Mix_VolumeMusic( volumeStep * newVolumeLevel );
+
+        RTAUDIO_SCALE = (1.0 / static_cast<double>(VL_MAX)) * static_cast<double>( newVolumeLevel );
+
+        mCurVolumeLevel = newVolumeLevel;
+    }
+}
+
+const SoundManager::VOLUME_LEVEL SoundManager::GetVolumeLevel() const
+{
+    return mCurVolumeLevel;
+}
+
+
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
@@ -224,7 +249,8 @@ void SoundManager::StopAllPlayback()
 SoundManager::SoundManager(void)
 : mIsEnabled( true ),
   mRTAudio( NULL ),
-  mAudioData( NULL )
+  mAudioData( NULL ),
+  mCurVolumeLevel( VL_MODERATE )
 {
     // stub
 }

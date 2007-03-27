@@ -7,6 +7,7 @@
  * Andrew Osborne, March 18 2007 | Initial Creation (Empty)
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Andrew Osborne, March 25 2007 | Implemented proper UI functionality
+ * Karl Schmidt, March 27 2007   | Fixed memory leak (mPartyWindow never deletes what is in it)
  */
 #include "UIPartyStatusLayout.h"                                // class implemented
 
@@ -209,6 +210,16 @@ UIPartyStatusLayout::UIPartyStatusLayout()
 
 UIPartyStatusLayout::~UIPartyStatusLayout()
 {
+    for( UICharWindowPtrItr i = mPartyWindow.begin(); i != mPartyWindow.end(); ++i )
+    {
+        // If it's not stored in mElements, kill it
+        if( find( mElements.begin(), mElements.end(), *i ) == mElements.end() )
+        {
+            delete *i;
+        }
+    }
+    mPartyWindow.clear();
+
 }// ~UIPartyStatusLayout
 
 
