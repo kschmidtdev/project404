@@ -10,6 +10,7 @@
  * Karl Schmidt, March 15 2007     | Support for loading/saving encrypted db, save files, loading battle progress
  * Karl Schmidt, March 18 2007     | Added clearing of loaded character and item data between db loads
  * Karl Schmidt, March 25 2007     | Added multiple save-game and profile name storing/setting support
+ * Karl Schmidt, March 27 2007     | Added support for loading/saving savegame difficulty setting
  */
 
 #ifndef DBEngine_h
@@ -126,6 +127,16 @@ public:
      */
     const std::string & GetCurrentProfileName() const;
 
+    /**
+     * Returns the current difficulty setting
+     */
+    const int GetCurrentDifficulty() const;
+
+    /**
+     * Sets the current difficulty setting (not saved to disk until SaveGame is called)
+     */
+    void SetCurrentDifficulty( const int difficulty );
+
 protected:
 
      /**
@@ -155,6 +166,7 @@ private:
 
     int mCurrentSaveGameNum;
     std::string mCurrentProfileName;
+    int mCurrentDifficulty;
 
 };
 

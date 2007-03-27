@@ -15,6 +15,7 @@
  * Karl Schmidt, March 15 2007     | Support for loading/saving encrypted db, save files, loading battle progress
  * Karl Schmidt, March 18 2007     | Added clearing of loaded character and item data between db loads
  * Karl Schmidt, March 25 2007     | Added multiple save-game and profile name storing/setting support
+ * Karl Schmidt, March 27 2007     | Added support for loading/saving savegame difficulty setting
  */
 
 #include "DBEngine.h"                                     // class implemented
@@ -58,6 +59,8 @@ void DBEngine::Initialize( const bool loadFromSave )
 
     tacAssert( mDB );
 
+    ClearLoadedData();
+
     std::string saveFileName = mCurrentProfileName + SAVE_FILE_PREFIX + toString( mCurrentSaveGameNum ) + SAVE_FILE_POSTFIX;
     // Load XML file. Default : database.xml. If there is any save file, load that.
     if( loadFromSave && mCurrentSaveGameNum > 0 && mDB->IsValidFile( saveFileName ) )
@@ -65,6 +68,18 @@ void DBEngine::Initialize( const bool loadFromSave )
         SecurityManager::GetInstance()->DecryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
         mDB->LoadFromFile( saveFileName );
         SecurityManager::GetInstance()->EncryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+
+        DBNode* saveDataNode = mDB->Search("SaveData");
+        if( saveDataNode )
+        {
+            std::cout << "loading save game difficulty" << std::endl;
+            DBInt* difficultyAttr = dynamic_cast<DBInt*>( saveDataNode->GetAttribute( "Difficulty" ) );
+            if( difficultyAttr )
+            {
+                std::cout << "setting save game difficulty to " << difficultyAttr->GetData() << std::endl;
+                mCurrentDifficulty = difficultyAttr->GetData();
+            }
+        }
     }
     else
     {
@@ -81,8 +96,6 @@ void DBEngine::Initialize( const bool loadFromSave )
             mDB->LoadFromFile( dbFileName );
         }
     }
-
-    ClearLoadedData();
 
     // Create DBNode instances from XML file.
     DBNode* TemplateNode = mDB->Search( "Templates" );
@@ -460,6 +473,8 @@ void DBEngine::SaveGame()
             DatabaseManager::GetInstance()->UpdateNode( (*Iter)->GetName(), "Level", (*Iter)->GetLevel() );
         }
 
+        DatabaseManager::GetInstance()->UpdateNode( "SaveData", "Difficulty", mCurrentDifficulty );
+
         std::string saveFileName = mCurrentProfileName + SAVE_FILE_PREFIX + toString( mCurrentSaveGameNum ) + SAVE_FILE_POSTFIX;
         DatabaseManager::GetInstance()->SaveToFile( saveFileName );
         SecurityManager::GetInstance()->EncryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
@@ -547,13 +562,24 @@ const std::string & DBEngine::GetCurrentProfileName() const
     return mCurrentProfileName;
 }
 
+const int DBEngine::GetCurrentDifficulty() const
+{
+    return mCurrentDifficulty;
+}
+
+void DBEngine::SetCurrentDifficulty( const int difficulty )
+{
+    mCurrentDifficulty = difficulty;
+}
+
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
 DBEngine::DBEngine()
 : mDB( NULL ),
   mCurrentSaveGameNum( -1 ),
-  mCurrentProfileName("")
+  mCurrentProfileName(""),
+  mCurrentDifficulty( 1 )
 {
 }
 
