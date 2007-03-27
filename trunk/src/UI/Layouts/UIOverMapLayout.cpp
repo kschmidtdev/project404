@@ -10,6 +10,7 @@
  * Karl Schmidt, March 15 2007   | Made savegame work, also loading dialog now happens when the screen is shown (db isn't loaded when this object is constructed)
  * Karl Schmidt, March 15 2007   | Quit now goes to main menu, loads city info from db
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
+ * Andrew Osborne, March 25 2007  | Added very small correction
  */
 #include "UIOverMapLayout.h"                                // class implemented
 
@@ -102,12 +103,12 @@ UIOverMapLayout::UIOverMapLayout()
     mMenu->AddButton("Armory", new ArmoryFunction() );
     mMenu->AddButton("Quit", new QuitFunction() );
     mMenu->SetPos( Point(460, 140) );
-    mMenu->SetPos( Point(460, 140) );
+    //mMenu->SetPos( Point(460, 140) );
     mMenu->Disable();
     mElements.push_back( mMenu );
 
     // Debug
-    mMenu->SetGhost(3, true);
+    //mMenu->SetGhost(3, true);
 
     // Create Scroll Box
     mScrollBox = new UIScrollText();
