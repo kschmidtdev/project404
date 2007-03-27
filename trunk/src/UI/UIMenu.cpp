@@ -21,6 +21,7 @@
  * Karl Schmidt, March 25 2007       | Added correct variable initialization (mParentLayout and mCancelEvent weren't being set to NULL on
  									   construction, as well as support for blank rows, and skipping over them, etc
  * Andrew Osborne, March 25 2007 | Fixed small crash bug, so program doesn't crash when you press enter on an empty menu.
+ * Karl Schmidt, March 26 2007       | Added SetCursorPos for selecting a particular menu item manually
  */
 
 #include "UIMenu.h"                                // class implemented
@@ -172,7 +173,7 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
             moved = true;
             break;
         case InputManager::CONFIRM:
-            if (mButtonFuncs.size()>0)
+            if ( !mButtonFuncs.empty() )
             {
                 if ( (mButtonFuncs[mCursorPos]) && (!mButtons[mCursorPos]->GetGhost()) )
                 {
@@ -194,7 +195,9 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
     if (moved)
     {
         if (mCursorFunc)
+        {
             (*mCursorFunc)();
+        }
         mCursor->SetPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
     }
 }
@@ -311,6 +314,19 @@ void UIMenu::AddBlankRow()
     mButtonFuncs.push_back( NULL );
     mMaxCursorPos = mButtons.size() - 1;
     SetPos( mPos );
+}
+
+void UIMenu::SetCursorPos( const int newCursorPos )
+{
+    if( newCursorPos >= 0 && newCursorPos <= mMaxCursorPos )
+    {
+        mCursorPos = newCursorPos;
+        if (mCursorFunc)
+        {
+            (*mCursorFunc)();
+        }
+        mCursor->SetPos( mPos + mButtonStart + mCursorOffset + mButtonOffset*mCursorPos );
+    }
 }
 
 //============================= INQUIRY    ===================================
