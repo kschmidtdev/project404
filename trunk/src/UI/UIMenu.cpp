@@ -18,8 +18,9 @@
  * Andrew Osborne, March 24 2007 | Added Cancel event support
  * Andrew Osborne, March 24 2007 | Added ability to specifiy whether UIMenu is visible when it's disabled (mVisibleWhenDisabled)
  * Andrew osborne, March 24 2007 | Added SetBackground, SetSpacing, and SetCursorFunc.
- * Karl Schmidt, March 25 2007       | Added correct variable initialization (mParentLayout and mCancelEvent weren't being set to NULL on 
+ * Karl Schmidt, March 25 2007       | Added correct variable initialization (mParentLayout and mCancelEvent weren't being set to NULL on
  									   construction, as well as support for blank rows, and skipping over them, etc
+ * Andrew Osborne, March 25 2007 | Fixed small crash bug, so program doesn't crash when you press enter on an empty menu.
  */
 
 #include "UIMenu.h"                                // class implemented
@@ -171,10 +172,13 @@ void UIMenu::ProcessEvent( const InputManager::INPUTKEYS evt )
             moved = true;
             break;
         case InputManager::CONFIRM:
-            if ( (mButtonFuncs[mCursorPos]) && (!mButtons[mCursorPos]->GetGhost()) )
+            if (mButtonFuncs.size()>0)
             {
-                FuncObj *temp = mButtonFuncs[mCursorPos];
-                (*temp)();
+                if ( (mButtonFuncs[mCursorPos]) && (!mButtons[mCursorPos]->GetGhost()) )
+                {
+                    FuncObj *temp = mButtonFuncs[mCursorPos];
+                    (*temp)();
+                }
             }
             break;
         case InputManager::CANCEL:
