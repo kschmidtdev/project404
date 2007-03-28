@@ -20,6 +20,7 @@
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Mike Malyuk,  March 26 2007    | Calling new AI constructor
  * Karl Schmidt, March 27 2007    | Added support for loading/saving difficulty from/to DBEngine
+ * Mike Malyuk,  March 27 2007    | Added cash! Everyone loves it!
  */
 
 #include "GameEngine.h"                                // class implemented
@@ -122,6 +123,8 @@ void GameEngine::BattleOver()
 {
     if( mCurLvl )
     {
+        mCash = mCash + (mCurCity->GetID()*10000)/mCurLvl->GetNumTurns();
+        std::cout << "Current Cash: " << mCash << std::endl;
         delete mCurLvl;
         mCurLvl = NULL;
     }
@@ -139,6 +142,11 @@ void GameEngine::BattleOver()
 void GameEngine::SetAI(Level* level)
 {
     mAI->SetLevel(level);
+}
+
+void GameEngine::SetCash(int moolah)
+{
+    mCash = moolah;
 }
 
 void GameEngine::CityDefeated(void)
@@ -168,6 +176,10 @@ const int GameEngine::GetAIDifficulty() const
     return DBEngine::GetInstance()->GetCurrentDifficulty();
 };
 
+const int GameEngine::GetCash() const
+{
+    return mCash;
+};
 
 //============================= INQUIRY    ===================================
 
@@ -180,7 +192,8 @@ GameEngine::GameEngine()
   mCurCity( NULL ),
   mCurTile( NULL ),
   mCurChar( NULL ),
-  mCurStage( 0 )
+  mCurStage( 0 ),
+  mCash( 0 )
 {
 
     // Need to create different cities....

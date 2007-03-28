@@ -20,6 +20,7 @@
  * Andrew Osborne, March 13 2007  | Changed BattleInit, and initiated the city member variables
  * Karl Schmidt, March 15 2007    | Support for city defeating status to update db
  * Karl Schmidt, March 27 2007    | Added support for loading/saving difficulty from/to DBEngine
+ * Mike Malyuk,  March 27 2007    | Added methods for Get/Set cash amounts
  */
 
 #ifndef GameEngine_h
@@ -135,6 +136,9 @@ enum Cities
     void UpdateCitiesFromDB();
 
     void SetAI(Level* level);
+
+    void SetCash(int moolah);
+
 // INQUIRY (reading)
     /**
      * Return items in a Market
@@ -171,6 +175,11 @@ enum Cities
 	 */
     const int GetAIDifficulty() const;
 
+    /**
+     * Returns current cash stash
+     */
+     const int GetCash() const;
+
 protected:
 // PROTECTED METHODS
     /**
@@ -204,6 +213,8 @@ protected:
     int mCurStage;
 
     static GameEngine* _instance;
+
+    int mCash;
 
 private:
 // PRIVATE VARIABLES

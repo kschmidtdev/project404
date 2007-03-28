@@ -13,6 +13,7 @@
  * Mike Malyuk, March 24 2007     | Added code for RTAudio real time output.
  * Karl Schmidt, March 24 2007    | Renamed some variables to match coding standard, fixed return 03 problem.
  * Karl Schmidt, March 26 2007    | Added volume control functionality for both SDL_Mixer and RTAudio playback
+ * Mike Malyuk,  March 27 2007    | Added more try and catches to be more uniform on RtAudio
  */
 
 
@@ -107,8 +108,16 @@ void SoundManager::Shutdown()
 
         Mix_CloseAudio();
 
-        mRTAudio->stopStream();
-        mRTAudio->closeStream();
+        try
+        {
+        // Stop and close the stream
+            mRTAudio->stopStream();
+            mRTAudio->closeStream();
+        }
+        catch (RtError &error)
+        {
+            error.printMessage();
+        }
 
         if( mRTAudio )
         {
@@ -208,8 +217,15 @@ void SoundManager::PlayRTAUDIO()
 {
     if( mIsEnabled )
     {
-        mRTAudio->startStream();
-        mRTAudio->setStreamCallback(&cosine, (void *)mAudioData);
+        try
+        {
+            mRTAudio->setStreamCallback(&cosine, (void *)mAudioData);
+            mRTAudio->startStream();
+        }
+        catch (RtError &error)
+        {
+            error.printMessage();
+        }
     }
 }
 
