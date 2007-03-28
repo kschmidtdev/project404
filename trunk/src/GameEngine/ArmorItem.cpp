@@ -5,6 +5,7 @@
  *
  * Authors:
  * Mike Malyuk, February 7 2007 | Initial design
+ * Mike Malyuk, March 27, 2007  | Added cost
  */
 
 #include <util.h>
@@ -21,6 +22,7 @@ ArmorItem::ArmorItem(string name, int attr)
 {
     mName = name;
     mValue = attr;
+    mCost = 1000;
 }
 ArmorItem::~ArmorItem()
 {

@@ -9,6 +9,7 @@
  *
  * Authors:
  * Mike Malyuk, February 7, 2007 | Initial declaration
+ * Mike Malyuk, March 27, 2007   | Added cost
  */
 
 #ifndef Item_h
@@ -59,10 +60,15 @@ public:
 	 */
     string GetName();
 
+    /**
+     * Get cost of item
+	 */
+    int GetCost(){ return mCost;};
 protected:
 // PROTECTED VARIABLES
     string mName;
     int mValue;
+    int mCost;
 
 private:
 // PRIVATE VARIABLES
