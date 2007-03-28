@@ -25,6 +25,7 @@
  * Mike Malyuk, March 14, 2007    | Added Map to Level variables, added GetMap method.
  * Karl Schmidt, March 20 2007    | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 21 2007    | Added storage of the last damage and healing values from attacking/defending and healing
+ * Mike Malyuk,  March 27 2007    | Implemented GetTurns and Turns
  */
 
 #ifndef Level_h
@@ -183,6 +184,10 @@ enum charState
      const int GetLastDamageTaken() const { return mLastDmgTaken; };
      const int GetLastHealed() const { return mLastHealed; };
 
+	/**
+	 * Get Turns
+	 */
+     const int GetNumTurns() const { return mTurns; };
 protected:
 // PROTECTED VARIABLES
     charState mState;
@@ -197,6 +202,7 @@ protected:
     int mLastDmgInflicted;
     int mLastDmgTaken;
     int mLastHealed;
+    int mTurns;
 
 private:
 // PRIVATE VARIABLES

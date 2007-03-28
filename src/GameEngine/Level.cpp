@@ -33,6 +33,7 @@
  * Karl Schmidt, March 21 2007    | Added storage of the last damage and healing values from attacking/defending and healing
  * Karl Schmidt, March 22 2007    | Changed name of GetClassName
  * Mike Malyuk, March 26, 2007    | Fixed bug with enemy healer healing when not allowed
+ * Mike Malyuk, March 27, 2007    | Implemented method for counting turns, used for cash evaluation
  */
 
 #include <util.h>
@@ -70,7 +71,8 @@ Level::Level( const CharacterPtrVec & party, const CharacterPtrVec & badguys, co
   mMyTurn(true),
   mLastDmgInflicted( 0 ),
   mLastDmgTaken( 0 ),
-  mLastHealed( 0 )
+  mLastHealed( 0 ),
+  mTurns( 0 )
 {
     CharacterPtrConstItr iter = mParty.begin();
     PointConstItr piter = mStart.begin();
@@ -93,7 +95,8 @@ Level::Level( const int battleNumber)
   mMyTurn( true ),
   mLastDmgInflicted( 0 ),
   mLastDmgTaken( 0 ),
-  mLastHealed( 0 )
+  mLastHealed( 0 ),
+  mTurns( 0 )
 {
     DBEngine* DBE = DBEngine::GetInstance();
 
@@ -642,6 +645,7 @@ Character* Level::OnAISelect( const Point & p )
         if(count == mEnemies.size())
         {
             TakeTurn();
+            mTurns++;
             return true;
         }
         return false;
