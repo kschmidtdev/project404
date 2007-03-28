@@ -33,7 +33,7 @@ int main ( int argc, char** argv )
         fseek( memLeaksLog, 0, SEEK_END );
         unsigned int fileSize = ftell( memLeaksLog );
 
-        if( fileSize != 449 )
+        if( fileSize > 450 )
         {
             printf( "\n\n\n*** MEMORY LEAKS WERE DETECTED DURING THIS SESSION ! CHECK MEMLEAKS.LOG ! ***\n\n" );
             fclose( memLeaksLog );
