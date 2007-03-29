@@ -66,6 +66,8 @@ void SoundManager::Initialize( const bool isEnabled )
             tacAssert( false ); // this should never happen
             return;
         }
+        Mix_AllocateChannels( 1 );
+        SetVolumeLevel( mCurVolumeLevel );
         int buffer_size, fs, device = 0;
 
         mAudioData = new double[2];
@@ -92,8 +94,7 @@ void SoundManager::Initialize( const bool isEnabled )
             error.printMessage();
         }
         // TODO: Make functions for this or something
-        Mix_AllocateChannels( 1 );
-        SetVolumeLevel( mCurVolumeLevel );
+
 
         LogInfo( "SoundManager initialized successfully." );
     }
@@ -218,6 +219,7 @@ void SoundManager::PlayRTAUDIO()
 {
     if( mIsEnabled )
     {
+        mRTAudio->cancelStreamCallback();
         try
         {
             mRTAudio->setStreamCallback(&cosine, (void *)mAudioData);
