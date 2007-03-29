@@ -72,7 +72,7 @@ Level::Level( const CharacterPtrVec & party, const CharacterPtrVec & badguys, co
   mLastDmgInflicted( 0 ),
   mLastDmgTaken( 0 ),
   mLastHealed( 0 ),
-  mTurns( 0 )
+  mTurns( 1 )
 {
     CharacterPtrConstItr iter = mParty.begin();
     PointConstItr piter = mStart.begin();
@@ -96,7 +96,7 @@ Level::Level( const int battleNumber)
   mLastDmgInflicted( 0 ),
   mLastDmgTaken( 0 ),
   mLastHealed( 0 ),
-  mTurns( 0 )
+  mTurns( 1 )
 {
     DBEngine* DBE = DBEngine::GetInstance();
 

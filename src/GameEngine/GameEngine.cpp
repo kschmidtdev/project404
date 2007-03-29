@@ -21,6 +21,7 @@
  * Mike Malyuk,  March 26 2007    | Calling new AI constructor
  * Karl Schmidt, March 27 2007    | Added support for loading/saving difficulty from/to DBEngine
  * Mike Malyuk,  March 27 2007    | Added cash! Everyone loves it!
+ * Mike Malyuk,  March 28 2007    | Except when turns buggers it up! Fixed small bug with 0 turns
  */
 
 #include "GameEngine.h"                                // class implemented
