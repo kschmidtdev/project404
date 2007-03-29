@@ -14,6 +14,7 @@
  * Karl Schmidt, March 24 2007    | Renamed some variables to match coding standard, fixed return 03 problem.
  * Karl Schmidt, March 26 2007    | Added volume control functionality for both SDL_Mixer and RTAudio playback
  * Mike Malyuk,  March 27 2007    | Added more try and catches to be more uniform on RtAudio
+ * Mike Malyuk,  March 28 2007    | Added stereo back in. Will be utilized later.
  */
 
 
@@ -67,13 +68,13 @@ void SoundManager::Initialize( const bool isEnabled )
         }
         int buffer_size, fs, device = 0;
 
-        mAudioData = new double[1];
+        mAudioData = new double[2];
         fs = 44100;
         // Open the realtime output device
         buffer_size = 1024;
         try
         {
-            mRTAudio = new RtAudio(device, 1, 0, 0,
+            mRTAudio = new RtAudio(device, 2, 0, 0,
                                 FORMAT, fs, &buffer_size, 4);
         }
         catch (RtError &error)
@@ -177,7 +178,7 @@ void SoundManager::PlayMusic( Mix_Music* toPlay, const bool looping )
 static int cosine(char *buffer, int buffer_size, void *data)
 {
     int i, j;
-    static int chans = 1;
+    static int chans = 2;
     static int times = 0;
     float T = 1.0 / 44100.0;
     MY_TYPE *my_buffer = (MY_TYPE *) buffer;
