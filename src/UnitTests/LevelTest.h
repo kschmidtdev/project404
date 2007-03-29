@@ -312,6 +312,14 @@ public:
         level.OnAISelect(Point(0,0));
         TS_ASSERT_EQUALS(level.ReturnState(), (int)Level::AIFREE);
     }
+    //created test after bug fix for 0 valued turn
+    void testGetCash()
+    {
+        Level level( 0 );
+        TS_ASSERT_EQUALS(1, level.GetNumTurns());
+        TS_ASSERT_EQUALS(10000, 10000/level.GetNumTurns());
+        //no more dividing by zero hurrah!
+    }
 };
 
 
