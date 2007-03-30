@@ -17,6 +17,7 @@
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  * Karl Schmidt, March 25 2007      | Removed database loading on load game button press since that happens after we've selected a save game
  * Karl Schmidt, March 29 2007      | Calls GameEngine's NewGame on new game
+ * Andrew Osborne, March 29 2007    | added new background to menu so that all the options fit.
  */
 
 #include "UIMainMenuLayout.h"                                // class implemented
@@ -105,8 +106,9 @@ UIMainMenuLayout::UIMainMenuLayout()
     // This option should be moved withing options??
     tempMenu->AddButton("Set Password", new SetPasswordFunction() );
     tempMenu->AddButton("Quit", new MainMenuQuitFunction() );
+    tempMenu->SetBackground("menu_back_main.png");
 
-    tempMenu->SetPos( Point(245,255) );
+    tempMenu->SetPos( Point(245,225) );
     mDefaultEventListener = tempMenu;
     mElements.push_back(tempMenu);
 
