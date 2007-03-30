@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, March 30 2007    | Added full screen support
  * Karl Schmidt, March 29 2007    | Updated window title, corrected variable type for alpha in DrawImageAt
  * Karl Schmidt, March 26 2007    | Added support for drawing an image to the screen
  								    with a particular alpha value
@@ -50,13 +51,13 @@ SDLRenderer* SDLRenderer::GetInstance()
     return _instance;
 }
 
-void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDepth )
+void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDepth, const bool fullScreen )
 {
     LogInfo( "Beginning SDLRenderer initialization..." );
     Renderer::Initialize( xRes, yRes, colourDepth );
 
    // initialize SDL video
-    if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK ) < 0 )
+    if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK | SDL_INIT_TIMER ) < 0 )
     {
         tacAssert( false ); // Always assert if this happens
         LogCritical( std::string("Unable to init SDL: ") + std::string( SDL_GetError() ) );
@@ -72,7 +73,14 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
     mFonts[32] = TTF_OpenFont( fontName, 32);
 
     // create a new window
-    mScreen = SDL_SetVideoMode(xRes, yRes, colourDepth, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    if( fullScreen )
+    {
+        mScreen = SDL_SetVideoMode(xRes, yRes, colourDepth, SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_FULLSCREEN);
+    }
+    else
+    {
+        mScreen = SDL_SetVideoMode(xRes, yRes, colourDepth, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    }
 
     mTransTempScreen = SDL_CreateRGBSurface( mScreen->flags, xRes, yRes, colourDepth, mScreen->format->Rmask,
                                              mScreen->format->Gmask, mScreen->format->Bmask, mScreen->format->Amask );

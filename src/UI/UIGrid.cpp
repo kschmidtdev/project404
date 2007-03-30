@@ -41,6 +41,8 @@
  * Karl Schmidt,    March 23 2007     | Added mini-map implementation, enum instead of string for character tile type identification,
                                         removed some old code that wasn't used anymore
  * Karl Schmidt,    March 29 2007     | Added DoLoseOrWin helper function, removed commented out code
+ * Karl Schmidt,    March 30 2007     | Modified DrawHealthIndicationers as per issue 74, add hacky but slightly nicer text,
+ 										added a 1 second delay when the game is over (win or lose)
  */
 
 #include "UIGrid.h"                                // class implemented
@@ -873,27 +875,74 @@ void UIGrid::DrawHealthIndicationers( Character* attacker, Character* defender )
         if( attacker->GetCharacterClassName() == "Healer" )
         {
             // Draw an image to indicate action is being taken
-            sprintf( dmgTxt, "%i", mLevel->GetLastHealed() );
-            UIText* amountHealed = new UIText( dmgTxt, 18, 255, 255, 255, true );
+            sprintf( dmgTxt, " %i", mLevel->GetLastHealed() );
+            UIText* amountHealed = new UIText( dmgTxt, 22, 255, 255, 0 );
+            UIText* amountHealedShadow = new UIText( dmgTxt, 22, 0, 0, 0 );
+            UIText* amountHealedShadow2 = new UIText( dmgTxt, 22, 0, 0, 0 );
+            UIText* amountHealedShadow3 = new UIText( dmgTxt, 22, 0, 0, 0 );
+            UIText* amountHealedShadow4 = new UIText( dmgTxt, 22, 0, 0, 0 );
 
-            amountHealed->SetPos( defender->GetPoint().GetX() * mTileWidth + mTileWidth/2, defender->GetPoint().GetY() * mTileHeight + mTileHeight/2 );
+            Point toDrawAt( defender->GetPoint().GetX() * mTileWidth + mTileWidth/2, defender->GetPoint().GetY() * mTileHeight + mTileHeight/8 );
+            amountHealed->SetPos( toDrawAt );
+            amountHealedShadow->SetPos( toDrawAt + Point(2,0) );
+            amountHealedShadow2->SetPos( toDrawAt + Point(-2,0) );
+            amountHealedShadow3->SetPos( toDrawAt + Point(0,2) );
+            amountHealedShadow4->SetPos( toDrawAt + Point(0,-2) );
 
-            SDLRenderer::GetInstance()->AddToTempRenderQueue( amountHealed, SDL_GetTicks() + INDICATER_DELAY );
+            Uint32 timeToDraw = SDL_GetTicks() + INDICATER_DELAY;
+            SDLRenderer::GetInstance()->AddToTempRenderQueue( amountHealedShadow, timeToDraw );
+            SDLRenderer::GetInstance()->AddToTempRenderQueue( amountHealedShadow2, timeToDraw );
+            SDLRenderer::GetInstance()->AddToTempRenderQueue( amountHealedShadow3, timeToDraw );
+            SDLRenderer::GetInstance()->AddToTempRenderQueue( amountHealedShadow4, timeToDraw );
+            SDLRenderer::GetInstance()->AddToTempRenderQueue( amountHealed, timeToDraw );
         }
         else
         {
             // Draw an image to indicate action is being taken
             sprintf( dmgTxt, "%i", mLevel->GetLastDamageInflicted() );
-            UIText* damageInflicted = new UIText( dmgTxt, 18, 255, 255, 255, true );
+            UIText* damageInflicted = new UIText( dmgTxt, 22, 255, 0, 0 );
+            UIText* damageInflictedShadow = new UIText( dmgTxt, 22, 0, 0, 0 );
+            UIText* damageInflictedShadow2 = new UIText( dmgTxt, 22, 0, 0, 0 );
+            UIText* damageInflictedShadow3 = new UIText( dmgTxt, 22, 0, 0, 0 );
+            UIText* damageInflictedShadow4 = new UIText( dmgTxt, 22, 0, 0, 0 );
 
-            sprintf( dmgTxt, "%i", mLevel->GetLastDamageTaken() );
-            UIText* damageTaken = new UIText( dmgTxt, 18, 255, 255, 255, true );
+            Point toDrawInflictedAt( defender->GetPoint().GetX() * mTileWidth + mTileWidth/2, defender->GetPoint().GetY() * mTileHeight + mTileHeight/8 );
+            damageInflicted->SetPos( toDrawInflictedAt );
+            damageInflictedShadow->SetPos( toDrawInflictedAt + Point(2,0) );
+            damageInflictedShadow2->SetPos( toDrawInflictedAt + Point(-2,0) );
+            damageInflictedShadow3->SetPos( toDrawInflictedAt + Point(0,2) );
+            damageInflictedShadow4->SetPos( toDrawInflictedAt + Point(0,-2) );
 
-            damageInflicted->SetPos( defender->GetPoint().GetX() * mTileWidth + mTileWidth/2, defender->GetPoint().GetY() * mTileHeight + mTileHeight/2 );
-            damageTaken->SetPos( attacker->GetPoint().GetX() * mTileWidth + mTileWidth/2, attacker->GetPoint().GetY() * mTileHeight + mTileHeight/2 );
+            Uint32 timeToDraw = SDL_GetTicks() + INDICATER_DELAY;
+            SDLRenderer::GetInstance()->AddToTempRenderQueue( damageInflictedShadow, timeToDraw );
+            SDLRenderer::GetInstance()->AddToTempRenderQueue( damageInflictedShadow2, timeToDraw );
+            SDLRenderer::GetInstance()->AddToTempRenderQueue( damageInflictedShadow3, timeToDraw );
+            SDLRenderer::GetInstance()->AddToTempRenderQueue( damageInflictedShadow4, timeToDraw );
+            SDLRenderer::GetInstance()->AddToTempRenderQueue( damageInflicted, timeToDraw );
 
-            SDLRenderer::GetInstance()->AddToTempRenderQueue( damageInflicted, SDL_GetTicks() + INDICATER_DELAY );
-            SDLRenderer::GetInstance()->AddToTempRenderQueue( damageTaken, SDL_GetTicks() + INDICATER_DELAY );
+            if( mLevel->GetLastDamageTaken() != 0 && mLevel->GetLastAttackerLevelUp() == 0 )
+            {
+                sprintf( dmgTxt, "%i", mLevel->GetLastDamageTaken() );
+                UIText* damageTaken = new UIText( dmgTxt, 22, 255, 0, 0 );
+                UIText* damageTakenShadow = new UIText( dmgTxt, 22, 0, 0, 0 );
+                UIText* damageTakenShadow2 = new UIText( dmgTxt, 22, 0, 0, 0 );
+                UIText* damageTakenShadow3 = new UIText( dmgTxt, 22, 0, 0, 0 );
+                UIText* damageTakenShadow4 = new UIText( dmgTxt, 22, 0, 0, 0 );
+
+                Point toDrawTakenAt( attacker->GetPoint().GetX() * mTileWidth + mTileWidth/2, attacker->GetPoint().GetY() * mTileHeight + mTileHeight/8 );
+                damageTaken->SetPos( toDrawTakenAt );
+                damageTakenShadow->SetPos( toDrawTakenAt + Point(2,0) );
+                damageTakenShadow2->SetPos( toDrawTakenAt + Point(-2,0) );
+                damageTakenShadow3->SetPos( toDrawTakenAt + Point(0,2) );
+                damageTakenShadow4->SetPos( toDrawTakenAt + Point(0,-2) );
+
+                timeToDraw = SDL_GetTicks() + INDICATER_DELAY;
+                SDLRenderer::GetInstance()->AddToTempRenderQueue( damageTakenShadow, timeToDraw );
+                SDLRenderer::GetInstance()->AddToTempRenderQueue( damageTakenShadow2, timeToDraw );
+                SDLRenderer::GetInstance()->AddToTempRenderQueue( damageTakenShadow3, timeToDraw );
+                SDLRenderer::GetInstance()->AddToTempRenderQueue( damageTakenShadow4, timeToDraw );
+                SDLRenderer::GetInstance()->AddToTempRenderQueue( damageTaken, timeToDraw );
+            }
         }
     }
 }
@@ -904,10 +953,12 @@ inline void UIGrid::DoLoseOrWin( Level* mLevel )
     {
         if (mLevel->GetLoseCondition())
         {
+            SDL_Delay( 1000 );
             UIManager::GetInstance()->PushLayout("Lose");
         }
         else if( mLevel->GetWinCondition() )
         {
+            SDL_Delay( 1000 );
             UIManager::GetInstance()->PushLayout("Win");
         }
     }

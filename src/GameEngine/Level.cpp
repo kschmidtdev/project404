@@ -34,6 +34,7 @@
  * Karl Schmidt, March 22 2007    | Changed name of GetClassName
  * Mike Malyuk, March 26, 2007    | Fixed bug with enemy healer healing when not allowed
  * Mike Malyuk, March 27, 2007    | Implemented method for counting turns, used for cash evaluation
+ * Karl Schmidt, March 30 2007    | Added support for mLastAttackerLevelUp (UIGrid uses to check if an attacker leveled up)
  */
 
 #include <util.h>
@@ -56,7 +57,9 @@ Level::Level()
   mMyTurn( true ),
   mLastDmgInflicted( 0 ),
   mLastDmgTaken( 0 ),
-  mLastHealed( 0 )
+  mLastHealed( 0 ),
+  mLastAttackerLevelUp( 0 ),
+  mTurns( 1 )
 {
 }// Level
 
@@ -72,6 +75,7 @@ Level::Level( const CharacterPtrVec & party, const CharacterPtrVec & badguys, co
   mLastDmgInflicted( 0 ),
   mLastDmgTaken( 0 ),
   mLastHealed( 0 ),
+  mLastAttackerLevelUp( 0 ),
   mTurns( 1 )
 {
     CharacterPtrConstItr iter = mParty.begin();
@@ -289,11 +293,13 @@ Character* Level::OnSelect( const Point & p )
                     Character* defender = (*charIter);
                     int attackerHealth = mCurChar->GetHP();
                     int defenderHealth = defender->GetHP();
+                    int attackerLevel = mCurChar->GetLevel();
 
                     mCurChar->Attack( defender );
 
                     mLastDmgTaken = mCurChar->GetHP() - attackerHealth;
                     mLastDmgInflicted = defender->GetHP() - defenderHealth;
+                    mLastAttackerLevelUp = mCurChar->GetLevel() - attackerLevel;
 
                     mState = FREE;
                     return defender;
@@ -474,11 +480,13 @@ Character* Level::OnAISelect( const Point & p )
                     Character* defender = (*charIter);
                     int attackerHealth = mCurChar->GetHP();
                     int defenderHealth = defender->GetHP();
+                    int attackerLevel = mCurChar->GetLevel();
 
                     mCurChar->Attack( defender );
 
                     mLastDmgTaken = mCurChar->GetHP() - attackerHealth;
                     mLastDmgInflicted = defender->GetHP() - defenderHealth;
+                    mLastAttackerLevelUp = mCurChar->GetLevel() - attackerLevel;
 
                     mState = AIFREE;
                     return defender;

@@ -21,6 +21,7 @@
  * Karl Schmidt, March 29 2007    | Added UIManager Update() call
  * Karl Schmidt, March 30 2007    | Disable quit using ESC when in release mode
  * Mike Malyuk,  March 30 2007    | Added more logging around SoundManager
+ * Karl Schmidt, March 30 2007    | Added support for fullScreen option in config.cfg
  */
 
 #include "GameRoot.h"                                // class implemented
@@ -64,6 +65,7 @@ GameRoot::GameRoot()
     mSettings["height"] = 480;
     mSettings["depth"] = 32;
     mSettings["soundEnabled"] = 1;
+    mSettings["fullScreen"] = 1;
 }// GameRoot
 
 GameRoot::~GameRoot()
@@ -88,7 +90,7 @@ void GameRoot::Initialize( const int argc, char** argv, const bool soundEnabled 
     }
 
     mRenderer = SDLRenderer::GetInstance();
-    mRenderer->Initialize( mSettings["width"], mSettings["height"], mSettings["depth"] );
+    mRenderer->Initialize( mSettings["width"], mSettings["height"], mSettings["depth"], mSettings["fullScreen"] );
 
     mResManager = ResourceManager::GetInstance();
     mResManager->Initialize();
