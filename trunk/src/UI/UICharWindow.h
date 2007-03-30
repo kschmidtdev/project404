@@ -13,6 +13,7 @@
  * Andrew Osborne, March 9 2007, Initial Creation
  * Andrew Osborne, March 15 2007, Added Level and Class to List of info
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Andrew Osborne, March 29 2007 | Added new attributes (armor, weapon, and agility)
  */
 
 #ifndef UICharWindow_h
@@ -57,6 +58,10 @@ public:
      */
     virtual void RenderSelf(SDL_Surface* destination);
 
+    /**
+     * Update Information
+     */
+    void Update() { SetCharacter(mCurCharacter); }
 
 // ACCESS (writing)
 
@@ -101,6 +106,12 @@ protected:
     UIText mCharStr;
     UIText mDefText;
     UIText mCharDef;
+    UIText mAglText;
+    UIText mCharAgl;
+
+    UIText mArmor;
+    UIText mEquip;
+    UIText mWeapon;
 
     // Image display coordinates (relative to the CharWindow base)
     Point mNameStart;
@@ -117,6 +128,10 @@ protected:
     int mStrOffset;
     Point mDefStart;
     int mDefOffset;
+    Point mAglStart;
+    int mAglOffset;
+
+    Point mLineOffset;
 
 
 private:
