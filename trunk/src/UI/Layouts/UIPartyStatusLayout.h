@@ -12,6 +12,7 @@
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Andrew Osborne, March 25 2007 | Implemented proper UI functionality
  * Andrew Osborne, March 29 2007 | Added OnClose method and mPartyList attribute
+ * Andrew Osborne, March 29 2007 | Added Ability to equip items
  */
 
 #ifndef UIPartyStatusLayout_h
@@ -31,6 +32,8 @@
 // FORWARD REFERENCES
 //
 class UIMenu;
+class Item;
+
 //class UICharWindow;
 
 typedef std::vector<UICharWindow*> UICharWindowPtrVec;
@@ -87,8 +90,25 @@ public:
      */
     virtual void OnClose(void);
 
+    /**
+     * Update Character Information
+     */
+    void Update(void);
+
 // ACCESS (writing)
+
+    /**
+     * Set current equip item
+     */
+    void SetEquipItem(Item *i) { mEquipItem = i; }
+
+
 // INQUIRY (reading)
+
+    /**
+     * Set current equip item
+     */
+    Item* GetEquipItem(void) { return mEquipItem; }
 
 protected:
 // PROTECTED VARIABLES
@@ -99,6 +119,7 @@ protected:
     UIMenu *mMasterPartyMenu;
     UICharWindowPtrVec mPartyWindow;
     std::vector<Character*>* mPartyList;
+    Item* mEquipItem;
 
 private:
 // PRIVATE VARIABLES
