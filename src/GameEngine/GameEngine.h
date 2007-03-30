@@ -24,6 +24,7 @@
  * Andrew Osborne, March 29 2007 | Added SetCurCity, GetCurCity, and GetItems (also committed a change to the description
  *                                  above a made a long time ago, but never committed because it was unecessary and now
  *                                  I've actually changed something important to the class, so ... I commited the change)
+ * Karl Schmidt, March 29 2007    | Added NewGame function for resetting things if the player starts a new game (not battle, but new game)
  */
 
 #ifndef GameEngine_h
@@ -191,12 +192,17 @@ enum Cities
     /**
      * Returns pointer to items list
      */
-    vector<Item*>* GetItems(void) { return &mItems; }
+    vector<Item*>* GetItems() { return &mItems; }
 
     /**
      *  Get Current City
      */
-    City* GetCurCity(void) { return mCurCity; }
+    City* GetCurCity() { return mCurCity; }
+
+    /**
+     *  Reset any variables that need to be when the player starts a brand new game
+     */
+    void NewGame();
 
 
 protected:

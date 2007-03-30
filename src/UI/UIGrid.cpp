@@ -40,6 +40,7 @@
  * Karl Schmidt,    March 23 2007     | Got rid of more using namespace std; usage
  * Karl Schmidt,    March 23 2007     | Added mini-map implementation, enum instead of string for character tile type identification,
                                         removed some old code that wasn't used anymore
+ * Karl Schmidt,    March 29 2007     | Added DoLoseOrWin helper function, removed commented out code
  */
 
 #include "UIGrid.h"                                // class implemented
@@ -267,10 +268,7 @@ void UIGrid::ConfirmFunction( const Point & p )
                 }
 
                 //Check for EndGame
-                if (mLevel->GetWinCondition())
-                {
-                    UIManager::GetInstance()->PushLayout("Win");
-                }
+                DoLoseOrWin( mLevel );
             }
         }
         break;
@@ -331,10 +329,7 @@ void UIGrid::ConfirmFunction( const Point & p )
             // Check for end turn
 
             //Check for EndGame
-            if (mLevel->GetWinCondition())
-            {
-                UIManager::GetInstance()->PushLayout("Win");
-            }
+            DoLoseOrWin( mLevel );
         }
         break;
 
@@ -426,10 +421,7 @@ void UIGrid::ConfirmFunction( const Point & p )
                     mLevel->SetState(Level::FREE);
                 }
 
-                if (mLevel->GetLoseCondition())
-                {
-                    UIManager::GetInstance()->PushLayout("Lose");
-                }
+                DoLoseOrWin( mLevel );
             }
         }
         break;
@@ -491,11 +483,8 @@ void UIGrid::ConfirmFunction( const Point & p )
 
             // Check for end turn
             //Check for "Losing" EndGame
-            if (mLevel->GetLoseCondition())
-            {
-                UIManager::GetInstance()->PushLayout("Lose");
-            }
 
+            DoLoseOrWin( mLevel );
         }
         break;
 
@@ -549,67 +538,35 @@ void UIGrid::RemoveCharacter( const Point & p)
 }
 
 
-void UIGrid::ClearMoveableRange(void)
+inline void UIGrid::ClearMoveableRange(void)
 {
     for_each( mTiles.begin(), mTiles.end(), mem_fun_ref( &UITile::RemoveRange ) );
 }
 
 
-void UIGrid::ClearAttackRange(void)
+inline void UIGrid::ClearAttackRange(void)
 {
     for_each( mTiles.begin(), mTiles.end(), mem_fun_ref( &UITile::RemoveRange ) );
 }
 
 void UIGrid::AddAttackRange( const PointVec & attackRange )
 {
-
     SDL_Surface* RangeImage = ResourceManager::GetInstance()->LoadTexture("yellowCursor.png");
-    //SDL_Surface* RangeImage = ResourceManager::GetInstance()->LoadTexture("blueCursor.png");
     int index;
 
     for ( PointConstItr i=attackRange.begin(); i!=attackRange.end(); ++i )
     {
         if(ValidPoint((*i)))
         {
-            //mImageAttackRange.push_back( UIImage("yellowCursor.png") );
             index = FindIndex( (*i) );
             mTiles[index].AddRange(RangeImage);
         }
     }
-
-
-    /*PointItr pointIter;
-    UIImageItr elementIter;
-    Point cursorPos;
-    Point gridPoint;
-    Point charPoint;
-    if (mCurCharacter!=NULL)
-    {
-         charPoint = mCurCharacter->GetPoint();
-    }
-
-    elementIter = mImageAttackRange.begin();
-
-    for ( PointItr i=attackRange.begin(); i!=attackRange.end(); ++i )
-    {
-        gridPoint = (*i);
-
-        if ( (ValidPoint(gridPoint)))
-        {
-            cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
-            (*elementIter).SetPos( cursorPos );
-            (*elementIter).SetVisible( true );
-            elementIter++;
-        }
-    }*/
-
-
 }
 
 
 void UIGrid::AddMoveableRange( const vector<Character*> & everyone, const vector<Character*> & enemies, Character* you )
 {
-
     mMovePoints = mMap->GetMovementRange(everyone, enemies, you);
 
     SDL_Surface* RangeImage = ResourceManager::GetInstance()->LoadTexture("blueCursor.png");
@@ -617,29 +574,10 @@ void UIGrid::AddMoveableRange( const vector<Character*> & everyone, const vector
     for ( PointItr i = mMovePoints.begin(); i != mMovePoints.end(); ++i )
     {
         if (ValidPoint((*i)))
+        {
             mTiles[ FindIndex( (*i) ) ].AddRange(RangeImage);
-
-        //mImageMoveRange.push_back( UIImage("blueCursor.png") );
+        }
     }
-
-
-    /*PointItr pointIter;
-    UIImageItr elementIter;
-    Point cursorPos;
-    Point gridPoint;
-    Point charPoint;
-
-    elementIter = mImageMoveRange.begin();
-
-    for ( PointItr i=mMovePoints.begin(); i!=mMovePoints.end(); ++i )
-    {
-        gridPoint = (*i);
-        cursorPos.Set( mCursorStart.GetX() + gridPoint.GetX()*mTotalTileOffset, mCursorStart.GetY() + gridPoint.GetY()*(mTotalTileOffset) );
-        (*elementIter).SetPos( cursorPos );
-        (*elementIter).SetVisible( true );
-        elementIter++;
-    }*/
-
 }
 
 
@@ -955,6 +893,21 @@ void UIGrid::DrawHealthIndicationers( Character* attacker, Character* defender )
 
             SDLRenderer::GetInstance()->AddToTempRenderQueue( damageInflicted, SDL_GetTicks() + INDICATER_DELAY );
             SDLRenderer::GetInstance()->AddToTempRenderQueue( damageTaken, SDL_GetTicks() + INDICATER_DELAY );
+        }
+    }
+}
+
+inline void UIGrid::DoLoseOrWin( Level* mLevel )
+{
+    if( mLevel )
+    {
+        if (mLevel->GetLoseCondition())
+        {
+            UIManager::GetInstance()->PushLayout("Lose");
+        }
+        else if( mLevel->GetWinCondition() )
+        {
+            UIManager::GetInstance()->PushLayout("Win");
         }
     }
 }

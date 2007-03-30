@@ -16,6 +16,7 @@
  * Karl Schmidt, March 15 2007      | Removed commented code, made newgame and loadgame work
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  * Karl Schmidt, March 25 2007      | Removed database loading on load game button press since that happens after we've selected a save game
+ * Karl Schmidt, March 29 2007      | Calls GameEngine's NewGame on new game
  */
 
 #include "UIMainMenuLayout.h"                                // class implemented
@@ -35,6 +36,7 @@ class NewGameFunction : public FuncObj
     virtual void operator()(void)
     {
         DBEngine::GetInstance()->Initialize( false );
+        GameEngine::GetInstance()->NewGame();
         UIManager::GetInstance()->PushLayout("TutorialMenu");
     }
 };
