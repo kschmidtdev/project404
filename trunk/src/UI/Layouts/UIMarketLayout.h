@@ -11,6 +11,7 @@
  * Andrew Osborne, March 18 2007, Initial Creation
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Andrew Osborne, March 25 2007 | Implemented proper functionality
+ * Andrew Osborne, March 29 2007 | Added Item window and party money
  */
 
 #ifndef UIMarketLayout_h
@@ -30,6 +31,8 @@
 //
 class UIMenu;
 class UIText;
+class Item;
+class UIItemWindow;
 
 class UIMarketLayout : public UILayout
 {
@@ -85,6 +88,8 @@ protected:
 
     UIMenu* mMenu;
     UIText* mFeedback;
+    UIText* mMoney;
+    UIItemWindow* mItemWindow;
 
 private:
 // PRIVATE VARIABLES

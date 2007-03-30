@@ -14,6 +14,7 @@
  * Andrew Osborne, March 13 2007, Added BattleInit operation and mCity (ptr) variable
  * andrew Osborne, March 15 2007, Added Scroll Box Handling
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Andrew Osborne, March 29 2007, Added GetCity method
  */
 
 #ifndef UIOverMapTile_h
@@ -169,6 +170,11 @@ public:
      * Retrieving map offset (Tile's position relative to the map)
      */
     Point GetMapOffset(void);
+
+    /**
+     * Get City that tile represents
+     */
+    City* GetCity(void) { return mCity; }
 
 protected:
 // PROTECTED VARIABLES
