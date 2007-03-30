@@ -14,6 +14,7 @@
  * Andrew Osborne, February 10 2007 | Documentation
  * Andrew Osborne, February 14 2007 | Added ProcessEvent handling
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Karl Schmidt, March 29 2007      | Added title image fading
  */
 
 #ifndef UITitleScreenLayout_h
@@ -31,7 +32,7 @@
 
 // FORWARD REFERENCES
 //
-
+class UIImage;
 
 class UITitleScreenLayout : public UILayout
 {
@@ -59,12 +60,28 @@ public:
      */
     virtual void UITitleScreenLayout::ProcessEvent( const InputManager::INPUTKEYS evt );
 
+    void Update();
+
 // ACCESS (writing)
 // INQUIRY (reading)
 
 protected:
 // PROTECTED VARIABLES
 private:
+
+    enum FADING_STATE
+    {
+        TEAMTITLE_IN = 0,
+        TEAMTITLE_WAIT,
+        TEAMTITLE_OUT,
+        CASTLETITLE_IN,
+        CASTLETITLE_DONE
+    };
+
+    UIImage* mTeamTitle;
+    UIImage* mCastleTitle;
+
+    FADING_STATE mFadeState;
 // PRIVATE VARIABLES
 };
 

@@ -15,6 +15,7 @@
  * Andrew Osborne, March 23 2007     | Fixed undiscovered bug (should have initialized mDefaultEvent - to NULL)
  * Andrew Osborne, March 23 2007     | Cleaned out some commented code and added proper SetEventHandler method ( to work with
  *                                      UIEventListener(s)
+ * Karl Schmidt, March 29 2007       | Added Update()
  */
 
 #include "UILayout.h"                                   // class implemented
@@ -83,18 +84,20 @@ void UILayout::OnClose(void)
     {
         rend->RemoveFromRenderQueue( (*iter) );
     }
-
 }
 
 
 void UILayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
-
     if(mDefaultEventListener)
     {
         mDefaultEventListener->ProcessEvent(evt);
     }
+}
 
+void UILayout::Update()
+{
+// empty, for subclasses to implement if required
 }
 
 //============================= ACCESS     ===================================

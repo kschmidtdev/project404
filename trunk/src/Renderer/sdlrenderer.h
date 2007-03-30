@@ -10,6 +10,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, March 29 2007    | Corrected variable type for alpha in DrawImageAt
  * Karl Schmidt, March 26 2007    | Added support for drawing an image to the screen
  								    with a particular alpha value
  * Karl Schmidt, March 26 2007    | Added helper AddAnimation function
@@ -115,7 +116,7 @@ public:
     /**
      * Blits an image (src) on to dest at the particular point (x, y) and size (width, height)
 	 */
-    void DrawImageAt( SDL_Surface* src, const int x, const int y, const int width, const int height, SDL_Surface* dest, const Uint32 alpha = 255 );
+    void DrawImageAt( SDL_Surface* src, const int x, const int y, const int width, const int height, SDL_Surface* dest, const Uint8 alpha = 255 );
 
     /**
      * Creates a SDL_Surface object with the given text written to that surface, colour

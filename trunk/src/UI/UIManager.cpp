@@ -14,6 +14,7 @@
  * Karl Schmidt, February 15 2007 | Fixed a minor odd header include path
  * Andrew Osborne, February 15 2007 | Added PopAllLayouts
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Karl Schmidt, March 29 2007      | Added Update(), starting game at Title screen
  */
 
 #include "UIManager.h"                                  // class implemented
@@ -108,7 +109,7 @@ void UIManager::Initialize(void)
 
 
     //PushLayout("PasswordVer");
-    PushLayout("ProfileMenu");
+    PushLayout("TitleScreen");
 
     // Add all the layouts to the manager.
     LogInfo( "The UIManager has been initialized successfully." );
@@ -236,6 +237,14 @@ void UIManager::AddLayout(UILayout* newLayout)
 void UIManager::RemoveLayout(UILayout* removeLayout)
 {
     // Do it later....
+}
+
+void UIManager::Update()
+{
+    if( mCurLayout )
+    {
+        mCurLayout->Update();
+    }
 }
 
 //============================= INQUIRY    ===================================

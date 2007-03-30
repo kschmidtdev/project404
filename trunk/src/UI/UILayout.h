@@ -20,7 +20,8 @@
  * Mike Malyuk, February 15 2007  | Added virtual function to get at Grid, look at this for v2
  * Andrew Osborne, March 21 2007  | Added SetEventHandler to allow easier passing of "event handling" among UIElements
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
- * Andrew Osborne, March 24 2007 | Made it UIEventListener compatible
+ * Andrew Osborne, March 24 2007  | Made it UIEventListener compatible
+ * Karl Schmidt, March 29 2007    | Added Update()
  */
 
 #ifndef UILayout_h
@@ -79,6 +80,11 @@ public:
      * Listens for Key Press from User
     */
     virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
+
+	/**
+	 * Called every frame update
+	*/
+    virtual void Update();
 
     virtual UIGrid* GetGrid(){return NULL;};
 

@@ -7,6 +7,7 @@
  * Andrew Osborne, March 4, 2007 | Initial Creation
  * Karl Schmidt, March 9 2007	 | Changed textures to png
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
+ * Karl Schmidt, March 29 2007   | Added correct superclass constructor calling
  */
 
 #include "UIOverMapCursor.h"                                // class implemented
@@ -22,7 +23,8 @@
 //============================= LIFECYCLE ====================================
 
 UIOverMapCursor::UIOverMapCursor()
-: mOffset( Point(0,0) )
+: UIElement(),
+  mOffset( Point(0,0) )
 {
     mElementImage = ResourceManager::GetInstance()->LoadTexture("tileCursor.png");
 }// UIOverMapCursor
