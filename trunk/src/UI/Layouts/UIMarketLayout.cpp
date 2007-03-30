@@ -11,6 +11,7 @@
  * Andrew Osborne, March 29 2007 | Finish Implementation:  Added call to city to create dynamic list of armor items
  *                                   Implemented ItemWindow, added purchasing functionality, commented out debug code
  * Karl Schmidt, March 29 2007   | Added cash text update on layout load (so you see updates after winning a battle)
+ * Andrew Osborne, March 29 2007 | Fixed a variable name
  */
 #include "UIMarketLayout.h"                                // class implemented
 
@@ -212,12 +213,12 @@ void UIMarketLayout::OnLoad(void)
     // ======================================
 
     // Grab vector of item pointers for market
-    vector<Item*>* mMarketItem = GameEngine::GetInstance()->GetCurCity()->GetMarket();
+    vector<Item*>* marketItem = GameEngine::GetInstance()->GetCurCity()->GetMarket();
 
     // Clear buttons,
     // then add each button, which represents an item to purchase
     mMenu->ClearButtons();
-    for (vector<Item*>::iterator iter = mMarketItem->begin(); iter != mMarketItem->end(); ++iter)
+    for (vector<Item*>::iterator iter = marketItem->begin(); iter != marketItem->end(); ++iter)
     {
         mMenu->AddButton( (*iter)->GetName() , new PurchaseItemFunction( (*iter), mFeedback, mMoney ) );
     }
@@ -226,13 +227,13 @@ void UIMarketLayout::OnLoad(void)
     mMenu->AddButton( "Done", new PopLayoutFunction3() );
 
     // Adding Cursor Function - to allow the mItemWindow to be updated
-    mMenu->SetCursorFunc( new MarketMenuCursorFunction( mMenu, mMarketItem, mItemWindow) );
+    mMenu->SetCursorFunc( new MarketMenuCursorFunction( mMenu, marketItem, mItemWindow) );
 
 
     // Initializing 'ItemWindow' (with first value in list)
-    if (!mMarketItem->empty())
+    if (!marketItem->empty())
     {
-        Item* tempItem = (*mMarketItem)[0];
+        Item* tempItem = (*marketItem)[0];
         mItemWindow->SetItem(tempItem);
     }
 

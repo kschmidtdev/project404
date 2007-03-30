@@ -22,6 +22,7 @@
  * Mike Malyuk,    March 14 2007    | Added intializers for Grid
  * Karl Schmidt,   March 14 2007	| Disabled "Easy Win" button in release mode
  * Karl Schmidt,   March 22 2007    | Correcting include orders and paths
+ * Andrew Osborne, March 29 2007    | Added Party Status Button
  */
 
 #include "UIBattleScreenLayout.h"                                // class implemented
@@ -57,7 +58,7 @@ class StatusFunction : public FuncObj
 {
     virtual void operator()(void)
     {
-        // To be implemented later
+        UIManager::GetInstance()->PushLayout("PartyStatus");
     }
 };
 
@@ -169,6 +170,7 @@ void UIBattleScreenLayout::Initialize()
     mMenu = new UIMenu();
     mMenu->SetPos( Point(450, 180) );
     mMenu->AddButton("End Turn", new EndTurnFunction() );
+    mMenu->AddButton("Party Status", new StatusFunction() );
     mMenu->AddButton("Quit", new BattleScreenQuitFunction() );
 
     #ifdef _DEBUG
