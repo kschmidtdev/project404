@@ -13,6 +13,7 @@
  *                                  at present time they are not fully implemented.
  *                                  Properly installed character windows.  Created (and properly deleted) mPartyList variable.
  *                                  Properly create weapon and armor lists from pary inventory.  Overwrote OnClose method.
+ * Andrew Osborne, March 29 2007 | Enabled Equiping of Armor and Weapons (also fixed memory leak)
  *
  */
 
@@ -51,18 +52,34 @@ protected:
 
 };
 
-class SelectNewMemberFunction : public FuncObj
+class SelectMemberFunction : public FuncObj
 {
 
 public:
-    SelectNewMemberFunction(Character *c)
+    SelectMemberFunction(Character *c, UIPartyStatusLayout* parent, UIEventListener* next)
+    : mChar(c), mParent(parent), mNext(next)
     {
     }
 
     virtual void operator()(void)
     {
-        //UIManager::GetInstance()->PopLayout();
+        Item* newItem = mParent->GetEquipItem();
+        if (newItem->GetType()==Item::ARMOR)
+        {
+            mChar->SetArmor( dynamic_cast<ArmorItem*>( newItem ) );
+        }
+        else if (newItem->GetType()==Item::WEAPON)
+        {
+            mChar->SetWeapon( dynamic_cast<WeaponItem*>( newItem ) );
+        }
+        mParent->SetEventHandler(mNext);
+        mParent->Update();
     }
+
+protected:
+    Character* mChar;
+    UIPartyStatusLayout* mParent;
+    UIEventListener* mNext;
 
 };
 
@@ -70,14 +87,21 @@ public:
 class EquipArmorFunction : public FuncObj
 {
 public:
-    EquipArmorFunction(Item *i)
+    EquipArmorFunction(Item *i, UIPartyStatusLayout* parent, UIEventListener* partyMenu)
+    : mItem(i), mParent(parent), mNext(partyMenu)
     {
     }
 
     virtual void operator()(void)
     {
-        //UIManager::GetInstance()->PopLayout();
+        mParent->SetEquipItem(mItem);
+        mParent->SetEventHandler(mNext);
     }
+
+protected:
+    Item* mItem;
+    UIPartyStatusLayout* mParent;
+    UIEventListener* mNext;
 
 };
 
@@ -85,14 +109,21 @@ public:
 class EquipWeaponFunction : public FuncObj
 {
 public:
-    EquipWeaponFunction(Item *i)
+    EquipWeaponFunction(Item *i, UIPartyStatusLayout* parent, UIEventListener* partyMenu)
+    : mItem(i), mParent(parent), mNext(partyMenu)
     {
     }
 
     virtual void operator()(void)
     {
-        //UIManager::GetInstance()->PopLayout();
+        mParent->SetEquipItem(mItem);
+        mParent->SetEventHandler(mNext);
     }
+
+protected:
+    Item* mItem;
+    UIPartyStatusLayout* mParent;
+    UIEventListener* mNext;
 
 };
 
@@ -161,8 +192,8 @@ UIPartyStatusLayout::UIPartyStatusLayout()
     mMenu->SetPos( Point(20, 20) );
     mMenu->SetBackground("menu_back_small.png");
     //mMenu->AddButton( "Select New Party", new SwitchToFunction2( this, mMasterPartyMenu ) );
-    //mMenu->AddButton( "Equip Armor", new SwitchToFunction2( this, mArmorMenu ) );
-    //mMenu->AddButton( "Equip Weapon", new SwitchToFunction2( this, mWeaponMenu ) );
+    mMenu->AddButton( "Equip Armor", new SwitchToFunction2( this, mArmorMenu ) );
+    mMenu->AddButton( "Equip Weapon", new SwitchToFunction2( this, mWeaponMenu ) );
     mMenu->AddButton( "Back", new PopLayoutFunction5() );
     mElements.push_back(mMenu);
     mDefaultEventListener = mMenu;
@@ -228,6 +259,12 @@ UIPartyStatusLayout::~UIPartyStatusLayout()
     }
     mPartyWindow.clear();
 
+    if (mPartyList)
+    {
+        delete mPartyList;
+        mPartyList = NULL;
+    }
+
 }// ~UIPartyStatusLayout
 
 
@@ -256,10 +293,13 @@ void UIPartyStatusLayout::OnLoad(void)
 
     //mMenu->ClearButtons();
     int partyIndex = 0;
+    mMasterPartyMenu->ClearButtons();
     for (std::vector<Character*>::iterator iter = mPartyList->begin(); iter != mPartyList->end(); ++iter)
     {
         mPartyWindow[partyIndex]->SetCharacter( (*iter) );
         partyIndex++;
+
+        mMasterPartyMenu->AddButton( (*iter)->GetName(), new SelectMemberFunction( (*iter), this, mMenu ) );
     }
 
 
@@ -290,7 +330,7 @@ void UIPartyStatusLayout::OnLoad(void)
     for (std::vector<Item*>::iterator iter2 = itemInventory->begin(); iter2 != itemInventory->end(); ++iter2)
     {
         if ((*iter2)->GetType()==Item::ARMOR)
-            mArmorMenu->AddButton( (*iter2)->GetName(), new EquipArmorFunction( (*iter2) ) );
+            mArmorMenu->AddButton( (*iter2)->GetName(), new EquipArmorFunction( (*iter2), this, mMasterPartyMenu ) );
     }
 
 
@@ -301,7 +341,7 @@ void UIPartyStatusLayout::OnLoad(void)
     for (std::vector<Item*>::iterator iter3 = itemInventory->begin(); iter3 != itemInventory->end(); ++iter3)
     {
         if ((*iter3)->GetType()==Item::WEAPON)
-            mWeaponMenu->AddButton( (*iter3)->GetName(), new EquipWeaponFunction( (*iter3) ) );
+            mWeaponMenu->AddButton( (*iter3)->GetName(), new EquipWeaponFunction( (*iter3), this, mMasterPartyMenu ) );
     }
 
 
@@ -318,6 +358,14 @@ void UIPartyStatusLayout::OnClose(void)
     }
 }
 
+
+void UIPartyStatusLayout::Update(void)
+{
+    for (std::vector<UICharWindow*>::iterator iter = mPartyWindow.begin(); iter != mPartyWindow.end(); ++iter)
+    {
+        (*iter)->Update();
+    }
+}
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
