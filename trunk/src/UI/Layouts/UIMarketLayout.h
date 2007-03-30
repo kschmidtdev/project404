@@ -45,28 +45,11 @@ public:
     UIMarketLayout(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    //UIMarketLayout(const UIMarketLayout& from);
-
-    /**
      * Destructor.
 	 */
     ~UIMarketLayout(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    //UIMarketLayout&                     operator=(UIMarketLayout& from);
-
 // OPERATIONS
 
     /**

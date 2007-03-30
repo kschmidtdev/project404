@@ -22,6 +22,7 @@
  * Karl Schmidt, March 27 2007    | Added support for loading/saving difficulty from/to DBEngine
  * Mike Malyuk,  March 27 2007    | Added cash! Everyone loves it!
  * Mike Malyuk,  March 28 2007    | Except when turns buggers it up! Fixed small bug with 0 turns
+ * Karl Schmidt, March 29 2007    | Added NewGame function for resetting things if the player starts a new game (not battle, but new game) 
  */
 
 #include "GameEngine.h"                                // class implemented
@@ -181,6 +182,11 @@ const int GameEngine::GetCash() const
 {
     return mCash;
 };
+
+void GameEngine::NewGame()
+{
+    mCash = 0;
+}
 
 //============================= INQUIRY    ===================================
 

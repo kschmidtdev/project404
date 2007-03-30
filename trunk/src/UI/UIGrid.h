@@ -29,6 +29,7 @@
  * Karl Schmidt,   March 23 2007      | Added mini-map implementation, enum instead of string for character tile type identification,
                                         removed some old code that wasn't used anymore
  * Andrew Osborne, March 24 2007 | converted from EventListener to UIEventListener
+ * Karl Schmidt,    March 29 2007     | Added DoLoseOrWin helper function
  */
 
 #ifndef UIGrid_h
@@ -263,6 +264,11 @@ protected:
 	 * Draw the text about the player and the target participating in an attack/heal
 	 */
     void DrawHealthIndicationers( Character* attacker, Character* defender );
+
+	/**
+	 * Checks if the level has been won or lost, and pushes the appropriate new layout in a win or lose case
+	 */
+    void DoLoseOrWin( Level* mLevel );
 
 private:
 // PRIVATE VARIABLES

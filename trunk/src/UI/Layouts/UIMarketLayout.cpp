@@ -10,6 +10,7 @@
  * Karl Schmidt, March 27 2007   | Fixed memory leaks, labelled temporary code accordingly
  * Andrew Osborne, March 29 2007 | Finish Implementation:  Added call to city to create dynamic list of armor items
  *                                   Implemented ItemWindow, added purchasing functionality, commented out debug code
+ * Karl Schmidt, March 29 2007   | Added cash text update on layout load (so you see updates after winning a battle)
  */
 #include "UIMarketLayout.h"                                // class implemented
 
@@ -235,6 +236,7 @@ void UIMarketLayout::OnLoad(void)
         mItemWindow->SetItem(tempItem);
     }
 
+    mMoney->ChangeText( toString( GameEngine::GetInstance()->GetCash() ) );
 }
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================

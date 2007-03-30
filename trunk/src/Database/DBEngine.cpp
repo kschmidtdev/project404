@@ -16,6 +16,7 @@
  * Karl Schmidt, March 18 2007     | Added clearing of loaded character and item data between db loads
  * Karl Schmidt, March 25 2007     | Added multiple save-game and profile name storing/setting support
  * Karl Schmidt, March 27 2007     | Added support for loading/saving savegame difficulty setting
+ * Karl Schmidt, March 29 2007     | Added support for loading/saving player cash
  */
 
 #include "DBEngine.h"                                     // class implemented
@@ -78,6 +79,13 @@ void DBEngine::Initialize( const bool loadFromSave )
             {
                 std::cout << "setting save game difficulty to " << difficultyAttr->GetData() << std::endl;
                 mCurrentDifficulty = difficultyAttr->GetData();
+            }
+            std::cout << "loading cash" << std::endl;
+            DBInt* cashAttr = dynamic_cast<DBInt*>( saveDataNode->GetAttribute( "Cash" ) );
+            if( cashAttr )
+            {
+                std::cout << "setting cash to " << cashAttr->GetData() << std::endl;
+                GameEngine::GetInstance()->SetCash( cashAttr->GetData() );
             }
         }
     }
@@ -474,6 +482,8 @@ void DBEngine::SaveGame()
         }
 
         DatabaseManager::GetInstance()->UpdateNode( "SaveData", "Difficulty", mCurrentDifficulty );
+
+        DatabaseManager::GetInstance()->UpdateNode( "SaveData", "Cash", GameEngine::GetInstance()->GetCash() );
 
         std::string saveFileName = mCurrentProfileName + SAVE_FILE_PREFIX + toString( mCurrentSaveGameNum ) + SAVE_FILE_POSTFIX;
         DatabaseManager::GetInstance()->SaveToFile( saveFileName );
