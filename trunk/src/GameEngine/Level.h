@@ -26,6 +26,7 @@
  * Karl Schmidt, March 20 2007    | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 21 2007    | Added storage of the last damage and healing values from attacking/defending and healing
  * Mike Malyuk,  March 27 2007    | Implemented GetTurns and Turns
+ * Karl Schmidt, March 30 2007    | Added support for mLastAttackerLevelUp (UIGrid uses to check if an attacker leveled up)
  */
 
 #ifndef Level_h
@@ -183,6 +184,7 @@ enum charState
      const int GetLastDamageInflicted() const { return mLastDmgInflicted; };
      const int GetLastDamageTaken() const { return mLastDmgTaken; };
      const int GetLastHealed() const { return mLastHealed; };
+     const int GetLastAttackerLevelUp() const { return mLastAttackerLevelUp; };
 
 	/**
 	 * Get Turns
@@ -202,6 +204,8 @@ protected:
     int mLastDmgInflicted;
     int mLastDmgTaken;
     int mLastHealed;
+    int mLastAttackerLevelUp;
+
     int mTurns;
 
 private:

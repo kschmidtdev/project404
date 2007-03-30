@@ -10,6 +10,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, March 30 2007    | Added fullscreen support
  * Karl Schmidt, March 29 2007    | Corrected variable type for alpha in DrawImageAt
  * Karl Schmidt, March 26 2007    | Added support for drawing an image to the screen
  								    with a particular alpha value
@@ -78,7 +79,7 @@ public:
      * Initializes the SDLRenderer (sets values and starts SDL
      * rendering sequence)
 	 */
-    void Initialize( const int xRes, const int yRes, const int colourDepth );
+    void Initialize( const int xRes, const int yRes, const int colourDepth, const bool fullScreen = false );
 
     /**
      * Shuts down the renderer, cleaning up and freeing resources
