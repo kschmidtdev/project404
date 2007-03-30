@@ -12,6 +12,7 @@
  * Andrew Osborne, March 13, 2007 | Note: a lot of list methods are not fleshed out in .cpp
  * Karl Schmidt, March 14 2007    | Added city ID, removed default constructor (unused)
  * Mike Malyuk,  March 27 1007    | Set up retrieval for items
+ * Andrew Osborne, March 29 2007 | Made GetMarket, GetArmory return pointers instead of copies
  */
 
 #ifndef City_h
@@ -94,12 +95,12 @@ public:
     /**
      * Return an array of items for the armory
      */
-    ItemPtrVec GetArmory(void) {return mArmoryItems;}
+    ItemPtrVec* GetArmory(void) {return &mArmoryItems;}
 
     /**
      * Return an array of items for the Market
      */
-    ItemPtrVec GetMarket(void) {return mMarketItems;}
+    ItemPtrVec* GetMarket(void) {return &mMarketItems;}
 
     /**
      * Return position on map

@@ -11,6 +11,7 @@
  * Andrew Osborne, March 18 2007, Initial Creation (empty)
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Andrew Osborne, March 25 2007 | Implemented proper UI functionality
+ * Andrew Osborne, March 29 2007 | Added OnClose method and mPartyList attribute
  */
 
 #ifndef UIPartyStatusLayout_h
@@ -81,6 +82,11 @@ public:
      */
     virtual void OnLoad(void);
 
+    /**
+     * Overwrites OnLoad operation
+     */
+    virtual void OnClose(void);
+
 // ACCESS (writing)
 // INQUIRY (reading)
 
@@ -92,6 +98,7 @@ protected:
     UIMenu *mWeaponMenu;
     UIMenu *mMasterPartyMenu;
     UICharWindowPtrVec mPartyWindow;
+    std::vector<Character*>* mPartyList;
 
 private:
 // PRIVATE VARIABLES

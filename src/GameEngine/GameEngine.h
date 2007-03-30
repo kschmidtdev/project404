@@ -3,9 +3,9 @@
  *
  * #include "GameEngine.h"
  *
- * GameEngine is the heart of the project for game instances. Will allow the game
- * to run battles, instantiate items and characters from the DB. Also will allow saving
- * of gamestate to DB.
+ * GameEngine is the heart of the project for game instances (and gameplay information). GameEngine
+ * initiates battles (create level instances), loads references to the "cities" in the game,
+ * instantiate items and characters from the DB, and also will allow saving of gamestate to DB.
  *
  * Project 404 2007
  *
@@ -21,6 +21,9 @@
  * Karl Schmidt, March 15 2007    | Support for city defeating status to update db
  * Karl Schmidt, March 27 2007    | Added support for loading/saving difficulty from/to DBEngine
  * Mike Malyuk,  March 27 2007    | Added methods for Get/Set cash amounts
+ * Andrew Osborne, March 29 2007 | Added SetCurCity, GetCurCity, and GetItems (also committed a change to the description
+ *                                  above a made a long time ago, but never committed because it was unecessary and now
+ *                                  I've actually changed something important to the class, so ... I commited the change)
  */
 
 #ifndef GameEngine_h
@@ -108,6 +111,11 @@ enum Cities
     void MoveCity(Cities place);
 
     /**
+     * Set Current City
+     */
+    void SetCurCity(City* c) { mCurCity = c; }
+
+    /**
      * Calculate in battle movement
 	 */
     vector<Point*> CalcMove(Character* unit);
@@ -179,6 +187,17 @@ enum Cities
      * Returns current cash stash
      */
      const int GetCash() const;
+
+    /**
+     * Returns pointer to items list
+     */
+    vector<Item*>* GetItems(void) { return &mItems; }
+
+    /**
+     *  Get Current City
+     */
+    City* GetCurCity(void) { return mCurCity; }
+
 
 protected:
 // PROTECTED METHODS

@@ -23,6 +23,7 @@
  * Karl Schmidt, March 25 2007       | Added correct variable initialization (mParentLayout and mCancelEvent weren't being set to NULL on
  									   construction, as well as support for blank rows, and skipping over them, etc
  * Karl Schmidt, March 26 2007       | Added SetCursorPos for selecting a particular menu item manually
+ * Andrew Osborne, March 29 2007 | Added GetCusror position
 */
 
 #ifndef UIMenu_h
@@ -157,6 +158,11 @@ public:
     void SetCursorPos( const int newCursorPos );
 
 // INQUIRY (reading)
+
+    /*
+     * Gets cursor position
+     */
+    int GetCursorPos(void)  { return mCursorPos; }
 
 protected:
 // PROTECTED VARIABLES

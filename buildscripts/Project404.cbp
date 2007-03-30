@@ -1238,6 +1238,13 @@
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
 		</Unit>
+		<Unit filename="..\src\UI\UIItemWindow.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\UI\UILayout.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />

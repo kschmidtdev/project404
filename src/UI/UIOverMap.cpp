@@ -11,6 +11,7 @@
  * Andrew Osborne, March 13 2007 | OverMapTile now calls BattleInit
  * Karl Schmidt, March 15 2007   | Added hack to reset highlighted city to the first every onLoad
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
+ * Andrew Osborne, March 29 2007 | Added Functionality to pass the "highlighted" city to GameEngine as the cursor moves
  */
 #include "UIOverMap.h"                                // class implemented
 
@@ -56,6 +57,7 @@ UIOverMap::UIOverMap()
     SetPos(mPos);
 
     mCursor.SetCurTile( &mMapTiles[0] );
+    GameEngine::GetInstance()->SetCurCity( mMapTiles[0].GetCity() );
 
 
 }// UIOverMap
@@ -87,6 +89,7 @@ void UIOverMap::ProcessEvent( const InputManager::INPUTKEYS evt )
             if (temp!=NULL)
             {
                 mCursor.SetCurTile(temp);
+                GameEngine::GetInstance()->SetCurCity( temp->GetCity() );
             }
             break;
         case InputManager::RIGHT:
@@ -96,6 +99,7 @@ void UIOverMap::ProcessEvent( const InputManager::INPUTKEYS evt )
             if (temp!=NULL)
             {
                 mCursor.SetCurTile(temp);
+                GameEngine::GetInstance()->SetCurCity( temp->GetCity() );
             }
             break;
         case InputManager::UP:
@@ -105,6 +109,7 @@ void UIOverMap::ProcessEvent( const InputManager::INPUTKEYS evt )
             if (temp!=NULL)
             {
                 mCursor.SetCurTile(temp);
+                GameEngine::GetInstance()->SetCurCity( temp->GetCity() );
             }
             break;
         case InputManager::DOWN:
@@ -114,6 +119,7 @@ void UIOverMap::ProcessEvent( const InputManager::INPUTKEYS evt )
             if (temp!=NULL)
             {
                 mCursor.SetCurTile(temp);
+                GameEngine::GetInstance()->SetCurCity( temp->GetCity() );
             }
             break;
         case InputManager::CONFIRM:

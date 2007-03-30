@@ -22,6 +22,7 @@
  									   construction, as well as support for blank rows, and skipping over them, etc
  * Andrew Osborne, March 25 2007 | Fixed small crash bug, so program doesn't crash when you press enter on an empty menu.
  * Karl Schmidt, March 26 2007       | Added SetCursorPos for selecting a particular menu item manually
+ * Andrew Osborne, March 29 2007 | Added deletion of CursorFunc in destructor
  */
 
 #include "UIMenu.h"                                // class implemented
@@ -97,6 +98,12 @@ UIMenu::~UIMenu()
         }
     }
     // Need to add function Objects... when I add them
+
+    if (mCursorFunc)
+    {
+        delete mCursorFunc;
+        mCursorFunc = NULL;
+    }
 
     delete mCursor;
 
