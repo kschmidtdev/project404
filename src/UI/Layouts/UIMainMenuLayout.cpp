@@ -30,6 +30,7 @@
 #include <UI/FuncObj.h>
 
 #include <Database/DBEngine.h>
+#include <GameEngine/GameEngine.h>
 
 class NewGameFunction : public FuncObj
 {
