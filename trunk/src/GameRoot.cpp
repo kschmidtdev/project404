@@ -19,6 +19,7 @@
  * Karl Schmidt, March 21 2007    | Added support for SDL_KEYDOWN handling in InputManager
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Karl Schmidt, March 29 2007    | Added UIManager Update() call
+ * Karl Schmidt, March 30 2007    | Disable quit using ESC when in release mode
  */
 
 #include "GameRoot.h"                                // class implemented
@@ -202,8 +203,13 @@ void GameRoot::GameLoop()
                     {
                         mInput->ProcessEvent( &event );
                         // exit if ESCAPE is pressed
+                        #ifdef _DEBUG
                         if (event.key.keysym.sym == SDLK_ESCAPE)
+                        {
                             done = true;
+                        }
+                        #endif
+
                         break;
                     }
                 } // end switch
