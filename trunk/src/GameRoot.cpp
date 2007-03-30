@@ -20,6 +20,7 @@
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Karl Schmidt, March 29 2007    | Added UIManager Update() call
  * Karl Schmidt, March 30 2007    | Disable quit using ESC when in release mode
+ * Mike Malyuk,  March 30 2007    | Added more logging around SoundManager
  */
 
 #include "GameRoot.h"                                // class implemented
@@ -153,13 +154,13 @@ void GameRoot::Shutdown()
 
     mSecurityManager->SavePasswordHashFile( "passwords" );
     mSecurityManager->Shutdown();
-
+    LogInfo("Before Stop all Playback");
     mSoundManager->StopAllPlayback();
-
+    LogInfo("After Stop all Playback");
     mResManager->Shutdown();
-
+    LogInfo("Before Sound Shutdown");
     mSoundManager->Shutdown();
-
+    LogInfo("After Sound Shutdown");
     mInput->Shutdown();
 
     mRenderer->Shutdown();
