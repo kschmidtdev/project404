@@ -11,6 +11,7 @@
  * Andrew Osborne, March 15 2007 | Added Level and Class to information Listed.
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  * Karl Schmidt, March 23 2007   | Got rid of more using namespace std; usage
+ * Andrew Osborne, March 29 2007 | Fixed some spelling mistakes and added new attributes (armor, weapon, and agility)
  */
 #include "UICharWindow.h"                                // class implemented
 
@@ -38,25 +39,30 @@ mStrOffset( 0 ), mDefOffset( 0 )
 
     // Text Position parameters
     int xStart = 20;
-    int yNameStart = 20;
+    int yNameStart = 15;
     int textSpacing = 4; // Seems to be some sort of 'additional'
     int defaultTextSize = 12;
-    int nameGap = 20;
+    int nameGap = 2;
 
     mNameStart.Set(xStart, yNameStart);
 
     mLevelStart.Set(xStart, mNameStart.GetY() + defaultTextSize + textSpacing + nameGap);
 
     mHPStart.Set(xStart, mLevelStart.GetY() + defaultTextSize + textSpacing);
-    mValOffset = 84;
+    mValOffset = 88;
     mSlashOffset = mValOffset + 30;
     mMaxOffset = mSlashOffset + 20;
 
     // Str/Def
     mStrStart.Set(xStart, mHPStart.GetY() + defaultTextSize + textSpacing);
-    mStrOffset = 65;
+    mStrOffset = 35;
     mDefStart.Set(xStart, mStrStart.GetY() + defaultTextSize + textSpacing);
     mDefOffset = mStrOffset;
+    mAglOffset = mDefOffset;
+
+    // Line
+    mLineOffset.Set(0, defaultTextSize + textSpacing);
+
 
     std::ostringstream oss;
     std::string str;
@@ -76,15 +82,21 @@ mStrOffset( 0 ), mDefOffset( 0 )
 
     mLevel.ChangeText("Level 0", defaultTextSize, HPRed, HPGreen, HPBlue );
 
-    mHPTitle.ChangeText( "Health Point : ", defaultTextSize, HPRed, HPGreen, HPBlue );
+    mHPTitle.ChangeText( "Health Points : ", defaultTextSize, HPRed, HPGreen, HPBlue );
     mHP.ChangeText( str, defaultTextSize, HPRed, HPGreen, HPBlue );
     mHPSlash.ChangeText( "/", defaultTextSize, HPRed, HPGreen, HPBlue );
     mHPMax.ChangeText( str, defaultTextSize, HPRed, HPGreen, HPBlue );
 
-    mStrText.ChangeText("Strength : ", defaultTextSize, HPRed, HPGreen, HPBlue );
+    mStrText.ChangeText("STR : ", defaultTextSize, HPRed, HPGreen, HPBlue );
     mCharStr.ChangeText("99", defaultTextSize, HPRed, HPGreen, HPBlue );
-    mDefText.ChangeText("Defence :  ", defaultTextSize,HPRed, HPGreen, HPBlue );
+    mDefText.ChangeText("DEF :  ", defaultTextSize,HPRed, HPGreen, HPBlue );
     mCharDef.ChangeText("99", defaultTextSize, HPRed, HPGreen, HPBlue );
+    mAglText.ChangeText("AGI: ", defaultTextSize, HPRed, HPGreen, HPBlue );
+    mCharAgl.ChangeText("99", defaultTextSize, HPRed, HPGreen, HPBlue );
+
+    mEquip.ChangeText("Equipment", defaultTextSize, HPRed, HPGreen, HPBlue );
+    mArmor.ChangeText("None", defaultTextSize, HPRed, HPGreen, HPBlue );
+    mWeapon.ChangeText("None", defaultTextSize, HPRed, HPGreen, HPBlue );
 
     //mPos.Set(440, 5);
     SetPos(mPos);
@@ -135,6 +147,12 @@ void UICharWindow::RenderSelf(SDL_Surface* destination)
             mCharStr.RenderSelf(destination);
             mDefText.RenderSelf(destination);
             mCharDef.RenderSelf(destination);
+            mAglText.RenderSelf(destination);
+            mCharAgl.RenderSelf(destination);
+
+            mEquip.RenderSelf(destination);
+            mArmor.RenderSelf(destination);
+            mWeapon.RenderSelf(destination);
         }
         else
         {
@@ -193,6 +211,17 @@ void UICharWindow::SetCharacter(Character *c)
         mCharDef.ChangeText( oss.str() );
         oss.str("");
 
+        // Character's Agility
+        oss << mCurCharacter->GetAttr(Character::AGI);
+        mCharAgl.ChangeText( oss.str() );
+        oss.str("");
+
+        // Character's Equipment
+        Item* tempItem = mCurCharacter->GetArmor();
+        mArmor.ChangeText( tempItem->GetName() + " (" + toString( tempItem->GetAttr() ) + ")" );
+        tempItem = mCurCharacter->GetWeapon();
+        mWeapon.ChangeText( tempItem->GetName() + " (" + toString( tempItem->GetAttr() ) + ")" );
+
         mCharacterView = true;
 
         // Element Image
@@ -239,8 +268,14 @@ void UICharWindow::SetPos( const Point & nPos )
     // Str/Def
     mStrText.SetPos( mPos + mStrStart );
     mCharStr.SetPos( mPos + mStrStart + Point(mStrOffset,0) );
-    mDefText.SetPos( mPos + mDefStart );
-    mCharDef.SetPos( mPos + mDefStart + Point(mDefOffset,0) );
+    mDefText.SetPos( mCharStr.GetPos() + Point(25, 0) );
+    mCharDef.SetPos( mDefText.GetPos() + Point(mDefOffset,0) );
+    mAglText.SetPos( mCharDef.GetPos() + Point(25, 0) );
+    mCharAgl.SetPos( mAglText.GetPos() + Point(mAglOffset,0) );
+
+    mEquip.SetPos( mStrText.GetPos() + mLineOffset + Point(0,5) );
+    mArmor.SetPos( mEquip.GetPos() + mLineOffset );
+    mWeapon.SetPos( mArmor.GetPos() + mLineOffset );
 
 }
 
