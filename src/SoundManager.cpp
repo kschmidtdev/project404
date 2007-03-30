@@ -15,6 +15,7 @@
  * Karl Schmidt, March 26 2007    | Added volume control functionality for both SDL_Mixer and RTAudio playback
  * Mike Malyuk,  March 27 2007    | Added more try and catches to be more uniform on RtAudio
  * Mike Malyuk,  March 28 2007    | Added stereo back in. Will be utilized later.
+ * Mike Malyuk,  March 30 2007    | Added verbosity for logging.
  */
 
 
@@ -81,6 +82,7 @@ void SoundManager::Initialize( const bool isEnabled )
         }
         catch (RtError &error)
         {
+            LogInfo("Error loading RtAudio device");
             error.printMessage();
             exit(EXIT_FAILURE);
         }
@@ -118,17 +120,22 @@ void SoundManager::Shutdown()
         }
         catch (RtError &error)
         {
+            LogInfo("Borked on closing RtAudio");
             error.printMessage();
         }
 
         if( mRTAudio )
         {
+            LogInfo("We believe mRTAudio existed");
             delete mRTAudio;
+            LogInfo("mRTAudio deleted");
             mRTAudio = NULL;
         }
         if( mAudioData )
         {
+            LogInfo("mAudioData existed in deletion");
             delete[] mAudioData;
+            LogInfo("mAudioData deleted");
             mAudioData = NULL;
         }
     }
