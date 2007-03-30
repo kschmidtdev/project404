@@ -8,6 +8,7 @@
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Andrew Osborne, March 24 2007, Proper UI Implementation
  * Karl Schmidt, March 25 2007   | Added functionality for loading profiles, and also going back to the previous menu
+ * Andrew Osborne, March 29 2007 | Fixed missing code that calls the password verification screen
  */
 #include "UILoadProfileLayout.h"                                // class implemented
 
@@ -32,7 +33,7 @@ public:
     {
         DBEngine::GetInstance()->SetCurrentProfileName( mUserName );
         UIManager::GetInstance()->PopLayout();
-        UIManager::GetInstance()->PushLayout("MainMenu");
+        UIManager::GetInstance()->PushLayout("PasswordVer");
     }
 
 
