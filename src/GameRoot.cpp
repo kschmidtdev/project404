@@ -18,6 +18,7 @@
  * Karl Schmidt, March 16 2007    | Fixed infinite loop state bug, recorded event playback now works!
  * Karl Schmidt, March 21 2007    | Added support for SDL_KEYDOWN handling in InputManager
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
+ * Karl Schmidt, March 29 2007    | Added UIManager Update() call
  */
 
 #include "GameRoot.h"                                // class implemented
@@ -217,6 +218,7 @@ void GameRoot::GameLoop()
                 mUIManager->GetLayout("BattleScreen")->GetGrid()->ConfirmFunction(inputPt);
             }
         }
+        mUIManager->Update();
         mRenderer->Draw();
         if( !done )
         {

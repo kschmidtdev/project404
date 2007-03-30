@@ -12,6 +12,7 @@
  * Karl Schmidt, March 15 2007   | Added hack to reset highlighted city to the first every onLoad
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  * Andrew Osborne, March 29 2007 | Added Functionality to pass the "highlighted" city to GameEngine as the cursor moves
+ * Karl Schmidt, March 29 2007   | Added correct superclass constructor calling
  */
 #include "UIOverMap.h"                                // class implemented
 
@@ -26,7 +27,9 @@
 //============================= LIFECYCLE ====================================
 
 UIOverMap::UIOverMap()
-: mDefaultTile( NULL ), mCurrentLevelProgression( 0 )
+: UIElement(),
+  mDefaultTile( NULL ),
+  mCurrentLevelProgression( 0 )
 {
 
     // Simulate input from cities

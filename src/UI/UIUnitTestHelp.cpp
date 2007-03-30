@@ -7,6 +7,7 @@
  * Andrew Osborne, March 13 2007 | Initial creation, Fleshed out methods
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  * Karl Schmidt, March 23 2007   | Got rid of more using namespace std; usage
+ * Karl Schmidt, March 29 2007   | Added correct superclass constructor calling, turfed an unused default constructor
  */
 
 #include "UIUnitTestHelp.h"                                // class implemented
@@ -20,12 +21,8 @@
 
 //============================= LIFECYCLE ====================================
 
-UIUnitTestHelp::UIUnitTestHelp()
-{
-}// UIUnitTestHelp
-
 UIUnitTestHelp::UIUnitTestHelp(UIElement* newElement, const std::string & className)
-: mFontSize( 28 ), mFontRed ( 0 ), mFontGreen ( 0 ), mFontBlue ( 255 ),
+: UIElement(), mFontSize( 28 ), mFontRed ( 0 ), mFontGreen ( 0 ), mFontBlue ( 255 ),
 mElementInfoOffset( 0 ), mTestNumOffset ( 0 ), mTestNumNum( 1 ), mDelayTime ( 500 ),
 mSRend( NULL ), mInitialized( false )
 {

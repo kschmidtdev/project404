@@ -19,6 +19,7 @@
  * Karl Schmidt, February 14 2007 | Updated function capitalization, block style, typedefs, refs
  * Andrew Osborne, February 15 2007 | Added PopAllLayouts
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Karl Schmidt, March 29 2007      | Added Update()
  */
 
 #ifndef UIManager_h
@@ -141,6 +142,11 @@ public:
      * Destructor.
 	 */
     ~UIManager(void);
+
+	/**
+	 * Called every frame (on mCurLayout)
+	*/
+    void Update();
 
 
 protected:

@@ -12,6 +12,8 @@
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  * Karl Schmidt, March 23 2007   | Got rid of more using namespace std; usage
  * Andrew Osborne, March 29 2007 | Fixed some spelling mistakes and added new attributes (armor, weapon, and agility)
+ * Karl Schmidt, March 29 2007   | Added correct superclass constructor calling, fixed crashs when characters aren't
+ 								   equipped with anything
  */
 #include "UICharWindow.h"                                // class implemented
 
@@ -27,7 +29,7 @@
 //============================= LIFECYCLE ====================================
 
 UICharWindow::UICharWindow()
-: mDefaultBlankImage( NULL ), mDefaultCharBackground( NULL ),
+: UIElement(), mDefaultBlankImage( NULL ), mDefaultCharBackground( NULL ),
 mCurCharacter( NULL ), mAttackTargetCharacter( NULL ),
 mCharacterView( true ), mValOffset( 0 ), mSlashOffset( 0 ), mMaxOffset( 0 ),
 mStrOffset( 0 ), mDefOffset( 0 )
@@ -218,9 +220,16 @@ void UICharWindow::SetCharacter(Character *c)
 
         // Character's Equipment
         Item* tempItem = mCurCharacter->GetArmor();
-        mArmor.ChangeText( tempItem->GetName() + " (" + toString( tempItem->GetAttr() ) + ")" );
+        if( tempItem )
+        {
+            mArmor.ChangeText( tempItem->GetName() + " (" + toString( tempItem->GetAttr() ) + ")" );
+        }
+
         tempItem = mCurCharacter->GetWeapon();
-        mWeapon.ChangeText( tempItem->GetName() + " (" + toString( tempItem->GetAttr() ) + ")" );
+        if( tempItem )
+        {
+            mWeapon.ChangeText( tempItem->GetName() + " (" + toString( tempItem->GetAttr() ) + ")" );
+        }
 
         mCharacterView = true;
 

@@ -11,7 +11,8 @@
  *
  * Authors:
  * Andrew Osborne, March 10 2007, Initial Creation
- * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
+ * Karl Schmidt, March 29 2007   | Turfed an unused default constructor
  */
 
 #ifndef UIUnitTestHelp_h
@@ -37,11 +38,6 @@ class UIUnitTestHelp : public UIElement
 {
 public:
 // LIFECYCLE
-
-    /**
-     * Default constructor.
-	 */
-    UIUnitTestHelp(void);
 
     /**
      * Used constructor.

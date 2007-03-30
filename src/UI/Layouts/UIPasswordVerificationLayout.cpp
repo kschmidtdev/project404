@@ -7,6 +7,7 @@
  * Andrew Osborne, February 15 2007 | Initial Creation
  * Karl Schmidt, March 9 2007	 	| Changed textures to png
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Karl Schmidt, March 29 2007      | Password checking against is the selected profile
  */
 
 #include "UIPasswordVerificationLayout.h"                                // class implemented
@@ -16,6 +17,7 @@
 #include <UI/UIManager.h>
 #include <SecurityManager.h>
 #include <UI/UIImage.h>
+#include <Database/DBEngine.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
@@ -74,11 +76,9 @@ void UIPasswordVerificationLayout::ProcessEvent( const InputManager::INPUTKEYS e
             mPasswordText->ChangeText(mStarString);
             break;
         case InputManager::CONFIRM:
-            if (SecurityManager::GetInstance()->VerifyPassword("user1", mPwdString))
+            if (SecurityManager::GetInstance()->VerifyPassword( DBEngine::GetInstance()->GetCurrentProfileName() , mPwdString))
             {
-                UIManager::GetInstance()->PopAllLayouts();
-                //UIManager::GetInstance()->PushLayout("ProfileMenu");
-                //UIManager::GetInstance()->PushLayout("MainMenu");
+                UIManager::GetInstance()->PushLayout("MainMenu");
             }
             else
             {

@@ -10,7 +10,8 @@
  * Authors:
  * Andrew Osborne, February 11 2007 | Initial Creation
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
- * Andrew Osborne, March 23 2007 | Added "SetImage" method to dynamically adjust image
+ * Andrew Osborne, March 23 2007    | Added "SetImage" method to dynamically adjust image
+ * Karl Schmidt, March 29 2007      | Added correct superclass constructor calling, added alpha and getter/setter for it
  */
 
 #ifndef UIImage_h
@@ -52,10 +53,10 @@ public:
     ~UIImage(void);
 
 // OPERATORS
-
-
-
 // OPERATIONS
+
+    void RenderSelf(SDL_Surface* destination);
+
 // ACCESS (writing)
 
     /**
@@ -63,12 +64,18 @@ public:
 	 */
     void SetImage(const std::string & filename);
 
+    void SetAlpha( const unsigned int alpha );
+
 // INQUIRY (reading)
+
+    const unsigned int GetAlpha() const;
 
 protected:
 // PROTECTED VARIABLES
 private:
 // PRIVATE VARIABLES
+
+    unsigned int mAlpha;
 };
 
 // INLINE METHODS

@@ -5,6 +5,7 @@
  *
  * Authors:
  * Name, Date | Work Done
+ * Karl Schmidt, March 29 2007      | Added correct superclass constructor calling
  */
 #include "UIItemWindow.h"                                // class implemented
 #include <GameEngine/Item.h>
@@ -16,7 +17,7 @@
 //============================= LIFECYCLE ====================================
 
 UIItemWindow::UIItemWindow()
-: mDisplayCost( false ), mDisplayItem( false ),
+: UIElement(), mDisplayCost( false ), mDisplayItem( false ),
 mFontSize( 16 ), mFontRed( 0 ), mFontGreen( 0 ), mFontBlue( 0 )
 {
 

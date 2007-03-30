@@ -9,6 +9,7 @@
  * Karl Schmidt, March 9 2007	 	| Changed textures to png, fixed a warning
  * Andrew Osborne, March 19 2007    | Added Ghosting functionality
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Karl Schmidt, March 29 2007      | Added correct superclass constructor calling
  */
 
 #include "UIButton.h"                                // class implemented
@@ -32,13 +33,18 @@ int UIButton::mTextSize = 12;
 //============================= LIFECYCLE ====================================
 
 UIButton::UIButton()
-: mText(" "), mOperation(NULL), mGhost( false )
+: UIElement(),
+  mText(" "),
+  mOperation(NULL),
+  mGhost( false )
 {
     mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_item.png");
 }// UIButton
 
 UIButton::UIButton( const std::string & text )
-: mOperation( NULL ), mGhost( false )
+: UIElement(),
+  mOperation( NULL ),
+  mGhost( false )
 {
     mText.ChangeText(text, mTextSize, mActiveRed, mActiveGreen, mActiveBlue);
     mElementImage = ResourceManager::GetInstance()->LoadTexture("menu_item.png");

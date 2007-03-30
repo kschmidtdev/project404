@@ -9,6 +9,7 @@
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  * Andrew Osborne, March 24 2007 | made element a UIEventListener (added Enable, Disable, ProcessEvent, SetNextEvent (methods) and
  *                                  mNextEvent, mParentLayout (attribute)
+ * Karl Schmidt, March 29 2007   | Added correct superclass constructor calling
  */
 #include "UIScrollText.h"                                // class implemented
 
@@ -23,7 +24,7 @@
 //============================= LIFECYCLE ====================================
 
 UIScrollText::UIScrollText()
-: mMaxLength( 0 ), mMaxLines( 4 ), mColourRed( 0 ), mColourGreen( 0 ), mColourBlue( 0 ),
+: UIElement(), mMaxLength( 0 ), mMaxLines( 4 ), mColourRed( 0 ), mColourGreen( 0 ), mColourBlue( 0 ),
 mFontSize( 14 ), mLineSpacing( 7 ), mCurStartIndex( 0 )
 {
 

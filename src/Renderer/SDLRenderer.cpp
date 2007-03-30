@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, March 29 2007    | Updated window title, corrected variable type for alpha in DrawImageAt
  * Karl Schmidt, March 26 2007    | Added support for drawing an image to the screen
  								    with a particular alpha value
  * Karl Schmidt, March 26 2007    | Added helper function AddAnimation
@@ -84,7 +85,7 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
         return;
     }
 
-    SDL_WM_SetCaption( "SymTac Alpha 2", NULL );
+    SDL_WM_SetCaption( "SymTac Version 3a", NULL );
 
     LogInfo( std::string("Set video mode: ") + toString(xRes) + std::string(" ") + toString(yRes) );
     LogInfo( "The SDLRenderer has been initialized successfully." );
@@ -224,7 +225,7 @@ SDL_Surface* SDLRenderer::CreateTextSurface( const std::string & textToRender, c
     return textSurface;
 }
 
-void SDLRenderer::DrawImageAt( SDL_Surface* src, const int x, const int y, const int width, const int height, SDL_Surface* dest, const Uint32 alpha )
+void SDLRenderer::DrawImageAt( SDL_Surface* src, const int x, const int y, const int width, const int height, SDL_Surface* dest, const Uint8 alpha )
 {
     if( !src || !dest )
     {
@@ -239,7 +240,7 @@ void SDLRenderer::DrawImageAt( SDL_Surface* src, const int x, const int y, const
     dstrect.w = width;
     dstrect.h = height;
 
-    if( alpha == 255 )
+    if( alpha >= 255 )
     {
         SDL_BlitSurface( src, 0, dest, &dstrect );
     }

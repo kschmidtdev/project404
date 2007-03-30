@@ -23,6 +23,7 @@
  * Andrew Osborne, March 25 2007 | Fixed small crash bug, so program doesn't crash when you press enter on an empty menu.
  * Karl Schmidt, March 26 2007       | Added SetCursorPos for selecting a particular menu item manually
  * Andrew Osborne, March 29 2007 | Added deletion of CursorFunc in destructor
+ * Karl Schmidt, March 29 2007      | Added correct superclass constructor calling
  */
 
 #include "UIMenu.h"                                // class implemented
@@ -46,7 +47,8 @@
 // It should be commented out or deleted once proper sub-classes are defined
 
 UIMenu::UIMenu()
-: mCursor( NULL ),
+: UIElement(),
+  mCursor( NULL ),
   mCursorFunc( NULL ),
   mParentLayout( NULL ),
   mCancelEvent( NULL ),

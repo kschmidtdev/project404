@@ -72,7 +72,8 @@ namespace
 //============================= LIFECYCLE ====================================
 
 UIGrid::UIGrid()
-: mTiles(),
+: UIElement(),
+  mTiles(),
   mMovePoints(),
   mNumRows( 10 ), mNumColumns( 10 ), mCursorPos( Point(0,0) ), mTileStart( Point(10,10) ), mTileOffset( 0 ),
   mCursor(NULL), mCharWindow( NULL ), mMap( NULL ), mCurCharacter( NULL ), mLevel( NULL )

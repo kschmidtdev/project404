@@ -9,6 +9,7 @@
  * Andrew Osborne, March 11 2007 | Added next/previous notion to tiles (with LevelDefeated method)
  * Andrew Osborne, March 13 2007 | Added BattleInit funcitonality
  * Karl Schmidt, March 22 2007   | Correcting include orders and paths
+ * Karl Schmidt, March 29 2007   | Added correct superclass constructor calling
  */
 #include "UIOverMapTile.h"                                // class implemented
 
@@ -22,7 +23,7 @@
 //============================= LIFECYCLE ====================================
 
 UIOverMapTile::UIOverMapTile()
-: mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
+: UIElement(), mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
 mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL ),
 mCityFileName( "charTile.png" ), mVictoryFileName( "victory.png" )
 {
@@ -31,7 +32,7 @@ mCityFileName( "charTile.png" ), mVictoryFileName( "victory.png" )
 }// UIOverMapTile
 
 UIOverMapTile::UIOverMapTile(int x, int y)
-: mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
+: UIElement(), mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
 mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL ),
 mCityFileName( "charTile.png" ), mVictoryFileName( "victory.png" )
 {
@@ -42,7 +43,7 @@ mCityFileName( "charTile.png" ), mVictoryFileName( "victory.png" )
 }// UIOverMapTile
 
 UIOverMapTile::UIOverMapTile(int x, int y, string fileName)
-: mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
+: UIElement(), mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
 mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL ),
 mCityFileName( "charTile.png" ), mVictoryFileName( "victory.png" )
 {
@@ -53,7 +54,7 @@ mCityFileName( "charTile.png" ), mVictoryFileName( "victory.png" )
 }// UIOverMapTile
 
 UIOverMapTile::UIOverMapTile(City *c)
-: mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
+: UIElement(), mNextTile( NULL ), mPrevTile( NULL ), mLeftTile( NULL ), mRightTile( NULL ),
 mUpTile( NULL ), mDownTile( NULL ), mDefeated( false ), mCity( NULL ),
 mCityFileName( "charTile.png" ), mVictoryFileName( "victory.png" )
 {
