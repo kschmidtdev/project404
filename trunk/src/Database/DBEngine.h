@@ -11,6 +11,7 @@
  * Karl Schmidt, March 18 2007     | Added clearing of loaded character and item data between db loads
  * Karl Schmidt, March 25 2007     | Added multiple save-game and profile name storing/setting support
  * Karl Schmidt, March 27 2007     | Added support for loading/saving savegame difficulty setting
+ * Mike Malyuk,  March 31 2007     | Added Revert
  */
 
 #ifndef DBEngine_h
@@ -136,6 +137,11 @@ public:
      * Sets the current difficulty setting (not saved to disk until SaveGame is called)
      */
     void SetCurrentDifficulty( const int difficulty );
+
+    /**
+     * Reverts party to former status (incase they lose)
+     */
+    void Revert();
 
 protected:
 

@@ -25,6 +25,7 @@
  *                                  above a made a long time ago, but never committed because it was unecessary and now
  *                                  I've actually changed something important to the class, so ... I commited the change)
  * Karl Schmidt, March 29 2007    | Added NewGame function for resetting things if the player starts a new game (not battle, but new game)
+ * Mike Malyuk,  March 31 2007    | Added ability to set and clear party in GameEngine
  */
 
 #ifndef GameEngine_h
@@ -148,6 +149,13 @@ enum Cities
 
     void SetCash(int moolah);
 
+    /**
+     *  Set a stored party here.
+     */
+    void SetParty(vector<Character*> party);
+
+    void CleanParty();
+
 // INQUIRY (reading)
     /**
      * Return items in a Market
@@ -203,6 +211,12 @@ enum Cities
      *  Reset any variables that need to be when the player starts a brand new game
      */
     void NewGame();
+
+    /**
+     *
+     */
+    vector<Character*> GetParty(){return mParty;}
+
 
 
 protected:
