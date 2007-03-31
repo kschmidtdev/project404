@@ -17,6 +17,7 @@
  * Karl Schmidt, March 25 2007     | Added multiple save-game and profile name storing/setting support
  * Karl Schmidt, March 27 2007     | Added support for loading/saving savegame difficulty setting
  * Karl Schmidt, March 29 2007     | Added support for loading/saving player cash
+ * Mike Malyuk,  March 31 2007     | Added Revert method. This method allows us to revert party characters who level up
  */
 
 #include "DBEngine.h"                                     // class implemented
@@ -580,6 +581,23 @@ const int DBEngine::GetCurrentDifficulty() const
 void DBEngine::SetCurrentDifficulty( const int difficulty )
 {
     mCurrentDifficulty = difficulty;
+}
+
+void DBEngine::Revert()
+{
+    vector<Character*> reverting = GameEngine::GetInstance()->GetParty();
+    for(vector<Character*>::iterator riter = reverting.begin(); riter != reverting.end(); riter++)
+    {
+        for (vector<Character*>::iterator Iter = mCharacterList.begin(); Iter != mCharacterList.end(); Iter++)
+        {
+            if ( (*Iter)->GetName() == (*riter)->GetName() )
+            {
+                delete (*Iter);
+                (*Iter) = (*riter);
+                break;
+            }
+        }
+    }
 }
 
 //============================= ACCESS     ===================================

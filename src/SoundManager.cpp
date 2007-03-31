@@ -16,6 +16,7 @@
  * Mike Malyuk,  March 27 2007    | Added more try and catches to be more uniform on RtAudio
  * Mike Malyuk,  March 28 2007    | Added stereo back in. Will be utilized later.
  * Mike Malyuk,  March 30 2007    | Added verbosity for logging.
+ * Mike Malyuk,  March 31 2007    | Added another short fix
  */
 
 
@@ -195,6 +196,10 @@ static int cosine(char *buffer, int buffer_size, void *data)
     MY_TYPE sinval = 0;
     static int n = 0;
     float f0 = 262.0;
+    if (times == 1)
+    {
+        times = 0;
+    }
     for (i=0; i<buffer_size; i++)
     {
         sinval = .5*(cos(2.0*pi*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*f0*T*(float)n)) +

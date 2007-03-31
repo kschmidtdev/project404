@@ -22,7 +22,8 @@
  * Karl Schmidt, March 27 2007    | Added support for loading/saving difficulty from/to DBEngine
  * Mike Malyuk,  March 27 2007    | Added cash! Everyone loves it!
  * Mike Malyuk,  March 28 2007    | Except when turns buggers it up! Fixed small bug with 0 turns
- * Karl Schmidt, March 29 2007    | Added NewGame function for resetting things if the player starts a new game (not battle, but new game) 
+ * Karl Schmidt, March 29 2007    | Added NewGame function for resetting things if the player starts a new game (not battle, but new game)
+ * Mike Malyuk,  March 31 2007    | Put in more code to help revert characters used in battle, also fixed cash giving.
  */
 
 #include "GameEngine.h"                                // class implemented
@@ -53,7 +54,7 @@ GameEngine::~GameEngine()
 void GameEngine::Shutdown()
 {
     BattleOver();
-
+    CleanParty();
     for( CityPtrItr i = mCities.begin(); i != mCities.end(); ++i )
     {
         delete *i;
@@ -123,10 +124,24 @@ void GameEngine::BattleInit(City *c)
 
 void GameEngine::BattleOver()
 {
+
     if( mCurLvl )
     {
-        mCash = mCash + (mCurCity->GetID()*10000)/mCurLvl->GetNumTurns();
-        std::cout << "Current Cash: " << mCash << std::endl;
+        if(mCurLvl->GetLoseCondition())
+        {
+            DBEngine::GetInstance()->Revert();
+            mParty.clear();
+        }
+        else if(mCurLvl->GetWinCondition())
+        {
+            CleanParty();
+            mCash = mCash + (mCurCity->GetID()*10000)/mCurLvl->GetNumTurns();
+            std::cout << "Current Cash: " << mCash << std::endl;
+        }
+        else
+        {
+            CleanParty();
+        }
         delete mCurLvl;
         mCurLvl = NULL;
     }
@@ -137,6 +152,37 @@ void GameEngine::BattleOver()
     }
 }
 
+void GameEngine::SetParty(vector<Character*> party)
+{
+    for(vector<Character*>::iterator citer = party.begin(); citer != party.end(); citer++)
+    {
+        if((*citer)->GetCharacterClassName() == "Healer")
+        {
+            mParty.push_back(new Healer((*citer)->GetName(), (*citer)->GetLevel(), (*citer)->GetWeapon(), (*citer)->GetArmor()));
+        }
+        else if((*citer)->GetCharacterClassName() == "Archer")
+        {
+            mParty.push_back(new Archer((*citer)->GetName(), (*citer)->GetLevel(), (*citer)->GetWeapon(), (*citer)->GetArmor()));
+        }
+        else if((*citer)->GetCharacterClassName() == "Knight")
+        {
+            mParty.push_back(new Knight((*citer)->GetName(), (*citer)->GetLevel(), (*citer)->GetWeapon(), (*citer)->GetArmor()));
+        }
+        else
+        {
+            mParty.push_back(new Mage((*citer)->GetName(), (*citer)->GetLevel(), (*citer)->GetWeapon(), (*citer)->GetArmor()));
+        }
+    }
+}
+
+void GameEngine::CleanParty()
+    {
+        for(vector<Character*>::iterator citer = mParty.begin(); citer!=mParty.end(); citer++)
+        {
+            delete (*citer);
+        }
+        mParty.clear();
+    }
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================

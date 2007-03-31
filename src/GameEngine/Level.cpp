@@ -35,6 +35,7 @@
  * Mike Malyuk, March 26, 2007    | Fixed bug with enemy healer healing when not allowed
  * Mike Malyuk, March 27, 2007    | Implemented method for counting turns, used for cash evaluation
  * Karl Schmidt, March 30 2007    | Added support for mLastAttackerLevelUp (UIGrid uses to check if an attacker leveled up)
+ * Mike Malyuk, March 31, 2007    | Added one line to save out characters before match
  */
 
 #include <util.h>
@@ -137,7 +138,7 @@ Level::Level( const int battleNumber)
         (*Iter2)->RestoreToFullLife();
         mEnemies.push_back( (*Iter2) );
     }
-
+    GameEngine::GetInstance()->SetParty(mParty);
     delete PartyList;
     delete EnemiesList;
 }
