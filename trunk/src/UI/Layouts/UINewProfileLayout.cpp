@@ -11,6 +11,8 @@
  * Karl Schmidt, March 23 2007   | Added cast to int to suppress warning
  * Karl Schmidt, March 25 2007   | Added adding checking if a blank username was added, also setting of default password (to be changed)
  * Mike Malyuk,  March 31 2007   | Removed Menu from screen, repositioned Alphabet on screen
+ * Karl Schmidt, March 31 2007   | Removed functionality that was moved to UIAlphabetGrid, removed instructional
+                                   text that is no longer needed
  */
 #include "UINewProfileLayout.h"                                // class implemented
 
@@ -20,58 +22,9 @@
 #include <UI/UIText.h>
 #include <UI/UIManager.h>
 #include <UI/UIAlphabetGrid.h>
-#include <UI/UIMenu.h>
 #include <UI/FuncObj.h>
 #include <SecurityManager.h>
 #include <Database/DBEngine.h>
-
-
-// Function Objects declaration
-
-class NewProfileDoneFunction : public FuncObj
-{
-
-    public:
-    NewProfileDoneFunction(UIAlphabetGrid* alpha)
-    : mAlpha( alpha )
-    {
-    }
-
-    virtual ~NewProfileDoneFunction(void) { mAlpha = NULL; }
-
-    virtual void operator()(void)
-    {
-    	// Don't allow them to proceed if they didn't enter anything
-    	// We should really tell them they did something wrong when this occurs
-    	if( mAlpha->GetString() == "" || mAlpha->GetString() == " " )
-    	{
-    		return;
-    	}
-
-        if( SecurityManager::GetInstance()->GetUserHash( mAlpha->GetString() ) == "" )
-        {
-            DBEngine::GetInstance()->SetCurrentProfileName( mAlpha->GetString() );
-            SecurityManager::GetInstance()->AddUser( DBEngine::GetInstance()->GetCurrentProfileName(), "rrrr" );
-        }
-
-        UIManager::GetInstance()->PopLayout();
-        UIManager::GetInstance()->PushLayout("MainMenu");
-    }
-
-
-    protected:
-    UIAlphabetGrid* mAlpha;
-
-};
-
-class PopLayoutFunction : public FuncObj
-{
-    virtual void operator()(void)
-    {
-        UIManager::GetInstance()->PopLayout();
-    }
-
-};
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -79,7 +32,7 @@ class PopLayoutFunction : public FuncObj
 //============================= LIFECYCLE ====================================
 
 UINewProfileLayout::UINewProfileLayout()
-: mAlpha( NULL ), mMenu( NULL )
+: mAlpha( NULL ), mHelperTxt( NULL )
 {
     // Background
     UIImage *back = new UIImage("castle_main.png");
@@ -97,24 +50,12 @@ UINewProfileLayout::UINewProfileLayout()
     int fontRed = 255;
     int fontGreen = 255;
     int fontBlue = 0;
-    Point helpStart( 70, 380);
-    Point helpOffset(0, static_cast<int>( fontSize*1.2 ) );
-    Point p = helpStart;
 
-    UIText* help = new UIText("Press CONFIRM to add letter", fontSize, fontRed, fontGreen, fontBlue);
-    help->SetPos(p);
-    mElements.push_back(help);
-    p = p + helpOffset;
-
-    help = new UIText("Press CANCEL to remove a letter", fontSize, fontRed, fontGreen, fontBlue);
-    help->SetPos(p);
-    mElements.push_back(help);
-    p = p + helpOffset;
-
-    help = new UIText("Press MENU to access the menu on right", fontSize, fontRed, fontGreen, fontBlue);
-    help->SetPos(p);
-    mElements.push_back(help);
-    p = p + helpOffset;
+	// Not used yet, should be connected with the UIAlphabetGrid eventually to display it's messages
+    mHelperTxt = new UIText(" ", fontSize, fontRed, fontGreen, fontBlue);
+    mHelperTxt->SetPos( 70, 400 );
+    mHelperTxt->SetVisible( false );
+    mElements.push_back(mHelperTxt);
 
     mName = "NewProfile";
 

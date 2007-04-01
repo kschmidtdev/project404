@@ -13,6 +13,8 @@
  * Authors:
  * Andrew Osborne, February 15 2007, Initial Creation
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
+ * Karl Schmidt, March 31 2007    | Added Reset() to reset the screen, it now checks/sets the currently
+                                      logged-on user, also can be used to set a password for the first time
  */
 
 #ifndef UISetPasswordLayout_h
@@ -53,6 +55,10 @@ public:
 
 // OPERATIONS
 
+    void ResetScreen();
+
+    void OnLoad();
+
     /**
      * Method to Process input from user
      *
@@ -77,6 +83,8 @@ protected:
     std::string mOldPwd;
     std::string mNewPwd;
     std::string mConfirmPwd;
+
+    bool mCreatingPassword;
 
 // PROTECTED METHODS
     void AddStar(void);
