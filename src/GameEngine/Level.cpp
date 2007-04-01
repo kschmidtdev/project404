@@ -37,6 +37,7 @@
  * Karl Schmidt, March 30 2007    | Added support for mLastAttackerLevelUp (UIGrid uses to check if an attacker leveled up)
  * Mike Malyuk, March 31, 2007    | Added one line to save out characters before match
  * Mike Malyuk, March 31, 2007    | Added another line to save enemies before match
+ * Karl Schmidt, April 1st, 2007  | Added recording of if healer leveled up after healing
  */
 
 #include <util.h>
@@ -341,10 +342,12 @@ Character* Level::OnSelect( const Point & p )
                     //we know it's a healer
 
                     int targetHealth = toBeHealed->GetHP();
+                    int healerLevel = mCurChar->GetLevel();
 
                     ((Healer*)mCurChar)->Heal(toBeHealed);
 
                     mLastHealed = toBeHealed->GetHP() - targetHealth;
+                    mLastAttackerLevelUp = mCurChar->GetLevel() - healerLevel;
 
                     mState = FREE;
                     return toBeHealed;
