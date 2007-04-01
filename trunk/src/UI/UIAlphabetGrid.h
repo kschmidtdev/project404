@@ -14,6 +14,7 @@
  * Andrew Osborne, March 23 2007 | Added start offset
  * Andrew Osborne, March 24 2007 | converted from EventListener to UIEventListener
  * Andrew Osborne, March 24 2007 | Finally added ability to jump to menu
+ * Mike Malyuk,    March 31 2007 | Removed unused methods and variables related to menu and other.
  */
 
 #ifndef UIAlphabetGrid_h
@@ -94,11 +95,6 @@ public:
      */
     virtual void SetPos( const Point & nPos );
 
-    /**
-     * Sets menu to jump to when button is pressed
-     */
-    virtual void SetMenu(UILayout* parent, UIEventListener* menu);
-
 
 // INQUIRY (reading)
 
@@ -112,7 +108,6 @@ protected:
 
     // Letter Grid
     std::string mAlphabet;
-    std::string mCapitalAlphabet;
     UITextVec mLetters;
 
     // String result
@@ -133,10 +128,6 @@ protected:
     Point mGrid; // max - num of rows and columns
     Point mOffset; // Offset for each row/column
     Point mGridStart;
-
-    // Event Handling Stuff
-    UILayout* mParentLayout;
-    UIEventListener *mNextMenu;
 
 
 // PROTECTED FUNCTIONS
