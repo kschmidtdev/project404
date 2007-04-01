@@ -12,6 +12,7 @@
  * Karl Schmidt, March 25 2007     | Added multiple save-game and profile name storing/setting support
  * Karl Schmidt, March 27 2007     | Added support for loading/saving savegame difficulty setting
  * Mike Malyuk,  March 31 2007     | Added Revert
+ * Mike Malyuk,  March 31 2007     | Added RevertEnemies
  */
 
 #ifndef DBEngine_h
@@ -143,6 +144,10 @@ public:
      */
     void Revert();
 
+    /**
+     * Reverts enemies to former status
+     */
+    void RevertEnemies();
 protected:
 
      /**

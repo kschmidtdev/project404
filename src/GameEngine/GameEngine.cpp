@@ -24,6 +24,7 @@
  * Mike Malyuk,  March 28 2007    | Except when turns buggers it up! Fixed small bug with 0 turns
  * Karl Schmidt, March 29 2007    | Added NewGame function for resetting things if the player starts a new game (not battle, but new game)
  * Mike Malyuk,  March 31 2007    | Put in more code to help revert characters used in battle, also fixed cash giving.
+ * Mike Malyuk,  March 31 2007    | Put in code to revert enemy characters after battle.
  */
 
 #include "GameEngine.h"                                // class implemented
@@ -55,6 +56,7 @@ void GameEngine::Shutdown()
 {
     BattleOver();
     CleanParty();
+    CleanEnemies();
     for( CityPtrItr i = mCities.begin(); i != mCities.end(); ++i )
     {
         delete *i;
@@ -142,6 +144,8 @@ void GameEngine::BattleOver()
         {
             CleanParty();
         }
+        DBEngine::GetInstance()->RevertEnemies();
+        mEnemies.clear();
         delete mCurLvl;
         mCurLvl = NULL;
     }
@@ -174,15 +178,45 @@ void GameEngine::SetParty(vector<Character*> party)
         }
     }
 }
-
-void GameEngine::CleanParty()
+void GameEngine::SetEnemies(vector<Character*> enemies)
+{
+    for(vector<Character*>::iterator citer = enemies.begin(); citer != enemies.end(); citer++)
     {
-        for(vector<Character*>::iterator citer = mParty.begin(); citer!=mParty.end(); citer++)
+        if((*citer)->GetCharacterClassName() == "Healer")
         {
-            delete (*citer);
+            mEnemies.push_back(new Healer((*citer)->GetName(), (*citer)->GetLevel(), (*citer)->GetWeapon(), (*citer)->GetArmor()));
         }
-        mParty.clear();
+        else if((*citer)->GetCharacterClassName() == "Archer")
+        {
+            mEnemies.push_back(new Archer((*citer)->GetName(), (*citer)->GetLevel(), (*citer)->GetWeapon(), (*citer)->GetArmor()));
+        }
+        else if((*citer)->GetCharacterClassName() == "Knight")
+        {
+            mEnemies.push_back(new Knight((*citer)->GetName(), (*citer)->GetLevel(), (*citer)->GetWeapon(), (*citer)->GetArmor()));
+        }
+        else
+        {
+            mEnemies.push_back(new Mage((*citer)->GetName(), (*citer)->GetLevel(), (*citer)->GetWeapon(), (*citer)->GetArmor()));
+        }
     }
+}
+void GameEngine::CleanParty()
+{
+    for(vector<Character*>::iterator citer = mParty.begin(); citer!=mParty.end(); citer++)
+    {
+        delete (*citer);
+    }
+    mParty.clear();
+}
+
+void GameEngine::CleanEnemies()
+{
+    for(vector<Character*>::iterator citer = mEnemies.begin(); citer!=mEnemies.end(); citer++)
+    {
+        delete (*citer);
+    }
+    mEnemies.clear();
+}
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================
 //============================= ACCESS     ===================================
