@@ -10,6 +10,7 @@
  * Andrew Osborne, March 23 2007 | Added true functionality and display (background, menu, instructions)
  * Karl Schmidt, March 23 2007   | Added cast to int to suppress warning
  * Karl Schmidt, March 25 2007   | Added adding checking if a blank username was added, also setting of default password (to be changed)
+ * Mike Malyuk,  March 31 2007   | Removed Menu from screen, repositioned Alphabet on screen
  */
 #include "UINewProfileLayout.h"                                // class implemented
 
@@ -46,7 +47,7 @@ class NewProfileDoneFunction : public FuncObj
     	{
     		return;
     	}
-    	
+
         if( SecurityManager::GetInstance()->GetUserHash( mAlpha->GetString() ) == "" )
         {
             DBEngine::GetInstance()->SetCurrentProfileName( mAlpha->GetString() );
@@ -87,21 +88,9 @@ UINewProfileLayout::UINewProfileLayout()
     // AlphabetGrid
     int yStart = 110;
     UIAlphabetGrid *mAlpha = new UIAlphabetGrid();
-    mAlpha->SetPos( Point(50, yStart) );
+    mAlpha->SetPos( Point(90, yStart) );
     mElements.push_back(mAlpha);
     mDefaultEventListener = mAlpha;
-
-    // Menu
-    mMenu = new UIMenu();
-    mMenu->SetPos( Point(450, yStart));
-    mMenu->AddButton( "Done", new NewProfileDoneFunction(mAlpha) );
-    mMenu->AddButton( "Previous Menu", new PopLayoutFunction() );
-    mElements.push_back(mMenu);
-
-    // Event Handling
-    mAlpha->SetMenu(this, mMenu);
-    mMenu->SetParent(this);
-    mMenu->SetCancel(mAlpha);
 
     // Add Visual Aid
     int fontSize = 24;

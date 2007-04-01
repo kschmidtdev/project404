@@ -12,15 +12,19 @@
  * Andrew Osborne, March 23 2007 | Added fix to prevent crash when 'main string' is set to nothing ("")
  * Andrew Osborne, March 24 2007 | Made UIEventListener 'compatable' (added Enable, Disable)
  * Andrew Osborne, March 24 2007 | Created functionality to allow you to specify what is done upon pressing the 'cancel' button
+ * Mike Malyuk,    March 31 2007 | Added DONE and MENU to alphabet. Fixed Crash error. Removed unused params
+ *                               | Repositioned, used proper checks for mLetters.
  */
 
 #include "UIAlphabetGrid.h"                                // class implemented
 
 #include <util.h>
-
+#include <iostream>
 #include <UI/UIManager.h>
 #include <ResourceManager/ResourceManager.h>
 #include <UI/UILayout.h>
+#include <SecurityManager.h>
+#include <Database/DBEngine.h>
 
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
@@ -31,14 +35,11 @@ UIAlphabetGrid::UIAlphabetGrid()
 //: mAlphabet( "abcdefghijklmnopqrstuvwxyz" ), mCapitalAlphabet( "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ),
 : mCursor( NULL ), mCursorPos( Point(0,0) ),
 mFontSize( 36 ), mFontRed ( 96 ), mFontGreen( 57 ), mFontBlue( 19 ),
-mGrid( Point( 6, 3 ) ), mOffset( Point( 45, 45) ), mGridStart( Point(20,20) ),
-mParentLayout( NULL ), mNextMenu( NULL )
+mGrid( Point( 6, 4 ) ), mOffset( Point( 45, 45) ), mGridStart( Point(30,20) )
 {
 
     mElementImage = ResourceManager::GetInstance()->LoadTexture("alpha_back.png");
-
     mAlphabet = "abcdefghijklmnopqrstuvwxyz";
-    mCapitalAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     // Adding in 26 lower case letters
     std::string temp;
@@ -49,7 +50,15 @@ mParentLayout( NULL ), mNextMenu( NULL )
         temp = (*iter);
         mLetters.push_back( new UIText( temp, mFontSize, mFontRed, mFontGreen, mFontBlue) );
     }
-
+    mLetters.push_back( new UIText("", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText("", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText("MAIN", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText("", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText("", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText("", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText("", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText("", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText("DONE", 16, mFontRed, mFontGreen, mFontBlue ) );
     // Create Cursor
     mCursor = new UIImage("tileCursor.png");
 
@@ -134,21 +143,42 @@ void UIAlphabetGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
             }
             break;
         case InputManager::CONFIRM:
-            AddChar();
+            std::cout << mCursorPos.GetX() << ", " << mCursorPos.GetY() << std::endl;
+            if(mCursorPos == Point(6,4))
+            {
+                // Don't allow them to proceed if they didn't enter anything
+                // We should really tell them they did something wrong when this occurs
+                if( GetString() == "" || GetString() == " " )
+                {
+
+                }
+                else{
+                    if( SecurityManager::GetInstance()->GetUserHash( GetString() ) == "" )
+                    {
+                        DBEngine::GetInstance()->SetCurrentProfileName( GetString() );
+                        SecurityManager::GetInstance()->AddUser( DBEngine::GetInstance()->GetCurrentProfileName(), "rrrr" );
+                    }
+
+                    UIManager::GetInstance()->PopLayout();
+                    UIManager::GetInstance()->PushLayout("MainMenu");
+                }
+            }
+            else if(mCursorPos == Point(0,4))
+            {
+                UIManager::GetInstance()->PopLayout();
+            }
+            else if(mResult.size() < 9 && (mCursorPos.GetY() < 3 || (mCursorPos.GetY() == 3 && mCursorPos.GetX() < 5)))
+            {
+                AddChar();
+            }
+            else
+            {
+
+            }
             break;
         case InputManager::CANCEL:
             RemoveChar();
             break;
-        case InputManager::MENU:
-            if ( (mParentLayout) && (mNextMenu) )
-            {
-                mParentLayout->SetEventHandler(mNextMenu);
-            }
-            else
-            {
-                UIManager::GetInstance()->PopLayout();
-                UIManager::GetInstance()->PushLayout("MainMenu");
-            }
         default:
             break;
 
@@ -177,7 +207,7 @@ void UIAlphabetGrid::SetPos( const Point & nPos )
 {
     UIElement::SetPos(nPos);
 
-    int size = mAlphabet.size();
+    int size = mLetters.size();
     Point newPos = mPos + mGridStart;
     Point start = newPos;
 
@@ -204,15 +234,10 @@ void UIAlphabetGrid::SetPos( const Point & nPos )
     UpdateCursor();
 
     // Result String
-    mUIResult.SetPos( mPos + mGridStart + Point( 20, ( mGrid.GetY() + 1) * mOffset.GetY() + 5 ) );
+    mUIResult.SetPos( mPos + mGridStart + Point( -5, ( mGrid.GetY() + 1) * mOffset.GetY() + 5 ) );
 
 }
 
-void UIAlphabetGrid::SetMenu(UILayout* parent, UIEventListener* menu)
-{
-    mParentLayout = parent;
-    mNextMenu = menu;
-}
 
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
@@ -227,7 +252,7 @@ void UIAlphabetGrid::AddChar(void)
     // find mLetters index
     std::string temp;
     unsigned int index = mCursorPos.GetX() + mCursorPos.GetY() * ( mGrid.GetX() + 1);
-    if (index<mLetters.size())
+    if (index<mAlphabet.size())
     {
         temp = mAlphabet[index];
         mResult += temp;
