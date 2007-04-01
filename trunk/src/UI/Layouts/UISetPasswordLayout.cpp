@@ -9,6 +9,7 @@
  * Karl Schmidt, March 23 2007      | Got rid of more using namespace std; usage
  * Karl Schmidt, March 31 2007      | Added Reset() to reset the screen, it now checks/sets the currently
                                       logged-on user, also can be used to set a password for the first time
+ * Karl Schmidt, April 1 2007       | Fixed a bug where a blank password was allowed to be set
  */
 
 #include "UISetPasswordLayout.h"                                // class implemented
@@ -211,7 +212,7 @@ void UISetPasswordLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
                     mConfirmPwdUIText->SetVisible(true);
                     break;
                 case 2:
-                    if( mConfirmPwd == mNewPwd )
+                    if( mConfirmPwd != "" && mConfirmPwd == mNewPwd )
                     {
                         if( mCreatingPassword )
                         {

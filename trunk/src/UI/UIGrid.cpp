@@ -28,7 +28,7 @@
  * Karl Schmidt,	March 11 2007	  | Added a hacky fix to a rare crash bug. (see a big comment block at around line 364
  * Mike Malyuk,     March 14 2007     | Added new params to GetMovementRange in Map, fixed.
  * Karl Schmidt,	March 14 2007	  | Removed previous hacky fix, moved to elsewhere
- * Mike Malyuk,     March 14 2007     |Added Initialize, set more pointers to NULL, removed old methods,
+ * Mike Malyuk,     March 14 2007     | Added Initialize, set more pointers to NULL, removed old methods,
  *                                     optimized movement by only making one call to Map for movement per player vs 2
  * Karl Schmidt, 	March 14 2007	  | Added and re-arranged initialize list so more pointers are set to NULL on construction (safer)
  * Mike Malyuk,     March 14 2007     | Generalized columns in Initializer
@@ -43,6 +43,8 @@
  * Karl Schmidt,    March 29 2007     | Added DoLoseOrWin helper function, removed commented out code
  * Karl Schmidt,    March 30 2007     | Modified DrawHealthIndicationers as per issue 74, add hacky but slightly nicer text,
  										added a 1 second delay when the game is over (win or lose)
+ * Karl Schmidt,    April 1 2007      | Added healing/attacking effect animations, fixed bug where damage done
+ 										on last turn of battle would never get drawn
  */
 
 #include "UIGrid.h"                                // class implemented
@@ -871,7 +873,8 @@ void UIGrid::DrawHealthIndicationers( Character* attacker, Character* defender )
 {
     if( attacker != NULL && defender != NULL )
     {
-        char dmgTxt[8];
+        char dmgTxt[10];
+        SDLRenderer* renderer = SDLRenderer::GetInstance();
         if( attacker->GetCharacterClassName() == "Healer" )
         {
             // Draw an image to indicate action is being taken
@@ -890,11 +893,24 @@ void UIGrid::DrawHealthIndicationers( Character* attacker, Character* defender )
             amountHealedShadow4->SetPos( toDrawAt + Point(0,-2) );
 
             Uint32 timeToDraw = SDL_GetTicks() + INDICATER_DELAY;
-            SDLRenderer::GetInstance()->AddToTempRenderQueue( amountHealedShadow, timeToDraw );
-            SDLRenderer::GetInstance()->AddToTempRenderQueue( amountHealedShadow2, timeToDraw );
-            SDLRenderer::GetInstance()->AddToTempRenderQueue( amountHealedShadow3, timeToDraw );
-            SDLRenderer::GetInstance()->AddToTempRenderQueue( amountHealedShadow4, timeToDraw );
-            SDLRenderer::GetInstance()->AddToTempRenderQueue( amountHealed, timeToDraw );
+            renderer->AddToTempRenderQueue( amountHealedShadow, timeToDraw );
+            renderer->AddToTempRenderQueue( amountHealedShadow2, timeToDraw );
+            renderer->AddToTempRenderQueue( amountHealedShadow3, timeToDraw );
+            renderer->AddToTempRenderQueue( amountHealedShadow4, timeToDraw );
+            renderer->AddToTempRenderQueue( amountHealed, timeToDraw );
+
+            SDLRenderableVec healEffect;
+            healEffect.reserve(10);
+            char healEffectFileName[20];
+            for( int i = 0; i < 10; ++i )
+            {
+                sprintf( healEffectFileName, "healEffect%04i.png", i+1 );
+                UIImage* toAdd = new UIImage( healEffectFileName );
+                toAdd->SetPos( toDrawAt + Point( -10, 0 ) );
+                healEffect.push_back( toAdd );
+            }
+
+            renderer->AddAnimation( healEffect, 100 );
         }
         else
         {
@@ -914,11 +930,26 @@ void UIGrid::DrawHealthIndicationers( Character* attacker, Character* defender )
             damageInflictedShadow4->SetPos( toDrawInflictedAt + Point(0,-2) );
 
             Uint32 timeToDraw = SDL_GetTicks() + INDICATER_DELAY;
-            SDLRenderer::GetInstance()->AddToTempRenderQueue( damageInflictedShadow, timeToDraw );
-            SDLRenderer::GetInstance()->AddToTempRenderQueue( damageInflictedShadow2, timeToDraw );
-            SDLRenderer::GetInstance()->AddToTempRenderQueue( damageInflictedShadow3, timeToDraw );
-            SDLRenderer::GetInstance()->AddToTempRenderQueue( damageInflictedShadow4, timeToDraw );
-            SDLRenderer::GetInstance()->AddToTempRenderQueue( damageInflicted, timeToDraw );
+            renderer->AddToTempRenderQueue( damageInflictedShadow, timeToDraw );
+            renderer->AddToTempRenderQueue( damageInflictedShadow2, timeToDraw );
+            renderer->AddToTempRenderQueue( damageInflictedShadow3, timeToDraw );
+            renderer->AddToTempRenderQueue( damageInflictedShadow4, timeToDraw );
+            renderer->AddToTempRenderQueue( damageInflicted, timeToDraw );
+
+            if( mLevel->GetLastDamageInflicted() != 0 )
+            {
+                SDLRenderableVec attackEffect;
+                attackEffect.reserve(10);
+                char attackEffectFileName[20];
+                for( int i = 0; i < 10; ++i )
+                {
+                    sprintf( attackEffectFileName, "attackEffect%04i.png", i+1 );
+                    UIImage* toAdd = new UIImage( attackEffectFileName );
+                    toAdd->SetPos( toDrawInflictedAt + Point( -13, 3 ) );
+                    attackEffect.push_back( toAdd );
+                }
+                renderer->AddAnimation( attackEffect, 30 );
+            }
 
             if( mLevel->GetLastDamageTaken() != 0 && mLevel->GetLastAttackerLevelUp() == 0 )
             {
@@ -937,13 +968,39 @@ void UIGrid::DrawHealthIndicationers( Character* attacker, Character* defender )
                 damageTakenShadow4->SetPos( toDrawTakenAt + Point(0,-2) );
 
                 timeToDraw = SDL_GetTicks() + INDICATER_DELAY;
-                SDLRenderer::GetInstance()->AddToTempRenderQueue( damageTakenShadow, timeToDraw );
-                SDLRenderer::GetInstance()->AddToTempRenderQueue( damageTakenShadow2, timeToDraw );
-                SDLRenderer::GetInstance()->AddToTempRenderQueue( damageTakenShadow3, timeToDraw );
-                SDLRenderer::GetInstance()->AddToTempRenderQueue( damageTakenShadow4, timeToDraw );
-                SDLRenderer::GetInstance()->AddToTempRenderQueue( damageTaken, timeToDraw );
+                renderer->AddToTempRenderQueue( damageTakenShadow, timeToDraw );
+                renderer->AddToTempRenderQueue( damageTakenShadow2, timeToDraw );
+                renderer->AddToTempRenderQueue( damageTakenShadow3, timeToDraw );
+                renderer->AddToTempRenderQueue( damageTakenShadow4, timeToDraw );
+                renderer->AddToTempRenderQueue( damageTaken, timeToDraw );
             }
         }
+        if( mLevel->GetLastAttackerLevelUp() )
+        {
+            // Draw an image to indicate action is being taken
+            sprintf( dmgTxt, "Level up!" );
+            const int fontSize = 16;
+            UIText* levelUpText = new UIText( dmgTxt, fontSize, 255, 255, 255 );
+            UIText* levelUpTextShadow = new UIText( dmgTxt, fontSize, 0, 0, 0 );
+            UIText* levelUpTextShadow2 = new UIText( dmgTxt, fontSize, 0, 0, 0 );
+            UIText* levelUpTextShadow3 = new UIText( dmgTxt, fontSize, 0, 0, 0 );
+            UIText* levelUpTextShadow4 = new UIText( dmgTxt, fontSize, 0, 0, 0 );
+
+            Point toDrawAt( attacker->GetPoint().GetX() * mTileWidth, attacker->GetPoint().GetY() * mTileHeight + mTileHeight/8 );
+            levelUpText->SetPos( toDrawAt );
+            levelUpTextShadow->SetPos( toDrawAt + Point(2,0) );
+            levelUpTextShadow2->SetPos( toDrawAt + Point(-2,0) );
+            levelUpTextShadow3->SetPos( toDrawAt + Point(0,2) );
+            levelUpTextShadow4->SetPos( toDrawAt + Point(0,-2) );
+
+            Uint32 timeToDraw = SDL_GetTicks() + INDICATER_DELAY;
+            renderer->AddToTempRenderQueue( levelUpTextShadow, timeToDraw );
+            renderer->AddToTempRenderQueue( levelUpTextShadow2, timeToDraw );
+            renderer->AddToTempRenderQueue( levelUpTextShadow3, timeToDraw );
+            renderer->AddToTempRenderQueue( levelUpTextShadow4, timeToDraw );
+            renderer->AddToTempRenderQueue( levelUpText, timeToDraw );
+        }
+        renderer->Draw();
     }
 }
 
