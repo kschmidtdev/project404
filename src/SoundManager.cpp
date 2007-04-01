@@ -198,6 +198,7 @@ static int cosine(char *buffer, int buffer_size, void *data)
     float f0 = 262.0;
     if (times == 1)
     {
+        LogInfo("Bad case because of cancel");
         times = 0;
     }
     for (i=0; i<buffer_size; i++)
@@ -222,6 +223,7 @@ static int cosine(char *buffer, int buffer_size, void *data)
     }
     if (times == 1)
     {
+        LogInfo("Normal throw back");
         times = 0;
         return 1;
     }
@@ -231,14 +233,18 @@ void SoundManager::PlayRTAUDIO()
 {
     if( mIsEnabled )
     {
+        LogInfo("Before cancelStreamCallback");
         mRTAudio->cancelStreamCallback();
         try
         {
+            LogInfo("Before setStreamCallback");
             mRTAudio->setStreamCallback(&cosine, (void *)mAudioData);
+            LogInfo("Before startStream");
             mRTAudio->startStream();
         }
         catch (RtError &error)
         {
+            LogInfo("Errored");
             error.printMessage();
         }
     }
