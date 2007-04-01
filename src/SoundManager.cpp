@@ -17,6 +17,8 @@
  * Mike Malyuk,  March 28 2007    | Added stereo back in. Will be utilized later.
  * Mike Malyuk,  March 30 2007    | Added verbosity for logging.
  * Mike Malyuk,  March 31 2007    | Added another short fix
+ * Karl Schmidt, April 1 2007     | Rearranged the order of functions and now stopping/starting stream instead of 
+                                    killing thread and making a new one every time a new sound is played
  */
 
 
@@ -36,6 +38,52 @@ typedef float  MY_TYPE;
 namespace
 {
     static double RTAUDIO_SCALE = 1.0;
+
+    static int cosine(char *buffer, int buffer_size, void *data)
+    {
+        int i, j;
+        static int chans = 2;
+        static int times = 0;
+        float T = 1.0 / 44100.0;
+        MY_TYPE *my_buffer = (MY_TYPE *) buffer;
+        double *my_data = (double *) data;
+        double pi = 3.141592653589793;
+        MY_TYPE sinval = 0;
+        static int n = 0;
+        float f0 = 262.0;
+        if (times == 1)
+        {
+            LogInfo("Bad case because of cancel");
+            times = 0;
+        }
+        for (i=0; i<buffer_size; i++)
+        {
+            sinval = .5*(cos(2.0*pi*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*f0*T*(float)n)) +
+                     (cos(2.0*pi*3*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*3*f0*T*(float)n)) +
+                     (cos(2.0*pi*4*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*4*f0*T*(float)n)) +
+                     (cos(2.0*pi*5*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*5*f0*T*(float)n)) +
+                     .1*(cos(2.0*pi*7*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*7*f0*T*(float)n)) +
+                     .05*(cos(2.0*pi*9*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*9*f0*T*(float)n));
+            n++;
+            if (n > 44100)
+            {
+                n = 0;
+                times++;
+            }
+            for (j=0; j<chans; j++)
+            {
+                *my_buffer++ = (MY_TYPE) (my_data[j] * RTAUDIO_SCALE);
+                my_data[j] = sinval/7.4;
+            }
+        }
+        if (times == 1)
+        {
+            LogInfo("Normal throw back");
+            times = 0;
+            return 1;
+        }
+        return 0;
+    }
 }
 
 //============================= LIFECYCLE ====================================
@@ -89,8 +137,9 @@ void SoundManager::Initialize( const bool isEnabled )
         }
         try
         {
-            //audio->setStreamCallback(&cosine, (void *)data);
-            //audio->startStream();
+            mRTAudio->setStreamCallback(&cosine, (void *)mAudioData);
+            mRTAudio->startStream();
+            mRTAudio->stopStream();
         }
         catch (RtError &error)
         {
@@ -184,61 +233,17 @@ void SoundManager::PlayMusic( Mix_Music* toPlay, const bool looping )
         }
     }
 }
-static int cosine(char *buffer, int buffer_size, void *data)
-{
-    int i, j;
-    static int chans = 2;
-    static int times = 0;
-    float T = 1.0 / 44100.0;
-    MY_TYPE *my_buffer = (MY_TYPE *) buffer;
-    double *my_data = (double *) data;
-    double pi = 3.141592653589793;
-    MY_TYPE sinval = 0;
-    static int n = 0;
-    float f0 = 262.0;
-    if (times == 1)
-    {
-        LogInfo("Bad case because of cancel");
-        times = 0;
-    }
-    for (i=0; i<buffer_size; i++)
-    {
-        sinval = .5*(cos(2.0*pi*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*f0*T*(float)n)) +
-                 (cos(2.0*pi*3*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*3*f0*T*(float)n)) +
-                 (cos(2.0*pi*4*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*4*f0*T*(float)n)) +
-                 (cos(2.0*pi*5*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*5*f0*T*(float)n)) +
-                 .1*(cos(2.0*pi*7*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*7*f0*T*(float)n)) +
-                 .05*(cos(2.0*pi*9*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*9*f0*T*(float)n));
-        n++;
-        if (n > 44100)
-        {
-            n = 0;
-            times++;
-        }
-        for (j=0; j<chans; j++)
-        {
-            *my_buffer++ = (MY_TYPE) (my_data[j] * RTAUDIO_SCALE);
-            my_data[j] = sinval/7.4;
-        }
-    }
-    if (times == 1)
-    {
-        LogInfo("Normal throw back");
-        times = 0;
-        return 1;
-    }
-    return 0;
-}
+
 void SoundManager::PlayRTAUDIO()
 {
     if( mIsEnabled )
     {
-        LogInfo("Before cancelStreamCallback");
-        mRTAudio->cancelStreamCallback();
+        LogInfo("Before stopStream");
+        mRTAudio->stopStream();
         try
         {
-            LogInfo("Before setStreamCallback");
-            mRTAudio->setStreamCallback(&cosine, (void *)mAudioData);
+            //LogInfo("Before setStreamCallback");
+            //mRTAudio->setStreamCallback(&cosine, (void *)mAudioData);
             LogInfo("Before startStream");
             mRTAudio->startStream();
         }
