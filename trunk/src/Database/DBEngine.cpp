@@ -18,6 +18,7 @@
  * Karl Schmidt, March 27 2007     | Added support for loading/saving savegame difficulty setting
  * Karl Schmidt, March 29 2007     | Added support for loading/saving player cash
  * Mike Malyuk,  March 31 2007     | Added Revert method. This method allows us to revert party characters who level up
+ * Mike Malyuk,  March 31 2007     | Added RevertEnemies method. Used after every game ends so we don't have harder enemies as we go.
  */
 
 #include "DBEngine.h"                                     // class implemented
@@ -586,6 +587,23 @@ void DBEngine::SetCurrentDifficulty( const int difficulty )
 void DBEngine::Revert()
 {
     vector<Character*> reverting = GameEngine::GetInstance()->GetParty();
+    for(vector<Character*>::iterator riter = reverting.begin(); riter != reverting.end(); riter++)
+    {
+        for (vector<Character*>::iterator Iter = mCharacterList.begin(); Iter != mCharacterList.end(); Iter++)
+        {
+            if ( (*Iter)->GetName() == (*riter)->GetName() )
+            {
+                delete (*Iter);
+                (*Iter) = (*riter);
+                break;
+            }
+        }
+    }
+}
+
+void DBEngine::RevertEnemies()
+{
+    vector<Character*> reverting = GameEngine::GetInstance()->GetEnemies();
     for(vector<Character*>::iterator riter = reverting.begin(); riter != reverting.end(); riter++)
     {
         for (vector<Character*>::iterator Iter = mCharacterList.begin(); Iter != mCharacterList.end(); Iter++)

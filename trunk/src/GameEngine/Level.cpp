@@ -36,6 +36,7 @@
  * Mike Malyuk, March 27, 2007    | Implemented method for counting turns, used for cash evaluation
  * Karl Schmidt, March 30 2007    | Added support for mLastAttackerLevelUp (UIGrid uses to check if an attacker leveled up)
  * Mike Malyuk, March 31, 2007    | Added one line to save out characters before match
+ * Mike Malyuk, March 31, 2007    | Added another line to save enemies before match
  */
 
 #include <util.h>
@@ -139,6 +140,7 @@ Level::Level( const int battleNumber)
         mEnemies.push_back( (*Iter2) );
     }
     GameEngine::GetInstance()->SetParty(mParty);
+    GameEngine::GetInstance()->SetEnemies(mEnemies);
     delete PartyList;
     delete EnemiesList;
 }
