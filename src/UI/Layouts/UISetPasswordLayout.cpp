@@ -7,6 +7,8 @@
  * Andrew Osborne, February 15 2007 | Initial Creation
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  * Karl Schmidt, March 23 2007      | Got rid of more using namespace std; usage
+ * Karl Schmidt, March 31 2007      | Added Reset() to reset the screen, it now checks/sets the currently
+                                      logged-on user, also can be used to set a password for the first time
  */
 
 #include "UISetPasswordLayout.h"                                // class implemented
@@ -14,27 +16,17 @@
 #include <util.h>
 
 #include <UI/UIManager.h>
-#include "SecurityManager.h"
+#include <SecurityManager.h>
+#include <Database/DBEngine.h>
 
 /////////////////////////////// PUBLIC ///////////////////////////////////////
 
 //============================= LIFECYCLE ====================================
 
-
-    int mPasswordEntryState;
-    std::string mOldStarString;
-    std::string mNewStarString;
-    std::string mConfirmStarString;
-    UIText *mOldPwdUIText;
-    UIText *mNewPwdUIText;
-    UIText *mConfirmPwdUIText;
-    std::string mOldPwd;
-    std::string mNewPwd;
-    std::string mConfirmPwd;
-
 UISetPasswordLayout::UISetPasswordLayout()
 : mPasswordEntryState( 0 ), mOldStarString ("Old Pwd:"), mNewStarString ( "New Pwd:"), mConfirmStarString( "Confirm Pwd:"),
-mOldPwdUIText(NULL), mNewPwdUIText(NULL), mConfirmPwdUIText(NULL), mOldPwd(""), mNewPwd(""), mConfirmPwd("")
+mOldPwdUIText(NULL), mNewPwdUIText(NULL), mConfirmPwdUIText(NULL), mOldPwd(""), mNewPwd(""), mConfirmPwd(""),
+  mCreatingPassword( false )
 {
     mName = "SetPassword";
 
@@ -46,7 +38,7 @@ mOldPwdUIText(NULL), mNewPwdUIText(NULL), mConfirmPwdUIText(NULL), mOldPwd(""), 
     // New Password
     mNewPwdUIText = new UIText(mNewStarString, 30, 255, 0, 0);
     mNewPwdUIText->SetPos( Point(175, 185) );
-    mNewPwdUIText->SetVisible(false);
+    mNewPwdUIText->SetVisible( false );
     mElements.push_back(mNewPwdUIText);
 
     // Confirm Password
@@ -75,6 +67,44 @@ UISetPasswordLayout::~UISetPasswordLayout()
 
 //============================= OPERATORS ====================================
 
+void UISetPasswordLayout::OnLoad()
+{
+    UILayout::OnLoad();
+
+    ResetScreen();
+}
+
+void UISetPasswordLayout::ResetScreen()
+{
+    mNewPwd = "";
+    mNewStarString = "New Pwd:";
+    mNewPwdUIText->ChangeText(mNewStarString);
+    mConfirmPwd = "";
+    mConfirmStarString = "Confirm Pwd:";
+    mConfirmPwdUIText->SetVisible(false);
+    mConfirmPwdUIText->ChangeText(mConfirmStarString);
+
+    // If the user we are changing a password for exists already,
+    // we are changing the password.
+    if( SecurityManager::GetInstance()->GetUserHash( DBEngine::GetInstance()->GetCurrentProfileName() ) != "" )
+    {
+        mOldPwd = "";
+        mOldStarString = "Old Pwd:";
+        mOldPwdUIText->ChangeText(mOldStarString);
+        mOldPwdUIText->SetVisible( true );
+        mPasswordEntryState = 0;
+        mCreatingPassword = false;
+
+        mNewPwdUIText->SetVisible( false );
+    }
+    else
+    {
+        mOldPwdUIText->SetVisible( false );
+        mNewPwdUIText->SetVisible( true );
+        mPasswordEntryState = 1;
+        mCreatingPassword = true;
+    }
+}
 
 void UISetPasswordLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 {
@@ -164,7 +194,7 @@ void UISetPasswordLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
             switch (mPasswordEntryState)
             {
                 case 0:
-                    if (SecurityManager::GetInstance()->VerifyPassword("user1", mOldPwd))
+                    if (SecurityManager::GetInstance()->VerifyPassword( DBEngine::GetInstance()->GetCurrentProfileName(), mOldPwd))
                     {
                         mPasswordEntryState++;
                         mNewPwdUIText->SetVisible(true);
@@ -181,34 +211,38 @@ void UISetPasswordLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
                     mConfirmPwdUIText->SetVisible(true);
                     break;
                 case 2:
-                    if (mConfirmPwd==mNewPwd)
+                    if( mConfirmPwd == mNewPwd )
                     {
-                        SecurityManager::GetInstance()->DeleteUser("user1");
-                        SecurityManager::GetInstance()->AddUser("user1", mConfirmPwd);
+                        if( mCreatingPassword )
+                        {
+                            SecurityManager::GetInstance()->AddUser( DBEngine::GetInstance()->GetCurrentProfileName(), mConfirmPwd );
+                        }
+                        else
+                        {
+                            SecurityManager::GetInstance()->DeleteUser( DBEngine::GetInstance()->GetCurrentProfileName() );
+                            SecurityManager::GetInstance()->AddUser( DBEngine::GetInstance()->GetCurrentProfileName(), mConfirmPwd);
+                        }
                         UIManager::GetInstance()->PopLayout();
+                        if( mCreatingPassword )
+                        {
+                            UIManager::GetInstance()->PushLayout("MainMenu");
+                        }
                     }
-                    //else
-                    //{
-                    mOldPwd = "";
-                    mOldStarString = "Old Pwd:";
-                    mOldPwdUIText->ChangeText(mOldStarString);
-                    mNewPwd = "";
-                    mNewStarString = "New Pwd:";
-                    mNewPwdUIText->SetVisible(false);
-                    mNewPwdUIText->ChangeText(mNewStarString);
-                    mConfirmPwd = "";
-                    mConfirmStarString = "Confirm Pwd:";
-                    mConfirmPwdUIText->SetVisible(false);
-                    mConfirmPwdUIText->ChangeText(mConfirmStarString);
-                    mPasswordEntryState = 0;
-                    //}
+                    else
+                    {
+                        ResetScreen();
+                    }
                     break;
             }
             break;
         case InputManager::CANCEL:
-            mOldPwd = "";
-            mOldStarString = "Old Pwd:";
-            mOldPwdUIText->ChangeText(mOldStarString);
+        {
+            if( !mCreatingPassword )
+            {
+                mOldPwd = "";
+                mOldStarString = "Old Pwd:";
+                mOldPwdUIText->ChangeText(mOldStarString);
+            }
             mNewPwd = "";
             mNewStarString = "New Pwd:";
             mNewPwdUIText->SetVisible(false);
@@ -217,9 +251,17 @@ void UISetPasswordLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
             mConfirmStarString = "Confirm Pwd:";
             mConfirmPwdUIText->SetVisible(false);
             mConfirmPwdUIText->ChangeText(mConfirmStarString);
-            mPasswordEntryState = 0;
+            if( !mCreatingPassword )
+            {
+                mPasswordEntryState = 0;
+            }
+            else
+            {
+                mPasswordEntryState = 1;
+            }
             UIManager::GetInstance()->PopLayout();
-            break;
+        }
+        break;
 
         default:
             break;

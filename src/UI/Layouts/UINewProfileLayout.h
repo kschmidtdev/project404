@@ -12,6 +12,8 @@
  * Andrew Osborne, March 21 2007, Commented out Process Event (part of debug)
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
  * Andrew Osborne, March 23 2007, Added proper functionality, added mAlpha, mMenu
+ * Karl Schmidt, March 31 2007   | Removed functionality that was moved to UIAlphabetGrid, removed instructional
+                                   text that is no longer needed
  */
 
 #ifndef UINewProfileLayout_h
@@ -31,8 +33,7 @@
 // FORWARD REFERENCES
 //
 class UIAlphabetGrid;
-class UIMenu;
-
+class UIText;
 
 class UINewProfileLayout : public UILayout
 {
@@ -45,28 +46,11 @@ public:
     UINewProfileLayout(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    //UINewProfileLayout(const UINewProfileLayout& from);
-
-    /**
      * Destructor.
 	 */
     ~UINewProfileLayout(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    //UINewProfileLayout&                     operator=(UINewProfileLayout& from);
-
 // OPERATIONS
 
     /**
@@ -81,7 +65,7 @@ protected:
 // PROTECTED VARIABLES
 
     UIAlphabetGrid *mAlpha;
-    UIMenu* mMenu;
+    UIText* mHelperTxt;
 
 private:
 // PRIVATE VARIABLES

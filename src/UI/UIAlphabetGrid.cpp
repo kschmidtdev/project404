@@ -14,6 +14,9 @@
  * Andrew Osborne, March 24 2007 | Created functionality to allow you to specify what is done upon pressing the 'cancel' button
  * Mike Malyuk,    March 31 2007 | Added DONE and MENU to alphabet. Fixed Crash error. Removed unused params
  *                               | Repositioned, used proper checks for mLetters.
+ * Karl Schmidt,   March 31 2007 | Making UIText with text of "" triggers assert in SDLRenderer, so changed to " ",
+                                   also updated progression code so it goes to the right screen, commented out
+                                   implementation for helper text setting waiting to be implemented properly
  */
 
 #include "UIAlphabetGrid.h"                                // class implemented
@@ -50,15 +53,15 @@ mGrid( Point( 6, 4 ) ), mOffset( Point( 45, 45) ), mGridStart( Point(30,20) )
         temp = (*iter);
         mLetters.push_back( new UIText( temp, mFontSize, mFontRed, mFontGreen, mFontBlue) );
     }
-    mLetters.push_back( new UIText("", 16, mFontRed, mFontGreen, mFontBlue ) );
-    mLetters.push_back( new UIText("", 16, mFontRed, mFontGreen, mFontBlue ) );
-    mLetters.push_back( new UIText("MAIN", 16, mFontRed, mFontGreen, mFontBlue ) );
-    mLetters.push_back( new UIText("", 16, mFontRed, mFontGreen, mFontBlue ) );
-    mLetters.push_back( new UIText("", 16, mFontRed, mFontGreen, mFontBlue ) );
-    mLetters.push_back( new UIText("", 16, mFontRed, mFontGreen, mFontBlue ) );
-    mLetters.push_back( new UIText("", 16, mFontRed, mFontGreen, mFontBlue ) );
-    mLetters.push_back( new UIText("", 16, mFontRed, mFontGreen, mFontBlue ) );
-    mLetters.push_back( new UIText("DONE", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText(" ", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText(" ", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText("BACK", 14, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText(" ", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText(" ", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText(" ", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText(" ", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText(" ", 16, mFontRed, mFontGreen, mFontBlue ) );
+    mLetters.push_back( new UIText("DONE", 14, mFontRed, mFontGreen, mFontBlue ) );
     // Create Cursor
     mCursor = new UIImage("tileCursor.png");
 
@@ -150,17 +153,20 @@ void UIAlphabetGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
                 // We should really tell them they did something wrong when this occurs
                 if( GetString() == "" || GetString() == " " )
                 {
-
+                    //mHelperText->ChangeText( "You must enter a profile name" );
+                    return;
                 }
-                else{
-                    if( SecurityManager::GetInstance()->GetUserHash( GetString() ) == "" )
-                    {
-                        DBEngine::GetInstance()->SetCurrentProfileName( GetString() );
-                        SecurityManager::GetInstance()->AddUser( DBEngine::GetInstance()->GetCurrentProfileName(), "rrrr" );
-                    }
-
+                if( SecurityManager::GetInstance()->GetUserHash( GetString() ) != "" )
+                {
+                    //mHelperText->ChangeText( "A profile already exists using that name." );
+                    return;
+                }
+                else
+                {
+                    DBEngine::GetInstance()->SetCurrentProfileName( GetString() );
+                    //SecurityManager::GetInstance()->AddUser( DBEngine::GetInstance()->GetCurrentProfileName(), "rrrr" );
                     UIManager::GetInstance()->PopLayout();
-                    UIManager::GetInstance()->PushLayout("MainMenu");
+                    UIManager::GetInstance()->PushLayout("SetPassword");
                 }
             }
             else if(mCursorPos == Point(0,4))
