@@ -434,7 +434,7 @@ void SoundManager::SetSoundArray()
 	{
         R.push_back(exp(-mPi*(*Bwiter)*mT));
 	}
-	std::vector<double> w = Hanning(.05*44100);
+	std::vector<double> w = Hanning((int)(.05*44100));
 	std::vector<double> wfin;
 	for(std::vector<double>::iterator witer = w.begin(); (int)wfin.size() < ((int)round(w.size()/2.0)); witer++)
 	{
@@ -563,7 +563,6 @@ void SoundManager::SetSoundArray()
     }
     for(int b = 0; b < 44100; b++)
     {
-        double value = result[b];
         result[b] = .8*(result[b]/max);
     }
     for (int i = 0; i < 12; i++)

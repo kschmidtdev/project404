@@ -36,7 +36,7 @@ public:
         TS_ASSERT_EQUALS(knight.GetLevel(), 2);
         TS_ASSERT_EQUALS(knight.GetAttr(Character::POW), 4);
         TS_ASSERT_EQUALS(knight.GetAttr(Character::AGI), 6);
-        TS_ASSERT_EQUALS(knight.GetAttr(Character::DEF), 6);
+        TS_ASSERT_EQUALS(knight.GetAttr(Character::DEF), 8);
         TS_ASSERT_EQUALS(knight.GetHP(), 6);
         TS_ASSERT_EQUALS(knight.GetMaxHP(), 6);
     }
