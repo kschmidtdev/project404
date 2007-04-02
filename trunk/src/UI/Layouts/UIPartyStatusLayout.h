@@ -117,6 +117,7 @@ protected:
     UIMenu *mArmorMenu;
     UIMenu *mWeaponMenu;
     UIMenu *mMasterPartyMenu;
+    UIText *mFeedback;
     UICharWindowPtrVec mPartyWindow;
     std::vector<Character*>* mPartyList;
     Item* mEquipItem;

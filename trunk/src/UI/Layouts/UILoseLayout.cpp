@@ -8,6 +8,7 @@
  * Karl Schmidt, March 9 2007	 	| Changed textures to png
  * Karl Schmidt, March 12 2007		| Cleaned up ProcessEvent so it goes to the Overmap correctly
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Andrew Osborne, April 1 2007 | Made background & messages more complient with rest of game.
  */
 
 #include "UILoseLayout.h"                                // class implemented
@@ -26,19 +27,19 @@
 
 UILoseLayout::UILoseLayout()
 {
-    UIImage *temp = new UIImage("castle.png");
+    UIImage *temp = new UIImage("castle_main.png");
     mElements.push_back(temp);
 
     UIText *tempText = new UIText("Game Over", 70, 255, 0, 0);
-    tempText->SetPos( Point(124,50) );
+    tempText->SetPos( Point(124,150) );
     mElements.push_back(tempText);
 
     tempText = new UIText("YOU LOST...", 50, 255, 0, 0);
-    tempText->SetPos( Point(175,145) );
+    tempText->SetPos( Point(175,250) );
     mElements.push_back(tempText);
 
 
-    tempText = new UIText("Press CONFIRM to return to Main Menu", 24, 255, 0, 0);
+    tempText = new UIText("Press CONFIRM to return to Over-Map", 24, 255, 0, 0);
     tempText->SetPos( Point(94, 390) );
     mElements.push_back(tempText);
 

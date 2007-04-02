@@ -24,6 +24,7 @@
  									   construction, as well as support for blank rows, and skipping over them, etc
  * Karl Schmidt, March 26 2007       | Added SetCursorPos for selecting a particular menu item manually
  * Andrew Osborne, March 29 2007 | Added GetCusror position
+ * Andrew Osborne, April 1 2007 | Added Empty method which returns whether menu is empty or not.
 */
 
 #ifndef UIMenu_h
@@ -159,10 +160,15 @@ public:
 
 // INQUIRY (reading)
 
-    /*
+    /**
      * Gets cursor position
      */
     int GetCursorPos(void)  { return mCursorPos; }
+
+    /**
+     * Returns whether menu is empty or not
+     */
+    bool Empty(void) { return mButtons.empty(); }
 
 protected:
 // PROTECTED VARIABLES
