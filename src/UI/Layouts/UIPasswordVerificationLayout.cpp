@@ -8,6 +8,7 @@
  * Karl Schmidt, March 9 2007	 	| Changed textures to png
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  * Karl Schmidt, March 29 2007      | Password checking against is the selected profile
+ * Andrew Osborne, April 1 2007 | Added notification and ability to go back to profile menu screen.
  */
 
 #include "UIPasswordVerificationLayout.h"                                // class implemented
@@ -36,6 +37,11 @@ UIPasswordVerificationLayout::UIPasswordVerificationLayout()
 
     mPasswordText->SetPos( Point(285,195) );
     mElements.push_back(mPasswordText);
+
+    UIText* backMessage = new UIText("Press CANCEL to Go Back to Profile Selection", 18, 255, 0, 0);
+    backMessage->SetPos( Point(120, 380) );
+    mElements.push_back(backMessage);
+
 
 
     mName = "PasswordVer";
@@ -86,6 +92,9 @@ void UIPasswordVerificationLayout::ProcessEvent( const InputManager::INPUTKEYS e
                 mPwdString = "";
                 mPasswordText->ChangeText(mStarString);
             }
+            break;
+        case InputManager::CANCEL:
+            UIManager::GetInstance()->PopLayout();
             break;
         default:
             break;
