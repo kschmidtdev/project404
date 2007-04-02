@@ -10,6 +10,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, March 1 2007     | Added WriteScreenShot, writes screenshots to bmp (will start at 0000 and overwrite existing files)
  * Karl Schmidt, March 30 2007    | Added fullscreen support
  * Karl Schmidt, March 29 2007    | Corrected variable type for alpha in DrawImageAt
  * Karl Schmidt, March 26 2007    | Added support for drawing an image to the screen
@@ -132,6 +133,12 @@ public:
      * up their respective delays accordingly
 	 */
     void AddAnimation( const SDLRenderableVec & frames, const Uint32 delay, const Uint32 initialDelay = 0 );
+
+    /**
+     * Writes a screenshot to the directory of the executable
+     * screenshot name will be screenshotxxxx.bmp (xxxx current number of screenshot)
+	 */
+    void WriteScreenShot();
 
 // ACCESS (writing)
 // INQUIRY (reading)

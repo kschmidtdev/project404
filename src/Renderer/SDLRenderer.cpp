@@ -4,6 +4,7 @@
  * Project 404 2007
  *
  * Authors:
+ * Karl Schmidt, March 1 2007     | Added WriteScreenShot, writes screenshots to bmp (will start at 0000 and overwrite existing files)
  * Karl Schmidt, March 30 2007    | Added full screen support
  * Karl Schmidt, March 29 2007    | Updated window title, corrected variable type for alpha in DrawImageAt
  * Karl Schmidt, March 26 2007    | Added support for drawing an image to the screen
@@ -272,6 +273,23 @@ void SDLRenderer::AddAnimation( const SDLRenderableVec & frames, const Uint32 de
         AddToTempRenderQueue( *i, baseTime + delay, baseTime );
         baseTime += delay;
     }
+}
+
+void SDLRenderer::WriteScreenShot()
+{
+    Draw();
+    char fileName[20];
+
+    static int screenShotCount = 0;
+
+    sprintf( fileName, "screenshot%04i.bmp", screenShotCount );
+
+    if( SDL_SaveBMP( mScreen, fileName ) != 0 )
+    {
+        LogError("Error writing screenshot " + toString( fileName ) );
+    }
+
+    ++screenShotCount;
 }
 
 //============================= ACCESS     ===================================
