@@ -59,7 +59,7 @@ Healer::Healer(const string & name, const int level, WeaponItem* weapon, ArmorIt
     mExp = 0;
     mMaxActRange = 2;
     mCurPos = Point(0,0);
-    mAttributes[POW] = 2;
+    mAttributes[POW] = 3;
     mAttributes[AGI] = 4;
     mAttributes[DEF] = 1;
     mExhausted = false;
@@ -88,7 +88,7 @@ Healer::~Healer()
 //============================= OPERATIONS ===================================
 void Healer::LevelUp()
 {
-    mAttributes[POW] = mAttributes[POW]+2;
+    mAttributes[POW] = mAttributes[POW]+3;
     mAttributes[AGI] = mAttributes[AGI]+1;
     mAttributes[DEF] = mAttributes[DEF]+1;
     mMaxHP = mMaxHP + 2;
@@ -127,11 +127,15 @@ void Healer::Heal(Character* buddy)
         cout << "Healer (" << mName << ") heals " << buddy->GetCharacterClassName() << " (" << buddy->GetName() << ") for " << mAttributes[POW] << " HP." << endl;
         buddy->SetHP(buddy->GetHP() + mAttributes[POW]);
     }
-    mExp = mExp+20;
-    if(mExp == 100)
+    mExp = (int)(mExp + ((buddy->GetLevel()*1.0)/mLevel)*40);
+    if(mExp >= 100)
     {
-        LevelUp();
-        mExp = 0;
+        int multi = mExp/100;
+        for(int i = 0; i < multi; i++)
+        {
+            LevelUp();
+        }
+        mExp = mExp-100*multi;
     }
     mExhausted = true;
 }

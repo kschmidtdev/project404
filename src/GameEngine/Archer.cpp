@@ -86,7 +86,7 @@ Archer::~Archer()
 //============================= OPERATIONS ===================================
 void Archer::LevelUp()
 {
-    mAttributes[POW] = mAttributes[POW]+1;
+    mAttributes[POW] = mAttributes[POW]+2;
     mAttributes[AGI] = mAttributes[AGI]+2;
     mAttributes[DEF] = mAttributes[DEF]+1;
     mMaxHP = mMaxHP + 3;
