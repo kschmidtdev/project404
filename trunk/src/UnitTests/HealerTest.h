@@ -34,7 +34,7 @@ public:
     {
         healer.LevelUp();
         TS_ASSERT_EQUALS(healer.GetLevel(), 2);
-        TS_ASSERT_EQUALS(healer.GetAttr(Character::POW), 4);
+        TS_ASSERT_EQUALS(healer.GetAttr(Character::POW), 5);
         TS_ASSERT_EQUALS(healer.GetAttr(Character::AGI), 5);
         TS_ASSERT_EQUALS(healer.GetAttr(Character::DEF), 2);
         TS_ASSERT_EQUALS(healer.GetHP(), 3);
