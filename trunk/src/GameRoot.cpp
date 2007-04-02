@@ -22,6 +22,7 @@
  * Karl Schmidt, March 30 2007    | Disable quit using ESC when in release mode
  * Mike Malyuk,  March 30 2007    | Added more logging around SoundManager
  * Karl Schmidt, March 30 2007    | Added support for fullScreen option in config.cfg
+ * Karl Schmidt, April 1 2007     | Added support for F12 key to take screenshots (writes bmps)
  */
 
 #include "GameRoot.h"                                // class implemented
@@ -207,9 +208,13 @@ void GameRoot::GameLoop()
                         mInput->ProcessEvent( &event );
                         // exit if ESCAPE is pressed
                         #ifdef _DEBUG
-                        if (event.key.keysym.sym == SDLK_ESCAPE)
+                        if( event.key.keysym.sym == SDLK_ESCAPE )
                         {
                             done = true;
+                        }
+                        if( event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_F12 )
+                        {
+                            mRenderer->WriteScreenShot();
                         }
                         #endif
 

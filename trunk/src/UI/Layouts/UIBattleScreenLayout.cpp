@@ -23,6 +23,8 @@
  * Karl Schmidt,   March 14 2007	| Disabled "Easy Win" button in release mode
  * Karl Schmidt,   March 22 2007    | Correcting include orders and paths
  * Andrew Osborne, March 29 2007    | Added Party Status Button
+ * Karl Schmidt,   April 1 2007     | Added hack (inPartyStatus) to fix bug introduced by pushing a different layout
+                                      while in the battle (caused OnClose and OnLoad to be called)
  */
 
 #include "UIBattleScreenLayout.h"                                // class implemented
@@ -39,6 +41,11 @@
 #include <GameEngine/GameEngine.h>
 #include <GameEngine/Knight.h>
 #include <ResourceManager/ResourceManager.h>
+
+namespace
+{
+    static bool inPartyStatus = false;
+}
 
 // Defining Function Objects for Button Operations
 
@@ -58,6 +65,7 @@ class StatusFunction : public FuncObj
 {
     virtual void operator()(void)
     {
+        inPartyStatus = true;
         UIManager::GetInstance()->PushLayout("PartyStatus");
     }
 };
@@ -193,6 +201,14 @@ void UIBattleScreenLayout::OnLoad( void )
 {
     UILayout::OnLoad();
 
+    if( inPartyStatus )
+    {
+        inPartyStatus = false;
+        mDefaultEventListener = mGrid;
+        mMenu->Disable();
+        return;
+    }
+
     if( mElements.empty() )
     {
         Initialize();
@@ -254,6 +270,11 @@ void UIBattleScreenLayout::OnLoad( void )
 void UIBattleScreenLayout::OnClose(void)
 {
     UILayout::OnClose();
+
+    if( inPartyStatus )
+    {
+        return;
+    }
 
     for( UIElementPtrItr i = mElements.begin(); i != mElements.end(); ++i )
     {
