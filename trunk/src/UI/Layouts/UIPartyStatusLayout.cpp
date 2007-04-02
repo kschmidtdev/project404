@@ -17,6 +17,8 @@
  * Andrew Osborne, April 1 2007 | Made it so then equip functions are ghosted when you are in battle.  Also made it so no menu
  *                                  appears when there are no items to equip and feedback is given.  That feedback is not visible
  *                                  when screen is loaded.
+ * Andrew Osborne, April 1 2007 | Made it so when you equip something it is taken out of the inventory and what you equipment you
+ *                                  disengaged is put 'into' the inventory.  Also added attribute detail to armor/weapon selection
  *
  */
 
@@ -79,16 +81,32 @@ public:
     virtual void operator()(void)
     {
         Item* newItem = mParent->GetEquipItem();
+        Item* oldItem = NULL;
         if (newItem->GetType()==Item::ARMOR)
         {
+            oldItem = mChar->GetArmor();
             mChar->SetArmor( dynamic_cast<ArmorItem*>( newItem ) );
         }
         else if (newItem->GetType()==Item::WEAPON)
         {
+            oldItem = mChar->GetWeapon();
             mChar->SetWeapon( dynamic_cast<WeaponItem*>( newItem ) );
         }
         mParent->SetEventHandler(mNext);
-        mParent->Update();
+
+
+        // Add item back to inventory
+        vector<Item*>* inventory = GameEngine::GetInstance()->GetItems();
+        for (vector<Item*>::iterator iter = inventory->begin(); iter!= inventory->end(); ++iter)
+        {
+            if ((*iter)==newItem)
+            {
+                (*iter) = oldItem;
+            }
+        }
+
+        mParent->UpdateInfo();
+
     }
 
 protected:
@@ -309,8 +327,6 @@ void UIPartyStatusLayout::OnLoad(void)
 
     mPartyList = DBEngine::GetInstance()->LoadParty(1);
 
-    // Debug
-    //partyMembers.clear();
 
     //mMenu->ClearButtons();
     int partyIndex = 0;
@@ -326,23 +342,9 @@ void UIPartyStatusLayout::OnLoad(void)
 
 
 
-    // Load All Party members
-    //----------------------------------------------
-    /*std::vector<Character*> allPartyMembers;
-
-    allPartyMembers.clear();
-
-    mMasterPartyMenu->ClearButtons();
-    for (std::vector<Character*>::iterator iter = allPartyMembers.begin(); iter != allPartyMembers.end(); ++iter)
-    {
-        mMasterPartyMenu->AddButton( (*iter)->GetName(), new SelectNewMemberFunction( (*iter) ) );
-    }*/
-
-
-
     // Load Univeral Inventory
     // ----------------------------------------------------------
-    std::vector<Item*>* itemInventory = GameEngine::GetInstance()->GetItems();
+    /*std::vector<Item*>* itemInventory = GameEngine::GetInstance()->GetItems();
 
 
     // Create Armour Menu
@@ -363,7 +365,9 @@ void UIPartyStatusLayout::OnLoad(void)
     {
         if ((*iter3)->GetType()==Item::WEAPON)
             mWeaponMenu->AddButton( (*iter3)->GetName(), new EquipWeaponFunction( (*iter3), this, mMasterPartyMenu ) );
-    }
+    }*/
+
+    UpdateInfo();
 
 
     // Ghost or un-Ghost eqiuping options
@@ -394,14 +398,45 @@ void UIPartyStatusLayout::OnClose(void)
         mPartyList = NULL;
     }
 }
+//Update();
 
-
-void UIPartyStatusLayout::Update(void)
+void UIPartyStatusLayout::UpdateInfo(void)
 {
     for (std::vector<UICharWindow*>::iterator iter = mPartyWindow.begin(); iter != mPartyWindow.end(); ++iter)
     {
         (*iter)->Update();
     }
+
+    // Load Univeral Inventory
+    // ----------------------------------------------------------
+    std::vector<Item*>* itemInventory = GameEngine::GetInstance()->GetItems();
+
+
+    // Create Armour Menu
+    // ----------------------------------------------------------
+    mArmorMenu->ClearButtons();
+    for (std::vector<Item*>::iterator iter2 = itemInventory->begin(); iter2 != itemInventory->end(); ++iter2)
+    {
+        if ((*iter2)->GetType()==Item::ARMOR)
+            mArmorMenu->AddButton( (*iter2)->GetName() + " (" + toString((*iter2)->GetAttr()) + ")", new EquipArmorFunction( (*iter2), this, mMasterPartyMenu ) );
+    }
+
+
+    // Create Weapon Menu
+    // ----------------------------------------------------------
+
+    mWeaponMenu->ClearButtons();
+    string tempStr;
+    for (std::vector<Item*>::iterator iter3 = itemInventory->begin(); iter3 != itemInventory->end(); ++iter3)
+    {
+        if ((*iter3)->GetType()==Item::WEAPON)
+        {
+            tempStr = (*iter3)->GetName() + " (" + toString((*iter3)->GetAttr()) + ")";
+            mWeaponMenu->AddButton( tempStr, new EquipWeaponFunction( (*iter3), this, mMasterPartyMenu ) );
+        }
+    }
+
+
 }
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
