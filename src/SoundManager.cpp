@@ -22,6 +22,7 @@
  * Mike Malyuk,  April 1 2007     | Huge overhaul, sounds now play from left/right speakers, plays an actual attack, GIGANTIC generation function
  * Karl Schmidt, April 2 2007     | Memory leak fix
  * Mike Malyuk,  April 2 2007     | Added dynamic sound for attack.
+ * Mike Malyuk,  April 2 2007     | Added commenting, realized I had been writing out files causing massive slow down. Removed.
  */
 
 
@@ -33,7 +34,6 @@
 #include "BiQuad.h"
 #include <cstdlib>
 #include <ctime>
-#include <fstream>
 typedef float  MY_TYPE;
 #define FORMAT RTAUDIO_FLOAT32
 
@@ -388,18 +388,22 @@ void SoundManager::SetSoundArray(double tau)
     {
         return;
     }
+    //outside valid values for attack set to max Attack tau
     if(tau > 1.2)
     {
         tau = 1.2;
     }
+    //outside valid values for attack set to min Attack tau
     if(tau < .025)
     {
         tau = .025;
     }
-    std::cout << tau << std::endl;
-	std::vector<double> fc;
-	std::vector<double> Q;
-	std::vector<double> G;
+    std::cout << tau << std::endl; //print out for study
+	std::vector<double> fc; //store frequencies
+	std::vector<double> Q; //store quality factor for BW
+	std::vector<double> G; //store gain
+
+	//pushing back lazily
 	fc.push_back(118.0);
 	fc.push_back(1517.0);
 	fc.push_back(2900.0);
@@ -436,34 +440,38 @@ void SoundManager::SetSoundArray(double tau)
 	G.push_back(.5);
 	G.push_back(.5);
 	G.push_back(1);
-	std::vector<double> Bw;
+	std::vector<double> Bw; //resulting bandwidth
 	std::vector<double>::iterator Qiter;
 	for(std::vector<double>::iterator fciter = fc.begin(), Qiter = Q.begin(); fciter != fc.end() && Qiter != Q.end(); fciter++, Qiter++ )
 	{
+	    //Calculate Bw for each frequency passed
 	    Bw.push_back((*fciter)/(*Qiter));
 	}
-	std::vector<double> R;
+	std::vector<double> R; //Setting function for desired BW
 	for(std::vector<double>::iterator Bwiter = Bw.begin(); Bwiter != Bw.end(); Bwiter++)
 	{
         R.push_back(exp(-mPi*(*Bwiter)*mT));
 	}
+	//Calculate hanning window
 	std::vector<double> w = Hanning((int)(.05*44100));
 	std::vector<double> wfin;
 	for(std::vector<double>::iterator witer = w.begin(); (int)wfin.size() < ((int)round(w.size()/2.0)); witer++)
 	{
+	    //only push back half the window
         wfin.push_back((*witer));
 	}
 
-    std::vector<double> ex;
+    std::vector<double> ex; // create exponential envelope
     for(double i = 0.0; i < 1; i = i + (1/mFS))
     {
-        ex.push_back(exp(-i/tau));
+        ex.push_back(exp(-i/tau)); //dynamicnism here!
     }
     srand ( time(NULL) );
 
     std::vector<double> random;
     for(int i = 0; i < mFS; i++)
     {
+        //randomly place negatives
         if(rand()%2 == 0)
         {
             random.push_back(rand()/(RAND_MAX*1.0));
@@ -476,15 +484,16 @@ void SoundManager::SetSoundArray(double tau)
     std::vector<double> env = wfin;
     for(std::vector<double>::iterator exiter = ex.begin(); env.size() < mFS; exiter++)
     {
+        //push back til we fill with 44100 samples on envelope
         env.push_back((*exiter));
     }
 	std::vector<double>::iterator enviter;
-    std::vector<double> xn;
+    std::vector<double> xn; //get x values and put up against noise
 	for(std::vector<double>::iterator raniter = random.begin(), enviter = env.begin(); raniter != random.end() && enviter != env.end(); raniter++, enviter++ )
 	{
 	    xn.push_back((*raniter)*(*enviter));
 	}
-	int i = 1;
+	//int i = 1;
     /*for(std::vector<double>::iterator xniter = xn.begin(); xniter != xn.end(); xniter++)
     {
         std::cout << i << ": " << (*xniter) << std::endl;
@@ -501,12 +510,14 @@ void SoundManager::SetSoundArray(double tau)
     BiQuad object(B, A, 3, (*G.begin()));*/
     std::vector<double>::iterator giter = G.begin();
     BiQuad* BiQuads = new BiQuad[12];
-    i = 0;
+    int i = 0;
     std::vector<double>::iterator fciter = fc.begin();
     for(std::vector<double>::iterator riter = R.begin(); riter != R.end(); riter++, giter++, fciter++)
     {
+        //Setting up for filtering
         double* B = new double[3];
         double* A = new double[3];
+        //x(n) - Rx(n-2) + 2*R*cos(2*pi*fc*mT)
         B[0] = 1;
         B[1] = 0;
         B[2] = -(*riter);
@@ -530,7 +541,7 @@ void SoundManager::SetSoundArray(double tau)
     {
         cout << b+1 << ": " << result[b] << endl;
     }*/
-
+    //set up an array of arrays
     double** myArray = new double*[12];
 
     if (myArray != NULL)
@@ -545,7 +556,7 @@ void SoundManager::SetSoundArray(double tau)
     {
         for(std::vector<double>::iterator xiter = xn.begin(); xiter != xn.end(); xiter++)
         {
-            myArray[b][i] = BiQuads[b].tick((*xiter));
+            myArray[b][i] = BiQuads[b].tick((*xiter)); //store each generated to one line on array
             i++;
         }
         i = 0;
@@ -582,16 +593,10 @@ void SoundManager::SetSoundArray(double tau)
         delete[] myArray[i];
         myArray[i] = 0;
     }
-    std::ofstream myfile;
-    myfile.open("vector.txt");
     for(int b = 0; b < 44100; b++)
     {
-        //std::cout << b+1 << ": " << result[b] << std::endl;
-
-        myfile << result[b] << ", ";
         mSound[b] = result[b];
     }
-    myfile.close();
     delete[] myArray;
     delete[] result;
     delete[] BiQuads;
