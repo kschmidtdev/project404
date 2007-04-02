@@ -20,6 +20,7 @@
  * Karl Schmidt, April 1 2007     | Rearranged the order of functions and now stopmPing/starting stream instead of
  *                                  killing thread and making a new one every time a new sound is played
  * Mike Malyuk,  April 1 2007     | Huge overhaul, sounds now play from left/right speakers, plays an actual attack, GIGANTIC generation function
+ * Karl Schmidt, April 2 2007     | Memory leak fix
  */
 
 
@@ -213,6 +214,7 @@ void SoundManager::Shutdown()
 
         Mix_CloseAudio();
 
+        delete[] mSound;
         try
         {
         // Stop and close the stream
