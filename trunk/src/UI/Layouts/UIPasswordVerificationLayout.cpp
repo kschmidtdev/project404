@@ -38,7 +38,11 @@ UIPasswordVerificationLayout::UIPasswordVerificationLayout()
     mPasswordText->SetPos( Point(285,195) );
     mElements.push_back(mPasswordText);
 
-    UIText* backMessage = new UIText("Press CANCEL to Go Back to Profile Selection", 18, 255, 0, 0);
+    UIText* inputMessage = new UIText("Press Direction Keys to Enter Password", 18, 255, 255, 255);
+    inputMessage->SetPos( Point(140, 340) );
+    mElements.push_back(inputMessage);
+
+    UIText* backMessage = new UIText("Press CANCEL to Go Back to Profile Selection", 18, 255, 255, 255);
     backMessage->SetPos( Point(120, 380) );
     mElements.push_back(backMessage);
 
