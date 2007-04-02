@@ -43,7 +43,7 @@
 			</Node>
 			<Node name="Enemy Type 1-B">
 				<Data type="string" name="Class" value="Archer" />
-				<Data type="int" name="Level" value="2" />
+				<Data type="int" name="Level" value="1" />
 				<Data type="string" name="Weapon" value="Basic Bow" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
@@ -71,84 +71,84 @@
 			</Node>
 			<Node name="Enemy Type 2-A">
 				<Data type="string" name="Class" value="Archer" />
-				<Data type="int" name="Level" value="1" />
+				<Data type="int" name="Level" value="2" />
 				<Data type="string" name="Weapon" value="Basic Bow" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>	
 			<Node name="Enemy Type 2-B">
 				<Data type="string" name="Class" value="Archer" />
-				<Data type="int" name="Level" value="1" />
+				<Data type="int" name="Level" value="2" />
 				<Data type="string" name="Weapon" value="Basic Bow" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 2-C">
 				<Data type="string" name="Class" value="Archer" />
-				<Data type="int" name="Level" value="1" />
+				<Data type="int" name="Level" value="2" />
 				<Data type="string" name="Weapon" value="Basic Bow" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 2-D">
 				<Data type="string" name="Class" value="Archer" />
-				<Data type="int" name="Level" value="1" />
+				<Data type="int" name="Level" value="2" />
 				<Data type="string" name="Weapon" value="Basic Bow" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 2-E">
 				<Data type="string" name="Class" value="Archer" />
-				<Data type="int" name="Level" value="1" />
+				<Data type="int" name="Level" value="2" />
 				<Data type="string" name="Weapon" value="Basic Bow" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 2-F">
 				<Data type="string" name="Class" value="Archer" />
-				<Data type="int" name="Level" value="1" />
+				<Data type="int" name="Level" value="2" />
 				<Data type="string" name="Weapon" value="Basic Bow" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 2-G">
 				<Data type="string" name="Class" value="Archer" />
-				<Data type="int" name="Level" value="1" />
+				<Data type="int" name="Level" value="2" />
 				<Data type="string" name="Weapon" value="Basic Bow" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 2-H">
 				<Data type="string" name="Class" value="Archer" />
-				<Data type="int" name="Level" value="1" />
+				<Data type="int" name="Level" value="2" />
 				<Data type="string" name="Weapon" value="Basic Bow" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 3-A">
 				<Data type="string" name="Class" value="Knight" />
-				<Data type="int" name="Level" value="2" />
+				<Data type="int" name="Level" value="4" />
 				<Data type="string" name="Weapon" value="Basic Sword" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 3-B">
 				<Data type="string" name="Class" value="Knight" />
-				<Data type="int" name="Level" value="2" />
+				<Data type="int" name="Level" value="3" />
 				<Data type="string" name="Weapon" value="Basic Sword" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 3-C">
 				<Data type="string" name="Class" value="Knight" />
-				<Data type="int" name="Level" value="2" />
+				<Data type="int" name="Level" value="4" />
 				<Data type="string" name="Weapon" value="Basic Sword" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 3-D">
 				<Data type="string" name="Class" value="Knight" />
-				<Data type="int" name="Level" value="3" />
+				<Data type="int" name="Level" value="4" />
 				<Data type="string" name="Weapon" value="Basic Sword" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
@@ -209,7 +209,7 @@
 					<Data type="int" name="Attribute" value="3" />
 				</Node>
 				<Node name="Staff of Wisdom">
-					<Data type="int" name="Attribute" value="15" />
+					<Data type="int" name="Attribute" value="12" />
 				</Node>
 				<Node name="Sword of Victory">
 					<Data type="int" name="Attribute" value="10" />

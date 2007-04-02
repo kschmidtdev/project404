@@ -59,7 +59,7 @@ Knight::Knight( const string & name, const int level, WeaponItem* weapon, ArmorI
     mCurPos = Point(0,0);
     mAttributes[POW] = 3;
     mAttributes[AGI] = 5;
-    mAttributes[DEF] = 4;
+    mAttributes[DEF] = 5;
     mExhausted = false;
     mIsDead = false;
     mTarget = NULL;
@@ -88,7 +88,7 @@ void Knight::LevelUp()
 {
     mAttributes[POW] = mAttributes[POW]+1;
     mAttributes[AGI] = mAttributes[AGI]+1;
-    mAttributes[DEF] = mAttributes[DEF]+2;
+    mAttributes[DEF] = mAttributes[DEF]+4;
     mMaxHP = mMaxHP + 5;
     mCurHP = mCurHP + 5;
     mLevel++;
