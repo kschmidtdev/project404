@@ -21,6 +21,7 @@
  *                                  killing thread and making a new one every time a new sound is played
  * Mike Malyuk,  April 1 2007     | Huge overhaul, sounds now play from left/right speakers, plays an actual attack, GIGANTIC generation function
  * Karl Schmidt, April 2 2007     | Memory leak fix
+ * Mike Malyuk,  April 2 2007     | Added dynamic sound for attack.
  */
 
 
@@ -294,7 +295,6 @@ void SoundManager::PlayRTAUDIO()
 
         LogInfo("Before stopStream");
         mRTAudio->stopStream();
-        SetSoundArray();
         try
         {
             //LogInfo("Before setStreamCallback");
@@ -382,8 +382,21 @@ std::vector<double> SoundManager::Hanning(int impulse)
     }
     return w;
 }
-void SoundManager::SetSoundArray()
+void SoundManager::SetSoundArray(double tau)
 {
+    if(!mIsEnabled)
+    {
+        return;
+    }
+    if(tau > 1.2)
+    {
+        tau = 1.2;
+    }
+    if(tau < .025)
+    {
+        tau = .025;
+    }
+    std::cout << tau << std::endl;
 	std::vector<double> fc;
 	std::vector<double> Q;
 	std::vector<double> G;
@@ -442,7 +455,6 @@ void SoundManager::SetSoundArray()
 	}
 
     std::vector<double> ex;
-    double tau = .05;
     for(double i = 0.0; i < 1; i = i + (1/mFS))
     {
         ex.push_back(exp(-i/tau));

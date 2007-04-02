@@ -18,6 +18,7 @@
  * Karl Schmidt, March 26 2007    | Added volume control functionality for both SDL_Mixer and RTAudio playback
  * Mike Malyuk,  April 1  2007    | Added vector include, added CalcHanning, Hanning, SetSoundArray, SetLeft, GetSound, Get Left
  *                                | and a whack of new params: mPi, mFS, mT, mSound, mLeft
+ * Mike Malyuk,  April 2  2007    | Revised SetSoundArray to take a double.
  */
 
 #ifndef SoundManager_h
@@ -110,7 +111,7 @@ public:
 
 // ACCESS (writing)
 
-    void SetSoundArray();
+    void SetSoundArray(double tau);
 
     void SetLeft(bool left){mLeft = left;}
 // INQUIRY (reading)
