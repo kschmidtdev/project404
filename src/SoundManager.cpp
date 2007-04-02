@@ -155,6 +155,7 @@ void SoundManager::Initialize( const bool isEnabled )
     mIsEnabled = isEnabled;
     if( mIsEnabled )
     {
+
         LogInfo( "Beginning SoundManager initialization..." );
         if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1 )
         {
@@ -192,7 +193,11 @@ void SoundManager::Initialize( const bool isEnabled )
             error.printMessage();
         }
         // TODO: Make functions for this or something
-
+        mSound = new double[44100];
+        for(int i = 0; i < 44100; i++)
+        {
+            mSound[i] = 0;
+        }
 
         LogInfo( "SoundManager initialized successfully." );
     }
@@ -231,7 +236,6 @@ void SoundManager::Shutdown()
         {
             LogInfo("mAudioData existed in deletion");
             delete[] mAudioData;
-            delete[] mSound;
             LogInfo("mAudioData deleted");
             mAudioData = NULL;
         }
@@ -595,11 +599,6 @@ SoundManager::SoundManager(void)
   mT(1/44100.0),
   mLeft(true)
 {
-    mSound = new double[44100];
-    for(int i = 0; i < 44100; i++)
-    {
-        mSound[i] = 0;
-    }
 }
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////
