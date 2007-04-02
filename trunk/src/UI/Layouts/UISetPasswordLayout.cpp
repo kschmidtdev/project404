@@ -10,6 +10,7 @@
  * Karl Schmidt, March 31 2007      | Added Reset() to reset the screen, it now checks/sets the currently
                                       logged-on user, also can be used to set a password for the first time
  * Karl Schmidt, April 1 2007       | Fixed a bug where a blank password was allowed to be set
+ * Karl Schmidt, April 1 2007       | Added UI notification, new backdrop texture
  */
 
 #include "UISetPasswordLayout.h"                                // class implemented
@@ -17,6 +18,7 @@
 #include <util.h>
 
 #include <UI/UIManager.h>
+#include <UI/UIImage.h>
 #include <SecurityManager.h>
 #include <Database/DBEngine.h>
 
@@ -31,32 +33,41 @@ mOldPwdUIText(NULL), mNewPwdUIText(NULL), mConfirmPwdUIText(NULL), mOldPwd(""), 
 {
     mName = "SetPassword";
 
+    UIImage* backDrop = new UIImage( "castleplain_darkened.png" );
+    mElements.push_back( backDrop );
+
     // Old Password
-    mOldPwdUIText = new UIText(mOldStarString, 30, 255, 0, 0);
+    mOldPwdUIText = new UIText(mOldStarString, 30, 255, 255, 255);
     mOldPwdUIText->SetPos( Point(175, 145) );
     mElements.push_back(mOldPwdUIText);
 
     // New Password
-    mNewPwdUIText = new UIText(mNewStarString, 30, 255, 0, 0);
+    mNewPwdUIText = new UIText(mNewStarString, 30, 255, 255, 255);
     mNewPwdUIText->SetPos( Point(175, 185) );
     mNewPwdUIText->SetVisible( false );
     mElements.push_back(mNewPwdUIText);
 
     // Confirm Password
-    mConfirmPwdUIText = new UIText(mConfirmStarString, 30, 255, 0, 0);
+    mConfirmPwdUIText = new UIText(mConfirmStarString, 30, 255, 255, 255 );
     mConfirmPwdUIText->SetPos( Point(175, 225) );
     mConfirmPwdUIText->SetVisible(false);
     mElements.push_back(mConfirmPwdUIText);
 
-    UIText *tempText = new UIText("Set Password", 40, 255, 0, 0);
+    UIText *tempText = new UIText("Set Password", 40, 255, 255, 255 );
     tempText->SetPos( Point(98,50) );
     mElements.push_back(tempText);
 
-    tempText = new UIText("Press CONFIRM to advance", 24, 255, 0, 0);
-    tempText->SetPos( Point(115, 390) );
+    tempText = new UIText("Press CONFIRM to advance", 18, 255, 255, 255);
+    tempText->SetPos( Point(200, 420) );
     mElements.push_back(tempText);
 
+    UIText* inputMessage = new UIText("Press Direction Keys to Enter Password", 18, 255, 255, 255);
+    inputMessage->SetPos( Point(140, 340) );
+    mElements.push_back(inputMessage);
 
+    UIText* backMessage = new UIText("Press CANCEL to Go Back to Profile Selection", 18, 255, 255, 255);
+    backMessage->SetPos( Point(120, 380) );
+    mElements.push_back(backMessage);
 
 }// UISetPasswordLayout
 

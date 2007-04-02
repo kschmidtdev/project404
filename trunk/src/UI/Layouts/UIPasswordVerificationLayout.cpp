@@ -9,6 +9,7 @@
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  * Karl Schmidt, March 29 2007      | Password checking against is the selected profile
  * Andrew Osborne, April 1 2007 | Added notification and ability to go back to profile menu screen.
+ * Karl Schmidt, April 1 2007       | Added more notification, new backdrop texture
  */
 
 #include "UIPasswordVerificationLayout.h"                                // class implemented
@@ -29,13 +30,13 @@ UIPasswordVerificationLayout::UIPasswordVerificationLayout()
     // Create default Password
     SecurityManager::GetInstance()->AddUser( "user1", "rrrr" );
 
-    UIImage *temp = new UIImage( "menu_password.png" );
+    UIImage *temp = new UIImage( "castleplain_darkened.png" );
     mElements.push_back(temp);
 
-    mStarString = " ";
-    mPasswordText = new UIText( mStarString, 30, 255, 0, 0 );
+    mStarString = "Enter password:";
+    mPasswordText = new UIText( mStarString, 30, 255, 255, 255 );
 
-    mPasswordText->SetPos( Point(285,195) );
+    mPasswordText->SetPos( Point(115,170) );
     mElements.push_back(mPasswordText);
 
     UIText* inputMessage = new UIText("Press Direction Keys to Enter Password", 18, 255, 255, 255);
@@ -46,7 +47,9 @@ UIPasswordVerificationLayout::UIPasswordVerificationLayout()
     backMessage->SetPos( Point(120, 380) );
     mElements.push_back(backMessage);
 
-
+    UIText* tempText = new UIText("Press CONFIRM to advance", 18, 255, 255, 255);
+    tempText->SetPos( Point(200, 420) );
+    mElements.push_back(tempText);
 
     mName = "PasswordVer";
 
@@ -92,7 +95,7 @@ void UIPasswordVerificationLayout::ProcessEvent( const InputManager::INPUTKEYS e
             }
             else
             {
-                mStarString = " ";
+                mStarString = "Enter password:";
                 mPwdString = "";
                 mPasswordText->ChangeText(mStarString);
             }
