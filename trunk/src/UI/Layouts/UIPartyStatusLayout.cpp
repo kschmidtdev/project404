@@ -95,7 +95,8 @@ public:
         mParent->SetEventHandler(mNext);
 
 
-        // Add item back to inventory
+        // Add item (that was just unequiped) to inventory
+        // And remove item from inventory that had just been equipped.
         vector<Item*>* inventory = GameEngine::GetInstance()->GetItems();
         for (vector<Item*>::iterator iter = inventory->begin(); iter!= inventory->end(); ++iter)
         {
