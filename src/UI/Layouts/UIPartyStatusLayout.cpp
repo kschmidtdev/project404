@@ -14,6 +14,9 @@
  *                                  Properly installed character windows.  Created (and properly deleted) mPartyList variable.
  *                                  Properly create weapon and armor lists from pary inventory.  Overwrote OnClose method.
  * Andrew Osborne, March 29 2007 | Enabled Equiping of Armor and Weapons (also fixed memory leak)
+ * Andrew Osborne, April 1 2007 | Made it so then equip functions are ghosted when you are in battle.  Also made it so no menu
+ *                                  appears when there are no items to equip and feedback is given.  That feedback is not visible
+ *                                  when screen is loaded.
  *
  */
 
@@ -34,21 +37,33 @@
 class SwitchToFunction2 : public FuncObj
 {
 public:
-    SwitchToFunction2(UILayout *layout, UIEventListener* newListener)
-    : mLayout(layout), mNewListener( newListener )
+    SwitchToFunction2(UILayout *layout, UIMenu* newListener, UIText* feedback, string message)
+    : mLayout(layout), mNewListener( newListener ), mFeedback(feedback), mType(message)
     {
     }
 
     void operator()(void)
     {
         if ( (mLayout) && (mNewListener) )
-            mLayout->SetEventHandler(mNewListener);
+            if (!mNewListener->Empty())
+            {
+                mFeedback->SetVisible(false);
+                mLayout->SetEventHandler(mNewListener);
+            }
+            else
+            {
+                mFeedback->SetVisible(true);
+                mFeedback->ChangeText("You have no " + mType + " to equip");
+            }
+
     }
 
 
 protected:
     UILayout* mLayout;
-    UIEventListener* mNewListener;
+    UIMenu* mNewListener;
+    UIText* mFeedback;
+    string mType;
 
 };
 
@@ -142,7 +157,7 @@ class PopLayoutFunction5 : public FuncObj
 //============================= LIFECYCLE ====================================
 
 UIPartyStatusLayout::UIPartyStatusLayout()
-: mPartyList( NULL )
+: mFeedback( NULL ), mPartyList( NULL )
 {
     // Background
     UIImage* back = new UIImage("castle_main.png");
@@ -189,11 +204,15 @@ UIPartyStatusLayout::UIPartyStatusLayout()
 
     // Fleshing out Main menu
 
+    mFeedback = new UIText(" ", 18, 255, 255, 0);
+    mFeedback->SetPos( Point(190, 20) );
+    mElements.push_back(mFeedback);
+
     mMenu->SetPos( Point(20, 20) );
     mMenu->SetBackground("menu_back_small.png");
     //mMenu->AddButton( "Select New Party", new SwitchToFunction2( this, mMasterPartyMenu ) );
-    mMenu->AddButton( "Equip Armor", new SwitchToFunction2( this, mArmorMenu ) );
-    mMenu->AddButton( "Equip Weapon", new SwitchToFunction2( this, mWeaponMenu ) );
+    mMenu->AddButton( "Equip Armor", new SwitchToFunction2( this, mArmorMenu, mFeedback, "Armor" ) );
+    mMenu->AddButton( "Equip Weapon", new SwitchToFunction2( this, mWeaponMenu, mFeedback, "Weapons" ) );
     mMenu->AddButton( "Back", new PopLayoutFunction5() );
     mElements.push_back(mMenu);
     mDefaultEventListener = mMenu;
@@ -282,6 +301,8 @@ void UIPartyStatusLayout::OnLoad(void)
 
     UILayout::OnLoad();
 
+    // Set feedback invisible
+    mFeedback->SetVisible(false);
 
     // Load current party members
     //----------------------------------------------
@@ -344,6 +365,22 @@ void UIPartyStatusLayout::OnLoad(void)
             mWeaponMenu->AddButton( (*iter3)->GetName(), new EquipWeaponFunction( (*iter3), this, mMasterPartyMenu ) );
     }
 
+
+    // Ghost or un-Ghost eqiuping options
+    Level* tempLevel = GameEngine::GetInstance()->GetLevel();
+    if (tempLevel)
+    {
+        // Battle is currently in progress
+        mMenu->SetGhost(0,true);
+        mMenu->SetGhost(1,true);
+    }
+    else
+    {
+        // Battle is not in progress
+        mMenu->SetGhost(0,false);
+        mMenu->SetGhost(1,false);
+    }
+    tempLevel = NULL;
 
 }
 
