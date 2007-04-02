@@ -11,6 +11,7 @@
  * Andrew Osborne, March 18 2007, Initial Creation
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  * Andrew Osborne, March 23 2007, Proper Implementation of functionality
+ * Karl Schmidt, April 2 2007    | Added support for final tutorial, plus resetting tutorial on re-entry
  */
 
 #ifndef UITutorialLayout_h
@@ -41,34 +42,19 @@ public:
     UITutorialLayout(void);
 
     /**
-     * Copy constructor.
-	 *
-	 * @param from The value to copy to this object.
-	 */
-    //UITutorialLayout(const UITutorialLayout& from);
-
-    /**
      * Destructor.
 	 */
     ~UITutorialLayout(void);
 
 // OPERATORS
-
-    /**
-     * Assignment operator.
-	 *
-	 * @param from The value to assign to this object.
-	 *
-	 * @return A reference to this object.
-	 */
-    //UITutorialLayout&                     operator=(UITutorialLayout& from);
-
 // OPERATIONS
 
     /**
      * Listens for Key Press from User
     */
     virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
+
+    void OnLoad();
 
 
 // ACCESS (writing)

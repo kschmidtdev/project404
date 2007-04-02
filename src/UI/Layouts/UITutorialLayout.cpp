@@ -5,8 +5,9 @@
  *
  * Authors:
  * Andrew Osborne, March 18 2007 | Initial Creation (stub)
- * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Karl Schmidt, March 22 2007   | Correcting include orders and paths
  * Andrew Osborne, March 23 2007 | Proper Implementation of Tutorial Layout
+ * Karl Schmidt, April 2 2007    | Added support for final tutorial, plus resetting tutorial on re-entry
  */
 #include "UITutorialLayout.h"                                // class implemented
 
@@ -21,7 +22,7 @@
 //============================= LIFECYCLE ====================================
 
 UITutorialLayout::UITutorialLayout()
-: mMinLayoutNum( 1 ), mMaxLayoutNum( 3 ), mCurLayoutNum( 1 ),
+: mMinLayoutNum( 1 ), mMaxLayoutNum( 13 ), mCurLayoutNum( 1 ),
 mBack( NULL )
 {
     // Screen Name
@@ -97,6 +98,16 @@ void UITutorialLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
 
 }
 
+void UITutorialLayout::OnLoad()
+{
+    UILayout::OnLoad();
+
+    mCurLayoutNum = 1;
+    // Calling first file
+    std::ostringstream oss;
+    oss << mCurLayoutNum;
+    mBack->SetImage( mLayoutFileNamePrefix + oss.str() + mLayoutFileNameSuffix );
+}
 
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
