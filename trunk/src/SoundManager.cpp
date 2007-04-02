@@ -17,8 +17,9 @@
  * Mike Malyuk,  March 28 2007    | Added stereo back in. Will be utilized later.
  * Mike Malyuk,  March 30 2007    | Added verbosity for logging.
  * Mike Malyuk,  March 31 2007    | Added another short fix
- * Karl Schmidt, April 1 2007     | Rearranged the order of functions and now stopping/starting stream instead of 
-                                    killing thread and making a new one every time a new sound is played
+ * Karl Schmidt, April 1 2007     | Rearranged the order of functions and now stopmPing/starting stream instead of
+ *                                  killing thread and making a new one every time a new sound is played
+ * Mike Malyuk,  April 1 2007     | Huge overhaul, sounds now play from left/right speakers, plays an actual attack, GIGANTIC generation function
  */
 
 
@@ -27,7 +28,10 @@
 #include <math.h>
 #include <Logger.h>
 #include <util.h>
-
+#include "BiQuad.h"
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
 typedef float  MY_TYPE;
 #define FORMAT RTAUDIO_FLOAT32
 
@@ -44,13 +48,10 @@ namespace
         int i, j;
         static int chans = 2;
         static int times = 0;
-        float T = 1.0 / 44100.0;
         MY_TYPE *my_buffer = (MY_TYPE *) buffer;
         double *my_data = (double *) data;
-        double pi = 3.141592653589793;
         MY_TYPE sinval = 0;
         static int n = 0;
-        float f0 = 262.0;
         if (times == 1)
         {
             LogInfo("Bad case because of cancel");
@@ -58,22 +59,67 @@ namespace
         }
         for (i=0; i<buffer_size; i++)
         {
-            sinval = .5*(cos(2.0*pi*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*f0*T*(float)n)) +
-                     (cos(2.0*pi*3*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*3*f0*T*(float)n)) +
-                     (cos(2.0*pi*4*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*4*f0*T*(float)n)) +
-                     (cos(2.0*pi*5*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*5*f0*T*(float)n)) +
-                     .1*(cos(2.0*pi*7*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*7*f0*T*(float)n)) +
-                     .05*(cos(2.0*pi*9*f0*T*(float)n) + cos(2.0*pi*f0*T*(float)n) * cos(2.0*pi*9*f0*T*(float)n));
+            sinval = (SoundManager::GetInstance()->GetSoundArr())[n];
             n++;
             if (n > 44100)
             {
                 n = 0;
                 times++;
+                break;
             }
             for (j=0; j<chans; j++)
             {
                 *my_buffer++ = (MY_TYPE) (my_data[j] * RTAUDIO_SCALE);
-                my_data[j] = sinval/7.4;
+                if(!(SoundManager::GetInstance()->GetLeft()))
+                {
+                    if(j == 1)
+                    {
+                        if(n < 11025)
+                        {
+                            my_data[j] = sinval*((44100-4*n)/44100.0);
+                        }
+                        else
+                        {
+                            my_data[j] = 0;
+                        }
+                    }
+                    else
+                    {
+                        if(n < 11025)
+                        {
+                            my_data[j] = sinval*((4*n)/44100.0);
+                        }
+                        else
+                        {
+                            my_data[j] = sinval;
+                        }
+                    }
+                }
+                else
+                {
+                    if(j == 1)
+                    {
+                        if(n < 11025)
+                        {
+                            my_data[j] = sinval*((4*n)/44100.0);
+                        }
+                        else
+                        {
+                            my_data[j] = 0;
+                        }
+                    }
+                    else
+                    {
+                        if(n < 11025)
+                        {
+                            my_data[j] = sinval*((44100-4*n)/44100.0);
+                        }
+                        else
+                        {
+                            my_data[j] = sinval;
+                        }
+                    }
+                }
             }
         }
         if (times == 1)
@@ -185,6 +231,7 @@ void SoundManager::Shutdown()
         {
             LogInfo("mAudioData existed in deletion");
             delete[] mAudioData;
+            delete[] mSound;
             LogInfo("mAudioData deleted");
             mAudioData = NULL;
         }
@@ -238,8 +285,10 @@ void SoundManager::PlayRTAUDIO()
 {
     if( mIsEnabled )
     {
+
         LogInfo("Before stopStream");
         mRTAudio->stopStream();
+        SetSoundArray();
         try
         {
             //LogInfo("Before setStreamCallback");
@@ -283,6 +332,254 @@ const SoundManager::VOLUME_LEVEL SoundManager::GetVolumeLevel() const
     return mCurVolumeLevel;
 }
 
+std::vector<double> SoundManager::CalcHanning(int m,int n)
+{
+    std::vector<double> w;
+    for(int i = 1; i <= m; i++)
+    {
+        w.push_back(.5*(1 - cos((2*mPi*i)/(n+1.0))));
+    }
+    return w;
+}
+
+std::vector<double> SoundManager::Hanning(int impulse)
+{
+    int half;
+    std::vector<double> w;
+    if(impulse%2 == 0)
+    {
+        half = impulse/2;
+        w = CalcHanning(half, impulse);
+        std::vector<double> temp;
+        for(std::vector<double>::iterator witer = w.end(); witer != w.begin(); witer--)
+        {
+            temp.push_back((*witer));
+        }
+        for(std::vector<double>::iterator titer = temp.begin(); titer != temp.end(); titer++)
+        {
+            w.push_back((*titer));
+        }
+    }
+    else
+    {
+        half = (impulse+1)/2;
+        w = CalcHanning(half, impulse);
+        std::vector<double> temp;
+        for(std::vector<double>::iterator witer = (w.end()-1); witer != w.begin(); witer--)
+        {
+            temp.push_back((*witer));
+        }
+        for(std::vector<double>::iterator titer = temp.begin(); titer != temp.end(); titer++)
+        {
+            w.push_back((*titer));
+        }
+    }
+    return w;
+}
+void SoundManager::SetSoundArray()
+{
+	std::vector<double> fc;
+	std::vector<double> Q;
+	std::vector<double> G;
+	fc.push_back(118.0);
+	fc.push_back(1517.0);
+	fc.push_back(2900.0);
+	fc.push_back(3350.0);
+	fc.push_back(3546.0);
+	fc.push_back(3744.0);
+	fc.push_back(3957.0);
+	fc.push_back(4508.0);
+	fc.push_back(4772.0);
+	fc.push_back(5008.0);
+	fc.push_back(5133.0);
+	fc.push_back(5451.0);
+	Q.push_back(1.0);
+	Q.push_back(2.0);
+	Q.push_back(2.0);
+	Q.push_back(100.0);
+	Q.push_back(100.0);
+	Q.push_back(100.0);
+	Q.push_back(100.0);
+	Q.push_back(100.0);
+	Q.push_back(100.0);
+	Q.push_back(100.0);
+	Q.push_back(100.0);
+	Q.push_back(150.0);
+	G.push_back(1.7);
+	G.push_back(.75);
+	G.push_back(.5);
+	G.push_back(.95);
+	G.push_back(.5);
+	G.push_back(.5);
+	G.push_back(.5);
+	G.push_back(.75);
+	G.push_back(.5);
+	G.push_back(.5);
+	G.push_back(.5);
+	G.push_back(1);
+	std::vector<double> Bw;
+	std::vector<double>::iterator Qiter;
+	for(std::vector<double>::iterator fciter = fc.begin(), Qiter = Q.begin(); fciter != fc.end() && Qiter != Q.end(); fciter++, Qiter++ )
+	{
+	    Bw.push_back((*fciter)/(*Qiter));
+	}
+	std::vector<double> R;
+	for(std::vector<double>::iterator Bwiter = Bw.begin(); Bwiter != Bw.end(); Bwiter++)
+	{
+        R.push_back(exp(-mPi*(*Bwiter)*mT));
+	}
+	std::vector<double> w = Hanning(.05*44100);
+	std::vector<double> wfin;
+	for(std::vector<double>::iterator witer = w.begin(); (int)wfin.size() < ((int)round(w.size()/2.0)); witer++)
+	{
+        wfin.push_back((*witer));
+	}
+
+    std::vector<double> ex;
+    double tau = .05;
+    for(double i = 0.0; i < 1; i = i + (1/mFS))
+    {
+        ex.push_back(exp(-i/tau));
+    }
+    srand ( time(NULL) );
+
+    std::vector<double> random;
+    for(int i = 0; i < mFS; i++)
+    {
+        if(rand()%2 == 0)
+        {
+            random.push_back(rand()/(RAND_MAX*1.0));
+        }
+        else
+        {
+            random.push_back(-rand()/(RAND_MAX*1.0));
+        }
+    }
+    std::vector<double> env = wfin;
+    for(std::vector<double>::iterator exiter = ex.begin(); env.size() < mFS; exiter++)
+    {
+        env.push_back((*exiter));
+    }
+	std::vector<double>::iterator enviter;
+    std::vector<double> xn;
+	for(std::vector<double>::iterator raniter = random.begin(), enviter = env.begin(); raniter != random.end() && enviter != env.end(); raniter++, enviter++ )
+	{
+	    xn.push_back((*raniter)*(*enviter));
+	}
+	int i = 1;
+    /*for(std::vector<double>::iterator xniter = xn.begin(); xniter != xn.end(); xniter++)
+    {
+        std::cout << i << ": " << (*xniter) << std::endl;
+        i++;
+    }*/
+
+    /*B[0] = 1;
+    B[1] = 0;
+    B[2] = -(*R.begin());
+    A[0] = 1;
+    A[1] = -2*(*R.begin())*cos(2*mPi*(*fc.begin())*mT);
+    A[2] = (*R.begin())*(*R.begin());
+
+    BiQuad object(B, A, 3, (*G.begin()));*/
+    std::vector<double>::iterator giter = G.begin();
+    BiQuad* BiQuads = new BiQuad[12];
+    i = 0;
+    std::vector<double>::iterator fciter = fc.begin();
+    for(std::vector<double>::iterator riter = R.begin(); riter != R.end(); riter++, giter++, fciter++)
+    {
+        double* B = new double[3];
+        double* A = new double[3];
+        B[0] = 1;
+        B[1] = 0;
+        B[2] = -(*riter);
+        A[0] = 1;
+        A[1] = 2*(*riter)*cos(2*mPi*(*fciter)*mT);
+        A[2] = (*riter)*(*riter);
+        BiQuads[i].Set(B, A, 3, (*giter));
+        i++;
+        delete[] B;
+        delete[] A;
+    }
+    /*
+    double* result = new double[44100];
+    i = 0;
+    for(std::vector<double>::iterator xiter = xn.begin(); xiter != xn.end(); xiter++)
+    {
+        result[i] = object.tick((*xiter));
+        i++;
+    }
+    for(int b = 0; b < 44100; b++)
+    {
+        cout << b+1 << ": " << result[b] << endl;
+    }*/
+
+    double** myArray = new double*[12];
+
+    if (myArray != NULL)
+    {
+        for (int i = 0; i < 12; i++)
+        {
+            myArray[i] = new double[44100];
+        }
+    }
+    i = 0;
+    for(int b = 0; b < 12; b++)
+    {
+        for(std::vector<double>::iterator xiter = xn.begin(); xiter != xn.end(); xiter++)
+        {
+            myArray[b][i] = BiQuads[b].tick((*xiter));
+            i++;
+        }
+        i = 0;
+    }
+    // to delete those:
+    double* result = new double[44100];
+
+    for(int b = 0; b < 44100; b++)
+    {
+        result[b] = 0;
+    }
+
+    for(int a = 0; a < 12; a++)
+    {
+        for(int b = 0; b < 44100; b++)
+        {
+            result[b] = result[b] + myArray[a][b];
+        }
+    }
+    double max = 0;
+    for(int b = 0; b < 44100; b++)
+    {
+        if(fabs(result[b]) > max)
+        {
+            max = fabs(result[b]);
+        }
+    }
+    for(int b = 0; b < 44100; b++)
+    {
+        double value = result[b];
+        result[b] = .8*(result[b]/max);
+    }
+    for (int i = 0; i < 12; i++)
+    {
+        delete[] myArray[i];
+        myArray[i] = 0;
+    }
+    std::ofstream myfile;
+    myfile.open("vector.txt");
+    for(int b = 0; b < 44100; b++)
+    {
+        //std::cout << b+1 << ": " << result[b] << std::endl;
+
+        myfile << result[b] << ", ";
+        mSound[b] = result[b];
+    }
+    myfile.close();
+    delete[] myArray;
+    delete[] result;
+    delete[] BiQuads;
+    myArray = 0;
+}
 
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
@@ -292,9 +589,17 @@ SoundManager::SoundManager(void)
 : mIsEnabled( true ),
   mRTAudio( NULL ),
   mAudioData( NULL ),
-  mCurVolumeLevel( VL_MODERATE )
+  mCurVolumeLevel( VL_MODERATE ),
+  mPi(3.141592653589793),
+  mFS(44100),
+  mT(1/44100.0),
+  mLeft(true)
 {
-    // stub
+    mSound = new double[44100];
+    for(int i = 0; i < 44100; i++)
+    {
+        mSound[i] = 0;
+    }
 }
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

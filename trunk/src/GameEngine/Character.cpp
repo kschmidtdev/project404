@@ -17,6 +17,7 @@
  * Karl Schmidt, March 22 2007   | More include re-arranging, fixed some warnings
  * Karl Schmidt, March 22 2007   | Changed name of GetClassName
  * Mike Malyuk, March 24 2007    | Added code to call RTAudio proof of concept trumpet sound on attack. Prepare for annoyance!
+ * Mike Malyuk, April 1  2007    | RTAudio rejiggered, sounds nicer, now sets whether attack is from left or right.
  */
 
 #include "Character.h"                                // class implemented
@@ -83,7 +84,19 @@ void Character::MakeDead()
 }
 void Character::Attack(Character* another)
 {
-    SoundManager::GetInstance()->PlayRTAUDIO();
+    if(mCurPos.GetX() < another->GetPoint().GetX())
+    {
+        SoundManager::GetInstance()->SetLeft(true);
+    }
+    else
+    {
+        SoundManager::GetInstance()->SetLeft(false);
+    }
+    if(GetCharacterClassName() != "Mage")
+    {
+        SoundManager::GetInstance()->PlayRTAUDIO();
+    }
+
     int randPOW;
     if(rand()%(100/(mAttributes[AGI]/3)) == 0)
     {
