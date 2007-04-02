@@ -13,6 +13,7 @@
  * Andrew Osborne, March 25 2007 | Implemented proper UI functionality
  * Andrew Osborne, March 29 2007 | Added OnClose method and mPartyList attribute
  * Andrew Osborne, March 29 2007 | Added Ability to equip items
+ * Andrew Osborne, April 1 2007 | Changed Update to UpdateInfo to be unique from Parent method
  */
 
 #ifndef UIPartyStatusLayout_h
@@ -93,7 +94,7 @@ public:
     /**
      * Update Character Information
      */
-    void Update(void);
+    void UpdateInfo(void);
 
 // ACCESS (writing)
 
