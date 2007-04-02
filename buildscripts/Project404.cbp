@@ -183,6 +183,22 @@
 			<Option target="UnitTest_Release" />
 			<Option target="UnitTest_Debug" />
 		</Unit>
+		<Unit filename="..\src\BiQuad.cpp">
+			<Option compilerVar="CPP" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
+		<Unit filename="..\src\BiQuad.h">
+			<Option compilerVar="CPP" />
+			<Option compile="0" />
+			<Option link="0" />
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="UnitTest_Debug" />
+			<Option target="UnitTest_Release" />
+		</Unit>
 		<Unit filename="..\src\Database\DBBase.cpp">
 			<Option compilerVar="CPP" />
 			<Option target="Debug" />

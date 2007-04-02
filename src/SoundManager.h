@@ -16,6 +16,8 @@
  * Karl Schmidt, March 13 2007    | Added support for sound subsystem disabling
  * Karl Schmidt, March 24 2007    | Renamed some variables to match coding standard, fixed return 03 problem.
  * Karl Schmidt, March 26 2007    | Added volume control functionality for both SDL_Mixer and RTAudio playback
+ * Mike Malyuk,  April 1  2007    | Added vector include, added CalcHanning, Hanning, SetSoundArray, SetLeft, GetSound, Get Left
+ *                                | and a whack of new params: mPi, mFS, mT, mSound, mLeft
  */
 
 #ifndef SoundManager_h
@@ -25,6 +27,7 @@
 //
 #include <SDL_mixer.h>
 #include "RtAudio.h"
+#include <vector>
 // PROJECT INCLUDES
 //
 
@@ -101,7 +104,15 @@ public:
 	 */
     void StopAllPlayback();
 
+    std::vector<double> CalcHanning(int m,int n);
+
+    std::vector<double> Hanning(int impulse);
+
 // ACCESS (writing)
+
+    void SetSoundArray();
+
+    void SetLeft(bool left){mLeft = left;}
 // INQUIRY (reading)
 
     /**
@@ -119,6 +130,10 @@ public:
 	 */
     const VOLUME_LEVEL GetVolumeLevel() const;
 
+    double* GetSoundArr(){return mSound;}
+
+    bool GetLeft(){return mLeft;}
+
 protected:
 // PROTECTED METHODS
 
@@ -134,9 +149,12 @@ protected:
     bool mIsEnabled;
     RtAudio* mRTAudio;
     double* mAudioData;
-
     VOLUME_LEVEL mCurVolumeLevel;
-
+    double mPi;
+    double mFS;
+    double mT;
+    double* mSound;
+    bool mLeft;
 private:
 // PRIVATE VARIABLES
 };
