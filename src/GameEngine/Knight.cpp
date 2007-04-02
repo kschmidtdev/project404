@@ -12,6 +12,7 @@
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 22 2007   | Changed name of GetClassName
  * Mike Malyuk,  March 26 2007   | Balance change, Levelling up now only adds new HP to curHP instead of max
+ * Mike Malyuk,  April 2  2007   | More balance changes.
  */
 
 #include "Knight.h"                                // class implemented
@@ -52,14 +53,14 @@ Knight::Knight( const string & name, const int level, WeaponItem* weapon, ArmorI
     mLevel = 1;
     mWeapon = weapon;
     mArmor = armor;
-    mMaxHP = 20;
-    mCurHP = 20;
+    mMaxHP = 23;
+    mCurHP = 23;
     mExp = 0;
     mMaxActRange = 1;
     mCurPos = Point(0,0);
     mAttributes[POW] = 3;
     mAttributes[AGI] = 5;
-    mAttributes[DEF] = 5;
+    mAttributes[DEF] = 4;
     mExhausted = false;
     mIsDead = false;
     mTarget = NULL;
@@ -86,11 +87,11 @@ Knight::~Knight()
 //============================= OPERATIONS ===================================
 void Knight::LevelUp()
 {
-    mAttributes[POW] = mAttributes[POW]+1;
+    mAttributes[POW] = mAttributes[POW]+2;
     mAttributes[AGI] = mAttributes[AGI]+1;
-    mAttributes[DEF] = mAttributes[DEF]+4;
-    mMaxHP = mMaxHP + 5;
-    mCurHP = mCurHP + 5;
+    mAttributes[DEF] = mAttributes[DEF]+2;
+    mMaxHP = mMaxHP + 7;
+    mCurHP = mCurHP + 7;
     mLevel++;
     cout << "Knight (" << mName << ") has levelled up to level " << mLevel << endl;
 }

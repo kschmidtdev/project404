@@ -34,7 +34,7 @@ public:
     {
         mage.LevelUp();
         TS_ASSERT_EQUALS(mage.GetLevel(), 2);
-        TS_ASSERT_EQUALS(mage.GetAttr(Character::POW), 7);
+        TS_ASSERT_EQUALS(mage.GetAttr(Character::POW), 8);
         TS_ASSERT_EQUALS(mage.GetAttr(Character::AGI), 5);
         TS_ASSERT_EQUALS(mage.GetAttr(Character::DEF), 2);
         TS_ASSERT_EQUALS(mage.GetHP(), 2);
