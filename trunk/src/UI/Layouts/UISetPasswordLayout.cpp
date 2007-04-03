@@ -11,6 +11,8 @@
                                       logged-on user, also can be used to set a password for the first time
  * Karl Schmidt, April 1 2007       | Fixed a bug where a blank password was allowed to be set
  * Karl Schmidt, April 1 2007       | Added UI notification, new backdrop texture
+ * Karl Schmidt, April 2 2007       | Added savegame conversion to new passwords, as well as calling ChangeUserPassword
+                                      instead of removing and re-adding a user to the securitymanager list
  */
 
 #include "UISetPasswordLayout.h"                                // class implemented
@@ -231,8 +233,22 @@ void UISetPasswordLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
                         }
                         else
                         {
-                            SecurityManager::GetInstance()->DeleteUser( DBEngine::GetInstance()->GetCurrentProfileName() );
-                            SecurityManager::GetInstance()->AddUser( DBEngine::GetInstance()->GetCurrentProfileName(), mConfirmPwd);
+                            const std::string & currentUser = DBEngine::GetInstance()->GetCurrentProfileName();
+                            // Not a reference because this will change when we change the user's password below
+                            const std::string oldHash = SecurityManager::GetInstance()->GetUserHash( currentUser );
+
+                            SecurityManager::GetInstance()->ChangeUserPassword( currentUser, mConfirmPwd );
+                            const std::string & newHash = SecurityManager::GetInstance()->GetUserHash( currentUser );
+                            char saveFileName[64];
+                            for( int i = 1; i < 4; ++i )
+                            {
+                                if( DBEngine::GetInstance()->IsValidSaveGame( i ) )
+                                {
+                                    sprintf( saveFileName, "SaveFile%03i.xml", i );
+                                    SecurityManager::GetInstance()->DecryptFile( saveFileName, oldHash );
+                                    SecurityManager::GetInstance()->EncryptFile( saveFileName, newHash );
+                                }
+                            }
                         }
                         UIManager::GetInstance()->PopLayout();
                         if( mCreatingPassword )
