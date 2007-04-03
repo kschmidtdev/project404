@@ -19,8 +19,11 @@
  *                                  when screen is loaded.
  * Andrew Osborne, April 1 2007 | Made it so when you equip something it is taken out of the inventory and what you equipment you
  *                                  disengaged is put 'into' the inventory.  Also added attribute detail to armor/weapon selection
+ * Andrew Osborne, April 2 2007 | Fixed so that when you equip item that you have multiple of, the second (or third or...) item is not
+ *                                  lost.
  *
  */
+
 
 #include "UIPartyStatusLayout.h"                                // class implemented
 
@@ -103,6 +106,8 @@ public:
             if ((*iter)==newItem)
             {
                 (*iter) = oldItem;
+                iter = inventory->end();
+                iter--;
             }
         }
 
