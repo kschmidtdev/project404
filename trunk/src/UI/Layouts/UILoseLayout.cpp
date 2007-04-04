@@ -27,7 +27,7 @@
 
 UILoseLayout::UILoseLayout()
 {
-    UIImage *temp = new UIImage("castle_main.png");
+    UIImage *temp = new UIImage("castleplain_darkened.png");
     mElements.push_back(temp);
 
     UIText *tempText = new UIText("Game Over", 70, 255, 0, 0);
@@ -39,7 +39,7 @@ UILoseLayout::UILoseLayout()
     mElements.push_back(tempText);
 
 
-    tempText = new UIText("Press CONFIRM to return to Over-Map", 24, 255, 0, 0);
+    tempText = new UIText("Press CONFIRM to return to Over-Map", 24, 255, 255, 255);
     tempText->SetPos( Point(94, 390) );
     mElements.push_back(tempText);
 
