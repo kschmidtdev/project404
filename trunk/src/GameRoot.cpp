@@ -23,6 +23,7 @@
  * Mike Malyuk,  March 30 2007    | Added more logging around SoundManager
  * Karl Schmidt, March 30 2007    | Added support for fullScreen option in config.cfg
  * Karl Schmidt, April 1 2007     | Added support for F12 key to take screenshots (writes bmps)
+ * Karl Schmidt, April 3 2007     | Now clearing the SDL input event queue when AI takes it's turn
  */
 
 #include "GameRoot.h"                                // class implemented
@@ -226,6 +227,10 @@ void GameRoot::GameLoop()
         }
         else
         {
+            SDL_Event event;
+            while (SDL_PollEvent(&event))
+            {
+            }
             if( mGameEngine->GetAI() && mGameEngine->GetLevel() && ( !mGameEngine->GetLevel()->GetWinCondition() && !mGameEngine->GetLevel()->GetLoseCondition() ) )
             {
                 const Point inputPt = mGameEngine->GetAI()->DoAction();
