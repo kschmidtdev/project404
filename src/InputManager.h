@@ -18,6 +18,7 @@
  * Karl Schmidt, March 21 2007    | Added directional-key auto-repeat, storing/loading rand seed in key recording file
  * Karl Schmidt, March 22 2007    | Fixed a bug where auto-repeated key events weren't being logged during recording
  * Karl Schmidt, March 22 2007    | Correcting include orders and paths
+ * Karl Schmidt, April 3 2007     | Added ResetKeysDown to reset all keydown states
  */
 
 #ifndef InputManager_h
@@ -135,6 +136,12 @@ enum INPUT_MODE
 	* Returns the current mode of the input manager
 	*/
     const int GetMode() const { return mMode; };
+
+    /**
+    * Resets all the keyDown values to false, so auto-repeat doesn't get messed up
+    * after an AI takes it's turn
+    */
+    void ResetKeysDown();
 
 // ACCESS (writing)
 // INQUIRY (reading)

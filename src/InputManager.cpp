@@ -12,6 +12,7 @@
  * Karl Schmidt, March 21 2007    | Added directional-key auto-repeat, storing/loading rand seed in key recording file
  * Karl Schmidt, March 22 2007    | Fixed a bug where auto-repeated key events weren't being logged during recording
  * Karl Schmidt, March 23 2007    | Got rid of more using namespace std; usage
+ * Karl Schmidt, April 3 2007     | Added ResetKeysDown to reset all keydown states
  */
 
 #include "InputManager.h"                                // class implemented
@@ -441,6 +442,11 @@ void InputManager::SaveKeyToFile( const std::string & fileName, const int key )
         tacAssert( false );
         LogWarning( fileName + std::string(": Unable to write to key list file") );
     }
+}
+
+void InputManager::ResetKeysDown()
+{
+    std::fill( &mKeyState[0], &mKeyState[KEYCOUNT], false );
 }
 
 /////////////////////////////// PRIVATE    ///////////////////////////////////

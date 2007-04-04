@@ -24,6 +24,7 @@
  * Karl Schmidt, March 30 2007    | Added support for fullScreen option in config.cfg
  * Karl Schmidt, April 1 2007     | Added support for F12 key to take screenshots (writes bmps)
  * Karl Schmidt, April 3 2007     | Now clearing the SDL input event queue when AI takes it's turn
+ * Karl Schmidt, April 3 2007     | Added call to InputManager's ResetKeysDown in main loop
  */
 
 #include "GameRoot.h"                                // class implemented
@@ -231,6 +232,7 @@ void GameRoot::GameLoop()
             while (SDL_PollEvent(&event))
             {
             }
+            mInput->ResetKeysDown();
             if( mGameEngine->GetAI() && mGameEngine->GetLevel() && ( !mGameEngine->GetLevel()->GetWinCondition() && !mGameEngine->GetLevel()->GetLoseCondition() ) )
             {
                 const Point inputPt = mGameEngine->GetAI()->DoAction();
