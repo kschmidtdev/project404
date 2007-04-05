@@ -9,6 +9,7 @@
  * Andrew Osborne, March 25 2007 | Implemented proper functionality
  * Karl Schmidt, March 27 2007   | Fixed memory leaks, labelled temporary code accordingly
  * Andrew Osborne, March 29 2007 | Completing Implementation (same as Market)
+ * Andrew Osborne, April 5 2007 | Changed feedback messages because they were too long in screen..
  */
 
 
@@ -63,12 +64,12 @@ public:
             std::ostringstream oss;
             oss << money;
             mMoneyText->ChangeText(oss.str());
-            mText->ChangeText(mItem->GetName() + " purchased successfully");
+            mText->ChangeText("Purchased: " + mItem->GetName());
 
         }
         else
         {
-            mText->ChangeText("Not enough money to purchase this item");
+            mText->ChangeText("Not enough money");
         }
 
     }

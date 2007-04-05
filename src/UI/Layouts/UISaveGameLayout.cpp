@@ -9,6 +9,7 @@
  * Andrew Osborne, March 22 2007 | Added proper UI functionality (Menu with options)
  * Karl Schmidt, March 25 2007   | Added saving the game to a particular slot functionality, loading of games that have been saved as well,
  								   also now able to go back to the previous menu
+ * Andrew Osborne, April 5 2007 | Noticed menu said "back to Main Menu" instead of "Back to OverMap"
  */
 
 
@@ -114,7 +115,7 @@ void UISaveGameLayout::OnLoad(void)
     }
 
     mMenu->AddBlankRow();
-    mMenu->AddButton( "Back to Main Menu", new SaveGameMenuBackFunction() );
+    mMenu->AddButton( "Back to OverMap", new SaveGameMenuBackFunction() );
 
 }
 //============================= ACCESS     ===================================
