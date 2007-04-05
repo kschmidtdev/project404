@@ -12,6 +12,7 @@
  *                                   Implemented ItemWindow, added purchasing functionality, commented out debug code
  * Karl Schmidt, March 29 2007   | Added cash text update on layout load (so you see updates after winning a battle)
  * Andrew Osborne, March 29 2007 | Fixed a variable name
+ * Andrew Osborne, April 5 2007 | Changed feedback messages because they were too long in screen.
  */
 #include "UIMarketLayout.h"                                // class implemented
 
@@ -67,12 +68,12 @@ public:
             std::ostringstream oss;
             oss << money;
             mMoneyText->ChangeText(oss.str());
-            mText->ChangeText(mItem->GetName() + " purchased successfully");
+            mText->ChangeText("Purchased: " + mItem->GetName() );
 
         }
         else
         {
-            mText->ChangeText("Not enough money to purchase this item");
+            mText->ChangeText("Not enough money");
         }
 
     }
