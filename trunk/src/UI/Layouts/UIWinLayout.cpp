@@ -11,6 +11,7 @@
  * 									  so the AI doesn't try to do something and then crash the game
  * Karl Schmidt, March 15 2007      | Moved that hack elsewhere so it happens earlier
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
+ * Andrew Osborne, April 4 2007 | Made it a little more visually clear that you won.
  */
 
 #include "UIWinLayout.h"                                // class implemented
@@ -30,8 +31,22 @@
 
 UIWinLayout::UIWinLayout()
 {
-    UIImage *temp = new UIImage("screen_win.png");
+    //UIImage *temp = new UIImage("screen_win.png");
+    UIImage *temp = new UIImage("castleplain_darkened.png");
     mElements.push_back(temp);
+
+    UIText *tempText = new UIText("Congradulations", 60, 255, 255, 255);
+    tempText->SetPos( Point(81,60) );
+    mElements.push_back(tempText);
+
+    tempText = new UIText("YOU WON", 50, 255, 255, 255);
+    tempText->SetPos( Point(195,175) );
+    mElements.push_back(tempText);
+
+
+    tempText = new UIText("Press CONFIRM to return to Over-Map", 24, 255, 255, 255);
+    tempText->SetPos( Point(94, 390) );
+    mElements.push_back(tempText);
 
     mName = "Win";
 

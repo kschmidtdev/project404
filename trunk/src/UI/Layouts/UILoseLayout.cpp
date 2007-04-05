@@ -9,6 +9,7 @@
  * Karl Schmidt, March 12 2007		| Cleaned up ProcessEvent so it goes to the Overmap correctly
  * Karl Schmidt, March 22 2007      | Correcting include orders and paths
  * Andrew Osborne, April 1 2007 | Made background & messages more complient with rest of game.
+ * Andrew Osborne, April 4 2007 | Made it a little more visually clear.
  */
 
 #include "UILoseLayout.h"                                // class implemented
@@ -37,7 +38,6 @@ UILoseLayout::UILoseLayout()
     tempText = new UIText("YOU LOST...", 50, 255, 0, 0);
     tempText->SetPos( Point(175,250) );
     mElements.push_back(tempText);
-
 
     tempText = new UIText("Press CONFIRM to return to Over-Map", 24, 255, 255, 255);
     tempText->SetPos( Point(94, 390) );
