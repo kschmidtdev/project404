@@ -1,0 +1,26 @@
+<b>Data Requirements</b>
+<ul class="typicallist"><li>Input information from keyboard, joystick directional pad and joystick buttons </li><ul><li>Directions include: </li><ul><li>Up, Up-Left, Left, Down-Left, Down, Down-Right, Right, Up-Right </li><li>These directions can be bound to a joystick, keyboard directions (only the core 4 for this one) or the keyboard numpad. </li></ul><li>Buttons include: </li><ul><li>Start, Select, Cancel, Confirm and Menu </li><li>These buttons can be bound to any keyboard keys or joystick buttons. </li></ul></ul><li>Database stored in a XML document which will on deployment exist in an encrypted form, and will be decrypted on the fly </li><ul><li>Database structure example: </li><pre class="code" style="font-size: 110%; line-height: 70%; margin-left: 2em; padding: 0.5em; border-left: 3px solid #ccc">&lt;Database&gt;
+
+ &lt;Node name=&quot;Templates&quot;&gt;
+  &lt;Node name=&quot;Characters&quot;&gt;
+   &lt;Node name=&quot;Bad Guy #1&quot;&gt;
+    &lt;Data type=&quot;string&quot; name=&quot;MaxHP&quot; value=&quot;88-99&quot;/&gt;
+    &lt;Data type=&quot;int&quot; name=&quot;Offense&quot; value=&quot;3&quot;/&gt;
+    &lt;Data type=&quot;float&quot; name=&quot;DefaultImage&quot; value=&quot;badguy1.jpg&quot;/&gt;
+   &lt;/Node&gt;
+  &lt;/Node&gt;
+ &lt;/Node&gt;
+
+ &lt;Node name=&quot;Instantiations&quot;&gt;
+  &lt;Node name=&quot;Battle&quot;&gt;
+   &lt;Node name=&quot;CPUParty&quot;&gt;
+    &lt;Node name=&quot;Bad Guy Inst 1&quot;&gt;
+     &lt;Data type=&quot;int&quot; name=&quot;CurHP&quot; value=&quot;77&quot;/&gt;
+     &lt;Data type=&quot;int&quot; name=&quot;MaxHP&quot; value=&quot;88&quot;/&gt;
+     &lt;Data type=&quot;vector2D&quot; name=&quot;TilePOS&quot; value=&quot;0,4&quot;/&gt;
+    &lt;/Node&gt;
+   &lt;/Node&gt;
+  &lt;/Node&gt;
+ &lt;/Node&gt;
+ 
+&lt;/Database&gt;</pre><li>This example illustrates an example of how our database could be constructed using nodes and data tags. </li></ul><li>Read JPG textures (SDL has functions for this) </li><li>Read PNG textures (SDL has functions for this) </li></ul>

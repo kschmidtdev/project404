@@ -1,0 +1,81 @@
+<h2>OverMap Menu Tutorial</h2>
+
+<hr>
+
+<h3>Accessing Menu</h3>
+
+<p>First of all, to switch to the menu on the over map, press the <b>MENU</b> button. <br><br>
+You can tell that the menu is selected by the red cursor that appears around one of the buttons.<br>
+Press up and down on the direction pads to highlight the option you want, then press <b>CONFIRM</b> to make the selection.
+<br>There are 5 different options in the menu:  Save Game, Party Status, Market, Armory and Quit.  All but Quit are explained below.
+<br>
+<br>
+<img src="http://www.sfu.ca/~aco1/overmapImages/menu_select1.jpg"/>
+<br>
+
+</p>
+
+<h3>Save Game</h3>
+
+<p> This screen allows you to save your progress in the game (character levels, levels defeated and money attained)
+<br>
+
+Select the save slot you want to save your game in and then press <b>CONFIRM</b>.
+
+<img src="http://www.sfu.ca/~aco1/overmapImages/save_screen.jpg"/>
+
+<br>
+The game is now saved and you are returned to the OverMap screen.
+</p>
+
+<h3>Market/Armory</h3>
+
+<p> The Market and Armory work very similarly.  In the Armory, you can buy armor, while in the Market you can buy weapons.
+<br>
+
+The screen has a list on the right-hand side of the different items you can buy.  As you scroll up and down the list, the selected item's attribute and cost appear in the window to the left of the screen.
+<br>
+<img src="http://www.sfu.ca/~aco1/overmapImages/market_begin.jpg"/>
+
+<br>
+To purchase an item, press <b>CONFIRM</b> while the cursor is on the item you wish to purchase.
+
+A message appears describing whether the purchase was made successfully or that you did not have sufficient funds. 
+
+<img src="http://www.sfu.ca/~aco1/overmapImages/market.jpg"/>
+
+<br>
+To go back to the OverMap, select the "Done" option in the menu.
+</p>
+
+<h3>Party Status</h3>
+
+<p>This screen is used to equip the items you purchased at the Armory or Market
+<br>
+
+<img src="http://www.sfu.ca/~aco1/overmapImages/party1.jpg"/>
+
+<br>
+First select either "Equip Weapon" or "Equip Armor" from the menu.
+
+A list will then appear of all the weapons or all the armor in your inventory.
+
+<img src="http://www.sfu.ca/~aco1/overmapImages/party2.jpg"/>
+
+<br>
+Scroll the menu and select the item you want to equip.
+
+Then the previous menu of items will be replaced by a list of your party members.  Select the party member you wish to equip the item with.
+
+<img src="http://www.sfu.ca/~aco1/overmapImages/party3.jpg"/>
+
+<br>
+Once the character is selected.  You'll notice that the selected character has the selected item equipped.
+
+<img src="http://www.sfu.ca/~aco1/overmapImages/party5.jpg"/>
+<br>
+
+Select "Back" to go back to the OverMap
+</p>
+
+

@@ -7,5 +7,6 @@
 "Assignment 4", "Assignment #4: Version 2", "assignment4.txt"
 "Assignment #4", "subsection", "assignment4"
 "Assignment 5", "Assignment #5: Version 3", "assignment5.txt"
+"Assignment #5", "subsection", "assignment5"
 "SVN Repository Information", "url", "http://code.google.com/p/project404/source"
 "Project Development Site", "url", "http://code.google.com/p/project404/"

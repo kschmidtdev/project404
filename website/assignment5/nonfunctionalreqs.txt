@@ -1,0 +1,32 @@
+<table class="tablestyle" align=center width=90%>
+<tr><th class="cellstyle" style="font-size:120%;" colspan=2>Product Requirements</th></tr>
+<tr><td class="cellstyle" width=20% rowspan=5><b>&nbsp;&nbsp;Gameplay</b></td><td class="cellstyle" width=80%>Game must be fun.  Players must naturally be interested to play the game through a least one battle per sitting, and complete the game through a timespan of a couple weeks.</td></tr>
+<tr><td class="cellstyle">There must be at least 50 different possible character creations to create the appearance of a system that contains an infinite number of characters</td></tr>
+<tr><td class="cellstyle">The level 3 AI will use some form of tactical methods to win the battle</td></tr>
+<tr><td class="cellstyle">There will be at least 4 character classes (Archer, Knight, Mage and Healer)</td></tr>
+<tr><td class="cellstyle">The battle game must possess some form of utilizable strategy (or strategies) to win a battle </td></tr>
+<tr><td class="cellstyle" rowspan=2><b>&nbsp;&nbsp;Graphics</b></td><td class="cellstyle">The game must be at least somewhat graphically appealing on all screens</td></tr>
+<tr><td class="cellstyle">The visual style (when possible) should be a consistant personification of medieval times</td></tr>
+<tr><td class="cellstyle" rowspan=2><b>&nbsp;&nbsp;Speed</b></td><td class="cellstyle">When user enters a command the response time must appear instantaneous.  Therefore, response time <.15s </td></tr>
+<tr><td class="cellstyle">The character animations will be purposefully slowed down, so to appear at a natural pace.</td></tr>
+<tr><td class="cellstyle" rowspan=2><b>&nbsp;&nbsp;Size</b></td><td class="cellstyle">System requirements should only require 64Mb of RAM </td></tr>
+<tr><td class="cellstyle">The database should be large enough to allow for the aforementioned randomized characters </td></tr>
+<tr><td class="cellstyle"><b>&nbsp;&nbsp;Reliability</b></td><td class="cellstyle">The software should be able to run at least 1hr without failure </td></tr>
+<tr><td class="cellstyle"><b>&nbsp;&nbsp;Robustness</b></td><td class="cellstyle"> <2.0% of events in the game should cause failure </td></tr>
+<tr><td class="cellstyle" rowspan=2><b>&nbsp;&nbsp;Portability</b></td><td class="cellstyle">The Manager classes will be (whenever possible) modular in design </td></tr>
+<tr><td class="cellstyle">The renderer class should be modular to all for the use of other graphics systems to draw the game. </td></tr>
+<tr><th class="cellstyle" style="font-size:120%;" colspan=2>&nbsp;&nbsp;Organizational requirements</th></tr>
+<tr><td class="cellstyle" rowspan=3><b>&nbsp;&nbsp;Project 404</b></td><td class="cellstyle">Use SDL for Input and Graphics</td></tr>
+<tr><td class="cellstyle">Use SDL_ttf for visual fonts</td></tr>
+<tr><td class="cellstyle">Use SDL_sound for music and sound effects</td></tr>
+
+<tr><td class="cellstyle" rowspan=6><b>&nbsp;&nbsp;CMPT 275</b></td><td class="cellstyle">We must use one of C++, Java, or Python</td></tr>
+<tr><td class="cellstyle">We must use an SVN repository</td></tr>
+<tr><td class="cellstyle">The project must be open-source</td></tr>
+<tr><td class="cellstyle">Program is “stand-alone” and not a web app.</td></tr>
+<tr><td class="cellstyle">Must run on computers at school.</td></tr>
+<tr><td class="cellstyle">Project Team has 3 or 4 people</td></tr>
+
+</table>
+
+<br/> <br/>
