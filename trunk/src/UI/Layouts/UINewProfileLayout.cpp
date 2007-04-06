@@ -13,6 +13,7 @@
  * Mike Malyuk,  March 31 2007   | Removed Menu from screen, repositioned Alphabet on screen
  * Karl Schmidt, March 31 2007   | Removed functionality that was moved to UIAlphabetGrid, removed instructional
                                    text that is no longer needed
+ * Andrew Osborne, April 5 2007 | Added feedback to alphabetGrid and clearing of text upon loading
  */
 #include "UINewProfileLayout.h"                                // class implemented
 
@@ -40,7 +41,7 @@ UINewProfileLayout::UINewProfileLayout()
 
     // AlphabetGrid
     int yStart = 110;
-    UIAlphabetGrid *mAlpha = new UIAlphabetGrid();
+    mAlpha = new UIAlphabetGrid();
     mAlpha->SetPos( Point(90, yStart) );
     mElements.push_back(mAlpha);
     mDefaultEventListener = mAlpha;
@@ -49,13 +50,14 @@ UINewProfileLayout::UINewProfileLayout()
     int fontSize = 24;
     int fontRed = 255;
     int fontGreen = 255;
-    int fontBlue = 0;
+    int fontBlue = 255;
 
 	// Not used yet, should be connected with the UIAlphabetGrid eventually to display it's messages
     mHelperTxt = new UIText(" ", fontSize, fontRed, fontGreen, fontBlue);
-    mHelperTxt->SetPos( 70, 400 );
+    mHelperTxt->SetPos( 90, 420 );
     mHelperTxt->SetVisible( false );
     mElements.push_back(mHelperTxt);
+    mAlpha->SetMessageText(mHelperTxt);
 
     mName = "NewProfile";
 
@@ -71,21 +73,12 @@ UINewProfileLayout::~UINewProfileLayout()
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================
 
-/*void UINewProfileLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
+void UINewProfileLayout::OnLoad(void)
 {
-
-    switch (evt)
-    {
-        case InputManager::CONFIRM:
-            UIManager::GetInstance()->PopLayout();
-            UIManager::GetInstance()->PushLayout("MainMenu");
-            // Eventually should also push the SetPassword Layout, to update/set password
-            break;
-        default:
-            break;
-    }
-
-}*/
+    UILayout::OnLoad();
+    mHelperTxt->SetVisible(false);
+    mAlpha->ClearString();
+}
 
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================

@@ -14,6 +14,7 @@
  * Andrew Osborne, March 23 2007, Added proper functionality, added mAlpha, mMenu
  * Karl Schmidt, March 31 2007   | Removed functionality that was moved to UIAlphabetGrid, removed instructional
                                    text that is no longer needed
+ * Andrew Osborne, April 5 2007 | Added OnLoad
  */
 
 #ifndef UINewProfileLayout_h
@@ -54,9 +55,9 @@ public:
 // OPERATIONS
 
     /**
-     * Listens for Key Press from User
-    */
-    //virtual void ProcessEvent( const InputManager::INPUTKEYS evt );
+     * Overwrite OnLoad function - method called when layout is being intitialized for viewing
+     */
+    virtual void OnLoad(void);
 
 // ACCESS (writing)
 // INQUIRY (reading)

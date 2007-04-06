@@ -15,6 +15,7 @@
  * Andrew Osborne, March 24 2007 | converted from EventListener to UIEventListener
  * Andrew Osborne, March 24 2007 | Finally added ability to jump to menu
  * Mike Malyuk,    March 31 2007 | Removed unused methods and variables related to menu and other.
+ * Andrew Osborne, April 5 2007 | Added mHelp text (for feedback), respective setter, and ability to clear text
  */
 
 #ifndef UIAlphabetGrid_h
@@ -95,6 +96,16 @@ public:
      */
     virtual void SetPos( const Point & nPos );
 
+    /**
+     * clears text
+     */
+    void ClearString();
+
+    /**
+     * Set message text
+     */
+    void SetMessageText(UIText* text) { mHelp = text; }
+
 
 // INQUIRY (reading)
 
@@ -129,6 +140,8 @@ protected:
     Point mOffset; // Offset for each row/column
     Point mGridStart;
 
+    // External text
+    UIText* mHelp;
 
 // PROTECTED FUNCTIONS
 
