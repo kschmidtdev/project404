@@ -25,6 +25,7 @@ public:
     // Called before all unit tests in this suite, remove if not needed
     void setUp()
     {
+        // Look at level... see how Mike does it....
         // Header for all UI Testing Elements
         Logger::GetInstance( "unitTestLog.txt" );
         Logger::GetInstance()->Initialize();
@@ -39,6 +40,9 @@ public:
     // Called after all unit tests in this suite, remove if note needed
     void tearDown()
     {
+        delete mTestLayout;
+        delete mLayoutHelp;
+
         DBEngine::GetInstance()->Shutdown();
         ResourceManager::GetInstance()->Shutdown();
         SDLRenderer::GetInstance()->Shutdown();
