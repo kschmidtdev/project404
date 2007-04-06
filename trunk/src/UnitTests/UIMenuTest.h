@@ -7,6 +7,7 @@
 #include <UI/FuncObj.h>
 #include <Renderer/SDLRenderer.h>
 #include <ResourceManager/ResourceManager.h>
+#include <UI/UIUnitTestHelp.h>
 
 // Generated Function Object
 
