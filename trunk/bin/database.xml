@@ -85,14 +85,14 @@
 			</Node>
 			<Node name="Enemy Type 2-C">
 				<Data type="string" name="Class" value="Archer" />
-				<Data type="int" name="Level" value="2" />
+				<Data type="int" name="Level" value="3" />
 				<Data type="string" name="Weapon" value="Basic Bow" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 2-D">
 				<Data type="string" name="Class" value="Archer" />
-				<Data type="int" name="Level" value="2" />
+				<Data type="int" name="Level" value="3" />
 				<Data type="string" name="Weapon" value="Basic Bow" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
@@ -112,85 +112,134 @@
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 2-G">
-				<Data type="string" name="Class" value="Archer" />
-				<Data type="int" name="Level" value="2" />
-				<Data type="string" name="Weapon" value="Basic Bow" />
+				<Data type="string" name="Class" value="Knight" />
+				<Data type="int" name="Level" value="3" />
+				<Data type="string" name="Weapon" value="Basic Sword" />
 				<Data type="string" name="Armor" value="Basic Armor" />
-				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
+				<Data type="string" name="Picture" value="imgEnemyTypeA.png" />
 			</Node>
 			<Node name="Enemy Type 2-H">
-				<Data type="string" name="Class" value="Archer" />
+				<Data type="string" name="Class" value="Knight" />
 				<Data type="int" name="Level" value="2" />
-				<Data type="string" name="Weapon" value="Basic Bow" />
+				<Data type="string" name="Weapon" value="Basic Sword" />
 				<Data type="string" name="Armor" value="Basic Armor" />
-				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
+				<Data type="string" name="Picture" value="imgEnemyTypeA.png" />
 			</Node>
 			<Node name="Enemy Type 3-A">
 				<Data type="string" name="Class" value="Knight" />
-				<Data type="int" name="Level" value="4" />
-				<Data type="string" name="Weapon" value="Basic Sword" />
+				<Data type="int" name="Level" value="3" />
+				<Data type="string" name="Weapon" value="Unique Sword" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 3-B">
 				<Data type="string" name="Class" value="Knight" />
-				<Data type="int" name="Level" value="3" />
+				<Data type="int" name="Level" value="4" />
 				<Data type="string" name="Weapon" value="Basic Sword" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 3-C">
 				<Data type="string" name="Class" value="Knight" />
-				<Data type="int" name="Level" value="4" />
-				<Data type="string" name="Weapon" value="Basic Sword" />
+				<Data type="int" name="Level" value="3" />
+				<Data type="string" name="Weapon" value="Unique Sword" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 3-D">
 				<Data type="string" name="Class" value="Knight" />
-				<Data type="int" name="Level" value="4" />
+				<Data type="int" name="Level" value="3" />
 				<Data type="string" name="Weapon" value="Basic Sword" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
-			<Node name="Enemy Boss 4">
+			<Node name="Enemy Type 3-E">
+				<Data type="string" name="Class" value="Archer" />
+				<Data type="int" name="Level" value="3" />
+				<Data type="string" name="Weapon" value="Basic Bow" />
+				<Data type="string" name="Armor" value="Basic Armor" />
+				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
+			</Node>
+			<Node name="Enemy Type 3-F">
+				<Data type="string" name="Class" value="Archer" />
+				<Data type="int" name="Level" value="2" />
+				<Data type="string" name="Weapon" value="Bow of Lightenning" />
+				<Data type="string" name="Armor" value="Basic Armor" />
+				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
+			</Node>
+			<Node name="Enemy Boss 4-A">
 				<Data type="string" name="Class" value="Archer" />
 				<Data type="int" name="Level" value="7" />
 				<Data type="string" name="Weapon" value="Basic Bow" />
 				<Data type="string" name="Armor" value="Unique Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
+			<Node name="Enemy Boss 4-B">
+				<Data type="string" name="Class" value="Knight" />
+				<Data type="int" name="Level" value="7" />
+				<Data type="string" name="Weapon" value="Unique Sword" />
+				<Data type="string" name="Armor" value="Unique Armor" />
+				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
+			</Node>
+			<Node name="Enemy Type 4-A">
+				<Data type="string" name="Class" value="Knight" />
+				<Data type="int" name="Level" value="5" />
+				<Data type="string" name="Weapon" value="Basic Sword" />
+				<Data type="string" name="Armor" value="Unique Armor" />
+				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
+			</Node>
+			<Node name="Enemy Type 4-B">
+				<Data type="string" name="Class" value="Knight" />
+				<Data type="int" name="Level" value="5" />
+				<Data type="string" name="Weapon" value="Basic Sword" />
+				<Data type="string" name="Armor" value="Unique Armor" />
+				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
+			</Node>
+			<Node name="Enemy Type 4-C">
+				<Data type="string" name="Class" value="Mage" />
+				<Data type="int" name="Level" value="4" />
+				<Data type="string" name="Weapon" value="Basic Staff" />
+				<Data type="string" name="Armor" value="Basic Armor" />
+				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
+			</Node>
+			<Node name="Enemy Type 4-D">
+				<Data type="string" name="Class" value="Mage" />
+				<Data type="int" name="Level" value="4" />
+				<Data type="string" name="Weapon" value="Basic Staff" />
+				<Data type="string" name="Armor" value="Basic Armor" />
+				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
+			</Node>
 			<Node name="Enemy Type 5-A">
 				<Data type="string" name="Class" value="Mage" />
-				<Data type="int" name="Level" value="2" />
+				<Data type="int" name="Level" value="3" />
 				<Data type="string" name="Weapon" value="Basic Staff" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 5-B">
 				<Data type="string" name="Class" value="Mage" />
-				<Data type="int" name="Level" value="2" />
+				<Data type="int" name="Level" value="3" />
 				<Data type="string" name="Weapon" value="Basic Staff" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 5-C">
 				<Data type="string" name="Class" value="Mage" />
-				<Data type="int" name="Level" value="2" />
+				<Data type="int" name="Level" value="3" />
 				<Data type="string" name="Weapon" value="Basic Staff" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 5-D">
 				<Data type="string" name="Class" value="Mage" />
-				<Data type="int" name="Level" value="2" />
+				<Data type="int" name="Level" value="3" />
 				<Data type="string" name="Weapon" value="Basic Staff" />
 				<Data type="string" name="Armor" value="Basic Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
 			</Node>
 			<Node name="Enemy Type 5-E">
 				<Data type="string" name="Class" value="Knight" />
-				<Data type="int" name="Level" value="5" />
+				<Data type="int" name="Level" value="6" />
 				<Data type="string" name="Weapon" value="Basic Sword" />
 				<Data type="string" name="Armor" value="Unique Armor" />
 				<Data type="string" name="Picture" value="imgEnemyTypeB.png" />
@@ -241,7 +290,7 @@
 					<Data type="int" name="Attribute" value="3" />
 				</Node>
 				<Node name="Armor of Strength">
-					<Data type="int" name="Attribute" value="7" />
+					<Data type="int" name="Attribute" value="6" />
 				</Node>
 				<Node name="Armor of Feather">
 					<Data type="int" name="Attribute" value="5" />
@@ -447,19 +496,19 @@
 			<Node name="Party">
 				<Node name="Member1">
 					<Data type="string" name="Character Name" value="Karl" />
-					<Data type="vector2d" name="Starting Point" value="0:3" />
+					<Data type="vector2d" name="Starting Point" value="0:1" />
 				</Node>
 				<Node name="Member2">
 					<Data type="string" name="Character Name" value="Mike" />
-					<Data type="vector2d" name="Starting Point" value="0:6" />
+					<Data type="vector2d" name="Starting Point" value="0:2" />
 				</Node>
 				<Node name="Member3">
 					<Data type="string" name="Character Name" value="Andrew" />
-					<Data type="vector2d" name="Starting Point" value="0:9" />
+					<Data type="vector2d" name="Starting Point" value="1:2" />
 				</Node>
 				<Node name="Member4">
 					<Data type="string" name="Character Name" value="Han" />
-					<Data type="vector2d" name="Starting Point" value="1:5" />
+					<Data type="vector2d" name="Starting Point" value="1:1" />
 				</Node>
 			</Node>
 			<Node name="Enemies">
@@ -489,47 +538,162 @@
 				</Node>
 				<Node name="Member7">
 					<Data type="string" name="Character Name" value="Enemy Type 2-G" />
-					<Data type="vector2d" name="Starting Point" value="9:7" />
+					<Data type="vector2d" name="Starting Point" value="7:1" />
 				</Node>
 				<Node name="Member8">
 					<Data type="string" name="Character Name" value="Enemy Type 2-H" />
-					<Data type="vector2d" name="Starting Point" value="9:8" />
+					<Data type="vector2d" name="Starting Point" value="7:7" />
 				</Node>
 			</Node>
 			<Node name="Map">
 				<Node name="TileSet001">
-					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="string" name="TileType" value="ROAD" />
 					<Data type="vector2d" name="StartCoordinate" value="0:0" />
-					<Data type="vector2d" name="EndCoordinate" value="3:9" />
+					<Data type="vector2d" name="EndCoordinate" value="0:9" />
 				</Node>
 				<Node name="TileSet002">
-					<Data type="string" name="TileType" value="WATER" />
-					<Data type="vector2d" name="StartCoordinate" value="4:0" />
-					<Data type="vector2d" name="EndCoordinate" value="4:4" />
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="1:0" />
+					<Data type="vector2d" name="EndCoordinate" value="1:8" />
 				</Node>
 				<Node name="TileSet003">
 					<Data type="string" name="TileType" value="ROAD" />
-					<Data type="vector2d" name="StartCoordinate" value="4:5" />
-					<Data type="vector2d" name="EndCoordinate" value="4:5" />
+					<Data type="vector2d" name="StartCoordinate" value="1:9" />
+					<Data type="vector2d" name="EndCoordinate" value="1:9" />
 				</Node>
 				<Node name="TileSet004">
 					<Data type="string" name="TileType" value="WATER" />
-					<Data type="vector2d" name="StartCoordinate" value="4:6" />
-					<Data type="vector2d" name="EndCoordinate" value="5:4" />
+					<Data type="vector2d" name="StartCoordinate" value="2:0" />
+					<Data type="vector2d" name="EndCoordinate" value="2:7" />
 				</Node>
 				<Node name="TileSet005">
-					<Data type="string" name="TileType" value="ROAD" />
-					<Data type="vector2d" name="StartCoordinate" value="5:5" />
-					<Data type="vector2d" name="EndCoordinate" value="5:5" />
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="2:8" />
+					<Data type="vector2d" name="EndCoordinate" value="2:8" />
 				</Node>
 				<Node name="TileSet006">
-					<Data type="string" name="TileType" value="WATER" />
-					<Data type="vector2d" name="StartCoordinate" value="5:6" />
-					<Data type="vector2d" name="EndCoordinate" value="5:9" />
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="2:9" />
+					<Data type="vector2d" name="EndCoordinate" value="2:9" />
 				</Node>
 				<Node name="TileSet007">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="3:0" />
+					<Data type="vector2d" name="EndCoordinate" value="3:7" />
+				</Node>
+				<Node name="TileSet008">
 					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="3:8" />
+					<Data type="vector2d" name="EndCoordinate" value="3:8" />
+				</Node>	
+				<Node name="TileSet009">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="3:9" />
+					<Data type="vector2d" name="EndCoordinate" value="3:9" />
+				</Node>
+				<Node name="TileSet010">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="4:0" />
+					<Data type="vector2d" name="EndCoordinate" value="4:8" />
+				</Node>
+				<Node name="TileSet011">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="4:9" />
+					<Data type="vector2d" name="EndCoordinate" value="4:9" />
+				</Node>
+				<Node name="TileSet012">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="5:0" />
+					<Data type="vector2d" name="EndCoordinate" value="5:8" />
+				</Node>
+				<Node name="TileSet013">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="5:9" />
+					<Data type="vector2d" name="EndCoordinate" value="5:9" />
+				</Node>
+				<Node name="TileSet014">
+					<Data type="string" name="TileType" value="ROCK" />
 					<Data type="vector2d" name="StartCoordinate" value="6:0" />
+					<Data type="vector2d" name="EndCoordinate" value="6:0" />
+				</Node>
+				<Node name="TileSet015">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="6:1" />
+					<Data type="vector2d" name="EndCoordinate" value="6:1" />
+				</Node>
+				<Node name="TileSet016">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="6:2" />
+					<Data type="vector2d" name="EndCoordinate" value="6:2" />
+				</Node>
+				<Node name="TileSet017">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="6:3" />
+					<Data type="vector2d" name="EndCoordinate" value="6:3" />
+				</Node>
+				<Node name="TileSet018">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="6:4" />
+					<Data type="vector2d" name="EndCoordinate" value="6:4" />
+				</Node>
+				<Node name="TileSet019">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="6:5" />
+					<Data type="vector2d" name="EndCoordinate" value="6:5" />
+				</Node>
+				<Node name="TileSet020">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="6:6" />
+					<Data type="vector2d" name="EndCoordinate" value="6:6" />
+				</Node>
+				<Node name="TileSet021">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="6:7" />
+					<Data type="vector2d" name="EndCoordinate" value="6:8" />
+				</Node>
+				<Node name="TileSet022">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="6:9" />
+					<Data type="vector2d" name="EndCoordinate" value="6:9" />
+				</Node>
+				<Node name="TileSet023">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="7:0" />
+					<Data type="vector2d" name="EndCoordinate" value="7:0" />
+				</Node>
+				<Node name="TileSet024">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="7:1" />
+					<Data type="vector2d" name="EndCoordinate" value="7:1" />
+				</Node>
+				<Node name="TileSet025">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="7:2" />
+					<Data type="vector2d" name="EndCoordinate" value="7:6" />
+				</Node>
+				<Node name="TileSet026">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="7:7" />
+					<Data type="vector2d" name="EndCoordinate" value="7:8" />
+				</Node>
+				<Node name="TileSet027">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="7:9" />
+					<Data type="vector2d" name="EndCoordinate" value="7:9" />
+				</Node>
+				<Node name="TileSet028">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="8:0" />
+					<Data type="vector2d" name="EndCoordinate" value="8:8" />
+				</Node>
+				<Node name="TileSet029">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="8:9" />
+					<Data type="vector2d" name="EndCoordinate" value="8:9" />
+				</Node>
+				<Node name="TileSet030">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="9:0" />
 					<Data type="vector2d" name="EndCoordinate" value="9:9" />
 				</Node>
 			</Node>
@@ -539,53 +703,236 @@
 			<Node name="Party">
 				<Node name="Member1">
 					<Data type="string" name="Character Name" value="Karl" />
-					<Data type="vector2d" name="Starting Point" value="4:4" />
+					<Data type="vector2d" name="Starting Point" value="4:9" />
 				</Node>
 				<Node name="Member2">
 					<Data type="string" name="Character Name" value="Mike" />
-					<Data type="vector2d" name="Starting Point" value="4:5" />
+					<Data type="vector2d" name="Starting Point" value="4:8" />
 				</Node>
 				<Node name="Member3">
 					<Data type="string" name="Character Name" value="Andrew" />
-					<Data type="vector2d" name="Starting Point" value="5:4" />
+					<Data type="vector2d" name="Starting Point" value="5:8" />
 				</Node>
 				<Node name="Member4">
 					<Data type="string" name="Character Name" value="Han" />
-					<Data type="vector2d" name="Starting Point" value="5:5" />
+					<Data type="vector2d" name="Starting Point" value="5:9" />
 				</Node>
 			</Node>
 			<Node name="Enemies">
 				<Node name="Member1">
 					<Data type="string" name="Character Name" value="Enemy Type 3-A" />
-					<Data type="vector2d" name="Starting Point" value="3:3" />
+					<Data type="vector2d" name="Starting Point" value="2:0" />
 				</Node>
 				<Node name="Member2">
 					<Data type="string" name="Character Name" value="Enemy Type 3-B" />
-					<Data type="vector2d" name="Starting Point" value="6:3" />
+					<Data type="vector2d" name="Starting Point" value="0:2" />
 				</Node>
 				<Node name="Member3">
 					<Data type="string" name="Character Name" value="Enemy Type 3-C" />
-					<Data type="vector2d" name="Starting Point" value="3:6" />
+					<Data type="vector2d" name="Starting Point" value="7:0" />
 				</Node>
 				<Node name="Member4">
 					<Data type="string" name="Character Name" value="Enemy Type 3-D" />
-					<Data type="vector2d" name="Starting Point" value="6:6" />
+					<Data type="vector2d" name="Starting Point" value="9:2" />
+				</Node>
+				<Node name="Member4">
+					<Data type="string" name="Character Name" value="Enemy Type 3-E" />
+					<Data type="vector2d" name="Starting Point" value="4:4" />
+				</Node>
+				<Node name="Member4">
+					<Data type="string" name="Character Name" value="Enemy Type 3-F" />
+					<Data type="vector2d" name="Starting Point" value="5:4" />
 				</Node>
 			</Node>
 			<Node name="Map">
 				<Node name="TileSet001">
-					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="string" name="TileType" value="GRASS" />
 					<Data type="vector2d" name="StartCoordinate" value="0:0" />
-					<Data type="vector2d" name="EndCoordinate" value="0:9" />
+					<Data type="vector2d" name="EndCoordinate" value="0:1" />
 				</Node>
 				<Node name="TileSet002">
-					<Data type="string" name="TileType" value="GRASS" />
-					<Data type="vector2d" name="StartCoordinate" value="1:0" />
-					<Data type="vector2d" name="EndCoordinate" value="8:9" />
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="0:2" />
+					<Data type="vector2d" name="EndCoordinate" value="0:2" />
 				</Node>
 				<Node name="TileSet003">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="0:3" />
+					<Data type="vector2d" name="EndCoordinate" value="0:3" />
+				</Node>
+				<Node name="TileSet004">
 					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="0:4" />
+					<Data type="vector2d" name="EndCoordinate" value="0:9" />
+				</Node>
+				<Node name="TileSet005">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="1:0" />
+					<Data type="vector2d" name="EndCoordinate" value="1:1" />
+				</Node>
+				<Node name="TileSet006">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="1:2" />
+					<Data type="vector2d" name="EndCoordinate" value="1:2" />
+				</Node>
+				<Node name="TileSet007">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="1:3" />
+					<Data type="vector2d" name="EndCoordinate" value="1:7" />
+				</Node>
+				<Node name="TileSet008">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="1:8" />
+					<Data type="vector2d" name="EndCoordinate" value="1:9" />
+				</Node>
+				<Node name="TileSet009">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="2:0" />
+					<Data type="vector2d" name="EndCoordinate" value="2:6" />
+				</Node>
+				<Node name="TileSet010">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="2:7" />
+					<Data type="vector2d" name="EndCoordinate" value="2:7" />
+				</Node>
+				<Node name="TileSet011">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="2:8" />
+					<Data type="vector2d" name="EndCoordinate" value="2:8" />
+				</Node>
+				<Node name="TileSet012">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="2:9" />
+					<Data type="vector2d" name="EndCoordinate" value="2:9" />
+				</Node>
+				<Node name="TileSet013">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="3:0" />
+					<Data type="vector2d" name="EndCoordinate" value="3:3" />
+				</Node>
+				<Node name="TileSet014">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="3:4" />
+					<Data type="vector2d" name="EndCoordinate" value="3:5" />
+				</Node>
+				<Node name="TileSet015">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="3:6" />
+					<Data type="vector2d" name="EndCoordinate" value="3:6" />
+				</Node>
+				<Node name="TileSet016">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="3:7" />
+					<Data type="vector2d" name="EndCoordinate" value="3:9" />
+				</Node>
+				<Node name="TileSet017">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="4:0" />
+					<Data type="vector2d" name="EndCoordinate" value="4:4" />
+				</Node>
+				<Node name="TileSet018">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="4:5" />
+					<Data type="vector2d" name="EndCoordinate" value="4:5" />
+				</Node>
+				<Node name="TileSet019">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="4:6" />
+					<Data type="vector2d" name="EndCoordinate" value="4:9" />
+				</Node>
+				<Node name="TileSet020">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="5:0" />
+					<Data type="vector2d" name="EndCoordinate" value="5:4" />
+				</Node>
+				<Node name="TileSet021">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="5:5" />
+					<Data type="vector2d" name="EndCoordinate" value="5:5" />
+				</Node>
+				<Node name="TileSet022">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="5:6" />
+					<Data type="vector2d" name="EndCoordinate" value="5:9" />
+				</Node>
+				<Node name="TileSet023">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="6:0" />
+					<Data type="vector2d" name="EndCoordinate" value="6:3" />
+				</Node>
+				<Node name="TileSet024">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="6:4" />
+					<Data type="vector2d" name="EndCoordinate" value="6:5" />
+				</Node>
+				<Node name="TileSet025">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="6:6" />
+					<Data type="vector2d" name="EndCoordinate" value="6:6" />
+				</Node>
+				<Node name="TileSet026">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="6:7" />
+					<Data type="vector2d" name="EndCoordinate" value="6:9" />
+				</Node>
+				<Node name="TileSet027">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="7:0" />
+					<Data type="vector2d" name="EndCoordinate" value="7:6" />
+				</Node>
+				<Node name="TileSet028">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="7:7" />
+					<Data type="vector2d" name="EndCoordinate" value="7:7" />
+				</Node>
+				<Node name="TileSet029">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="7:8" />
+					<Data type="vector2d" name="EndCoordinate" value="7:8" />
+				</Node>
+				<Node name="TileSet030">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="7:9" />
+					<Data type="vector2d" name="EndCoordinate" value="7:9" />
+				</Node>
+				<Node name="TileSet031">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="8:0" />
+					<Data type="vector2d" name="EndCoordinate" value="8:1" />
+				</Node>
+				<Node name="TileSet032">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="8:2" />
+					<Data type="vector2d" name="EndCoordinate" value="8:2" />
+				</Node>
+				<Node name="TileSet033">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="8:3" />
+					<Data type="vector2d" name="EndCoordinate" value="8:7" />
+				</Node>
+				<Node name="TileSet034">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="8:8" />
+					<Data type="vector2d" name="EndCoordinate" value="8:9" />
+				</Node>
+				<Node name="TileSet035">
+					<Data type="string" name="TileType" value="GRASS" />
 					<Data type="vector2d" name="StartCoordinate" value="9:0" />
+					<Data type="vector2d" name="EndCoordinate" value="9:1" />
+				</Node>
+				<Node name="TileSet036">
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="9:2" />
+					<Data type="vector2d" name="EndCoordinate" value="9:2" />
+				</Node>
+				<Node name="TileSet037">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="9:3" />
+					<Data type="vector2d" name="EndCoordinate" value="9:3" />
+				</Node>
+				<Node name="TileSet038">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="9:4" />
 					<Data type="vector2d" name="EndCoordinate" value="9:9" />
 				</Node>
 			</Node>
@@ -595,91 +942,261 @@
 			<Node name="Party">
 				<Node name="Member1">
 					<Data type="string" name="Character Name" value="Karl" />
-					<Data type="vector2d" name="Starting Point" value="2:2" />
+					<Data type="vector2d" name="Starting Point" value="7:2" />
 				</Node>
 				<Node name="Member2">
 					<Data type="string" name="Character Name" value="Mike" />
-					<Data type="vector2d" name="Starting Point" value="7:2" />
+					<Data type="vector2d" name="Starting Point" value="7:3" />
 				</Node>
 				<Node name="Member3">
 					<Data type="string" name="Character Name" value="Andrew" />
-					<Data type="vector2d" name="Starting Point" value="2:7" />
+					<Data type="vector2d" name="Starting Point" value="6:3" />
 				</Node>
 				<Node name="Member4">
 					<Data type="string" name="Character Name" value="Han" />
-					<Data type="vector2d" name="Starting Point" value="7:7" />
+					<Data type="vector2d" name="Starting Point" value="6:2" />
 				</Node>
 			</Node>
 			<Node name="Enemies">
 				<Node name="Member1">
-					<Data type="string" name="Character Name" value="Enemy Boss 4" />
-					<Data type="vector2d" name="Starting Point" value="4:5" />
+					<Data type="string" name="Character Name" value="Enemy Boss 4-A" />
+					<Data type="vector2d" name="Starting Point" value="0:8" />
+				</Node>
+				<Node name="Member2">
+					<Data type="string" name="Character Name" value="Enemy Boss 4-B" />
+					<Data type="vector2d" name="Starting Point" value="0:9" />
+				</Node>
+				<Node name="Member3">
+					<Data type="string" name="Character Name" value="Enemy Type 4-A" />
+					<Data type="vector2d" name="Starting Point" value="1:7" />
+				</Node>
+				<Node name="Member4">
+					<Data type="string" name="Character Name" value="Enemy Type 4-B" />
+					<Data type="vector2d" name="Starting Point" value="1:8" />
+				</Node>
+				<Node name="Member5">
+					<Data type="string" name="Character Name" value="Enemy Type 4-C" />
+					<Data type="vector2d" name="Starting Point" value="2:2" />
+				</Node>
+				<Node name="Member6">
+					<Data type="string" name="Character Name" value="Enemy Type 4-D" />
+					<Data type="vector2d" name="Starting Point" value="5:8" />
 				</Node>
 			</Node>
 			<Node name="Map">
 				<Node name="TileSet001">
-					<Data type="string" name="TileType" value="WATER" />
+					<Data type="string" name="TileType" value="GRASS" />
 					<Data type="vector2d" name="StartCoordinate" value="0:0" />
-					<Data type="vector2d" name="EndCoordinate" value="2:1" />
+					<Data type="vector2d" name="EndCoordinate" value="0:5" />
 				</Node>
 				<Node name="TileSet002">
-					<Data type="string" name="TileType" value="GRASS" />
-					<Data type="vector2d" name="StartCoordinate" value="2:2" />
-					<Data type="vector2d" name="EndCoordinate" value="2:7" />
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="0:6" />
+					<Data type="vector2d" name="EndCoordinate" value="0:7" />
 				</Node>
 				<Node name="TileSet003">
-					<Data type="string" name="TileType" value="WATER" />
-					<Data type="vector2d" name="StartCoordinate" value="2:8" />
-					<Data type="vector2d" name="EndCoordinate" value="3:1" />
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="0:8" />
+					<Data type="vector2d" name="EndCoordinate" value="0:8" />
 				</Node>
 				<Node name="TileSet004">
-					<Data type="string" name="TileType" value="GRASS" />
-					<Data type="vector2d" name="StartCoordinate" value="3:2" />
-					<Data type="vector2d" name="EndCoordinate" value="3:7" />
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="0:9" />
+					<Data type="vector2d" name="EndCoordinate" value="0:9" />
 				</Node>
 				<Node name="TileSet005">
-					<Data type="string" name="TileType" value="WATER" />
-					<Data type="vector2d" name="StartCoordinate" value="3:8" />
-					<Data type="vector2d" name="EndCoordinate" value="4:1" />
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="1:0" />
+					<Data type="vector2d" name="EndCoordinate" value="1:6" />
 				</Node>
 				<Node name="TileSet006">
-					<Data type="string" name="TileType" value="GRASS" />
-					<Data type="vector2d" name="StartCoordinate" value="4:2" />
-					<Data type="vector2d" name="EndCoordinate" value="4:7" />
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="1:7" />
+					<Data type="vector2d" name="EndCoordinate" value="1:9" />
 				</Node>
 				<Node name="TileSet007">
-					<Data type="string" name="TileType" value="WATER" />
-					<Data type="vector2d" name="StartCoordinate" value="4:8" />
-					<Data type="vector2d" name="EndCoordinate" value="5:1" />
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="2:0" />
+					<Data type="vector2d" name="EndCoordinate" value="2:2" />
 				</Node>
 				<Node name="TileSet008">
-					<Data type="string" name="TileType" value="GRASS" />
-					<Data type="vector2d" name="StartCoordinate" value="5:2" />
-					<Data type="vector2d" name="EndCoordinate" value="5:7" />
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="2:3" />
+					<Data type="vector2d" name="EndCoordinate" value="2:4" />
 				</Node>
 				<Node name="TileSet009">
-					<Data type="string" name="TileType" value="WATER" />
-					<Data type="vector2d" name="StartCoordinate" value="5:8" />
-					<Data type="vector2d" name="EndCoordinate" value="6:1" />
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="2:5" />
+					<Data type="vector2d" name="EndCoordinate" value="2:6" />
 				</Node>
 				<Node name="TileSet010">
-					<Data type="string" name="TileType" value="GRASS" />
-					<Data type="vector2d" name="StartCoordinate" value="6:2" />
-					<Data type="vector2d" name="EndCoordinate" value="6:7" />
+					<Data type="string" name="TileType" value="ROAD" />
+					<Data type="vector2d" name="StartCoordinate" value="2:7" />
+					<Data type="vector2d" name="EndCoordinate" value="2:8" />
 				</Node>
 				<Node name="TileSet011">
-					<Data type="string" name="TileType" value="WATER" />
-					<Data type="vector2d" name="StartCoordinate" value="6:8" />
-					<Data type="vector2d" name="EndCoordinate" value="7:1" />
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="2:9" />
+					<Data type="vector2d" name="EndCoordinate" value="2:9" />
 				</Node>
 				<Node name="TileSet012">
 					<Data type="string" name="TileType" value="GRASS" />
-					<Data type="vector2d" name="StartCoordinate" value="7:2" />
-					<Data type="vector2d" name="EndCoordinate" value="7:7" />
+					<Data type="vector2d" name="StartCoordinate" value="3:0" />
+					<Data type="vector2d" name="EndCoordinate" value="3:1" />
 				</Node>
 				<Node name="TileSet013">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="3:2" />
+					<Data type="vector2d" name="EndCoordinate" value="3:3" />
+				</Node>
+				<Node name="TileSet014">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="3:4" />
+					<Data type="vector2d" name="EndCoordinate" value="3:5" />
+				</Node>
+				<Node name="TileSet015">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="3:6" />
+					<Data type="vector2d" name="EndCoordinate" value="3:7" />
+				</Node>
+				<Node name="TileSet016">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="3:8" />
+					<Data type="vector2d" name="EndCoordinate" value="3:8" />
+				</Node>
+				<Node name="TileSet017">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="3:9" />
+					<Data type="vector2d" name="EndCoordinate" value="3:9" />
+				</Node>
+				<Node name="TileSet018">
 					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="4:0" />
+					<Data type="vector2d" name="EndCoordinate" value="4:0" />
+				</Node>
+				<Node name="TileSet019">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="4:1" />
+					<Data type="vector2d" name="EndCoordinate" value="4:2" />
+				</Node>
+				<Node name="TileSet020">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="4:3" />
+					<Data type="vector2d" name="EndCoordinate" value="4:5" />
+				</Node>
+				<Node name="TileSet021">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="4:6" />
+					<Data type="vector2d" name="EndCoordinate" value="4:6" />
+				</Node>
+				<Node name="TileSet022">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="4:7" />
+					<Data type="vector2d" name="EndCoordinate" value="4:7" />
+				</Node>
+				<Node name="TileSet023">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="4:8" />
+					<Data type="vector2d" name="EndCoordinate" value="4:9" />
+				</Node>
+				<Node name="TileSet024">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="5:0" />
+					<Data type="vector2d" name="EndCoordinate" value="5:0" />
+				</Node>
+				<Node name="TileSet025">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="5:1" />
+					<Data type="vector2d" name="EndCoordinate" value="5:1" />
+				</Node>
+				<Node name="TileSet026">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="5:2" />
+					<Data type="vector2d" name="EndCoordinate" value="5:4" />
+				</Node>
+				<Node name="TileSet027">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="5:5" />
+					<Data type="vector2d" name="EndCoordinate" value="5:5" />
+				</Node>
+				<Node name="TileSet028">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="5:6" />
+					<Data type="vector2d" name="EndCoordinate" value="5:7" />
+				</Node>
+				<Node name="TileSet029">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="5:8" />
+					<Data type="vector2d" name="EndCoordinate" value="6:0" />
+				</Node>
+				<Node name="TileSet030">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="6:1" />
+					<Data type="vector2d" name="EndCoordinate" value="6:1" />
+				</Node>
+				<Node name="TileSet031">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="6:2" />
+					<Data type="vector2d" name="EndCoordinate" value="6:3" />
+				</Node>
+				<Node name="TileSet032">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="6:4" />
+					<Data type="vector2d" name="EndCoordinate" value="6:5" />
+				</Node>
+				<Node name="TileSet033">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="6:6" />
+					<Data type="vector2d" name="EndCoordinate" value="6:6" />
+				</Node>
+				<Node name="TileSet034">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="6:7" />
+					<Data type="vector2d" name="EndCoordinate" value="7:0" />
+				</Node>
+				<Node name="TileSet035">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="7:1" />
+					<Data type="vector2d" name="EndCoordinate" value="7:1" />
+				</Node>
+				<Node name="TileSet036">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="7:2" />
+					<Data type="vector2d" name="EndCoordinate" value="7:3" />
+				</Node>
+				<Node name="TileSet037">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="7:4" />
+					<Data type="vector2d" name="EndCoordinate" value="7:7" />
+				</Node>
+				<Node name="TileSet038">
+					<Data type="string" name="TileType" value="GRASS" />
 					<Data type="vector2d" name="StartCoordinate" value="7:8" />
+					<Data type="vector2d" name="EndCoordinate" value="8:0" />
+				</Node>
+				<Node name="TileSet039">
+					<Data type="string" name="TileType" value="ROCK" />
+					<Data type="vector2d" name="StartCoordinate" value="8:1" />
+					<Data type="vector2d" name="EndCoordinate" value="8:4" />
+				</Node>
+				<Node name="TileSet040">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="8:5" />
+					<Data type="vector2d" name="EndCoordinate" value="8:5" />
+				</Node>
+				<Node name="TileSet041">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="8:6" />
+					<Data type="vector2d" name="EndCoordinate" value="8:9" />
+				</Node>
+				<Node name="TileSet042">
+					<Data type="string" name="TileType" value="GRASS" />
+					<Data type="vector2d" name="StartCoordinate" value="9:0" />
+					<Data type="vector2d" name="EndCoordinate" value="9:7" />
+				</Node>
+				<Node name="TileSet043">
+					<Data type="string" name="TileType" value="WATER" />
+					<Data type="vector2d" name="StartCoordinate" value="9:8" />
 					<Data type="vector2d" name="EndCoordinate" value="9:9" />
 				</Node>
 			</Node>
