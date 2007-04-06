@@ -9,6 +9,7 @@
  * Andrew Osborne, March 24 2007, Proper UI Implementation
  * Karl Schmidt, March 25 2007   | Added functionality for loading profiles, and also going back to the previous menu
  * Andrew Osborne, March 29 2007 | Fixed missing code that calls the password verification screen
+ * Karl Schmidt, April 5 2007    | Added code to not use display user1 in the list of profiles
  */
 #include "UILoadProfileLayout.h"                                // class implemented
 
@@ -105,10 +106,17 @@ void UILoadProfileLayout::OnLoad(void)
     mMenu->ClearButtons();
     for ( std::vector<std::string>::const_iterator i = profileNames.begin(); i != profileNames.end(); ++i )
     {
-        mMenu->AddButton( *i, new LoadProfileMenuFunction( *i ) );
+        // Internally-used profile name for encrypting/decrypting database.xml
+        if( *i != "user1" )
+        {
+            mMenu->AddButton( *i, new LoadProfileMenuFunction( *i ) );
+        }
     }
 
-    mMenu->AddBlankRow();
+    if( !mMenu->Empty() )
+    {
+        mMenu->AddBlankRow();
+    }
     mMenu->AddButton( "Back", new LoadProfileBackFunction() );
 }
 
