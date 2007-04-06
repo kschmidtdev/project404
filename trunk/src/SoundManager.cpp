@@ -43,7 +43,7 @@ typedef float  MY_TYPE;
 
 namespace
 {
-    static double RTAUDIO_SCALE = 1.0;
+    /*static double RTAUDIO_SCALE = 1.0;
 
     static int cosine(char *buffer, int buffer_size, void *data)
     {
@@ -131,7 +131,7 @@ namespace
             return 1;
         }
         return 0;
-    }
+    }*/
 }
 
 //============================= LIFECYCLE ====================================
@@ -167,7 +167,7 @@ void SoundManager::Initialize( const bool isEnabled )
         }
         Mix_AllocateChannels( 1 );
         SetVolumeLevel( mCurVolumeLevel );
-        int buffer_size, fs, device = 0;
+        /*int buffer_size, fs, device = 0;
 
         mAudioData = new double[2];
         fs = 44100;
@@ -199,7 +199,7 @@ void SoundManager::Initialize( const bool isEnabled )
         for(int i = 0; i < 44100; i++)
         {
             mSound[i] = 0;
-        }
+        }*/
 
         LogInfo( "SoundManager initialized successfully." );
     }
@@ -215,7 +215,7 @@ void SoundManager::Shutdown()
 
         Mix_CloseAudio();
 
-        delete[] mSound;
+        /*delete[] mSound;
         try
         {
         // Stop and close the stream
@@ -241,7 +241,7 @@ void SoundManager::Shutdown()
             delete[] mAudioData;
             LogInfo("mAudioData deleted");
             mAudioData = NULL;
-        }
+        }*/
     }
 
     delete _instance;
@@ -290,7 +290,7 @@ void SoundManager::PlayMusic( Mix_Music* toPlay, const bool looping )
 
 void SoundManager::PlayRTAUDIO()
 {
-    if( mIsEnabled )
+    /*if( mIsEnabled )
     {
 
         LogInfo("Before stopStream");
@@ -307,7 +307,7 @@ void SoundManager::PlayRTAUDIO()
             LogInfo("Errored");
             error.printMessage();
         }
-    }
+    }*/
 }
 
 void SoundManager::StopAllPlayback()
@@ -327,7 +327,7 @@ void SoundManager::SetVolumeLevel( const VOLUME_LEVEL newVolumeLevel )
         Mix_Volume( -1, volumeStep * newVolumeLevel );
         Mix_VolumeMusic( volumeStep * newVolumeLevel );
 
-        RTAUDIO_SCALE = (1.0 / static_cast<double>(VL_MAX)) * static_cast<double>( newVolumeLevel );
+        //RTAUDIO_SCALE = (1.0 / static_cast<double>(VL_MAX)) * static_cast<double>( newVolumeLevel );
 
         mCurVolumeLevel = newVolumeLevel;
     }
@@ -338,7 +338,7 @@ const SoundManager::VOLUME_LEVEL SoundManager::GetVolumeLevel() const
     return mCurVolumeLevel;
 }
 
-std::vector<double> SoundManager::CalcHanning(int m,int n)
+/*std::vector<double> SoundManager::CalcHanning(int m,int n)
 {
     std::vector<double> w;
     for(int i = 1; i <= m; i++)
@@ -508,7 +508,7 @@ void SoundManager::SetSoundArray(double tau)
     A[2] = (*R.begin())*(*R.begin());
 
     BiQuad object(B, A, 3, (*G.begin()));*/
-    std::vector<double>::iterator giter = G.begin();
+/*    std::vector<double>::iterator giter = G.begin();
     BiQuad* BiQuads = new BiQuad[12];
     int i = 0;
     std::vector<double>::iterator fciter = fc.begin();
@@ -542,7 +542,7 @@ void SoundManager::SetSoundArray(double tau)
         cout << b+1 << ": " << result[b] << endl;
     }*/
     //set up an array of arrays
-    double** myArray = new double*[12];
+/*    double** myArray = new double*[12];
 
     if (myArray != NULL)
     {
@@ -602,7 +602,7 @@ void SoundManager::SetSoundArray(double tau)
     delete[] BiQuads;
     myArray = 0;
 }
-
+*/
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
