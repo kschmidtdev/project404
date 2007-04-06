@@ -87,7 +87,7 @@ public:
     /**
      * Save an encrypted version of the loaded database
      */
-    void SaveEncryptedFile( const string & fileName );
+    void SaveEncryptedFile( const string & fileName, const string & userName );
 
     /**
      * Get Method. Return the pointer of the list of all the characters in the game.
