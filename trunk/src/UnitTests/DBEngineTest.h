@@ -50,7 +50,7 @@ public:
     {
         vector<Character*>* EnemiesList = DBEngine::GetInstance()->LoadEnemies( 4 );
 
-        TS_ASSERT_EQUALS( EnemiesList->size(), 1 ); // size of the vector should be 1.
+        TS_ASSERT_EQUALS( EnemiesList->size(), 6 ); // size of the vector should be 6.
     }
 
     void testLoadBattleMap()
