@@ -17,6 +17,8 @@
  * Karl Schmidt,   March 31 2007 | Making UIText with text of "" triggers assert in SDLRenderer, so changed to " ",
                                    also updated progression code so it goes to the right screen, commented out
                                    implementation for helper text setting waiting to be implemented properly
+ * Andrew Osborne, April 5 2007 | Added helper-text functionality that gives feedback on bad user requests (empty profile name, etc.)
+ *                                  Also added helper-text setter and ability to clear the "result string"
  */
 
 #include "UIAlphabetGrid.h"                                // class implemented
@@ -153,12 +155,14 @@ void UIAlphabetGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
                 // We should really tell them they did something wrong when this occurs
                 if( GetString() == "" || GetString() == " " )
                 {
-                    //mHelperText->ChangeText( "You must enter a profile name" );
+                    mHelp->ChangeText( "You must enter a profile name" );
+                    mHelp->SetVisible(true);
                     return;
                 }
                 if( SecurityManager::GetInstance()->GetUserHash( GetString() ) != "" )
                 {
-                    //mHelperText->ChangeText( "A profile already exists using that name." );
+                    mHelp->ChangeText( "A profile already exists using that name." );
+                    mHelp->SetVisible(true);
                     return;
                 }
                 else
@@ -176,6 +180,7 @@ void UIAlphabetGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
             else if(mResult.size() < 9 && (mCursorPos.GetY() < 3 || (mCursorPos.GetY() == 3 && mCursorPos.GetX() < 5)))
             {
                 AddChar();
+                mHelp->SetVisible(false);
             }
             else
             {
@@ -244,6 +249,11 @@ void UIAlphabetGrid::SetPos( const Point & nPos )
 
 }
 
+void UIAlphabetGrid::ClearString(void)
+{
+    mResult = "";
+    mUIResult.ChangeText(" ");
+}
 
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
@@ -278,6 +288,8 @@ void UIAlphabetGrid::RemoveChar(void)
     else if (mResult.size()>1)
     {
         mResult = mResult.substr(0, mResult.size()-1);
+        // This next line is cheap hack
+        mHelp->SetVisible(false);
     }
 
     if (mResult=="")
