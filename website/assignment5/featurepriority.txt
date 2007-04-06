@@ -75,6 +75,7 @@ Link to: <a href="http://code.google.com/p/project404/issues/list?start=0">Bug T
 <li>Fading in/out textures</li>
 <li>Item store interface</li>
 <li>Refine battle screen UI</li>
+<li>Actions in battle map are cancelable</li>
 </ul>
 <h3>Database</h3>
 <ul>
