@@ -7,6 +7,7 @@
 #include <UI/UIUnitTestHelp.h>
 #include <GameEngine/Character.h>
 #include <Renderer/SDLRenderer.h>
+#include <ResourceManager/ResourceManager.h>
 
 //
 // A generated test suite: Just write tests!
