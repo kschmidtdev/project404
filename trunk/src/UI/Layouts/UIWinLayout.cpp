@@ -35,7 +35,7 @@ UIWinLayout::UIWinLayout()
     UIImage *temp = new UIImage("castleplain_darkened.png");
     mElements.push_back(temp);
 
-    UIText *tempText = new UIText("Congradulations", 60, 255, 255, 255);
+    UIText *tempText = new UIText("Congratulations", 60, 255, 255, 255);
     tempText->SetPos( Point(81,60) );
     mElements.push_back(tempText);
 
