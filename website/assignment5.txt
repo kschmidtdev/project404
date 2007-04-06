@@ -1,12 +1,18 @@
 Project Manager for this assignment: <i>Karl Schmidt</i>.
 
-Version 3 can be downloaded from <a href="http://www.sfu.ca/~karls/CMPT275/Project404Version2.zip">here</a>. Extract and run Project404.exe. The default password is right-right-right-right. The libraries required to build are available <a href="http://www.sfu.ca/~karls/CMPT275/Project404Version2ExternalLibs.zip">here</a>. Extract them in the trunk folder. Download a description of UI test cases from <a href="http://www.sfu.ca/~aco1/UI_Test_Cases.doc">here</a>.
+Version 3 can be downloaded from <a href="http://www.sfu.ca/~karls/CMPT275/Project404Version3.zip">here</a>. Extract and run Project404.exe. The libraries required to build are available <a href="http://www.sfu.ca/~karls/CMPT275/Project404Version3ExternalLibs.zip">here</a>. Extract them in the trunk folder. Download a description of UI test cases from <a href="http://www.sfu.ca/~aco1/UI_Test_Cases.doc">here</a>.
 
 The link to our coding standards document is <a href="http://www.sfu.ca/~karls/CMPT275/CppCodingStandard.html">here</a>, retrieved from <a href="http://www.possibility.com/Cpp/">here</a>.
 
 Our test plan document can be downloaded from <a href="http://www.sfu.ca/~karls/CMPT275/CMPT275-Test_Plan.doc">here</a>.
 
 Source code documentation generated with DOxygen is available <a href="http://www.sfu.ca/~karls/CMPT275/doxygen">here</a>. 
+
+Version 3 Specific updates:
+
+A screencast provided as a tutorial for our battle use-case can be found <a href="http://www.sfu.ca/~karls/CMPT275/SymTacScreenCast.html">here</a>. 
+
+Our final powerpoint presentation file can be found <a href="http://www.sfu.ca/~karls/CMPT275/CMPT275_FinalPresentation.zip">here</a>. 
 
 Controls are mapped as follows:
 <ul>
