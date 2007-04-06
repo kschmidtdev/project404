@@ -94,7 +94,7 @@ void SDLRenderer::Initialize( const int xRes, const int yRes, const int colourDe
         return;
     }
 
-    SDL_WM_SetCaption( "SymTac Version 3a", NULL );
+    SDL_WM_SetCaption( "SymTac Version 3", NULL );
 
     LogInfo( std::string("Set video mode: ") + toString(xRes) + std::string(" ") + toString(yRes) );
     LogInfo( "The SDLRenderer has been initialized successfully." );
