@@ -27,7 +27,7 @@
 // SYSTEM INCLUDES
 //
 #include <SDL_mixer.h>
-#include "RtAudio.h"
+//#include "RtAudio.h"
 #include <vector>
 // PROJECT INCLUDES
 //
@@ -148,8 +148,8 @@ protected:
     static SoundManager* _instance;
 
     bool mIsEnabled;
-    RtAudio* mRTAudio;
-    double* mAudioData;
+//    RtAudio* mRTAudio;
+//    double* mAudioData;
     VOLUME_LEVEL mCurVolumeLevel;
     double mPi;
     double mFS;

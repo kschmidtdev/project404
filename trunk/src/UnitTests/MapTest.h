@@ -8,6 +8,8 @@
 #include <GameEngine/Character.h>
 #include <Point.h>
 #include <Database/DBEngine.h>
+#include <SecurityManager.h>
+
 //
 // A generated test suite: Just write tests!
 //
