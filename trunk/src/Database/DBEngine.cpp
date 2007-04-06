@@ -497,10 +497,10 @@ void DBEngine::SaveGame()
     }
 }
 
-void DBEngine::SaveEncryptedFile( const string & fileName )
+void DBEngine::SaveEncryptedFile( const string & fileName, const string & userName )
 {
     DatabaseManager::GetInstance()->SaveToFile( fileName );
-    SecurityManager::GetInstance()->EncryptFile( fileName, SecurityManager::GetInstance()->GetUserHash(mCurrentProfileName) );
+    SecurityManager::GetInstance()->EncryptFile( fileName, SecurityManager::GetInstance()->GetUserHash(userName) );
 }
 
 void DBEngine::ClearLoadedData()

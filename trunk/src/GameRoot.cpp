@@ -138,7 +138,7 @@ void GameRoot::Initialize( const int argc, char** argv, const bool soundEnabled 
     if( mSettings.find( "encrypt" ) != mSettings.end() )
     {
         mDBEngine->Initialize();
-        mDBEngine->SaveEncryptedFile( "databaseEncrypted.xml" );
+        mDBEngine->SaveEncryptedFile( "databaseEncrypted.xml", "user1" );
     }
 
     mGameEngine = GameEngine::GetInstance();
