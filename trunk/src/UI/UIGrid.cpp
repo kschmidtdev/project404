@@ -45,6 +45,7 @@
  										added a 1 second delay when the game is over (win or lose)
  * Karl Schmidt,    April 1 2007      | Added healing/attacking effect animations, fixed bug where damage done
  										on last turn of battle would never get drawn
+ * Mike Malyuk,     April 5 2007      | Fixing UIGRID (NOTE UI) to allow revertion for users. Store old point and new CancelFunction
  */
 
 #include "UIGrid.h"                                // class implemented
@@ -160,6 +161,7 @@ void UIGrid::ProcessEvent( const InputManager::INPUTKEYS evt )
             ConfirmFunction(mCursorPos);
             break;
         case InputManager::CANCEL:
+            CancelFunction();
             break;
         default:
             break;
@@ -195,6 +197,7 @@ void UIGrid::ConfirmFunction( const Point & p )
                 // Step 2 - prepare screen/UI for moveable range
                 // ==============
                 AddMoveableRange( mLevel->GetEveryone(), mLevel->GetEnemies(), mCurCharacter);
+                mCurCharacter->SetOldPos(mCurCharacter->GetPoint());
             }
         }
         break;
@@ -218,6 +221,7 @@ void UIGrid::ConfirmFunction( const Point & p )
             // Step 6 - Prep screen/UI for Attackable Range
 
             old = mCurCharacter->GetPoint();
+
             for(vector<Point>::iterator piter = mMovePoints.begin(); piter != mMovePoints.end(); piter++)
             {
                 if((*piter) == p)
@@ -492,6 +496,30 @@ void UIGrid::ConfirmFunction( const Point & p )
             DoLoseOrWin( mLevel );
         }
         break;
+
+    }
+}
+
+void UIGrid::CancelFunction()
+{
+    if(mCurCharacter != NULL && Level::FREE != mLevel->ReturnState())
+    {
+        // remove icon from old spot
+        RemoveCharacter( mCurCharacter->GetPoint());
+
+        // add icon to new spot
+
+        mCurCharacter->RevertOld();
+        AddPartyCharacter( mCurCharacter );
+        mLevel->SetState(Level::FREE);
+        if(mLevel->ReturnState() == Level::MOVE)
+        {
+            ClearMoveableRange();
+        }
+        else
+        {
+            ClearAttackRange();
+        }
 
     }
 }

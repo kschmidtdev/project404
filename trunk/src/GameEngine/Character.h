@@ -16,6 +16,7 @@
  *                                 and two booleans, mExhausted and mIsDead
  * Karl Schmidt, March 20 2007   | Major adding of consts and reference usage, rearranging includes
  * Karl Schmidt, March 22 2007   | Changed name of GetClassName
+ * Mike Malyuk,  April 5  2007   | Fixed revertion for Characters! Rejoice players!
  */
 
 #ifndef Character_h
@@ -129,6 +130,15 @@ enum Attr
 	 */
     void RestoreToFullLife();
 
+    /**
+     * Set Old Position
+     */
+    void SetOldPos(const Point & p);
+    /**
+     * Revert to old position
+     */
+    void RevertOld();
+
 // INQUIRY
 
     /**
@@ -209,6 +219,7 @@ protected:
     bool mIsDead;
     Character* mTarget;
     Point mCurPos;
+    Point mOldPos;
     ArmorItem* mArmor;
     WeaponItem* mWeapon;
 

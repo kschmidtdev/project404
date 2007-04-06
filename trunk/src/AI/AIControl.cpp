@@ -14,6 +14,7 @@
  * Karl Schmidt, March 22 2007    | Changed name of GetClassName
  * Karl Schmidt, March 23 2007    | Removed unneeded include
  * Mike Malyuk, March 26, 2007    | Added new AI level (2). Tries to back off and regroup. Smarter healing.
+ * Mike Malyuk, April  5, 2007    | Evidently dumb AI was too dumb. Made slightly smarter so as not to inf loop.
  */
 
 #include "AIControl.h"                                // class implemented
@@ -201,7 +202,7 @@ Point AIControl::DoAction()
                     {
                         for(CharacterPtrConstItr eiter = enemy.begin(); eiter != enemy.end(); eiter++)
                         {
-                            if((*piter) == (*eiter)->GetPoint())
+                            if((*piter) == (*eiter)->GetPoint() && (*eiter)->GetHP() != (*eiter)->GetMaxHP())
                             {
                                 return (*piter);
                             }
