@@ -56,7 +56,7 @@ public:
     /**
      * Check if the incoming file can be loaded by tinyXML or not
      */
-    bool IsValidFile( const string & fileName );
+    bool IsValidFile( const string & fileName, const string & userName );
 
     /**
      * Load XML file and creates Nodes from that file.

@@ -75,12 +75,12 @@ void DatabaseManager::ClearLoadedData()
 //============================= OPERATORS ====================================
 //============================= OPERATIONS ===================================
 
-bool DatabaseManager::IsValidFile( const string & fileName )
+bool DatabaseManager::IsValidFile( const string & fileName, const string & userName )
 {
-    SecurityManager::GetInstance()->DecryptFile( fileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+    SecurityManager::GetInstance()->DecryptFile( fileName, SecurityManager::GetInstance()->GetUserHash(userName) );
     TiXmlDocument Document( fileName );
     bool isFile = Document.LoadFile();
-    SecurityManager::GetInstance()->EncryptFile( fileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+    SecurityManager::GetInstance()->EncryptFile( fileName, SecurityManager::GetInstance()->GetUserHash(userName) );
 
     return isFile;
 }

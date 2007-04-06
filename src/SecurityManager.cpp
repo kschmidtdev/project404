@@ -587,6 +587,15 @@ const int SecurityManager::GetNumOfUsers() const
     return mLoadedPasswords.size();
 }
 
+void SecurityManager::ChangeUserHash( const std::string & userName, const std::string & newHash )
+{
+    if( mLoadedPasswords.find( userName ) != mLoadedPasswords.end() )
+    {
+        mLoadedPasswords[userName] = newHash;
+    }
+}
+
+
 //============================= ACCESS     ===================================
 //============================= INQUIRY    ===================================
 /////////////////////////////// PROTECTED  ///////////////////////////////////
