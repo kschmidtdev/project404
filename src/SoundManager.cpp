@@ -609,8 +609,8 @@ void SoundManager::SetSoundArray(double tau)
 
 SoundManager::SoundManager(void)
 : mIsEnabled( true ),
-  mRTAudio( NULL ),
-  mAudioData( NULL ),
+//  mRTAudio( NULL ),
+//  mAudioData( NULL ),
   mCurVolumeLevel( VL_MODERATE ),
   mPi(3.141592653589793),
   mFS(44100),
