@@ -148,6 +148,8 @@ public:
     */
     const int GetNumOfUsers() const;
 
+    void ChangeUserHash( const std::string & userName, const std::string & newHash );
+
 // ACCESS (writing)
 // INQUIRY (reading)
 

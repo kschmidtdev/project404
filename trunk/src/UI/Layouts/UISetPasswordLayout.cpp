@@ -238,17 +238,20 @@ void UISetPasswordLayout::ProcessEvent( const InputManager::INPUTKEYS evt )
                             const std::string oldHash = SecurityManager::GetInstance()->GetUserHash( currentUser );
 
                             SecurityManager::GetInstance()->ChangeUserPassword( currentUser, mConfirmPwd );
-                            const std::string & newHash = SecurityManager::GetInstance()->GetUserHash( currentUser );
+                            const std::string newHash = SecurityManager::GetInstance()->GetUserHash( currentUser );
                             char saveFileName[64];
+
+                            SecurityManager::GetInstance()->ChangeUserHash( currentUser, oldHash );
                             for( int i = 1; i < 4; ++i )
                             {
                                 if( DBEngine::GetInstance()->IsValidSaveGame( i ) )
                                 {
-                                    sprintf( saveFileName, "SaveFile%03i.xml", i );
+                                    sprintf( saveFileName, "%sSave%03i.xml", currentUser.c_str(), i );
                                     SecurityManager::GetInstance()->DecryptFile( saveFileName, oldHash );
                                     SecurityManager::GetInstance()->EncryptFile( saveFileName, newHash );
                                 }
                             }
+                            SecurityManager::GetInstance()->ChangeUserHash( currentUser, newHash );
                         }
                         UIManager::GetInstance()->PopLayout();
                         if( mCreatingPassword )

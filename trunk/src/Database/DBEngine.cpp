@@ -66,11 +66,11 @@ void DBEngine::Initialize( const bool loadFromSave )
 
     std::string saveFileName = mCurrentProfileName + SAVE_FILE_PREFIX + toString( mCurrentSaveGameNum ) + SAVE_FILE_POSTFIX;
     // Load XML file. Default : database.xml. If there is any save file, load that.
-    if( loadFromSave && mCurrentSaveGameNum > 0 && mDB->IsValidFile( saveFileName ) )
+    if( loadFromSave && mCurrentSaveGameNum > 0 && mDB->IsValidFile( saveFileName, mCurrentProfileName ) )
     {
-        SecurityManager::GetInstance()->DecryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+        SecurityManager::GetInstance()->DecryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash(mCurrentProfileName) );
         mDB->LoadFromFile( saveFileName );
-        SecurityManager::GetInstance()->EncryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+        SecurityManager::GetInstance()->EncryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash(mCurrentProfileName) );
 
         DBNode* saveDataNode = mDB->Search("SaveData");
         if( saveDataNode )
@@ -94,7 +94,7 @@ void DBEngine::Initialize( const bool loadFromSave )
     else
     {
         string dbFileName = "database.xml";
-        if( mDB->IsValidFile( dbFileName ) )
+        if( mDB->IsValidFile( dbFileName, "user1" ) )
         {
             SecurityManager::GetInstance()->DecryptFile( dbFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
             mDB->LoadFromFile( dbFileName );
@@ -489,7 +489,7 @@ void DBEngine::SaveGame()
 
         std::string saveFileName = mCurrentProfileName + SAVE_FILE_PREFIX + toString( mCurrentSaveGameNum ) + SAVE_FILE_POSTFIX;
         DatabaseManager::GetInstance()->SaveToFile( saveFileName );
-        SecurityManager::GetInstance()->EncryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+        SecurityManager::GetInstance()->EncryptFile( saveFileName, SecurityManager::GetInstance()->GetUserHash(mCurrentProfileName) );
     }
     else
     {
@@ -500,7 +500,7 @@ void DBEngine::SaveGame()
 void DBEngine::SaveEncryptedFile( const string & fileName )
 {
     DatabaseManager::GetInstance()->SaveToFile( fileName );
-    SecurityManager::GetInstance()->EncryptFile( fileName, SecurityManager::GetInstance()->GetUserHash("user1") );
+    SecurityManager::GetInstance()->EncryptFile( fileName, SecurityManager::GetInstance()->GetUserHash(mCurrentProfileName) );
 }
 
 void DBEngine::ClearLoadedData()
@@ -546,7 +546,7 @@ const std::vector< std::string > DBEngine::GetSaveFiles() const
 const bool DBEngine::IsValidSaveGame( const int saveGameNum ) const
 {
     std::string toCheck = mCurrentProfileName + SAVE_FILE_PREFIX + toString(saveGameNum) + SAVE_FILE_POSTFIX;
-    if( access( toCheck.c_str(), F_OK ) == 0 && DatabaseManager::GetInstance()->IsValidFile( toCheck ) )
+    if( access( toCheck.c_str(), F_OK ) == 0 && DatabaseManager::GetInstance()->IsValidFile( toCheck, mCurrentProfileName ) )
     {
         return true;
     }
