@@ -204,7 +204,7 @@ void Character::Attack(Character* another)
         }
         if(GetCharacterClassName() != "Mage")
         {
-            SoundManager::GetInstance()->SetSoundArray((randPOW-(another->GetAttr(Character::DEF)/2))/150.0);
+//            SoundManager::GetInstance()->SetSoundArray((randPOW-(another->GetAttr(Character::DEF)/2))/150.0);
             SoundManager::GetInstance()->PlayRTAUDIO();
         }
     mExhausted = true;
