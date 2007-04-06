@@ -41,6 +41,9 @@ public:
     // Called after all unit tests in this suite, remove if note needed
     void tearDown()
     {
+        delete mTestLayout;
+        delete mLayoutHelp;
+
         DBEngine::GetInstance()->Shutdown();
         ResourceManager::GetInstance()->Shutdown();
         SDLRenderer::GetInstance()->Shutdown();

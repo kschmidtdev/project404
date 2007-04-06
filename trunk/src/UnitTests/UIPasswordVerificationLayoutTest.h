@@ -35,6 +35,9 @@ public:
     // Called after all unit tests in this suite, remove if note needed
     void tearDown()
     {
+        delete mTestLayout;
+        delete mLayoutHelp;
+
         ResourceManager::GetInstance()->Shutdown();
         SDLRenderer::GetInstance()->Shutdown();
         Logger::GetInstance()->Shutdown();
