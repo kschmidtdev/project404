@@ -19,6 +19,7 @@
  * Mike Malyuk, March 24 2007    | Added code to call RTAudio proof of concept trumpet sound on attack. Prepare for annoyance!
  * Mike Malyuk, April 1  2007    | RTAudio rejiggered, sounds nicer, now sets whether attack is from left or right.
  * Mike Malyuk, April 2  2007    | Dynamic sound introduced. Attack sound varies on damage.
+ * Mike Malyuk, April 5  2007    | Added two new functions RevertOld() and SetOldPos, to allow reverting state on moves for users.
  */
 
 #include "Character.h"                                // class implemented
@@ -258,6 +259,10 @@ void Character::RestoreToFullLife()
     SetHP( mMaxHP );
     mIsDead = false;
 }
+
+void Character::SetOldPos(const Point & p) {mOldPos = p;}
+
+void Character::RevertOld(){mCurPos = mOldPos;}
 
 //============================= INQUIRY    ===================================
 const int Character::GetAttr( const Attr value) const

@@ -28,8 +28,9 @@
  * Andrew Osborne, March 23 2007      | Added comments for protected methods
  * Karl Schmidt,   March 23 2007      | Added mini-map implementation, enum instead of string for character tile type identification,
                                         removed some old code that wasn't used anymore
- * Andrew Osborne, March 24 2007 | converted from EventListener to UIEventListener
+ * Andrew Osborne, March 24 2007      | converted from EventListener to UIEventListener
  * Karl Schmidt,    March 29 2007     | Added DoLoseOrWin helper function
+ * Mike Malyuk,    April 5   2007     | Added method for CancelFunction
  */
 
 #ifndef UIGrid_h
@@ -244,6 +245,10 @@ protected:
      */
     void ConfirmFunction( const Point & p );
 
+    /**
+     * Function executed when user presses CONFIRM
+     */
+    void CancelFunction();
     protected:
 
     /**
