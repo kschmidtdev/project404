@@ -1,0 +1,10 @@
+# Notes #
+
+  * CalcMove must be done from the level controller
+  * Create Map in Level
+  * Create Tile class, map stores tiles
+  * Tiles have type weight and position. (embed image?)
+  * GameEngine.update() returns state (in level or not)
+  * GameEngine should call level methods, like cursor position
+  * Actions = Cursor select, Move, Action
+  * Add void Attack(Character

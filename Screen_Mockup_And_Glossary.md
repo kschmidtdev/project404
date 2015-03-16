@@ -1,0 +1,160 @@
+# Screen Mock-up #
+
+**Main Menu**
+
+![http://www.sfu.ca/~rhan/img/mainmenu.png](http://www.sfu.ca/~rhan/img/mainmenu.png)
+
+
+
+
+
+**New Profile**
+
+![http://www.sfu.ca/~rhan/img/newprofile_dlg.png](http://www.sfu.ca/~rhan/img/newprofile_dlg.png)
+
+
+
+
+
+**Load Profile**
+
+![http://www.sfu.ca/~rhan/img/profile_dlg.png](http://www.sfu.ca/~rhan/img/profile_dlg.png)
+
+
+
+
+
+**Start Menu (After create/load profile on main menu)**
+
+![http://www.sfu.ca/~rhan/img/startmenu.png](http://www.sfu.ca/~rhan/img/startmenu.png)
+
+
+
+
+
+**Option Dialog**
+
+![http://www.sfu.ca/~rhan/img/option_dlg.png](http://www.sfu.ca/~rhan/img/option_dlg.png)
+
+
+
+
+
+**New Game Dialog**
+
+![http://www.sfu.ca/~rhan/img/newgame_dlg.png](http://www.sfu.ca/~rhan/img/newgame_dlg.png)
+
+
+
+
+
+**Load Game Dialog**
+
+![http://www.sfu.ca/~rhan/img/loadgame_dlg.png](http://www.sfu.ca/~rhan/img/loadgame_dlg.png)
+
+
+
+
+
+**World Map**
+
+![http://www.sfu.ca/~rhan/img/worldmap.png](http://www.sfu.ca/~rhan/img/worldmap.png)
+
+
+
+
+
+**Party Status**
+
+![http://www.sfu.ca/~rhan/img/partystatus.png](http://www.sfu.ca/~rhan/img/partystatus.png)
+
+
+
+
+
+**Marketplace/Armory Dialog**
+
+![http://www.sfu.ca/~rhan/img/store.png](http://www.sfu.ca/~rhan/img/store.png)
+
+
+
+
+
+**Battle Map**
+
+![http://www.sfu.ca/~rhan/img/battlemap.png](http://www.sfu.ca/~rhan/img/battlemap.png)
+
+# Glossary #
+
+**Armor : Armor is a type of equipment that improves a character's defence.(i.e., shield)**
+
+**Armory : A Place to buy weapons, armors, and other items(i.e., potion). Amory is easy to access from the world map in our game.**
+
+**Attack : In our game(like all other RPG games), each character can attack an opponent. Action of attack lowers HP of an opponent or kills an opponent.**
+
+**Battle : Normally, battle occurs between a user's party(a group of characters) and enemy's party(AI). Battle is one of the major features in our game. A character can attack, move, get item, or be defeated during the battle.**
+
+**Battle Map : All the actions related to battle occurs on the battle map. It is a main place(map) of battle actions. The game has many different battle maps. Each battle map is consist of a set of tiles which has its own geographical attributes.**
+
+**Casual Gamer : Casual gamer is a term used to describe a type of video game player who plays casual games and whose time or interest in playing games is limited compared with a hardcore gamer. The type of game a casual gamer prefers varies but it is generally a game with a few simple rules and which requires no long-term time commitment or special skills to play.**
+
+**Character : A figure that is controlled by a user or AI. Each character is unique in the game and has it's own name, class, attributes, story, and etc.**
+
+**Character Class : Character Class defines the types of characters in more detail. For instance, fighter(melee-attack type) is more suitable for direct attack(more powerful and has more HP); however, archer(range-attack type) can attack the enemy without taking any damage. Magician(special-attack type) can perform various types of elemental magic-attack to enemies(possibly multiple targets).**
+
+**Character Template :	Since tons of characters are in the game, our implementation has a basic template class of a character and all the characters are derived from the character template class.**
+
+**Code::Blocks : Code::Blocks is a free, open source, and cross platform IDE. It is being developed in C++ using wxWidgets. Using a plugin architecture, its capabilities and features are defined by the provided plugins. Currently, Code::Blocks is oriented towards C/C++.**
+
+**Equip	: This is an action to equip weapons or armors to a character in the world map.**
+
+**Gold : Gold is a unit of money in the game. It can be otained from events or battles. Certain amount of gold is required to buy some weapons, armors and items from marketplace.**
+
+**Grid-based Game : This is somewhat similar to the game mechanism of chess. The battle map is divided by grids and each character take a place of one grid. Characters can move to another grid but cannot move to the grid that is already taken by another character. Only exception to this is defeat the one and take his/her grid.**
+
+**Hardcore Gamer : Hardcore gamer is a term used to describe a type of video game player whose leisure time is largely devoted to playing or reading about video games. This type of gamer prefers a game with complexity which takes significant time and practice to learn, in contrast to a casual gamer. Many hardcore gamers pride themselves on mastering the rules or use of a game although this is not a strict requirement.**
+
+**Item : An item is an object within the game world that can be collected by the user's character. Example of items are hurb, potion, sword, armor, keys and etc.**
+
+**Joypad/Joystick : A gamepad, also called joypad or control pad, is a type of game controller held with both hands where the thumbs are used to provide input. Gamepads generally feature a set of action buttons handled with the right thumb and a direction controller handled with the left. Our game supports joystick because SDL can be easily adopted to other console platform(i.e., GP2X)**
+
+**JPG : In computing, JPEG (pronounced JAY-peg) is a commonly used standard method of compression for photographic images. The name JPEG stands for Joint Photographic Experts Group, the name of the committee which created the standard.**
+
+**Magic : Magic is another type of action to attack an enemy character. Also, magic can heal(recover the HP) other characters or enhance attributes of characters.**
+
+**Marketplace : Synonym to armory**
+
+**Mini Map : Mini map is displayed on the right-top corner of the screen during the battle. It helps to take a look at the current status of battle briefly.**
+
+**Move : There are two different categories of movement in our game. Movement within the world map and movement within the battle map. In the world map, a user can move around cities, event spots, and battle points. In the battle map, a user can move to a certain grid to attack an enemy, to avoid from the enemy, or to obtain items on the field.**
+
+**Newbie : A newbie is a newcomer to a particular field, the term being commonly used on the Internet, where it might refer to new, inexperienced, or ignorant users of a game, a newsgroup, an operating system or the Internet itself. In many cases more experienced/knowledgeable people use it in purposes of negative reinforcement, urging "newbies" to learn more about the field or area in question.**
+
+**Over-map : Another word for World Map.**
+
+**Party	: Simply, party is a group of user's character(or even enemies'). A party is a unique and has limited spots.(So, one party is a group of a certain number of characters; however, types of characters are not constrained). If a character is not in the party, he/she cannot participate in the battle.**
+
+**PNG : PNG (Portable Network Graphics) is a bitmap image format that employs lossless data compression. PNG was created to improve and replace the GIF format, as an image-file format not requiring a patent license. PNG is pronounced "ping", but can be spoken "P-N-G" to avoid confusion with network tool ping. PNG is supported by the libpng reference library (platform-independent), with C functions for handling PNG images.**
+
+**Potion : A potion (from Latin potio, potionis, meaning beverage, potion, poison) is a drinkable medicine or poison. In our game, potion is a item that restores a character's HP. Potion can be bought from marketplace or obtained during the battle.**
+
+**Profile : Each user has at least one profile which saves configuration settings of game and assciated save files. Each profile is protected by password and only can be accessed by the valid user with the valid password.**
+
+**SDL : Simple DirectMedia Layer (SDL) is a cross-platform multimedia free software library written in C that creates an abstraction over various platforms' graphics, sound, and input APIs, allowing a developer to write a computer game or other multimedia application once and run it on many operating systems including GNU/Linux, Windows and Mac OS X. It manages video, events, digital audio, CD-ROM, sound, threads, shared object loading, networking and timers.**
+
+**starUML : StarUML is an open source UML tool, licenced under a modified version of GNU GPL. The stated goal of the project is to replace larger, commercial applications such as Rational Rose and Borland's Together. StarUML supports most of the diagram types specified in UML 2.0. It is currently missing object, package, timing and Interaction overview diagrams (though the first two can be adequately modelled through the class diagram editor).**
+
+**Status : Status in game represents all the attributes(strenght, dexterity, inteligence and etc) of one character with their equipments(weapon and armor). status also shows the formation of party and any other informations related to a user's characters.**
+
+**Tile-map : Basic unit of consisting battle map. Each tile has its own attributes that may helps or disturbs the battle situation.**
+
+**Turn-Based Game : A turn-based game, also known as turn-based strategy (TBS), is a game where the game flow is partitioned into well-defined and visible parts, called turns or rounds. For example, when the game flow unit is time, turns represent units of time, like years, months, weeks, or days. A player of a turn-based game is allowed a period of analysis (sometimes bounded, sometimes unbounded) before committing to a game action, ensuring a separation between the game flow and the thinking process, which in turn presumably leads to more optimal choices. Once every player has taken his or her turn, that round of play is over, and any special shared processing is done. This is followed by the next round of play.**
+
+**Tutorial : For anyone who is not familiar with our game, we provide a tutorial. In this tutorial, a user can experience and be able to learn most of the basic controlls of the game.**
+
+**Vector : Vector (or std::vector) is a C++ implementation of the dynamic array data structure. Its interface emulates the behavior of a C array (i.e., capable of fast random access) but with the additional ability to automatically resize itself when inserting or erasing an object. Vector is a template class that is a part of the C++ Standard Template Library. It can store any type, but is limited to storing only one type per instance. It provides a standard set of methods for accessing elements, adding elements to the start or end, deleting elements and finding how many elements are stored.**
+
+**Weapon : Weapon is a type of equipment that improves a character's offence.(i.e., sword)**
+
+**World Map : Main map that shows the world of the game and all important places in the game. A user can move around the world map to experience interesting events, to fight with enemy, or visiting to a beautiful castle.**
+

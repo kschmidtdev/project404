@@ -1,0 +1,260 @@
+# Guidelines #
+  * The software will be written in C++
+  * The renderer, and input will use the SDL (http://www.libsdl.org)
+  * Sound will be implemented using SDL\_sound (http://icculus.org/SDL_sound/)
+  * Font loading/rendering will be implemented using SDL\_ttf (http://www.libsdl.org/projects/SDL_ttf/)
+  * User profiles will be encrypted for protection
+  * Game archives (data and database, if they are separate) will be encrypted for protection and integrity assurance
+  * Our game will not be a clone or copy of the gameplay found in another game title
+  * Our game will not include or use media or trademarks not legally licensed to us
+  * The game will only utilize the 8 directions and 5 keys we have chosen (Start, Select, Cancel, Confirm and Menu)
+
+# Data Requirements #
+  * Input information from keyboard, joystick directional pad and joystick buttons
+    * Directions include:
+      * Up, Up-Left, Left, Down-Left, Down, Down-Right, Right, Up-Right
+      * These directions can be bound to a joystick, keyboard directions (only the core 4 for this one) or the keyboard numpad.
+    * Buttons include:
+      * Start, Select, Cancel, Confirm and Menu
+      * These buttons can be bound to any keyboard keys or joystick buttons.
+  * Database stored in a XML document which will on deployment exist in an encrypted form, and will be decrypted on the fly
+    * Database structure example:
+```
+<Database>
+
+ <Node name="Templates">
+  <Node name="Characters">
+   <Node name="Bad Guy #1">
+    <Data type="string" name="MaxHP" value="88-99"/>
+    <Data type="int" name="Offense" value="3"/>
+    <Data type="float" name="DefaultImage" value="badguy1.jpg"/>
+   </Node>
+  </Node>
+ </Node>
+
+ <Node name="Instantiations">
+  <Node name="Battle">
+   <Node name="CPUParty">
+    <Node name="Bad Guy Inst 1">
+     <Data type="int" name="CurHP" value="77"/>
+     <Data type="int" name="MaxHP" value="88"/>
+     <Data type="vector2D" name="TilePOS" value="0,4"/>
+    </Node>
+   </Node>
+  </Node>
+ </Node>
+</Database>
+```
+    * This example illustrates an example of how our database could be constructed using nodes and data tags.
+  * Read JPG textures (SDL has functions for this)
+  * Read PNG textures (SDL has functions for this)
+
+# Feature Priority List #
+
+## Version 1 Features ##
+
+### Game ###
+  * Simple background music 1
+  * Turn-based combat 1
+  * Logging system 1
+  * Simple configuration file parsing 1
+  * Keyboard, joystick input handling 1
+  * Computer AI (first level, does something) 1
+  * Enemies 1
+  * Items 1
+  * Tile-map movement 1
+  * Characters with different classes (4) 1
+  * Optional tutorial to demonstrate how to battle 1
+### UI ###
+  * Indicator of actions (visual) during battles 1
+  * Main menu 1
+  * Over-map 1
+  * Battle map 1 (hard-coded map layouts)
+  * Tile-map rendering 1
+  * Password entering/setting screens 1 (mock-up)
+### Security ###
+  * Password verification (hash incoming password and compare against a stored hashed password) 1
+### Database ###
+  * Load an XML document into a lightweight graph structure 1
+  * Supports look-ups (fast) 1
+
+## Version 2 Features ##
+
+### Game ###
+  * Computer AI (second level, actually seems to do intelligent things) 2
+  * Tile-map weights (certain tiles are impassable, take longer to cross, etc) 2
+  * Store/Load savegames 2
+### UI ###
+  * Dynamic sizes of tile-map rendering (not all tile-maps have to be the same size) 2
+  * Scrolling text-boxes (for dialog, press a button/key to progress) 2
+  * Battle-map loading from database 2
+### Security ###
+  * Encrypt an incoming file, output to another file 2
+  * Decrypt an incoming file to memory 2
+### Database ###
+  * Save a lightweight graph structure into an XML document 2
+  * Search functionality for specific data 2
+  * Support range query functionality (eg. get item with attribute from one range to another)
+  * Template system for creating items and characters 2
+
+## Version 3 Features ##
+
+### Game ###
+  * Item store (shopping) 3
+  * Computer AI (third level, actually challenging) 3
+  * Store/Load gamestates (like in the middle of a battle) 3
+### UI ###
+  * Animations during battles 3
+  * Mini-map during battle map 3
+  * Intro screens (Team404, etc) 3
+  * Fading in/out textures 3
+  * Item store interface 3
+  * Refine battle screen UI 3
+### Database ###
+  * Store history of character's moves 3
+
+## Missing Features ##
+
+  * tutorial
+  * credites
+
+# Menu Operations #
+
+_This is something that I think should be in the design documentation, but is not currently in assignment outline:_
+
+
+What options exist for (detailed descriptions):
+  * Main Menu
+  * Battle Menu
+  * World Map
+
+(This is obvious, but it needs to be described)
+
+## Main Menu ##
+
+  * Create New Game
+  * Load Saved Game
+  * Credits
+  * Options
+  * Exit
+
+## World Map ##
+  * Explore (move to adjacent spot on map)
+  * Visit City (in which there will be Shop, Inn, etc.)
+  * Load/Save Profile
+  * Party Menu (to adjust 'things' about your party: equip, etc.)
+  * Exit
+
+## Action Menu ##
+_(menu of actions that game piece possesses in battle)_
+
+  * Move
+  * Attack
+  * Magic
+  * Item
+  * Sacrifice :P
+  * ???
+
+
+
+
+###  ###
+
+**Features Used:**
+  * Cursor (and associated controls)
+  * Choose button
+  * Erase button
+  * Caps button
+  * Accept button
+  * Accept/Cancel dialog
+  * Text-entry screen
+**Exceptions:**
+  * The user will be allowed to enter a maximum of 16 characters.
+
+**Screen Mockup**
+
+![http://www.sfu.ca/~karls/CMPT275/textentrymockup.jpg](http://www.sfu.ca/~karls/CMPT275/textentrymockup.jpg)
+
+
+###  ###
+**Short Name:**
+
+**Informal Description:**
+
+**Actors:**
+
+**Use Cases:**
+
+**Features Used:**
+
+**Exceptions:**
+
+**Screen Mockup:**
+###  ###
+
+
+
+# Non-Functional Requirements #
+
+_I realized I'm missing requirements from the text... I"ll add them tomorrow mourning_
+_Sorry_
+
+<table width='100%' border='1'>
+<tr>
+<th width='100%'>Requirement Description</th>
+</tr>
+
+<tr><th>Product Requirements</th></tr>
+
+<tr><td>Game must be fun.  Players must naturally be interested to play the game through a least one battle per sitting, and complete the game through a timespan of a couple weeks.</td></tr>
+<tr><td>There must be at least 250 different possible character creations to create the appearance of a system that contains an infinite number of characters</td></tr>
+
+
+<tr><td>The level 3 AI will use some form of tactical methods to win the battle</td></tr>
+
+<tr><td>The battle game must possess some form of utilizable strategy (or strategies) to win a battle </td></tr>
+<tr><td>The game must be at least somewhat graphically appealing on all screens</td></tr>
+<tr><td>The visual style (when possible) should be a consistant personification of nostalgic glamorized medieval times</td></tr>
+<tr><td>Speed: When user enters a command the response time must appear instantaneous.  Therefore, response time <.15s </td></tr>
+<tr><td>Speed: The character animations will be purposefully slowed down, so to appear at a natural pace.</td></tr>
+<tr><td>Size: System requirements should only require 64Mb of RAM </td></tr>
+<tr><td>Size: The database should be large enough to allow for the aforementioned 250 randomized characters </td></tr>
+<tr><td>Reliability: The software should be able to run at least 1hr without failure </td></tr>
+<tr><td>Robustness: <2.0% of events in the game should cause failure </td></tr>
+<tr><td>Portability: The Manager classes will be (whenever possible) modular in design </td></tr>
+<tr><td>Portability: The renderer class should be modular to all for the use of other graphics systems to draw the game. </td></tr>
+<tr><th>Organizational requirements</th></tr>
+<tr><td>Use SDL for Input and Graphics</td></tr>
+<tr><td>Use SDL_ttf for visual fonts</td></tr>
+<tr><td>Use SDL_sound for music and sound effects</td></tr>
+<tr><td>There will be at least 4 character classes (Archer, Knight, Mage and Healer)</td></tr>
+<tr><td>We must use one of C++, Java, or Python</td></tr>
+<tr><td>We must use an SVN repository</td></tr>
+<tr><td>The project must be open-source</td></tr>
+<tr><td>Program is “stand-alone” and not a web app.</td></tr>
+<tr><td>Must run on computers at school.</td></tr>
+<tr><td>Team has 3 or 4</td></tr>
+
+</table>
+
+Notes:
+
+Constraints on system functionality.
+
+Restricted to certain language and tools.
+
+
+
+Process and Assignments must be followed.
+
+Must use version control.
+
+
+
+(speed, size, user friendlyness, reliability, security, robustness, portability)
+
+Usually system-wide
+
+
+
+
